@@ -1,0 +1,21 @@
+{
+    "name": "Cuky Support",
+    "short_name": "Cuky Support",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#0B0E14",
+    "theme_color": "#0B0E14",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "cuky.webp",
+            "sizes": "192x192",
+            "type": "image/webp"
+        },
+        {
+            "src": "cuky.webp",
+            "sizes": "512x512",
+            "type": "image/webp"
+        }
+    ]
+}
