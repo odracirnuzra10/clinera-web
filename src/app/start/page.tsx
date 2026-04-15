@@ -191,7 +191,7 @@ export default function StartPage() {
 
   /* ----- fade-up observer ----- */
   useEffect(() => {
-    const els = document.querySelectorAll(`.$${styles.fadeUp}`);
+    const els = document.querySelectorAll(`.${styles.fadeUp}`);
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
