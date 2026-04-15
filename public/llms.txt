@@ -1,0 +1,89 @@
+# Clinera.io
+
+> Software de Inteligencia Artificial para Clinicas
+
+Clinera.io es un software B2B SaaS disenado para clinicas medicas, dentales y de estetica. Automatiza el agendamiento de pacientes, la mensajeria por WhatsApp y la gestion clinica usando inteligencia artificial.
+
+## Que es Clinera
+
+Clinera es una plataforma de gestion clinica con IA que permite a clinicas:
+- Agendar pacientes automaticamente via WhatsApp con un agente de IA llamado AURA
+- Confirmar y recordar citas de forma automatica
+- Gestionar fichas clinicas digitales personalizables por especialidad
+- Centralizar la mensajeria omnicanal (WhatsApp, Instagram, Facebook)
+- Rastrear ventas y atribucion de campanas de marketing (Meta Ads, Google Ads)
+- Operar multi-sede con multiples profesionales
+
+## Producto
+
+### Agente IA AURA
+El agente de IA de Clinera se llama AURA. Responde mensajes de WhatsApp 24/7, entiende la intencion del paciente, ofrece horarios disponibles y agenda citas automaticamente. Incluye:
+- Memoria contextual via LangChain
+- Derivacion automatica a humano cuando se requiere
+- Deteccion de urgencias
+- Respuestas en multiples idiomas
+- Tono de voz ajustable por clinica
+
+### Modulos
+- **Agenda Medica Inteligente**: Calendario rapido, recordatorios automaticos, confirmacion via WhatsApp
+- **Fichas Clinicas Digitales**: Historial ordenado, campos flexibles, evolucion clinica, adjuntos ilimitados
+- **Mensajeria Omnicanal**: Inbox centralizado, respuestas 24/7, derivacion humana
+- **Ventas Trazables**: Control de ROI real, seguimiento de pagos, atribucion de canal
+- **Marketing**: Conector Meta/Google, atribucion automatica, panel por campana
+- **App Movil**: Disponible en iOS y Android
+
+## Planes y Precios
+
+Todos los precios son en USD, facturacion mensual, sin permanencia.
+
+### Growth - $59 USD/mes
+- Solo modulo de mensajeria con IA
+- 150 conversaciones con IA/mes
+- WhatsApp API
+- 3 usuarios incluidos
+- Ideal para clinicas que ya tienen software de agendamiento (Reservo, AgendaPro, Sacmed, Medilink, Dentalink)
+
+### Conect - $89 USD/mes (Mas Popular)
+- Mensajeria con IA + Modulo Clinico completo
+- 500 conversaciones con IA/mes
+- 5 usuarios/profesionales
+- Agenda medica con automatizaciones
+- Fichas clinicas personalizables
+- Consentimientos informados
+- Panel centralizado de ventas
+- Trazabilidad campana → cita → venta
+
+### Advanced - $149 USD/mes
+- Todo de Conect, mas:
+- 2,000 conversaciones con IA/mes
+- 15 usuarios/profesionales
+- Multi-sede (varias sucursales)
+- Webhooks avanzados
+- Soporte prioritario
+- Onboarding dedicado
+
+### Add-ons
+- +100 conversaciones con IA: $15 USD/mes
+- Profesional o usuario extra: $9 USD/mes
+
+## Garantia
+Garantia de 7 dias sin letra chica. Si Clinera no cumple expectativas, devolucion del 100% del primer mes sin preguntas.
+
+## Integraciones
+Clinera se integra con: Reservo, AgendaPro, Medilink, Dentalink, Sacmed via API. Tambien ofrece API REST publica, webhooks y MCP.
+
+## Datos de la Empresa
+- Sitio web: https://clinera.io
+- App web: https://app.clinera.io
+- Google Play: https://play.google.com/store/apps/details?id=com.clinera.mobile
+- App Store: https://apps.apple.com/app/clinera/id6759620693
+- Instagram: https://www.instagram.com/clinera.io
+- YouTube: https://www.youtube.com/channel/UCl4Bh9sNp22PjJuSLgz9ZsQ
+- LinkedIn: https://cl.linkedin.com/company/clinera-io
+- +500 medicos en 10 paises usan Clinera
+
+## Paginas del Sitio
+- [Inicio](https://clinera.io/)
+- [Funcionalidades](https://clinera.io/software)
+- [Planes y Precios](https://clinera.io/planes)
+- [Roadmap](https://clinera.io/roadmap)

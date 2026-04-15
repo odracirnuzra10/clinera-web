@@ -1,0 +1,164 @@
+# Clinera.io - Documentacion Completa
+
+> Software de Inteligencia Artificial para Clinicas Medicas, Dentales y de Estetica
+
+## Resumen Ejecutivo
+
+Clinera.io es una plataforma B2B SaaS que usa inteligencia artificial para automatizar la gestion de clinicas. Su agente de IA llamado AURA atiende pacientes por WhatsApp las 24 horas del dia, los 7 dias de la semana, agendando citas automaticamente.
+
+La plataforma esta disenada para clinicas de cualquier tamano: desde consultorios individuales hasta cadenas multi-sede. Opera en mas de 10 paises con mas de 500 medicos activos.
+
+---
+
+## Funcionalidades Detalladas
+
+### 1. Agente IA AURA (Asistente Universal de Respuesta Automatica)
+
+AURA es el nucleo de Clinera. Es un agente conversacional que:
+
+- **Responde mensajes de WhatsApp 24/7**: Entiende lenguaje natural en espanol (y otros idiomas), identifica la intencion del paciente y responde automaticamente.
+- **Agenda citas**: Consulta la disponibilidad real de la agenda medica, ofrece opciones de horario al paciente y crea la cita cuando el paciente confirma.
+- **Confirma y recuerda citas**: Envia mensajes de confirmacion y recordatorio antes de cada cita para reducir el ausentismo (reduccion promedio del 70%).
+- **Detecta urgencias**: Identifica situaciones criticas y las escala al equipo humano inmediatamente.
+- **Memoria contextual**: Usa LangChain para mantener contexto entre conversaciones, recordando interacciones previas del paciente.
+- **Derivacion a humano**: Cuando la IA no puede resolver una consulta, transfiere la conversacion a un operador humano de forma transparente.
+- **Tono personalizable**: Cada clinica puede configurar el tono de voz de AURA (formal, cercano, tecnico, etc.).
+- **Multi-idioma**: Capacidad de responder en multiples idiomas.
+
+### 2. Agenda Medica Inteligente
+
+- Calendario ultra-rapido con vista semanal y mensual
+- Gestion de citas por profesional
+- Bloqueos y vacaciones por profesional
+- Colores por tipo de atencion
+- Agenda online para pacientes (autoservicio)
+- Recordatorios automaticos via WhatsApp
+- Ficha del paciente auto-creada al agendar
+
+### 3. Fichas Clinicas Digitales
+
+- Plantillas personalizables por especialidad (estetica, dental, medicina general)
+- Historial clinico ordenado cronologicamente
+- Campos flexibles configurables
+- Seguimiento de evolucion clinica
+- Adjuntos ilimitados (fotos, examenes, documentos)
+- Consentimientos informados digitales
+- Clinera Vault para respaldo legal
+
+### 4. Mensajeria Omnicanal
+
+- Inbox centralizado para WhatsApp, Instagram y Facebook
+- Respuestas automaticas 24/7 via AURA
+- Derivacion automatica a humano
+- Botones de accion rapida
+- Asignacion de conversaciones a profesionales
+- Notas internas entre el equipo
+
+### 5. Panel de Ventas y Trazabilidad
+
+- Seguimiento completo: campana de marketing → lead → cita → venta
+- Control de ROI real por canal y campana
+- Seguimiento de pagos por paciente
+- Atribucion automatica de canal
+- Reportes directos exportables
+- Embudo de conversion de pacientes
+
+### 6. Marketing (Meta + Google)
+
+- Conector nativo con Meta Ads y Google Ads
+- Atribucion automatica de campanas
+- Panel de metricas por campana
+- Eventos de conversion: Lead, Cita, Venta
+- ROAS real medible
+- Campanas de difusion por WhatsApp
+
+### 7. App Movil
+
+- Disponible en iOS (App Store) y Android (Google Play)
+- Agenda en tiempo real desde el celular
+- Notificaciones push de nuevas citas
+- Gestion completa de la clinica desde el movil
+
+---
+
+## Planes y Precios (USD, facturacion mensual)
+
+| Plan | Precio | Conversaciones IA | Usuarios | Modulos |
+|------|--------|-------------------|----------|---------|
+| Growth | $59/mes | 150/mes | 3 | Solo Mensajeria IA |
+| Conect | $89/mes | 500/mes | 5 | Mensajeria IA + Clinica Completa |
+| Advanced | $149/mes | 2,000/mes | 15 | Todo + Multi-sede |
+
+### Add-ons
+- +100 conversaciones IA: $15/mes
+- Usuario/profesional extra: $9/mes
+
+### Garantia
+Devolucion del 100% en los primeros 7 dias, sin preguntas.
+
+---
+
+## Integraciones
+
+Clinera se integra via API con:
+- **Reservo** (software de agendamiento)
+- **AgendaPro** (software de agendamiento)
+- **Medilink** (software medico)
+- **Dentalink** (software dental)
+- **Sacmed** (software medico)
+- **Meta Ads** (Facebook/Instagram)
+- **Google Ads**
+- **Google Calendar y Meet**
+- **WhatsApp Business API**
+- **Stripe** (pagos)
+
+Tambien ofrece:
+- API REST publica
+- Webhooks de eventos en tiempo real
+- MCP (Model Context Protocol) para integraciones con IA
+
+---
+
+## Roadmap de Desarrollo
+
+### Version Platanus (Enero 2026) - Lanzada
+Bases del sistema: agenda basica, agente IA v1, registro de pacientes, ficha clinica estandar.
+
+### Version Cuky (Febrero 2026) - Lanzada
+Ecosistema completo: IA v2 con memoria contextual, panel de ventas, marketing, fichas personalizables, automatizaciones, multisucursal.
+
+### Version Dodo (Marzo 2026) - Proximamente
+Nueva agenda visual, integraciones API/webhooks, modulo de presupuestos y cobros.
+
+### Version Kimi (Abril 2026) - Proximamente
+Aura IA 2.0 con Gemini 3.0, razonamiento clinico, deteccion de emociones, multi-idioma.
+
+### Version Berta v1 (Mayo 2026) - Proximamente
+Modulo financiero, facturacion electronica, notificaciones avanzadas.
+
+### Version Berta v2 (Junio 2026) - Proximamente
+App movil completa, marketplace de prestaciones, portal de pacientes, recetas digitales.
+
+---
+
+## Casos de Exito
+
+- **Metodo Hebe**: +24% en facturacion, $45M adicionales gracias a trazabilidad de ventas
+- **Lumina Protocolo**: +39% en recuperacion de pacientes fuera de horario con IA AURA
+- **Beauty Esthetics**: 6.7x ROAS estable desde la integracion con Clinera
+- **Central Dent**: Reduccion de ausencias al 5% con confirmaciones automaticas
+
+---
+
+## Links
+
+- Sitio web: https://clinera.io
+- App web: https://app.clinera.io
+- Planes: https://clinera.io/planes
+- Funcionalidades: https://clinera.io/software
+- Roadmap: https://clinera.io/roadmap
+- Google Play: https://play.google.com/store/apps/details?id=com.clinera.mobile
+- App Store: https://apps.apple.com/app/clinera/id6759620693
+- Instagram: https://www.instagram.com/clinera.io
+- YouTube: https://www.youtube.com/channel/UCl4Bh9sNp22PjJuSLgz9ZsQ
+- LinkedIn: https://cl.linkedin.com/company/clinera-io
