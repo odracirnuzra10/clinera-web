@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isGuest) {
         document.body.classList.add('guest-mode');
         // Hacemos el login de invitado automático
-        const guestUser = { name: 'Invitado', email: null, picture: 'cuky.webp' };
+        const guestUser = { name: 'Invitado', email: null, picture: '/support/cuky.webp' };
         saveSession(guestUser, 'manual');
 
         // Inicializamos UI básica
@@ -137,7 +137,7 @@ function restoreSession(userData) {
     // Update Avatar
     const avatarContainer = document.querySelector('.avatar-circle');
     if (avatarContainer) {
-        avatarContainer.innerHTML = `<img src="${userData.picture || 'cuky.webp'}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"> <div class="status-dot" style="display:block; background-color:var(--status-online);"></div>`;
+        avatarContainer.innerHTML = `<img src="${userData.picture || '/support/cuky.webp'}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"> <div class="status-dot" style="display:block; background-color:var(--status-online);"></div>`;
     }
 
     // Switch to dashboard
@@ -267,7 +267,7 @@ function showInstallPrompt() {
         prompt.id = 'pwaPrompt';
         prompt.className = 'pwa-prompt visible';
         prompt.innerHTML = `
-            <img src="favicon CLINERA.png" alt="App Icon">
+            <img src="/support/favicon CLINERA.png" alt="App Icon">
             <div class="pwa-text">
                 <h5>Instalar App</h5>
                 <p>Añade Clinera a tu inicio</p>
@@ -334,7 +334,7 @@ function handleLogin(inputName, clientId, loginType = 'manual', userData = null)
             // Update Avatar
             const avatarContainer = document.querySelector('.avatar-circle');
             if (avatarContainer) {
-                avatarContainer.innerHTML = `<img src="${userDataToSave.picture || 'cuky.webp'}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"> <div class="status-dot" style="display:block; background-color:var(--status-online);"></div>`;
+                avatarContainer.innerHTML = `<img src="${userDataToSave.picture || '/support/cuky.webp'}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"> <div class="status-dot" style="display:block; background-color:var(--status-online);"></div>`;
             }
 
             // MODO WIDGET: Saltar dashboard e ir directo al chat
@@ -561,7 +561,7 @@ async function renderTutorials(list, container) {
 
         let imageHTML = '';
         if (finalThumb) {
-            const fallback = vInfo.type === 'youtube' ? `https://img.youtube.com/vi/${vInfo.id}/mqdefault.jpg` : 'favicon CLINERA.png';
+            const fallback = vInfo.type === 'youtube' ? `https://img.youtube.com/vi/${vInfo.id}/mqdefault.jpg` : '/support/favicon CLINERA.png';
             imageHTML = `<img src="${finalThumb}" alt="Video" loading="lazy" onerror="this.src='${fallback}'">`;
         } else {
             imageHTML = `<div style="width:100%;height:100%;background:#000;"></div>`;
@@ -714,7 +714,7 @@ function addMessage(text, sender) {
         videoCardsHTML += `
             <div class="chat-video-card" onclick="openVideoModal({videoUrl:'${url}', title:'${title.replace(/'/g, "\\'")}'})">
                 <div class="chat-video-thumb">
-                    <img src="${finalThumb}" alt="Video" onerror="this.src='favicon CLINERA.png'">
+                    <img src="${finalThumb}" alt="Video" onerror="this.src='/support/favicon CLINERA.png'">
                     <div class="chat-video-play"><span class="material-symbols-rounded">play_circle</span></div>
                 </div>
                 <div class="chat-video-info">
@@ -1314,12 +1314,12 @@ function copyGeneratedPrompt() {
     });
 }
 function getAutoThumbnail(vi) {
-    if (!vi || !vi.id) return 'favicon CLINERA.png';
+    if (!vi || !vi.id) return '/support/favicon CLINERA.png';
     if (vi.type === 'youtube') {
         return `https://img.youtube.com/vi/${vi.id}/maxresdefault.jpg`;
     }
     if (vi.type === 'vimeo') {
         return `https://vumbnail.com/${vi.id}.jpg`;
     }
-    return 'favicon CLINERA.png';
+    return '/support/favicon CLINERA.png';
 }
