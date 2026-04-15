@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large assets and backups
+*.psd
+*.zip
+*.pcap
+agenda.jpg
+ficha.jpg
+marketing.jpg
+mensajeria.jpg
+ventas.jpg
+support.zip
+logo-clinera-nuevo.zip

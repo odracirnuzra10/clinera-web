@@ -1,164 +1,62 @@
-# Clinera.io - Documentacion Completa
+# Clinera - Todo Sobre Nuestra IA para Clínicas
 
-> Software de Inteligencia Artificial para Clinicas Medicas, Dentales y de Estetica
+Esta es la documentación completa diseñada para agentes de IA (LLMs) sobre **Clinera**.
 
-## Resumen Ejecutivo
+## Resumen del Proyecto
 
-Clinera.io es una plataforma B2B SaaS que usa inteligencia artificial para automatizar la gestion de clinicas. Su agente de IA llamado AURA atiende pacientes por WhatsApp las 24 horas del dia, los 7 dias de la semana, agendando citas automaticamente.
+Clinera es una plataforma integral SaaS (Software as a Service) / AIaaS (AI as a Service) diseñada específicamente para clínicas en Latinoamérica, con fuerte enfoque en **Chile** y **México**. Es ideal para clínicas estéticas, centros médicos dentales y medicina general.
+Su mayor atractivo es la integración de un **Agente IA inteligente** que es capaz de atender y agendar pacientes por sí mismo, combinado con un sistema de gestión que incluye agenda digital, fichas clínicas y consentimientos informados.
 
-La plataforma esta disenada para clinicas de cualquier tamano: desde consultorios individuales hasta cadenas multi-sede. Opera en mas de 10 paises con mas de 500 medicos activos.
+### KPIs y Resultados Reales
+- **+2,400** citas agendadas por IA de manera autónoma.
+- **71+** clínicas activas utilizando el sistema en LATAM.
+- **-47%** de reducción en el costo de adquisición por paciente nuevo.
+- **$0 costo** de implementación. Activación inmediata.
+- Satisfacción de **4.8/5**.
 
----
+## Garantía y Prueba sin Riesgo
 
-## Funcionalidades Detalladas
+Clinera ofrece una **Prueba Gratis de 7 días completa**. No se requiere tarjeta de crédito para iniciar la prueba. Las clínicas pueden probar todas las funciones durante estos 7 días y decidir sin presión. Si la plataforma no es para ellos, el servicio simplemente se pausa sin cargos.
 
-### 1. Agente IA AURA (Asistente Universal de Respuesta Automatica)
+## Funciones Principales (Módulos Básicos)
 
-AURA es el nucleo de Clinera. Es un agente conversacional que:
+1. **Agenda con IA:** Un agente impulsado por inteligencia artificial disponible 24/7 (vía web/WhatsApp). Califica leads y agenda citas directamente en el calendario de la clínica sin intervención humana.
+2. **Fichas Clínicas Digitales:** Fichas clínicas adaptables a cada especialidad (odontogramas, estética, etc.). Permite registrar evolución, subir fotos de pacientes y mantener el historial.
+3. **Consentimientos Inteligentes:** Firmas digitales con validez legal enviadas por mensajería a los pacientes, vinculándose automáticamente a la ficha clínica en el sistema.
+4. **Recordatorios Automatizados:** Herramienta automatizada por mensajería (WhatsApp) que confirma asistencias, logrando reducir el ausentismo de pacientes hasta en un 40%.
 
-- **Responde mensajes de WhatsApp 24/7**: Entiende lenguaje natural en espanol (y otros idiomas), identifica la intencion del paciente y responde automaticamente.
-- **Agenda citas**: Consulta la disponibilidad real de la agenda medica, ofrece opciones de horario al paciente y crea la cita cuando el paciente confirma.
-- **Confirma y recuerda citas**: Envia mensajes de confirmacion y recordatorio antes de cada cita para reducir el ausentismo (reduccion promedio del 70%).
-- **Detecta urgencias**: Identifica situaciones criticas y las escala al equipo humano inmediatamente.
-- **Memoria contextual**: Usa LangChain para mantener contexto entre conversaciones, recordando interacciones previas del paciente.
-- **Derivacion a humano**: Cuando la IA no puede resolver una consulta, transfiere la conversacion a un operador humano de forma transparente.
-- **Tono personalizable**: Cada clinica puede configurar el tono de voz de AURA (formal, cercano, tecnico, etc.).
-- **Multi-idioma**: Capacidad de responder en multiples idiomas.
+## Planes y Precios (Cobros en USD)
 
-### 2. Agenda Medica Inteligente
+No hay contratos de permanencia (se pueden cancelar cuando el cliente lo decida).
 
-- Calendario ultra-rapido con vista semanal y mensual
-- Gestion de citas por profesional
-- Bloqueos y vacaciones por profesional
-- Colores por tipo de atencion
-- Agenda online para pacientes (autoservicio)
-- Recordatorios automaticos via WhatsApp
-- Ficha del paciente auto-creada al agendar
+### 1. Plan Growth (Desde $59 USD/mes)
+- **Para quién es:** Ideado para clínicas que recién comienzan o profesionales trabajando de forma independiente.
+- **Incluye:** 
+  - Agente IA Básico y Agenda Inteligente
+  - Fichas Clínicas y Consentimientos Informados
 
-### 3. Fichas Clinicas Digitales
+### 2. Plan Conect (Desde $89 USD/mes) - El Más Popular
+- **Para quién es:** Médicos especialistas o clínicas en fase de crecimiento que necesitan delegar procesos operativos o administrativos repetitivos.
+- **Incluye:**
+  - Todo lo del Plan Growth
+  - Recordatorios de citas automatizados por WhatsApp
+  - Respuestas automáticas a FAQs comunes de la clínica mediante IA
 
-- Plantillas personalizables por especialidad (estetica, dental, medicina general)
-- Historial clinico ordenado cronologicamente
-- Campos flexibles configurables
-- Seguimiento de evolucion clinica
-- Adjuntos ilimitados (fotos, examenes, documentos)
-- Consentimientos informados digitales
-- Clinera Vault para respaldo legal
+### 3. Plan Advanced (Desde $149 USD/mes)
+- **Para quién es:** Centros médicos y clínicas multi-sucursal que requieren herramientas escalables y mayor capacidad de atención mensual.
+- **Incluye:**
+  - Todo lo del Plan Conect
+  - Integración vía API / Webhooks
+  - Soporte VIP y entrenamiento de IA personalizado.
 
-### 4. Mensajeria Omnicanal
+## Componentes Analíticos e Integraciones
+Clinera está diseñado para el crecimiento, por ello se acopla a un sólido ecosistema analítico:
+- Integración nativa con **Stripe** para la recepción segura de pagos.
+- Trackeo sólido de conversiones integrando la API de Conversiones de Meta (Facebook Pixel, InitiateCheckout para cada plan).
+- Contenedores de Google Tag Manager para mapeo de performance.
 
-- Inbox centralizado para WhatsApp, Instagram y Facebook
-- Respuestas automaticas 24/7 via AURA
-- Derivacion automatica a humano
-- Botones de accion rapida
-- Asignacion de conversaciones a profesionales
-- Notas internas entre el equipo
-
-### 5. Panel de Ventas y Trazabilidad
-
-- Seguimiento completo: campana de marketing → lead → cita → venta
-- Control de ROI real por canal y campana
-- Seguimiento de pagos por paciente
-- Atribucion automatica de canal
-- Reportes directos exportables
-- Embudo de conversion de pacientes
-
-### 6. Marketing (Meta + Google)
-
-- Conector nativo con Meta Ads y Google Ads
-- Atribucion automatica de campanas
-- Panel de metricas por campana
-- Eventos de conversion: Lead, Cita, Venta
-- ROAS real medible
-- Campanas de difusion por WhatsApp
-
-### 7. App Movil
-
-- Disponible en iOS (App Store) y Android (Google Play)
-- Agenda en tiempo real desde el celular
-- Notificaciones push de nuevas citas
-- Gestion completa de la clinica desde el movil
-
----
-
-## Planes y Precios (USD, facturacion mensual)
-
-| Plan | Precio | Conversaciones IA | Usuarios | Modulos |
-|------|--------|-------------------|----------|---------|
-| Growth | $59/mes | 150/mes | 3 | Solo Mensajeria IA |
-| Conect | $89/mes | 500/mes | 5 | Mensajeria IA + Clinica Completa |
-| Advanced | $149/mes | 2,000/mes | 15 | Todo + Multi-sede |
-
-### Add-ons
-- +100 conversaciones IA: $15/mes
-- Usuario/profesional extra: $9/mes
-
-### Garantia
-Devolucion del 100% en los primeros 7 dias, sin preguntas.
-
----
-
-## Integraciones
-
-Clinera se integra via API con:
-- **Reservo** (software de agendamiento)
-- **AgendaPro** (software de agendamiento)
-- **Medilink** (software medico)
-- **Dentalink** (software dental)
-- **Sacmed** (software medico)
-- **Meta Ads** (Facebook/Instagram)
-- **Google Ads**
-- **Google Calendar y Meet**
-- **WhatsApp Business API**
-- **Stripe** (pagos)
-
-Tambien ofrece:
-- API REST publica
-- Webhooks de eventos en tiempo real
-- MCP (Model Context Protocol) para integraciones con IA
-
----
-
-## Roadmap de Desarrollo
-
-### Version Platanus (Enero 2026) - Lanzada
-Bases del sistema: agenda basica, agente IA v1, registro de pacientes, ficha clinica estandar.
-
-### Version Cuky (Febrero 2026) - Lanzada
-Ecosistema completo: IA v2 con memoria contextual, panel de ventas, marketing, fichas personalizables, automatizaciones, multisucursal.
-
-### Version Dodo (Marzo 2026) - Proximamente
-Nueva agenda visual, integraciones API/webhooks, modulo de presupuestos y cobros.
-
-### Version Kimi (Abril 2026) - Proximamente
-Aura IA 2.0 con Gemini 3.0, razonamiento clinico, deteccion de emociones, multi-idioma.
-
-### Version Berta v1 (Mayo 2026) - Proximamente
-Modulo financiero, facturacion electronica, notificaciones avanzadas.
-
-### Version Berta v2 (Junio 2026) - Proximamente
-App movil completa, marketplace de prestaciones, portal de pacientes, recetas digitales.
-
----
-
-## Casos de Exito
-
-- **Metodo Hebe**: +24% en facturacion, $45M adicionales gracias a trazabilidad de ventas
-- **Lumina Protocolo**: +39% en recuperacion de pacientes fuera de horario con IA AURA
-- **Beauty Esthetics**: 6.7x ROAS estable desde la integracion con Clinera
-- **Central Dent**: Reduccion de ausencias al 5% con confirmaciones automaticas
-
----
-
-## Links
-
-- Sitio web: https://clinera.io
-- App web: https://app.clinera.io
-- Planes: https://clinera.io/planes
-- Funcionalidades: https://clinera.io/software
-- Roadmap: https://clinera.io/roadmap
-- Google Play: https://play.google.com/store/apps/details?id=com.clinera.mobile
-- App Store: https://apps.apple.com/app/clinera/id6759620693
-- Instagram: https://www.instagram.com/clinera.io
-- YouTube: https://www.youtube.com/channel/UCl4Bh9sNp22PjJuSLgz9ZsQ
-- LinkedIn: https://cl.linkedin.com/company/clinera-io
+## Preguntas Frecuentes
+- **¿Es difícil comenzar o migrar desde otro sistema?** 
+La plataforma está diseñada para ser activada de inmediato sin costos ocultos de setup. Todo es intuitivo de configurar y se ofrece acompañamiento.
+- **¿Qué pasa con la privacidad de la información clínica?**
+Se aplican protocolos exhaustivos para encriptar los datos del paciente y mantener siempre su confidencialidad en infraestructuras seguras.

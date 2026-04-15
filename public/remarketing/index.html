@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="llms-txt" href="/llms.txt">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NXT8BGS9');</script>
+    <!-- End Google Tag Manager -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAMJUlEQVR4nO2af4ylVXnHv89zznnf+2Pu/NjZYZZdhAIKUtRGMUZTiqVu1iZiWmtttbUJtKEkVGtpaIhN+KOW8AckSKNY27+U4A/+6B/WgLFUUsFubavYikVglh8Ly7KwuzNz786de+/7nvN8+8c7M8vC3Pm1g4SEbyaZ5M6Z930+5/lxznnOFZJ4PUtfawNOV28AvNZ6A+C1lt/2J9JIQgQiAoAkCIjIqzNXso1llASM4mT1PxuA7Xf5tgEwLZk++/iJmW89d/ynHXYYREemajsvGTtz72TrzU0ASIQKhjBuQdsAQKOIQNA92v/R7TOPf/2wtWMtuFxDgHMUb9qcyKb37jjn03uab20AQALcNliP0wRYiRmSP7vr4I8/f6D39GB0rJ4Hl0EDXBANzmWiLglOWD4epq88Y+c1U37UgwC3IaK2DmCJ6gTAof88tv/mR194cG6kWWvUQ0iaiwbRTDSIC+K8uKCaO6dJcIL1C2oTf7GzfsWoAEiA4nQiaisANEJEBN2j/f23Pvrzuw5lUVtjtYwaqJm6XHwmkolm4iuGIBpEvbrgRXuQQvzltdp1E+GXa8BpRdQmAQizpYn/n288+cNbH+s9PRgfb+TqMyIXn0nIxWWimfpMXPWz5A11CjgBFFBhx6yB7A9a+TUTbtRtOaI2AUCjqAB44ZH57/3Nw8/c92KrXm82fJZ8jqWJr6nm4jPxubigLhPNxGWqHk4UwEve5YAEtk3O99mnJ2ofbgFbiagNAZA0o3NaxrT/Cz//4d8dYNfGxhrBXCZoINTE5+JydTVxmfhcfS4uU5eLy1REBBTIai/yIou0wvTyeu0vd4QLcwCwTbhifQCSBFTk6H/PfvfGh576j+OjY7VmyOvRN0QzcU6dqMvV1cXX1OXiahoqAC9aLcdrmgAo0KY1NbuyVb9mXGq68axYB8BIFYHh3r//2df+4f+eQywmXGH0Jq3odsVwXlG7qGyca/WmeHPOiTbE19Tn6h2wie2DAyLYMX17lt84mV1S36Af1gIgKSLH53p/9bn9/7z/WUwG8YJEADQk0miSbCz5tw4a+3o7frOYnEatcBLUZVARbq4+CuCABZqgdvNk7bdGN8IwFIAkIMfm+79zw/0/npmdmmqoqlNl5dkkjMaYYhFjij2LyXjRoPkni2d+vNzTEt/RclMOOCkHRFjfGl+dzt7TXJdhKIAZVeWqmx/8pwcO7d4zasFpLVOvVBGAZoxkmdKgTL3CeqX1UzcVRbL3DSau7/3SvjSZHLuSxNZJgdUZusQFYeSbuzVXYK26tDpAMjqVB3565HdvenByelQaueZBgkJWnkQYQFpMNihTr4gLhZ2Itli0U99Tr1g449rjZ11sTWsKApA2yeCFx1N+y2Tto2NrJ/Tq54HKzm/uP+QnR7KpEcs8nIjI8lSQgBAElU6bwZW1MFrGE4PUGezo+ONHu9/e+WJ9b/Pa3sh535c4l3RcweUd9UZklCDxni4+OrZ2CK0CQEJFFvrx4dn+6O5RNGvilplOdaUQqM4rNbpGCCN5O18sg378V/fc8LGLzz971IA0M8Dn59K/LkqmaABxYwAEckkzZZor3UQAh0bRagCgQA7N9497F1o5vfLkDp4vGQZAAYJwQBHZJd79tqk/f+/u9184iSqLKPqW3H9pV3HPicHtbT5ZyLhCNuAKAg5omz0ftwAAAEcHsd8II3VvIoBwaYV/6ZMIKEkHtIu0a8x/9rLdn7h4yquYEQJVAQCDAPmHWuHSRu+OufIbJ9SAuqzPoGCknVhn3NAzcSFi9Yy1kCAQsFpRXxFCKuiUduk5jdt+7azpRobl8vVSOwAgQcdc8693lh9s9m48jmdK1DbAsIFt0VAAqpZ5KHNv1WMEKqKvqIhFwq6G/+LlZ09kPhq9yinWr8gBBBLCJXXcurP3iec3lNBcvwIP70qouFyzTFKVvSIOWLJNUNVeJ5gbpMv2NCcyHwm/qukrEsADCeHifPC2zH5SoDnUCUIBYRtYQIYCOEWeacjUCUSgS2uAAMv7SsILMmE90+E5thoGRaYD00Bk9X8SApDE1LNYW2+vuSqAABCVUJOQKYUiENGVery0FgBO4EQkrD3zp6o6tQRZIzgIlIwFrW/J1guioR5QRcjFB6GoqEDwyvlyQAD8sEbQcA2ZeoCSyEgbMA5gfcYKgOSwVsyaORCczxwhS50cIcCTLydVxCnFn2ZrQUCpOnolU0krmQpagdSzct3jylAAUdHMSViOdyzn78kRFZVuqafAld9GGCzSSlpkKmgVRgHrWUxbDiEIpFq8eOorVxm4aRmZCEtMZkZGWCQrhtJSyRRhJWzRStuyBzYsRhKbwiD6sMVYwiQajSmRJS1y2Q+wklbCelachgc2YgkRRA4OIkBCNlJMq1Ne79hgAQWSpmSJZmSJJYBIK2ElLYp1eRpVaCMyoObkkcXygfneZeMNW7O1QyMM4qXzo87Rf59jTSxGMyYwLedAAiNTyVSSUdiz+OqHEBFUP3dw9uqi/L2pURExLqX3ySEEq3aY4th9cwc++0xRJmSWEoyWQAMjLS0lg5VglQZdKyK3upnb4DGw2vYOKLc8275/rv9ne0bfMVJH1UWvBhjViThpP7pw4LaDx+6dR6YItEgDE8xgkUhExBJDiRSZSlrXR9d0wFqhuQpANXjMiV/e82yEYcz7n3TLa2eOfmRn8493jU+EpVOgOOnNDv7r9pln7jySLUo25gggwigmTLQEM0oVRQkskSIswQYWsQOje+rAGivfqgACAOfXwlSQ2Ugvq7bUXs6QyKYTo/vai90H272rpkf3+uAhP/juE9++5aHiscGe1sRErVErnFMVCEEjjRZBgyVYBCNoIMWoWOj3d795ojVVJ9ewf4gHjBjx7gMTja8c6e4IGjfWP602j+PevVjwpuc6dz3VmfjiQ0d+8Awm6yNnZmVxfM4Wx1hvSAjqFEqhwQxMQhOaUACCkYyaZgeLv77vYhGxNPzaalhXovpovkxXPXrkaGQmum45e9kUCDDInB7ujn/l4fxfDkCARpbTNRiayOsImTgPp5Bqp1hFK8kS1teyU/ZdS276t98fm2qs7YHhfSFCBfvb3c88caypQbBeOXjlo43InXnv7z/Y/Or/+sePseYkzzK4HK6BkNMFcU7UcSnhS1ghqe/ii0fan/rS3g/80TtWrlE2DQAgEU7w9Rfatz7bHvEuLLUVNyNCDKkWrN3Pv/NE/Z6Z7Nk2HJB7pz7AeTgv4qgQEISyPyjm53ofu+49V/7t+19+Ot0sAJb9cO/xhdsOzc9FjnoHbsoVRIQVNDDlnscWswefaz7wdP7UUe2XIh7eVWdQByjR7paj0/VPXv++K66+ZCPWrw+A5Wb9s4PyjkPz35vve5W6qm3wXiSZRVhCismKREjhfepGfXK+9cgLjSdmw7FF3y+9YIHab9V+Y9+5V1/zzj1nja5cpmwDAJb9AOD+2e6Xn2/P9GPLOb9mRElVYqKZ0aKlaExWlogFk1npvBCuX+aLJbrliYXyojPqn7n87H3njuEl14fbBgCcvMLqJrvzSPvuo92FJC0vq0WUgGAiEy2ZJaZolmiRZURMFktqaT6aS+z0ylGnV/3Kzj9913QzOEsmIhuc+80BVFpxxcxi8eXD7e+3e0H1lIgimYRGJpqZRZpZTGREKlkmpgiNDOSgXw76cd+bWte/98wLdzYAJNKtUS+3BQAAASMqD983u/CPz3cO9GJLnQNSMpKWAIMZU7RU3YJEWmIZkSKCkdE63eL8lrvukl2/fcEkgGRU3bztWwOoZMur1UJKdx7u3H243YkcUTWzVG3QUsUAJiazGIkknuj2Ys70yQvGP/Wu6YlaqFrDmwmZbQKolJZdcaDbv+PJufteWMxEcpFiaWtm0WAGJIpxUNigHy89s3HDu6ffeUYTW42Z7QTAqRF1z+HOFx6bfaxTOGgmgMESU2RRpFik80bCNW+f/MOLJkUkkTqsrfULBqi08lWgTpHufrr9rYOdmfmiXyQlWooLx7IPnTP6kbdMjOWeS/cPp//OJW3nF55WahTJJzqDuX4UYLrh39SqVQO2JWZepu0EwFJEvdxKLt83b7PtALYdYEUrjWVZ6zi1DXq1AH5het1/7fINgNdar3uA/wexOSg1PiNhPQAAAABJRU5ErkJggg==">
+<title>¿Cuánto dinero estás perdiendo en tus campañas? | Clinera.io</title>
+<meta name="description" content="Descubre cuánto dinero estás perdiendo en tus campañas por falta de trazabilidad. Diagnóstico gratuito para clínicas.">
+<meta property="og:title" content="¿Cuánto dinero estás perdiendo en tus campañas? | Clinera.io">
+<meta property="og:description" content="Calcula la pérdida de rentabilidad por falta de trazabilidad en Meta y Google Ads.">
+<meta property="og:image" content="https://clinera.io/web%202.0/images/og-banner.png">
+<meta property="og:url" content="https://clinera.io/remarketing/">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1104567405156111');fbq('track','PageView');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--p:#00BFB3;--pd:#00A89D;--a:#FF4D6A;--al:#FFF0F3;--dk:#1a1a2e;--tx:#2d3748;--tl:#718096;--bg:#f8fafc;--bd:#e2e8f0}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background-color:var(--bg);background-image:radial-gradient(var(--bd) 1.5px, transparent 0);background-size:40px 40px;color:var(--tx);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 20px 120px}
+  header{width:100%;max-width:920px;padding:32px 0 16px;display:flex;justify-content:center}
+  .logo-top{height:32px;display:block}
+  .h-cont{width:100%;max-width:920px;display:flex;flex-direction:column;gap:24px}
+  .hero{text-align:center;max-width:700px;margin:0 auto;padding:24px 0}
+  .hero h1{font-size:32px;font-weight:800;color:var(--dk);line-height:1.1;margin-bottom:12px;letter-spacing:-1.5px}
+  .hero p{font-size:18px;color:var(--tl);line-height:1.6}
+  .wiz{width:100%;background:#fff;border:1px solid rgba(0,0,0,0.05);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.08);display:grid;grid-template-columns:1fr 1fr;min-height:unset;overflow:hidden;position:relative}
+  .wl{gap:32px;background:linear-gradient(135deg,#f0faf9,#e8f4f8,#f0f0ff);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px}
+  .ill{display:flex;flex-direction:column;align-items:center;gap:40px}
+  #iI{width:160px;height:160px;display:flex;align-items:center;justify-content:center}
+  #iL{text-align:center}
+  #iL h3{font-size:18px;font-weight:800}
+  #iL p{font-size:13px;color:var(--tl)}
+  .p-cont{width:100%;max-width:180px;margin-top:12px}
+  .p-text{font-size:10px;font-weight:700;color:var(--tl);text-transform:uppercase;margin-bottom:6px;display:flex;justify-content:space-between}
+  .p-bar{width:100%;height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden}
+  .p-fill{height:100%;background:var(--p);width:20%;transition:width .5s cubic-bezier(0.4, 0, 0.2, 1)}
+  .wr{padding:40px;display:flex;flex-direction:column}
+  .stp{display:none;flex-direction:column;gap:16px}
+  .stp.on{display:flex}
+  .sp{display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:13px;color:var(--tl)}
+  .sp .ld{width:8px;height:8px;background:#f97316;border-radius:50%;animation:pu 2s infinite}
+  @keyframes pu{0%,100%{opacity:1}50%{opacity:.4}}
+  .sl{font-size:11px;font-weight:700;color:var(--tl);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px}
+  .st{font-size:22px;font-weight:800;color:var(--dk);line-height:1.3;margin-bottom:4px}
+  .hl{color:var(--p)}.hr{color:var(--a)}
+  .ss{font-size:13px;color:var(--tl);margin-bottom:20px}
+  .ol{display:flex;flex-direction:column;gap:10px;flex:1}
+  .oc{display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid var(--bd);border-radius:14px;cursor:pointer;transition:all .2s}
+  .oc:hover{border-color:var(--p);background:rgba(0,191,179,.03)}
+  .oc.sel{border-color:var(--p);background:rgba(0,191,179,.05);box-shadow:0 0 0 1px var(--p)}
+  .oi{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .ot h4{font-size:14px;font-weight:700;color:var(--dk);margin-bottom:1px}
+  .ot p{font-size:11px;color:var(--tl)}
+  .or{width:18px;height:18px;border:2px solid var(--bd);border-radius:50%;margin-left:auto;flex-shrink:0;transition:all .2s;position:relative}
+  .oc.sel .or{border-color:var(--p)}
+  .oc.sel .or::after{content:'';position:absolute;top:3px;left:3px;width:8px;height:8px;border-radius:50%;background:var(--p)}
+  .ig{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .iv-opt{padding:16px 12px;border:2px solid var(--bd);border-radius:14px;text-align:center;cursor:pointer;transition:all .2s}
+  .iv-opt:hover{border-color:var(--p)}
+  .iv-opt.sel{border-color:var(--p);background:rgba(0,191,179,.05);box-shadow:0 0 0 1px var(--p)}
+  .iv-opt h4{font-size:16px;font-weight:800;color:var(--dk);margin-bottom:2px}
+  .iv-opt p{font-size:11px;color:var(--tl)}
+  .lc{background:var(--al);border-radius:14px;padding:16px 18px;text-align:center}
+  .lc .ll{font-size:13px;color:var(--tl);margin-bottom:8px}
+  .la{display:flex;justify-content:center;gap:28px}
+  .la .n{font-size:26px;font-weight:800;color:var(--a)}
+  .la .pe{font-size:11px;color:var(--tl)}
+  .lc .ln{font-size:10px;color:var(--tl);margin-top:8px;font-style:italic;line-height:1.4}
+  .rc{background:linear-gradient(135deg,#f0faf9,#f0f0ff);border-radius:14px;padding:20px;text-align:center}
+  .rc .ri{font-size:36px;margin-bottom:6px}
+  .rc h3{font-size:17px;font-weight:800;color:var(--dk);margin-bottom:6px}
+  .rc p{font-size:13px;color:var(--tl);line-height:1.5}
+  .fm{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .fi{display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(0,191,179,.05);border-radius:10px;font-size:12px;font-weight:600;color:var(--dk)}
+  .fi .ck{color:var(--p);font-weight:800}
+  .bp{display:block;width:100%;padding:15px;background:var(--p);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;font-family:inherit;text-align:center;text-decoration:none}
+  .bp:hover{background:var(--pd);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,191,179,.3)}
+  .bb{display:block;width:100%;padding:8px;background:none;border:none;color:var(--tl);font-size:13px;cursor:pointer;font-family:inherit;transition:color .2s;margin-top:4px}
+  .bb:hover{color:var(--dk)}
+  .m-wrapper{position:fixed;bottom:0;left:0;width:100%;background:#fff;border-top:1.5px solid var(--bd);padding:15px 0;overflow:hidden;z-index:9999}
+  .m-track{display:flex;width:max-content;animation:scroll 40s linear infinite}
+  .m-item{display:flex;align-items:center;gap:10px;padding:0 50px;border-right:1px solid rgba(0,0,0,0.05)}
+  .m-num{font-size:22px;font-weight:800;color:var(--p)}
+  .m-txt{font-size:13px;font-weight:700;color:var(--dk);white-space:nowrap}
+  .m-lbl{font-size:11px;color:var(--tl);margin-left:4px;font-weight:400;opacity:0.8}
+  @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  
+  @media(max-width:768px){
+    body{padding:0 12px 100px}
+    header{padding:16px 0}
+    .hero h1{font-size:26px}
+    .hero p{font-size:15px}
+    .wiz{grid-template-columns:1fr;min-height:unset}
+    .wl{display:none}
+    .wr{padding:24px 20px 28px}
+    .st{font-size:18px}
+    .fm{grid-template-columns:1fr}
+    .ig{grid-template-columns:1fr}
+    .m-wrapper{padding:8px 0}
+    .m-item{padding:0 25px; gap:0}
+    .m-top{font-size:8px; margin-bottom: 1px;}
+    .m-bot{gap:6px}
+    .m-num{font-size:18px}
+    .m-txt{font-size:10px}
+  }
+
+    header{padding:16px 0}
+    .hero h1{font-size:26px}
+    .hero p{font-size:15px}
+    .wiz{grid-template-columns:1fr;min-height:unset}
+    .wl{display:none} /* Ocultar ilustración en móvil para priorizar el formulario */
+    .wr{padding:24px 20px 28px}
+    .st{font-size:18px}.bn{font-size:40px}
+    .fm{grid-template-columns:1fr}
+    .ig{grid-template-columns:1fr}
+    .m-wrapper{padding:10px 0}
+    .m-item{padding:0 25px}
+    .m-num{font-size:18px}
+    .m-txt{font-size:11px}
+  }
+
+</style>
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:title" content="¿Cuánto dinero estás perdiendo en tus campañas?">
+<meta name="twitter:description" content="Calculadora de pérdida de inversión para clínicas.">
+<meta name="twitter:image" content="https://clinera.io/web%202.0/images/og-banner.png">
+</head>
+<body>
+  <header>
+    <img src="../clinera-new.svg" alt="Clinera" class="logo-top">
+  </header>
+  <div class="h-cont">
+    <div class="hero">
+      <h1>Descubre cuánto dinero <span class="hr">pierdes</span> en tus campañas</h1>
+      <p>Trazamos cada lead desde el clic hasta la venta final para que dejes de tirar presupuesto a la basura.</p>
+    </div>
+    <div class="wiz">
+      <div class="wl">
+        <div class="ill">
+          <div id="iI"></div>
+          <div id="iL"><h3>Tipo de clínica</h3><p>Seleccionar especialidad</p></div>
+          <div class="p-cont">
+            <div class="p-text"><span>Progreso</span><span id="p-pct">20%</span></div>
+            <div class="p-bar"><div class="p-fill" id="p-fill"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="wr">
+        <div class="stp on" id="s1">
+          <div class="sp"><span class="ld"></span><span id="vc">12</span>&nbsp;personas viendo esta oferta</div>
+          <div class="sl">PASO 1 DE 5</div>
+          <div class="st">¿Qué tipo de clínica <span class="hl">tienes</span>?</div>
+          <div class="ss">Personalizamos tu experiencia según tu especialidad.</div>
+          <div class="ol">
+            <div class="oc" data-h="estetica" onclick="sel(this,1)"><div class="oi" style="background:#f0e6ff">✨</div><div class="ot"><h4>Medicina Estética</h4><p>Botox, ácido hialurónico, láser, corporal</p></div><div class="or"></div></div>
+            <div class="oc" data-h="dental" onclick="sel(this,1)"><div class="oi" style="background:#e0f7f5">🦷</div><div class="ot"><h4>Clínica Dental</h4><p>Ortodoncia, implantes, general</p></div><div class="or"></div></div>
+            <div class="oc" data-h="medica" onclick="sel(this,1)"><div class="oi" style="background:#fff0f3">🏥</div><div class="ot"><h4>Clínica Médica / Especialidad</h4><p>Dermatología, oftalmología, otros</p></div><div class="or"></div></div>
+            <div class="oc" data-h="otro" onclick="sel(this,1)"><div class="oi" style="background:#fef3c7">🌿</div><div class="ot"><h4>Otro tipo de centro</h4><p>Spa, fisioterapia, veterinaria, etc.</p></div><div class="or"></div></div>
+          </div>
+        </div>
+        <div class="stp" id="s2">
+          <div class="sl">PASO 2 DE 5</div>
+          <div class="st">¿Inviertes en publicidad <span class="hl">digital</span>?</div>
+          <div class="ss">Queremos entender tu situación actual con Meta o Google Ads.</div>
+          <div class="ol">
+            <div class="oc" data-h="activo" onclick="sel(this,2)"><div class="oi" style="background:#e0f7f5">🚀</div><div class="ot"><h4>Sí, activamente</h4><p>Invierto en Meta y/o Google todos los meses</p></div><div class="or"></div></div>
+            <div class="oc" data-h="aveces" onclick="sel(this,2)"><div class="oi" style="background:#fef3c7">📊</div><div class="ot"><h4>A veces, sin consistencia</h4><p>He probado pero no mantengo campañas fijas</p></div><div class="or"></div></div>
+            <div class="oc" data-h="nosabe" onclick="sel(this,2)"><div class="oi" style="background:#fff0f3">😤</div><div class="ot"><h4>Sí, pero no sé si funciona</h4><p>Invierto y no puedo medir cuántas ventas genera</p></div><div class="or"></div></div>
+          </div>
+          <button class="bb" onclick="go(1)">← Volver</button>
+        </div>
+        <div class="stp" id="s3">
+          <div class="sl">PASO 3 DE 5</div>
+          <div class="st">¿Cuánto inviertes al mes en <span class="hr">publicidad</span>?</div>
+          <div class="ss">Selecciona tu rango de inversión mensual aproximado.</div>
+          <div class="ig">
+            <div class="iv-opt" data-v="300" onclick="sIv(this)"><h4>$100 - $500</h4><p>USD al mes</p></div>
+            <div class="iv-opt sel" data-v="750" onclick="sIv(this)"><h4>$500 - $1k</h4><p>USD al mes</p></div>
+            <div class="iv-opt" data-v="2000" onclick="sIv(this)"><h4>$1k - $3k</h4><p>USD al mes</p></div>
+            <div class="iv-opt" data-v="5000" onclick="sIv(this)"><h4>$3k+</h4><p>USD al mes</p></div>
+          </div>
+          <input type="hidden" id="iV_val" value="750">
+          <div class="lc">
+            <div class="ll">Sin trazabilidad, podrías estar perdiendo</div>
+            <div class="la">
+              <div><div class="n" id="lM">$225</div><div class="pe">USD al mes</div></div>
+              <div><div class="n" id="lY">$2,700</div><div class="pe">USD al año</div></div>
+            </div>
+            <div class="ln">
+              *Cifra basada en auditorías internas de Clinera en +250 clínicas. 
+              La falta de trazabilidad genera una pérdida de visibilidad del 30% promediado.
+            </div>
+          </div>
+          <button class="bp" id="b3" onclick="go(4)">Ver mi diagnóstico →</button>
+          <button class="bb" onclick="go(2)">← Volver</button>
+        </div>
+        <div class="stp" id="s4">
+          <div class="sl">PASO 4 DE 5: DIAGNÓSTICO</div>
+          <div class="st">Tu potencial de <span class="hl">mejora</span> es alto</div>
+          <div class="rc">
+            <div class="ri">📊</div>
+            <h3>Análisis para <span id="r_tipo">tu clínica</span></h3>
+            <p>Con una inversión mensual de <strong id="r_inv">$0</strong>, estás perdiendo el rastro del <strong class="hr">30%</strong> de tus leads.</p>
+            <div class="fm" style="margin-top: 15px;">
+              <div class="fi">Pérdida estimada: <span class="ck" id="r_perdida">$0/mes</span></div>
+              <div class="fi">Atribución actual: <span class="ck">Desconocida</span></div>
+            </div>
+            <p style="margin-top: 15px; font-size: 12px;">Agendando una demo podrías recuperar hasta el <strong class="hl">85%</strong> de esta visibilidad en menos de 30 días.</p>
+          </div>
+          <button class="bp" onclick="go(5)">Agendar Demo para Recuperar Inversión →</button>
+          <button class="bb" onclick="go(3)">← Volver a ajustar inversión</button>
+        </div>
+        <div class="stp" id="s5">
+          <div class="sl">PASO 5 DE 5: AGENDA</div>
+          <div class="st">Elige un horario que te <span class="hl">acomode</span></div>
+          <div style="width:100%; height:520px; border:none; overflow-y:auto; overflow-x:hidden;" id="my-cal-inline-marketing"></div>
+          <button class="bb" onclick="go(4)">← Volver al diagnóstico</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-wrapper">
+<div class="m-track">      <div class="m-item"><div class="m-top">MÉTODO HEBE</div><div class="m-bot"><span class="m-num">319</span><span class="m-txt">agendados con IA</span></div></div>
+      <div class="m-item"><div class="m-top">DRA. STEFANI</div><div class="m-bot"><span class="m-num">58</span><span class="m-txt">agendados con IA</span></div></div>
+      <div class="m-item"><div class="m-top">CLÍNICA SONRÍE</div><div class="m-bot"><span class="m-num">+34%</span><span class="m-txt">agendamientos recuperados</span></div></div>
+      <div class="m-item"><div class="m-top">DERMOCENTER</div><div class="m-bot"><span class="m-num">-22%</span><span class="m-txt">inasistencias reducidas</span></div></div>
+      <div class="m-item"><div class="m-top">MEDIX SUR</div><div class="m-bot"><span class="m-num">110</span><span class="m-txt">agendados con IA</span></div></div>
+      <div class="m-item"><div class="m-top">ORTHODENT</div><div class="m-bot"><span class="m-num">8.5x</span><span class="m-txt">retorno de la inversión</span></div></div>
+      <div class="m-item"><div class="m-top">ESTÉTICA PRO</div><div class="m-bot"><span class="m-num">245</span><span class="m-txt">leads contactados</span></div></div>
+      <div class="m-item"><div class="m-top">CLÍNICA ALEMANA</div><div class="m-bot"><span class="m-num">+40%</span><span class="m-txt">productividad del staff</span></div></div>
+      <div class="m-item"><div class="m-top">DOCTOR GÓMEZ</div><div class="m-bot"><span class="m-num">152</span><span class="m-txt">citas confirmadas</span></div></div>
+      <div class="m-item"><div class="m-top">DERMA-CARE</div><div class="m-bot"><span class="m-num">95%</span><span class="m-txt">atención automatizada</span></div></div>
+      <div class="m-item"><div class="m-top">MÉTODO HEBE</div><div class="m-bot"><span class="m-num">319</span><span class="m-txt">agendados con IA</span></div></div>
+      <div class="m-item"><div class="m-top">DRA. STEFANI</div><div class="m-bot"><span class="m-num">58</span><span class="m-txt">agendados con IA</span></div></div>
+      <div class="m-item"><div class="m-top">CLÍNICA SONRÍE</div><div class="m-bot"><span class="m-num">+34%</span><span class="m-txt">agendamientos recuperados</span></div></div>
+      <div class="m-item"><div class="m-top">DERMOCENTER</div><div class="m-bot"><span class="m-num">-22%</span><span class="m-txt">inasistencias reducidas</span></div></div>
+      <div class="m-item"><div class="m-top">MEDIX SUR</div><div class="m-bot"><span class="m-num">110</span><span class="m-txt">agendados con IA</span></div></div>
+      <div class="m-item"><div class="m-top">ORTHODENT</div><div class="m-bot"><span class="m-num">8.5x</span><span class="m-txt">retorno de la inversión</span></div></div>
+      <div class="m-item"><div class="m-top">ESTÉTICA PRO</div><div class="m-bot"><span class="m-num">245</span><span class="m-txt">leads contactados</span></div></div>
+      <div class="m-item"><div class="m-top">CLÍNICA ALEMANA</div><div class="m-bot"><span class="m-num">+40%</span><span class="m-txt">productividad del staff</span></div></div>
+      <div class="m-item"><div class="m-top">DOCTOR GÓMEZ</div><div class="m-bot"><span class="m-num">152</span><span class="m-txt">citas confirmadas</span></div></div>
+      <div class="m-item"><div class="m-top">DERMA-CARE</div><div class="m-bot"><span class="m-num">95%</span><span class="m-txt">atención automatizada</span></div></div>
+    </div>
+  </div>
+<script>
+var H={
+estetica:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="45" y="30" width="90" height="90" rx="12" fill="#f0e6ff" stroke="#8B5CF6" stroke-width="2"/><text x="90" y="80" text-anchor="middle" font-size="40">✨</text><text x="90" y="105" text-anchor="middle" font-size="11" fill="#8B5CF6" font-weight="600">ESTÉTICA</text></svg>',t:'Medicina Estética',d:'Botox, hialurónico, láser'},
+dental:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="45" y="30" width="90" height="90" rx="12" fill="#e0f7f5" stroke="#00BFB3" stroke-width="2"/><text x="90" y="80" text-anchor="middle" font-size="40">🦷</text><text x="90" y="105" text-anchor="middle" font-size="11" fill="#00BFB3" font-weight="600">DENTAL</text></svg>',t:'Clínica Dental',d:'Ortodoncia, implantes, general'},
+medica:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="45" y="30" width="90" height="90" rx="12" fill="#fff0f3" stroke="#FF4D6A" stroke-width="2"/><text x="90" y="80" text-anchor="middle" font-size="40">🏥</text><text x="90" y="105" text-anchor="middle" font-size="11" fill="#FF4D6A" font-weight="600">MÉDICA</text></svg>',t:'Clínica Médica',d:'Dermatología, oftalmología, otros'},
+otro:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="45" y="30" width="90" height="90" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="90" y="80" text-anchor="middle" font-size="40">🌿</text><text x="90" y="105" text-anchor="middle" font-size="11" fill="#d97706" font-weight="600">OTRO CENTRO</text></svg>',t:'Otro centro',d:'Spa, fisioterapia, veterinaria'},
+activo:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="40" y="85" width="30" height="35" rx="4" fill="#00BFB3" opacity=".3"/><rect x="75" y="75" width="30" height="45" rx="4" fill="#00BFB3" opacity=".5"/><rect x="110" y="60" width="30" height="60" rx="4" fill="#00BFB3"/><text x="90" y="45" text-anchor="middle" font-size="28">🚀</text></svg>',t:'Invirtiendo activamente',d:'¿Puedes medir el retorno real?'},
+aveces:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="35" y="25" width="110" height="90" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="90" y="70" text-anchor="middle" font-size="28">📊</text><text x="90" y="95" text-anchor="middle" font-size="11" fill="#d97706" font-weight="600">SIN CONSISTENCIA</text></svg>',t:'Sin consistencia',d:'Sin datos, no sabes qué funciona'},
+nosabe:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="35" y="25" width="110" height="90" rx="8" fill="#fff0f3" stroke="#FF4D6A" stroke-width="2"/><text x="90" y="70" text-anchor="middle" font-size="28">😤</text><text x="90" y="95" text-anchor="middle" font-size="11" fill="#FF4D6A" font-weight="600">SIN VISIBILIDAD</text></svg>',t:'Inviertes a ciegas',d:'Gastas sin saber cuántas ventas genera'}
+};
+var B={
+1:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="50" y="30" width="80" height="90" rx="8" fill="#e0f7f5" stroke="#00BFB3" stroke-width="2"/><rect x="65" y="48" width="20" height="18" rx="3" fill="#fff" stroke="#00BFB3" stroke-width="1.5"/><rect x="95" y="48" width="20" height="18" rx="3" fill="#fff" stroke="#00BFB3" stroke-width="1.5"/><rect x="65" y="78" width="20" height="18" rx="3" fill="#fff" stroke="#00BFB3" stroke-width="1.5"/><rect x="95" y="78" width="20" height="18" rx="3" fill="#fff" stroke="#00BFB3" stroke-width="1.5"/><rect x="80" y="100" width="20" height="20" rx="2" fill="#00BFB3"/><circle cx="90" cy="24" r="8" fill="#00BFB3"/><rect x="87" y="20" width="6" height="8" rx="1" fill="#fff"/><rect x="86" y="23" width="8" height="2" rx="1" fill="#fff"/><circle cx="30" cy="50" r="12" fill="#f0f0ff" stroke="#8B5CF6" stroke-width="1.5" opacity=".7"/><circle cx="150" cy="40" r="10" fill="#fff0f3" stroke="#FF4D6A" stroke-width="1.5" opacity=".7"/></svg>',t:'Tipo de clínica',d:'Selecciona tu especialidad'},
+2:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="30" y="25" width="55" height="45" rx="8" fill="#e0f7f5" stroke="#00BFB3" stroke-width="2"/><text x="57" y="52" text-anchor="middle" font-size="22">📢</text><text x="57" y="18" text-anchor="middle" font-size="10" fill="#00BFB3" font-weight="600">META</text><rect x="95" y="25" width="55" height="45" rx="8" fill="#f0e6ff" stroke="#8B5CF6" stroke-width="2"/><text x="122" y="52" text-anchor="middle" font-size="22">📱</text><text x="122" y="18" text-anchor="middle" font-size="10" fill="#8B5CF6" font-weight="600">GOOGLE</text><path d="M90 78L90 95L82 87M90 95L98 87" stroke="#FF4D6A" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="90" cy="112" r="16" fill="#fff0f3" stroke="#FF4D6A" stroke-width="2"/><text x="90" y="118" text-anchor="middle" font-size="18" font-weight="bold" fill="#FF4D6A">?</text></svg>',t:'Tu inversión publicitaria',d:'¿Sabes si genera resultados reales?'},
+3:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="30" y="90" width="22" height="30" rx="4" fill="#e2e8f0"/><rect x="58" y="70" width="22" height="50" rx="4" fill="#e2e8f0"/><rect x="86" y="50" width="22" height="70" rx="4" fill="#cbd5e0"/><rect x="114" y="30" width="22" height="90" rx="4" fill="#00BFB3" opacity=".3"/><rect x="142" y="15" width="22" height="105" rx="4" fill="#00BFB3"/><path d="M41 85L69 65L97 48L125 30L153 15" stroke="#FF4D6A" stroke-width="2.5" fill="none" stroke-dasharray="4 3"/><circle cx="153" cy="15" r="10" fill="#FF4D6A"/><text x="153" y="20" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">$</text></svg>',t:'Inversión sin data',d:'Cada peso sin trazabilidad es un riesgo'},
+4:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><circle cx="90" cy="70" r="50" fill="#e0f7f5" stroke="#00BFB3" stroke-width="2"/><path d="M60 70L80 90L120 50" stroke="#00BFB3" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="90" y="145" text-anchor="middle" font-size="10" font-weight="800" fill="#00BFB3" style="letter-spacing:1px">DIAGNÓSTICO LISTO</text></svg>',t:'Diagnóstico personalizado',d:'Basado en tu inversión actual'},
+5:{svg:'<svg width="180" height="180" viewBox="0 0 180 160" fill="none"><rect x="25" y="15" width="130" height="100" rx="10" fill="#fff" stroke="#00BFB3" stroke-width="2"/><rect x="25" y="15" width="130" height="24" rx="10" fill="#00BFB3"/><circle cx="40" cy="27" r="4" fill="#fff" opacity=".5"/><circle cx="52" cy="27" r="4" fill="#fff" opacity=".5"/><circle cx="64" cy="27" r="4" fill="#fff" opacity=".5"/><rect x="35" y="50" width="45" height="8" rx="4" fill="#e0f7f5"/><rect x="35" y="50" width="30" height="8" rx="4" fill="#00BFB3"/><rect x="35" y="65" width="45" height="8" rx="4" fill="#f0e6ff"/><rect x="35" y="65" width="38" height="8" rx="4" fill="#8B5CF6"/><rect x="35" y="80" width="45" height="8" rx="4" fill="#fff0f3"/><rect x="35" y="80" width="22" height="8" rx="4" fill="#FF4D6A"/><text x="100" y="58" font-size="10" fill="#00BFB3" font-weight="700">+24%</text><text x="100" y="73" font-size="10" fill="#8B5CF6" font-weight="700">6.7x</text><text x="100" y="88" font-size="10" fill="#FF4D6A" font-weight="700">ROAS</text><circle cx="140" cy="100" r="14" fill="#00BFB3"/><path d="M133 100L138 105L148 95" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>',t:'Clinera conecta todo',d:'Campaña → Lead → Cita → Venta'}
+};
+var cs=1,ci='',ht=null;
+var iI=document.getElementById('iI'),iL=document.getElementById('iL');
+function si(svg,t,d,anim){
+  var k=svg+t+d;
+  if(k===ci)return;
+  if(anim){
+    iI.classList.add('sw');iL.classList.add('sw');
+    setTimeout(function(){
+      iI.innerHTML=svg;iL.innerHTML='<h3>'+t+'</h3><p>'+d+'</p>';
+      iI.classList.remove('sw');iL.classList.remove('sw');
+      ci=k;
+    },200);
+  }else{
+    iI.innerHTML=svg;iL.innerHTML='<h3>'+t+'</h3><p>'+d+'</p>';ci=k;
+  }
+}
+function sb(n){var b=B[n];si(b.svg,b.t,b.d,true);}
+document.querySelectorAll('.oc[data-h]').forEach(function(c){
+  c.addEventListener('mouseenter',function(){
+    clearTimeout(ht);
+    var h=H[c.getAttribute('data-h')];
+    if(h)si(h.svg,h.t,h.d,true);
+  });
+  c.addEventListener('mouseleave',function(){
+    ht=setTimeout(function(){sb(cs);},300);
+  });
+});
+function sel(c,step){
+  c.parentElement.querySelectorAll('.oc').forEach(function(x){x.classList.remove('sel');});
+  c.classList.add('sel');
+  clearTimeout(ht);
+  setTimeout(function(){go(step+1);},400);
+}
+function go(n){
+  if(n===4){
+    document.getElementById('r_tipo').textContent = document.querySelector('#s1 .oc.sel h4').innerText;
+    document.getElementById('r_inv').textContent = '$' + parseInt(document.getElementById('iV_val').value).toLocaleString('en-US');
+    document.getElementById('r_perdida').textContent = document.getElementById('lM').textContent + '/mes';
+    sendZapier();
+  }
+  document.getElementById('s'+cs).classList.remove('on');
+  document.getElementById('s'+n).classList.add('on');
+  var pct = (n / 5) * 100;
+  document.getElementById('p-fill').style.width = pct + '%';
+  document.getElementById('p-pct').textContent = Math.round(pct) + '%';
+  cs=n;
+  sb(n);
+}
+function uS(v){ var val = v || 750; var lm = Math.round(val * 0.3); document.getElementById('lM').textContent = '$'+lm.toLocaleString('en-US'); document.getElementById('lY').textContent = '$'+(lm*12).toLocaleString('en-US'); }
+function sIv(el){ document.querySelectorAll(".iv-opt").forEach(x => x.classList.remove("sel")); el.classList.add("sel"); var v = parseInt(el.getAttribute("data-v")); document.getElementById("iV_val").value = v; uS(v); }
+function sendZapier() {
+  const s1sel = document.querySelector('#s1 .oc.sel');
+  const s2sel = document.querySelector('#s2 .oc.sel');
+  const data = {
+    tipo_clinica: s1sel ? s1sel.querySelector('h4').innerText : 'No seleccionado',
+    inversion_digital: s2sel ? s2sel.querySelector('h4').innerText : 'No seleccionado',
+    presupuesto_mensual: document.getElementById('iV_val').value,
+    perdida_mensual: document.getElementById('lM').innerText,
+    perdida_anual: document.getElementById('lY').innerText,
+    url_origen: window.location.href,
+    fecha: new Date().toLocaleString()
+  };
+  fetch('https://hooks.zapier.com/hooks/catch/15186917/uc8zkgg/', {method: 'POST', mode: 'no-cors', body: JSON.stringify(data)}).catch(e => console.error('Error Zapier:', e));
+}
+document.getElementById('vc').textContent=Math.floor(Math.random()*15)+5;
+setInterval(function(){document.getElementById('vc').textContent=Math.floor(Math.random()*15)+5;},15000);
+var b1=B[1];iI.innerHTML=b1.svg;iL.innerHTML='<h3>'+b1.t+'</h3><p>'+b1.d+'</p>';ci=b1.svg+b1.t+b1.d;
+uS(750);
+</script>
+<script type="text/javascript">
+(function(C,A,L){let p=function(a,ar){a.q.push(ar)};let d=C.document;C.Cal=C.Cal||function(){let cal=C.Cal;let ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement("script")).src=A;cal.loaded=true}if(ar[0]===L){const api=function(){p(api,arguments)};const namespace=ar[1];api.q=api.q||[];if(typeof namespace==="string"){cal.ns[namespace]=cal.ns[namespace]||api;p(cal.ns[namespace],ar);p(cal,["initNamespace",namespace])}else p(cal,ar);return}p(cal,ar)}})(window,"https://app.cal.com/embed/embed.js","init");
+Cal("init","marketing",{origin:"https://app.cal.com"});
+Cal.ns.marketing("inline",{elementOrSelector:"#my-cal-inline-marketing",config:{"layout":"month_view","useSlotsViewOnSmallScreen":"true"},calLink:"team/clinera.io/marketing"});
+Cal.ns.marketing("ui",{"hideEventTypeDetails":true,"layout":"month_view"});
+</script>
+</body>
+</html>

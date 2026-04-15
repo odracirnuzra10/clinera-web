@@ -1,0 +1,11 @@
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="magentaGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <!-- El halo empieza más intenso en el centro y se desvanece suavemente hacia los bordes -->
+      <stop offset="0%" stop-color="#FF00FF" stop-opacity="0.15" />
+      <stop offset="50%" stop-color="#FF00FF" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#FF00FF" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <circle cx="400" cy="400" r="400" fill="url(#magentaGlow)" />
+</svg>

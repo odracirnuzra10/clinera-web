@@ -1,0 +1,10 @@
+<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#E5E7EB" stroke-width="1"/>
+      <!-- Sutil cuadrícula interna -->
+      <path d="M 12 0 L 12 60 M 24 0 L 24 60 M 36 0 L 36 60 M 48 0 L 48 60 M 0 12 L 60 12 M 0 24 L 60 24 M 0 36 L 60 36 M 0 48 L 60 48" fill="none" stroke="#F3F4F6" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#grid)" />
+</svg>
