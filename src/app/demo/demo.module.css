@@ -251,6 +251,86 @@
   margin-top: 12px;
 }
 
+/* ── Add-ons ── */
+.addons {
+  margin-top: 64px;
+  text-align: center;
+}
+
+.addonsTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 28px;
+}
+
+.addonsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.addonCard {
+  background: #fff;
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.addonCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+.addonPrice {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.addonAmount {
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.addonPeriod {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.addonDesc {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ── WhatsApp Float ── */
+.waFloat {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99;
+  width: 56px;
+  height: 56px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.waFloat:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55);
+}
+
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .plansGrid {
@@ -272,5 +352,18 @@
 
   .videoWrapper {
     border-radius: 12px;
+  }
+
+  .waFloat {
+    bottom: 16px;
+    right: 16px;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 500px) {
+  .addonsGrid {
+    grid-template-columns: 1fr;
   }
 }
