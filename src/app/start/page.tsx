@@ -119,13 +119,13 @@ const COMPARE_ROWS: { feature: string; clinera: string; reservo: string; agendap
 function CompareCell({ type }: { type: string }) {
   switch (type) {
     case "yes":
-      return <span className={styles.compareYes}>\u2713</span>;
+      return <span className={styles.compareYes}>{"✓"}</span>;
     case "yes-other":
-      return <span className={styles.compareYesOther}>\u2713</span>;
+      return <span className={styles.compareYesOther}>{"✓"}</span>;
     case "no":
-      return <span className={styles.compareNo}>\u2717</span>;
+      return <span className={styles.compareNo}>{"✗"}</span>;
     case "partial":
-      return <span className={styles.comparePartial}>~</span>;
+      return <span className={styles.comparePartial}>{"~"}</span>;
     default:
       return null;
   }
@@ -248,8 +248,8 @@ export default function StartPage() {
       >
         <div className={styles.stickyGuaranteeInner}>
           <span className={styles.stickyGuaranteeText}>
-            <span className={styles.stickyShield}>\ud83d\udee1</span>
-            <span className={styles.stickyHighlight}>Garantia real de 7 dias</span> \u2014 contrata sin riesgo
+            <span className={styles.stickyShield}>{"🛡️"}</span>
+            <span className={styles.stickyHighlight}>Garantia real de 7 dias</span> {"—"} contrata sin riesgo
           </span>
           <a href="#plans" className={styles.stickyGuaranteeCta}>Ver planes</a>
         </div>
@@ -289,7 +289,7 @@ export default function StartPage() {
         onClick={closeMobileMenu}
       />
       <div className={`${styles.navMobileMenu} ${mobileMenuOpen ? styles.navMobileMenuOpen : ""}`}>
-        <button className={styles.navMobileClose} onClick={closeMobileMenu}>\u00d7</button>
+        <button className={styles.navMobileClose} onClick={closeMobileMenu}>{"×"}</button>
         <div className={styles.navMobileLinks}>
           <a href="#plans" onClick={closeMobileMenu}>Planes</a>
           <a href="#como-funciona" onClick={closeMobileMenu}>Como funciona</a>
@@ -309,7 +309,7 @@ export default function StartPage() {
                 <span className={styles.dot} />
                 IA PARA CLINICAS
                 <span style={{ marginLeft: 12, fontSize: 12, letterSpacing: 0, textTransform: "none" as const, fontWeight: 500, color: "var(--ink-s)" }}>
-                  \ud83c\udde8\ud83c\uddf1 Chile &nbsp; \ud83c\uddf2\ud83c\uddfd Mexico
+                  {"🇨🇱"} Chile &nbsp; {"🇲🇽"} Mexico
                 </span>
               </div>
               <h1 className={styles.heroTitle}>
@@ -321,9 +321,9 @@ export default function StartPage() {
               <a href="#plans" className={styles.btnPrimary}>Activa ahora</a>
               <p className={styles.heroMicro}>Activacion inmediata - Sin permanencia - Precios en USD</p>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" as const, marginTop: 16 }}>
-                <span style={{ fontSize: 12, color: "var(--ink-s)", background: "rgba(0,0,0,0.03)", padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(0,0,0,0.06)" }}>\ud83d\udc89 Esteticas</span>
-                <span style={{ fontSize: 12, color: "var(--ink-s)", background: "rgba(0,0,0,0.03)", padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(0,0,0,0.06)" }}>\ud83e\ude79 Dentales</span>
-                <span style={{ fontSize: 12, color: "var(--ink-s)", background: "rgba(0,0,0,0.03)", padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(0,0,0,0.06)" }}>\ud83c\udfe5 Medicina general</span>
+                <span style={{ fontSize: 12, color: "var(--ink-s)", background: "rgba(0,0,0,0.03)", padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(0,0,0,0.06)" }}>{"💉"} Esteticas</span>
+                <span style={{ fontSize: 12, color: "var(--ink-s)", background: "rgba(0,0,0,0.03)", padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(0,0,0,0.06)" }}>{"🩹"} Dentales</span>
+                <span style={{ fontSize: 12, color: "var(--ink-s)", background: "rgba(0,0,0,0.03)", padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(0,0,0,0.06)" }}>{"🏥"} Medicina general</span>
               </div>
               <div className={styles.heroGuarantee}>
                 <img src={FOUNDER_PHOTO_SRC} alt="Ricardo Oyarzun" className={styles.heroGuaranteePhoto} />
@@ -369,7 +369,7 @@ export default function StartPage() {
               <div className={styles.guaranteeDaysLabel}>dias de prueba</div>
             </div>
             <div className={styles.guaranteeContent}>
-              <div className={styles.guaranteeShield}>\ud83d\udee1 GARANTIA DE SATISFACCION</div>
+              <div className={styles.guaranteeShield}>{"🛡️"} GARANTIA DE SATISFACCION</div>
               <h2 className={styles.guaranteeTitle}>
                 Prueba Clinera sin riesgo. Si no te sirve, <strong>te devolvemos el 100% de tu dinero</strong>.
               </h2>
@@ -529,14 +529,14 @@ export default function StartPage() {
               onClick={() => scrollCarouselTo(activeTestimonial - 1)}
               aria-label="Anterior"
             >
-              \u2039
+              {"‹"}
             </button>
             <button
               className={`${styles.testNav} ${styles.testNavRight} ${activeTestimonial >= TESTIMONIALS.length - 1 ? styles.testNavHide : ""}`}
               onClick={() => scrollCarouselTo(activeTestimonial + 1)}
               aria-label="Siguiente"
             >
-              \u203a
+              {"›"}
             </button>
             <div className={styles.testCarousel} ref={carouselRef}>
               {TESTIMONIALS.map((t, i) => (
@@ -602,7 +602,7 @@ export default function StartPage() {
                 </ul>
               </div>
               <a href={STRIPE_GROWTH} className={`${styles.planCta} ${styles.planCtaSecondary}`}>Activa Growth</a>
-              <p className={styles.planCtaSub}>Sin permanencia \u00b7 Cancela en 1 click</p>
+              <p className={styles.planCtaSub}>Sin permanencia · Cancela en 1 click</p>
             </div>
 
             {/* CONECT (POPULAR) */}
@@ -633,7 +633,7 @@ export default function StartPage() {
                 </ul>
               </div>
               <a href={STRIPE_CONECT} className={`${styles.planCta} ${styles.planCtaPrimary}`}>Activa Conect</a>
-              <p className={styles.planCtaSub}>Sin permanencia \u00b7 Cancela en 1 click</p>
+              <p className={styles.planCtaSub}>Sin permanencia · Cancela en 1 click</p>
             </div>
 
             {/* ADVANCED */}
@@ -662,7 +662,7 @@ export default function StartPage() {
                 </ul>
               </div>
               <a href={STRIPE_ADVANCED} className={`${styles.planCta} ${styles.planCtaDark}`}>Activa Advanced</a>
-              <p className={styles.planCtaSub}>Sin permanencia \u00b7 Cancela en 1 click</p>
+              <p className={styles.planCtaSub}>Sin permanencia · Cancela en 1 click</p>
             </div>
           </div>
         </div>
@@ -804,7 +804,7 @@ export default function StartPage() {
             <div className={styles.ctaFinalButtons}>
               <a href="#plans" className={styles.btnPrimary}>Activa ahora</a>
             </div>
-            <p className={styles.ctaFinalMicro}>Activacion inmediata - Sin permanencia \u00b7 Cancela en 1 click</p>
+            <p className={styles.ctaFinalMicro}>Activacion inmediata - Sin permanencia · Cancela en 1 click</p>
           </div>
         </div>
       </section>
