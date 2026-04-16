@@ -36,10 +36,10 @@ export default function Header() {
               Iniciar sesión
             </a>
             <Link
-              href="/nosotros"
+              href="/demo"
               className={`${styles.microLink} ${styles.fontMedium}`}
             >
-              Sobre nosotros
+              Ver demo
             </Link>
           </div>
         </div>
@@ -137,8 +137,8 @@ export default function Header() {
           >
             Iniciar sesión
           </a>
-          <Link href="/nosotros" className={styles.microLinkMobile} onClick={closeMobileMenu}>
-            Sobre nosotros
+          <Link href="/demo" className={styles.microLinkMobile} onClick={closeMobileMenu}>
+            Ver demo
           </Link>
         </div>
 
