@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinera — Manual de Marca Definitivo · STERILE × Prompt</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700;900&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFBFC;--bg2:#F4F5F7;--bg3:#ECEEF1;
+  --ink:#111318;--ink-s:#3D4250;--ink-m:#9CA3AF;--ink-l:#D1D5DB;
+  --mint:#10B981;--mint-f:rgba(16,185,129,0.06);--mint-b:rgba(16,185,129,0.18);
+  --cyan:#009FE3;--violet:#7C3AED;--magenta:#C850C0;
+  --grad:linear-gradient(135deg,#009FE3 0%,#7C3AED 50%,#C850C0 100%);
+  --grad-s:linear-gradient(135deg,rgba(0,159,227,0.06),rgba(124,58,237,0.04),rgba(200,80,192,0.03));
+  --border:rgba(0,0,0,0.06);--border-h:rgba(0,0,0,0.1);--border-s:rgba(0,0,0,0.03);
+  --green:#10B981;--red:#EF4444;
+  --green-f:rgba(16,185,129,0.06);--red-f:rgba(239,68,68,0.05);
+  --green-b:rgba(16,185,129,0.15);--red-b:rgba(239,68,68,0.12);
+  --mono:'Source Code Pro',monospace;--sans:'Sora',sans-serif;
+
+  /* Notebook Patterns */
+  --nb-math:
+    linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px);
+  --nb-math-size: 32px 32px;
+  --nb-lang-margin:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, transparent 47px, rgba(239,68,68,0.12) 47px, rgba(239,68,68,0.12) 48px, transparent 48px);
+  --nb-lang-margin-size: 100% 28px, 100% 100%;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg2);-webkit-font-smoothing:antialiased}
+.page{max-width:940px;margin:0 auto;padding:0 48px 80px;background:var(--bg)}
+.gt{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* Cover */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 48px;position:relative;overflow:hidden;background:var(--bg)}
+.cover::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,0.018) 1px,transparent 1px);background-size:32px 32px}
+.cover__orb1{position:absolute;top:-80px;right:-40px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,159,227,0.05),transparent 70%);border-radius:50%;filter:blur(50px)}
+.cover__orb2{position:absolute;bottom:-60px;left:-40px;width:400px;height:400px;background:radial-gradient(circle,rgba(200,80,192,0.03),transparent 70%);border-radius:50%;filter:blur(50px)}
+.cover__label{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--mint);margin-bottom:20px;position:relative}
+.cover__logo{position:relative;margin-bottom:20px}
+.cover__variant{font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:32px;position:relative;color:var(--ink-m)}
+.cover__desc{font-family:var(--sans);font-size:16px;color:var(--ink-m);line-height:1.7;max-width:520px;position:relative;font-weight:300}
+.cover__meta{position:absolute;bottom:48px;left:48px;right:48px;display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--ink-m);letter-spacing:0.05em}
+.cover__meta span::before{content:'— ';color:var(--mint)}
+
+/* TOC */
+.toc{padding:40px 0;border-bottom:1px solid var(--border);margin-bottom:56px;display:flex;flex-wrap:wrap;gap:10px}
+.toc__item{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--border);border-radius:4px;color:var(--ink-m);text-decoration:none;transition:all 0.2s;font-weight:500}
+.toc__item:hover{background:var(--mint-f);color:var(--mint);border-color:var(--mint-b)}
+
+/* Sections */
+.sect{margin-bottom:64px}
+.sect__num{font-family:var(--mono);font-size:10px;color:var(--mint);letter-spacing:0.14em;margin-bottom:4px;font-weight:600}
+.sect__title{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:16px;line-height:1.3}
+.sect__sub{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);margin-top:32px;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.06em}
+.sect__text{font-family:var(--sans);font-size:14px;color:var(--ink-s);line-height:1.7;margin-bottom:12px;max-width:700px;font-weight:300}
+.sect__text strong{font-weight:600;color:var(--ink)}
+.sect__note{font-family:var(--mono);font-size:10px;color:var(--ink-m);margin-top:8px;line-height:1.5}
+.divider{height:1px;background:linear-gradient(90deg,var(--border-h),transparent);margin:64px 0}
+
+/* Logo display boxes */
+.logo-display{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.logo-box{padding:32px 24px;border-radius:6px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+.logo-box--light{background:var(--bg)}
+.logo-box--dark{background:var(--ink)}
+.logo-box--bg2{background:var(--bg2)}
+.logo-box--grad{background:var(--grad)}
+.logo-box svg{width:100%;max-width:300px;height:auto}
+
+/* Clear space diagram */
+.clearspace{margin:20px 0;padding:40px;background:var(--bg2);border:1px dashed var(--border-h);border-radius:6px;display:flex;align-items:center;justify-content:center;position:relative}
+.clearspace__marker{position:absolute;font-family:var(--mono);font-size:8px;color:var(--mint);font-weight:600}
+
+/* Min size */
+.minsize{display:flex;gap:24px;align-items:end;margin:20px 0}
+.minsize__item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.minsize__label{font-family:var(--mono);font-size:8px;color:var(--ink-m)}
+
+/* Favicons */
+.fav-row{display:flex;gap:16px;align-items:end;margin:20px 0}
+.fav-box{display:flex;flex-direction:column;align-items:center;gap:6px}
+.fav-box__wrap{border:1px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.fav-box__wrap--dark{background:var(--ink);border-color:rgba(255,255,255,0.08)}
+.fav-box__label{font-family:var(--mono);font-size:8px;color:var(--ink-m)}
+
+/* Swatches */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:14px;margin:20px 0}
+.swatch{border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--bg)}
+.swatch__color{height:72px;position:relative}
+.swatch__info{padding:10px 12px}
+.swatch__name{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.swatch__hex{font-family:var(--mono);font-size:10px;color:var(--ink-m)}
+.swatch__role{font-family:var(--sans);font-size:9px;color:var(--ink-m);margin-top:4px;line-height:1.4;font-weight:300}
+
+/* Gradient bar */
+.gradient-bar{height:52px;border-radius:6px;margin:14px 0;position:relative}
+.gradient-bar__stops{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--ink-m);margin-top:6px}
+
+/* Specimens */
+.specimen{margin:16px 0;padding:24px;border:1px solid var(--border);border-radius:6px;background:var(--bg)}
+.specimen__label{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-m);margin-bottom:10px;font-weight:500}
+.specimen__meta{font-family:var(--mono);font-size:9px;color:var(--ink-m);margin-top:8px}
+
+/* Showcase */
+.showcase{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;align-items:center}
+
+/* Badges */
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:4px 10px;border-radius:4px;font-weight:600}
+.badge--mint{background:var(--mint-f);color:var(--mint);border:1px solid var(--mint-b)}
+.badge--ia{background:var(--grad-s);color:var(--violet)}
+.badge--green{background:var(--green-f);color:var(--green);border:1px solid var(--green-b)}
+.badge--red{background:var(--red-f);color:var(--red);border:1px solid var(--red-b)}
+.badge--ink{background:rgba(17,19,24,0.04);color:var(--ink-s);border:1px solid var(--border-h)}
+
+/* Buttons */
+.btn-demo{font-family:var(--mono);font-size:12px;letter-spacing:0.04em;padding:12px 28px;border-radius:4px;border:none;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;margin-right:8px;margin-bottom:8px}
+.btn-demo--primary{background:var(--grad);color:#fff;box-shadow:0 4px 16px rgba(0,159,227,0.18)}
+.btn-demo--secondary{background:transparent;color:var(--ink);border:1px solid var(--border-h)}
+.btn-demo--sm{font-size:10px;padding:6px 16px}
+
+/* Demo card */
+.demo-card{padding:24px;border-radius:6px;background:var(--bg);border:1px solid var(--border);position:relative;overflow:hidden;max-width:320px;margin:12px 0}
+.demo-card__top{position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);opacity:0.5;border-radius:6px 6px 0 0}
+
+/* Rx block */
+.rx-demo{padding:12px 14px;border-radius:4px;background:var(--mint-f);border:1px dashed var(--mint-b);font-family:var(--mono);font-size:10px;color:var(--ink-s);line-height:1.7;max-width:300px;margin:12px 0}
+.rx-demo .rl{color:var(--mint);font-weight:700}
+.rx-demo .rv{color:var(--ink);font-weight:600}
+
+/* Protocol */
+.protocol-demo{padding:16px;border-radius:4px;border:1px solid var(--border);background:var(--bg2);max-width:340px;margin:12px 0}
+.protocol-demo__header{display:flex;justify-content:space-between;margin-bottom:10px}
+.protocol-demo__label{font-family:var(--mono);font-size:9px;color:var(--ink-m);letter-spacing:0.1em;text-transform:uppercase;font-weight:500}
+.protocol-demo__line{font-family:var(--mono);font-size:11px;color:var(--ink);margin-bottom:3px;font-weight:600}
+.protocol-demo__line .mint{color:var(--mint)}
+.protocol-demo__meta{font-family:var(--mono);font-size:10px;color:var(--ink-m);margin-top:2px}
+
+/* Spacing tokens */
+.spacing-row{display:flex;align-items:center;gap:16px;margin:6px 0}
+.spacing-bar{height:10px;background:var(--mint-f);border:1px solid var(--mint-b);border-radius:3px}
+.spacing-label{font-family:var(--mono);font-size:10px;color:var(--ink-m);min-width:110px;font-weight:500}
+.spacing-val{font-family:var(--mono);font-size:10px;color:var(--ink);font-weight:700}
+
+/* Dot grid demo */
+.dotgrid-demo{width:100%;height:100px;background-color:var(--bg);background-image:radial-gradient(rgba(0,0,0,0.02) 1px,transparent 1px);background-size:32px 32px;border:1px solid var(--border);border-radius:6px;margin:14px 0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;color:var(--ink-m)}
+
+/* Notebook pattern demos */
+.nb-demo{width:100%;border:1px solid var(--border);border-radius:6px;margin:14px 0;overflow:hidden;background:var(--bg)}
+.nb-demo__sample{height:160px;position:relative;display:flex;align-items:center;justify-content:center}
+.nb-demo__ghost{font-family:var(--mono);font-size:9px;color:rgba(0,0,0,0.07);position:absolute;padding:14px 16px;top:0;left:0;right:0;line-height:1.8;pointer-events:none}
+.nb-demo__label{padding:10px 14px;border-top:1px solid var(--border);background:var(--bg2)}
+.nb-demo__name{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.nb-demo__meta{font-family:var(--mono);font-size:8px;color:var(--ink-m);line-height:1.4}
+.nb-demos{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+
+/* Notebook application mockups */
+.nb-apps{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.nb-app{border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--bg)}
+.nb-app__label{padding:8px 14px;border-bottom:1px solid var(--border);background:var(--bg2);font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m);font-weight:600}
+
+/* Notebook usage rules */
+.nb-rules{margin:16px 0}
+.nb-rule{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--border);align-items:flex-start}
+.nb-rule:last-child{border-bottom:none}
+.nb-rule__pat{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink);min-width:140px}
+.nb-rule__where{font-family:var(--sans);font-size:11px;color:var(--ink-s);font-weight:300;line-height:1.5;flex:1}
+.nb-rule__op{font-family:var(--mono);font-size:10px;color:var(--mint);font-weight:600;min-width:60px;text-align:right}
+
+/* Do/Don't */
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.dodont__item{padding:20px;border-radius:6px;border:1px solid}
+.dodont__item--do{border-color:var(--green-b);background:var(--green-f)}
+.dodont__item--dont{border-color:var(--red-b);background:var(--red-f)}
+.dodont__label{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.dodont__label--do{color:var(--green)}.dodont__label--dont{color:var(--red)}
+.dodont__text{font-family:var(--sans);font-size:12px;color:var(--ink-s);line-height:1.6;font-weight:300}
+
+/* Code block */
+.code{background:var(--bg2);border:1px dashed var(--border-h);border-radius:6px;padding:20px;font-family:var(--mono);font-size:10px;color:var(--ink-s);line-height:1.9;margin:16px 0;overflow-x:auto;white-space:pre}
+.code .c{color:var(--ink-m)}.code .k{color:var(--mint)}.code .v{color:var(--cyan)}
+
+/* Voice examples */
+.voice-ex{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.voice-card{padding:16px;border:1px solid var(--border);border-radius:6px;background:var(--bg)}
+.voice-card__label{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m);margin-bottom:8px;font-weight:600}
+.voice-card__text{font-family:var(--sans);font-size:12px;color:var(--ink-s);line-height:1.6;font-weight:300;font-style:italic}
+
+/* Mockup section */
+.mockup-frame{margin:20px 0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg)}
+.mockup-label{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m);margin-bottom:8px;font-weight:500}
+
+/* Footer */
+.manual-footer{margin-top:56px;padding-top:16px;border-top:1px dashed var(--border-h);display:flex;justify-content:space-between;align-items:center}
+.manual-footer__text{font-family:var(--mono);font-size:9px;color:var(--ink-m)}
+
+@media(max-width:700px){
+  .cover{padding:60px 24px;min-height:auto}.page{padding:0 24px 60px}
+  .dodont,.logo-display,.voice-ex{grid-template-columns:1fr}
+  .swatches{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- COVER -->
+<!-- ═══════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover__orb1"></div><div class="cover__orb2"></div>
+  <div class="cover__label">Manual de Marca · Documento Definitivo</div>
+  <div class="cover__logo" style="display:flex;align-items:center;gap:16px">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="72" height="72"><defs><linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#cg)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+    <div style="font-family:'Source Code Pro',monospace;font-size:32px;font-weight:700;color:#111318">clinera<span style="color:#10B981">.io</span></div>
+  </div>
+  <div class="cover__variant">STERILE · v2.0</div>
+  <p class="cover__desc">Sistema de identidad visual para Clinera.io. Estilo STERILE (ultra-clean, pharma). Logo: cuadrado redondeado con gradiente IA + C blanca. Wordmark horizontal: ícono + clinera.io. Tipografía Source Code Pro 700 + Sora 300. Documento de referencia para toda producción visual.</p>
+  <div class="cover__meta">
+    <span>Versión 1.0</span>
+    <span>Marzo 2026</span>
+    <span>OACG Inc.</span>
+    <span>REF: BM-DEF-001</span>
+  </div>
+</div>
+
+<div class="page">
+
+<!-- TOC -->
+<div class="toc">
+  <a class="toc__item">01 Filosofía</a>
+  <a class="toc__item">02 Logo</a>
+  <a class="toc__item">03 Favicon</a>
+  <a class="toc__item">04 Colores</a>
+  <a class="toc__item">05 Gradientes</a>
+  <a class="toc__item">06 Tipografía</a>
+  <a class="toc__item">07 Componentes</a>
+  <a class="toc__item">08 Espaciado</a>
+  <a class="toc__item">09 Texturas</a>
+  <a class="toc__item">10 Patrones Cuaderno</a>
+  <a class="toc__item">11 Voz y Tono</a>
+  <a class="toc__item">12 Hacer / No Hacer</a>
+  <a class="toc__item">13 Mockups</a>
+  <a class="toc__item">14 CSS Variables</a>
+</div>
+
+<!-- ═══ 01 FILOSOFÍA ═══ -->
+<div class="sect">
+  <div class="sect__num">01</div>
+  <div class="sect__title">Filosofía de Marca</div>
+  <div class="sect__text">Clinera es un software de automatización para clínicas médicas, estéticas y dentales en Latinoamérica. La marca se posiciona en la intersección de dos mundos: <strong>la precisión técnica de un producto de ingeniería</strong> y <strong>la confianza institucional que necesita un doctor para adoptar tecnología</strong>.</div>
+  <div class="sect__text">El estilo STERILE toma su nombre del ambiente clínico: ultra-limpio, luminoso, sin ruido visual. Fondos blancos, tipografía bold y monospace, acentos mint como señal de salud y tecnología activa. La estética comunica: "esto es seguro, esto es preciso, esto funciona."</div>
+  <div class="sect__text">El logo Prompt (<strong>&gt; clinera.io █</strong>) añade la capa indie-terminal: el chevron <strong>&gt;</strong> dice "en ejecución", el cursor <strong>█</strong> dice "procesando ahora mismo." Juntos comunican que Clinera es un sistema activo, no un folleto. Siempre corriendo, siempre respondiendo.</div>
+
+  <div class="sect__sub">Sensación objetivo</div>
+  <div class="sect__text">"Esto se siente como el panel de control de mi clínica. Es limpio, es preciso, es profesional, y está encendido."</div>
+
+  <div class="sect__sub">Principios de diseño</div>
+  <div class="showcase" style="margin-top:12px">
+    <span class="badge badge--mint">Limpieza</span>
+    <span class="badge badge--mint">Precisión</span>
+    <span class="badge badge--mint">Confianza</span>
+    <span class="badge badge--ia">Tecnología activa</span>
+    <span class="badge badge--ink">Indie con propósito</span>
+  </div>
+
+  <div class="sect__sub">Audiencia</div>
+  <div class="sect__text">Dueños de clínicas médicas, estéticas y dentales en Chile, Perú y México. No son nativos en tecnología. Buscan resultados concretos, no features. Evalúan software como evalúan un proveedor médico: por confianza, evidencia y profesionalismo.</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 02 LOGO ═══ -->
+<div class="sect">
+  <div class="sect__num">02</div>
+  <div class="sect__title">Logo</div>
+  <div class="sect__text">El logo de Clinera es un <strong>cuadrado redondeado con gradiente IA</strong> y una <strong>C blanca</strong> centrada. Es el símbolo principal de la marca. Para uso horizontal (navbar, footer), se combina con el wordmark <strong>&gt; clinera.io █</strong>.</div>
+
+  <div class="sect__sub">Ícono principal</div>
+  <div class="logo-display">
+    <div class="logo-box logo-box--light" style="padding:40px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="160" height="160"><defs><linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#lg1)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+    </div>
+    <div class="logo-box logo-box--dark" style="padding:40px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="160" height="160"><defs><linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#lg2)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+    </div>
+  </div>
+
+  <div class="sect__sub">Wordmark horizontal</div>
+  <div class="sect__text">Para navbar, headers y contextos horizontales. Combina el ícono con el nombre completo.</div>
+  <div class="logo-display">
+    <div class="logo-box logo-box--light" style="padding:24px 20px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 50" width="100%"><defs><linearGradient id="wm1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="44" height="44" rx="9" y="3" fill="url(#wm1)"/><text x="22" y="28" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="white">C</text><text x="56" y="32" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="#111318">clinera</text><text x="186" y="32" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="#10B981">.io</text></svg>
+    </div>
+    <div class="logo-box logo-box--dark" style="padding:24px 20px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 50" width="100%"><defs><linearGradient id="wm2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="44" height="44" rx="9" y="3" fill="url(#wm2)"/><text x="22" y="28" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="white">C</text><text x="56" y="32" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="#FAFBFC">clinera</text><text x="186" y="32" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="#10B981">.io</text></svg>
+    </div>
+  </div>
+
+  <div class="sect__sub">Wordmark alternativo — Prompt</div>
+  <div class="sect__text">Para contextos de texto plano, firmas de correo, footer de posts, y uso en terminal/código.</div>
+  <div class="logo-display">
+    <div class="logo-box logo-box--light" style="padding:24px 20px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 50" width="100%"><defs><linearGradient id="wp1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><text x="4" y="34" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="url(#wp1)">&gt;</text><text x="22" y="34" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="#111318">clinera</text><text x="152" y="34" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="#10B981">.io</text><rect x="188" y="10" width="10" height="30" rx="2" fill="url(#wp1)" opacity="0.6"/></svg>
+    </div>
+    <div class="logo-box logo-box--dark" style="padding:24px 20px">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 50" width="100%"><defs><linearGradient id="wp2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><text x="4" y="34" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="url(#wp2)">&gt;</text><text x="22" y="34" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="#FAFBFC">clinera</text><text x="152" y="34" font-family="'Source Code Pro',monospace" font-size="22" font-weight="700" fill="#10B981">.io</text><rect x="188" y="10" width="10" height="30" rx="2" fill="url(#wp2)" opacity="0.6"/></svg>
+    </div>
+  </div>
+  <div class="sect__note">Uso: firmas de email, footer de posts RRSS, referencias en código, contextos monospace.</div>
+
+  <div class="sect__sub">Zona de protección</div>
+  <div class="clearspace" style="padding:50px">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="120" height="120"><defs><linearGradient id="lgcs" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#lgcs)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+    <div class="clearspace__marker" style="top:12px;left:50%;transform:translateX(-50%)">↕ 0.25x ancho del ícono</div>
+    <div class="clearspace__marker" style="bottom:12px;left:50%;transform:translateX(-50%)">↕ 0.25x ancho del ícono</div>
+  </div>
+  <div class="sect__note">Espacio mínimo alrededor del ícono: 25% del ancho del ícono en todos los lados.</div>
+
+  <div class="sect__sub">Tamaños de uso</div>
+  <div class="minsize">
+    <div class="minsize__item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="64" height="64"><defs><linearGradient id="ms1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#ms1)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+      <div class="minsize__label">64px — estándar</div>
+    </div>
+    <div class="minsize__item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="32" height="32"><defs><linearGradient id="ms2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#ms2)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+      <div class="minsize__label">32px — favicon</div>
+    </div>
+    <div class="minsize__item">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="16" height="16"><defs><linearGradient id="ms3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#ms3)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+      <div class="minsize__label">16px — mínimo</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 03 FAVICON ═══ -->
+<div class="sect">
+  <div class="sect__num">03</div>
+  <div class="sect__title">Favicon e Ícono de App</div>
+  <div class="sect__text">El ícono principal funciona directamente como favicon y foto de perfil en todas las plataformas. Cuadrado redondeado, gradiente IA, C blanca. Sin variaciones — siempre igual.</div>
+
+  <div class="sect__sub">Tamaños estándar</div>
+  <div class="fav-row">
+    <div class="fav-box">
+      <div class="fav-box__wrap" style="width:72px;height:72px;padding:4px">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="64" height="64"><defs><linearGradient id="fv1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#fv1)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+      </div>
+      <div class="fav-box__label">1080 · IG</div>
+    </div>
+    <div class="fav-box">
+      <div class="fav-box__wrap" style="width:56px;height:56px;padding:4px">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="48" height="48"><defs><linearGradient id="fv2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#fv2)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+      </div>
+      <div class="fav-box__label">512 · App</div>
+    </div>
+    <div class="fav-box">
+      <div class="fav-box__wrap" style="width:40px;height:40px;padding:4px">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="32" height="32"><defs><linearGradient id="fv3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#fv3)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+      </div>
+      <div class="fav-box__label">180 · Apple</div>
+    </div>
+    <div class="fav-box">
+      <div class="fav-box__wrap" style="width:24px;height:24px;padding:2px">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="20" height="20"><defs><linearGradient id="fv4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#fv4)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+      </div>
+      <div class="fav-box__label">32 · Tab</div>
+    </div>
+  </div>
+  <div class="sect__note">El gradiente escala perfecto a cualquier tamaño. La C se mantiene legible hasta 16px.</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 04 COLORES ═══ -->
+<div class="sect">
+  <div class="sect__num">04</div>
+  <div class="sect__title">Paleta de Colores</div>
+  <div class="sect__text">La paleta STERILE se organiza en 3 capas: <strong>Superficies</strong> (fondos ultra-blancos), <strong>Tinta</strong> (texto con 3 niveles de jerarquía) y <strong>Acentos</strong> (mint funcional + gradiente IA).</div>
+
+  <div class="sect__sub">Superficies</div>
+  <div class="swatches" style="grid-template-columns:repeat(3,1fr)">
+    <div class="swatch"><div class="swatch__color" style="background:#FAFBFC"></div><div class="swatch__info"><div class="swatch__name">Ice</div><div class="swatch__hex">#FAFBFC</div><div class="swatch__role">Fondo principal, cards, contenido</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#F4F5F7"></div><div class="swatch__info"><div class="swatch__name">Cloud</div><div class="swatch__hex">#F4F5F7</div><div class="swatch__role">Fondo alterno, labels, inputs</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#ECEEF1"></div><div class="swatch__info"><div class="swatch__name">Steel</div><div class="swatch__hex">#ECEEF1</div><div class="swatch__role">Hover, pressed, separadores</div></div></div>
+  </div>
+
+  <div class="sect__sub">Tinta</div>
+  <div class="swatches" style="grid-template-columns:repeat(4,1fr)">
+    <div class="swatch"><div class="swatch__color" style="background:#111318"></div><div class="swatch__info"><div class="swatch__name">Ink</div><div class="swatch__hex">#111318</div><div class="swatch__role">Títulos, H1-H3, datos</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#3D4250"></div><div class="swatch__info"><div class="swatch__name">Ink Soft</div><div class="swatch__hex">#3D4250</div><div class="swatch__role">Párrafos body</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#9CA3AF"></div><div class="swatch__info"><div class="swatch__name">Ink Muted</div><div class="swatch__hex">#9CA3AF</div><div class="swatch__role">Labels, hints, metadata</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#D1D5DB"></div><div class="swatch__info"><div class="swatch__name">Ink Light</div><div class="swatch__hex">#D1D5DB</div><div class="swatch__role">Bordes, placeholders</div></div></div>
+  </div>
+
+  <div class="sect__sub">Acentos</div>
+  <div class="swatches" style="grid-template-columns:repeat(4,1fr)">
+    <div class="swatch"><div class="swatch__color" style="background:#10B981"></div><div class="swatch__info"><div class="swatch__name">Mint</div><div class="swatch__hex">#10B981</div><div class="swatch__role">Acento primario, .io, badges, estados positivos</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#009FE3"></div><div class="swatch__info"><div class="swatch__name">Cyan</div><div class="swatch__hex">#009FE3</div><div class="swatch__role">Inicio gradiente IA</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#7C3AED"></div><div class="swatch__info"><div class="swatch__name">Violet</div><div class="swatch__hex">#7C3AED</div><div class="swatch__role">Centro gradiente IA</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#C850C0"></div><div class="swatch__info"><div class="swatch__name">Magenta</div><div class="swatch__hex">#C850C0</div><div class="swatch__role">Final gradiente IA</div></div></div>
+  </div>
+
+  <div class="sect__sub">Funcionales</div>
+  <div class="swatches" style="grid-template-columns:repeat(2,1fr)">
+    <div class="swatch"><div class="swatch__color" style="background:#10B981"></div><div class="swatch__info"><div class="swatch__name">Green</div><div class="swatch__hex">#10B981</div><div class="swatch__role">Éxito, "Con Clinera", activo</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#EF4444"></div><div class="swatch__info"><div class="swatch__name">Red</div><div class="swatch__hex">#EF4444</div><div class="swatch__role">Error, "Sin Clinera", alerta</div></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 05 GRADIENTES ═══ -->
+<div class="sect">
+  <div class="sect__num">05</div>
+  <div class="sect__title">Gradientes</div>
+  <div class="sect__text">El gradiente IA es el original de Clinera: cyan→violet→magenta. Se usa exclusivamente en CTAs, GradientText, el chevron &gt;, el cursor █, badges IA y orbs de fondo. <strong>Nunca en fondos completos de sección.</strong></div>
+
+  <div class="gradient-bar" style="background:linear-gradient(135deg,#009FE3 0%,#7C3AED 50%,#C850C0 100%)"></div>
+  <div class="gradient-bar__stops"><span>#009FE3</span><span>#7C3AED</span><span>#C850C0</span></div>
+  <div class="sect__note">--grad-ia · 135deg · CTAs, GradientText, chevron, cursor, badge IA</div>
+
+  <div class="gradient-bar" style="background:linear-gradient(135deg,rgba(0,159,227,0.06),rgba(124,58,237,0.04),rgba(200,80,192,0.03));margin-top:24px"></div>
+  <div class="sect__note">--grad-ia-soft · Fondos de cards recomendadas, hover states</div>
+
+  <div style="margin-top:28px;font-family:var(--mono);font-size:28px;font-weight:700;color:var(--ink)">
+    Palabras con <span class="gt">GradientText</span> resaltan.
+  </div>
+  <div class="sect__note">Máximo 2-3 palabras por sección con GradientText. Nunca frases completas.</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 06 TIPOGRAFÍA ═══ -->
+<div class="sect">
+  <div class="sect__num">06</div>
+  <div class="sect__title">Tipografía</div>
+  <div class="sect__text"><strong>Source Code Pro</strong> (dominante, 70%): Monospace de Adobe. Proporciones amplias, excelente legibilidad. Peso 700 (Bold) como estándar en títulos, labels y datos. Comunica: preciso, técnico, confiable.</div>
+  <div class="sect__text"><strong>Sora</strong> (complemento, 30%): Geométrica japonesa para párrafos. Peso 300 (Light) por defecto, peso 400 para énfasis. Sus curvas suaves contrastan con la rigidez del mono, creando legibilidad sin perder personalidad.</div>
+
+  <div class="specimen">
+    <div class="specimen__label">H1 Hero — Source Code Pro · 38px · 700</div>
+    <div style="font-family:var(--mono);font-size:38px;font-weight:700;color:var(--ink);line-height:1.3">Tu WhatsApp agenda solo.</div>
+    <div class="specimen__meta">Uso: titular principal del hero. Máximo 8-10 palabras.</div>
+  </div>
+  <div class="specimen">
+    <div class="specimen__label">H2 Section — Source Code Pro · 28px · 700</div>
+    <div style="font-family:var(--mono);font-size:28px;font-weight:700;color:var(--ink);line-height:1.3">Tu clínica atiende mientras duermes.</div>
+    <div class="specimen__meta">Uso: títulos de sección.</div>
+  </div>
+  <div class="specimen">
+    <div class="specimen__label">H3 Card — Source Code Pro · 14px · 700</div>
+    <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--ink)">Cero ausencias</div>
+    <div class="specimen__meta">Uso: títulos de cards, features, listas.</div>
+  </div>
+  <div class="specimen">
+    <div class="specimen__label">Body — Sora · 15px · 300 (Light)</div>
+    <div style="font-family:var(--sans);font-size:15px;font-weight:300;color:var(--ink-s);line-height:1.7">Clinera responde pacientes, agenda citas y confirma asistencia por ti — 24/7, sin intervención manual. Tú solo atiende.</div>
+    <div class="specimen__meta">Uso: párrafos descriptivos, textos largos. Line-height: 1.7</div>
+  </div>
+  <div class="specimen">
+    <div class="specimen__label">Label — Source Code Pro · 10px · 600 · Uppercase · 0.15em</div>
+    <div style="font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-m)">Automatización Clínica</div>
+    <div class="specimen__meta">Uso: etiquetas de sección, metadata, refs, subtítulos.</div>
+  </div>
+  <div class="specimen">
+    <div class="specimen__label">Data — Source Code Pro · 11px · 600</div>
+    <div style="font-family:var(--mono);font-size:11px;font-weight:600;color:var(--ink)"><span style="color:var(--mint)">Rx</span> Activación AURA · Vía: WhatsApp API · Frecuencia: 24/7</div>
+    <div class="specimen__meta">Uso: protocolos, métricas, recetas médicas, tablas de datos.</div>
+  </div>
+  <div class="specimen">
+    <div class="specimen__label">Nav — Source Code Pro · 11px · 500</div>
+    <div style="font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:0.04em;color:var(--ink-m)">Funcionalidades &nbsp;&nbsp;&nbsp; Planes &nbsp;&nbsp;&nbsp; Roadmap &nbsp;&nbsp;&nbsp; Iniciar sesión</div>
+    <div class="specimen__meta">Uso: links de navegación.</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 07 COMPONENTES ═══ -->
+<div class="sect">
+  <div class="sect__num">07</div>
+  <div class="sect__title">Componentes</div>
+
+  <div class="sect__sub">Badges</div>
+  <div class="showcase">
+    <span class="badge badge--mint">Dx</span>
+    <span class="badge badge--mint">Rx</span>
+    <span class="badge badge--mint">Protocolo</span>
+    <span class="badge badge--mint">Activo</span>
+    <span class="badge badge--ia">IA 2.0</span>
+    <span class="badge badge--green">Verificado</span>
+    <span class="badge badge--red">Sin Clinera</span>
+    <span class="badge badge--ink">Terminal</span>
+  </div>
+  <div class="sect__note">Mono 600 · 10px · 0.1em tracking · uppercase · border-radius: 4px</div>
+
+  <div class="sect__sub">Botones</div>
+  <div class="showcase">
+    <a class="btn-demo btn-demo--primary">Activar mi clínica →</a>
+    <a class="btn-demo btn-demo--secondary">Ver demo →</a>
+    <a class="btn-demo btn-demo--primary btn-demo--sm">Comienza aquí</a>
+  </div>
+  <div class="sect__note">Primary: gradiente IA + white text + cyan shadow · Secondary: transparent + border · radius: 4px · font-weight: 600</div>
+
+  <div class="sect__sub">Card con gradient-top</div>
+  <div class="demo-card">
+    <div class="demo-card__top"></div>
+    <div style="font-size:24px;margin-bottom:12px">💬</div>
+    <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--ink);margin-bottom:6px">Tu WhatsApp agenda solo</div>
+    <div style="font-family:var(--sans);font-size:13px;color:var(--ink-m);line-height:1.6;font-weight:300">AURA atiende a tus pacientes, ofrece horarios y agenda citas automáticamente.</div>
+  </div>
+  <div class="sect__note">bg: ice · border: 1px rgba(0,0,0,0.06) · radius: 6px · gradient-top: 3px grad-ia 50% opacity · hover: translateY(-2px)</div>
+
+  <div class="sect__sub">Receta Médica (Rx Block)</div>
+  <div class="rx-demo">
+    <span class="rl">Rx</span> Activación AURA<br>
+    <span class="rl">Vía:</span> <span class="rv">WhatsApp Business API</span><br>
+    <span class="rl">Frecuencia:</span> <span class="rv">24/7 automático</span>
+  </div>
+  <div class="sect__note">bg: mint-faint · border: 1px dashed mint-border · radius: 4px · Reemplazo de terminal commands para audiencia médica.</div>
+
+  <div class="sect__sub">Bloque Protocolo</div>
+  <div class="protocol-demo">
+    <div class="protocol-demo__header">
+      <span class="protocol-demo__label">Protocolo</span>
+      <span class="badge badge--mint" style="font-size:8px;padding:2px 6px">Activo</span>
+    </div>
+    <div class="protocol-demo__line"><span class="mint">Rx</span> webhook /appointment</div>
+    <div class="protocol-demo__meta">→ 200 meta · sheets · email</div>
+    <div class="protocol-demo__meta">◎ <span class="gt" style="font-weight:700">0.3s</span> · sin intervención</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 08 ESPACIADO ═══ -->
+<div class="sect">
+  <div class="sect__num">08</div>
+  <div class="sect__title">Espaciado y Dimensiones</div>
+  <div class="spacing-row"><span class="spacing-label">Section padding</span><div class="spacing-bar" style="width:160px"></div><span class="spacing-val">80px × 48px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Card padding</span><div class="spacing-bar" style="width:80px"></div><span class="spacing-val">24px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Card gap</span><div class="spacing-bar" style="width:40px"></div><span class="spacing-val">20px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Badge padding</span><div class="spacing-bar" style="width:30px"></div><span class="spacing-val">4px 10px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Button padding</span><div class="spacing-bar" style="width:65px"></div><span class="spacing-val">12px 28px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Border radius cards</span><div class="spacing-bar" style="width:20px"></div><span class="spacing-val">6px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Border radius badges</span><div class="spacing-bar" style="width:14px"></div><span class="spacing-val">4px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Border radius buttons</span><div class="spacing-bar" style="width:14px"></div><span class="spacing-val">4px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Max-width content</span><div class="spacing-bar" style="width:200px"></div><span class="spacing-val">1100px</span></div>
+  <div class="spacing-row"><span class="spacing-label">Glow orbs</span><div class="spacing-bar" style="width:120px"></div><span class="spacing-val">250-400px · blur(50px) · 3-5% opacity</span></div>
+  <div class="spacing-row"><span class="spacing-label">Gradient-top cards</span><div class="spacing-bar" style="width:10px"></div><span class="spacing-val">3px · 50% opacity</span></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 09 TEXTURAS ═══ -->
+<div class="sect">
+  <div class="sect__num">09</div>
+  <div class="sect__title">Texturas y Fondos</div>
+
+  <div class="sect__sub">Dot Grid</div>
+  <div class="sect__text">Patrón de puntos sutiles. STERILE usa dots más espaciados (32px) y más transparentes (2%) que las otras variantes — máxima limpieza.</div>
+  <div class="dotgrid-demo">32px gap · 1px dots · rgba(0,0,0,0.02)</div>
+
+  <div class="sect__sub">Glow Orbs</div>
+  <div class="sect__text">Círculos difusos de cyan o mint posicionados en fondos de secciones. Opacity 3-5%, blur 50px. Comunican presencia de IA sin ser invasivos. STERILE usa orbs más grandes y más difusos que las otras variantes.</div>
+
+  <div class="sect__sub">Borders</div>
+  <div class="sect__text">STERILE usa borders de 1px con opacidad muy baja (6%). Dashed borders solo en divisores internos (protocol blocks, metric rows, footer). Nunca dashed en cards o botones.</div>
+  <div style="display:flex;gap:24px;margin:12px 0">
+    <div><div style="border-top:1px solid rgba(0,0,0,0.06);width:120px;margin-bottom:6px"></div><span style="font-family:var(--mono);font-size:8px;color:var(--ink-m)">Solid — cards, bordes</span></div>
+    <div><div style="border-top:1px dashed rgba(0,0,0,0.1);width:120px;margin-bottom:6px"></div><span style="font-family:var(--mono);font-size:8px;color:var(--ink-m)">Dashed — dividers, protocolos</span></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 10 PATRONES DE CUADERNO ═══ -->
+<div class="sect">
+  <div class="sect__num">10</div>
+  <div class="sect__title">Patrones de Cuaderno</div>
+  <div class="sect__text">Dos patrones de cuaderno académico que le dan textura al blanco STERILE sin romper la limpieza. Conectan con el mundo médico (fichas, recetas, cuadernos de protocolos) y refuerzan la personalidad indie-técnica.</div>
+  <div class="sect__text"><strong>Regla clave:</strong> Máximo 1 patrón por sección visible. Nunca detrás de texto body largo — solo en cards, panels, heroes y secciones con estructura visual clara. El texto descriptivo siempre va sobre fondo blanco limpio.</div>
+
+  <div class="sect__sub">Math Grid — Cuadrícula de Matemática</div>
+  <div class="sect__text">Cuadrícula amplia (32px) con trazo ultra-sutil (2.5% opacity). Se siente como papel milimetrado de alta gama. Para secciones con datos: métricas, pricing, dashboards, before/after, cards de protocolo.</div>
+  <div class="nb-demo">
+    <div class="nb-demo__sample" style="background-image:var(--nb-math);background-size:var(--nb-math-size);background-color:var(--bg)">
+      <div class="nb-demo__ghost">Rx Activación AURA<br>Vía: WhatsApp API<br>Frecuencia: 24/7<br>Status: ACTIVO<br>Ausentismo: 5%</div>
+    </div>
+    <div class="nb-demo__label">
+      <div class="nb-demo__name">Math Grid</div>
+      <div class="nb-demo__meta">--nb-math · 32px grid · rgba(0,0,0,0.025) · 2.5% opacity</div>
+    </div>
+  </div>
+
+  <div class="sect__sub">Language + Margin — Cuaderno de Lenguaje</div>
+  <div class="sect__text">Líneas horizontales (28px) con la línea vertical roja del margen (12% opacity). El patrón más "documento médico" — un doctor lo reconoce al instante como ficha o receta. Para caso clínico, fichas Rx, formularios, testimonios tipo cita.</div>
+  <div class="nb-demo">
+    <div class="nb-demo__sample" style="background-image:var(--nb-lang-margin);background-size:var(--nb-lang-margin-size);background-color:var(--bg)">
+      <div class="nb-demo__ghost" style="line-height:28px;padding-top:13px;padding-left:56px">Caso Clínico CC-2026-001<br>Dra. Katherin Meza<br>Dermatóloga · Santiago<br>Ausentismo: 35% → 5%<br>Verificado ✓</div>
+    </div>
+    <div class="nb-demo__label">
+      <div class="nb-demo__name">Language + Margin</div>
+      <div class="nb-demo__meta">--nb-lang-margin · 28px rows · 4% lines + 12% red margin</div>
+    </div>
+  </div>
+
+  <div class="sect__sub">Dónde usar cada uno</div>
+  <div class="nb-rules">
+    <div class="nb-rule"><span class="nb-rule__pat">Math Grid</span><span class="nb-rule__where">Hero (fondo del before/after card), secciones de métricas, pricing breakdown, features grid, dashboards</span><span class="nb-rule__op">2.5%</span></div>
+    <div class="nb-rule"><span class="nb-rule__pat">Language + Margin</span><span class="nb-rule__where">Caso clínico, fichas Rx, recetas médicas, testimonios tipo cita, formularios, contenido tipo "documento"</span><span class="nb-rule__op">4%+12%</span></div>
+  </div>
+
+  <div class="sect__sub">Aplicación — Web</div>
+  <div class="nb-apps">
+    <!-- Hero con Math Grid -->
+    <div class="nb-app">
+      <div class="nb-app__label">Hero card — Math Grid</div>
+      <div style="background-image:var(--nb-math);background-size:var(--nb-math-size);background-color:var(--bg);padding:16px;position:relative">
+        <div style="position:absolute;top:-10px;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(0,159,227,0.04),transparent 70%);border-radius:50%;filter:blur(20px)"></div>
+        <div style="font-family:var(--mono);font-size:9px;font-weight:700;color:var(--ink);margin-bottom:8px;position:relative;letter-spacing:0.04em">CLINERA.IO <span style="color:var(--ink-m);font-weight:400">· DX-2026</span></div>
+        <div style="display:flex;border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px;position:relative">
+          <div style="flex:1;padding:5px 8px;font-family:var(--mono);font-size:7px;font-weight:600;color:var(--green);background:var(--green-f);text-align:center">◎ CON CLINERA</div>
+          <div style="flex:1;padding:5px 8px;font-family:var(--mono);font-size:7px;font-weight:600;color:var(--ink-m);text-align:center;border-left:1px solid var(--border)">◎ SIN</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:8px;display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--border);color:var(--ink-m);position:relative"><span>Mensajes</span><span style="font-weight:700"><span style="color:var(--green)">100%</span> <span style="font-size:7px;color:var(--green);background:var(--green-f);padding:1px 4px;border-radius:2px">auto</span></span></div>
+        <div style="font-family:var(--mono);font-size:8px;display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--border);color:var(--ink-m);position:relative"><span>Citas</span><span style="font-weight:700"><span style="color:var(--green)">+40/sem</span> <span style="font-size:7px;color:var(--green);background:var(--green-f);padding:1px 4px;border-radius:2px">↑340%</span></span></div>
+        <div style="font-family:var(--mono);font-size:8px;display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--border);color:var(--ink-m);position:relative"><span>Ausencia</span><span style="font-weight:700"><span style="color:var(--green)">5%</span> <span style="font-size:7px;color:var(--green);background:var(--green-f);padding:1px 4px;border-radius:2px">↓86%</span></span></div>
+        <div style="font-family:var(--mono);font-size:8px;display:flex;justify-content:space-between;padding:5px 0;color:var(--ink-m);position:relative"><span>Atención</span><span style="font-weight:700;color:var(--green)">24/7</span></div>
+        <div style="margin-top:8px;padding-top:6px;border-top:1px dashed var(--border);font-family:var(--mono);font-size:7px;color:var(--ink-m);position:relative"><span style="color:var(--mint);font-weight:700">Indicación:</span> Promedio tras 30 días.</div>
+      </div>
+    </div>
+
+    <!-- Caso clínico con Language + Margin -->
+    <div class="nb-app">
+      <div class="nb-app__label">Caso Clínico — Language + Margin</div>
+      <div style="background-image:var(--nb-lang-margin);background-size:var(--nb-lang-margin-size);background-color:var(--bg);padding:16px 16px 16px 56px;min-height:180px">
+        <div style="font-family:var(--mono);font-size:7px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;background:var(--green-f);color:var(--green);border:1px solid var(--green-b);display:inline-flex;font-weight:600;margin-bottom:10px">Caso Clínico · Verificado</div>
+        <div style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink);line-height:28px">Dra. Katherin Meza</div>
+        <div style="font-family:var(--sans);font-size:9px;color:var(--ink-m);line-height:28px;font-weight:300">Dermatóloga · Santiago · 3 profesionales</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--ink-s);line-height:28px"><span style="color:var(--red);font-weight:600">Antes:</span> 35% ausentismo · 4h/día WhatsApp</div>
+        <div style="font-family:var(--mono);font-size:9px;color:var(--ink-s);line-height:28px"><span style="color:var(--green);font-weight:600">Con Clinera:</span> 5% ausentismo · 0h WhatsApp</div>
+        <div style="font-family:var(--sans);font-size:9px;color:var(--ink-m);line-height:28px;font-style:italic;font-weight:300">"Por fin tengo tiempo para mis pacientes."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sect__sub">Aplicación — Posts Redes Sociales</div>
+  <div class="nb-apps">
+    <!-- Post Math Grid -->
+    <div class="nb-app">
+      <div class="nb-app__label">Post métricas — Math Grid</div>
+      <div style="background-image:var(--nb-math);background-size:var(--nb-math-size);background-color:var(--bg);padding:20px 16px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
+        <div style="position:absolute;top:-10px;right:-10px;width:100px;height:100px;background:radial-gradient(circle,rgba(0,159,227,0.04),transparent 70%);border-radius:50%;filter:blur(15px)"></div>
+        <div>
+          <div style="font-family:var(--mono);font-size:7px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;font-weight:600;background:var(--mint-f);color:var(--mint);border:1px solid var(--mint-b);display:inline-flex;margin-bottom:10px;position:relative">Dx · Métricas</div>
+          <div style="font-family:var(--mono);font-size:14px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:8px;position:relative">De 35% a <span class="gt">5%</span> ausentismo.</div>
+          <div style="font-family:var(--sans);font-size:9px;color:var(--ink-m);line-height:1.5;font-weight:300;position:relative">Resultados reales, en 90 días.</div>
+        </div>
+        <div><div style="font-family:var(--mono);font-size:8px;padding:7px 14px;background:var(--grad);color:#fff;border:none;border-radius:3px;font-weight:600;text-align:center;position:relative;margin-top:12px">Activa → clinera.io</div></div>
+      </div>
+      <div style="padding:8px 16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><div style="font-family:var(--mono);font-size:9px;font-weight:700;color:var(--ink)">&gt; clinera<span style="color:var(--mint)">.io</span> █</div><div style="font-family:var(--mono);font-size:6px;color:var(--ink-m)">IA para Clínicas</div></div>
+    </div>
+
+    <!-- Post Language + Margin -->
+    <div class="nb-app">
+      <div class="nb-app__label">Post testimonio — Language + Margin</div>
+      <div style="background-image:var(--nb-lang-margin);background-size:var(--nb-lang-margin-size);background-color:var(--bg);padding:20px 16px 20px 56px;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
+        <div style="position:absolute;top:-10px;right:-10px;width:100px;height:100px;background:radial-gradient(circle,rgba(124,58,237,0.03),transparent 70%);border-radius:50%;filter:blur(15px)"></div>
+        <div>
+          <div style="font-family:var(--mono);font-size:7px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;font-weight:600;background:var(--mint-f);color:var(--mint);border:1px solid var(--mint-b);display:inline-flex;margin-bottom:10px;position:relative">Caso Clínico</div>
+          <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);line-height:28px;margin-bottom:4px;position:relative">"Por fin tengo <span class="gt">tiempo</span> para mis pacientes."</div>
+          <div style="font-family:var(--sans);font-size:9px;color:var(--ink-m);line-height:28px;font-weight:300;position:relative">Dra. Katherin Meza · Dermatóloga</div>
+        </div>
+        <div><div style="font-family:var(--mono);font-size:8px;padding:7px 14px;background:var(--grad);color:#fff;border:none;border-radius:3px;font-weight:600;text-align:center;position:relative;margin-top:12px">Activa → clinera.io</div></div>
+      </div>
+      <div style="padding:8px 16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><div style="font-family:var(--mono);font-size:9px;font-weight:700;color:var(--ink)">&gt; clinera<span style="color:var(--mint)">.io</span> █</div><div style="font-family:var(--mono);font-size:6px;color:var(--ink-m)">IA para Clínicas</div></div>
+    </div>
+  </div>
+
+  <div class="sect__sub">No hacer con patrones</div>
+  <div class="dodont" style="margin-top:12px">
+    <div class="dodont__item dodont__item--do"><div class="dodont__label dodont__label--do">✓ Hacer</div><div class="dodont__text">Usar Math Grid en secciones con datos/números. Language+Margin en fichas/testimonios. Máximo 1 patrón por sección visible.</div></div>
+    <div class="dodont__item dodont__item--dont"><div class="dodont__label dodont__label--dont">✗ No Hacer</div><div class="dodont__text">Mezclar ambos patrones en la misma sección. Usar patrones detrás de párrafos body largos. Usar patrones en todas las secciones de la página.</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 11 VOZ Y TONO ═══ -->
+<div class="sect">
+  <div class="sect__num">11</div>
+  <div class="sect__title">Voz y Tono</div>
+  <div class="sect__text">Clinera habla como un <strong>colega técnico que respeta tu tiempo</strong>. No es un vendedor. No es un profesor. Es alguien que sabe lo que hace, te lo explica claro, y te deja decidir.</div>
+
+  <div class="sect__sub">Principios de voz</div>
+  <div class="sect__text"><strong>Resultados, no tecnología.</strong> "Tu WhatsApp agenda solo" en vez de "IA con NLP agenda por ti."</div>
+  <div class="sect__text"><strong>Vocabulario médico, no tech.</strong> Dx, Rx, Protocolo, Indicación, Caso Clínico — en vez de deploy, webhook, pipeline.</div>
+  <div class="sect__text"><strong>Directo y corto.</strong> Frases de máximo 15 palabras. Sin relleno. Sin superlativos vacíos.</div>
+  <div class="sect__text"><strong>Confianza tranquila.</strong> No gritar "¡REVOLUCIONARIO!" — demostrar con datos: "↓86% ausentismo en 90 días."</div>
+
+  <div class="sect__sub">Ejemplos</div>
+  <div class="voice-ex">
+    <div class="voice-card"><div class="voice-card__label" style="color:var(--green)">✓ Así sí</div><div class="voice-card__text">"Tu clínica atiende mientras duermes."</div></div>
+    <div class="voice-card"><div class="voice-card__label" style="color:var(--red)">✗ Así no</div><div class="voice-card__text">"Nuestra revolucionaria plataforma de inteligencia artificial transforma la experiencia del paciente."</div></div>
+  </div>
+  <div class="voice-ex">
+    <div class="voice-card"><div class="voice-card__label" style="color:var(--green)">✓ Así sí</div><div class="voice-card__text">"Ausentismo: de 35% a 5% en 90 días."</div></div>
+    <div class="voice-card"><div class="voice-card__label" style="color:var(--red)">✗ Así no</div><div class="voice-card__text">"Reduce drásticamente los niveles de ausentismo de tu clínica con nuestro motor de confirmaciones."</div></div>
+  </div>
+  <div class="voice-ex">
+    <div class="voice-card"><div class="voice-card__label" style="color:var(--green)">✓ Así sí</div><div class="voice-card__text">"Rx: Activación AURA · Vía: WhatsApp · 24/7"</div></div>
+    <div class="voice-card"><div class="voice-card__label" style="color:var(--red)">✗ Así no</div><div class="voice-card__text">"$ init --deploy whatsapp-agent --env=production"</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 12 HACER / NO HACER ═══ -->
+<div class="sect">
+  <div class="sect__num">12</div>
+  <div class="sect__title">Hacer / No Hacer</div>
+
+  <div class="dodont">
+    <div class="dodont__item dodont__item--do"><div class="dodont__label dodont__label--do">✓ Hacer</div><div class="dodont__text">Fondos ultra-blancos (#FAFBFC, #F4F5F7). STERILE es limpieza.</div></div>
+    <div class="dodont__item dodont__item--dont"><div class="dodont__label dodont__label--dont">✗ No Hacer</div><div class="dodont__text">Fondos cream, beige o warm. Eso es ORIGINAL o TERRA, no STERILE.</div></div>
+  </div>
+  <div class="dodont">
+    <div class="dodont__item dodont__item--do"><div class="dodont__label dodont__label--do">✓ Hacer</div><div class="dodont__text">Tipografía bold (700) en títulos y labels. STERILE es decidido.</div></div>
+    <div class="dodont__item dodont__item--dont"><div class="dodont__label dodont__label--dont">✗ No Hacer</div><div class="dodont__text">Peso Light (300) en títulos — pierde la presencia de marca.</div></div>
+  </div>
+  <div class="dodont">
+    <div class="dodont__item dodont__item--do"><div class="dodont__label dodont__label--do">✓ Hacer</div><div class="dodont__text">GradientText en máximo 2-3 palabras clave por sección.</div></div>
+    <div class="dodont__item dodont__item--dont"><div class="dodont__label dodont__label--dont">✗ No Hacer</div><div class="dodont__text">GradientText en frases completas, párrafos o títulos enteros.</div></div>
+  </div>
+  <div class="dodont">
+    <div class="dodont__item dodont__item--do"><div class="dodont__label dodont__label--do">✓ Hacer</div><div class="dodont__text">Mint (#10B981) como acento primario y color de .io en el logo.</div></div>
+    <div class="dodont__item dodont__item--dont"><div class="dodont__label dodont__label--dont">✗ No Hacer</div><div class="dodont__text">Teal (#2A6B5A) o seafoam — esos son del ORIGINAL y FROST base.</div></div>
+  </div>
+  <div class="dodont">
+    <div class="dodont__item dodont__item--do"><div class="dodont__label dodont__label--do">✓ Hacer</div><div class="dodont__text">Border-radius 4-6px. STERILE es limpio pero no cold (no 2px).</div></div>
+    <div class="dodont__item dodont__item--dont"><div class="dodont__label dodont__label--dont">✗ No Hacer</div><div class="dodont__text">Border-radius 12px+ o pill shapes — demasiado friendly para STERILE.</div></div>
+  </div>
+  <div class="dodont">
+    <div class="dodont__item dodont__item--do"><div class="dodont__label dodont__label--do">✓ Hacer</div><div class="dodont__text">Usar el chevron &gt; como bullet o indicador de marca en contextos reducidos.</div></div>
+    <div class="dodont__item dodont__item--dont"><div class="dodont__label dodont__label--dont">✗ No Hacer</div><div class="dodont__text">Usar el chevron como decoración en textos largos — pierde poder si se abusa.</div></div>
+  </div>
+  <div class="dodont">
+    <div class="dodont__item dodont__item--do"><div class="dodont__label dodont__label--do">✓ Hacer</div><div class="dodont__text">Hablar en resultados concretos con datos: "↓86% ausentismo", "+40 citas/mes".</div></div>
+    <div class="dodont__item dodont__item--dont"><div class="dodont__label dodont__label--dont">✗ No Hacer</div><div class="dodont__text">Prometer sin datos: "La mejor IA", "Revolucionario", "Sin igual en el mercado".</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 13 MOCKUPS ═══ -->
+<div class="sect">
+  <div class="sect__num">13</div>
+  <div class="sect__title">Mockups de Aplicación</div>
+
+  <div class="sect__sub">Landing Page</div>
+  <div class="sect__text">Estructura: navbar con wordmark + hero con Math Grid + cards con gradient-top + caso clínico con Language+Margin.</div>
+
+  <!-- Landing mockup -->
+  <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--bg);margin:20px 0;max-width:700px">
+    <!-- Navbar -->
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="24" height="24"><defs><linearGradient id="mk1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#mk1)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+        <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink)">clinera<span style="color:var(--mint)">.io</span></span>
+      </div>
+      <div style="display:flex;gap:16px;align-items:center">
+        <span style="font-family:var(--mono);font-size:8px;color:var(--ink-m)">Funcionalidades</span>
+        <span style="font-family:var(--mono);font-size:8px;color:var(--ink-m)">Planes</span>
+        <span style="font-family:var(--mono);font-size:8px;color:var(--ink-m)">Roadmap</span>
+        <span style="font-family:var(--mono);font-size:8px;padding:4px 10px;background:var(--grad);color:white;border-radius:3px;font-weight:600">Comienza</span>
+      </div>
+    </div>
+
+    <!-- Hero with Math Grid -->
+    <div style="padding:32px 20px;background-image:var(--nb-math);background-size:var(--nb-math-size);background-color:var(--bg);position:relative">
+      <div style="position:absolute;top:-20px;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(0,159,227,0.05),transparent 70%);border-radius:50%;filter:blur(30px)"></div>
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:var(--mint-f);color:var(--mint);border:1px solid var(--mint-b);display:inline-flex;font-weight:600;margin-bottom:12px;position:relative">Rx · Automatización</div>
+      <div style="font-family:var(--mono);font-size:24px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:8px;position:relative">Tu WhatsApp <span class="gt">agenda solo.</span></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--ink-m);line-height:1.6;font-weight:300;margin-bottom:16px;max-width:400px;position:relative">Clinera responde pacientes, agenda citas y confirma asistencia por ti — 24/7, sin intervención manual.</div>
+      <div style="display:flex;gap:8px;position:relative">
+        <span style="font-family:var(--mono);font-size:9px;padding:8px 16px;background:var(--grad);color:white;border-radius:3px;font-weight:600">Activar mi clínica →</span>
+        <span style="font-family:var(--mono);font-size:9px;padding:8px 16px;border:1px solid var(--border-h);border-radius:3px;color:var(--ink)">Ver demo →</span>
+      </div>
+    </div>
+
+    <!-- Features cards -->
+    <div style="padding:20px;background:var(--bg2)">
+      <div style="font-family:var(--mono);font-size:8px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-m);margin-bottom:12px">Funcionalidades</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div style="padding:12px;border:1px solid var(--border);border-radius:4px;background:var(--bg);position:relative;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0.5"></div>
+          <div style="font-size:14px;margin-bottom:6px">💬</div>
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;color:var(--ink);margin-bottom:3px">WhatsApp agenda solo</div>
+          <div style="font-family:var(--sans);font-size:7px;color:var(--ink-m);line-height:1.5;font-weight:300">AURA atiende y agenda automáticamente.</div>
+        </div>
+        <div style="padding:12px;border:1px solid var(--border);border-radius:4px;background:var(--bg);position:relative;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0.5"></div>
+          <div style="font-size:14px;margin-bottom:6px">⚡</div>
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;color:var(--ink);margin-bottom:3px">Cero ausencias</div>
+          <div style="font-family:var(--sans);font-size:7px;color:var(--ink-m);line-height:1.5;font-weight:300">Confirmación automática por WhatsApp.</div>
+        </div>
+        <div style="padding:12px;border:1px solid var(--border);border-radius:4px;background:var(--bg);position:relative;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0.5"></div>
+          <div style="font-size:14px;margin-bottom:6px">📋</div>
+          <div style="font-family:var(--mono);font-size:9px;font-weight:700;color:var(--ink);margin-bottom:3px">Fichas médicas</div>
+          <div style="font-family:var(--sans);font-size:7px;color:var(--ink-m);line-height:1.5;font-weight:300">Plantillas por especialidad en la nube.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Caso clínico with Language + Margin -->
+    <div style="padding:20px">
+      <div style="background-image:var(--nb-lang-margin);background-size:var(--nb-lang-margin-size);background-color:var(--bg);padding:16px 16px 16px 56px;border:1px solid var(--border);border-radius:4px">
+        <div style="font-family:var(--mono);font-size:7px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;background:var(--green-f);color:var(--green);border:1px solid var(--green-b);display:inline-flex;font-weight:600;margin-bottom:8px">Caso Clínico · Verificado</div>
+        <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink);line-height:28px">Dra. Katherin Meza</div>
+        <div style="font-family:var(--sans);font-size:8px;color:var(--ink-m);line-height:28px;font-weight:300">Dermatóloga · Santiago · 3 profesionales</div>
+        <div style="font-family:var(--mono);font-size:8px;color:var(--ink-s);line-height:28px"><span style="color:var(--red);font-weight:600">Antes:</span> 35% ausentismo</div>
+        <div style="font-family:var(--mono);font-size:8px;color:var(--ink-s);line-height:28px"><span style="color:var(--green);font-weight:600">Con Clinera:</span> 5% ausentismo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sect__sub">Post Redes Sociales</div>
+  <div class="sect__text">Formato estándar: badge + título mono bold con GradientText + dato concreto + CTA gradiente. Footer con wordmark <strong>&gt; clinera.io █</strong>. Patrón de fondo: Math Grid para métricas, Language+Margin para testimonios.</div>
+
+  <!-- Two posts side by side -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0">
+
+    <!-- Post 1: Métricas con Math Grid -->
+    <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--bg)">
+      <div style="background-image:var(--nb-math);background-size:var(--nb-math-size);background-color:var(--bg);padding:20px 16px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
+        <div style="position:absolute;top:-10px;right:-10px;width:100px;height:100px;background:radial-gradient(circle,rgba(0,159,227,0.05),transparent 70%);border-radius:50%;filter:blur(15px)"></div>
+        <div>
+          <div style="font-family:var(--mono);font-size:7px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;font-weight:600;background:var(--mint-f);color:var(--mint);border:1px solid var(--mint-b);display:inline-flex;margin-bottom:10px;position:relative">Dx · Métricas</div>
+          <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:8px;position:relative">Tu clínica pierde <span class="gt">12 citas</span> por semana.</div>
+          <div style="font-family:var(--sans);font-size:9px;color:var(--ink-m);line-height:1.5;font-weight:300;position:relative">El 62% de pacientes que no recibe respuesta en 5 min no vuelve a escribir.</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:8px;padding:8px 14px;background:var(--grad);color:white;border:none;border-radius:3px;font-weight:600;text-align:center;position:relative;margin-top:12px">Activa → clinera.io</div>
+      </div>
+      <div style="padding:8px 16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;align-items:center;gap:6px">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="16" height="16"><defs><linearGradient id="pf1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#pf1)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+          <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--ink)">clinera<span style="color:var(--mint)">.io</span></span>
+        </div>
+        <span style="font-family:var(--mono);font-size:6px;color:var(--ink-m)">Software de IA para Clínicas</span>
+      </div>
+    </div>
+
+    <!-- Post 2: Testimonio con Language + Margin -->
+    <div style="border:1px solid var(--border);border-radius:6px;overflow:hidden;background:var(--bg)">
+      <div style="background-image:var(--nb-lang-margin);background-size:var(--nb-lang-margin-size);background-color:var(--bg);padding:20px 16px 20px 56px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
+        <div style="position:absolute;top:-10px;right:-10px;width:100px;height:100px;background:radial-gradient(circle,rgba(124,58,237,0.04),transparent 70%);border-radius:50%;filter:blur(15px)"></div>
+        <div>
+          <div style="font-family:var(--mono);font-size:7px;letter-spacing:0.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;font-weight:600;background:var(--mint-f);color:var(--mint);border:1px solid var(--mint-b);display:inline-flex;margin-bottom:10px;position:relative">Caso Clínico</div>
+          <div style="font-family:var(--mono);font-size:15px;font-weight:700;color:var(--ink);line-height:28px;margin-bottom:4px;position:relative">"Por fin tengo <span class="gt">tiempo</span> para mis pacientes."</div>
+          <div style="font-family:var(--sans);font-size:9px;color:var(--ink-m);line-height:28px;font-weight:300;position:relative">Dra. Katherin Meza · Dermatóloga · Santiago</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:8px;padding:8px 14px;background:var(--grad);color:white;border:none;border-radius:3px;font-weight:600;text-align:center;position:relative;margin-top:12px">Activa → clinera.io</div>
+      </div>
+      <div style="padding:8px 16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+        <div style="display:flex;align-items:center;gap:6px">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="16" height="16"><defs><linearGradient id="pf2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#009FE3"/><stop offset="50%" stop-color="#7C3AED"/><stop offset="100%" stop-color="#C850C0"/></linearGradient></defs><rect width="200" height="200" rx="40" fill="url(#pf2)"/><text x="100" y="112" text-anchor="middle" dominant-baseline="central" font-family="'Source Code Pro',monospace" font-size="100" font-weight="700" fill="white">C</text></svg>
+          <span style="font-family:var(--mono);font-size:8px;font-weight:700;color:var(--ink)">clinera<span style="color:var(--mint)">.io</span></span>
+        </div>
+        <span style="font-family:var(--mono);font-size:6px;color:var(--ink-m)">Software de IA para Clínicas</span>
+      </div>
+    </div>
+  </div>
+  <div class="sect__note">Formato post: emoji en título → . → párrafo → . → CTA con emoji + URL. Texto plano sin negritas. Separar secciones con "." en línea propia.</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ 14 CSS VARIABLES ═══ -->
+<div class="sect">
+  <div class="sect__num">14</div>
+  <div class="sect__title">CSS Variables — Copy/Paste</div>
+  <div class="code"><span class="c">/* ═══ CLINERA · STERILE · PROMPT · Design System ═══ */</span>
+
+<span class="k">:root</span> {
+  <span class="c">/* Surfaces */</span>
+  <span class="k">--bg:</span> <span class="v">#FAFBFC</span>;
+  <span class="k">--bg2:</span> <span class="v">#F4F5F7</span>;
+  <span class="k">--bg3:</span> <span class="v">#ECEEF1</span>;
+
+  <span class="c">/* Ink */</span>
+  <span class="k">--ink:</span> <span class="v">#111318</span>;
+  <span class="k">--ink-soft:</span> <span class="v">#3D4250</span>;
+  <span class="k">--ink-muted:</span> <span class="v">#9CA3AF</span>;
+  <span class="k">--ink-light:</span> <span class="v">#D1D5DB</span>;
+
+  <span class="c">/* Accent */</span>
+  <span class="k">--mint:</span> <span class="v">#10B981</span>;
+  <span class="k">--mint-faint:</span> <span class="v">rgba(16,185,129,0.06)</span>;
+  <span class="k">--mint-border:</span> <span class="v">rgba(16,185,129,0.18)</span>;
+
+  <span class="c">/* Gradient IA (Clinera Original) */</span>
+  <span class="k">--cyan:</span> <span class="v">#009FE3</span>;
+  <span class="k">--violet:</span> <span class="v">#7C3AED</span>;
+  <span class="k">--magenta:</span> <span class="v">#C850C0</span>;
+  <span class="k">--grad-ia:</span> <span class="v">linear-gradient(135deg, #009FE3, #7C3AED, #C850C0)</span>;
+  <span class="k">--grad-ia-soft:</span> <span class="v">linear-gradient(135deg, rgba(0,159,227,0.06), rgba(124,58,237,0.04), rgba(200,80,192,0.03))</span>;
+
+  <span class="c">/* Functional */</span>
+  <span class="k">--green:</span> <span class="v">#10B981</span>;
+  <span class="k">--red:</span> <span class="v">#EF4444</span>;
+
+  <span class="c">/* Borders */</span>
+  <span class="k">--border:</span> <span class="v">rgba(0,0,0,0.06)</span>;
+  <span class="k">--border-hover:</span> <span class="v">rgba(0,0,0,0.1)</span>;
+
+  <span class="c">/* Dot Grid */</span>
+  <span class="k">--dot-grid:</span> <span class="v">radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px)</span>;
+  <span class="k">--dot-size:</span> <span class="v">32px 32px</span>;
+
+  <span class="c">/* Typography */</span>
+  <span class="k">--mono:</span> <span class="v">'Source Code Pro', monospace</span>;
+  <span class="k">--sans:</span> <span class="v">'Sora', sans-serif</span>;
+  <span class="c">/* Mono weight: 700 (titles, labels, data) */</span>
+  <span class="c">/* Sans weight: 300 (body), 400 (emphasis) */</span>
+}
+
+<span class="c">/* GradientText utility */</span>
+<span class="k">.grad-text</span> {
+  <span class="k">background:</span> <span class="v">var(--grad-ia)</span>;
+  <span class="k">-webkit-background-clip:</span> <span class="v">text</span>;
+  <span class="k">-webkit-text-fill-color:</span> <span class="v">transparent</span>;
+}
+
+<span class="c">/* Dot Grid utility */</span>
+<span class="k">.dot-grid</span> {
+  <span class="k">background-image:</span> <span class="v">var(--dot-grid)</span>;
+  <span class="k">background-size:</span> <span class="v">var(--dot-size)</span>;
+}
+
+<span class="c">/* ═══ Notebook Patterns ═══ */</span>
+
+<span class="c">/* Math Grid — cuadrícula de matemática (32px, amplia) */</span>
+<span class="k">--nb-math:</span>
+  <span class="v">linear-gradient(rgba(0,0,0,0.025) 1px, transparent 1px),</span>
+  <span class="v">linear-gradient(90deg, rgba(0,0,0,0.025) 1px, transparent 1px)</span>;
+<span class="k">--nb-math-size:</span> <span class="v">32px 32px</span>;
+
+<span class="c">/* Language + Margin — líneas + margen rojo */</span>
+<span class="k">--nb-lang-margin:</span>
+  <span class="v">linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),</span>
+  <span class="v">linear-gradient(90deg, transparent 47px,</span>
+    <span class="v">rgba(239,68,68,0.12) 47px, rgba(239,68,68,0.12) 48px,</span>
+    <span class="v">transparent 48px)</span>;
+<span class="k">--nb-lang-margin-size:</span> <span class="v">100% 28px, 100% 100%</span>;
+
+<span class="c">/* Usage: */</span>
+<span class="k">.math-grid</span> {
+  <span class="k">background-image:</span> <span class="v">var(--nb-math)</span>;
+  <span class="k">background-size:</span> <span class="v">var(--nb-math-size)</span>;
+}
+<span class="k">.lang-margin</span> {
+  <span class="k">background-image:</span> <span class="v">var(--nb-lang-margin)</span>;
+  <span class="k">background-size:</span> <span class="v">var(--nb-lang-margin-size)</span>;
+}</div>
+</div>
+
+<!-- FOOTER -->
+<div class="manual-footer">
+  <span class="manual-footer__text">© 2026 OACG Inc. · Clinera.io · Manual de Marca Definitivo · STERILE v2.0</span>
+  <span class="badge badge--mint" style="font-size:8px">REF BM-DEF-001</span>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>

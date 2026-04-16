@@ -1,18 +1,17 @@
-# Ignorar TODO por defecto
-/*
+# Ignorar archivos pesados y basura
+*.psd
+*.zip
+*.pcap
+*.tar.gz
+node_modules/
+.next/
+.env*
+.DS_Store
 
-# Permitir explícitamente la carpeta public y su contenido
-!/public/
-!/public/**
+# Carpetas viejas que no queremos en el repo
+onboarding/
+WEBINAR/
+"web 2.0"/
+"web 2.0_backup"/
 
-# Permitir archivos de configuración esencial en la raíz
-!/.gitignore
-!/README.md
-!/package.json
-!/next.config.ts
-!/tsconfig.json
-
-# Pero ignorar archivos pesados dentro de public (por si acaso)
-public/**/*.psd
-public/**/*.zip
-public/**/*.pcap
+# PERMITIR el resto para que Vercel funcione

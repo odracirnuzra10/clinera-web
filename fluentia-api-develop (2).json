@@ -1,0 +1,3521 @@
+{
+  "v": 11,
+  "id": "cmfosha640162il1kzio4bvb8",
+  "name": "fluentia-api-develop",
+  "folders": [
+    {
+      "v": 11,
+      "id": "cmfoshadf017uil1kck1z7mhy",
+      "name": "auth",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "login",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/login",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo1NiwiaWF0IjoxNzYxMDE3MjU3LCJleHAiOjE3OTI1NTMyNTcsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.03rnl9AUhqnvDX5d54sIX_rM17Z-NhIjOo91KO0WpG8",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"email\": \"jorge@mail.com\",\n  \"password\": \"j12345678\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgvp50li_edeb949b-13c8-414f-95b7-48b68deec98b",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "register",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/register",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "51",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"sofiacamus906\",\n  \"email\": \"sofia.camus@metodohebe.cl\",\n  \"password\": \"Sofiacamus21%\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgl8odbu_5a698639-e857-444c-9ed8-102ca47e66df",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "ws-token",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/ws-token",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "31",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTg5OTQ0NjUsImV4cCI6MTc5MDUzMDQ2NSwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.ffFOVme15Wnx147d2Fa_sDqUse9ohAuptzBRngAc5K8",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"ttl\": \"30d\",\n}\n"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5aszx_e5b28c0e-c97c-4770-bf46-b5e5dd9d2ac8",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "register - Duplicate",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/register",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmi7c1wj4000bn00fw6bp680j",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"theraxcell\",\n  \"email\": \"joaquinpenah@clinicafip.cl\",\n  \"password\": \"joaquin123\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgl8odbu_5a698639-e857-444c-9ed8-102ca47e66df",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "login.joaquin",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/login",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo1NiwiaWF0IjoxNzYxMDE3MjU3LCJleHAiOjE3OTI1NTMyNTcsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.03rnl9AUhqnvDX5d54sIX_rM17Z-NhIjOo91KO0WpG8",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"email\": \"joaquinpenah@clinicafip.cl\",\n  \"password\": \"joaquin123\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgvp50li_edeb949b-13c8-414f-95b7-48b68deec98b",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "login.danae",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/login",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "51",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo1NiwiaWF0IjoxNzYxMDE3MjU3LCJleHAiOjE3OTI1NTMyNTcsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.03rnl9AUhqnvDX5d54sIX_rM17Z-NhIjOo91KO0WpG8",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"email\": \"danae.munoz@metodohebe.cl\",\n  \"password\": \"CU5oTORt\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgvp50li_edeb949b-13c8-414f-95b7-48b68deec98b",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "login.sofia_camus",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/login",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "51",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo1NiwiaWF0IjoxNzYxMDE3MjU3LCJleHAiOjE3OTI1NTMyNTcsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.03rnl9AUhqnvDX5d54sIX_rM17Z-NhIjOo91KO0WpG8",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"email\": \"sofia.camus@metodohebe.cl\",\n  \"password\": \"Sofiacamus21%\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgvp50li_edeb949b-13c8-414f-95b7-48b68deec98b",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "login.marcela_vera_garcia",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/login",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "51",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo1NiwiaWF0IjoxNzYxMDE3MjU3LCJleHAiOjE3OTI1NTMyNTcsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.03rnl9AUhqnvDX5d54sIX_rM17Z-NhIjOo91KO0WpG8",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"email\": \"marcela.vera@metodohebe.cl\",\n  \"password\": \"prosegur2020\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miopcrzk_aa94820c-15d9-47ce-90af-a4ed67661cc7",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "login.cecilia",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/auth/login",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "51",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo1NiwiaWF0IjoxNzYxMDE3MjU3LCJleHAiOjE3OTI1NTMyNTcsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.03rnl9AUhqnvDX5d54sIX_rM17Z-NhIjOo91KO0WpG8",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"email\": \"cecilia.gimenez@metodohebe.cl\",\n  \"password\": \"96wjJJ0B\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq367cp_cf271374-4ec9-49d4-b1b4-18715e4ba3fc",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_6db8ae5f-8a9e-4193-981b-702e28d08cc8"
+    },
+    {
+      "v": 11,
+      "id": "cmg8dn1si07kmil1kcingcvja",
+      "name": "audiences",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "create.audience",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/audiences",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"No pacientes sin tags, stage compro\",\n  \"description\": \"No pacientes sin tags, stage compro\",\n  \"tags\": \"Edad: 18-35, Interés: Salud facial, Ubicación: RM\",\n  \"filters\": {\n    \"stage\": \"compro\",\n    \"is_patient\": false\n    // \"tags_any\": [\"compro\"]\n  },\n  \"status\": \"active\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dn19v_1790735a-b838-463d-9564-fae242ceb676",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "bulk.send.template",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/audiences/send-template",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmexa6fkb0000uqgc9rb5bbzt",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyNTIyNzcsImV4cCI6MTc5MDc4ODI3NywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.ilryRLv8E96VUZqIkb8KU1bpCr_0QpetELmp0-wMzzg",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"template_name\": \"promo_octubre\",\n  \"language_code\": \"es_AR\",\n  \"components\": [\n    {\n      \"type\": \"header\",\n      \"parameters\": [\n        { \"type\": \"text\", \"text\": \"María Gómez\" }     // HEADER {{1}}\n      ]\n    },\n    {\n      \"type\": \"body\",\n      \"parameters\": [\n        { \"type\": \"text\", \"text\": \"María\" },          // BODY {{1}}\n        { \"type\": \"text\", \"text\": \"15/09/2025\" },     // BODY {{2}}\n        { \"type\": \"text\", \"text\": \"15:30\" },          // BODY {{3}}\n        { \"type\": \"text\", \"text\": \"Clínica Central\" } // BODY {{4}}\n      ]\n    },\n    {\n      \"type\": \"button\",\n      \"sub_type\": \"url\",\n      \"index\": \"0\",\n      \"parameters\": [\n        { \"type\": \"text\", \"text\": \"ABC123\" }          // URL {{1}} -> https://clinica.example.com/turnos/ABC123\n      ]\n    }\n  ],\n  \"audience\": {\n    \"stage\": \"new_lead\",\n    \"tags_any\": [\"only-me\"],\n    \"is_patient\": true,\n    \"per_page\": 500\n  },\n  \"dry_run\": false,\n  \"batch_size\": 50,\n  \"delay_ms\": 250\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dn19w_4b1ed3f2-e004-48aa-a30d-4a126dd60819",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.audience.by.tags",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/audiences/contacts",
+          "params": [
+            {
+              "key": "stage",
+              "value": "new_lead",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "is_patient",
+              "value": "true",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "tags_any",
+              "value": "promo-octubre",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "per_page",
+              "value": "10",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyNTIyNzcsImV4cCI6MTc5MDc4ODI3NywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.ilryRLv8E96VUZqIkb8KU1bpCr_0QpetELmp0-wMzzg",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dn19w_66273c93-d736-4754-ace4-2701e3d43a11",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.audiences",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/audiences",
+          "params": [
+            {
+              "key": "page",
+              "value": "1",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "per_page",
+              "value": "10",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "include_counts",
+              "value": "true",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dn19w_4b23c37c-22fc-4403-8b2d-60dc4c21d12d",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "bulk.send.audience.template",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/audiences/1/send-template",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyNTIyNzcsImV4cCI6MTc5MDc4ODI3NywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.ilryRLv8E96VUZqIkb8KU1bpCr_0QpetELmp0-wMzzg",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"template_name\": \"promo_octubre\",\n  \"language_code\": \"es_AR\",\n  \"components\": [\n    { \"type\": \"header\", \"parameters\": [{ \"type\": \"text\", \"text\": \"María Gómez\" }] },\n    { \"type\": \"body\", \"parameters\": [\n        { \"type\": \"text\", \"text\": \"María\" },\n        { \"type\": \"text\", \"text\": \"15/09/2025\" },\n        { \"type\": \"text\", \"text\": \"15:30\" },\n        { \"type\": \"text\", \"text\": \"Clínica Central\" }\n    ]},\n    { \n      \"type\": \"button\", \"sub_type\": \"url\", \"index\": \"0\",\n      \"parameters\": [{ \"type\": \"text\", \"text\": \"ABC123\" }]\n    }\n  ],\n   \"audience\": {\n    \"is_patient\": true,\n    \"tags_any\": [\"massive-audience\"],\n    \"per_page\": 500\n  },\n  \"dry_run\": false,\n  \"batch_size\": 50,\n  \"delay_ms\": 250\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dn19z_3c4054f3-54b1-4ddd-860e-a4609233173f",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.audience",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/audiences/1",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyNTIyNzcsImV4cCI6MTc5MDc4ODI3NywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.ilryRLv8E96VUZqIkb8KU1bpCr_0QpetELmp0-wMzzg",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"filters\": {\n    \"stage\": \"contactado\",\n    \"tags_all\": [\"prioritario\"]\n  }\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dn19z_2ee0996e-1924-4df6-9ecb-043726bf8cc6",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_1a35dfbf-5502-4296-a4d5-342c01ec2051"
+    },
+    {
+      "v": 11,
+      "id": "cmgsxdhup0di3il1kls941xym",
+      "name": "automations",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "create.automation",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/automations",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"Recordatorio de Cita 3m nuevo\",\n  \"description\": \"WhatsApp 3m antes nuevo\",\n  \"is_active\": true,\n  \"steps\": [\n    { \"type\": \"TRIGGER\", \"name\": \"Cita agendada\", \"config\": { \"source\": \"clinera\", \"event\": \"appointment_created\" } },\n    { \"type\": \"DELAY\", \"name\": \"Esperar 3m\", \"config\": { \"unit\": \"minutes\", \"value\": 3 } },\n    { \"type\": \"ACTION\", \"name\": \"Enviar WhatsApp\", \"config\": { \"type\": \"send_whatsapp_template\", \"template_id\": 3, \"language_code\": \"es_AR\" } }\n  ]\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgsvygqz_a33c6a2d-051f-46ea-9473-44fed573f06c",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.automation.with_components",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/automations",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyNTIyNzcsImV4cCI6MTc5MDc4ODI3NywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.ilryRLv8E96VUZqIkb8KU1bpCr_0QpetELmp0-wMzzg",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"Recordatorio de Cita 1m\",\n  \"description\": \"WhatsApp 1m antes\",\n  \"is_active\": true,\n  \"steps\": [\n    { \"type\": \"TRIGGER\", \"name\": \"Cita agendada\", \"config\": { \"source\": \"clinera\", \"event\": \"appointment_created\" } },\n    { \"type\": \"DELAY\", \"name\": \"Esperar 1m\", \"config\": { \"unit\": \"minutes\", \"value\": 1 } },\n    { \n      \"type\": \"ACTION\", \n      \"name\": \"Enviar WhatsApp\",\n      \"config\": {\n        \"type\": \"send_whatsapp_template\",\n        \"template_id\": 46,\n        \"language_code\": \"es_AR\",\n        \"components\": [\n          {\n            \"type\": \"body\",\n            \"parameters\": [\n              { \"type\": \"text\", \"text\": \"Sam Fisher\" },\n              { \"type\": \"text\", \"text\": \"2025-10-16\" },\n              { \"type\": \"text\", \"text\": \"01:30\" },\n              { \"type\": \"text\", \"text\": \"Dr Gutierrez\" },\n              { \"type\": \"text\", \"text\": \"Angol\" }\n            ]\n          }\n        ]\n      }\n    }\n  ]\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgsn2sst_5c7ca6e9-569e-42f4-8a71-4f9aaef6cb78",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.automations",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/automations",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgsl4xsi_1fcc0c10-50bf-4627-8758-baeb388c3899",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.automation",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/automations/1",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n    \"name\": \"Recordatorio de Cita 36h\",\n    \"description\": \"WhatsApp 36h antes de la cita\",\n    \"is_active\": true,\n    \"tags\": [\"citas\",\"marketing\"],\n    \"metadata\": { \"nodes\": 1, \"edges\": 1 }\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgslae7p_5493dc47-9821-45c4-99ba-40fe058ef3f3",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "delete.automation",
+          "method": "DELETE",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/automations/3",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgsluvcy_afb4de77-2710-4ed7-8ec6-9c6dae4d0546",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "run_now.automation",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/automations/5/run",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n    \"payload\": {\n      \"patient\": { \"phone\": \"+5491149478294\", \"full_name\": \"Sam Fisher\" },\n      \"booking\": { \"date\": \"2025-10-16\", \"time\": \"01:30\", \"professional\": \"Dr Gutierrez\", \"branch\": \"Angol\" }\n    },\n    \"bypass_delay\": true\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgsmef4s_76a1e918-f391-4c2e-983a-09dc142d7599",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "get.automation",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/automations/1",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgsv7gjm_81bb8ef3-a996-4c3c-a078-8f31a29c9ad0",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.automation.variables_mapping",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/automations",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0MCwiaWF0IjoxNzYwNTg5NzI5LCJleHAiOjE3OTIxMjU3MjksImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.mOIa7l2yCeouZepYA14lHUK-YRBsOUvVkY7C-cAdAqk",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"Confirmación de Turno\",\n  \"description\": \"Envía WhatsApp al crear turno\",\n  \"is_active\": true,\n  \"steps\": [\n    {\n      \"type\": \"TRIGGER\",\n      \"name\": \"Clinera appointment_created\",\n      \"config\": { \"source\": \"clinera\", \"event\": \"appointment_created\" }\n    },\n    {\n      \"type\": \"ACTION\",\n      \"name\": \"Enviar WhatsApp Template\",\n      \"config\": {\n        \"type\": \"send_whatsapp_template\",\n        \"template_name\": \"appointment_confirmation\",\n        \"language_code\": \"es_AR\",\n        \"variables_mapping\": [\n          { \"index\": 1, \"path\": \"patient.full_name\", \"fallback\": \"Paciente\" },\n          { \"index\": 2, \"path\": \"booking.date\" },\n          { \"index\": 3, \"path\": \"booking.time\" },\n          { \"index\": 4, \"path\": \"booking.professional\" },\n          { \"index\": 5, \"path\": \"booking.branch\" }\n        ],\n        \"header_text_var\": { \"path\": \"booking.treatment\", \"fallback\": \"\" },\n        \"button_url_vars\": [\n          { \"button_index\": 0, \"path\": \"confirm_url\" },\n          { \"button_index\": 1, \"path\": \"reschedule_url\" }\n        ],\n        \"strict\": false\n      }\n    }\n  ]\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgucxu2s_46aad708-3e58-447a-91d6-be624e4dcda6",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_47185860-3660-4aa6-9997-3142f190866c"
+    },
+    {
+      "v": 11,
+      "id": "cmfyxnfsb1rocif1l2nmreoql",
+      "name": "businesses",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "list.businesses",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/businesses",
+          "params": [
+            {
+              "key": "page",
+              "value": "1",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "per_page",
+              "value": "5",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkwMTk3NDIsImV4cCI6MTc5MDU1NTc0MiwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.x5-TWhKzf-BQlc-EZZNUosu8Pj9DaW2MZxGXOgWjR7k",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at03_71f33ff5-4e73-4fab-9598-c2261b8de667",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "current.business",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/businesses/current",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyLCJpYXQiOjE3NTkxMTc2MzQsImV4cCI6MTc5MDY1MzYzNCwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.dMDNzhxBfzxLj-Ju4bDBPpGA3_S7iNSBq2_2T7575Ow",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dkdqk_a6030bce-58e7-45a3-ac8e-b176f3c906cf",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "store.business",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/businesses",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"theraxcell\",\n  \"email\": \"joaquinpenah@clinicafip.cl\",\n  \"phone\": \"\",\n  \"business_id\": \"theraxcell\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mi7jax8j_4fa5b5f4-dfcf-4a09-863c-acaaec4f30b7",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.user.business",
+          "method": "PATCH",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/users/5",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "",
+            "authActive": false
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at03_e24dc6ce-43ee-4967-aa69-c0eccbb246bc",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_f8f35d9b-1beb-4cd6-96c3-6d52bf232600"
+    },
+    {
+      "v": 11,
+      "id": "cmfskwvts0jioif1ls5vgb9rj",
+      "name": "chat-ai",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "correct",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/ai/correct",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyLCJpYXQiOjE3NTkxMTc2MzQsImV4cCI6MTc5MDY1MzYzNCwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.dMDNzhxBfzxLj-Ju4bDBPpGA3_S7iNSBq2_2T7575Ow",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": " {\n   \"text\": \"Hola Sam Fisher! Te confirmo tu turno el lunes a las 9hs, especialidad ortodoncia.\", \n   \"tone\": \"formal\"\n }"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at01_f287cd05-56a0-43a6-8014-6dfaccb19ec7",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "summarize",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/ai/summarize",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": " {\n   \"text\": \"Un ejemplo de texto largo puede ser una extensa reflexión sobre la vida y la existencia humana, como el que se encuentra en Wattpad, donde se explora la complejidad de ser persona, enfrentando emociones como el amor, el sufrimiento, la identidad y la muerte, destacando que la vida es el tiempo que se tiene para experimentar todas esas sensaciones, y que ser persona implica llevarlas consigo sin perder la esencia. Otro ejemplo es un texto narrativo de gran extensión, como el que se menciona en textos.info, que abarca la descripción de vidas comparadas, con un tono que se adentra en sucesos prodigiosos y trágicos, propios de poetas y mitólogos, donde la certeza histórica se diluye. También existen textos largos en formato de copypasta, como el que se comparte en Reddit, que se extiende con una mezcla de reflexiones, creaciones lingüísticas como el Elefen y el Toki Pona, y anécdotas personales, alcanzando más de caracteres, con el objetivo de convertirse en el texto más largo de la historia\",\n   \"max_len\": 25\n }"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at01_09336cda-ca2f-4ba0-96a1-b722631db080",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "whatsapp-templates",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/ai/suggest-templates",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"text\": \"texto aqui\",\n  \"enabled\": true,\n  \"scope\": \"conversation\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at01_2be14c43-d482-4ba0-a31e-83c47b6a46ee",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "reply-suggestion",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/conversations/1/ai/reply",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at01_fb594ad2-c07f-41cd-a041-8d41743433d5",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "toggle.chatbot",
+          "method": "POST",
+          "endpoint": "<<baseUrl>>/conversations/2/chatbot/toggle",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"enabled\": true,\n  \"scope\": \"conversation\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at01_0636646c-d803-47e9-b256-bc25627bf1d5",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "chatbot.conversation.status",
+          "method": "GET",
+          "endpoint": "<<baseUrl>>/conversations/2/chatbot/status",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at01_cb61d5e3-37a7-4a23-998b-f4fccd0ee5e2",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "set.on",
+          "method": "PUT",
+          "endpoint": "<<baseUrl>>/ai/agent-config",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"enabled\": true,\n  \"agent_name\": \"Asistente de Clínica Demo\",\n  \"tone\": \"Cálido, profesional y claro\",\n  \"system_prompt\": \"Responde como front desk...\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at01_a8c612a7-ef0d-472a-ba21-19ab30790217",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "set.off",
+          "method": "PUT",
+          "endpoint": "<<baseUrl>>/ai/agent-config",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": " {\n   \"enabled\": false\n }"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at01_a5affc1f-5f66-4770-af3d-36a2af7de273",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_d0db1e9a-4064-45bf-a6bb-50ff5978bacd"
+    },
+    {
+      "v": 11,
+      "id": "cmg8dpf650v8jif1kcoly3d7z",
+      "name": "contacts",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "list.contacts",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyMDUzMTMsImV4cCI6MTc5MDc0MTMxMywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.oiJLWoQYy0qq6DFWrTx7q4442LnKLJcM4KjK5ED9sbc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mghgjkz4_b06602e4-a923-4210-8a39-57691473fe2c",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "get.contact",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts/6",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyMDUzMTMsImV4cCI6MTc5MDc0MTMxMywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.oiJLWoQYy0qq6DFWrTx7q4442LnKLJcM4KjK5ED9sbc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mghh7ro2_7ae31116-6eab-45a1-a34f-a2f4f4871ddf",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.contact.jorge",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYyODIzMzU0LCJleHAiOjE3OTQzNTkzNTQsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.yrCtxvsrI9azSDeq7Yldp5a9lSyWYxJUgaFxcFvAG4o",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"full_name\": \"Test User\",\n  \"phone\": \"+5192397108399\",\n  \"email\": \"test.user@clinera.io\",\n  \"funnel_stage\": {\"current\": \"new_lead\", \"color\": \"#00AEEF\"},\n  \"tags\": [\"massive-audience\", \"vip\", \"promo-octubre\"],\n  \"notes\": \"Prefiere tarde\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dperr_c58c15af-dc8f-4f4d-97ba-642e40c2f978",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.contact",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts/10",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyMDUzMTMsImV4cCI6MTc5MDc0MTMxMywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.oiJLWoQYy0qq6DFWrTx7q4442LnKLJcM4KjK5ED9sbc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"funnel_stage\": \"contactado\",\n  \"tags\": \"vip,seguimiento\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dperr_776fbc1e-5e1f-45dd-83a7-bd7032889b37",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.contact.delfina",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyMDUzMTMsImV4cCI6MTc5MDc0MTMxMywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.oiJLWoQYy0qq6DFWrTx7q4442LnKLJcM4KjK5ED9sbc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"full_name\": \"Delfina Spais\",\n  \"phone\": \"+5493436207943\",\n  \"email\": \"delfina@clinera.io\",\n  \"funnel_stage\": {\"current\": \"new_lead\", \"color\": \"#00AEEF\"},\n  \"tags\": [\"massive-audience\", \"vip\"],\n  \"notes\": \"Prefiere tarde\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dperr_b6ddeffb-aaf5-45cc-adc8-de54a79f53e5",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.contact.daniel",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyMDUzMTMsImV4cCI6MTc5MDc0MTMxMywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.oiJLWoQYy0qq6DFWrTx7q4442LnKLJcM4KjK5ED9sbc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"full_name\": \"Daniel Rozitchner\",\n  \"phone\": \"+5491164675180\",\n  \"email\": \"daniel@clinera.io\",\n  \"funnel_stage\": {\"current\": \"new_lead\", \"color\": \"#00AEEF\"},\n  \"tags\": [\"massive-audience\", \"vip\"],\n  \"notes\": \"Prefiere tarde\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dpers_26bd8ce8-2f6b-4ff0-b318-aaac5a2623ca",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.contact.sam",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyMDUzMTMsImV4cCI6MTc5MDc0MTMxMywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.oiJLWoQYy0qq6DFWrTx7q4442LnKLJcM4KjK5ED9sbc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"full_name\": \"Sam Fisher\",\n  \"phone\": \"+5491149478294\",\n  \"email\": \"sam@clinera.io\",\n  \"funnel_stage\": {\"current\": \"new_lead\", \"color\": \"#00AEEF\"},\n  \"tags\": [\"massive-audience\", \"vip\"],\n  \"notes\": \"Prefiere tarde\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dpers_b4855807-22ce-4f55-81c9-031ff2ea9791",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "delete.contact",
+          "method": "DELETE",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts/5",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyMDUzMTMsImV4cCI6MTc5MDc0MTMxMywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.oiJLWoQYy0qq6DFWrTx7q4442LnKLJcM4KjK5ED9sbc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mghha4pz_35a2f2f7-2ee2-4af3-9839-0aaef537e2aa",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.contact.batman",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYxNzgzNTkzLCJleHAiOjE3OTMzMTk1OTMsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.YnK_IyxHqFx4t07ZTjb_X24Ym3q69JMRfC_DeYPoRJw",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"full_name\": \"Batman\",\n  \"phone\": \"+541149478294\",\n  \"email\": \"batman@clinera.io\",\n  \"funnel_stage\": {\"current\": \"new_lead\", \"color\": \"#00AEEF\"},\n  \"tags\": [\"massive-audience\", \"vip\"],\n  \"notes\": \"Prefiere tarde\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mg8dperr_b6ddeffb-aaf5-45cc-adc8-de54a79f53e5",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_8d3b5d06-0dad-469b-b5dc-b6fbe016fe6e"
+    },
+    {
+      "v": 11,
+      "id": "cmfosha700166il1kvfmfof9v",
+      "name": "conversations",
+      "folders": [
+        {
+          "v": 11,
+          "id": "cmfoshae1017zil1khy9j45zc",
+          "name": "contact",
+          "folders": [],
+          "requests": [
+            {
+              "v": "17",
+              "name": "get.conversation.contact",
+              "method": "GET",
+              "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/1/contact",
+              "params": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "active": true,
+                  "description": ""
+                },
+                {
+                  "key": "per_page",
+                  "value": "10",
+                  "active": true,
+                  "description": ""
+                }
+              ],
+              "headers": [
+                {
+                  "key": "X-Business-Id",
+                  "value": "cmexa6fkb0000uqgc9rb5bbzt",
+                  "active": true,
+                  "description": ""
+                }
+              ],
+              "preRequestScript": "",
+              "testScript": "",
+              "auth": {
+                "authType": "inherit",
+                "authActive": true
+              },
+              "body": {
+                "contentType": null,
+                "body": null
+              },
+              "requestVariables": [],
+              "responses": {},
+              "_ref_id": "req_miq5atl8_57c826f3-ffb5-4971-b5cf-8401980e4cbb",
+              "description": null
+            },
+            {
+              "v": "17",
+              "name": "update.conversation.contact",
+              "method": "PUT",
+              "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/1/contact",
+              "params": [],
+              "headers": [],
+              "preRequestScript": "",
+              "testScript": "",
+              "auth": {
+                "authType": "inherit",
+                "authActive": true
+              },
+              "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"funnel_stage\": {\"current\":\"new_funnel_stage\"}\n}"
+              },
+              "requestVariables": [],
+              "responses": {},
+              "_ref_id": "req_miq5atl9_fccaf5be-e896-4ace-b851-45066faca1a4",
+              "description": null
+            },
+            {
+              "v": "17",
+              "name": "get.contacts.by.funnel_stage",
+              "method": "GET",
+              "endpoint": "https://fluentia-api-develop-latest.up.railway.app/contacts/funnel",
+              "params": [
+                {
+                  "key": "stage",
+                  "value": "new_lead",
+                  "active": true,
+                  "description": ""
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "active": true,
+                  "description": ""
+                },
+                {
+                  "key": "per_page",
+                  "value": "10",
+                  "active": true,
+                  "description": ""
+                }
+              ],
+              "headers": [
+                {
+                  "key": "X-Business-Id",
+                  "value": "cmemzp2tx0002np31g5gr5li4",
+                  "active": true,
+                  "description": ""
+                }
+              ],
+              "preRequestScript": "",
+              "testScript": "",
+              "auth": {
+                "authType": "inherit",
+                "authActive": true
+              },
+              "body": {
+                "contentType": null,
+                "body": null
+              },
+              "requestVariables": [],
+              "responses": {},
+              "_ref_id": "req_miq5atl9_0b1446c6-cf9d-4e60-a0b2-6138ab1cd538",
+              "description": null
+            }
+          ],
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "headers": [],
+          "variables": [],
+          "description": null,
+          "_ref_id": "coll_miq5au9q_63b82696-4574-4991-9d8e-2a50ce7e54d7"
+        },
+        {
+          "v": 11,
+          "id": "cmg1cv4d5293xil1kg7rtgnm6",
+          "name": "archiving",
+          "folders": [],
+          "requests": [
+            {
+              "v": "17",
+              "name": "archive",
+              "method": "POST",
+              "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/1/archive",
+              "params": [],
+              "headers": [
+                {
+                  "key": "X-Business-Id",
+                  "value": "31",
+                  "active": true,
+                  "description": ""
+                }
+              ],
+              "preRequestScript": "",
+              "testScript": "",
+              "auth": {
+                "authType": "inherit",
+                "authActive": true
+              },
+              "body": {
+                "contentType": null,
+                "body": null
+              },
+              "requestVariables": [],
+              "responses": {},
+              "_ref_id": "req_miq5atkw_44fd21da-cf56-480b-9f7f-1adfbd81dd41",
+              "description": null
+            }
+          ],
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "headers": [],
+          "variables": [],
+          "description": null,
+          "_ref_id": "coll_miq5au9q_7092b0ee-77b3-48ac-bd7a-8abaa896fff3"
+        }
+      ],
+      "requests": [
+        {
+          "v": "17",
+          "name": "list.conversations",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations",
+          "params": [
+            {
+              "key": "page",
+              "value": "1",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "per_page",
+              "value": "10",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "filter",
+              "value": "all",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "31",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkwMTk3NDIsImV4cCI6MTc5MDU1NTc0MiwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.x5-TWhKzf-BQlc-EZZNUosu8Pj9DaW2MZxGXOgWjR7k",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5atx1_24750f48-88fa-4834-8110-04f0429995fb",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "get.conversation",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/25",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "51",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mii6lvem_66581d4a-5447-4620-9157-8fa250f0b66f",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "assign.conversation.to.user",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/1/assign",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"user_id\": 1\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5atx1_655bd3ec-c36a-440a-a982-8e771e9730a1",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "unassign.conversation.to.user",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/1/unassign",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"user_id\": 1\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5atx1_0e913535-c0b7-4adf-b5e2-67200d07cdeb",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "search.by.wa_id",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/search/5491149478294",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5atx1_d9e08327-b138-4714-a6bb-9f70e052706a",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "get.conversation - Duplicate",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/1",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5atx2_a5d58c3b-053c-4cbe-979d-7876328f5050",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.conversations.by.funnel_stage",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/funnel",
+          "params": [
+            {
+              "key": "page",
+              "value": "1",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "per_page",
+              "value": "10",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "stage",
+              "value": "evaluation",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5atx2_1cdf017a-2c07-4672-b93a-67f1869a63a8",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.conversation.messages",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/10/messages",
+          "params": [
+            {
+              "key": "page",
+              "value": "1",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "per_page",
+              "value": "10",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "filter",
+              "value": "all",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "31",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5atx2_1fcaeb17-1885-44f7-a8ce-392f7e9ae636",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "initiate",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/initiate",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmexa6fkb0000uqgc9rb5bbzt",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo4LCJpYXQiOjE3NTg4NDAxOTUsImV4cCI6MTc5MDM3NjE5NSwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.tSB4jzazXOrxb_uVzZ5bbQD6R2xvN_m0mWzXQ5zG8fo",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"contact_id\": 3\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgq45lcf_943dd356-9264-40b1-a0b4-69eae59bea7b",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_b84a5fd6-bbac-4e42-95bc-5ee744cf1aac"
+    },
+    {
+      "v": 11,
+      "id": "cmgjqv87q0004j21kuyp2iuw5",
+      "name": "diffusions",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "list.difussions",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/diffusions",
+          "params": [
+            {
+              "key": "search",
+              "value": "",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "status",
+              "value": "",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "page",
+              "value": "1",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "per_page",
+              "value": "10",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0OCwiaWF0IjoxNzYwOTczODYwLCJleHAiOjE3OTI1MDk4NjAsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.ubftwWJCblRpfN6NO_87g1Zz6v7yv_fMS4pGcU3WZ-Q",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgjrv0c4_185f34b3-20f8-495f-85be-d63ea2d59584",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.diffusion.old",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/diffusions",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyNTIyNzcsImV4cCI6MTc5MDc4ODI3NywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.ilryRLv8E96VUZqIkb8KU1bpCr_0QpetELmp0-wMzzg",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n   \"name\":\"Promoción Ortodoncia Marzo\",\n   \"message\":\"¡Oferta especial en ortodoncia! Consulta gratuita + 20% descuento...\",\n   \"audience_filters\": {\"tags\": [\"pacientes_ortodoncia\"] },\n   \"scheduled_at\":\"2025-10-09 05:05:00\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgit0d9y_c1648f7e-d1c3-4dac-959b-276507343c5a",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.diffusion",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/diffusions",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyNTIyNzcsImV4cCI6MTc5MDc4ODI3NywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.ilryRLv8E96VUZqIkb8KU1bpCr_0QpetELmp0-wMzzg",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"Promoción Seasonal Difusion 1\",\n  \"template_name\": \"seasonal_promotion\",\n  \"template_language\": \"en_US\",\n  \"template_components\": [\n      {\n        \"type\": \"HEADER\",\n        \"format\": \"TEXT\",\n        \"text\": \"Our {{1}} is on!\",\n        \"example\": {\n          \"header_text\": [\n            \"Summer Sale\"\n          ]\n        }\n      },\n      {\n        \"type\": \"BODY\",\n        \"text\": \"Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.\",\n        \"example\": {\n          \"body_text\": [\n            [\n              \"the end of August\",\"25OFF\",\"25%\"\n            ]\n          ]\n        }\n      },\n      {\n        \"type\": \"FOOTER\",\n        \"text\": \"Use the buttons below to manage your marketing subscriptions\"\n      },\n      {\n        \"type\":\"BUTTONS\",\n        \"buttons\": [\n          {\n            \"type\": \"QUICK_REPLY\",\n            \"text\": \"Unsubscribe from Promos\"\n          },\n          {\n            \"type\":\"QUICK_REPLY\",\n            \"text\": \"Unsubscribe from All\"\n          }\n        ]\n      }\n  ],\n  \"audience_id\": 43,\n  \"scheduled_at\": \"2025-10-10 03:57:00\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mglc5koz_6b347a0f-5edc-43ea-af69-1c15197b21cf",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "send.now",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/diffusions/3/send-now",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"dry_run\": false\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgitec0g_186a7b8b-b00b-4aef-af9d-53bf91e717de",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "schedule.difusion",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/diffusions/2/schedule",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"scheduled_at\":\"2025-03-15 10:00:00\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgith771_aa39c057-7a5f-4cf7-ab12-e54cef09ba94",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.diffusion.audience",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/diffusions",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTkyNTIyNzcsImV4cCI6MTc5MDc4ODI3NywiaXNzIjoibG9jYWxob3N0OjgwODAifQ.ilryRLv8E96VUZqIkb8KU1bpCr_0QpetELmp0-wMzzg",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n   \"name\":\"Promoción Tratamiento Facial Octubre\",\n   \"message\":\"¡Oferta especial en tratamiento facial! Consulta gratuita + 20% descuento...\",\n   \"audience_id\": 37,\n   \"scheduled_at\":\"2025-10-09 18:38:00\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgit0d9y_c1648f7e-d1c3-4dac-959b-276507343c5a",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_27f26ac1-6c7d-427a-ae5d-2b37cfe7b5b8"
+    },
+    {
+      "v": 11,
+      "id": "cmfosha87016lil1kjsodawip",
+      "name": "outbound",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "send.message.graph",
+          "method": "POST",
+          "endpoint": "https://graph.facebook.com/v22.0/1123655353163675/messages",
+          "params": [],
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "EAASQybzDfsMBPVhJmMmaP7TVRg0fEZAkx0olZClun7AuaqXJyFF8miTL4K7ajwZAcZB4kuzDLZBf2ZBZBqrSgTcDlkGsA2cf58UP6CPGcpP8qysyx8HCNfB9nHotIWxGiIDkCfkavGmFlJeg8ZAnumSrJAUFEAFZAef4DG8niDdYg8JbZBrnLf7OxDWfVEAjUOhVLflaQEgJALs8UMf5aZC4PQoFZADOtG5VoEhmtgQd",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{ \n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"541149478294\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"clinera_template_1\",\n    \"language\": {\n      \"code\": \"en\"\n    }\n  }\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at0w_8297ad1c-027f-4689-98d6-5a805ec0991f",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "send.message",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/messages/send",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo1OCwiaWF0IjoxNzYxMjY2ODEyLCJleHAiOjE3OTI4MDI4MTIsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.vLxXzChJrSWWp0jiwoZbgW9W1UxndMTCCYpeucWkvY8",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"to\": \"+5491149478294\",\n  \"content\": \"Hola desde clinica demo. Clinera.io\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mh44rlq8_c4c722c7-625a-4815-a434-81e9b53d1cbe",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "send.message.to.conversation",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/3/messages",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfjzt11b0009pk31x36fpp0h",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"content\": \"Hola Sam Fisher en que puedo ayudarlo hoy?\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at0w_30c28533-38bc-425a-ad58-618d33d54909",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "send.template.to.conversation",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/conversations/4/messages/template",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"template_name\": \"appointment_reminder_4\",\n  \"language_code\": \"es_AR\",\n  \"components\": [\n    {\n      \"type\": \"header\",\n      \"parameters\": [\n        { \"type\": \"text\", \"text\": \"Sam Fisher\" }\n      ]\n    },\n    {\n      \"type\": \"body\",\n      \"parameters\": [\n        { \"type\": \"text\", \"text\": \"Sam Fisher\" },\n        { \"type\": \"text\", \"text\": \"15/09/2025\" },\n        { \"type\": \"text\", \"text\": \"15:30\" },\n        { \"type\": \"text\", \"text\": \"Clínica Central\" }\n      ]\n    },\n    {\n      \"type\": \"button\",\n      \"sub_type\": \"url\",\n      \"index\": \"0\",\n      \"parameters\": [\n        { \"type\": \"text\", \"text\": \"ABC123\" }\n      ]\n    }\n  ]\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at0w_4515a739-8e2e-472a-8b8a-e6b76a8b07b0",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_19072545-170b-49b2-a0ce-557e1bf05048"
+    },
+    {
+      "v": 11,
+      "id": "cmfosha95016uil1kcfh9ljzl",
+      "name": "facebook_graph",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "phone_numbers",
+          "method": "GET",
+          "endpoint": "https://graph.facebook.com/v21.0/1123655353163675/phone_numbers",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "EAASQybzDfsMBPSGSQeqZBDEWu9yqLULm9HGMgV99lzgpHHV056BuobcXi2bavOfCiSgauSEtr4BHiTLBSZAk1bCCKoA8xpjFxelODNRrJ1ZCjZBzDLZAHDe06iMixmTQGMZAHQ7u741zh7KHOP0ZCAbGX5ymDObqdATQRJOnvCHTbPdJlzGvtsgpNN71XT18fKuT7qI8IKtUXwFzeTtzOZAQijkVQI6gPdO3eaUL",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at4e_723b7b7e-fabb-46a4-8727-566d3409abf7",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_13963409-125e-42c7-b0a5-ba3c5efcaf14"
+    },
+    {
+      "v": 11,
+      "id": "cmfosha9n016xil1kyrsmtrzd",
+      "name": "phone_numbers",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "list",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/whatsapp/phone-numbers",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "EAASQybzDfsMBPSGSQeqZBDEWu9yqLULm9HGMgV99lzgpHHV056BuobcXi2bavOfCiSgauSEtr4BHiTLBSZAk1bCCKoA8xpjFxelODNRrJ1ZCjZBzDLZAHDe06iMixmTQGMZAHQ7u741zh7KHOP0ZCAbGX5ymDObqdATQRJOnvCHTbPdJlzGvtsgpNN71XT18fKuT7qI8IKtUXwFzeTtzOZAQijkVQI6gPdO3eaUL",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at0u_04c92891-3cca-4eee-8104-c201e3e4f438",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9q_79c08a37-4e6d-4662-8f58-cdfa4bba7abb"
+    },
+    {
+      "v": 11,
+      "id": "cmfoshaa70170il1kq6hv0wcy",
+      "name": "funnels",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "list.funnels",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/funnels/stages",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzY0Njg2NjExLCJleHAiOjE3OTYyMjI2MTEsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.XV7bYinT5MKbAhYCJDGeNtXBLOrdZOkZsdWJVvsXOFA",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgzzuqt1_fb5cb23a-4313-475a-9f7d-9442a3e8f4c5",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.funnel.stage",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/funnels/stages",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmexa6fkb0000uqgc9rb5bbzt",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"new_lead\",\n  \"color\": \"red\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at4d_8bdcf397-fe33-40d7-9cd6-cd69b952f1ce",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "delete.stage",
+          "method": "DELETE",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/funnels/stages/6",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmexa6fkb0000uqgc9rb5bbzt",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": ""
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at4d_d532d92a-38e1-4bd9-b56b-b4f5d4d7845b",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "reorder.funnel.stage",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/funnels/stages/reorder",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmexa6fkb0000uqgc9rb5bbzt",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"order\": [5, 7, 8, 9, 10, 11, 12, 13, 14]\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at4d_50651ff8-0ae6-44ba-a778-dc5670275671",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "mark.as.default",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/funnels/stages/12/default",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmexa6fkb0000uqgc9rb5bbzt",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at4d_ed18bafd-78a7-42cd-b3e3-0d8510bee4de",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9r_f531a836-de9e-4109-a07e-4e91c7d69b56"
+    },
+    {
+      "v": 11,
+      "id": "cmfoshab6017bil1kmw8qahug",
+      "name": "whatsapp_templates",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "create.template",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/whatsapp/templates",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"appointment_reminder_4\",\n  \"category\": \"UTILITY\",\n  \"language\": \"es_AR\",\n  \"components\": [\n    {\n      \"type\": \"HEADER\",\n      \"format\": \"TEXT\",\n      \"text\": \"Recordatorio de turno para {{1}}\",\n      \"example\": {\n        \"header_text\": [\"María Gómez\"]\n      }\n    },\n    {\n      \"type\": \"BODY\",\n      \"text\": \"Hola {{1}}, tu turno es el {{2}} a las {{3}} en {{4}}. Responde a este mensaje si necesitas reprogramar.\",\n      \"example\": {\n        \"body_text\": [\n          [\"María\", \"15/09/2025\", \"15:30\", \"Clínica Central\"]\n        ]\n      }\n    },\n    {\n      \"type\": \"FOOTER\",\n      \"text\": \"Gracias por elegirnos\"\n    },\n    {\n      \"type\": \"BUTTONS\",\n      \"buttons\": [\n        {\n          \"type\": \"URL\",\n          \"text\": \"Confirmar\",\n          \"url\": \"https://clinica.example.com/turnos/{{1}}\",\n          \"example\": \"https://clinica.example.com/turnos/ABC123\"\n        },\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"Reprogramar\"\n        }\n      ]\n    }\n  ]\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5aszq_fb2e698c-0846-4706-9def-3c6aea285041",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.templates",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/whatsapp/templates",
+          "params": [
+            {
+              "key": "limit",
+              "value": "10",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "51",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgvkts8g_a98fb41b-92b9-4597-9642-d2cd331d761a",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9r_1c0857d3-3e29-4a06-8633-c7d024bd5b21"
+    },
+    {
+      "v": 11,
+      "id": "cmfoshabx017iil1kqgyoj67d",
+      "name": "integrations",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "update.integration.lumina",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfjzt11b0009pk31x36fpp0h",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"816221108240150\",\n  \"business_account_id\": \"1436102687446367\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"EAAcBTCMFQtEBPewXn543r9Mg5u6A1jShqlbsCFrZBwsklM7TTyyW4mzdG1ZBkDNlWlEp364ZAjVgvSgN4H33pHPdLEYghYbrLI5TMZBnGafz0ZAZBG1M9Dg8oyGvHVIQwNV18AVlebI51o9GhNb6yKdb9Q7uZANiXufcfeMrrFigRkfvK2liDXFkMDqsVlYtPwlZC3Y1FQ7fkqqmc1FRFvArImjB0aSpZAyMYm1UTQ9AYkpsZD\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgffjihp_58562362-fb48-4979-978d-5ef6281b0e07",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "get.integration.info",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "2",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at4p_7f735bee-a98a-43cc-a0d9-71e15edfab81",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.integration.demo",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyLCJpYXQiOjE3NTkxMTc2MzQsImV4cCI6MTc5MDY1MzYzNCwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.dMDNzhxBfzxLj-Ju4bDBPpGA3_S7iNSBq2_2T7575Ow",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"708203915718767\",\n  \"business_account_id\": \"1123655353163675\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"EAASQybzDfsMBPmTdWCGtIm37ms7MNELyF07tmnEOdNfFD2QMgDKv0nPljk5TZBRfO7AxlTTS0IgAQ9nDEtcW6dakKsgeNW5XKHiAj5p9SBX0BuQt8w90ZCcB6d5ZB6ayGpZB9Gi0rAHRz9jsUzZAJSIfZBmnTd7SxiezSTsAacSHTSqHI2QRpa9X9W1ZALUkQZDZD\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at4p_912886a3-5b17-4bc2-9949-7c4df0161f52",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.integration.metodo.hebe",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmgegf8sl001yqt0fgbhiqqff",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyLCJpYXQiOjE3NTk4MDM2NTksImV4cCI6MTc5MTMzOTY1OSwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.Ppr8giZac1lDf4U0qe_7-K0Z2v0GR4KC_zM-9d1Kuv4",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"816221108240150\",\n  \"business_account_id\": \"1436102687446367\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"EAAcBTCMFQtEBPqfZAZAFeLhbH3II2iloaUbVh1nxZBLKMmcxHNS7HxQx1ZC60TiFzNRojl3ZBdwDy3zpWOqRHJNjM1Yt5ZB4EroVvgZCJu8gdbkw0DZCIAZBrmmCxnHEeZBnUbEQZAIHDoGHmUBZBDfI5z2CbNaBDuFotg6ou81AW2XHRWxP2S6q6qYMZAeOs2VIiwQZDZD\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgffjihp_58562362-fb48-4979-978d-5ef6281b0e07",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.integration.Clinerademo",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfugwdej0007qo0f5d5k0ekp",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyLCJpYXQiOjE3NTkxMTc2MzQsImV4cCI6MTc5MDY1MzYzNCwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.dMDNzhxBfzxLj-Ju4bDBPpGA3_S7iNSBq2_2T7575Ow",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"708203915718767\",\n  \"business_account_id\": \"1123655353163675\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"EAASQybzDfsMBPmTdWCGtIm37ms7MNELyF07tmnEOdNfFD2QMgDKv0nPljk5TZBRfO7AxlTTS0IgAQ9nDEtcW6dakKsgeNW5XKHiAj5p9SBX0BuQt8w90ZCcB6d5ZB6ayGpZB9Gi0rAHRz9jsUzZAJSIfZBmnTd7SxiezSTsAacSHTSqHI2QRpa9X9W1ZALUkQZDZD\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mhfb1xqa_f21b5e48-7778-4838-b13a-1de9e3354e81",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.integration.test_phone",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "105",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYzMDcwOTAzLCJleHAiOjE3OTQ2MDY5MDMsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.vWcG8m9COG20LoP2Wbh4BAWPHEQy4Hz9J3hwM3yfU4k",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"892772737250446\",\n  \"business_account_id\": \"25338497685787393\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"EAAakZCEZCZBPB0BQOdtx5wZATQNFFaNMjc9WvLgWQOtI4W1XOPRfJtuD5Y5gyXrivBgLr4gl2b43TgLQmprQSIYsXjUpdyUj8GPMWchFv1eoyLEYZAVqMsqGDsqRd7ydwTzjWHpWs3PkIs9t1MojxdTNajCyQZC97U3f6oZAxN1sxbedV2SkFLP1pthJrETnsZCK4KRZB6LLlbtQZAGaclgtpiuRKFCISeDMh11FNWipInudiQDZB2nqAZBDhtj5OiCD2ZAEbGlAh3Ryp08FxklAVgqACBV8J\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgffjihp_58562362-fb48-4979-978d-5ef6281b0e07",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.integration.realza_tu_belleza",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmhpgz8160021qv0f4p016fxb",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYzNDg1MTA1LCJleHAiOjE3OTUwMjExMDUsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.fnCm1H0I-WOhYJcaHZbcSsjnEYSQxN99b15s44SIE8c",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"910438315476036\",\n  \"business_account_id\": \"1568942624137067\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"EAAJZCJk3r3BABP8ZCUPu7tsCayQuZA9IPNgJ4aA3LukXxQZBXRfrGfj0RLmhfNW3FCmdI7mUHZCpFdlZCVRVFHAaN4CR0cpDZC0GZClEV1lKlCis3bU3x0O7hjLHmWunFWFbuoHlP3ZBrlWs2C9PlCdPqeUL7kR6rHsEm3L4bsf2mZBZBlMZADa3ZBqOXznujcm7PnjYd2pIZBmvHZCh6GKz7KWhCHsxAAGcZBZAYKXB1yFCo5lWBg2MCfZBfJLxb183avDJ0IZCuVZAmOzf0ECPf0gjXT31FH6T1Nx5\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgffjihp_58562362-fb48-4979-978d-5ef6281b0e07",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.integration.aikya",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "99",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYzMDcwOTAzLCJleHAiOjE3OTQ2MDY5MDMsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.vWcG8m9COG20LoP2Wbh4BAWPHEQy4Hz9J3hwM3yfU4k",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"833952689808417\",\n  \"business_account_id\": \"1323739526090821\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"EAAZAo9nLAZCiABQAqSozZBUmE1ww0mwea1VWlz1XKXaZA4Q2RarDZAZBtZC6N7UocWWE1VIOA02EKHhpt37KruX4j1wZB306GEe7yXAN3YyPjFxIU6aKpvv6p4lLVCjczZCBVqd6lINqfHhSCVoEmGYXFSHKNbSGZBdWaxBHzGvbUvNZAzHFs3UHSu8vH71bjDjYzAEiAZDZD\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mij556su_fa68fa79-30ae-4b92-aa37-77bb6b1cd47f",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.integration.bioarmony",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "95",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYzMDcwOTAzLCJleHAiOjE3OTQ2MDY5MDMsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.vWcG8m9COG20LoP2Wbh4BAWPHEQy4Hz9J3hwM3yfU4k",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"984566308064421\",\n  \"business_account_id\": \"1398014991929549\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mij8wp66_9abb2e45-356f-404d-b0d2-a347c5566cb8",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.integration.daxen",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/integrations/whatsapp",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "123",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYzMDcwOTAzLCJleHAiOjE3OTQ2MDY5MDMsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.vWcG8m9COG20LoP2Wbh4BAWPHEQy4Hz9J3hwM3yfU4k",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"phone_number_id\": \"872752392589875\",\n  \"business_account_id\": \"1869864530280929\",\n  \"instagram_account_id\": \"\",\n  \"access_token\": \"EAAVcGgsBgqkBQEXD3eGDOL4y3bZAInwSvY0cEHd2zYvZCZCP5vFOTnpp0HRjWFpk4Xn2vIpmyIhEcf8xnennB8u1dTWgqhrOcdnSpV63NUWjcsSndEzZCZArub7aN4BgtTBM44x3XwSfzZAOnV5Ygq4mcqO1z2xEOUWsC7LmI5ochBRP2Vvq8kVzsmg6OFiKQCpAZDZD\",\n  \"verify_token\": \"mi_token_secreto\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mikebakl_f98219aa-b171-423f-af8c-07b94f472e06",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9r_c56a8139-b758-498a-b263-17f8a8586889"
+    },
+    {
+      "v": 11,
+      "id": "cmfyxnfrh1ro7if1lnnkxlwee",
+      "name": "users",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "list.user.businesses",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/users/1/businesses",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at33_9669c369-c5b7-4d52-87d5-ec2c4b4d42c2",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "delete.user.businesses",
+          "method": "DELETE",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/users/1/businesses/cmeh7jia40000o131jdg7pmz0",
+          "params": [],
+          "headers": [],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5at33_b0ebd45b-59f5-4040-a569-8ffe9708154c",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.password",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/users/26/password",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYxMzQ0NzY0LCJleHAiOjE3OTI4ODA3NjQsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.IFXL_foZzcPuimytVtHR1rm8U02J-cb4sUEVv7530FQ",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"new_password\": \"12345678\",\n  \"new_password_confirmation\": \"12345678\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgzztv5o_8819ffe0-1a1f-4faf-8a27-5341d0604ed4",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9r_1921a678-9c1c-4438-a097-b3edc5968208"
+    },
+    {
+      "v": 11,
+      "id": "cmfosha6g0163il1kfwzc1bgo",
+      "name": "webhooks",
+      "folders": [
+        {
+          "v": 11,
+          "id": "cmgptuluk0h2die1kgqli99j6",
+          "name": "fluentia",
+          "folders": [],
+          "requests": [
+            {
+              "v": "17",
+              "name": "appointments",
+              "method": "POST",
+              "endpoint": "https://fluentia-api-develop-latest.up.railway.app/webhooks/appointments",
+              "params": [],
+              "headers": [
+                {
+                  "key": "X-Business-Id",
+                  "value": "18",
+                  "active": true,
+                  "description": ""
+                }
+              ],
+              "preRequestScript": "",
+              "testScript": "",
+              "auth": {
+                "authType": "bearer",
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo4LCJpYXQiOjE3NTg4NDAxOTUsImV4cCI6MTc5MDM3NjE5NSwiaXNzIjoiZmx1ZW50aWEtYXBpLWRldmVsb3AtbGF0ZXN0LnVwLnJhaWx3YXkuYXBwIn0.tSB4jzazXOrxb_uVzZ5bbQD6R2xvN_m0mWzXQ5zG8fo",
+                "authActive": true
+              },
+              "body": {
+                "contentType": "application/json",
+                "body": "{\n  \"patient\": {\n    \"full_name\": \"peperkg\",\n    \"phone\": \"+5491149478294\",\n    \"email\": \"peppjr@mail.com\",\n    \"patient_id\": \"cmgoomzxd000dqh0fm237j8zb\"\n  },\n  \"booking\": {\n    \"id\": \"cmgoomzxd000dqh0fm237j8zb\",\n    \"date\": \"2025-10-13\",\n    \"time\": \"11:30\",\n    \"branch\": \"Angol\",\n    \"professional\": \"Dr Gutierrez\",\n    \"treatment\": \"Cirugia laser\"\n  },\n  \"confirm_url\": \"https://api.clinera.com/api/turnos/confirmar/1760332699481_8451jzypo4v\",\n  \"cancel_url\": \"https://api.clinera.com/api/turnos/cancelar/1760332699481_8451jzypo4v\",\n  \"reschedule_url\": \"https://clinera-web.vercel.app/reschedule?booking=cmgoomzxd000dqh0fm237j8zb\",\n  \"metadata\": {\n    \"source\": \"clinera\",\n    \"clinicaId\": \"cmfugwdej0007qo0f5d5k0ekp\",\n    \"confirmationToken\": \"1760332699481_8451jzypo4v\",\n    \"estado\": \"pendiente\",\n    \"origen\": \"web\",\n    \"duracionMin\": 30,\n    \"createdAt\": \"2025-10-13T05:18:19.489Z\"\n  }\n}"
+              },
+              "requestVariables": [],
+              "responses": {},
+              "_ref_id": "req_mgptux7g_8d1ea114-b717-48d1-ab94-39ba7e79d179",
+              "description": null
+            }
+          ],
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "headers": [],
+          "variables": [],
+          "description": null,
+          "_ref_id": "coll_miq5au9r_a171e441-975b-463b-9c88-11832daa5a5f"
+        }
+      ],
+      "requests": [
+        {
+          "v": "17",
+          "name": "waba",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/businesses/webhook",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "cmfjzt11b0009pk31x36fpp0h",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "inherit",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_miq5atz8_724f83c5-43b5-4ba5-b9de-fae296009b4d",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9r_69d74536-3c0e-4620-9e2e-4f0d45c5dc3c"
+    },
+    {
+      "v": 11,
+      "id": "cmgh5s1af013em61kcnk9ut5d",
+      "name": "tags",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "create.tag",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/tags",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\":\"tag\",\n  \"color\":\"#34D399\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh23nah_0c33610d-4d63-4cd2-bcad-4177006e7ffc",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.tags",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/tags",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh4jwob_416740aa-0ba0-49ba-a368-f55cceca0a6b",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.tags.search",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/tags",
+          "params": [
+            {
+              "key": "search",
+              "value": "tag",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh4jwob_416740aa-0ba0-49ba-a368-f55cceca0a6b",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "update.tag",
+          "method": "PUT",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/tags/1",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\":\"VIP\",\n  \"color\":\"green\"\n}"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh4p8fm_46e6a170-9319-43c6-949a-7a41257d101b",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "delete.tag",
+          "method": "DELETE",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/tags/5",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh4rtt6_43734787-9894-4bb3-9fee-a8f7423d63af",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9r_927f4eaa-11b0-4fc9-b24e-7564cffc2911"
+    },
+    {
+      "v": 11,
+      "id": "cmgidckpy0bkgm61kr9vhih7r",
+      "name": "templates",
+      "folders": [],
+      "requests": [
+        {
+          "v": "17",
+          "name": "create.template.multipart/form-data",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/templates",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "multipart/form-data",
+            "body": [
+              {
+                "key": "name",
+                "active": true,
+                "isFile": false,
+                "value": "recordatorio_turno"
+              },
+              {
+                "key": "channel",
+                "active": true,
+                "isFile": false,
+                "value": "whatsapp_text"
+              },
+              {
+                "key": "content",
+                "active": true,
+                "isFile": false,
+                "value": "Hola {{nombre}}, tu turno es el {{fecha}} a las {{hora}}."
+              },
+              {
+                "key": "attachments[]",
+                "active": true,
+                "isFile": false,
+                "value": ""
+              },
+              {
+                "key": "attachments[]",
+                "active": true,
+                "isFile": false,
+                "value": ""
+              }
+            ]
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh1x0kz_0111fdee-2b40-4406-bba6-40fd5b641b51",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.template.json",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/templates",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n    \"name\": \"meeting_reminder\",\n    \"channel\": \"whatsapp_text\",\n    \"status\": \"active\",\n    \"language\": \"es_AR\",\n    \"category\": \"MARKETING\",\n    \"attachment_ids\": [15, 16],\n    \"components\": [\n      {\n        \"type\": \"HEADER\",\n        \"format\": \"TEXT\",\n        \"text\": \"Recordatorio de turno para {{1}}\",\n        \"example\": { \"header_text\": [\"María Gómez\"] }\n      },\n      {\n        \"type\": \"BODY\",\n        \"text\": \"Hola {{1}}, tu turno es el {{2}} a las {{3}} en {{4}}. Responde a este mensaje si necesitas reprogramar.\",\n        \"example\": { \"body_text\": [[\"María\",\"15/09/2025\",\"15:30\",\"Clínica Central\"]] }\n      },\n      {\n        \"type\": \"FOOTER\",\n        \"text\": \"Gracias por elegirnos\"\n      },\n      {\n        \"type\": \"BUTTONS\",\n        \"buttons\": [\n          { \"type\": \"URL\", \"text\": \"Confirmar\", \"url\": \"https://clinica.example.com/turnos/{{1}}\", \"example\": \"https://clinica.example.com/turnos/ABC123\" },\n          { \"type\": \"QUICK_REPLY\", \"text\": \"Reprogramar\" }\n        ]\n      }\n    ]\n  }"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh1x0kz_90743013-cefc-467d-afcf-79723e6cb5ee",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.template.json.marketing",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/templates",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n    \"name\": \"seasonal_promotion\",\n    \"channel\": \"whatsapp_text\",\n    \"status\": \"active\",\n    \"language\": \"en_US\",\n    \"category\": \"MARKETING\",\n    \"attachment_ids\": [15, 16],\n    \"components\": [\n      {\n        \"type\": \"HEADER\",\n        \"format\": \"TEXT\",\n        \"text\": \"Our {{1}} is on!\",\n        \"example\": {\n          \"header_text\": [\n            \"Summer Sale\"\n          ]\n        }\n      },\n      {\n        \"type\": \"BODY\",\n        \"text\": \"Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.\",\n        \"example\": {\n          \"body_text\": [\n            [\n              \"the end of August\",\"25OFF\",\"25%\"\n            ]\n          ]\n        }\n      },\n      {\n        \"type\": \"FOOTER\",\n        \"text\": \"Use the buttons below to manage your marketing subscriptions\"\n      },\n      {\n        \"type\":\"BUTTONS\",\n        \"buttons\": [\n          {\n            \"type\": \"QUICK_REPLY\",\n            \"text\": \"Unsubscribe from Promos\"\n          },\n          {\n            \"type\":\"QUICK_REPLY\",\n            \"text\": \"Unsubscribe from All\"\n          }\n        ]\n      }\n    ]\n  }"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh1x0kz_174de63f-2887-4991-93d3-6e178b011f3d",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "create.template.json.marketing.moms",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/templates",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "50",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjo0OCwiaWF0IjoxNzYwNzU3NjQzLCJleHAiOjE3OTIyOTM2NDMsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.ZMwDtxwXmDrgZowsR1pSVhJYBBjMbuu0wlitEDe3A6E",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n  \"name\": \"appointment_confirmation_for_moms\",\n  \"channel\": \"whatsapp_text\",\n  \"status\": \"active\",\n  \"language\": \"es_AR\",\n  \"category\": \"UTILITY\",\n  \"components\": [\n    {\n      \"type\": \"HEADER\",\n      \"format\": \"TEXT\",\n      \"text\": \"Confirmación de cita — Día de las Madres\"\n    },\n    {\n      \"type\": \"BODY\",\n      \"text\": \"Hola, {{1}} 🌸 Gracias por elegirnos para celebrar el Día de las Madres. Registramos tu cita para el {{2}} a las {{3}} con {{4}} en {{5}}. Tu número de reserva es {{6}}. Por favor confirma tu asistencia o indícanos si deseas reprogramar. Atentamente, {{7}} — {{8}}. ¡Te esperamos!\",\n      \"example\": {\n        \"body_text\": [\n          [\n            \"María\",\n            \"10 de mayo\",\n            \"15:00\",\n            \"Laura\",\n            \"Sucursal Centro\",\n            \"A1234\",\n            \"Belleza & Spa\",\n            \"¡Feliz Día de la Madre!\"\n          ]\n        ]\n      }\n    },\n    {\n      \"type\": \"FOOTER\",\n      \"text\": \"Usa los botones para confirmar o reprogramar tu cita\"\n    },\n    {\n      \"type\": \"BUTTONS\",\n      \"buttons\": [\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"Confirmar asistencia\"\n        },\n        {\n          \"type\": \"QUICK_REPLY\",\n          \"text\": \"Reprogramar cita\"\n        }\n      ]\n    }\n  ]\n}\n"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh1x0kz_174de63f-2887-4991-93d3-6e178b011f3d",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "submt.template.to.waba",
+          "method": "POST",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/templates/1/waba/submit",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "18",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": "application/json",
+            "body": "{\n    \"waba_name\": \"compromiso_fiesta_test\", // o déjalo y dejamos que auto_rename actúe si hay lock\n    \"language\": \"es_AR\",\n    \"category\": \"UTILITY\",\n    \"header\": { \"format\": \"TEXT\", \"text\": \"Recordatorio de turno\" },\n    \"footer\": { \"text\": \"Clinera\" },\n    \"buttons\": [\n      { \"type\": \"URL\", \"text\": \"Confirmar\", \"url\": \"https://clinica.example.com/turnos/{{1}}\", \"example\": \"https://clinica.example.com/turnos/ABC123\" },\n      { \"type\": \"QUICK_REPLY\", \"text\": \"Reprogramar\" }\n    ],\n    \"examples\": { \"body_text\": [\"Juan\", \"01/10/2025\", \"09:30\"] },\n    \"auto_rename\": true\n  }"
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh1x0kz_00207c43-17b2-44cf-8916-fc2577854e8d",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "template.status",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/templates/2/waba/status",
+          "params": [],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "105",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoxLCJpYXQiOjE3NTk0NTExODQsImV4cCI6MTc5MDk4NzE4NCwiaXNzIjoibG9jYWxob3N0OjgwODAifQ.Wf-6dCJgs6vlvgnNlCFPnKabdnWme_HjoRStRO9oGqc",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgh1x0kz_b6593bf5-6fbb-4c0c-95f7-62bb559dc318",
+          "description": null
+        },
+        {
+          "v": "17",
+          "name": "list.templates",
+          "method": "GET",
+          "endpoint": "https://fluentia-api-develop-latest.up.railway.app/templates",
+          "params": [
+            {
+              "key": "page",
+              "value": "1",
+              "active": true,
+              "description": ""
+            },
+            {
+              "key": "per_page",
+              "value": "10",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "headers": [
+            {
+              "key": "X-Business-Id",
+              "value": "105",
+              "active": true,
+              "description": ""
+            }
+          ],
+          "preRequestScript": "",
+          "testScript": "",
+          "auth": {
+            "authType": "bearer",
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyLmlkIjoyNiwiaWF0IjoxNzYzMDcwOTAzLCJleHAiOjE3OTQ2MDY5MDMsImlzcyI6ImZsdWVudGlhLWFwaS1kZXZlbG9wLWxhdGVzdC51cC5yYWlsd2F5LmFwcCJ9.vWcG8m9COG20LoP2Wbh4BAWPHEQy4Hz9J3hwM3yfU4k",
+            "authActive": true
+          },
+          "body": {
+            "contentType": null,
+            "body": null
+          },
+          "requestVariables": [],
+          "responses": {},
+          "_ref_id": "req_mgvksn5x_015eaf6a-d36b-45c3-bbaf-ecc1a5aac335",
+          "description": null
+        }
+      ],
+      "auth": {
+        "authType": "inherit",
+        "authActive": true
+      },
+      "headers": [],
+      "variables": [],
+      "description": null,
+      "_ref_id": "coll_miq5au9r_697ba039-2f3b-4eb3-b1ec-a98c31232927"
+    }
+  ],
+  "requests": [],
+  "auth": {
+    "authType": "none",
+    "authActive": true
+  },
+  "headers": [],
+  "variables": [],
+  "description": null,
+  "_ref_id": "coll_miq5au9r_ee238683-c52a-444b-a014-ecb4cb0b76c9"
+}
