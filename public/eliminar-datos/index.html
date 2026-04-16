@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminación de Datos | Clinera.io</title>
+    <meta name="description"
+        content="Solicita la eliminación de tus datos personales en Clinera.io. Conoce el proceso, plazos y qué información se elimina.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=3.1">
+    <link rel="stylesheet" href="css/home.css?v=3.1">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        .legal-page {
+            padding: 140px 0 100px;
+        }
+
+        .legal-container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .legal-badge {
+            display: inline-block;
+            background: #fef2f2;
+            color: #ef4444;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .legal-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+
+        .legal-updated {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 56px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .legal-section {
+            margin-bottom: 48px;
+        }
+
+        .legal-section h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            padding-left: 16px;
+            border-left: 3px solid #ef4444;
+        }
+
+        .legal-section h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 20px 0 12px;
+        }
+
+        .legal-section p {
+            font-size: 0.975rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .legal-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 12px;
+        }
+
+        .legal-section ul li {
+            font-size: 0.975rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            padding: 8px 0 8px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            position: relative;
+        }
+
+        .legal-section ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        .legal-section ul li:last-child {
+            border-bottom: none;
+        }
+
+        .legal-section ol {
+            padding-left: 20px;
+            margin: 0 0 12px;
+        }
+
+        .legal-section ol li {
+            font-size: 0.975rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            padding: 6px 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .data-table th {
+            background: #fafafa;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .data-table td {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            padding: 10px 16px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .delete-tag {
+            display: inline-block;
+            background: #fef2f2;
+            color: #ef4444;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .retain-tag {
+            display: inline-block;
+            background: #fffbeb;
+            color: #d97706;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .warning-card {
+            background: #fef2f2;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+
+        .warning-card p {
+            margin: 0;
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .contact-card {
+            background: var(--brand-cyan-light);
+            border: 1px solid rgba(0, 159, 227, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+
+        .contact-card p {
+            margin: 0;
+            color: var(--brand-cyan);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .legal-title {
+                font-size: 2rem;
+            }
+
+            .data-table {
+                font-size: 0.85rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blur-bg blur-cyan" style="top: -200px; right: -200px;"></div>
+
+    <script src="js/components.js?v=4.1"></script>
+    <clinera-header></clinera-header>
+
+    <main>
+        <section class="legal-page">
+            <div class="legal-container">
+                <span class="legal-badge">Protección de datos</span>
+                <h1 class="legal-title">Eliminación de Datos</h1>
+                <p class="legal-updated">Última actualización: 28 de febrero de 2026</p>
+
+                <div class="legal-section">
+                    <p>En <strong>Clinera</strong>, respetamos tu derecho a controlar tus datos personales. Esta página
+                        explica cómo puedes solicitar la eliminación de tus datos y qué sucede cuando lo haces.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>1. Solicitar Eliminación de Datos</h2>
+                    <p>Si deseas eliminar tus datos de Clinera, puedes hacerlo de las siguientes maneras:</p>
+
+                    <h3>Opción 1: Desde la Plataforma</h3>
+                    <ol>
+                        <li>Inicia sesión en tu cuenta de Clinera.</li>
+                        <li>Ve a <strong>Configuración → Mi Cuenta</strong>.</li>
+                        <li>Selecciona <strong>Eliminar mi cuenta y datos</strong>.</li>
+                        <li>Confirma la solicitud a través del correo de verificación que recibirás.</li>
+                    </ol>
+
+                    <h3>Opción 2: Por correo electrónico</h3>
+                    <p>Envía un correo a <a href="mailto:privacidad@clinera.io"
+                            style="color: #ef4444; font-weight: 600;">privacidad@clinera.io</a> con:</p>
+                    <ul>
+                        <li><strong>Asunto:</strong> Solicitud de eliminación de datos</li>
+                        <li>Tu nombre completo y correo electrónico asociado a la cuenta.</li>
+                        <li>El nombre de la clínica (si aplica).</li>
+                    </ul>
+                    <p>Procesaremos tu solicitud en un plazo máximo de <strong>30 días</strong>.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>2. Verificar Estado de tu Solicitud</h2>
+                    <p>Si ya realizaste una solicitud de eliminación, puedes verificar su estado:</p>
+                    <ul>
+                        <li><strong>Por correo:</strong> Contacta a privacidad@clinera.io con tu código de
+                            confirmación.</li>
+                        <li><strong>Solicitudes vía Meta (Facebook/Instagram):</strong> Si iniciaste sesión en Clinera
+                            usando tu cuenta de Facebook o Instagram, tu solicitud fue procesada automáticamente. Usa el
+                            código de confirmación proporcionado para verificar el estado.</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h2>3. ¿Qué Datos se Eliminan?</h2>
+                    <p>Al solicitar la eliminación, se eliminarán:</p>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Datos</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Información de tu perfil (nombre, email, teléfono)</td>
+                                <td><span class="delete-tag">Eliminación permanente</span></td>
+                            </tr>
+                            <tr>
+                                <td>Preferencias y configuración de tu cuenta</td>
+                                <td><span class="delete-tag">Eliminación permanente</span></td>
+                            </tr>
+                            <tr>
+                                <td>Historial de sesiones y datos de acceso</td>
+                                <td><span class="delete-tag">Eliminación permanente</span></td>
+                            </tr>
+                            <tr>
+                                <td>Datos asociados a integraciones (Meta, WhatsApp)</td>
+                                <td><span class="delete-tag">Eliminación permanente</span></td>
+                            </tr>
+                            <tr>
+                                <td>Cookies y datos de navegación asociados</td>
+                                <td><span class="delete-tag">Eliminación permanente</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="legal-section">
+                    <h2>4. Datos que Pueden Retenerse</h2>
+                    <p>Algunos datos pueden ser retenidos por obligaciones legales:</p>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Datos</th>
+                                <th>Motivo</th>
+                                <th>Plazo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Registros clínicos y de salud</td>
+                                <td><span class="retain-tag">Normativa sanitaria</span></td>
+                                <td>5-15 años según jurisdicción</td>
+                            </tr>
+                            <tr>
+                                <td>Datos de facturación e impuestos</td>
+                                <td><span class="retain-tag">Obligaciones fiscales</span></td>
+                                <td>5-10 años según jurisdicción</td>
+                            </tr>
+                            <tr>
+                                <td>Consentimientos informados firmados</td>
+                                <td><span class="retain-tag">Evidencia legal</span></td>
+                                <td>Según normativa aplicable</td>
+                            </tr>
+                            <tr>
+                                <td>Logs de seguridad (anonimizados)</td>
+                                <td><span class="retain-tag">Prevención de fraude</span></td>
+                                <td>12 meses máximo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Estos datos se anonimizan cuando es posible, de modo que no puedan vincularse directamente a tu
+                        persona.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>5. Eliminación de Datos vía Meta (Facebook/Instagram)</h2>
+                    <p>Si utilizaste tu cuenta de Facebook o Instagram para iniciar sesión o interactuar con Clinera,
+                        puedes solicitar la eliminación de tus datos desde la configuración de tu cuenta de
+                        Facebook:</p>
+                    <ol>
+                        <li>Ve a la <strong>Configuración de tu cuenta de Facebook</strong> → <strong>Aplicaciones y
+                                sitios web</strong>.</li>
+                        <li>Busca <strong>Clinera</strong> y selecciona <strong>Eliminar</strong>.</li>
+                        <li>Meta nos notificará automáticamente y procederemos con la eliminación.</li>
+                    </ol>
+                    <p>Recibirás un <strong>código de confirmación</strong> y podrás consultar el estado de tu solicitud
+                        en esta misma página.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h2>6. Plazos del Proceso</h2>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Acción</th>
+                                <th>Plazo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Confirmación de recepción de solicitud</td>
+                                <td><strong>48 horas</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Procesamiento de eliminación</td>
+                                <td><strong>Hasta 30 días</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Eliminación de copias de seguridad</td>
+                                <td><strong>Hasta 90 días</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="legal-section">
+                    <h2>7. Consecuencias de la Eliminación</h2>
+                    <p>Al eliminar tus datos:</p>
+                    <ul>
+                        <li>Perderás el acceso a tu cuenta de forma <strong>permanente</strong>.</li>
+                        <li>Los datos eliminados <strong>no pueden ser recuperados</strong>.</li>
+                        <li>Si eres administrador de una clínica, deberás transferir la titularidad antes de eliminar tu
+                            cuenta.</li>
+                        <li>Los datos de pacientes gestionados por la clínica no se eliminan automáticamente (son
+                            responsabilidad de la clínica).</li>
+                    </ul>
+                    <div class="warning-card">
+                        <p>⚠️ Esta acción es irreversible. Asegúrate de descargar cualquier información que necesites
+                            antes de solicitar la eliminación.</p>
+                    </div>
+                </div>
+
+                <div class="legal-section">
+                    <h2>8. Contacto</h2>
+                    <p>Si tienes preguntas sobre la eliminación de tus datos:</p>
+                    <div class="contact-card">
+                        <p><strong>OACG Inc.</strong></p>
+                        <p style="margin-top: 8px;">🔒 Privacidad: <a href="mailto:privacidad@clinera.io"
+                                style="color: var(--brand-cyan);">privacidad@clinera.io</a></p>
+                        <p style="margin-top: 4px;">🌐 Web: <a href="https://clinera.io"
+                                style="color: var(--brand-cyan);">clinera.io</a></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="clinera-logo.png" alt="Clinera Logo" height="32" class="footer-logo">
+                    <p>Inteligencia Artificial para potenciar el flujo de ventas de tu clínica.</p>
+                    <div class="app-badges-container" style="margin-top: 1.5rem;">
+                        <p class="app-badges-label"
+                            style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;">
+                            Pronto disponible:</p>
+                        <div class="app-badges" style="display: flex; gap: 0.75rem; align-items: center;">
+                            <a href="#" target="_blank" class="app-badge"
+                                style="display:inline-block; background:#1a1a2e; border-radius:8px; padding:2px; opacity:0.9; transition: opacity 0.2s;">
+                                <img src="images/AppStore.svg" width="120" height="40" alt="App Store"
+                                    style="display:block;">
+                            </a>
+                            <a href="#" target="_blank" class="app-badge"
+                                style="display:inline-block; background:#1a1a2e; border-radius:8px; padding:2px; opacity:0.9; transition: opacity 0.2s;">
+                                <img src="images/Google_Play.svg" width="135" height="40" alt="Google Play"
+                                    style="display:block;">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Producto</h4>
+                    <a href="/software">Funcionalidades</a>
+                    <a href="/planes">Planes</a>
+                    <a href="/roadmap">Roadmap</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Socios</h4>
+                    <a href="/referidos">Referidos</a>
+                    <a href="/reseller">Reseller</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Comunicaciones</h4>
+                    <a href="https://www.instagram.com/clinera.io" target="_blank">Instagram</a>
+                    <a href="https://www.youtube.com/channel/UCl4Bh9sNp22PjJuSLgz9ZsQ" target="_blank">YouTube</a>
+                    <a href="https://cl.linkedin.com/company/clinera-io" target="_blank">LinkedIn</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Soporte</h4>
+                    <a href="/ayuda">Centro de Ayuda</a>
+                    <a href="#">Contacto</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 OACG Inc. d/b/a Clinera.io. Todos los derechos reservados. · <a href="/privacidad"
+                        style="color: var(--text-muted);">Privacidad</a> · <a href="/terminos"
+                        style="color: var(--text-muted);">Términos</a> · <a href="/eliminar-datos"
+                        style="color: var(--text-muted);">Eliminar Datos</a></p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
