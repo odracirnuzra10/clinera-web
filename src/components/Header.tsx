@@ -61,7 +61,7 @@ export default function Header() {
           <nav className={styles.navLinks}>
             <Link href="/software">Funcionalidades</Link>
             <Link href="/planes">Planes</Link>
-            <Link href="/roadmap">Roadmap</Link>
+            <Link href="/novedades">Novedades</Link>
           </nav>
 
           <div className={styles.headerActions}>
@@ -121,8 +121,8 @@ export default function Header() {
           <Link href="/planes" onClick={closeMobileMenu}>
             Planes
           </Link>
-          <Link href="/roadmap" onClick={closeMobileMenu}>
-            Roadmap
+          <Link href="/novedades" onClick={closeMobileMenu}>
+            Novedades
           </Link>
         </div>
 

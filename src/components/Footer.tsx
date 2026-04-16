@@ -58,7 +58,7 @@ export default function Footer() {
             <h4>Producto</h4>
             <Link href="/software">Funcionalidades</Link>
             <Link href="/planes">Planes</Link>
-            <Link href="/roadmap">Roadmap</Link>
+            <Link href="/novedades">Novedades</Link>
           </div>
 
           {/* Socios */}
