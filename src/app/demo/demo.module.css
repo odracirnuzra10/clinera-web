@@ -315,20 +315,29 @@
   bottom: 24px;
   right: 24px;
   z-index: 99;
-  width: 56px;
-  height: 56px;
+  height: 48px;
+  padding: 0 20px 0 16px;
   background: #25D366;
-  border-radius: 50%;
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
   box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
 }
 
 .waFloat:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-3px) scale(1.03);
   box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55);
+}
+
+.waFloatText {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
 }
 
 /* ── Responsive ── */
@@ -357,8 +366,8 @@
   .waFloat {
     bottom: 16px;
     right: 16px;
-    width: 50px;
     height: 50px;
+    padding: 0 16px 0 14px;
   }
 }
 
