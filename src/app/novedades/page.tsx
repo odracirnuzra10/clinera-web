@@ -72,7 +72,11 @@ export default async function NovedadesPage() {
             {blogs && blogs.length > 0 ? (
               <div className={styles.blogGrid}>
                 {blogs.map((blog: any, index: number) => (
-                  <article key={index} className={styles.blogCard}>
+                  <a
+                    key={index}
+                    href={blog.url && blog.url !== "#" ? blog.url : "#"}
+                    className={styles.blogCard}
+                  >
                     {blog.image && (
                       <div className={styles.blogImageWrapper}>
                         {/* If the image URL is not relative or lacks a domain configured, we use standard simple img for external images to avoid next/image config errors */}
@@ -91,12 +95,11 @@ export default async function NovedadesPage() {
                       </span>
                       <h3>{blog.title}</h3>
                       <p className={styles.blogExcerpt}>{blog.excerpt}</p>
-                      {/* For now we just show the excerpt, a real blog could click through to /novedades/[slug] */}
-                      <a href={blog.url && blog.url !== "#" ? blog.url : undefined} className={styles.readMore}>
+                      <span className={styles.readMore}>
                         Leer articulo completo &rarr;
-                      </a>
+                      </span>
                     </div>
-                  </article>
+                  </a>
                 ))}
               </div>
             ) : (
