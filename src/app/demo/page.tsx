@@ -121,7 +121,7 @@ export default function DemoPage() {
                     href={plan.stripeUrl}
                     className={`${styles.planCta} ${styles[`planCta_${plan.ctaClass}`]}`}
                   >
-                    Prueba Gratis
+                    Activa {plan.name}
                   </a>
                   <p className={styles.planCtaSub}>
                     Sin permanencia · Cancela en 1 click

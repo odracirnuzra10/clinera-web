@@ -100,7 +100,7 @@ export default function PlanesPage() {
               href="https://buy.stripe.com/00wcN79l7bmO9wT6VZ14415"
               className={styles.planCta}
             >
-              Prueba Gratis
+              Activa Growth
             </a>
           </div>
 
@@ -143,7 +143,7 @@ export default function PlanesPage() {
               href="https://buy.stripe.com/aFa9AV8h3ez07oL2FJ14416"
               className={`${styles.planCta} ${styles.planCtaPrimary}`}
             >
-              Prueba Gratis
+              Activa Conect
             </a>
           </div>
 
@@ -183,7 +183,7 @@ export default function PlanesPage() {
               href="https://buy.stripe.com/4gM3cxapb9eG4cz1BF1441a"
               className={styles.planCta}
             >
-              Prueba Gratis
+              Activa Advanced
             </a>
           </div>
         </section>
