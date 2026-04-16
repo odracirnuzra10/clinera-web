@@ -12,10 +12,11 @@
 
 /* ── Hero Section ── */
 .heroSection {
-  /* Añadido padding superior extra para evitar el choque con el menú fijo */
-  padding: 120px 0 80px; 
+  /* Empujar el contenido bien por debajo del menú para evitar que quede pegado */
+  padding: 160px 0 40px; 
   text-align: center;
-  background: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.08) 0%, transparent 60%);
+  /* Fondo lineal suave para que empiece transparente (blanco) en el menú y baje muy sutilmente a morado, evitando un "corte" circular */
+  background: linear-gradient(to bottom, #ffffff 0%, rgba(124, 58, 237, 0.05) 50%, #ffffff 100%);
 }
 
 .heroBadge {
@@ -48,17 +49,18 @@
 
 /* ── Content Sections ── */
 .contentSection {
-  padding: 80px 0;
+  padding: 40px 0 80px;
 }
 
 .bgLight {
   background: #f8fafc;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 80px 0;
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .sectionHeader h2 {
