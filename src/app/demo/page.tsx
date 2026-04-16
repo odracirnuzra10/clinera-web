@@ -25,6 +25,7 @@ const PLANS = [
       "3 usuarios incluidos",
     ],
     ctaClass: "secondary" as const,
+    stripeUrl: "https://buy.stripe.com/00wcN79l7bmO9wT6VZ14415",
   },
   {
     name: "Conect",
@@ -39,6 +40,7 @@ const PLANS = [
       "Panel centralizado de ventas",
     ],
     ctaClass: "primary" as const,
+    stripeUrl: "https://buy.stripe.com/aFa9AV8h3ez07oL2FJ14416",
   },
   {
     name: "Advanced",
@@ -52,6 +54,7 @@ const PLANS = [
       "Soporte prioritario",
     ],
     ctaClass: "dark" as const,
+    stripeUrl: "https://buy.stripe.com/4gM3cxapb9eG4cz1BF1441a",
   },
 ];
 
@@ -115,7 +118,7 @@ export default function DemoPage() {
                     ))}
                   </ul>
                   <a
-                    href="https://app.clinera.io/auth/register"
+                    href={plan.stripeUrl}
                     className={`${styles.planCta} ${styles[`planCta_${plan.ctaClass}`]}`}
                   >
                     Prueba Gratis
