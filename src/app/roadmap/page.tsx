@@ -138,54 +138,13 @@ const versions: Version[] = [
     ],
   },
   {
-    id: "dodo",
-    name: "Dodo",
-    status: "upcoming",
-    image: "/images/dodo.avif",
-    date: "Marzo 2026",
-    description:
-      "Rediseno completo de la agenda con vista semanal y drag & drop. Nuevas integraciones y herramientas de gestion clinica avanzadas.",
-    features: [
-      {
-        emoji: "\uD83D\uDCC5",
-        category: "Nueva Agenda Visual",
-        items: [
-          "Vista semanal con drag & drop",
-          "Codigo de colores por tipo de servicio",
-          "Mini-resumen al hacer hover en cita",
-          "Reagendamiento con arrastrar y soltar",
-          "Vista de disponibilidad en tiempo real",
-        ],
-      },
-      {
-        emoji: "\uD83D\uDD17",
-        category: "Integraciones",
-        items: [
-          "Google Calendar bidireccional",
-          "Webhook API para sistemas externos",
-          "Integracion con plataformas de pago",
-        ],
-      },
-      {
-        emoji: "\uD83C\uDFE5",
-        category: "Gestion Clinica",
-        items: [
-          "Gestion de inventario basico",
-          "Control de insumos por tratamiento",
-          "Reportes de productividad por profesional",
-          "Dashboard operativo de la clinica",
-        ],
-      },
-    ],
-  },
-  {
     id: "kimi",
     name: "Kimi",
-    status: "upcoming",
+    status: "released",
     image: "/images/kimi.avif",
-    date: "Abril 2026",
+    date: "Marzo 2026",
     description:
-      "La IA da un salto enorme. Aura 2.0 con razonamiento clinico, nueva mensajeria integrada y capacidades de analisis predictivo.",
+      "La IA da un salto enorme. Aura 2.0 con razonamiento clinico, nueva mensajeria integrada y lanzamiento de la app movil de Clinera.",
     features: [
       {
         emoji: "\uD83E\uDDE0",
@@ -216,6 +175,56 @@ const versions: Version[] = [
           "Templates de mensajes personalizables",
         ],
       },
+      {
+        emoji: "\uD83D\uDCF1",
+        category: "App Movil",
+        items: [
+          "Lanzamiento app nativa iOS y Android",
+          "Gestion de agenda desde el telefono",
+          "Notificaciones push en tiempo real",
+        ],
+      },
+    ],
+  },
+  {
+    id: "dodo",
+    name: "Dodo",
+    status: "upcoming",
+    image: "/images/dodo.avif",
+    date: "Abril 2026",
+    description:
+      "Expansion clinica especializada. Fichas de estetica facial y corporal, odontograma, periodontograma y un onboarding rediseñado para activar clinicas en minutos.",
+    features: [
+      {
+        emoji: "\uD83E\uDDB7",
+        category: "Odontologia",
+        items: [
+          "Odontograma digital interactivo",
+          "Periodontograma por paciente",
+          "Historial odontologico completo",
+          "Notas clinicas por pieza dental",
+        ],
+      },
+      {
+        emoji: "\u2728",
+        category: "Estetica Facial y Corporal",
+        items: [
+          "Ficha clinica de estetica facial",
+          "Ficha clinica de estetica corporal",
+          "Registro fotografico por zona tratada",
+          "Seguimiento de tratamientos esteticos",
+        ],
+      },
+      {
+        emoji: "\uD83D\uDE80",
+        category: "Onboarding Optimizado",
+        items: [
+          "Wizard de configuracion inicial rediseñado",
+          "Activacion guiada paso a paso",
+          "Importacion masiva de pacientes",
+          "Templates pre-configurados por especialidad",
+        ],
+      },
     ],
   },
   {
@@ -225,34 +234,34 @@ const versions: Version[] = [
     image: "/images/berta1.avif",
     date: "Mayo 2026",
     description:
-      "El modulo financiero llega a Clinera. Facturacion, cobros y un onboarding mejorado para que nuevas clinicas arranquen en minutos.",
+      "Refinamiento profundo de todas las funciones existentes. Mejoras de velocidad, usabilidad y estabilidad en agendamiento, fichas, IA y panel de ventas.",
     features: [
       {
-        emoji: "\uD83D\uDCB0",
-        category: "Modulo Financiero",
+        emoji: "\uD83D\uDCC5",
+        category: "Agenda Mejorada",
         items: [
-          "Facturacion electronica integrada",
-          "Control de pagos y abonos",
-          "Reportes financieros por periodo",
-          "Integracion con pasarelas de pago",
+          "Vista semanal con drag & drop",
+          "Codigo de colores por tipo de servicio",
+          "Mini-resumen al hacer hover en cita",
+          "Vista de disponibilidad en tiempo real",
         ],
       },
       {
-        emoji: "\uD83D\uDD14",
-        category: "Notificaciones Avanzadas",
+        emoji: "\uD83D\uDCCA",
+        category: "Panel de Ventas",
         items: [
-          "Centro de notificaciones en app",
-          "Alertas personalizables por rol",
-          "Notificaciones push en movil",
+          "Mejoras de rendimiento del pipeline",
+          "Nuevas metricas de conversion",
+          "Filtros avanzados por profesional y sede",
         ],
       },
       {
-        emoji: "\uD83D\uDE80",
-        category: "Onboarding Mejorado",
+        emoji: "\u26A1",
+        category: "Rendimiento General",
         items: [
-          "Wizard de configuracion inicial",
-          "Importacion masiva de pacientes",
-          "Templates pre-configurados por especialidad",
+          "Reduccion de tiempos de carga",
+          "Optimizacion de automatizaciones",
+          "Mejoras de estabilidad en WhatsApp IA",
         ],
       },
     ],
@@ -264,25 +273,33 @@ const versions: Version[] = [
     image: "/images/berta2.avif",
     date: "Junio 2026",
     description:
-      "La experiencia movil nativa y la expansion a nuevos mercados. Clinera en tu bolsillo, disponible para iOS y Android.",
+      "Segunda ronda de mejoras. Pulimos la experiencia en fichas clinicas, mensajeria, reportes y la app movil basandonos en el feedback de los usuarios.",
     features: [
+      {
+        emoji: "\uD83D\uDCCB",
+        category: "Fichas Clinicas",
+        items: [
+          "Mejoras en editor de fichas",
+          "Nuevos campos configurables",
+          "Exportacion de historial en PDF",
+        ],
+      },
+      {
+        emoji: "\uD83D\uDCAC",
+        category: "Mensajeria",
+        items: [
+          "Mejoras en bandeja unificada",
+          "Busqueda avanzada en conversaciones",
+          "Etiquetas y filtros por estado",
+        ],
+      },
       {
         emoji: "\uD83D\uDCF1",
         category: "App Movil",
         items: [
-          "App nativa para iOS y Android",
-          "Gestion de agenda desde el movil",
-          "Notificaciones push en tiempo real",
+          "Mejoras de UX basadas en feedback",
           "Modo offline para consultas basicas",
-        ],
-      },
-      {
-        emoji: "\uD83C\uDF0D",
-        category: "Expansion",
-        items: [
-          "Soporte multi-idioma",
-          "Configuracion de zona horaria",
-          "Adaptacion a regulaciones locales",
+          "Nuevas notificaciones configurables",
         ],
       },
     ],
