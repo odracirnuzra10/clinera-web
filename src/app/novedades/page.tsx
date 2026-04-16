@@ -13,7 +13,18 @@ const AI_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbwJKtkMCOV8nDh3J5ngXzmU39xiB9zXbs6zFm5bTV1rlo6WKzm_XZXFFOzgEjEuIKF-/exec";
 const APP_TOKEN = "Clinera_Internal_Secure_Key_2026";
 
+function createSlug(title: string) {
+  if (!title) return "articulo";
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 export const revalidate = 60; // Refresh data every 60 seconds from the remote Excel
+
 
 async function getHelpData() {
   try {
@@ -64,17 +75,16 @@ export default async function NovedadesPage() {
         {/* Blogs / Articles Section */}
         <section className={styles.contentSection}>
           <div className={styles.container}>
-            <div className={styles.sectionHeader}>
-              <h2>Ultimos Articulos</h2>
-              <p>Novedades, buenas practicas y el mundo de la Inteligencia Artificial.</p>
-            </div>
-
             {blogs && blogs.length > 0 ? (
               <div className={styles.blogGrid}>
-                {blogs.map((blog: any, index: number) => (
+                {blogs.map((blog: any, index: number) => {
+                  const slug = createSlug(blog.title);
+                  const href = blog.url && blog.url !== "#" ? blog.url : `/blog/${slug}`;
+                  
+                  return (
                   <a
                     key={index}
-                    href={blog.url && blog.url !== "#" ? blog.url : "#"}
+                    href={href}
                     className={styles.blogCard}
                   >
                     {blog.image && (
@@ -100,7 +110,8 @@ export default async function NovedadesPage() {
                       </span>
                     </div>
                   </a>
-                ))}
+                );
+              })}
               </div>
             ) : (
               <div className={styles.emptyState}>No hay articulos disponibles actualmente.</div>
