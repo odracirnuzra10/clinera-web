@@ -459,14 +459,14 @@
                 <span>Cuky</span>
                 <span class="status-dot"></span>
             </button>
-            <button class="version-tab" onclick="showVersion('dodo')">
-                <img src="images/dodo-1-2-768x767.avif" alt="Dodo">
-                <span>Dodo</span>
-                <span class="status-dot upcoming"></span>
-            </button>
             <button class="version-tab" onclick="showVersion('kimi')">
                 <img src="images/kimi-768x768.avif" alt="Kimi">
                 <span>Kimi</span>
+                <span class="status-dot"></span>
+            </button>
+            <button class="version-tab" onclick="showVersion('dodo')">
+                <img src="images/dodo-1-2-768x767.avif" alt="Dodo">
+                <span>Dodo</span>
                 <span class="status-dot upcoming"></span>
             </button>
             <button class="version-tab future" onclick="showVersion('berta1')">
@@ -624,70 +624,16 @@
                 </div>
             </div>
 
-            <!-- ===== DODO ===== -->
-            <div class="version-panel" id="panel-dodo">
-                <div class="version-header">
-                    <img src="images/dodo-1-2-768x767.avif" alt="Dodo" class="version-mascot magenta-border">
-                    <div class="version-meta">
-                        <span class="version-tag tag-upcoming">⏳ Próximamente</span>
-                        <div class="version-title">Versión Dodo</div>
-                        <div class="version-date">Marzo 2026</div>
-                    </div>
-                    <p class="version-description">Dodo consolidó la experiencia del profesional: nueva agenda visual,
-                        mejoras de rendimiento y herramientas de gestión avanzada.</p>
-                </div>
-
-                <div class="features-grid">
-                    <div class="feature-category-card">
-                        <div class="category-header">
-                            <div class="category-icon icon-cyan">🗓️</div>
-                            <span class="category-title">Nueva Agenda Visual</span>
-                        </div>
-                        <ul class="feature-list">
-                            <li>Agenda en formato semana y mes rediseñada</li>
-                            <li>Par de profesionales en pantalla simultánea</li>
-                            <li>Agenda online para pacientes (autogestión)</li>
-                            <li>Bloqueos y vacaciones por profesional</li>
-                            <li>Colores por tipo de atención</li>
-                        </ul>
-                    </div>
-                    <div class="feature-category-card">
-                        <div class="category-header">
-                            <div class="category-icon icon-green">🔗</div>
-                            <span class="category-title">Integraciones</span>
-                        </div>
-                        <ul class="feature-list">
-                            <li>API REST pública para integraciones</li>
-                            <li>Webhooks de eventos en tiempo real</li>
-                            <li>Integración con Google Calendar y Meet</li>
-                        </ul>
-                    </div>
-                    <div class="feature-category-card">
-                        <div class="category-header">
-                            <div class="category-icon icon-blue">📦</div>
-                            <span class="category-title">Gestión Clínica</span>
-                        </div>
-                        <ul class="feature-list">
-                            <li>Módulo de presupuestos y cobros</li>
-                            <li>Historial de pagos por paciente</li>
-                            <li>Voucher de atención digitalizado</li>
-                            <li>Lista de espera inteligente</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
             <!-- ===== KIMI ===== -->
             <div class="version-panel" id="panel-kimi">
                 <div class="version-header">
-                    <img src="images/kimi-768x768.avif" alt="Kimi" class="version-mascot magenta-border">
+                    <img src="images/kimi-768x768.avif" alt="Kimi" class="version-mascot">
                     <div class="version-meta">
-                        <span class="version-tag tag-upcoming">⏳ Próximamente</span>
+                        <span class="version-tag tag-released">✓ Lanzada</span>
                         <div class="version-title">Versión Kimi</div>
-                        <div class="version-date">Abril 2026</div>
+                        <div class="version-date">Marzo 2026</div>
                     </div>
-                    <p class="version-description">Kimi será la gran evolución de nuestra IA. Aura IA 2.0 llegará con
-                        razonamiento avanzado y nuevas capacidades de personalización para cada clínica.</p>
+                    <p class="version-description">La IA da un salto enorme. Aura 2.0 con razonamiento clínico, nueva mensajería integrada y lanzamiento de la app móvil de Clinera.</p>
                 </div>
 
                 <div class="features-grid">
@@ -697,33 +643,96 @@
                             <span class="category-title">Aura IA 2.0</span>
                         </div>
                         <ul class="feature-list">
-                            <li>Modelo base actualizado a Gemini 3.0</li>
-                            <li>Memoria contextual extendida (multi-sesión)</li>
-                            <li>Detección de emociones del paciente</li>
-                            <li>Respuestas en múltiples idiomas</li>
-                            <li>Tono de voz ajustable por clínica</li>
+                            <li>Modelo de lenguaje más avanzado</li>
+                            <li>Contexto de conversación extendido</li>
+                            <li>Respuestas multimodales (texto + imágenes)</li>
+                            <li>Sugerencias proactivas de re-agendamiento</li>
+                            <li>Análisis de sentimiento del paciente</li>
                         </ul>
                     </div>
                     <div class="feature-category-card">
                         <div class="category-header">
-                            <div class="category-icon icon-magenta">🧠</div>
+                            <div class="category-icon icon-magenta">🩺</div>
                             <span class="category-title">Razonamiento Clínico</span>
                         </div>
                         <ul class="feature-list">
-                            <li>Síntesis de la jornada de atención</li>
-                            <li>Sugerencias de próxima consulta</li>
-                            <li>Alertas de adherencia al tratamiento</li>
+                            <li>Sugerencias de tratamiento basadas en historial</li>
+                            <li>Alertas de seguimiento clínico</li>
+                            <li>Predicción de no-show con machine learning</li>
                         </ul>
                     </div>
                     <div class="feature-category-card">
                         <div class="category-header">
-                            <div class="category-icon icon-orange">📱</div>
+                            <div class="category-icon icon-orange">💬</div>
                             <span class="category-title">Nueva Mensajería</span>
                         </div>
                         <ul class="feature-list">
-                            <li>Bandeja unificada multicanal</li>
-                            <li>Asignación de conversaciones a profesionales</li>
-                            <li>Notas internas entre el equipo clínico</li>
+                            <li>Bandeja de entrada unificada</li>
+                            <li>Mensajes internos entre equipo</li>
+                            <li>Templates de mensajes personalizables</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category-card">
+                        <div class="category-header">
+                            <div class="category-icon icon-blue">📱</div>
+                            <span class="category-title">App Móvil</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Lanzamiento app nativa iOS y Android</li>
+                            <li>Gestión de agenda desde el teléfono</li>
+                            <li>Notificaciones push en tiempo real</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== DODO ===== -->
+            <div class="version-panel" id="panel-dodo">
+                <div class="version-header">
+                    <img src="images/dodo-1-2-768x767.avif" alt="Dodo" class="version-mascot magenta-border">
+                    <div class="version-meta">
+                        <span class="version-tag tag-upcoming">⏳ Próximamente</span>
+                        <div class="version-title">Versión Dodo</div>
+                        <div class="version-date">Abril 2026</div>
+                    </div>
+                    <p class="version-description">Expansión clínica especializada. Fichas de estética facial y corporal, odontograma, periodontograma y un onboarding rediseñado para activar clínicas en minutos.</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-category-card">
+                        <div class="category-header">
+                            <div class="category-icon icon-blue">🦷</div>
+                            <span class="category-title">Odontología</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li class="upcoming">Odontograma digital interactivo</li>
+                            <li class="upcoming">Periodontograma por paciente</li>
+                            <li class="upcoming">Historial odontológico completo</li>
+                            <li class="upcoming">Notas clínicas por pieza dental</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category-card">
+                        <div class="category-header">
+                            <div class="category-icon icon-magenta">✨</div>
+                            <span class="category-title">Estética Facial y Corporal</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li class="upcoming">Ficha clínica de estética facial</li>
+                            <li class="upcoming">Ficha clínica de estética corporal</li>
+                            <li class="upcoming">Registro fotográfico por zona tratada</li>
+                            <li class="upcoming">Seguimiento de tratamientos estéticos</li>
+                        </ul>
+                    </div>
+                    <div class="feature-category-card">
+                        <div class="category-header">
+                            <div class="category-icon icon-purple">🚀</div>
+                            <span class="category-title">Onboarding Optimizado</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li class="upcoming">Wizard de configuración inicial rediseñado</li>
+                            <li class="upcoming">Activación guiada paso a paso</li>
+                            <li class="upcoming">Importación masiva de pacientes</li>
+                            <li class="upcoming">Templates pre-configurados por especialidad</li>
                         </ul>
                     </div>
                 </div>
@@ -922,7 +931,7 @@
 
             // Activate tab
             const tabs = document.querySelectorAll('.version-tab');
-            const ids = ['platanus', 'cuky', 'dodo', 'kimi', 'berta1', 'berta2'];
+            const ids = ['platanus', 'cuky', 'kimi', 'dodo', 'berta1', 'berta2'];
             const idx = ids.indexOf(id);
             if (idx >= 0) tabs[idx].classList.add('active');
         }
