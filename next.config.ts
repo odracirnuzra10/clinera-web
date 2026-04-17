@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         source: '/support',
         destination: '/support/index.html',
       },
+      {
+        source: '/contrata',
+        destination: '/contrata/index.html',
+      },
     ];
   },
 };

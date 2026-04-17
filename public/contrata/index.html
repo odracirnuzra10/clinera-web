@@ -541,42 +541,48 @@
     .integration-chip svg { width: 16px; height: 16px; }
 
     /* PROOF */
-    .proof-strip { padding: 56px 0; }
+    .proof-section {
+      background: #0B0F1A; padding: 72px 0;
+      border-top: 1px solid #1B2030; border-bottom: 1px solid #1B2030;
+    }
+    .proof-strip { padding: 0; }
     .proof-strip .label {
       text-align: center; font-family: 'DM Mono', monospace;
       font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
-      color: var(--cyan); margin-bottom: 10px;
+      color: #4DD0F5; margin-bottom: 10px;
     }
     .proof-strip h2 {
       text-align: center; font-size: clamp(24px, 3.4vw, 32px);
       font-weight: 700; letter-spacing: -0.025em; margin-bottom: 32px;
+      color: #FFFFFF;
     }
     .proof-metrics {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
     }
     .proof-metric {
-      text-align: center; padding: 24px 14px;
-      background: var(--bg-base); border: 1px solid var(--bg-border);
+      text-align: center; padding: 28px 16px;
+      background: #111826; border: 1px solid #1F2738;
       border-radius: 14px;
       transition: border-color 250ms var(--ease-out), box-shadow 250ms, transform 250ms;
     }
     .proof-metric:hover {
-      border-color: rgba(0,159,227,0.3);
-      box-shadow: 0 6px 20px rgba(0,159,227,0.08);
+      border-color: rgba(77,208,245,0.4);
+      box-shadow: 0 6px 24px rgba(0,159,227,0.18);
       transform: translateY(-2px);
     }
     .proof-metric .number {
-      font-size: 32px; font-weight: 800;
-      line-height: 1; margin-bottom: 6px; letter-spacing: -0.025em;
+      font-size: 36px; font-weight: 800;
+      line-height: 1; margin-bottom: 8px; letter-spacing: -0.025em;
+      color: #FFFFFF;
     }
-    .proof-metric .number .unit { font-size: 18px; color: var(--text-muted); font-weight: 700; }
+    .proof-metric .number .unit { font-size: 20px; color: #8B92A5; font-weight: 700; }
     .proof-metric .desc {
       font-family: 'DM Mono', monospace; font-size: 11px;
-      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;
+      color: #8B92A5; text-transform: uppercase; letter-spacing: 0.04em;
     }
     .proof-source {
-      text-align: center; margin-top: 16px;
-      font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted);
+      text-align: center; margin-top: 18px;
+      font-family: 'DM Mono', monospace; font-size: 11px; color: #8B92A5;
     }
 
     /* HOW */
@@ -931,7 +937,7 @@
     <div class="container">
       <nav class="nav">
         <a href="https://www.clinera.io" class="nav-logo" aria-label="clinera.io">
-          <img src="logo clinera.png" alt="clinera.io">
+          <img src="/clinera-logo.png" alt="clinera.io">
         </a>
         <div class="nav-right">
           <a href="#como-funciona" class="nav-link">Cómo funciona</a>
@@ -1107,16 +1113,17 @@
   </section>
 
   <!-- PROOF -->
-  <section class="proof-strip container reveal">
+  <section class="proof-section reveal">
+    <div class="proof-strip container">
     <div class="label">Resultados de clínicas activas · Q1 2026</div>
     <h2>Datos reales, no promesas</h2>
     <div class="proof-metrics">
-      <div class="proof-metric"><div class="number">60<span class="unit">+</span></div><div class="desc">Clínicas activas en LATAM</div></div>
-      <div class="proof-metric"><div class="number">+38<span class="unit">%</span></div><div class="desc">Más agendamientos al mes</div></div>
-      <div class="proof-metric"><div class="number">8<span class="unit">/10</span></div><div class="desc">Mensajes recuperados fuera de horario</div></div>
-      <div class="proof-metric"><div class="number">24/7</div><div class="desc">Sin levantar el teléfono</div></div>
+      <div class="proof-metric"><div class="number">149</div><div class="desc">Clínicas activas</div></div>
+      <div class="proof-metric"><div class="number">17.890</div><div class="desc">Agendamientos con IA</div></div>
+      <div class="proof-metric"><div class="number" style="font-size:26px">Clinera Vault</div><div class="desc">Respaldo legal de fichas clínicas</div></div>
     </div>
     <div class="proof-source">Chile · México · Perú · Ecuador · Argentina</div>
+    </div>
   </section>
 
   <!-- HOW -->
