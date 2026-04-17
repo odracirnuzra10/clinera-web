@@ -76,12 +76,38 @@ export default async function NovedadesPage() {
         <section className={styles.contentSection}>
           <div className={styles.container}>
             {blogs && blogs.length > 0 ? (
-              <div className={styles.blogGrid}>
-                {blogs.map((blog: any, index: number) => {
-                  const slug = createSlug(blog.title);
-                  const href = blog.url && blog.url !== "#" ? blog.url : `/blog/${slug}`;
-                  
+              <>
+                {/* ── Artículo Destacado (Estilo Magazine) ── */}
+                {(() => {
+                  const featured = blogs[0];
+                  const slug = createSlug(featured.title);
+                  const href = featured.url && featured.url !== "#" ? featured.url : `/blog/${slug}`;
                   return (
+                    <a href={href} className={styles.featuredCard}>
+                      {featured.image && (
+                        <div className={styles.featuredImageWrapper}>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={featured.image} alt={featured.title} className={styles.blogImage} loading="lazy" />
+                        </div>
+                      )}
+                      <div className={styles.featuredContent}>
+                        <span className={styles.blogCategory}>{featured.category || "Oportunidad"}</span>
+                        <h3>{featured.title}</h3>
+                        <p className={styles.blogExcerpt}>{featured.excerpt}</p>
+                        <span className={styles.readMore}>Leer articulo destacado &rarr;</span>
+                      </div>
+                    </a>
+                  );
+                })()}
+
+                {/* ── Resto de Artículos ── */}
+                {blogs.length > 1 && (
+                  <div className={styles.blogGrid}>
+                    {blogs.slice(1).map((blog: any, index: number) => {
+                      const slug = createSlug(blog.title);
+                      const href = blog.url && blog.url !== "#" ? blog.url : `/blog/${slug}`;
+                      
+                      return (
                   <a
                     key={index}
                     href={href}
@@ -109,10 +135,12 @@ export default async function NovedadesPage() {
                         Leer articulo completo &rarr;
                       </span>
                     </div>
-                  </a>
-                );
-              })}
-              </div>
+                      </a>
+                    );
+                  })}
+                </div>
+                )}
+              </>
             ) : (
               <div className={styles.emptyState}>No hay articulos disponibles actualmente.</div>
             )}
