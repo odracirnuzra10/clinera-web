@@ -131,7 +131,9 @@ export default async function NovedadesPage() {
               <div className={styles.faqList}>
                 {faqs.map((faq: any, index: number) => (
                   <div key={index} className={styles.faqCard}>
-                    <div className={styles.faqIcon}>{faq.icon || "💡"}</div>
+                    <div className={styles.faqIcon}>
+                      <i className={`fa-solid fa-${faq.icon || "lightbulb"}`}></i>
+                    </div>
                     <div className={styles.faqText}>
                       <h4>{faq.title}</h4>
                       <p>{faq.content}</p>
