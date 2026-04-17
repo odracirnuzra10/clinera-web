@@ -49,39 +49,40 @@ function LoginScreen({ onLogin }: { onLogin: (pw: string) => boolean }) {
   );
 }
 
-// Helper to resize and convert image to WebP (800x600 cropped "cover")
+// Helper to resize proportionally without cropping, returning WebP
 async function processAndConvertImage(file: File): Promise<{ base64: string, previewUrl: string }> {
   return new Promise((resolve, reject) => {
     const img = new window.Image();
     const url = URL.createObjectURL(file);
     img.onload = () => {
       URL.revokeObjectURL(url);
+      
+      const MAX_WIDTH = 800;
+      const MAX_HEIGHT = 800;
+      let width = img.width;
+      let height = img.height;
+
+      if (width > height) {
+        if (width > MAX_WIDTH) {
+          height = Math.round((height * MAX_WIDTH) / width);
+          width = MAX_WIDTH;
+        }
+      } else {
+        if (height > MAX_HEIGHT) {
+          width = Math.round((width * MAX_HEIGHT) / height);
+          height = MAX_HEIGHT;
+        }
+      }
+
       const canvas = document.createElement("canvas");
-      const TARGET_WIDTH = 800;
-      const TARGET_HEIGHT = 600;
-      canvas.width = TARGET_WIDTH;
-      canvas.height = TARGET_HEIGHT;
+      canvas.width = width;
+      canvas.height = height;
       const ctx = canvas.getContext("2d");
       if (!ctx) return reject(new Error("No canvas context"));
 
-      const imgRatio = img.width / img.height;
-      const targetRatio = TARGET_WIDTH / TARGET_HEIGHT;
-      let drawWidth = TARGET_WIDTH;
-      let drawHeight = TARGET_HEIGHT;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      if (imgRatio > targetRatio) {
-        drawWidth = TARGET_HEIGHT * imgRatio;
-        offsetX = (TARGET_WIDTH - drawWidth) / 2;
-      } else {
-        drawHeight = TARGET_WIDTH / imgRatio;
-        offsetY = (TARGET_HEIGHT - drawHeight) / 2;
-      }
-
       ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, TARGET_WIDTH, TARGET_HEIGHT);
-      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      ctx.fillRect(0, 0, width, height);
+      ctx.drawImage(img, 0, 0, width, height);
 
       const dataUrl = canvas.toDataURL("image/webp", 0.85); // 85% WebP quality
       const base64 = dataUrl.split(",")[1];
