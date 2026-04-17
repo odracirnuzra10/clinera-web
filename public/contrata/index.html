@@ -1333,6 +1333,88 @@
         else stickyCta.classList.remove('revealed');
       }
     }, { passive: true });
+
+    /* ===== GTM analytics: page_view + view_content + cta_click ===== */
+    window.dataLayer = window.dataLayer || [];
+    const PAGE_META = {
+      page_path: '/contrata',
+      page_name: 'contrata_aura_landing',
+      content_name: 'AURA - Landing Contrata',
+      content_category: 'landing',
+      content_type: 'product',
+      currency: 'USD',
+      value: 149
+    };
+
+    window.dataLayer.push({ event: 'page_view', ...PAGE_META });
+
+    let viewContentFired = false;
+    function fireViewContent(reason) {
+      if (viewContentFired) return;
+      viewContentFired = true;
+      window.dataLayer.push({
+        event: 'view_content',
+        trigger_reason: reason,
+        ...PAGE_META
+      });
+    }
+
+    const bottomSentinel = document.querySelector('footer, .footer, .sticky-cta') || document.body;
+    if ('IntersectionObserver' in window) {
+      const endObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            fireViewContent('bottom_reached');
+            endObs.disconnect();
+          }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+      endObs.observe(bottomSentinel);
+    }
+    window.addEventListener('scroll', () => {
+      const reached = (window.innerHeight + window.scrollY) / document.documentElement.scrollHeight;
+      if (reached >= 0.9) fireViewContent('scroll_90');
+    }, { passive: true });
+
+    const scrollMarks = [25, 50, 75, 100];
+    const hitScroll = new Set();
+    window.addEventListener('scroll', () => {
+      const pct = Math.round(((window.innerHeight + window.scrollY) / document.documentElement.scrollHeight) * 100);
+      scrollMarks.forEach(m => {
+        if (pct >= m && !hitScroll.has(m)) {
+          hitScroll.add(m);
+          window.dataLayer.push({ event: 'scroll_depth', scroll_percent: m, ...PAGE_META });
+        }
+      });
+    }, { passive: true });
+
+    document.addEventListener('click', (ev) => {
+      const a = ev.target.closest('a');
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      const text = (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ').slice(0, 80);
+      const isRegister = href.includes('app.clinera.io/auth/register');
+      const isWhatsApp = href.includes('wa.me') || href.includes('whatsapp');
+      if (isRegister || isWhatsApp || a.classList.contains('btn-primary') || a.classList.contains('nav-cta') || a.classList.contains('plan-cta')) {
+        const plan = (href.match(/plan=([a-z0-9_-]+)/i) || [])[1] || null;
+        window.dataLayer.push({
+          event: 'cta_click',
+          cta_text: text,
+          cta_href: href,
+          cta_type: isRegister ? 'register' : (isWhatsApp ? 'whatsapp' : 'other'),
+          cta_plan: plan,
+          ...PAGE_META
+        });
+        if (isRegister) {
+          window.dataLayer.push({
+            event: 'lead',
+            lead_source: 'contrata_landing',
+            plan: plan,
+            ...PAGE_META
+          });
+        }
+      }
+    }, { capture: true });
   </script>
 </body>
 </html>
