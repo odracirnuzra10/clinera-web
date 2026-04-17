@@ -20,6 +20,50 @@ const CATEGORIES = [
   "NOVEDADES",
 ];
 
+// Helper to resize and convert image to WebP (800x600 cropped "cover")
+async function processAndConvertImage(file: File): Promise<{ base64: string, previewUrl: string }> {
+  return new Promise((resolve, reject) => {
+    const img = new window.Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const canvas = document.createElement("canvas");
+      const TARGET_WIDTH = 800;
+      const TARGET_HEIGHT = 600;
+      canvas.width = TARGET_WIDTH;
+      canvas.height = TARGET_HEIGHT;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return reject(new Error("No canvas context"));
+
+      // Object-fit: cover calculation
+      const imgRatio = img.width / img.height;
+      const targetRatio = TARGET_WIDTH / TARGET_HEIGHT;
+      let drawWidth = TARGET_WIDTH;
+      let drawHeight = TARGET_HEIGHT;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      if (imgRatio > targetRatio) {
+        drawWidth = TARGET_HEIGHT * imgRatio;
+        offsetX = (TARGET_WIDTH - drawWidth) / 2;
+      } else {
+        drawHeight = TARGET_WIDTH / imgRatio;
+        offsetY = (TARGET_HEIGHT - drawHeight) / 2;
+      }
+
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, TARGET_WIDTH, TARGET_HEIGHT);
+      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+
+      const dataUrl = canvas.toDataURL("image/webp", 0.85); // 85% WebP quality
+      const base64 = dataUrl.split(",")[1];
+      resolve({ base64, previewUrl: dataUrl });
+    };
+    img.onerror = () => reject(new Error("Error leyendo imagen"));
+    img.src = url;
+  });
+}
+
 export default function AdminBlogPage() {
   const { authenticated, checked, login } = useAdminAuth();
   const [loginPw, setLoginPw] = useState("");
@@ -73,40 +117,39 @@ export default function AdminBlogPage() {
     const localUrl = URL.createObjectURL(file);
     setImagePreviewUrl(localUrl);
 
-    // Convert to base64
     setUploadingImage(true);
-    const reader = new FileReader();
-    reader.onloadend = async () => {
-      const base64Full = reader.result as string;
-      // Strip the data:image/xxx;base64, prefix
-      const base64 = base64Full.split(",")[1];
 
-      try {
-        const res = await fetch(AI_ENDPOINT, {
-          method: "POST",
-          body: JSON.stringify({
-            type: "upload_image",
-            token: APP_TOKEN,
-            base64,
-            mimeType: file.type,
-            fileName: file.name,
-          }),
-        });
+    try {
+      const { base64, previewUrl } = await processAndConvertImage(file);
+      setImagePreviewUrl(previewUrl);
 
-        const data = await res.json();
-        if (data.success) {
-          setForm((prev) => ({ ...prev, image: data.url }));
-          setImagePreviewUrl(data.url);
-        } else {
-          setError("Error subiendo imagen: " + (data.response || "Error desconocido"));
-        }
-      } catch {
-        setError("Error de conexión al subir la imagen.");
-      } finally {
-        setUploadingImage(false);
+      // Extract raw filename and change extension
+      const oldName = file.name;
+      const newName = (oldName.substring(0, oldName.lastIndexOf(".")) || "imagen") + ".webp";
+
+      const res = await fetch(AI_ENDPOINT, {
+        method: "POST",
+        body: JSON.stringify({
+          type: "upload_image",
+          token: APP_TOKEN,
+          base64,
+          mimeType: "image/webp",
+          fileName: newName,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setForm((prev) => ({ ...prev, image: data.url }));
+        setImagePreviewUrl(data.url); // Use the final Drive URL just in case
+      } else {
+        setError("Error subiendo imagen: " + (data.response || "Error desconocido"));
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (err: any) {
+      setError("Error de procesamiento o de conexión al subir la imagen.");
+    } finally {
+      setUploadingImage(false);
+    }
   }, []);
 
   function handleFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
