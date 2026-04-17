@@ -53,7 +53,11 @@ async function getHelpData() {
 }
 
 export default async function NovedadesPage() {
-  const { blogs, faqs } = await getHelpData();
+  const data = await getHelpData();
+  const faqs = data.faqs;
+  // Invertir para mostrar el artículo más reciente (última fila del Excel) como el destacado
+  const blogs = data.blogs.slice().reverse();
+
 
   return (
     <>
