@@ -182,17 +182,109 @@
   color: #7c3aed;
 }
 
-.imagePreview {
+.imagePreviewWrapper {
+  position: relative;
   border-radius: 12px;
   overflow: hidden;
-  max-height: 240px;
   border: 1px solid #e2e8f0;
 }
 
-.imagePreview img {
+.imagePreview {
   width: 100%;
-  height: 240px;
+  height: 200px;
   object-fit: cover;
+  display: block;
+}
+
+.imagePreviewOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.uploadingBadge {
+  background: rgba(251,191,36,0.9);
+  color: #78350f;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.uploadedBadge {
+  background: rgba(34,197,94,0.9);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.removeImageBtn {
+  background: rgba(239,68,68,0.85);
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.removeImageBtn:hover {
+  background: rgba(220,38,38,0.95);
+}
+
+/* Drag & Drop Zone */
+.dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  background: #f8fafc;
+}
+
+.dropzone:hover {
+  border-color: #8b5cf6;
+  background: rgba(139,92,246,0.03);
+}
+
+.dropzoneActive {
+  border-color: #8b5cf6;
+  background: rgba(139,92,246,0.06);
+}
+
+.dropzoneHidden {
+  display: none;
+}
+
+.fileInputHidden {
+  display: none;
+}
+
+.dropzoneIcon {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.dropzoneText {
+  font-size: 14px;
+  color: #475569;
+  margin-bottom: 4px;
+}
+
+.dropzoneHint {
+  font-size: 12px;
+  color: #94a3b8;
 }
 
 .formActions {
