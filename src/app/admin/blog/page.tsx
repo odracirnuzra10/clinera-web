@@ -3,9 +3,9 @@
 import { useState, useRef, useCallback } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useAdminAuth } from "../useAdminAuth";
 import styles from "./admin-blog.module.css";
 
-const ADMIN_PASSWORD = "clinera2026admin";
 const AI_ENDPOINT =
   "https://script.google.com/macros/s/AKfycbwJKtkMCOV8nDh3J5ngXzmU39xiB9zXbs6zFm5bTV1rlo6WKzm_XZXFFOzgEjEuIKF-/exec";
 const APP_TOKEN = "Clinera_Internal_Secure_Key_2026";
@@ -21,9 +21,9 @@ const CATEGORIES = [
 ];
 
 export default function AdminBlogPage() {
-  const [password, setPassword] = useState("");
-  const [authenticated, setAuthenticated] = useState(false);
-  const [authError, setAuthError] = useState(false);
+  const { authenticated, checked, login } = useAdminAuth();
+  const [loginPw, setLoginPw] = useState("");
+  const [loginError, setLoginError] = useState(false);
 
   const [form, setForm] = useState({
     category: "GENERAL",
@@ -46,12 +46,7 @@ export default function AdminBlogPage() {
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setAuthenticated(true);
-      setAuthError(false);
-    } else {
-      setAuthError(true);
-    }
+    if (!login(loginPw)) setLoginError(true);
   }
 
   function handleChange(
@@ -189,6 +184,9 @@ export default function AdminBlogPage() {
     }
   }
 
+  // Show nothing until sessionStorage is checked
+  if (!checked) return null;
+
   // ── Login Screen ──
   if (!authenticated) {
     return (
@@ -203,12 +201,12 @@ export default function AdminBlogPage() {
               <input
                 type="password"
                 placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={`${styles.input} ${authError ? styles.inputError : ""}`}
+                value={loginPw}
+                onChange={(e) => setLoginPw(e.target.value)}
+                className={`${styles.input} ${loginError ? styles.inputError : ""}`}
                 autoFocus
               />
-              {authError && <p className={styles.errorMsg}>Contraseña incorrecta.</p>}
+              {loginError && <p className={styles.errorMsg}>Contraseña incorrecta.</p>}
               <button type="submit" className={styles.btnPrimary}>Entrar</button>
             </form>
           </div>
@@ -230,7 +228,14 @@ export default function AdminBlogPage() {
               <h1>Publicar Nuevo Artículo</h1>
               <p>Completa el formulario para publicar en el Blog de Clinera.</p>
             </div>
-            <a href="/novedades" className={styles.btnSecondary}>Ver Blog →</a>
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <a href="/admin/dashboard" className={styles.btnSecondary}>
+                ← Dashboard
+              </a>
+              <a href="/novedades" className={styles.btnSecondary}>
+                Ver Blog →
+              </a>
+            </div>
           </div>
 
           {success && <div className={styles.successBanner}>{success}</div>}
