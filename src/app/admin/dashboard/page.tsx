@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useAdminAuth } from "../useAdminAuth";
@@ -55,8 +55,71 @@ function EditBlogModal({ blog, onClose, onSaved }: { blog: Blog; onClose: () => 
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const processImageFile = useCallback(async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      setErr("El archivo debe ser una imagen (JPG, PNG, WebP, etc.)");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setErr("La imagen no puede superar los 5MB.");
+      return;
+    }
+
+    setErr(null);
+    const localUrl = URL.createObjectURL(file);
+    setForm((prev) => ({ ...prev, image: localUrl })); // Temporary preview
+
+    setUploadingImage(true);
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64Full = reader.result as string;
+      const base64 = base64Full.split(",")[1];
+      try {
+        const res = await fetch(AI_ENDPOINT, {
+          method: "POST",
+          body: JSON.stringify({
+            type: "upload_image",
+            token: APP_TOKEN,
+            base64,
+            mimeType: file.type,
+            fileName: file.name,
+          }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          setForm((prev) => ({ ...prev, image: data.url }));
+        } else {
+          setErr("Error subiendo imagen: " + (data.response || "Error desconocido"));
+        }
+      } catch {
+        setErr("Error de conexión al subir la imagen.");
+      } finally {
+        setUploadingImage(false);
+      }
+    };
+    reader.readAsDataURL(file);
+  }, []);
+
+  function handleFileInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) processImageFile(file);
+  }
+
+  function clearImage() {
+    setForm((prev) => ({ ...prev, image: "" }));
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
+    if (uploadingImage) {
+      setErr("Espera a que termine de subir la imagen.");
+      return;
+    }
     setSaving(true); setErr(null);
     const data = await apiCall({ type: "update_blog", ...form });
     setSaving(false);
@@ -90,15 +153,55 @@ function EditBlogModal({ blog, onClose, onSaved }: { blog: Blog; onClose: () => 
           </div>
           <div className={styles.formRow}>
             <div className={styles.formGroup} style={{flex:2}}>
-              <label>URL Imagen</label>
-              <input value={form.image} onChange={e => setForm(f=>({...f, image:e.target.value}))} className={styles.input} />
+              <label>Imagen de portada</label>
+              <div
+                className={`${styles.dropzone} ${isDraggingOver ? styles.dropzoneActive : ""} ${form.image ? styles.dropzoneHidden : ""}`}
+                onDragOver={(e) => { e.preventDefault(); setIsDraggingOver(true); }}
+                onDragLeave={() => setIsDraggingOver(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setIsDraggingOver(false);
+                  const file = e.dataTransfer.files?.[0];
+                  if (file) processImageFile(file);
+                }}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className={styles.fileInputHidden}
+                  onChange={handleFileInputChange}
+                />
+                <div className={styles.dropzoneIcon}>🖼️</div>
+                <p className={styles.dropzoneText}>
+                  <strong>Haz clic o arrastra</strong> una imagen aquí
+                </p>
+                <p className={styles.dropzoneHint}>JPG, PNG, WebP · Máx. 5MB</p>
+              </div>
+
+              {form.image && (
+                <div className={styles.imagePreviewWrapper}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={form.image} alt="Preview" className={styles.imagePreview} />
+                  <div className={styles.imagePreviewOverlay}>
+                    {uploadingImage ? (
+                      <span className={styles.uploadingBadge}>⏳ Subiendo a Drive…</span>
+                    ) : (
+                      <span className={styles.uploadedBadge}>✅ Cargada</span>
+                    )}
+                    <button type="button" onClick={clearImage} className={styles.removeImageBtn}>
+                      ✕ Quitar
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
             <div className={styles.formGroup}>
               <label>Keywords</label>
               <input value={form.keywords} onChange={e => setForm(f=>({...f, keywords:e.target.value}))} className={styles.input} />
             </div>
           </div>
-          {form.image && <img src={form.image} alt="" className={styles.imgPreview} />}
           <div className={styles.formGroup}>
             <label>Contenido (HTML)</label>
             <textarea value={form.full_content} onChange={e => setForm(f=>({...f, full_content:e.target.value}))} className={`${styles.textarea} ${styles.textareaLarge}`} rows={14} />
@@ -106,7 +209,9 @@ function EditBlogModal({ blog, onClose, onSaved }: { blog: Blog; onClose: () => 
           {err && <p className={styles.errorMsg}>{err}</p>}
           <div className={styles.modalActions}>
             <button type="button" onClick={onClose} className={styles.btnSecondary}>Cancelar</button>
-            <button type="submit" className={styles.btnPrimary} disabled={saving}>{saving ? "Guardando…" : "💾 Guardar cambios"}</button>
+            <button type="submit" className={styles.btnPrimary} disabled={saving || uploadingImage}>
+              {saving ? "Guardando…" : uploadingImage ? "Esperando imagen…" : "💾 Guardar cambios"}
+            </button>
           </div>
         </form>
       </div>
