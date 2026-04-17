@@ -97,7 +97,7 @@ export default function PlanesPage() {
             </ul>
 
             <a
-              href="https://buy.stripe.com/00wcN79l7bmO9wT6VZ14415"
+              href="https://app.clinera.io/auth/register?lang=es"
               className={styles.planCta}
             >
               Activa Growth
@@ -140,7 +140,7 @@ export default function PlanesPage() {
             </ul>
 
             <a
-              href="https://buy.stripe.com/aFa9AV8h3ez07oL2FJ14416"
+              href="https://app.clinera.io/auth/register?lang=es"
               className={`${styles.planCta} ${styles.planCtaPrimary}`}
             >
               Activa Conect
@@ -180,7 +180,7 @@ export default function PlanesPage() {
             </ul>
 
             <a
-              href="https://buy.stripe.com/4gM3cxapb9eG4cz1BF1441a"
+              href="https://app.clinera.io/auth/register?lang=es"
               className={styles.planCta}
             >
               Activa Advanced

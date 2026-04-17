@@ -467,9 +467,9 @@ export default function Home() {
               </p>
               <div className="hero-cta">
                 <div className="hero-actions">
-                  <Link href="/planes" className="btn btn-gradient btn-lg">
+                  <a href="https://app.clinera.io/auth/register?lang=es" className="btn btn-gradient btn-lg">
                     Prueba Gratis &rarr;
-                  </Link>
+                  </a>
                   <Link href="/demo" className="btn btn-outline btn-lg">
                     Ver demo &rarr;
                   </Link>
@@ -690,9 +690,9 @@ export default function Home() {
                   </div>
                   <div className="cta-bottom">
                     <h3>Lleva tu clinica al siguiente nivel</h3>
-                    <Link href="/planes" className="btn btn-gradient btn-lg">
+                    <a href="https://app.clinera.io/auth/register?lang=es" className="btn btn-gradient btn-lg">
                       Prueba Gratis
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>
