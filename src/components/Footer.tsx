@@ -61,11 +61,11 @@ export default function Footer() {
             <Link href="/novedades">Novedades</Link>
           </div>
 
-          {/* Socios */}
+          {/* Comienza gratis */}
           <div className={styles.footerLinks}>
-            <h4>Socios</h4>
-            <Link href="/referidos">Referidos</Link>
-            <Link href="/reseller">Reseller</Link>
+            <h4>Comienza gratis</h4>
+            <Link href="/demo">Demo</Link>
+            <Link href="/contrata">Comienza gratis por 7 días</Link>
           </div>
 
           {/* Comunicaciones */}
