@@ -97,10 +97,13 @@ export default function PlanesPage() {
             </ul>
 
             <a
-              href="https://app.clinera.io/auth/register?lang=es"
+              href="https://app.clinera.io/auth/register?lang=es&plan=growth"
               className={styles.planCta}
+              data-plan="growth"
+              data-plan-value="59"
+              data-plan-name="Growth trial"
             >
-              Activa Growth
+              Prueba Gratis
             </a>
           </div>
 
@@ -140,10 +143,13 @@ export default function PlanesPage() {
             </ul>
 
             <a
-              href="https://app.clinera.io/auth/register?lang=es"
+              href="https://app.clinera.io/auth/register?lang=es&plan=conect"
               className={`${styles.planCta} ${styles.planCtaPrimary}`}
+              data-plan="conect"
+              data-plan-value="89"
+              data-plan-name="Conect trial"
             >
-              Activa Conect
+              Prueba Gratis
             </a>
           </div>
 
@@ -180,28 +186,14 @@ export default function PlanesPage() {
             </ul>
 
             <a
-              href="https://app.clinera.io/auth/register?lang=es"
+              href="https://app.clinera.io/auth/register?lang=es&plan=advanced"
               className={styles.planCta}
+              data-plan="advanced"
+              data-plan-value="149"
+              data-plan-name="Advanced trial"
             >
-              Activa Advanced
+              Prueba Gratis
             </a>
-          </div>
-        </section>
-
-        {/* ── Warranty Card ── */}
-        <section className="container">
-          <div className={styles.warrantyCard}>
-            <span className={styles.warrantyEmoji}>🛡️</span>
-            <h3>Garantía e integraciones</h3>
-            <p>
-              Garantía 7 días sin letra chica. Si no estás conforme, te
-              devolvemos el 100&nbsp;% de tu pago. Sin preguntas.
-            </p>
-            <p>
-              Clinera se integra con tu software actual: Reservo, AgendaPro,
-              Medilink, Dentalink y Sacmed. Conectamos vía API para que no
-              pierdas nada.
-            </p>
           </div>
         </section>
 
@@ -297,16 +289,38 @@ export default function PlanesPage() {
 
       <Footer />
 
-      {/* Meta Pixel — InitiateCheckout */}
+      {/* Meta Pixel — InitiateCheckout on CTA click */}
       <script
         dangerouslySetInnerHTML={{
           __html: `
-            if (typeof fbq === 'function') {
-              fbq('track', 'InitiateCheckout', {
-                content_name: 'Planes Clinera',
-                content_category: 'pricing'
-              });
-            }
+            (function(){
+              window.dataLayer = window.dataLayer || [];
+              document.addEventListener('click', function(ev){
+                var a = ev.target.closest('a[data-plan]');
+                if (!a) return;
+                var plan = a.getAttribute('data-plan');
+                var name = a.getAttribute('data-plan-name') || (plan + ' trial');
+                var value = parseFloat(a.getAttribute('data-plan-value') || '0');
+                window.dataLayer.push({
+                  event: 'initiate_checkout',
+                  lead_source: 'planes_landing',
+                  plan: plan,
+                  content_name: name,
+                  value: value,
+                  currency: 'USD',
+                  page_path: '/planes'
+                });
+                if (typeof fbq === 'function') {
+                  fbq('track', 'InitiateCheckout', {
+                    content_name: name,
+                    content_category: 'landing_register',
+                    content_type: 'product',
+                    currency: 'USD',
+                    value: value
+                  });
+                }
+              }, { capture: true });
+            })();
           `,
         }}
       />

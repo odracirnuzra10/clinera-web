@@ -16,6 +16,7 @@ export const metadata: Metadata = {
 const PLANS = [
   {
     name: "Growth",
+    slug: "growth",
     price: "59",
     tagline: "Mensajeria IA para clinicas que ya tienen software",
     features: [
@@ -25,10 +26,11 @@ const PLANS = [
       "3 usuarios incluidos",
     ],
     ctaClass: "secondary" as const,
-    stripeUrl: "https://app.clinera.io/auth/register?lang=es",
+    stripeUrl: "https://app.clinera.io/auth/register?lang=es&plan=growth",
   },
   {
     name: "Conect",
+    slug: "conect",
     price: "89",
     tagline: "Mensajeria + clinica completa sin otro software",
     popular: true,
@@ -40,10 +42,11 @@ const PLANS = [
       "Panel centralizado de ventas",
     ],
     ctaClass: "primary" as const,
-    stripeUrl: "https://app.clinera.io/auth/register?lang=es",
+    stripeUrl: "https://app.clinera.io/auth/register?lang=es&plan=conect",
   },
   {
     name: "Advanced",
+    slug: "advanced",
     price: "149",
     tagline: "Para cadenas clinicas multi-sede",
     features: [
@@ -54,7 +57,7 @@ const PLANS = [
       "Soporte prioritario",
     ],
     ctaClass: "dark" as const,
-    stripeUrl: "https://app.clinera.io/auth/register?lang=es",
+    stripeUrl: "https://app.clinera.io/auth/register?lang=es&plan=advanced",
   },
 ];
 
@@ -120,8 +123,11 @@ export default function DemoPage() {
                   <a
                     href={plan.stripeUrl}
                     className={`${styles.planCta} ${styles[`planCta_${plan.ctaClass}`]}`}
+                    data-plan={plan.slug}
+                    data-plan-value={plan.price}
+                    data-plan-name={`${plan.name} trial`}
                   >
-                    Activa {plan.name}
+                    Prueba Gratis
                   </a>
                   <p className={styles.planCtaSub}>
                     Sin permanencia · Cancela en 1 click
@@ -170,6 +176,44 @@ export default function DemoPage() {
 
       <Footer />
       <Script src="https://player.vimeo.com/api/player.js" strategy="lazyOnload" />
+
+      {/* Meta Pixel — InitiateCheckout on CTA click */}
+      <Script
+        id="demo-initiate-checkout"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function(){
+              window.dataLayer = window.dataLayer || [];
+              document.addEventListener('click', function(ev){
+                var a = ev.target.closest('a[data-plan]');
+                if (!a) return;
+                var plan = a.getAttribute('data-plan');
+                var name = a.getAttribute('data-plan-name') || (plan + ' trial');
+                var value = parseFloat(a.getAttribute('data-plan-value') || '0');
+                window.dataLayer.push({
+                  event: 'initiate_checkout',
+                  lead_source: 'demo_landing',
+                  plan: plan,
+                  content_name: name,
+                  value: value,
+                  currency: 'USD',
+                  page_path: '/demo'
+                });
+                if (typeof fbq === 'function') {
+                  fbq('track', 'InitiateCheckout', {
+                    content_name: name,
+                    content_category: 'landing_register',
+                    content_type: 'product',
+                    currency: 'USD',
+                    value: value
+                  });
+                }
+              }, { capture: true });
+            })();
+          `,
+        }}
+      />
     </>
   );
 }
