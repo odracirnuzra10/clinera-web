@@ -1518,31 +1518,26 @@
           ...PAGE_META
         });
         if (isRegister) {
+          var planValue = 59, planName = 'trial_signup';
+          if (plan === 'growth')        { planValue = 59;  planName = 'Growth trial'; }
+          else if (plan === 'conect')   { planValue = 89;  planName = 'Conect trial'; }
+          else if (plan === 'advanced') { planValue = 149; planName = 'Advanced trial'; }
           window.dataLayer.push({
-            event: 'lead',
+            event: 'initiate_checkout',
             lead_source: 'inicia_landing',
             plan: plan,
+            content_name: planName,
+            value: planValue,
             ...PAGE_META
           });
           if (typeof fbq === 'function') {
-            var planValue = 0, planName = 'trial_signup';
-            if (plan === 'growth')   { planValue = 59;  planName = 'Growth trial'; }
-            else if (plan === 'conect')   { planValue = 89;  planName = 'Conect trial'; }
-            else if (plan === 'advanced') { planValue = 149; planName = 'Advanced trial'; }
-            fbq('track', 'Lead', {
+            fbq('track', 'InitiateCheckout', {
               content_name: planName,
               content_category: 'landing_register',
+              content_type: 'product',
               currency: 'USD',
               value: planValue
             });
-            if (plan) {
-              fbq('track', 'InitiateCheckout', {
-                content_name: planName,
-                content_type: 'product',
-                currency: 'USD',
-                value: planValue
-              });
-            }
           }
         }
         if (isWhatsApp && typeof fbq === 'function') {
