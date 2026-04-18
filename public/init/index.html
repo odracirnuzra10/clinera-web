@@ -70,10 +70,11 @@
       --shadow-cta-hover:0 14px 40px -10px rgba(124,58,237,0.6),0 6px 16px -4px rgba(0,159,227,0.35);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; max-width: 100%; }
     body {
       background: var(--bg-base); color: var(--text-primary);
-      font-family: 'Outfit', sans-serif; min-height: 100vh; overflow-x: hidden;
+      font-family: 'Outfit', sans-serif; min-height: 100vh;
+      overflow-x: hidden; max-width: 100%; position: relative;
       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
     }
 
