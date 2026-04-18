@@ -1459,6 +1459,16 @@
         trigger_reason: reason,
         ...PAGE_META
       });
+      if (typeof fbq === 'function') {
+        fbq('track', 'ViewContent', {
+          content_name: PAGE_META.content_name,
+          content_category: PAGE_META.content_category,
+          content_type: PAGE_META.content_type,
+          currency: PAGE_META.currency,
+          value: PAGE_META.value,
+          trigger_reason: reason
+        });
+      }
     }
 
     const bottomSentinel = document.querySelector('footer, .footer, .sticky-cta') || document.body;
@@ -1513,6 +1523,33 @@
             lead_source: 'inicia_landing',
             plan: plan,
             ...PAGE_META
+          });
+          if (typeof fbq === 'function') {
+            var planValue = 0, planName = 'trial_signup';
+            if (plan === 'growth')   { planValue = 59;  planName = 'Growth trial'; }
+            else if (plan === 'conect')   { planValue = 89;  planName = 'Conect trial'; }
+            else if (plan === 'advanced') { planValue = 149; planName = 'Advanced trial'; }
+            fbq('track', 'Lead', {
+              content_name: planName,
+              content_category: 'landing_register',
+              currency: 'USD',
+              value: planValue
+            });
+            if (plan) {
+              fbq('track', 'InitiateCheckout', {
+                content_name: planName,
+                content_type: 'product',
+                currency: 'USD',
+                value: planValue
+              });
+            }
+          }
+        }
+        if (isWhatsApp && typeof fbq === 'function') {
+          fbq('track', 'Contact', {
+            content_name: 'whatsapp_click',
+            content_category: 'landing_whatsapp',
+            cta_text: text
           });
         }
       }
@@ -1569,5 +1606,64 @@ if(c||b||d||e)b=new URL(this.href),b.searchParams.set("client_reference_id",a),t
 
   <script src="https://player.vimeo.com/api/player.js"></script>
 
+  <!-- fbclid capture → _fbc cookie + inject tracking params into register links -->
+  <script>
+  (function(){
+    function getCookie(name){
+      var m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&') + '=([^;]*)'));
+      return m ? m[1] : '';
+    }
+    function setCookie(name, value, days){
+      var d = new Date(); d.setTime(d.getTime() + days*86400000);
+      document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+    }
+    var qs = new URLSearchParams(window.location.search);
+    var fbclid = qs.get('fbclid');
+    // Persist fbclid as _fbc (Meta's canonical first-party cookie) only if present in URL
+    if (fbclid) {
+      var existing = getCookie('_fbc');
+      if (!existing) {
+        setCookie('_fbc', 'fb.1.' + Date.now() + '.' + fbclid, 90);
+      }
+      setCookie('fbclid', fbclid, 90);
+    }
+    // Inject all tracking params into register links at click time, so the app
+    // backend can read gclid/fbclid/utm/fbp/ga when the trial lead arrives.
+    function enrichRegisterLink(a){
+      try {
+        var u = new URL(a.href, window.location.origin);
+        var params = [
+          ['fbclid', getCookie('fbclid') || qs.get('fbclid') || ''],
+          ['gclid',  getCookie('gclid')  || qs.get('gclid')  || ''],
+          ['utm_source',   getCookie('utm_source')   || qs.get('utm_source')   || ''],
+          ['utm_medium',   getCookie('utm_medium')   || qs.get('utm_medium')   || ''],
+          ['utm_campaign', getCookie('utm_campaign') || qs.get('utm_campaign') || ''],
+          ['utm_term',     getCookie('utm_term')     || qs.get('utm_term')     || ''],
+          ['utm_content',  getCookie('utm_content')  || qs.get('utm_content')  || '']
+        ];
+        params.forEach(function(p){ if (p[1]) u.searchParams.set(p[0], p[1]); });
+        var fbc = getCookie('_fbc'); if (fbc) u.searchParams.set('_fbc', fbc);
+        var fbp = getCookie('_fbp'); if (fbp) u.searchParams.set('_fbp', fbp);
+        var gaClientId = (function(){ var g = getCookie('_ga'); if (!g) return ''; var parts = g.split('.'); return parts.length >= 4 ? parts.slice(2).join('.') : ''; })();
+        if (gaClientId) u.searchParams.set('ga_cid', gaClientId);
+        a.href = u.toString();
+      } catch(e) {}
+    }
+    function wireRegisterLinks(){
+      document.querySelectorAll('a[href*="app.clinera.io/auth/register"]').forEach(function(a){
+        if (a.dataset.registerWired) return;
+        a.dataset.registerWired = '1';
+        a.addEventListener('click', function(){ enrichRegisterLink(a); }, { capture: true });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', wireRegisterLinks);
+    } else {
+      wireRegisterLinks();
+    }
+    setTimeout(wireRegisterLinks, 1500);
+    setTimeout(wireRegisterLinks, 3500);
+  })();
+  </script>
 
 </body></html>
