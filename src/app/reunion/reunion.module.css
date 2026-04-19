@@ -1,7 +1,7 @@
 .hero {
   max-width: 1160px;
   margin: 0 auto;
-  padding: 56px 24px 28px;
+  padding: 140px 24px 32px;
   text-align: center;
   position: relative;
 }
@@ -115,7 +115,7 @@
 
 @media (max-width: 720px) {
   .hero {
-    padding: 36px 20px 16px;
+    padding: 110px 20px 16px;
   }
   .subtitle {
     font-size: 15px;
