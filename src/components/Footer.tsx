@@ -66,6 +66,7 @@ export default function Footer() {
             <h4>Comienza gratis</h4>
             <Link href="/demo">Ver demo</Link>
             <a href="https://app.clinera.io/auth/register?lang=es">Prueba gratis 7 días</a>
+            <Link href="/reunion">Solicitar reunión comercial</Link>
           </div>
 
           {/* Comunicaciones */}
