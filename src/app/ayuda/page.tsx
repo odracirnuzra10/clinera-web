@@ -33,14 +33,6 @@ interface Faq {
 const AI_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwJKtkMCOV8nDh3J5ngXzmU39xiB9zXbs6zFm5bTV1rlo6WKzm_XZXFFOzgEjEuIKF-/exec';
 const APP_TOKEN = 'Clinera_Internal_Secure_Key_2026';
 
-const KNOWLEDGE_CATEGORIES = [
-  { id: 'ia', title: 'Agente IA (AURA)', icon: '🤖', count: 12, description: 'Configuración de tono, horarios y respuestas.' },
-  { id: 'whatsapp', title: 'WhatsApp API', icon: '💬', count: 8, description: 'Conexión, plantillas y estados de número.' },
-  { id: 'agenda', title: 'Agenda y Citas', icon: '📅', count: 15, description: 'Gestión de turnos, cancelaciones y recordatorios.' },
-  { id: 'pacientes', title: 'Fichas y Pacientes', icon: '🏥', count: 10, description: 'Historias clínicas y archivos adjuntos.' },
-  { id: 'pagos', title: 'Pagos y Facturación', icon: '💳', count: 6, description: 'Planes, suscripciones y comprobantes.' },
-  { id: 'config', title: 'Configuración Global', icon: '⚙️', count: 9, description: 'Usuarios, permisos y sedes.' },
-];
 
 const FALLBACK_FAQS = [
   { id: 1, question: '¿Cómo conectar WhatsApp Business API?', answer: 'Sigue nuestra guía paso a paso para vincular tu número oficial.' },
@@ -208,23 +200,6 @@ export default function AyudaPage() {
       {/* ── Content Sections ── */}
       <main className={styles.container}>
         
-        {/* Category Grid (Only if no search) */}
-        {!search && activeTab === 'Todo' && (
-          <section className={styles.kbSection}>
-            <div className={styles.kbGrid}>
-              {KNOWLEDGE_CATEGORIES.map(cat => (
-                <div key={cat.id} className={styles.categoryCard}>
-                  <div className={styles.catIcon}>{cat.icon}</div>
-                  <div className={styles.catContent}>
-                    <h3>{cat.title}</h3>
-                    <p>{cat.description}</p>
-                    <span className={styles.catCount}>{cat.count} artículos</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
 
         {/* ── Tabs ── */}
         <div className={styles.tabsContainer}>
