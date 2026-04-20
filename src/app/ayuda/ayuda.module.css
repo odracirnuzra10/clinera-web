@@ -448,7 +448,11 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-    font-size: 1.2rem;
+
+/* ── Mobile Overrides ── */
+@media (max-width: 768px) {
+  .kbHero h1 {
+    font-size: 1.8rem;
   }
 
   .videoGrid {
