@@ -71,6 +71,14 @@ export default function AyudaPage() {
 
   // ── Load Data from Excel/API ──
   useEffect(() => {
+    // Robust YouTube ID extractor
+    const extractYoutubeId = (url: string) => {
+      if (!url) return 'wfO1YlVy48c';
+      const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+      const match = url.match(regExp);
+      return (match && match[7].length === 11) ? match[7] : 'wfO1YlVy48c';
+    };
+
     async function fetchData() {
       try {
         setLoading(true);
@@ -85,10 +93,13 @@ export default function AyudaPage() {
           if (Array.isArray(videoData)) {
             const mappedVideos = videoData.map((v: any) => ({
               ...v,
-              videoId: v.videoId || v.videoUrl?.split('embed/')[1]?.split('?')[0] || 'wfO1YlVy48c',
+              id: v.id || Math.random().toString(),
+              title: v.title || 'Sin Título',
+              category: v.category || 'General',
+              videoId: extractYoutubeId(v.videoUrl),
               duration: v.duration || '5:00'
             }));
-            setVideos(prev => mappedVideos.length > 0 ? mappedVideos : prev);
+            if (mappedVideos.length > 0) setVideos(mappedVideos);
           }
         }
 
@@ -100,7 +111,14 @@ export default function AyudaPage() {
         if (faqRes.ok) {
           const faqData = await faqRes.json();
           if (Array.isArray(faqData) && faqData.length > 0) {
-            setFaqs(faqData);
+            // Map Google Script keys (title, content) to component keys (question, answer)
+            const mappedFaqs = faqData.map((f: any) => ({
+              id: f.rowIndex || Math.random(),
+              question: f.title || f.question || '',
+              answer: f.content || f.answer || ''
+            })).filter(f => f.question !== '');
+            
+            if (mappedFaqs.length > 0) setFaqs(mappedFaqs);
           }
         }
 
