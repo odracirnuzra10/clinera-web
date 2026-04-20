@@ -116,6 +116,34 @@ export default function Home() {
         </section>
 
         {/* ============================================================
+            TRUST STRIP — Partnerships & Certifications
+           ============================================================ */}
+        <section className="trust-strip" aria-label="Partnerships y certificaciones">
+          <div className="container">
+            <div className="trust-strip__inner">
+              <span className="trust-strip__label">Partnerships y certificaciones</span>
+              <div className="trust-strip__logos">
+                <a
+                  href="https://www.facebook.com/business/partner-directory"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="trust-strip__badge"
+                  aria-label="Clinera es Meta Business Partner"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/badges/meta-business-partner.svg"
+                    alt="Meta Business Partner — Clinera.io"
+                    width={240}
+                    height={72}
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
             SECTION 2 — PROBLEM (DARK NEON)
            ============================================================ */}
         <section className="section-dark">

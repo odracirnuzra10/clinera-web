@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Footer from "@/components/Footer";
 import styles from "./start.module.css";
 
 /* ------------------------------------------------------------------ */
@@ -840,6 +841,9 @@ export default function StartPage() {
 
       {/* ===== STRIPE INTERCEPTOR SCRIPT ===== */}
       <StripeInterceptor />
+
+      {/* ===== GLOBAL FOOTER ===== */}
+      <Footer />
     </div>
   );
 }
