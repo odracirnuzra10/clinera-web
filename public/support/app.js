@@ -22,19 +22,7 @@ const DEMO_TUTORIALS = [
 
 let allTutorials = [];
 document.addEventListener('DOMContentLoaded', () => {
-    // Default login for free access
-    const defaultUser = { name: 'Invitado', picture: 'cuky.webp' };
-    const nameDisplay = document.getElementById('userNameDisplay');
-    if (nameDisplay) nameDisplay.textContent = defaultUser.name;
-    const avatarContainer = document.querySelector('.avatar-circle');
-    if (avatarContainer) {
-        avatarContainer.innerHTML = `<img src="${defaultUser.picture}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"> <div class="status-dot" style="display:block; background-color:var(--status-online);"></div>`;
-    }
-
-    initPWA();
-    setTimeout(() => {
-        loadTutorials();
-    }, 100);
+    loadTutorials();
 
 
     const searchInput = document.getElementById('tutorialSearch');
@@ -108,83 +96,7 @@ function handleLogout() {
 }
 
 
-/* PWA LOGIC - Dark Mode Only */
-let deferredPrompt;
 
-function initPWA() {
-    // Register Service Worker
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=5.2.0')
-            .then(registration => {
-                console.log('Service Worker Registered');
-                // Detect update
-                registration.onupdatefound = () => {
-                    const installingWorker = registration.installing;
-                    installingWorker.onstatechange = () => {
-                        if (installingWorker.state === 'installed') {
-                            if (navigator.serviceWorker.controller) {
-                                // New content is available; please refresh.
-                                console.log('New content available, refreshing...');
-                                window.location.reload();
-                            }
-                        }
-                    };
-                };
-            })
-            .catch(err => console.error('SW Error:', err));
-    }
-
-    // Force show prompt for demo purposes if not standalone
-    if (!window.matchMedia('(display-mode: standalone)').matches) {
-        setTimeout(() => {
-            showInstallPrompt();
-        }, 2000);
-    }
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        showInstallPrompt();
-    });
-}
-// iOS Check can be added if needed, kept simple now
-
-function showInstallPrompt() {
-    // Create prompt dynamically if not exists
-    let prompt = document.getElementById('pwaPrompt');
-    if (!prompt) {
-        prompt = document.createElement('div');
-        prompt.id = 'pwaPrompt';
-        prompt.className = 'pwa-prompt visible';
-        prompt.innerHTML = `
-            <img src="favicon CLINERA.png" alt="App Icon">
-            <div class="pwa-text">
-                <h5>Instalar App</h5>
-                <p>Añade Clinera a tu inicio</p>
-            </div>
-            <button class="btn-install" onclick="installPWA()">Instalar</button>
-            <button class="theme-toggle" onclick="closePWA()" style="margin-left:auto; background:none; border:none; color:var(--text-muted); cursor:pointer;"><span class="material-symbols-rounded">close</span></button>
-        `;
-        document.body.appendChild(prompt);
-    } else {
-        prompt.classList.add('visible');
-    }
-}
-
-function closePWA() {
-    document.getElementById('pwaPrompt').classList.remove('visible');
-}
-
-async function installPWA() {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-            deferredPrompt = null;
-        }
-        closePWA();
-    }
-}
 
 
 /* === GOOGLE AUTH LOGIC REMOVED FOR SIMPLIFIED ACCESS === */
