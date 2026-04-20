@@ -82,13 +82,14 @@ export default function AyudaPage() {
         });
         if (videoRes.ok) {
           const videoData = await videoRes.json();
-          // Map to handle different formats (videoUrl vs videoId)
-          const mappedVideos = videoData.map((v: any) => ({
-            ...v,
-            videoId: v.videoId || v.videoUrl?.split('embed/')[1]?.split('?')[0] || 'wfO1YlVy48c',
-            duration: v.duration || '5:00'
-          }));
-          if (mappedVideos.length > 0) setVideos(mappedVideos);
+          if (Array.isArray(videoData)) {
+            const mappedVideos = videoData.map((v: any) => ({
+              ...v,
+              videoId: v.videoId || v.videoUrl?.split('embed/')[1]?.split('?')[0] || 'wfO1YlVy48c',
+              duration: v.duration || '5:00'
+            }));
+            setVideos(prev => mappedVideos.length > 0 ? mappedVideos : prev);
+          }
         }
 
         // 2. Fetch FAQs
@@ -98,7 +99,9 @@ export default function AyudaPage() {
         });
         if (faqRes.ok) {
           const faqData = await faqRes.json();
-          if (faqData.length > 0) setFaqs(faqData);
+          if (Array.isArray(faqData) && faqData.length > 0) {
+            setFaqs(faqData);
+          }
         }
 
       } catch (error) {
