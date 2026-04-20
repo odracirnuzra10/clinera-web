@@ -49,8 +49,9 @@ interface Video {
   title: string;
   category: string;
   videoId: string;
+  platform: 'youtube' | 'vimeo';
   duration?: string;
-  videoUrl?: string; // Optional if provided directly
+  thumbnail?: string;
 }
 
 interface Faq {
@@ -71,12 +72,25 @@ export default function AyudaPage() {
 
   // ── Load Data from Excel/API ──
   useEffect(() => {
-    // Robust YouTube ID extractor
-    const extractYoutubeId = (url: string) => {
-      if (!url) return 'wfO1YlVy48c';
-      const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-      const match = url.match(regExp);
-      return (match && match[7].length === 11) ? match[7] : 'wfO1YlVy48c';
+    // Robust Video Info extractor
+    const extractVideoData = (url: string) => {
+      const result = { id: 'wfO1YlVy48c', platform: 'youtube' as 'youtube' | 'vimeo' };
+      if (!url) return result;
+
+      // Vimeo
+      const vimeoMatch = url.match(/(?:vimeo\.com\/|player\.vimeo\.com\/video\/)([0-9]+)/);
+      if (vimeoMatch) {
+        return { id: vimeoMatch[1], platform: 'vimeo' as const };
+      }
+
+      // YouTube
+      const ytRegExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+      const ytMatch = url.match(ytRegExp);
+      if (ytMatch && ytMatch[7].length === 11) {
+        return { id: ytMatch[7], platform: 'youtube' as const };
+      }
+
+      return result;
     };
 
     async function fetchData() {
@@ -91,14 +105,19 @@ export default function AyudaPage() {
         if (videoRes.ok) {
           const videoData = await videoRes.json();
           if (Array.isArray(videoData)) {
-            const mappedVideos = videoData.map((v: any) => ({
-              ...v,
-              id: v.id || Math.random().toString(),
-              title: v.title || 'Sin Título',
-              category: v.category || 'General',
-              videoId: extractYoutubeId(v.videoUrl),
-              duration: v.duration || '5:00'
-            }));
+            const mappedVideos = videoData.map((v: any) => {
+              const info = extractVideoData(v.videoUrl);
+              return {
+                ...v,
+                id: v.id || Math.random().toString(),
+                title: v.title || 'Sin Título',
+                category: v.category || 'General',
+                platform: info.platform,
+                videoId: info.id,
+                thumbnail: v.thumbnail || (info.platform === 'youtube' ? `https://img.youtube.com/vi/${info.id}/maxresdefault.jpg` : ''),
+                duration: v.duration || '5:00'
+              };
+            });
             if (mappedVideos.length > 0) setVideos(mappedVideos);
           }
         }
@@ -144,8 +163,11 @@ export default function AyudaPage() {
     [search, videos]
   );
 
-  const openVideo = (videoId: string) => {
-    setVideoModal({ open: true, src: `https://www.youtube.com/embed/${videoId}?autoplay=1` });
+  const openVideo = (video: Video) => {
+    const embedSrc = video.platform === 'youtube' 
+      ? `https://www.youtube.com/embed/${video.videoId}?autoplay=1`
+      : `https://player.vimeo.com/video/${video.videoId}?autoplay=1`;
+    setVideoModal({ open: true, src: embedSrc });
   };
 
   const closeVideo = () => setVideoModal({ open: false, src: '' });
@@ -243,13 +265,23 @@ export default function AyudaPage() {
             </div>
             <div className={styles.videoGrid}>
               {filteredVideos.map(video => (
-                <div key={video.id} className={styles.videoCard} onClick={() => openVideo(video.videoId)}>
+                <div key={video.id} className={styles.videoCard} onClick={() => openVideo(video)}>
                   <div className={styles.videoHeader}>
-                    <img 
-                      src={`https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`} 
-                      alt={video.title} 
-                      onError={(e) => (e.currentTarget.src = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`)}
-                    />
+                    {video.thumbnail ? (
+                      <img 
+                        src={video.thumbnail} 
+                        alt={video.title} 
+                        onError={(e) => {
+                          if (video.platform === 'youtube') {
+                            e.currentTarget.src = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', background: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                         🎬
+                      </div>
+                    )}
                     <div className={styles.durationBadge}>{video.duration}</div>
                     <div className={styles.playOverlay}>▶</div>
                   </div>
