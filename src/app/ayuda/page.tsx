@@ -101,8 +101,21 @@ export default function AyudaPage() {
         if (videoRes.ok) {
           const videoData = await videoRes.json();
           if (Array.isArray(videoData)) {
-            const mappedVideos = videoData.map((v: any) => {
+            const mappedVideos = await Promise.all(videoData.map(async (v: any) => {
               const info = extractVideoData(v.videoUrl);
+              let thumb = v.thumbnail;
+
+              // Auto-fetch Vimeo thumbnails if missing
+              if (!thumb && info.platform === 'vimeo') {
+                try {
+                  const vRes = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${info.id}`);
+                  if (vRes.ok) {
+                    const vData = await vRes.json();
+                    thumb = vData.thumbnail_url;
+                  }
+                } catch (e) { /* fallback to default */ }
+              }
+
               return {
                 ...v,
                 id: v.id || Math.random().toString(),
@@ -110,10 +123,10 @@ export default function AyudaPage() {
                 category: v.category || 'General',
                 platform: info.platform,
                 videoId: info.id,
-                thumbnail: v.thumbnail || (info.platform === 'youtube' ? `https://img.youtube.com/vi/${info.id}/maxresdefault.jpg` : ''),
+                thumbnail: thumb || (info.platform === 'youtube' ? `https://img.youtube.com/vi/${info.id}/maxresdefault.jpg` : ''),
                 duration: v.duration || '5:00'
               };
-            });
+            }));
             if (mappedVideos.length > 0) setVideos(mappedVideos);
           }
         }
@@ -291,17 +304,6 @@ export default function AyudaPage() {
           </section>
         )}
 
-        {/* ── Help CTA ── */}
-        <section className={styles.supportCTA}>
-          <div className={styles.ctaCard}>
-            <div className={styles.ctaIcon}>🎧</div>
-            <div className={styles.ctaInfo}>
-              <h3>¿No encuentras lo que buscas?</h3>
-              <p>Nuestro equipo de soporte técnico está disponible para ayudarte por WhatsApp.</p>
-            </div>
-            <a href="https://wa.me/something" className={styles.ctaBtn}>Contactar Soporte</a>
-          </div>
-        </section>
 
       </main>
 
