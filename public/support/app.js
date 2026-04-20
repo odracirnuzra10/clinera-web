@@ -21,38 +21,20 @@ const DEMO_TUTORIALS = [
 ];
 
 let allTutorials = [];
-
 document.addEventListener('DOMContentLoaded', () => {
-    // 0. ACCESO DE INVITADO NATIVO (Widget Ayuda)
-    const isGuest = window.location.search.includes('mode=guest');
-
-    if (isGuest) {
-        document.body.classList.add('guest-mode');
-        // Hacemos el login de invitado automático
-        const guestUser = { name: 'Invitado', email: null, picture: 'cuky.webp' };
-        saveSession(guestUser, 'manual');
-
-        // Inicializamos UI básica
-        const nameDisplay = document.getElementById('userNameDisplay');
-        if (nameDisplay) nameDisplay.textContent = 'Invitado';
-
-        // In guest mode, we go to tutorials by default if expert is removed
-        setTimeout(() => navigateTo('tutorials'), 100);
-    } else {
-        // 1. Check for existing session para usuarios normales
-        checkExistingSession();
+    // Default login for free access
+    const defaultUser = { name: 'Invitado', picture: 'cuky.webp' };
+    const nameDisplay = document.getElementById('userNameDisplay');
+    if (nameDisplay) nameDisplay.textContent = defaultUser.name;
+    const avatarContainer = document.querySelector('.avatar-circle');
+    if (avatarContainer) {
+        avatarContainer.innerHTML = `<img src="${defaultUser.picture}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"> <div class="status-dot" style="display:block; background-color:var(--status-online);"></div>`;
     }
 
-    if (!isGuest) {
-        // 1. Check for existing session (Solo médicos)
-        checkExistingSession();
-        // 2. PWA Init
-        initPWA();
-        // Non-blocking load
-        setTimeout(() => {
-            loadTutorials();
-        }, 100);
-    }
+    initPWA();
+    setTimeout(() => {
+        loadTutorials();
+    }, 100);
 
 
     const searchInput = document.getElementById('tutorialSearch');
@@ -89,60 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* SESSION MANAGEMENT */
-function checkExistingSession() {
-    const session = localStorage.getItem(SESSION_KEY);
-    const userData = localStorage.getItem(USER_DATA_KEY);
-
-    if (session && userData) {
-        try {
-            const user = JSON.parse(userData);
-            const sessionData = JSON.parse(session);
-
-            // Check if session is still valid
-            if (sessionData.timestamp) {
-                const hoursSinceLogin = (Date.now() - sessionData.timestamp) / (1000 * 60 * 60);
-                if (hoursSinceLogin > 24 * 30) {
-                    clearSession();
-                    return;
-                }
-            }
-
-            // Auto-login with stored session
-            restoreSession(user);
-
-            // CORRECCIÓN: Si es invitado, ir a tutoriales
-            if (document.body.classList.contains('guest-mode')) {
-                navigateTo('tutorials');
-            }
-        } catch (e) {
-            console.error('Error restoring session:', e);
-            clearSession();
-        }
-    }
-}
-
-function restoreSession(userData) {
-    // Update UI with user data
-    const nameDisplay = document.getElementById('userNameDisplay');
-    if (nameDisplay) nameDisplay.textContent = userData.name;
-
-    const dot = document.querySelector('.status-dot');
-    if (dot) dot.style.backgroundColor = 'var(--status-online)';
-
-    const statusTxt = document.querySelector('.status-text');
-    if (statusTxt) statusTxt.textContent = 'Conectado';
-
-    // Update Avatar
-    const avatarContainer = document.querySelector('.avatar-circle');
-    if (avatarContainer) {
-        avatarContainer.innerHTML = `<img src="${userData.picture || 'cuky.webp'}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"> <div class="status-dot" style="display:block; background-color:var(--status-online);"></div>`;
-    }
-
-    // Switch to dashboard
-    switchView('view-auth', 'view-dashboard');
-}
-
 function saveSession(userData, loginType) {
     const sessionData = {
         loginType: loginType, // 'google' or 'manual'
@@ -153,44 +81,7 @@ function saveSession(userData, loginType) {
     localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
 }
 
-function clearSession() {
-    localStorage.removeItem(SESSION_KEY);
-    localStorage.removeItem(USER_DATA_KEY);
-}
 
-/* GOOGLE SIGN-IN HANDLER */
-function handleGoogleSignIn(response) {
-    try {
-        // Decode JWT token to get user info
-        const userObject = parseJwt(response.credential);
-
-        const userData = {
-            name: userObject.name,
-            email: userObject.email,
-            picture: userObject.picture
-        };
-
-        // Save session
-        saveSession(userData, 'google');
-
-        // Update UI
-        handleLogin(userData.name, null, 'google', userData);
-
-    } catch (error) {
-        console.error('Google Sign-In Error:', error);
-        alert('Error al iniciar sesión con Google. Por favor intenta de nuevo.');
-    }
-}
-
-// Helper function to parse JWT
-function parseJwt(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-}
 
 /* LOGOUT HANDLER */
 function handleLogout() {

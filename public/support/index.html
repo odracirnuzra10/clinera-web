@@ -25,8 +25,7 @@
     <link rel="manifest" href="/support/manifest.json">
     <link rel="icon" type="image/x-icon" href="/support/favicon CLINERA.png">
 
-    <!-- Google Sign-In -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 </head>
 
 <body>
@@ -44,42 +43,10 @@
         </div>
     </header>
 
-    <!-- VIEW: AUTHENTICATION -->
-    <section id="view-auth" class="auth-container fade-in">
-        <div class="auth-card">
-            <div class="logo-container">
-                <img src="/support/cuky.webp" alt="Cuky" class="logo-auth">
-            </div>
-            <h2>Cuky Support</h2>
-            <p class="auth-subtitle">Inicia sesión con tu cuenta de Google</p>
 
-            <!-- Google Sign-In Button -->
-            <div id="g_id_onload"
-                data-client_id="857784309609-ulm3k3kcunrddhmj1j4mjg1fcno5otoq.apps.googleusercontent.com"
-                data-callback="handleGoogleSignIn" data-auto_prompt="false">
-            </div>
-            <div class="g_id_signin" data-type="standard" data-size="large" data-theme="filled_black"
-                data-text="signin_with" data-shape="rectangular" data-logo_alignment="left"
-                style="margin-top: 2rem; display: flex; justify-content: center;">
-            </div>
-
-            <div style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem;">
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem;">¿No tienes cuenta?
-                    Prueba el acceso rápido:</p>
-                <button onclick="handleLogin('Invitado', null, 'manual')" class="btn-primary"
-                    style="background: transparent; border: 1px solid var(--cyan); color: var(--cyan); font-size: 0.9rem; padding: 12px;">
-                    <span class="material-symbols-rounded">person_search</span>
-                    Acceder como Invitado
-                </button>
-            </div>
-
-            <!-- Auth logic refined for production -->
-            <p class="legal-text">Acceso exclusivo para clientes Clinera.</p>
-        </div>
-    </section>
 
     <!-- VIEW: DASHBOARD -->
-    <section id="view-dashboard" class="dashboard-container hidden">
+    <section id="view-dashboard" class="dashboard-container">
         <header class="app-header">
             <div class="user-profile">
                 <!-- Avatar with Pink Glow -->
@@ -98,9 +65,6 @@
                     <span class="status-indicator"></span>
                     <span class="status-text">Conectado</span>
                 </div>
-                <button onclick="handleLogout()" class="logout-btn" title="Cerrar sesión">
-                    <span class="material-symbols-rounded">logout</span>
-                </button>
             </div>
         </header>
 
@@ -150,13 +114,7 @@
 
 
 
-            <!-- Logout Link -->
-            <div class="logout-link-container">
-                <a href="#" onclick="handleLogout(); return false;" class="logout-link">
-                    <span class="material-symbols-rounded">logout</span>
-                    Cerrar sesión
-                </a>
-            </div>
+
         </main>
     </section>
 
