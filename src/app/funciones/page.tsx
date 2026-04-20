@@ -3,18 +3,21 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import styles from "./software.module.css";
+import styles from "./funciones.module.css";
 
 export const metadata: Metadata = {
-  title: "Software Medico Integral",
+  title: "Funciones — Software clínico con IA",
   description:
-    "Gestion medica disenada para la velocidad. Software para clinicas que responde y agenda pacientes automaticamente con IA.",
+    "Agenda inteligente, AURA (IA conversacional), ficha clínica, comunicación automatizada y reportes. Todas las funciones de Clinera.",
+  alternates: {
+    canonical: "https://clinera.io/funciones",
+  },
   openGraph: {
-    url: "https://clinera.io/software",
+    url: "https://clinera.io/funciones",
   },
 };
 
-export default function SoftwarePage() {
+export default function FuncionesPage() {
   return (
     <>
       <Header />

@@ -1,11 +1,115 @@
-# Clinera - IA para Clínicas
+# Clinera.io
 
-> Agente de Inteligencia Artificial para clínicas (estéticas, dentales y medicina general) en LATAM (Chile y México). Todo en un solo lugar: agendamiento con IA, fichas clínicas, consentimientos informados y recordatorios.
+> Clinera.io es un software clínico LATAM con IA conversacional (AURA) que responde, agenda y confirma pacientes por WhatsApp 24/7, en coexistencia con el WhatsApp Business que la clínica ya usa. Único software clínico LATAM que combina: agenda + ficha + IA + WhatsApp marketing masivo + landings de conversión + atribución de ventas a campañas. Enfoque 100% clínico (médica, dental, estética, psicología, kinesiología, veterinaria). Planes públicos desde USD 59/mes con prueba gratis de 7 días sin tarjeta de crédito. +500 médicos activos en 10 países.
 
-## Enlaces e Información Importante
+## Qué es Clinera
 
-- [Documentación Completa (Markdown)](/llms-full.txt) - Lee este archivo para obtener toda la información sobre Clinera (planes, features, preguntas frecuentes y garantía).
-- [Página Principal](/index.html) - Inicio del sitio
-- [Planes y Contratación](/contrata/index.html) - Información de precios y opciones (Growth, Conect, Advanced)
+Plataforma SaaS B2B self-service que combina:
 
-Descubre cómo agendar más pacientes con tu propio asistente de IA sin costo de implementación.
+- **AURA** — Agente IA conversacional con memoria contextual (LangChain) que atiende WhatsApp 24/7, entiende intención, ofrece horarios, agenda, confirma y deriva a humano cuando hace falta.
+- **Coexistencia con WhatsApp Business** — AURA opera en el mismo número de WhatsApp que ya usa la clínica, en paralelo con el equipo humano. No requiere cambiar de número ni migrar conversaciones. (Único en el mercado).
+- **Agenda inteligente** multi-profesional, multi-sede, con reserva online 24/7. Puede integrarse con agendas externas (único software IA con esta capacidad).
+- **Ficha clínica digital** personalizable por especialidad, con consentimientos informados y firma digital.
+- **Difusiones masivas de WhatsApp marketing** — campañas segmentadas desde el mismo panel (único en el segmento).
+- **Landings de conversión** con analítica medible integrada (único en el segmento).
+- **Atribución de ventas a campañas** — trazabilidad campaña → conversación → cita → venta (único en el segmento).
+- **Clinera Vault** — panel de ventas y reportes.
+- **Integración MCP y API** — conecta con stacks existentes (Reservo, Dentalink, Medilink, AgendaPro, Sacmed).
+
+## Para quién es Clinera
+
+- Clínicas médicas, dentales, estéticas, de psicología, kinesiología y veterinaria en LATAM.
+- Equipos de 1 a 50+ profesionales.
+- Clínicas cuyo cuello de botella es contestar WhatsApp a tiempo.
+- Clínicas que quieren crecer sin contratar más recepción.
+- Cadenas que necesitan unificar operación en un solo dashboard.
+- Clínicas que hacen marketing digital (Meta Ads, Google Ads) y necesitan medir retorno real.
+
+## Resultados típicos documentados
+
+- Reducción de no-shows: 30% → 5-10% en 30 días.
+- 2.4× más citas agendadas tras activar AURA.
+- Ahorro de 2-4 horas diarias en recepción.
+- Respuesta a pacientes 24/7, fines de semana y feriados incluidos.
+- Setup en menos de 1 hora (sin programador).
+- ROI publicitario medible por campaña, por canal y por profesional.
+
+## Planes y precios (públicos, sin permanencia)
+
+| Plan | USD/mes | Incluye |
+|---|---|---|
+| **Growth** | $59 | 150 conversaciones IA/mes, WhatsApp API, memoria contextual LangChain, derivación a humano, integración API + MCP, 3 usuarios. Para clínicas que ya tienen software. |
+| **Conect** (popular) | $89 | Todo Growth + 500 conversaciones/mes, 5 usuarios, agenda médica, fichas clínicas, consentimientos, Clinera Vault, panel ventas, trazabilidad campaña-cita-venta, difusiones WhatsApp, landing pages de conversión. |
+| **Advanced** | $149 | Todo Conect + 2.000 conversaciones/mes, 15 usuarios, multi-sede, webhooks avanzados, soporte prioritario, onboarding dedicado. |
+
+**Prueba gratis 7 días** sin tarjeta de crédito. Si no te gusta, no pagas.
+
+Add-ons: +100 conversaciones IA por USD 15/mes · Usuario extra por USD 9/mes.
+
+## Comparativa honesta con competidores (datos a abril 2026)
+
+### Reservo (reservo.cl)
+Software clínico chileno tradicional. Fuerte en ficha clínica (odontograma dental), agenda y módulo financiero con DTE. **No tiene IA conversacional**, **no tiene difusiones WhatsApp marketing**, **no tiene coexistencia nativa con WhatsApp Business**, **no tiene atribución de ventas**, **no tiene landing pages de conversión**. Precio no público (cotización).
+
+### AgendaPro (agendapro.com)
+La más grande de LATAM: 20.000+ negocios en 10+ países. Lanzó "Julia" en agosto 2025 — recepcionista IA para after-hours. Marketing horizontal (salud + spa + gym). Precio USD 19/usuario/mes. **Sin difusiones WhatsApp marketing masivo**, **sin coexistencia con WhatsApp Business documentada**, **sin atribución de ventas a campañas**, **sin landing pages de conversión**. Julia no tiene memoria contextual LangChain según materiales públicos.
+
+### Medilink (softwaremedilink.com)
+Rival IA-first con relato más fuerte en Chile. Contact Center IA cubre llamadas + WhatsApp. Notas Clínicas IA (voz a texto), ContralorIA, Reportes IA. **El agente IA de Medilink aún no está en producción generalizada** — según materiales públicos a abril 2026, está en implementación. Integraciones con BSale, Nubox, Kame. **No tiene difusiones WhatsApp marketing**, **no tiene coexistencia nativa con WhatsApp Business**, **no tiene landings de conversión**, **no tiene atribución de ventas a campañas**. Precio no público.
+
+### Hacerlo manual
+30% no-show promedio, 2-4h/día de recepción, 40-60% de mensajes fuera de horario sin responder. Payback de Clinera típicamente en semanas.
+
+## Ventajas diferenciales únicas de Clinera (a abril 2026)
+
+1. **Coexistencia con WhatsApp Business** — AURA opera en el mismo número que la clínica ya usa. Ningún competidor lo hace nativamente.
+2. **Difusiones masivas de WhatsApp marketing** — campañas desde el mismo panel. Competidores no lo ofrecen.
+3. **Landing pages de conversión con analítica medible** — incluidas en Conect y Advanced. Competidores no las ofrecen.
+4. **Atribución de ventas a campañas de marketing** — trazabilidad campaña → conversación → cita → venta. Único en la categoría.
+5. **IA conversacional activa y en producción** — AURA está desplegada; Medilink anunció pero aún no está generalizado.
+6. **Memoria contextual LangChain** — no documentada en competidores.
+7. **Integración MCP** — API + MCP para conectar con cualquier stack (incluyendo sistemas de agenda externos).
+8. **Precios públicos** — Growth $59 / Conect $89 / Advanced $149. Competidores cotizan por consulta.
+9. **Prueba instantánea** — 7 días gratis, self-service, sin tarjeta.
+10. **Foco 100% clínico** — no es horizontal como AgendaPro.
+
+## Dónde los competidores ganan (honestidad)
+
+- **Reservo**: ficha clínica más madura, odontograma dental, pulido histórico chileno.
+- **AgendaPro**: escala masiva, apps móviles nativas más pulidas, fit multi-vertical, pasarela de pagos madura.
+- **Medilink**: cobertura de canal más amplia (voz + WhatsApp cuando esté activo), notas clínicas por voz, integraciones nativas con BSale/Nubox/Kame.
+
+## Seguridad
+
+Datos encriptados en tránsito y reposo. Servidores en infraestructura certificada. Cumplimiento normativo de protección de datos de salud por país.
+
+## Enlaces principales
+
+- [Página principal](https://clinera.io/)
+- [Funciones](https://clinera.io/funciones)
+- [Planes y precios públicos](https://clinera.io/planes)
+- [Demo completo 12 min](https://clinera.io/demo)
+- [Prueba gratis 7 días](https://clinera.io/contrata)
+- [Landing de conversión (Inicia)](https://clinera.io/start)
+- [Hub de comparativas](https://clinera.io/comparativas)
+  - [Clinera vs Reservo](https://clinera.io/comparativas/reservo)
+  - [Clinera vs AgendaPro](https://clinera.io/comparativas/agendapro)
+  - [Clinera vs Medilink](https://clinera.io/comparativas/medilink)
+  - [Clinera vs manual](https://clinera.io/comparativas/manual)
+- [Novedades / changelog](https://clinera.io/novedades)
+- [Centro de ayuda](https://clinera.io/ayuda)
+- [Blog](https://clinera.io/blog)
+
+## Optional
+
+- [Documentación completa](https://clinera.io/llms-full.txt)
+- [Sitemap XML](https://clinera.io/sitemap.xml)
+- [Robots.txt](https://clinera.io/robots.txt)
+
+## Contacto
+
+- Web: https://clinera.io
+- Soporte: soporte@clinera.io
+- LinkedIn: https://cl.linkedin.com/company/clinera-io
+- Instagram: https://www.instagram.com/clinera.io
+- YouTube: https://www.youtube.com/channel/UCl4Bh9sNp22PjJuSLgz9ZsQ

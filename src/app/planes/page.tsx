@@ -4,9 +4,17 @@ import Footer from "@/components/Footer";
 import styles from "./planes.module.css";
 
 export const metadata: Metadata = {
-  title: "Planes y Precios",
+  title: "Planes y Precios — Clinera.io (desde USD 59/mes)",
   description:
-    "Conoce nuestros planes diseñados para escalar tu clínica. Implementación profesional y IA de agendamiento 24/7.",
+    "Growth USD 59/mes, Conect USD 89/mes, Advanced USD 149/mes. IA que agenda por WhatsApp 24/7. Prueba gratis 7 días sin tarjeta.",
+  alternates: { canonical: "https://clinera.io/planes" },
+  openGraph: {
+    url: "https://clinera.io/planes",
+    title: "Planes y Precios — Clinera.io",
+    description:
+      "3 planes para clínicas en LATAM. Desde USD 59/mes con prueba gratis de 7 días.",
+    type: "website",
+  },
 };
 
 const jsonLd = {

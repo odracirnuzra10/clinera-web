@@ -5,11 +5,16 @@ import Footer from "@/components/Footer";
 import styles from "./demo.module.css";
 
 export const metadata: Metadata = {
-  title: "Demo del Software",
+  title: "Demo Clinera — Software clínico con IA en acción",
   description:
-    "Mira la demo de Clinera.io en accion. Software de IA para clinicas que agenda pacientes automaticamente por WhatsApp.",
+    "Mira cómo AURA agenda pacientes por WhatsApp 24/7. Demo completo de Clinera.io: agenda, ficha clínica, confirmaciones automáticas y analytics.",
+  alternates: { canonical: "https://clinera.io/demo" },
   openGraph: {
     url: "https://clinera.io/demo",
+    title: "Demo Clinera — Software clínico con IA en acción",
+    description:
+      "AURA atiende WhatsApp 24/7 y llena tu agenda sola. Mira el demo.",
+    type: "website",
   },
 };
 

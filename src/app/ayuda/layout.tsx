@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Centro de Ayuda",
+  title: "Centro de Ayuda — Clinera.io",
   description:
-    "Necesitas ayuda? Explora nuestra base de conocimiento, video tutoriales y preguntas frecuentes para dominar Clinera IA.",
+    "¿Necesitas ayuda con Clinera? Explora nuestra base de conocimiento, tutoriales en video y FAQ para dominar la IA de agendamiento en WhatsApp.",
+  alternates: { canonical: "https://clinera.io/ayuda" },
   openGraph: {
     url: "https://clinera.io/ayuda",
+    title: "Centro de Ayuda — Clinera.io",
+    description: "Tutoriales, FAQ y soporte para Clinera.",
+    type: "website",
   },
 };
 

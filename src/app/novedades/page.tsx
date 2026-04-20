@@ -5,8 +5,16 @@ import styles from "./novedades.module.css";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Blog y Novedades | Clinera",
-  description: "Descubre las ultimas novedades, tutoriales, articulos y respuestas a preguntas frecuentes sobre Clinera.",
+  title: "Novedades y Changelog — Clinera.io",
+  description:
+    "Últimas novedades, releases y artículos de Clinera: nueva funcionalidad de IA, mejoras de agenda, integraciones y casos de uso.",
+  alternates: { canonical: "https://clinera.io/novedades" },
+  openGraph: {
+    url: "https://clinera.io/novedades",
+    title: "Novedades y Changelog — Clinera.io",
+    description: "Releases, mejoras y artículos de Clinera.",
+    type: "website",
+  },
 };
 
 const AI_ENDPOINT =

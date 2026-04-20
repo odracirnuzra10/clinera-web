@@ -1,23 +1,43 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HeroVisual from "@/components/HeroVisual";
 
 export const metadata: Metadata = {
-  title: "Clinera.io | Software de IA para Clinicas",
+  title: "Clinera.io | Software clínico con IA · Agenda, WhatsApp y fichas",
   description:
-    "Agenda pacientes con IA las 24 horas. Clinera responde, agenda y confirma citas por ti 24/7 con inteligencia artificial.",
+    "AURA atiende WhatsApp, agenda en tu calendario y confirma citas 24/7. Tu clínica responde, agenda y confirma pacientes sin que tú hagas nada.",
+  alternates: { canonical: "https://clinera.io/" },
+  openGraph: {
+    url: "https://clinera.io/",
+    title: "Clinera.io — La IA que atiende, agenda y confirma pacientes",
+    description:
+      "Tu clínica responde, agenda y confirma pacientes 24/7 con IA. Sin que tú hagas nada.",
+  },
 };
 
-const jsonLd = {
+const organizationLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Clinera.io",
+  url: "https://clinera.io",
+  logo: "https://clinera.io/images/clinera-logo.svg",
+  sameAs: [
+    "https://cl.linkedin.com/company/clinera-io",
+    "https://www.instagram.com/clinera.io",
+    "https://www.youtube.com/channel/UCl4Bh9sNp22PjJuSLgz9ZsQ",
+  ],
+};
+
+const softwareLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "Clinera.io",
+  name: "Clinera",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web, iOS, Android",
   description:
-    "Software de IA para clinicas. Agenda pacientes con inteligencia artificial 24/7 via WhatsApp.",
+    "Software clínico con IA que atiende WhatsApp, agenda pacientes y mantiene tu calendario lleno 24/7.",
   url: "https://clinera.io",
   offers: {
     "@type": "AggregateOffer",
@@ -28,764 +48,468 @@ const jsonLd = {
   },
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "500",
+    ratingValue: "4.8",
+    ratingCount: "500",
   },
 };
 
 export default function Home() {
   return (
     <>
-      {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
       />
 
       <Header />
 
       <main>
-        {/* ================================================================
-            Hero Section
-            ================================================================ */}
-        <section className="section hero">
-          <div className="container hero-grid">
-            {/* Left Column: Calendar Mockup */}
-            <div className="hero-left">
-              <div className="mock-container" style={{ position: "relative" }}>
-                <div className="mock-header">
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "32px",
-                        height: "32px",
-                        background: "#7c3aed",
-                        borderRadius: "8px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        style={{ width: "18px", height: "18px" }}
-                        aria-hidden="true"
-                      >
-                        <path d="M8 2v4" />
-                        <path d="M16 2v4" />
-                        <rect width="18" height="18" x="3" y="4" rx="2" />
-                        <path d="M3 10h18" />
-                        <path d="M8 14h.01" />
-                        <path d="M12 14h.01" />
-                        <path d="M16 14h.01" />
-                        <path d="M8 18h.01" />
-                        <path d="M12 18h.01" />
-                        <path d="M16 18h.01" />
-                      </svg>
-                    </div>
-                    <div style={{ fontWeight: 700, fontSize: "15px" }}>
-                      Agenda Medica
-                    </div>
-                  </div>
-                  <div />
-                </div>
-
-                <div style={{ display: "flex", flexGrow: 1 }}>
-                  <div className="mock-sidebar">
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        color: "#94a3b8",
-                        textTransform: "uppercase",
-                        marginBottom: "12px",
-                      }}
-                    >
-                      Pacientes hoy
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "10px",
-                      }}
-                    >
-                      {[60, 40, 70].map((w, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: "24px",
-                              height: "24px",
-                              background: "#e2e8f0",
-                              borderRadius: "50%",
-                            }}
-                          />
-                          <div
-                            style={{
-                              height: "8px",
-                              background: "#f1f5f9",
-                              width: `${w}%`,
-                              borderRadius: "4px",
-                            }}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mock-content">
-                    <div className="calendar-grid">
-                      {/* Day 1 */}
-                      <div className="calendar-cell">
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            color: "#94a3b8",
-                            margin: "4px",
-                            display: "block",
-                          }}
-                        >
-                          1
-                        </span>
-                      </div>
-                      {/* Day 2 - Control */}
-                      <div className="calendar-cell">
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            color: "#94a3b8",
-                            margin: "4px",
-                            display: "block",
-                          }}
-                        >
-                          2
-                        </span>
-                        <div
-                          className="event-bar"
-                          style={{
-                            background: "#ecfdf5",
-                            borderColor: "#10b981",
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontSize: "7px",
-                              fontWeight: 700,
-                              color: "#065f46",
-                              display: "block",
-                              overflow: "hidden",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            Control
-                          </span>
-                        </div>
-                      </div>
-                      {/* Day 3 */}
-                      <div className="calendar-cell">
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            color: "#94a3b8",
-                            margin: "4px",
-                            display: "block",
-                          }}
-                        >
-                          3
-                        </span>
-                      </div>
-                      {/* Day 4 - Cita */}
-                      <div className="calendar-cell">
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            color: "#94a3b8",
-                            margin: "4px",
-                            display: "block",
-                          }}
-                        >
-                          4
-                        </span>
-                        <div
-                          className="event-bar"
-                          style={{
-                            background: "#eef2ff",
-                            borderColor: "#6366f1",
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontSize: "7px",
-                              fontWeight: 700,
-                              color: "#3730a3",
-                              display: "block",
-                              overflow: "hidden",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            Cita
-                          </span>
-                        </div>
-                      </div>
-                      {/* Days 5-7 */}
-                      {[5, 6, 7].map((d) => (
-                        <div key={d} className="calendar-cell">
-                          <span
-                            style={{
-                              fontSize: "9px",
-                              color: "#94a3b8",
-                              margin: "4px",
-                              display: "block",
-                            }}
-                          >
-                            {d}
-                          </span>
-                        </div>
-                      ))}
-                      {/* Days 8-9 */}
-                      {[8, 9].map((d) => (
-                        <div key={d} className="calendar-cell">
-                          <span
-                            style={{
-                              fontSize: "9px",
-                              color: "#94a3b8",
-                              margin: "4px",
-                              display: "block",
-                            }}
-                          >
-                            {d}
-                          </span>
-                        </div>
-                      ))}
-                      {/* Day 10 - Urg. */}
-                      <div className="calendar-cell">
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            color: "#94a3b8",
-                            margin: "4px",
-                            display: "block",
-                          }}
-                        >
-                          10
-                        </span>
-                        <div
-                          className="event-bar"
-                          style={{
-                            background: "#fff7ed",
-                            borderColor: "#f97316",
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontSize: "7px",
-                              fontWeight: 700,
-                              color: "#9a3412",
-                              display: "block",
-                              overflow: "hidden",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            Urg.
-                          </span>
-                        </div>
-                      </div>
-                      {/* Day 11 - Cirugia */}
-                      <div className="calendar-cell">
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            color: "#7c3aed",
-                            fontWeight: "bold",
-                            margin: "4px",
-                            display: "block",
-                          }}
-                        >
-                          11
-                        </span>
-                        <div
-                          className="event-bar"
-                          style={{
-                            background: "#f5f3ff",
-                            borderColor: "#7c3aed",
-                            borderWidth: "2px",
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontSize: "7px",
-                              fontWeight: 700,
-                              color: "#5b21b6",
-                              display: "block",
-                              overflow: "hidden",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            Cirugia
-                          </span>
-                        </div>
-                      </div>
-                      {/* Days 12-14 */}
-                      {[12, 13, 14].map((d) => (
-                        <div key={d} className="calendar-cell">
-                          <span
-                            style={{
-                              fontSize: "9px",
-                              color: "#94a3b8",
-                              margin: "4px",
-                              display: "block",
-                            }}
-                          >
-                            {d}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Next Appointment Card */}
-                    <div
-                      style={{
-                        marginTop: "20px",
-                        background: "white",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: "10px",
-                        padding: "10px",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: 700,
-                          marginBottom: "6px",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          style={{ width: "10px", height: "10px" }}
-                          aria-hidden="true"
-                        >
-                          <circle cx="12" cy="12" r="10" />
-                          <path d="M12 6v6l4 2" />
-                        </svg>{" "}
-                        Proxima Cita
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <div style={{ fontSize: "11px", fontWeight: 600 }}>
-                          Dr. Alexander Fisher
-                        </div>
-                        <div
-                          style={{
-                            fontSize: "9px",
-                            background: "#f1f5f9",
-                            padding: "2px 4px",
-                            borderRadius: "4px",
-                          }}
-                        >
-                          15:30 PM
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Phone Mockup - AI Assistant */}
-                <div className="phone-mockup">
-                  <div className="phone-screen">
-                    <div className="chat-header">
-                      <div className="ai-status-dot" />
-                      <div className="chat-title">Asistente IA</div>
-                    </div>
-                    <div className="chat-body" id="chat-messages">
-                      <div className="msg incoming">
-                        Necesito una cita para manana.
-                      </div>
-                      <div className="msg outgoing">
-                        Procesando disponibilidad... Tengo 3 espacios.
-                      </div>
-                      <div className="selection-card">
-                        <div className="selection-label">SELECCIONE:</div>
-                        <div className="selection-options">
-                          <div className="opt-btn">09:00 AM - Consulta</div>
-                          <div className="opt-btn">11:30 AM - Control</div>
-                          <div className="opt-btn">04:00 PM - Urgencia</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Headline */}
-            <div className="hero-right">
-              <span className="badge">Nueva IA 2.0</span>
-              <h1 className="hero-title">
-                Agenda pacientes con IA las 24 horas
+        {/* ============================================================
+            SECTION 1 — HERO (light)
+           ============================================================ */}
+        <section className="hero-v2">
+          <div className="hero-v2__halo" aria-hidden />
+          <div className="container hero-v2__grid">
+            <div>
+              <span className="hero-v2__eyebrow">
+                <span className="hero-v2__dot" aria-hidden />
+                AURA · Agente IA activo 24/7
+              </span>
+              <h1 className="hero-v2__title">
+                Tu clínica responde, agenda y confirma pacientes{" "}
+                <span className="gt">24/7 con IA</span>. Sin que tú hagas nada.
               </h1>
-              <p className="hero-subtitle">
-                Clinera responde, agenda y confirma citas por ti 24/7 con
-                inteligencia artificial.
+              <p className="hero-v2__sub">
+                AURA atiende WhatsApp, agenda en tu calendario y confirma citas
+                automáticamente. Tu equipo se enfoca en pacientes, no en mensajes.
               </p>
-              <div className="hero-cta">
-                <div className="hero-actions">
-                  <a href="https://app.clinera.io/auth/register?lang=es" className="btn btn-gradient btn-lg">
-                    Prueba Gratis &rarr;
-                  </a>
-                  <Link href="/demo" className="btn btn-outline btn-lg">
-                    Ver demo &rarr;
-                  </Link>
+              <div className="hero-v2__actions">
+                <Link href="/inicia" className="hero-v2__primary">
+                  Prueba gratis 7 días
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+                <Link href="/demo" className="hero-v2__secondary">
+                  Ver demo completo (12 min) →
+                </Link>
+              </div>
+              <div className="hero-v2__trust">
+                <div className="avatar-group" aria-hidden>
+                  <span className="avatar-plus" style={{ background: "linear-gradient(135deg,#009FE3,#7C3AED)", marginLeft: 0 }}>KM</span>
+                  <span className="avatar-plus" style={{ background: "linear-gradient(135deg,#7C3AED,#C850C0)" }}>CD</span>
+                  <span className="avatar-plus" style={{ background: "linear-gradient(135deg,#C850C0,#009FE3)" }}>JR</span>
+                  <span className="avatar-plus">+</span>
                 </div>
-
-                <div className="hero-social-proof">
-                  <div className="avatar-group">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="https://i.pravatar.cc/150?img=1"
-                      alt="Medico"
-                      width={36}
-                      height={36}
-                    />
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="https://i.pravatar.cc/150?img=2"
-                      alt="Medico"
-                      width={36}
-                      height={36}
-                    />
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="https://i.pravatar.cc/150?img=3"
-                      alt="Medico"
-                      width={36}
-                      height={36}
-                    />
-                    <div className="avatar-plus">+</div>
-                  </div>
-                  <div className="social-proof-text">
-                    + de 500 Medicos en 10 paises ya usan Clinera.
-                  </div>
-                </div>
+                <span className="hero-v2__trust-text">
+                  <strong>+500 médicos</strong> en 10 países confían en Clinera
+                </span>
               </div>
             </div>
+
+            <HeroVisual />
           </div>
         </section>
 
-        {/* ================================================================
-            Problem Section
-            ================================================================ */}
-        <section className="section problem-section">
+        {/* ============================================================
+            SECTION 2 — PROBLEM (DARK NEON)
+           ============================================================ */}
+        <section className="section-dark">
+          <div className="dark-halo-top-left" aria-hidden />
           <div className="container">
             <div className="section-header">
               <span className="section-tag">EL PROBLEMA</span>
               <h2 className="section-title">
-                Lo que le cuesta a tu clinica no automatizar
+                Lo que le está costando a tu clínica cada día
               </h2>
               <p className="section-subtitle">
-                Cada dia que pasa sin automatizacion, tu clinica pierde
-                pacientes, tiempo y dinero.
+                Mientras no automatizas, tu clínica pierde pacientes, tiempo y
+                dinero. Los números hablan solos.
               </p>
             </div>
 
-            <div className="problem-grid">
-              {/* Card 1: WhatsApp */}
-              <div className="problem-card panel">
-                <div className="card-icon-wrapper cyan-bg">
-                  <span className="card-emoji">💬</span>
-                </div>
-                <h3>WhatsApp sin responder</h3>
-                <p>
-                  Cada mensaje sin respuesta es un paciente que agenda con tu
-                  competencia. El 62% no vuelve a escribir si no le contestan al
-                  primer intento.
+            <div className="pain-grid">
+              <article className="pain-card pain-card--cyan">
+                <div className="pain-card__number">30%</div>
+                <h3 className="pain-card__label">De pacientes no llegan</h3>
+                <p className="pain-card__desc">
+                  El no-show te quita 1 de cada 3 citas. Sin recordatorios
+                  automáticos, tu agenda nunca está llena de verdad.
                 </p>
-                <div className="card-check">
-                  <span className="check-icon">&#10003;</span>
-                  <span className="check-text">
-                    IA que contesta y agenda 24/7
-                  </span>
-                </div>
-              </div>
+              </article>
 
-              {/* Card 2: Citas */}
-              <div className="problem-card panel">
-                <div className="card-icon-wrapper magenta-bg">
-                  <span className="card-emoji">📅</span>
-                </div>
-                <h3>Citas que no llegan</h3>
-                <p>
-                  El ausentismo promedio en clinicas es del 30%. Sin
-                  confirmacion automatica, tu agenda queda con huecos que no
-                  puedes llenar.
+              <article className="pain-card pain-card--violet">
+                <div className="pain-card__number">2h</div>
+                <h3 className="pain-card__label">Perdidas al día</h3>
+                <p className="pain-card__desc">
+                  Tu recepción contesta 200+ mensajes y arma agendas a mano.
+                  Tiempo que podría dedicarse a pacientes reales.
                 </p>
-                <div className="card-check">
-                  <span className="check-icon">&#10003;</span>
-                  <span className="check-text">
-                    Confirmacion automatica por WhatsApp
-                  </span>
-                </div>
-              </div>
+              </article>
 
-              {/* Card 3: Fichas */}
-              <div className="problem-card panel">
-                <div className="card-icon-wrapper cyan-bg">
-                  <span className="card-emoji">📄</span>
-                </div>
-                <h3>Fichas en papel o Excel</h3>
-                <p>
-                  Informacion perdida, imposible de buscar, y sin respaldo. Un
-                  riesgo para tus pacientes y para tu clinica.
+              <article className="pain-card pain-card--magenta">
+                <div className="pain-card__number">62%</div>
+                <h3 className="pain-card__label">No vuelve</h3>
+                <p className="pain-card__desc">
+                  Sin seguimiento automatizado, más de la mitad de tus pacientes
+                  no regresa. Es revenue que se va por la puerta.
                 </p>
-                <div className="card-check">
-                  <span className="check-icon">&#10003;</span>
-                  <span className="check-text">
-                    Fichas digitales seguras en la nube
-                  </span>
-                </div>
-              </div>
+              </article>
             </div>
           </div>
         </section>
 
-        {/* ================================================================
-            How It Works Section
-            ================================================================ */}
-        <section className="section how-it-works">
-          <div className="container">
-            <div className="section-header text-center">
-              <span className="section-tag">COMO FUNCIONA</span>
-              <h2 className="section-title">Activa tu clinica en 3 pasos</h2>
-              <p className="section-subtitle">
-                Configuralo todo tu mismo, Sin contratos, En menos de 24 horas
-                tu IA podria estar atendiendo.
-              </p>
-            </div>
-
-            <div className="steps-grid">
-              <div className="step-card panel">
-                <span className="step-tag">PASO 01</span>
-                <div className="step-icon">👤+</div>
-                <h3>Crea tu cuenta</h3>
-                <p>
-                  Registrate facil en 2 minutos. Configura tu clinica, servicios
-                  y horarios disponibles.
-                </p>
-              </div>
-
-              <div className="step-card panel">
-                <span className="step-tag">PASO 02</span>
-                <div className="step-icon">💬</div>
-                <h3>Conecta WhatsApp</h3>
-                <p>
-                  Despierta a tu Agente IA. Con nuestro paso a paso activaras tu
-                  Whatsapp Api.
-                </p>
-              </div>
-
-              <div className="step-card panel">
-                <span className="step-tag">PASO 03</span>
-                <div className="step-icon">✅</div>
-                <h3>Recibe citas automaticas</h3>
-                <p>
-                  Tu IA responde 24/7, agenda citas y envia confirmaciones. Tu
-                  solo atiende.
-                </p>
-              </div>
-            </div>
-
-            {/* Highlights Banner */}
-            <div className="highlights-banner panel mt-48">
-              <div className="highlights-grid">
-                {/* Left: Video */}
-                <div className="highlights-video-container">
-                  <span className="highlights-tag">CASOS DE EXITO REALES</span>
-                  <div className="testimonial-video-inline">
-                    <iframe
-                      src="https://www.youtube.com/embed/wfO1YlVy48c"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      title="Testimonio Metodo Hebe"
-                    />
-                  </div>
-                </div>
-
-                {/* Right: Reviews & CTA */}
-                <div className="highlights-cta">
-                  <div className="mini-reviews">
-                    {/* Review 1 */}
-                    <div className="mini-review">
-                      <Image
-                        src="/images/km.png"
-                        alt="Dra. Katherin Meza"
-                        width={40}
-                        height={40}
-                        className="review-avatar"
-                      />
-                      <div className="review-content">
-                        <h5>Dra. Katherin Meza</h5>
-                        <div className="review-stars">★★★★★</div>
-                        <p className="review-text">
-                          &ldquo;Por fin tengo tiempo para mis pacientes y no
-                          para responder mensajes todo el dia.&rdquo;
-                        </p>
-                      </div>
-                    </div>
-                    {/* Review 2 */}
-                    <div className="mini-review">
-                      <Image
-                        src="/images/cd.png"
-                        alt="Central Dent"
-                        width={40}
-                        height={40}
-                        className="review-avatar"
-                      />
-                      <div className="review-content">
-                        <h5>Central Dent</h5>
-                        <div className="review-stars">★★★★★</div>
-                        <p className="review-text">
-                          &ldquo;Redujimos las ausencias al 5% gracias a las
-                          confirmaciones automaticas.&rdquo;
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cta-bottom">
-                    <h3>Lleva tu clinica al siguiente nivel</h3>
-                    <a href="https://app.clinera.io/auth/register?lang=es" className="btn btn-gradient btn-lg">
-                      Prueba Gratis
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ================================================================
-            Features Section
-            ================================================================ */}
-        <section className="section features-section">
-          <div className="container">
-            <div className="section-header">
-              <span className="section-tag">TODO LO QUE NECESITAS</span>
-              <h2 className="section-title">
-                Una plataforma, cero dolores de cabeza
-              </h2>
-            </div>
-
-            <div className="features-grid">
-              <div className="feature-card panel">
-                <div className="feature-icon">💬</div>
-                <h3>IA que agenda por WhatsApp</h3>
-                <p>
-                  AURA atiende a tus pacientes, ofrece horarios disponibles y
-                  agenda citas — todo automatico, todo por WhatsApp.
-                </p>
-              </div>
-              <div className="feature-card panel">
-                <div className="feature-icon">⚡</div>
-                <h3>Confirmacion automatica</h3>
-                <p>
-                  Recordatorios y confirmaciones de citas por WhatsApp. Reduce
-                  el ausentismo hasta un 70% sin mover un dedo.
-                </p>
-              </div>
-              <div className="feature-card panel">
-                <div className="feature-icon">📅</div>
-                <h3>Agenda inteligente</h3>
-                <p>
-                  Gestiona horarios de todos tus profesionales. Bloquea, mueve y
-                  visualiza citas en un calendario moderno.
-                </p>
-              </div>
-              <div className="feature-card panel">
-                <div className="feature-icon">📄</div>
-                <h3>Fichas medicas digitales</h3>
-                <p>
-                  Plantillas personalizables por especialidad. Toda la info del
-                  paciente segura en la nube, accesible desde cualquier lugar.
-                </p>
-              </div>
-              <div className="feature-card panel">
-                <div className="feature-icon">👥</div>
-                <h3>Multi-profesional</h3>
-                <p>
-                  Gestiona la agenda de todos los profesionales de tu clinica
-                  desde un solo lugar. Cada uno con su configuracion.
-                </p>
-              </div>
-              <div className="feature-card panel">
-                <div className="feature-icon">🔒</div>
-                <h3>Seguridad de datos</h3>
-                <p>
-                  Datos encriptados, servidores seguros y cumplimiento con
-                  normativas de proteccion de datos de salud.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ================================================================
-            CTA Banner
-            ================================================================ */}
+        {/* ============================================================
+            SECTION 3 — WHATSAPP COEXIST VIDEO (light)
+           ============================================================ */}
         <section className="section">
           <div className="container">
-            <div className="cta-banner">
-              <h2>¿Listo para modernizar tu gestion?</h2>
-              <p>
-                Unete a las clinicas que ya estan automatizando sus operaciones
-                con inteligencia artificial.
+            <div className="section-header text-center">
+              <span className="section-tag">TU MISMO WHATSAPP</span>
+              <h2 className="section-title">
+                Utiliza tu actual número de WhatsApp para conectarlo a Clinera
+              </h2>
+              <p className="section-subtitle">
+                No cambies de número ni migres conversaciones. AURA atiende en
+                el mismo WhatsApp que ya usas, en paralelo con tu equipo.
               </p>
-              <div className="banner-actions">
-                <Link href="/planes" className="btn btn-primary">
-                  Conoce nuestros planes
-                </Link>
+            </div>
+
+            <div className="video-vimeo-wrap">
+              <iframe
+                src="https://player.vimeo.com/video/1184854869?badge=0&autopause=0&player_id=0&app_id=58479"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="WhatsApp API Business coexistencia — Clinera"
+                loading="lazy"
+              />
+            </div>
+
+            <p className="video-link-below">
+              ¿Quieres el demo completo?{" "}
+              <Link href="/demo">Ver demo de 12 minutos →</Link>
+            </p>
+          </div>
+        </section>
+
+        {/* ============================================================
+            SECTION 4 — HOW IT WORKS (light)
+           ============================================================ */}
+        <section className="section" style={{ background: "var(--surface-1)" }}>
+          <div className="container">
+            <div className="section-header text-center">
+              <span className="section-tag">CÓMO FUNCIONA</span>
+              <h2 className="section-title">Configurarlo toma menos de 1 hora</h2>
+              <p className="section-subtitle">
+                Sin programador, sin integraciones complejas. Tu clínica
+                atendiendo 24/7 esta misma semana.
+              </p>
+            </div>
+
+            <div className="steps-v2">
+              <div className="step-v2">
+                <div className="step-v2__num">01</div>
+                <h3 className="step-v2__title">Conectas tu WhatsApp Business</h3>
+                <p className="step-v2__desc">
+                  AURA empieza a leer y responder mensajes de inmediato. Sin
+                  cambiar de número.
+                </p>
+              </div>
+              <div className="step-v2">
+                <div className="step-v2__num">02</div>
+                <h3 className="step-v2__title">AURA aprende tu agenda y servicios</h3>
+                <p className="step-v2__desc">
+                  Le cuentas disponibilidad, servicios y precios. Lista en
+                  minutos.
+                </p>
+              </div>
+              <div className="step-v2">
+                <div className="step-v2__num">03</div>
+                <h3 className="step-v2__title">Empieza a atender 24/7</h3>
+                <p className="step-v2__desc">
+                  Pacientes agendan solos. Tú ves tu calendario llenarse en
+                  tiempo real.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* TODO: App Download Modal (client component) */}
+        {/* ============================================================
+            SECTION 5 — TESTIMONIALS (light, surface-1)
+           ============================================================ */}
+        <section className="testimonial-section">
+          <div className="container">
+            <div className="section-header text-center">
+              <span className="section-tag">RESULTADOS REALES</span>
+              <h2 className="section-title">Lo que dicen nuestras clínicas</h2>
+              <p className="section-subtitle">
+                Médicos y clínicas en 10 países usan Clinera todos los días para
+                atender, agendar y confirmar pacientes.
+              </p>
+            </div>
+
+            <div className="testimonial-carousel-wrap">
+              <div className="testimonial-carousel">
+                <article className="testimonial-card-v2">
+                  <div className="testimonial-card-v2__stars" aria-label="5 de 5 estrellas">★★★★★</div>
+                  <p className="testimonial-card-v2__quote">
+                    &ldquo;Por fin tengo tiempo para mis pacientes. AURA contesta
+                    incluso cuando estoy en consulta o durmiendo. La diferencia
+                    se nota en la agenda desde la primera semana.&rdquo;
+                  </p>
+                  <span className="testimonial-card-v2__metric">
+                    No-shows: 30% → 5%
+                  </span>
+                  <div className="testimonial-card-v2__author">
+                    <span className="testimonial-card-v2__avatar">KM</span>
+                    <div className="testimonial-card-v2__meta">
+                      <span className="testimonial-card-v2__name">Dra. Katherin Meza</span>
+                      <span className="testimonial-card-v2__role">Clínica Estética · Santiago</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article className="testimonial-card-v2">
+                  <div className="testimonial-card-v2__stars" aria-label="5 de 5 estrellas">★★★★★</div>
+                  <p className="testimonial-card-v2__quote">
+                    &ldquo;Pasamos de perder mensajes todo el día a tener un
+                    equipo enfocado en pacientes. AURA nos reemplazó a media
+                    recepción sin reemplazar a nadie.&rdquo;
+                  </p>
+                  <span className="testimonial-card-v2__metric">
+                    Citas agendadas: +2.4×
+                  </span>
+                  <div className="testimonial-card-v2__author">
+                    <span className="testimonial-card-v2__avatar">CD</span>
+                    <div className="testimonial-card-v2__meta">
+                      <span className="testimonial-card-v2__name">Central Dent</span>
+                      <span className="testimonial-card-v2__role">Clínica Dental · Multiclínica</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article className="testimonial-card-v2">
+                  <div className="testimonial-card-v2__stars" aria-label="5 de 5 estrellas">★★★★★</div>
+                  <p className="testimonial-card-v2__quote">
+                    &ldquo;Configuramos AURA en una tarde. Al día siguiente ya
+                    estaba agendando consultas por WhatsApp. Mi recepción
+                    respira y los pacientes llegan confirmados.&rdquo;
+                  </p>
+                  <span className="testimonial-card-v2__metric">
+                    Respuesta: 24/7
+                  </span>
+                  <div className="testimonial-card-v2__author">
+                    <span className="testimonial-card-v2__avatar">JR</span>
+                    <div className="testimonial-card-v2__meta">
+                      <span className="testimonial-card-v2__name">Dr. Jorge Rojas</span>
+                      <span className="testimonial-card-v2__role">Medicina General · Ciudad de México</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article className="testimonial-card-v2">
+                  <div className="testimonial-card-v2__stars" aria-label="5 de 5 estrellas">★★★★★</div>
+                  <p className="testimonial-card-v2__quote">
+                    &ldquo;Clinera nos simplificó las comunicaciones con
+                    pacientes y el seguimiento de marketing. Recuperamos horas
+                    todos los días.&rdquo;
+                  </p>
+                  <span className="testimonial-card-v2__metric">
+                    Comunicaciones unificadas
+                  </span>
+                  <div className="testimonial-card-v2__author">
+                    <span className="testimonial-card-v2__avatar">TO</span>
+                    <div className="testimonial-card-v2__meta">
+                      <span className="testimonial-card-v2__name">Tamara Oyarzún · CEO</span>
+                      <span className="testimonial-card-v2__role">Protocolo Lumina</span>
+                    </div>
+                  </div>
+                </article>
+
+                <article className="testimonial-card-v2">
+                  <div className="testimonial-card-v2__stars" aria-label="5 de 5 estrellas">★★★★★</div>
+                  <p className="testimonial-card-v2__quote">
+                    &ldquo;Clinera me permite crecer sin pagar más en marketing.
+                    AURA atiende el WhatsApp y llena la agenda por mí.&rdquo;
+                  </p>
+                  <span className="testimonial-card-v2__metric">
+                    -71% costos marketing
+                  </span>
+                  <div className="testimonial-card-v2__author">
+                    <span className="testimonial-card-v2__avatar">FR</span>
+                    <div className="testimonial-card-v2__meta">
+                      <span className="testimonial-card-v2__name">Dr. Flavio Rojas</span>
+                      <span className="testimonial-card-v2__role">infiltraciones.cl</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+              <div className="testimonial-carousel__hint" aria-hidden>← Desliza para ver más →</div>
+            </div>
+
+            <p className="video-link-below">
+              <Link href="/demo">Ver todos los casos de éxito →</Link>
+            </p>
+          </div>
+        </section>
+
+        {/* ============================================================
+            SECTION 6 — PRICING TEASER (DARK NEON)
+           ============================================================ */}
+        <section className="section-dark">
+          <div className="dark-halo-center" aria-hidden />
+          <div className="container">
+            <div className="section-header text-center">
+              <span className="section-tag">PLANES</span>
+              <h2 className="section-title">Planes simples, sin sorpresas</h2>
+              <p className="section-subtitle">
+                Empieza gratis 7 días. Elige tu plan cuando estés listo. Sin
+                contratos, cancela cuando quieras.
+              </p>
+            </div>
+
+            <div className="pricing-grid">
+              <article className="pricing-card-dark">
+                <div className="pricing-card-dark__name">Growth</div>
+                <div className="pricing-card-dark__price">
+                  <span className="pricing-card-dark__amount">$59</span>
+                  <span className="pricing-card-dark__period">USD / mes</span>
+                </div>
+                <p className="pricing-card-dark__tagline">
+                  Mensajería IA para clínicas que ya tienen software.
+                </p>
+                <ul className="pricing-card-dark__features">
+                  <li>150 conversaciones con IA / mes</li>
+                  <li>WhatsApp API</li>
+                  <li>Memoria contextual vía LangChain</li>
+                  <li>Derivación automática a humano</li>
+                  <li>Integración vía API y MCP</li>
+                  <li>3 usuarios incluidos</li>
+                </ul>
+                <Link
+                  href="/inicia?plan=growth"
+                  className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
+                >
+                  Prueba gratis
+                </Link>
+              </article>
+
+              <article className="pricing-card-dark pricing-card-dark--featured">
+                <span className="pricing-card-dark__badge">Popular</span>
+                <div className="pricing-card-dark__name">Conect</div>
+                <div className="pricing-card-dark__price">
+                  <span className="pricing-card-dark__amount">$89</span>
+                  <span className="pricing-card-dark__period">USD / mes</span>
+                </div>
+                <p className="pricing-card-dark__tagline">
+                  Mensajería + clínica completa sin otro software.
+                </p>
+                <ul className="pricing-card-dark__features">
+                  <li>500 conversaciones / mes</li>
+                  <li>5 usuarios</li>
+                  <li>Agenda médica</li>
+                  <li>Fichas clínicas</li>
+                  <li>Consentimientos informados</li>
+                  <li>Clinera Vault</li>
+                  <li>Panel ventas</li>
+                  <li>Trazabilidad campaña-cita-venta</li>
+                </ul>
+                <Link
+                  href="/inicia?plan=conect"
+                  className="pricing-card-dark__cta pricing-card-dark__cta--primary"
+                >
+                  Prueba gratis
+                </Link>
+              </article>
+
+              <article className="pricing-card-dark">
+                <div className="pricing-card-dark__name">Advanced</div>
+                <div className="pricing-card-dark__price">
+                  <span className="pricing-card-dark__amount">$149</span>
+                  <span className="pricing-card-dark__period">USD / mes</span>
+                </div>
+                <p className="pricing-card-dark__tagline">
+                  Para cadenas clínicas multi-sede.
+                </p>
+                <ul className="pricing-card-dark__features">
+                  <li>2.000 conversaciones / mes</li>
+                  <li>15 usuarios</li>
+                  <li>Multi-sede</li>
+                  <li>Webhooks avanzados</li>
+                  <li>Soporte prioritario</li>
+                  <li>Onboarding dedicado</li>
+                </ul>
+                <Link
+                  href="/inicia?plan=advanced"
+                  className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
+                >
+                  Prueba gratis
+                </Link>
+              </article>
+            </div>
+
+            <p className="pricing-link-below">
+              <Link href="/planes">Ver detalle completo de planes →</Link>
+            </p>
+          </div>
+        </section>
+
+        {/* ============================================================
+            SECTION 7 — FINAL CTA (DARK NEON)
+           ============================================================ */}
+        <section className="section-dark">
+          <div className="dark-halo-top-left" aria-hidden />
+          <div className="dark-halo-bottom-right" aria-hidden />
+          <div className="container">
+            <div className="cta-final-dark">
+              <h2 className="cta-final-dark__title">
+                Empieza gratis hoy.
+                <br />
+                <span className="gt-neon">Sin tarjeta de crédito.</span>
+              </h2>
+              <p className="cta-final-dark__sub">
+                Prueba Clinera 7 días. Si no ves resultados, te ayudamos a
+                configurarlo o cancelas sin costo. Simple.
+              </p>
+              <div className="cta-final-dark__actions">
+                <Link href="/inicia" className="cta-final-dark__primary">
+                  Prueba gratis 7 días
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+                <Link href="/demo" className="cta-final-dark__secondary">
+                  Agendar demo con un humano
+                </Link>
+              </div>
+              <div className="trust-row">
+                <span className="trust-row__item">
+                  <svg className="trust-row__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Setup en menos de 1 hora
+                </span>
+                <span className="trust-row__item">
+                  <svg className="trust-row__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Soporte en español
+                </span>
+                <span className="trust-row__item">
+                  <svg className="trust-row__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3 8l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Datos encriptados y cumplimiento
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />

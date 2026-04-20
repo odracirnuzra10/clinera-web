@@ -8,7 +8,6 @@ import styles from './Header.module.css';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
     return () => {
@@ -48,26 +47,27 @@ export default function Header() {
       {/* ── Main Header ── */}
       <header className={styles.mainHeader}>
         <div className={styles.mainHeaderInner}>
-          <Link href="/" className={styles.logo}>
+          <Link href="/" className={styles.logo} aria-label="Clinera.io">
             <Image
               src="/images/clinera-logo.svg"
-              alt="Clinera Logo"
-              width={120}
-              height={34}
+              alt="Clinera"
+              width={88}
+              height={24}
               priority
+              unoptimized
             />
           </Link>
 
-          <nav className={styles.navLinks}>
-            <Link href="/software">Funcionalidades</Link>
+          <nav className={styles.navLinks} aria-label="Principal">
+            <Link href="/funciones">Funcionalidades</Link>
             <Link href="/planes">Planes</Link>
             <Link href="/novedades">Novedades</Link>
           </nav>
 
           <div className={styles.headerActions}>
-            <a href="https://app.clinera.io/auth/register?lang=es" className={styles.btnPrimary}>
+            <Link href="/inicia" className={styles.btnPrimary}>
               Prueba Gratis
-            </a>
+            </Link>
           </div>
 
           {/* Mobile hamburger toggle */}
@@ -115,7 +115,7 @@ export default function Header() {
         className={`${styles.mobileMenu} ${mobileMenuOpen ? styles.mobileMenuActive : ''}`}
       >
         <div className={styles.navLinksMobile}>
-          <Link href="/software" onClick={closeMobileMenu}>
+          <Link href="/funciones" onClick={closeMobileMenu}>
             Funcionalidades
           </Link>
           <Link href="/planes" onClick={closeMobileMenu}>
@@ -143,9 +143,9 @@ export default function Header() {
         </div>
 
         <div className={styles.headerActionsMobile}>
-          <a href="https://app.clinera.io/auth/register?lang=es" className={styles.btnPrimary} onClick={closeMobileMenu}>
+          <Link href="/inicia" className={styles.btnPrimary} onClick={closeMobileMenu}>
             Prueba Gratis
-          </a>
+          </Link>
         </div>
       </div>
     </div>

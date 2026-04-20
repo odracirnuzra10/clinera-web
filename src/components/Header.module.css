@@ -67,7 +67,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 72px;
+  height: 64px;
   max-width: var(--max-width, 1280px);
   margin: 0 auto;
   padding: 0 24px;
@@ -76,6 +76,11 @@
 .logo {
   display: flex;
   align-items: center;
+}
+.logo img {
+  height: 24px;
+  width: auto;
+  display: block;
 }
 
 .navLinks {
@@ -107,11 +112,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 28px;
+  padding: 10px 22px;
   border-radius: var(--radius-xs, 4px);
   font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
   cursor: pointer;
   border: none;
@@ -208,7 +213,7 @@
 
   .mainHeaderInner {
     padding: 0 24px;
-    height: 72px;
+    height: 64px;
   }
 
   .mobileMenuToggle {
