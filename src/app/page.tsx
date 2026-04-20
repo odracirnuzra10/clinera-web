@@ -88,12 +88,12 @@ export default function Home() {
                 automáticamente. Tu equipo se enfoca en pacientes, no en mensajes.
               </p>
               <div className="hero-v2__actions">
-                <Link href="/inicia" className="hero-v2__primary">
+                <a href="https://app.clinera.io/auth/register?lang=es" rel="noopener" className="hero-v2__primary">
                   Prueba gratis 7 días
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </Link>
+                </a>
                 <Link href="/demo" className="hero-v2__secondary">
                   Ver demo completo (12 min) →
                 </Link>
@@ -391,12 +391,13 @@ export default function Home() {
                   <li>Integración vía API y MCP</li>
                   <li>3 usuarios incluidos</li>
                 </ul>
-                <Link
-                  href="/inicia?plan=growth"
+                <a
+                  href="https://app.clinera.io/auth/register?lang=es&plan=growth"
+                  rel="noopener"
                   className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
                 >
                   Prueba gratis
-                </Link>
+                </a>
               </article>
 
               <article className="pricing-card-dark pricing-card-dark--featured">
@@ -419,12 +420,13 @@ export default function Home() {
                   <li>Panel ventas</li>
                   <li>Trazabilidad campaña-cita-venta</li>
                 </ul>
-                <Link
-                  href="/inicia?plan=conect"
+                <a
+                  href="https://app.clinera.io/auth/register?lang=es&plan=conect"
+                  rel="noopener"
                   className="pricing-card-dark__cta pricing-card-dark__cta--primary"
                 >
                   Prueba gratis
-                </Link>
+                </a>
               </article>
 
               <article className="pricing-card-dark">
@@ -444,12 +446,13 @@ export default function Home() {
                   <li>Soporte prioritario</li>
                   <li>Onboarding dedicado</li>
                 </ul>
-                <Link
-                  href="/inicia?plan=advanced"
+                <a
+                  href="https://app.clinera.io/auth/register?lang=es&plan=advanced"
+                  rel="noopener"
                   className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
                 >
                   Prueba gratis
-                </Link>
+                </a>
               </article>
             </div>
 
@@ -477,12 +480,12 @@ export default function Home() {
                 configurarlo o cancelas sin costo. Simple.
               </p>
               <div className="cta-final-dark__actions">
-                <Link href="/inicia" className="cta-final-dark__primary">
+                <a href="https://app.clinera.io/auth/register?lang=es" rel="noopener" className="cta-final-dark__primary">
                   Prueba gratis 7 días
                   <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </Link>
+                </a>
                 <Link href="/demo" className="cta-final-dark__secondary">
                   Agendar demo con un humano
                 </Link>
@@ -560,6 +563,28 @@ export default function Home() {
                     width={200}
                     height={60}
                   />
+                </span>
+              </div>
+
+              <span className="trust-strip__label trust-strip__label--secondary">
+                Se integra con otras agendas
+              </span>
+              <div className="trust-strip__logos">
+                <span className="trust-strip__badge" aria-label="Integración con Medilink">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/badges/medilink.svg" alt="Medilink" width={200} height={60} />
+                </span>
+                <span className="trust-strip__badge" aria-label="Integración con Dentalink">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/badges/dentalink.svg" alt="Dentalink" width={200} height={60} />
+                </span>
+                <span className="trust-strip__badge" aria-label="Integración con Reservo">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/badges/reservo.svg" alt="Reservo" width={200} height={60} />
+                </span>
+                <span className="trust-strip__badge" aria-label="Integración con AgendaPro">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/badges/agendapro.svg" alt="AgendaPro" width={200} height={60} />
                 </span>
               </div>
             </div>

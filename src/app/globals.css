@@ -2523,6 +2523,9 @@ main > .hero-v2:first-child {
 .trust-strip--tertiary .trust-strip__badge img {
   height: 52px;
 }
+.trust-strip__label--secondary {
+  margin-top: 12px;
+}
 @media (max-width: 600px) {
   .trust-strip--tertiary { padding: 28px 0 18px; }
   .trust-strip--tertiary .trust-strip__badge img { height: 44px; }
