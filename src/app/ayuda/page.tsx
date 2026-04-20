@@ -52,14 +52,8 @@ const FALLBACK_VIDEOS: Video[] = [
   { id: '2', category: 'WHATSAPP', title: 'Vinculación de número oficial', videoId: 'wfO1YlVy48c', platform: 'youtube', duration: '6:15' },
 ];
 
-const ONBOARDING_STEPS = [
-  { id: 1, title: 'Validación de Cuenta', icon: '📧', desc: 'Confirma tu email y configura tu perfil básico.' },
-  { id: 2, title: 'Crear Consultorio', icon: '🏢', desc: 'Define tus sedes, horarios y especialidades.' },
-  { id: 3, title: 'Conexión WhatsApp', icon: '🔗', desc: 'El paso más importante para activar la IA.' },
-  { id: 4, title: 'Primer Paciente', icon: '👤', desc: 'Haz una prueba real agendando a tu primer paciente.' },
-];
 
-const TABS = ['Todo', 'Video Tutoriales', 'Preguntas Frecuentes', 'Guía de Inicio'];
+const TABS = ['Todo', 'Video Tutoriales', 'Preguntas Frecuentes'];
 
 
 export default function AyudaPage() {
@@ -239,25 +233,6 @@ export default function AyudaPage() {
           </div>
         )}
 
-        {/* ── Onboarding Section (Guía de Inicio) ── */}
-        {(activeTab === 'Todo' || activeTab === 'Guía de Inicio') && !search && (
-          <section className={styles.kbSection}>
-            <div className={styles.sectionHeader}>
-              <h2>🚀 Guía de Inicio Rápido</h2>
-              <p>Sigue estos pasos para activar tu clínica en menos de 10 minutos.</p>
-            </div>
-            <div className={styles.onboardingGrid}>
-              {ONBOARDING_STEPS.map(step => (
-                <div key={step.id} className={styles.stepCard}>
-                  <div className={styles.stepNumber}>{step.id}</div>
-                  <span className={styles.stepIcon}>{step.icon}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
 
         {/* ── Video Grid ── */}
         {(activeTab === 'Todo' || activeTab === 'Video Tutoriales') && (
