@@ -1,13 +1,16 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import styles from './ayuda.module.css';
 
 /* ──────────────────────────────────────────────
-   Data - Base de Conocimiento
+   Configuration & Fallback Data
    ────────────────────────────────────────────── */
+
+const AI_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwJKtkMCOV8nDh3J5ngXzmU39xiB9zXbs6zFm5bTV1rlo6WKzm_XZXFFOzgEjEuIKF-/exec';
+const APP_TOKEN = 'Clinera_Internal_Secure_Key_2026';
 
 const KNOWLEDGE_CATEGORIES = [
   { id: 'ia', title: 'Agente IA (AURA)', icon: '🤖', count: 12, description: 'Configuración de tono, horarios y respuestas.' },
@@ -18,62 +21,14 @@ const KNOWLEDGE_CATEGORIES = [
   { id: 'config', title: 'Configuración Global', icon: '⚙️', count: 9, description: 'Usuarios, permisos y sedes.' },
 ];
 
-const FAQ_DATA = [
-  {
-    id: 1,
-    category: 'whatsapp',
-    question: '¿Cómo conectar WhatsApp Business API?',
-    answer: 'Sigue nuestra guía paso a paso para vincular tu número oficial a través de Meta Business Suite.',
-  },
-  {
-    id: 2,
-    category: 'ia',
-    question: '¿Cómo personalizar el tono de AURA?',
-    answer: 'En Configuración > IA, puedes definir si tu agente debe ser formal, amigable o directo.',
-  },
-  {
-    id: 3,
-    category: 'pagos',
-    question: '¿Cómo ver mis facturas?',
-    answer: 'Accede a Mi Cuenta > Suscripción para descargar tus comprobantes mensuales.',
-  },
-  {
-    id: 4,
-    category: 'agenda',
-    question: '¿Puedo sincronizar con Google Calendar?',
-    answer: 'Sí, Clinera permite sincronización bidireccional con cuentas de Google y Outlook.',
-  },
+const FALLBACK_FAQS = [
+  { id: 1, question: '¿Cómo conectar WhatsApp Business API?', answer: 'Sigue nuestra guía paso a paso para vincular tu número oficial.' },
+  { id: 2, question: '¿Cómo personalizar el tono de AURA?', answer: 'En Configuración > IA, puedes definir si tu agente debe ser formal o amigable.' },
 ];
 
-const VIDEO_TUTORIALS = [
-  {
-    id: 1,
-    category: 'IA',
-    title: 'Configura tu Agente IA desde cero',
-    videoId: 'wfO1YlVy48c',
-    duration: '4:20'
-  },
-  {
-    id: 2,
-    category: 'WHATSAPP',
-    title: 'Vinculación de número oficial en Meta',
-    videoId: 'wfO1YlVy48c',
-    duration: '6:15'
-  },
-  {
-    id: 3,
-    category: 'FICHAS',
-    title: 'Personalización de formularios médicos',
-    videoId: 'wfO1YlVy48c',
-    duration: '3:45'
-  },
-  {
-    id: 4,
-    category: 'PAGOS',
-    title: 'Gestión de métodos de pago y planes',
-    videoId: 'wfO1YlVy48c',
-    duration: '2:30'
-  },
+const FALLBACK_VIDEOS = [
+  { id: '1', category: 'IA', title: 'Configura tu Agente IA desde cero', videoId: 'wfO1YlVy48c', duration: '4:20' },
+  { id: '2', category: 'WHATSAPP', title: 'Vinculación de número oficial', videoId: 'wfO1YlVy48c', duration: '6:15' },
 ];
 
 const ONBOARDING_STEPS = [
@@ -86,24 +41,86 @@ const ONBOARDING_STEPS = [
 const TABS = ['Todo', 'Video Tutoriales', 'Preguntas Frecuentes', 'Guía de Inicio'];
 
 /* ──────────────────────────────────────────────
-   Component
+   Types
    ────────────────────────────────────────────── */
+
+interface Video {
+  id: string;
+  title: string;
+  category: string;
+  videoId: string;
+  duration?: string;
+  videoUrl?: string; // Optional if provided directly
+}
+
+interface Faq {
+  id: number | string;
+  question: string;
+  answer: string;
+}
 
 export default function AyudaPage() {
   const [search, setSearch] = useState('');
   const [activeTab, setActiveTab] = useState('Todo');
   const [videoModal, setVideoModal] = useState<{ open: boolean; src: string }>({ open: false, src: '' });
+  
+  // Data States
+  const [videos, setVideos] = useState<Video[]>(FALLBACK_VIDEOS);
+  const [faqs, setFaqs] = useState<Faq[]>(FALLBACK_FAQS);
+  const [loading, setLoading] = useState(true);
+
+  // ── Load Data from Excel/API ──
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        
+        // 1. Fetch Tutorials
+        const videoRes = await fetch(AI_ENDPOINT, {
+          method: 'POST',
+          body: JSON.stringify({ type: 'get_tutorials', token: APP_TOKEN })
+        });
+        if (videoRes.ok) {
+          const videoData = await videoRes.json();
+          // Map to handle different formats (videoUrl vs videoId)
+          const mappedVideos = videoData.map((v: any) => ({
+            ...v,
+            videoId: v.videoId || v.videoUrl?.split('embed/')[1]?.split('?')[0] || 'wfO1YlVy48c',
+            duration: v.duration || '5:00'
+          }));
+          if (mappedVideos.length > 0) setVideos(mappedVideos);
+        }
+
+        // 2. Fetch FAQs
+        const faqRes = await fetch(AI_ENDPOINT, {
+          method: 'POST',
+          body: JSON.stringify({ type: 'get_faqs', token: APP_TOKEN })
+        });
+        if (faqRes.ok) {
+          const faqData = await faqRes.json();
+          if (faqData.length > 0) setFaqs(faqData);
+        }
+
+      } catch (error) {
+        console.error("Error loading knowledge base data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const normalise = (text: string) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
   const filteredFaqs = useMemo(() =>
-    FAQ_DATA.filter(f => normalise(f.question).includes(normalise(search)) || normalise(f.answer).includes(normalise(search))),
-    [search]
+    faqs.filter(f => normalise(f.question).includes(normalise(search)) || normalise(f.answer).includes(normalise(search))),
+    [search, faqs]
   );
 
   const filteredVideos = useMemo(() =>
-    VIDEO_TUTORIALS.filter(v => normalise(v.title).includes(normalise(search)) || normalise(v.category).includes(normalise(search))),
-    [search]
+    videos.filter(v => normalise(v.title).includes(normalise(search)) || normalise(v.category).includes(normalise(search))),
+    [search, videos]
   );
 
   const openVideo = (videoId: string) => {
@@ -170,6 +187,13 @@ export default function AyudaPage() {
           ))}
         </div>
 
+        {loading && (
+          <div className={styles.loadingState}>
+            <div className={styles.spinner}></div>
+            <p>Sincronizando con la base de conocimientos...</p>
+          </div>
+        )}
+
         {/* ── Onboarding Section (Guía de Inicio) ── */}
         {(activeTab === 'Todo' || activeTab === 'Guía de Inicio') && !search && (
           <section className={styles.kbSection}>
@@ -200,7 +224,11 @@ export default function AyudaPage() {
               {filteredVideos.map(video => (
                 <div key={video.id} className={styles.videoCard} onClick={() => openVideo(video.videoId)}>
                   <div className={styles.videoHeader}>
-                    <img src={`https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`} alt={video.title} />
+                    <img 
+                      src={`https://img.youtube.com/vi/${video.videoId}/maxresdefault.jpg`} 
+                      alt={video.title} 
+                      onError={(e) => (e.currentTarget.src = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`)}
+                    />
                     <div className={styles.durationBadge}>{video.duration}</div>
                     <div className={styles.playOverlay}>▶</div>
                   </div>
