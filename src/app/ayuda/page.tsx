@@ -5,6 +5,27 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import styles from './ayuda.module.css';
 
+
+/* ──────────────────────────────────────────────
+   Types
+   ────────────────────────────────────────────── */
+
+interface Video {
+  id: string;
+  title: string;
+  category: string;
+  videoId: string;
+  platform: 'youtube' | 'vimeo';
+  duration?: string;
+  thumbnail?: string;
+}
+
+interface Faq {
+  id: number | string;
+  question: string;
+  answer: string;
+}
+
 /* ──────────────────────────────────────────────
    Configuration & Fallback Data
    ────────────────────────────────────────────── */
@@ -26,9 +47,9 @@ const FALLBACK_FAQS = [
   { id: 2, question: '¿Cómo personalizar el tono de AURA?', answer: 'En Configuración > IA, puedes definir si tu agente debe ser formal o amigable.' },
 ];
 
-const FALLBACK_VIDEOS = [
-  { id: '1', category: 'IA', title: 'Configura tu Agente IA desde cero', videoId: 'wfO1YlVy48c', duration: '4:20' },
-  { id: '2', category: 'WHATSAPP', title: 'Vinculación de número oficial', videoId: 'wfO1YlVy48c', duration: '6:15' },
+const FALLBACK_VIDEOS: Video[] = [
+  { id: '1', category: 'IA', title: 'Configura tu Agente IA desde cero', videoId: 'wfO1YlVy48c', platform: 'youtube', duration: '4:20' },
+  { id: '2', category: 'WHATSAPP', title: 'Vinculación de número oficial', videoId: 'wfO1YlVy48c', platform: 'youtube', duration: '6:15' },
 ];
 
 const ONBOARDING_STEPS = [
@@ -40,25 +61,6 @@ const ONBOARDING_STEPS = [
 
 const TABS = ['Todo', 'Video Tutoriales', 'Preguntas Frecuentes', 'Guía de Inicio'];
 
-/* ──────────────────────────────────────────────
-   Types
-   ────────────────────────────────────────────── */
-
-interface Video {
-  id: string;
-  title: string;
-  category: string;
-  videoId: string;
-  platform: 'youtube' | 'vimeo';
-  duration?: string;
-  thumbnail?: string;
-}
-
-interface Faq {
-  id: number | string;
-  question: string;
-  answer: string;
-}
 
 export default function AyudaPage() {
   const [search, setSearch] = useState('');
