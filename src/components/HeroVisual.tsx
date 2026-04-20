@@ -168,7 +168,7 @@ export default function HeroVisual() {
           </svg>
         </Link>
 
-        <span className="hero-v2__video-badge">Video demo · 60s · próximamente</span>
+        <span className="hero-v2__video-badge">Video demo · 60s</span>
       </div>
     </div>
   );

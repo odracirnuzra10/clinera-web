@@ -164,27 +164,27 @@ export default function Home() {
         </section>
 
         {/* ============================================================
-            SECTION 3 — WHATSAPP COEXIST VIDEO (light)
+            SECTION 3 — CLINERA ESCALA TU CLÍNICA (video)
            ============================================================ */}
         <section className="section">
           <div className="container">
             <div className="section-header text-center">
-              <span className="section-tag">TU MISMO WHATSAPP</span>
+              <span className="section-tag">CRECIMIENTO</span>
               <h2 className="section-title">
-                Utiliza tu actual número de WhatsApp para conectarlo a Clinera
+                Clinera te ayuda a escalar tu clínica
               </h2>
               <p className="section-subtitle">
-                No cambies de número ni migres conversaciones. AURA atiende en
-                el mismo WhatsApp que ya usas, en paralelo con tu equipo.
+                Una IA que atiende, agenda y convierte 24/7 para que puedas
+                enfocarte en hacer crecer tu clínica, no en contestar mensajes.
               </p>
             </div>
 
             <div className="video-vimeo-wrap">
               <iframe
-                src="https://player.vimeo.com/video/1184854869?badge=0&autopause=0&player_id=0&app_id=58479"
+                src="https://player.vimeo.com/video/1184979478?badge=0&autopause=0&player_id=0&app_id=58479"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
-                title="WhatsApp API Business coexistencia — Clinera"
+                title="Clinera te ayuda a escalar tu clínica"
                 loading="lazy"
               />
             </div>
