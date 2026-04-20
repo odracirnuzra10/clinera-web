@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 84" role="img" aria-label="Google Calendar integrated">
+  <title>Google Calendar Integrado</title>
+  <rect x="0.75" y="0.75" width="278.5" height="82.5" rx="12" ry="12" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="1.5"/>
+  <g transform="translate(24 22)">
+    <rect x="0" y="0" width="40" height="40" rx="6" fill="#FFFFFF" stroke="#DADCE0" stroke-width="1.5"/>
+    <rect x="0" y="0" width="40" height="10" rx="6" fill="#4285F4"/>
+    <rect x="0" y="4" width="40" height="6" fill="#4285F4"/>
+    <text x="20" y="31" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#4285F4" text-anchor="middle">29</text>
+  </g>
+  <text x="80" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#0F172A" letter-spacing="-0.2">Google Calendar</text>
+  <line x1="80" y1="44" x2="256" y2="44" stroke="#E4E7EC" stroke-width="1"/>
+  <text x="80" y="62" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#334155">Sincronización bidireccional</text>
+</svg>

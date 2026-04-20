@@ -2500,3 +2500,31 @@ main > .hero-v2:first-child {
   .trust-strip { padding: 28px 0 32px; }
   .trust-strip__badge img { height: 56px; }
 }
+
+/* Tertiary variant — subdued, pre-footer placement */
+.trust-strip--tertiary {
+  background: transparent;
+  border-top: 1px solid var(--divider-subtle);
+  border-bottom: none;
+  padding: 40px 0 24px;
+}
+.trust-strip--tertiary .trust-strip__label {
+  color: var(--ink-quaternary, #9aa1ab);
+  font-size: 0.68rem;
+}
+.trust-strip--tertiary .trust-strip__badge {
+  opacity: 0.78;
+  filter: grayscale(0.15);
+}
+.trust-strip--tertiary .trust-strip__badge:hover {
+  opacity: 1;
+  filter: grayscale(0) drop-shadow(0 6px 14px rgba(15, 23, 42, 0.08));
+}
+.trust-strip--tertiary .trust-strip__badge img {
+  height: 52px;
+}
+@media (max-width: 600px) {
+  .trust-strip--tertiary { padding: 28px 0 18px; }
+  .trust-strip--tertiary .trust-strip__badge img { height: 44px; }
+  .trust-strip--tertiary .trust-strip__logos { gap: 16px 24px; }
+}

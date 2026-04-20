@@ -116,34 +116,6 @@ export default function Home() {
         </section>
 
         {/* ============================================================
-            TRUST STRIP — Partnerships & Certifications
-           ============================================================ */}
-        <section className="trust-strip" aria-label="Partnerships y certificaciones">
-          <div className="container">
-            <div className="trust-strip__inner">
-              <span className="trust-strip__label">Partnerships y certificaciones</span>
-              <div className="trust-strip__logos">
-                <a
-                  href="https://www.facebook.com/business/partner-directory"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="trust-strip__badge"
-                  aria-label="Clinera es Meta Business Partner"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/badges/meta-business-partner.svg"
-                    alt="Meta Business Partner — Clinera.io"
-                    width={240}
-                    height={72}
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================================
             SECTION 2 — PROBLEM (DARK NEON)
            ============================================================ */}
         <section className="section-dark">
@@ -533,6 +505,61 @@ export default function Home() {
                     <path d="M3 8l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   Datos encriptados y cumplimiento
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            TRUST STRIP — Partnerships & Certifications (3rd plane)
+           ============================================================ */}
+        <section className="trust-strip trust-strip--tertiary" aria-label="Partnerships y certificaciones">
+          <div className="container">
+            <div className="trust-strip__inner">
+              <span className="trust-strip__label">Partnerships y certificaciones</span>
+              <div className="trust-strip__logos">
+                <a
+                  href="https://www.facebook.com/business/partner-directory"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="trust-strip__badge"
+                  aria-label="Meta Business Partner"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/badges/meta-business-partner.svg"
+                    alt="Meta Business Partner"
+                    width={200}
+                    height={60}
+                  />
+                </a>
+                <span className="trust-strip__badge" aria-label="WhatsApp Business API integrada">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/badges/whatsapp-business.svg"
+                    alt="WhatsApp Business API"
+                    width={200}
+                    height={60}
+                  />
+                </span>
+                <span className="trust-strip__badge" aria-label="Google Calendar integrado">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/badges/google-calendar.svg"
+                    alt="Google Calendar"
+                    width={200}
+                    height={60}
+                  />
+                </span>
+                <span className="trust-strip__badge" aria-label="Pagos seguros vía Stripe">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/badges/stripe.svg"
+                    alt="Stripe"
+                    width={200}
+                    height={60}
+                  />
                 </span>
               </div>
             </div>
