@@ -105,23 +105,7 @@
         </header>
 
         <main class="dashboard-grid">
-            <!-- 1. ONBOARDING CARD (Rocket Icon) - THE PRIORITY -->
-            <div class="futuristic-card card-onboarding" onclick="navigateTo('onboarding')"
-                style="border-top: 2px solid var(--cyan);">
-                <div class="card-glow"></div>
-                <div class="card-icon" style="background: linear-gradient(135deg, #0efebf 0%, #00d4c5 100%);">
-                    <span class="material-symbols-rounded">rocket_launch</span>
-                </div>
-                <div class="card-content">
-                    <h3>Guía de Inicio</h3>
-                    <p>Configuración esencial paso a paso.</p>
-                </div>
-                <!-- Mini Progress Badge -->
-                <div class="mini-progress-badge">
-                    <span id="miniProgressPercent">0%</span>
-                </div>
-                <span class="material-symbols-rounded arrow-icon">arrow_forward</span>
-            </div>
+
 
             <!-- 2. TUTORIALS CARD (Video Icon) -->
             <div class="futuristic-card card-tutorials" onclick="navigateTo('tutorials')">
@@ -149,18 +133,7 @@
                 <span class="material-symbols-rounded arrow-icon">arrow_forward</span>
             </div>
 
-            <!-- 4. EXPERT AI CARD (Robot Icon) -->
-            <div class="futuristic-card card-ai" onclick="navigateTo('expert')">
-                <div class="card-glow"></div>
-                <div class="card-icon">
-                    <span class="material-symbols-rounded">smart_toy</span>
-                </div>
-                <div class="card-content">
-                    <h3>Cuky Expert</h3>
-                    <p>Tu Guía Clinera 24/7 disponible.</p>
-                </div>
-                <span class="material-symbols-rounded arrow-icon">arrow_forward</span>
-            </div>
+
 
             <!-- 5. FAQ CARD (Question Icon) -->
             <div class="futuristic-card card-faq" onclick="navigateTo('faqs')">
@@ -175,18 +148,7 @@
                 <span class="material-symbols-rounded arrow-icon">arrow_forward</span>
             </div>
 
-            <!-- 6. INCIDENT CARD (Alert/Cam Icon) - NOW LAST -->
-            <div class="futuristic-card card-incident" onclick="navigateTo('incident')">
-                <div class="card-glow"></div>
-                <div class="card-icon">
-                    <span class="material-symbols-rounded">videocam</span>
-                </div>
-                <div class="card-content">
-                    <h3>Reportar Incidente</h3>
-                    <p>Enviar video reporte técnico.</p>
-                </div>
-                <span class="material-symbols-rounded arrow-icon">arrow_forward</span>
-            </div>
+
 
             <!-- Logout Link -->
             <div class="logout-link-container">
@@ -246,184 +208,11 @@
     </div>
 
     <!-- Placeholder Views to remaining modules -->
-    <!-- View: AI Expert Chat -->
-    <section id="view-expert" class="hidden">
-        <header class="chat-header">
-            <div class="back-nav" onclick="navigateTo('dashboard')">
-                <span class="material-symbols-rounded">arrow_back</span>
-            </div>
-            <div class="chat-title">
-                <span class="status-dot online"></span>
-                <div>
-                    <h3>Cuky</h3>
-                    <span class="subtitle">Asistente de Clinera</span>
-                </div>
-            </div>
-            <div class="chat-actions">
-                <span class="material-symbols-rounded" onclick="clearChat()">delete_sweep</span>
-            </div>
-        </header>
 
-        <div class="chat-container" id="chatContainer">
-            <div class="chat-message bot">
-                <div class="avatar cuky-avatar"></div>
-                <div class="bubble">
-                    <p>Hola, Soy Cuky y te puedo ayudar con lo que necesites hacer en Clinera.</p>
-                    <div class="suggestions">
-                        <button onclick="sendSuggestion('¿Cómo registro un paciente?')">¿Cómo registro un
-                            paciente?</button>
-                        <button onclick="sendSuggestion('Configurar IA')">Configurar IA</button>
-                        <button onclick="sendSuggestion('Crear una clínica')">Crear una clínica</button>
-                    </div>
-                </div>
-            </div>
-            <!-- Messages will appear here -->
 
-            <div class="typing-indicator hidden" id="typingIndicator">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
 
-        <div class="chat-input-area">
-            <form id="chatForm" onsubmit="handleChatSubmit(event)">
-                <input type="text" id="chatInput" placeholder="Escribe tu consulta aquí..." autocomplete="off">
-                <button type="submit" id="sendBtn" disabled>
-                    <span class="material-symbols-rounded">send</span>
-                </button>
-            </form>
-        </div>
-    </section>
 
-    <!-- View: Incident Reporting -->
-    <section id="view-incident" class="hidden">
-        <header class="view-header">
-            <div class="back-nav" onclick="navigateTo('dashboard')">
-                <span class="material-symbols-rounded">arrow_back</span>
-                <span>Dashboard</span>
-            </div>
-            <h2>Reportar Incidente</h2>
-        </header>
 
-        <form id="incidentForm" class="incident-form" onsubmit="handleIncidentSubmit(event)">
-            <div class="form-section">
-                <label for="incClinic">Nombre de la Clínica</label>
-                <input type="text" id="incClinic" placeholder="Ej. OdontoCenter" required>
-            </div>
-
-            <div class="form-section">
-                <label for="incSubject">Asunto del Problema</label>
-                <input type="text" id="incSubject" placeholder="Ej. Error al guardar ficha de paciente" required>
-            </div>
-
-            <div class="form-row">
-                <div class="form-section half">
-                    <label for="incCategory">Categoría</label>
-                    <select id="incCategory">
-                        <option value="technical">Falla Técnica</option>
-                        <option value="access">Acceso / Login</option>
-                        <option value="billing">Facturación</option>
-                        <option value="feature">Solicitud de Mejora</option>
-                    </select>
-                </div>
-                <div class="form-section half">
-                    <label for="incPriority">Prioridad</label>
-                    <select id="incPriority">
-                        <option value="low">Baja</option>
-                        <option value="medium" selected>Media</option>
-                        <option value="high">Alta (Bloqueante)</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-section">
-                <label for="incDescription">Descripción Detallada</label>
-                <textarea id="incDescription" rows="5" placeholder="Describe paso a paso lo que ocurrió..."
-                    required></textarea>
-            </div>
-
-            <div class="form-section upload-section">
-                <label>Evidencia Visual (Video/Captura)</label>
-                <div class="file-drop-area" id="dropArea">
-                    <span class="material-symbols-rounded">cloud_upload</span>
-                    <p class="file-msg">Arrastra tu video aquí o haz clic para subir</p>
-                    <input type="file" id="incFile" accept="image/*,video/*" onchange="handleFileSelect(this)">
-                    <div id="filePreview" class="hidden">
-                        <span class="file-name">video_error.mp4</span>
-                        <span class="material-symbols-rounded remove-file" onclick="removeFile(event)">close</span>
-                    </div>
-                </div>
-                <p class="help-text">Máx. 50MB. Formatos: MP4, MOV, PNG, JPG.</p>
-            </div>
-
-            <button type="submit" class="btn-primary" id="submitIncidentBtn">
-                <span>Enviar Reporte</span>
-                <span class="material-symbols-rounded">send</span>
-            </button>
-        </form>
-
-        <!-- Success Overlay -->
-        <div id="incidentSuccess" class="success-overlay hidden">
-            <div class="success-content">
-                <div class="check-icon">
-                    <span class="material-symbols-rounded">check</span>
-                </div>
-                <h3>¡Reporte Enviado!</h3>
-                <p>Tu ticket <strong id="ticketId">#1024</strong> ha sido creado.</p>
-                <p class="sub-text">El equipo técnico revisará tu video y te contactará pronto.</p>
-                <button class="btn-primary" onclick="resetIncidentForm()">Volver al Dashboard</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- VIEW: ONBOARDING STEP-BY-STEP (Interactive Accordion) -->
-    <section id="view-onboarding" class="hidden">
-        <header class="view-header">
-            <div class="back-nav" onclick="navigateTo('dashboard')">
-                <span class="material-symbols-rounded">arrow_back</span>
-                <span>Dashboard</span>
-            </div>
-            <h2>Guía de Inicio Dinámica</h2>
-        </header>
-
-        <div class="onboarding-hub-container">
-            <!-- Global Progress Bar -->
-            <div class="onboarding-progress-hub">
-                <div class="progress-labels">
-                    <span class="progress-text">Tu camino al éxito</span>
-                    <span class="progress-percent" id="onboardingOverallPercent">0%</span>
-                </div>
-                <div class="progress-hub-bar">
-                    <div class="progress-hub-fill" id="onboardingOverallBar"></div>
-                </div>
-            </div>
-
-            <!-- Interactive Steps Board -->
-            <div class="onboarding-accordion-board" id="onboardingBoard">
-                <!-- Steps will be injected here via JS -->
-                <div class="loading-state">
-                    <span class="spinner"></span>
-                    <p>Cargando pasos...</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Onboarding Completion Overlay -->
-        <div id="onboardingCompletionOverlay" class="success-overlay hidden" style="z-index: 200;">
-            <div class="success-content">
-                <div class="check-icon" style="background: var(--cyan); box-shadow: 0 0 40px rgba(0, 240, 255, 0.4);">
-                    <span class="material-symbols-rounded" style="color: var(--bg-dark);">auto_awesome</span>
-                </div>
-                <h3>¡Felicitaciones! ✨</h3>
-                <p>Has completado la configuración básica de Clinera.</p>
-                <p class="sub-text">Tu clínica ya tiene los cimientos listos para operar al 100%.</p>
-                <button class="btn-primary"
-                    onclick="navigateTo('dashboard'); document.getElementById('onboardingCompletionOverlay').classList.add('hidden');">
-                    <span>Ver funciones avanzadas</span>
-                    <span class="material-symbols-rounded">rocket_launch</span>
-                </button>
-            </div>
-        </div>
-    </section>
 
     <!-- VIEW: PROMPT GENERATOR -->
     <section id="view-promptgen" class="hidden">

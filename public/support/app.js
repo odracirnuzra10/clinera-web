@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameDisplay = document.getElementById('userNameDisplay');
         if (nameDisplay) nameDisplay.textContent = 'Invitado';
 
-        // Ir al chat DIRECTO después de asegurar que la sesión está guardada
-        setTimeout(() => navigateTo('expert'), 100);
+        // In guest mode, we go to tutorials by default if expert is removed
+        setTimeout(() => navigateTo('tutorials'), 100);
     } else {
         // 1. Check for existing session para usuarios normales
         checkExistingSession();
@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Non-blocking load
         setTimeout(() => {
             loadTutorials();
-            updateOnboardingProgress();
         }, 100);
     }
 
@@ -112,9 +111,9 @@ function checkExistingSession() {
             // Auto-login with stored session
             restoreSession(user);
 
-            // CORRECCIÓN CRÍTICA: Si es invitado, forzar vista de experto (chat)
+            // CORRECCIÓN: Si es invitado, ir a tutoriales
             if (document.body.classList.contains('guest-mode')) {
-                navigateTo('expert');
+                navigateTo('tutorials');
             }
         } catch (e) {
             console.error('Error restoring session:', e);
@@ -339,7 +338,7 @@ function handleLogin(inputName, clientId, loginType = 'manual', userData = null)
 
             // MODO WIDGET: Saltar dashboard e ir directo al chat
             if (document.body.classList.contains('guest-mode')) {
-                switchView('view-auth', 'view-expert');
+                switchView('view-auth', 'view-tutorials');
             } else {
                 switchView('view-auth', 'view-dashboard');
             }
@@ -410,8 +409,6 @@ function navigateTo(viewName) {
 
         // Load data if needed
         if (viewName === 'faqs') loadFaqs();
-        if (viewName === 'onboarding') loadOnboarding();
-        if (viewName === 'dashboard') updateOnboardingProgress();
     }
 }
 

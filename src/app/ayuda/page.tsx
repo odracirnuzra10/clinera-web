@@ -56,15 +56,7 @@ const TABS = ['Video Tutoriales', 'Preguntas Frecuentes', 'Novedades y Blog'];
 const CATEGORIES = ['Todos', 'CONFIGURACION', 'WHATSAPP', 'FICHAS'];
 
 const KNOWLEDGE_CARDS = [
-  {
-    id: 1,
-    type: 'horizontal' as const,
-    label: 'GUIA',
-    title: 'Guia de implementacion rapida',
-    description:
-      'Aprende a configurar Clinera desde cero en menos de 15 minutos con nuestra guia paso a paso.',
-    icon: '📋',
-  },
+
   {
     id: 2,
     type: 'vertical' as const,
@@ -453,20 +445,6 @@ export default function AyudaPage() {
           </div>
         </div>
       )}
-
-      {/* ── Cuky Widget ── */}
-      <div className={styles.cukyWidget}>
-        <div className={styles.cukyBubble}>Necesitas ayuda?</div>
-        <a
-          href="https://clinera.io/support"
-          className={styles.cukyBtn}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Abrir soporte"
-        >
-          <span className={styles.cukyAvatar}>🤖</span>
-        </a>
-      </div>
 
       <Footer />
     </div>
