@@ -14,9 +14,12 @@
 
 .footerGrid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+  gap: 88px;
   margin-bottom: 56px;
+}
+@media (max-width: 1180px) {
+  .footerGrid { gap: 56px; }
 }
 
 /* ── Brand column ── */
