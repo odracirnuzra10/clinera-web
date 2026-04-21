@@ -46,19 +46,11 @@ export default function Footer() {
             <Link href="/novedades">Novedades</Link>
           </div>
 
-          {/* Comienza gratis */}
-          <div className={styles.footerLinks}>
-            <h4>Comienza gratis</h4>
-            <Link href="/demo">Ver demo</Link>
-            <Link href="/reunion">Hablar con ventas</Link>
-            <Link href="/reunion">Reunión comercial</Link>
-          </div>
-
           {/* Soporte */}
           <div className={styles.footerLinks}>
             <h4>Soporte</h4>
             <Link href="/ayuda">Centro de ayuda</Link>
-            <Link href="/reunion">Contacto</Link>
+            <Link href="/reunion">Hablar con ventas</Link>
           </div>
 
           {/* Comparativas */}
