@@ -404,7 +404,7 @@ export default function Home() {
                     rel="noopener"
                     className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
                   >
-                    Pagar plan
+                    Activar plan
                   </a>
                 </div>
               </article>
@@ -442,7 +442,7 @@ export default function Home() {
                     rel="noopener"
                     className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
                   >
-                    Pagar plan
+                    Activar plan
                   </a>
                 </div>
               </article>
@@ -477,7 +477,7 @@ export default function Home() {
                     rel="noopener"
                     className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
                   >
-                    Pagar plan
+                    Activar plan
                   </a>
                 </div>
               </article>

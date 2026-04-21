@@ -124,7 +124,7 @@ export default function PlanesPage() {
                 data-plan-value="59"
                 data-plan-name="Growth pay"
               >
-                Pagar plan
+                Activar plan
               </a>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default function PlanesPage() {
                 data-plan-value="89"
                 data-plan-name="Conect pay"
               >
-                Pagar plan
+                Activar plan
               </a>
             </div>
           </div>
@@ -239,7 +239,7 @@ export default function PlanesPage() {
                 data-plan-value="149"
                 data-plan-name="Advanced pay"
               >
-                Pagar plan
+                Activar plan
               </a>
             </div>
           </div>

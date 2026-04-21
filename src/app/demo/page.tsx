@@ -143,7 +143,7 @@ export default function DemoPage() {
                     data-plan-value={plan.price}
                     data-plan-name={`${plan.name} pay`}
                   >
-                    Pagar plan →
+                    Activar plan →
                   </a>
                   <p className={styles.planCtaSub}>
                     Sin permanencia · Cancela en 1 click
