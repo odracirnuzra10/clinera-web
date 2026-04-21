@@ -1,30 +1,25 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import DemoWizard from "@/components/DemoWizard";
 
 export const metadata: Metadata = {
   title: "Agenda tu demostración — Clinera.io",
   description:
     "Elige tu plan, agenda tu hora y un especialista te guía paso a paso. Demostración personalizada de 30 minutos, sin tarjeta de crédito.",
-  alternates: { canonical: "https://clinera.io/reunion" },
+  alternates: { canonical: "https://clinera.io/contacto" },
+  robots: { index: false, follow: false },
   openGraph: {
     title: "Agenda tu demostración — Clinera.io",
     description:
       "30 min con un especialista. Elige tu plan y horario. Sin tarjeta de crédito.",
-    url: "https://clinera.io/reunion",
+    url: "https://clinera.io/contacto",
     type: "website",
   },
 };
 
-export default function ReunionPage() {
+export default function ContactoPage() {
   return (
-    <>
-      <Header />
-      <main>
-        <DemoWizard />
-      </main>
-      <Footer />
-    </>
+    <main>
+      <DemoWizard />
+    </main>
   );
 }
