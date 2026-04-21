@@ -2510,6 +2510,181 @@ main > .hero-v2:first-child {
   .trust-strip__badge img { height: 56px; }
 }
 
+/* ==========================================================================
+   Trust Strip XL — pre-footer, marquee modern
+   ========================================================================== */
+
+.trust-strip-xl {
+  position: relative;
+  padding: 96px 0 88px;
+  background: linear-gradient(180deg, var(--surface-1) 0%, #ffffff 50%, var(--surface-1) 100%);
+  border-top: 1px solid var(--divider-subtle);
+  overflow: hidden;
+}
+.trust-strip-xl::before,
+.trust-strip-xl::after {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.trust-strip-xl::before {
+  top: -160px;
+  left: -120px;
+  background: radial-gradient(circle, rgba(0, 159, 227, 0.55), transparent 70%);
+}
+.trust-strip-xl::after {
+  bottom: -160px;
+  right: -120px;
+  background: radial-gradient(circle, rgba(184, 71, 255, 0.45), transparent 70%);
+}
+.trust-strip-xl .container {
+  position: relative;
+  z-index: 1;
+}
+
+.trust-strip-xl__header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 56px;
+}
+.trust-strip-xl__eyebrow {
+  font-family: var(--font-tech);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-cyan, #009FE3);
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.trust-strip-xl__title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--ink-primary);
+  margin: 0 0 16px;
+}
+.trust-strip-xl__title .gt {
+  background: linear-gradient(90deg, #009FE3 0%, #7C3AED 50%, #D946EF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+.trust-strip-xl__sub {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink-secondary);
+  margin: 0;
+}
+
+.trust-strip-xl__row {
+  margin-top: 40px;
+}
+.trust-strip-xl__rowLabel {
+  display: block;
+  text-align: center;
+  font-family: var(--font-tech);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  margin-bottom: 20px;
+}
+
+.trust-strip-xl__marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+.trust-strip-xl__track {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.trust-strip-xl__track--scroll {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: max-content;
+  animation: trustMarquee 28s linear infinite;
+}
+.trust-strip-xl__marquee:hover .trust-strip-xl__track--scroll {
+  animation-play-state: paused;
+}
+.trust-strip-xl__loop {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  flex-shrink: 0;
+  padding-right: 32px;
+}
+
+.trust-strip-xl__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+.trust-strip-xl__badge img {
+  display: block;
+  height: 92px;
+  width: auto;
+  max-width: 100%;
+  filter: drop-shadow(0 8px 24px rgba(15, 23, 42, 0.06));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.trust-strip-xl__badge:hover {
+  transform: translateY(-4px);
+}
+.trust-strip-xl__badge:hover img {
+  filter: drop-shadow(0 14px 32px rgba(124, 58, 237, 0.22));
+}
+
+@keyframes trustMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-strip-xl__track--scroll { animation: none; }
+}
+
+@media (max-width: 720px) {
+  .trust-strip-xl { padding: 64px 0 56px; }
+  .trust-strip-xl__badge img { height: 72px; }
+  .trust-strip-xl__track,
+  .trust-strip-xl__loop { gap: 20px; }
+}
+
+/* ==========================================================================
+   Legacy trust-strip (kept for backwards-compat)
+   ========================================================================== */
+
 /* Tertiary variant — subdued, pre-footer placement */
 .trust-strip--tertiary {
   background: transparent;

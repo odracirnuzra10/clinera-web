@@ -490,129 +490,76 @@ export default function Home() {
         </section>
 
         {/* ============================================================
-            SECTION 7 — FINAL CTA (DARK NEON)
+            TRUST STRIP — Partnerships + Integraciones (marquee)
            ============================================================ */}
-        <section className="section-dark">
-          <div className="dark-halo-top-left" aria-hidden />
-          <div className="dark-halo-bottom-right" aria-hidden />
+        <section className="trust-strip-xl" aria-label="Partnerships e integraciones">
           <div className="container">
-            <div className="cta-final-dark">
-              <h2 className="cta-final-dark__title">
-                Agenda una demo con ventas.
-                <br />
-                <span className="gt-neon">30 min, sin compromiso.</span>
+            <div className="trust-strip-xl__header">
+              <span className="trust-strip-xl__eyebrow">Ecosistema Clinera</span>
+              <h2 className="trust-strip-xl__title">
+                Certificaciones oficiales <span className="gt">+</span> integraciones nativas
               </h2>
-              <p className="cta-final-dark__sub">
-                Te mostramos cómo AURA atiende tu WhatsApp, agenda y confirma
-                pacientes 24/7 en menos de 30 minutos. Resolvemos todas tus dudas.
+              <p className="trust-strip-xl__sub">
+                Partner verificado de Meta, WhatsApp y Stripe. Se integra nativamente con las principales agendas clínicas de LATAM.
               </p>
-              <div className="cta-final-dark__actions">
-                <Link href="/reunion" className="cta-final-dark__primary">
-                  Hablar con ventas
-                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-                <Link href="/demo" className="cta-final-dark__secondary">
-                  Ver demo del software
-                </Link>
-              </div>
-              <div className="trust-row">
-                <span className="trust-row__item">
-                  <svg className="trust-row__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M3 8l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  Setup en menos de 1 hora
-                </span>
-                <span className="trust-row__item">
-                  <svg className="trust-row__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M3 8l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  Soporte en español
-                </span>
-                <span className="trust-row__item">
-                  <svg className="trust-row__icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M3 8l3 3 7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  Datos encriptados y cumplimiento
-                </span>
+            </div>
+
+            <div className="trust-strip-xl__row">
+              <span className="trust-strip-xl__rowLabel">Partnerships y certificaciones</span>
+              <div className="trust-strip-xl__marquee trust-strip-xl__marquee--static">
+                <div className="trust-strip-xl__track">
+                  <a
+                    href="https://www.facebook.com/business/partner-directory"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="trust-strip-xl__badge"
+                    aria-label="Meta Business Partner"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/images/badges/meta-business-partner.svg" alt="Meta Business Partner" />
+                  </a>
+                  <span className="trust-strip-xl__badge" aria-label="WhatsApp Business API integrada">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/images/badges/whatsapp-business.svg" alt="WhatsApp Business API" />
+                  </span>
+                  <span className="trust-strip-xl__badge" aria-label="Google Calendar integrado">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/images/badges/google-calendar.svg" alt="Google Calendar" />
+                  </span>
+                  <span className="trust-strip-xl__badge" aria-label="Pagos seguros vía Stripe">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/images/badges/stripe.svg" alt="Stripe" />
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* ============================================================
-            TRUST STRIP — Partnerships & Certifications (3rd plane)
-           ============================================================ */}
-        <section className="trust-strip trust-strip--tertiary" aria-label="Partnerships y certificaciones">
-          <div className="container">
-            <div className="trust-strip__inner">
-              <span className="trust-strip__label">Partnerships y certificaciones</span>
-              <div className="trust-strip__logos">
-                <a
-                  href="https://www.facebook.com/business/partner-directory"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="trust-strip__badge"
-                  aria-label="Meta Business Partner"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/badges/meta-business-partner.svg"
-                    alt="Meta Business Partner"
-                    width={200}
-                    height={60}
-                  />
-                </a>
-                <span className="trust-strip__badge" aria-label="WhatsApp Business API integrada">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/badges/whatsapp-business.svg"
-                    alt="WhatsApp Business API"
-                    width={200}
-                    height={60}
-                  />
-                </span>
-                <span className="trust-strip__badge" aria-label="Google Calendar integrado">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/badges/google-calendar.svg"
-                    alt="Google Calendar"
-                    width={200}
-                    height={60}
-                  />
-                </span>
-                <span className="trust-strip__badge" aria-label="Pagos seguros vía Stripe">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/badges/stripe.svg"
-                    alt="Stripe"
-                    width={200}
-                    height={60}
-                  />
-                </span>
-              </div>
-
-              <span className="trust-strip__label trust-strip__label--secondary">
-                Se integra con otras agendas
-              </span>
-              <div className="trust-strip__logos">
-                <span className="trust-strip__badge" aria-label="Integración con Medilink">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/badges/medilink.svg" alt="Medilink" width={200} height={60} />
-                </span>
-                <span className="trust-strip__badge" aria-label="Integración con Dentalink">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/badges/dentalink.svg" alt="Dentalink" width={200} height={60} />
-                </span>
-                <span className="trust-strip__badge" aria-label="Integración con Reservo">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/badges/reservo.svg" alt="Reservo" width={200} height={60} />
-                </span>
-                <span className="trust-strip__badge" aria-label="Integración con AgendaPro">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/badges/agendapro.svg" alt="AgendaPro" width={200} height={60} />
-                </span>
+            <div className="trust-strip-xl__row">
+              <span className="trust-strip-xl__rowLabel">Se integra con otras agendas</span>
+              <div className="trust-strip-xl__marquee">
+                <div className="trust-strip-xl__track trust-strip-xl__track--scroll">
+                  {/* duplicated for seamless loop */}
+                  {[0, 1].map((loop) => (
+                    <div key={loop} className="trust-strip-xl__loop" aria-hidden={loop === 1}>
+                      <span className="trust-strip-xl__badge" aria-label="Integración con Medilink">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/images/badges/medilink.svg" alt="Medilink" />
+                      </span>
+                      <span className="trust-strip-xl__badge" aria-label="Integración con Dentalink">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/images/badges/dentalink.svg" alt="Dentalink" />
+                      </span>
+                      <span className="trust-strip-xl__badge" aria-label="Integración con Reservo">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/images/badges/reservo.svg" alt="Reservo" />
+                      </span>
+                      <span className="trust-strip-xl__badge" aria-label="Integración con AgendaPro">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/images/badges/agendapro.svg" alt="AgendaPro" />
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
