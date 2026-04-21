@@ -65,13 +65,9 @@ export default function Header() {
           </nav>
 
           <div className={styles.headerActions}>
-            <a
-              href="https://app.clinera.io/auth/register?lang=es"
-              className={styles.btnPrimary}
-              rel="noopener"
-            >
-              Prueba Gratis
-            </a>
+            <Link href="/reunion" className={styles.btnPrimary}>
+              Hablar con ventas
+            </Link>
           </div>
 
           {/* Mobile hamburger toggle */}
@@ -147,14 +143,9 @@ export default function Header() {
         </div>
 
         <div className={styles.headerActionsMobile}>
-          <a
-            href="https://app.clinera.io/auth/register?lang=es"
-            className={styles.btnPrimary}
-            rel="noopener"
-            onClick={closeMobileMenu}
-          >
-            Prueba Gratis
-          </a>
+          <Link href="/reunion" className={styles.btnPrimary} onClick={closeMobileMenu}>
+            Hablar con ventas
+          </Link>
         </div>
       </div>
     </div>

@@ -244,6 +244,23 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
+.planCtaSecondary {
+  display: block;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--brand-cyan, #009FE3);
+  margin-top: 8px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.planCtaSecondary:hover {
+  color: var(--brand-violet, #7C3AED);
+  transform: translateX(2px);
+}
+
 .planCtaSub {
   text-align: center;
   font-size: 12px;

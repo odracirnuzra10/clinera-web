@@ -181,6 +181,13 @@
 }
 
 /* CTA button */
+.planActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
 .planCta {
   display: block;
   text-align: center;
@@ -191,7 +198,6 @@
   font-size: 1rem;
   transition: all 0.3s ease;
   text-decoration: none;
-  margin-top: auto;
   border: 1px solid var(--border-sterile);
   background: var(--bg-cloud);
   color: var(--ink);

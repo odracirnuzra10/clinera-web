@@ -88,12 +88,12 @@ export default function Home() {
                 automáticamente. Tu equipo se enfoca en pacientes, no en mensajes.
               </p>
               <div className="hero-v2__actions">
-                <a href="https://app.clinera.io/auth/register?lang=es" rel="noopener" className="hero-v2__primary">
-                  Prueba gratis 7 días
+                <Link href="/reunion" className="hero-v2__primary">
+                  Hablar con ventas
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </a>
+                </Link>
                 <Link href="/demo" className="hero-v2__secondary">
                   Ver demo completo (12 min) →
                 </Link>
@@ -391,13 +391,22 @@ export default function Home() {
                   <li>Integración vía API y MCP</li>
                   <li>3 usuarios incluidos</li>
                 </ul>
-                <a
-                  href="https://app.clinera.io/auth/register?lang=es&plan=growth"
-                  rel="noopener"
-                  className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
-                >
-                  Prueba gratis
-                </a>
+                <div className="pricing-card-dark__actions">
+                  <Link
+                    href="/reunion"
+                    className="pricing-card-dark__cta pricing-card-dark__cta--primary"
+                  >
+                    Hablar con ventas
+                  </Link>
+                  <a
+                    href="https://buy.stripe.com/00wcN79l7bmO9wT6VZ14415"
+                    target="_blank"
+                    rel="noopener"
+                    className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
+                  >
+                    Pagar plan
+                  </a>
+                </div>
               </article>
 
               <article className="pricing-card-dark pricing-card-dark--featured">
@@ -420,13 +429,22 @@ export default function Home() {
                   <li>Panel ventas</li>
                   <li>Trazabilidad campaña-cita-venta</li>
                 </ul>
-                <a
-                  href="https://app.clinera.io/auth/register?lang=es&plan=conect"
-                  rel="noopener"
-                  className="pricing-card-dark__cta pricing-card-dark__cta--primary"
-                >
-                  Prueba gratis
-                </a>
+                <div className="pricing-card-dark__actions">
+                  <Link
+                    href="/reunion"
+                    className="pricing-card-dark__cta pricing-card-dark__cta--primary"
+                  >
+                    Hablar con ventas
+                  </Link>
+                  <a
+                    href="https://buy.stripe.com/aFa9AV8h3ez07oL2FJ14416"
+                    target="_blank"
+                    rel="noopener"
+                    className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
+                  >
+                    Pagar plan
+                  </a>
+                </div>
               </article>
 
               <article className="pricing-card-dark">
@@ -446,13 +464,22 @@ export default function Home() {
                   <li>Soporte prioritario</li>
                   <li>Onboarding dedicado</li>
                 </ul>
-                <a
-                  href="https://app.clinera.io/auth/register?lang=es&plan=advanced"
-                  rel="noopener"
-                  className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
-                >
-                  Prueba gratis
-                </a>
+                <div className="pricing-card-dark__actions">
+                  <Link
+                    href="/reunion"
+                    className="pricing-card-dark__cta pricing-card-dark__cta--primary"
+                  >
+                    Hablar con ventas
+                  </Link>
+                  <a
+                    href="https://buy.stripe.com/4gM3cxapb9eG4cz1BF1441a"
+                    target="_blank"
+                    rel="noopener"
+                    className="pricing-card-dark__cta pricing-card-dark__cta--secondary"
+                  >
+                    Pagar plan
+                  </a>
+                </div>
               </article>
             </div>
 
@@ -471,23 +498,23 @@ export default function Home() {
           <div className="container">
             <div className="cta-final-dark">
               <h2 className="cta-final-dark__title">
-                Empieza gratis hoy.
+                Agenda una demo con ventas.
                 <br />
-                <span className="gt-neon">Sin tarjeta de crédito.</span>
+                <span className="gt-neon">30 min, sin compromiso.</span>
               </h2>
               <p className="cta-final-dark__sub">
-                Prueba Clinera 7 días. Si no ves resultados, te ayudamos a
-                configurarlo o cancelas sin costo. Simple.
+                Te mostramos cómo AURA atiende tu WhatsApp, agenda y confirma
+                pacientes 24/7 en menos de 30 minutos. Resolvemos todas tus dudas.
               </p>
               <div className="cta-final-dark__actions">
-                <a href="https://app.clinera.io/auth/register?lang=es" rel="noopener" className="cta-final-dark__primary">
-                  Prueba gratis 7 días
+                <Link href="/reunion" className="cta-final-dark__primary">
+                  Hablar con ventas
                   <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </a>
+                </Link>
                 <Link href="/demo" className="cta-final-dark__secondary">
-                  Agendar demo con un humano
+                  Ver demo del software
                 </Link>
               </div>
               <div className="trust-row">

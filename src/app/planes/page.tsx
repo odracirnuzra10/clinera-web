@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import styles from "./planes.module.css";
@@ -104,15 +105,28 @@ export default function PlanesPage() {
               <li>3 usuarios incluidos</li>
             </ul>
 
-            <a
-              href="https://app.clinera.io/auth/register?lang=es&plan=growth"
-              className={styles.planCta}
-              data-plan="growth"
-              data-plan-value="59"
-              data-plan-name="Growth trial"
-            >
-              Prueba Gratis
-            </a>
+            <div className={styles.planActions}>
+              <Link
+                href="/reunion"
+                className={`${styles.planCta} ${styles.planCtaPrimary}`}
+                data-plan="growth"
+                data-plan-value="59"
+                data-plan-name="Growth talk-to-sales"
+              >
+                Hablar con ventas
+              </Link>
+              <a
+                href="https://buy.stripe.com/00wcN79l7bmO9wT6VZ14415"
+                target="_blank"
+                rel="noopener"
+                className={styles.planCta}
+                data-plan="growth"
+                data-plan-value="59"
+                data-plan-name="Growth pay"
+              >
+                Pagar plan
+              </a>
+            </div>
           </div>
 
           {/* Conect (Popular) */}
@@ -150,15 +164,28 @@ export default function PlanesPage() {
               <li>Trazabilidad campaña-cita-venta</li>
             </ul>
 
-            <a
-              href="https://app.clinera.io/auth/register?lang=es&plan=conect"
-              className={`${styles.planCta} ${styles.planCtaPrimary}`}
-              data-plan="conect"
-              data-plan-value="89"
-              data-plan-name="Conect trial"
-            >
-              Prueba Gratis
-            </a>
+            <div className={styles.planActions}>
+              <Link
+                href="/reunion"
+                className={`${styles.planCta} ${styles.planCtaPrimary}`}
+                data-plan="conect"
+                data-plan-value="89"
+                data-plan-name="Conect talk-to-sales"
+              >
+                Hablar con ventas
+              </Link>
+              <a
+                href="https://buy.stripe.com/aFa9AV8h3ez07oL2FJ14416"
+                target="_blank"
+                rel="noopener"
+                className={styles.planCta}
+                data-plan="conect"
+                data-plan-value="89"
+                data-plan-name="Conect pay"
+              >
+                Pagar plan
+              </a>
+            </div>
           </div>
 
           {/* Advanced */}
@@ -193,15 +220,28 @@ export default function PlanesPage() {
               <li>Onboarding dedicado</li>
             </ul>
 
-            <a
-              href="https://app.clinera.io/auth/register?lang=es&plan=advanced"
-              className={styles.planCta}
-              data-plan="advanced"
-              data-plan-value="149"
-              data-plan-name="Advanced trial"
-            >
-              Prueba Gratis
-            </a>
+            <div className={styles.planActions}>
+              <Link
+                href="/reunion"
+                className={`${styles.planCta} ${styles.planCtaPrimary}`}
+                data-plan="advanced"
+                data-plan-value="149"
+                data-plan-name="Advanced talk-to-sales"
+              >
+                Hablar con ventas
+              </Link>
+              <a
+                href="https://buy.stripe.com/4gM3cxapb9eG4cz1BF1441a"
+                target="_blank"
+                rel="noopener"
+                className={styles.planCta}
+                data-plan="advanced"
+                data-plan-value="149"
+                data-plan-name="Advanced pay"
+              >
+                Pagar plan
+              </a>
+            </div>
           </div>
         </section>
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import styles from "./demo.module.css";
@@ -30,7 +31,7 @@ const PLANS = [
       "3 usuarios incluidos",
     ],
     ctaClass: "secondary" as const,
-    stripeUrl: "https://app.clinera.io/auth/register?lang=es&plan=growth",
+    stripeUrl: "https://buy.stripe.com/00wcN79l7bmO9wT6VZ14415",
   },
   {
     name: "Conect",
@@ -46,7 +47,7 @@ const PLANS = [
       "Panel centralizado de ventas",
     ],
     ctaClass: "primary" as const,
-    stripeUrl: "https://app.clinera.io/auth/register?lang=es&plan=conect",
+    stripeUrl: "https://buy.stripe.com/aFa9AV8h3ez07oL2FJ14416",
   },
   {
     name: "Advanced",
@@ -61,7 +62,7 @@ const PLANS = [
       "Soporte prioritario",
     ],
     ctaClass: "dark" as const,
-    stripeUrl: "https://app.clinera.io/auth/register?lang=es&plan=advanced",
+    stripeUrl: "https://buy.stripe.com/4gM3cxapb9eG4cz1BF1441a",
   },
 ];
 
@@ -124,14 +125,25 @@ export default function DemoPage() {
                       <li key={f}>{f}</li>
                     ))}
                   </ul>
-                  <a
-                    href={plan.stripeUrl}
+                  <Link
+                    href="/reunion"
                     className={`${styles.planCta} ${styles[`planCta_${plan.ctaClass}`]}`}
                     data-plan={plan.slug}
                     data-plan-value={plan.price}
-                    data-plan-name={`${plan.name} trial`}
+                    data-plan-name={`${plan.name} talk-to-sales`}
                   >
-                    Prueba Gratis
+                    Hablar con ventas
+                  </Link>
+                  <a
+                    href={plan.stripeUrl}
+                    target="_blank"
+                    rel="noopener"
+                    className={styles.planCtaSecondary}
+                    data-plan={plan.slug}
+                    data-plan-value={plan.price}
+                    data-plan-name={`${plan.name} pay`}
+                  >
+                    Pagar plan →
                   </a>
                   <p className={styles.planCtaSub}>
                     Sin permanencia · Cancela en 1 click

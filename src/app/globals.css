@@ -1890,6 +1890,15 @@ h1, h2, h3, h4, h5, h6 {
   background-size: contain;
   background-repeat: no-repeat;
 }
+.pricing-card-dark__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+.pricing-card-dark__actions .pricing-card-dark__cta {
+  margin-top: 0;
+}
 .pricing-card-dark__cta {
   margin-top: 8px;
   padding: 14px 20px;

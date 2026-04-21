@@ -19,9 +19,9 @@ const WA_PHOTO_SRC = "/images/start/wa-photo.png";
 /* ------------------------------------------------------------------ */
 /*  Stripe links                                                       */
 /* ------------------------------------------------------------------ */
-const STRIPE_GROWTH = "https://app.clinera.io/auth/register?lang=es";
-const STRIPE_CONECT = "https://app.clinera.io/auth/register?lang=es";
-const STRIPE_ADVANCED = "https://app.clinera.io/auth/register?lang=es";
+const STRIPE_GROWTH = "https://buy.stripe.com/00wcN79l7bmO9wT6VZ14415";
+const STRIPE_CONECT = "https://buy.stripe.com/aFa9AV8h3ez07oL2FJ14416";
+const STRIPE_ADVANCED = "https://buy.stripe.com/4gM3cxapb9eG4cz1BF1441a";
 
 /* ------------------------------------------------------------------ */
 /*  FAQ data                                                           */

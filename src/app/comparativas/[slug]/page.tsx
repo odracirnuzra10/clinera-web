@@ -651,9 +651,9 @@ export default async function ComparativaPage({
               </h1>
               <p className="hero-v2__sub">{data.intro}</p>
               <div className="hero-v2__actions">
-                <a href="https://app.clinera.io/auth/register?lang=es" rel="noopener" className="hero-v2__primary">
-                  Prueba Clinera gratis 7 días
-                </a>
+                <Link href="/reunion" className="hero-v2__primary">
+                  Hablar con ventas
+                </Link>
                 <a href="#tabla" className="hero-v2__secondary">
                   Ver tabla comparativa ↓
                 </a>
@@ -1008,11 +1008,11 @@ export default async function ComparativaPage({
                 Sin tarjeta. Si te gusta, pagas. Si no, no hay cobro. Simple.
               </p>
               <div className="cta-final-dark__actions">
-                <a href="https://app.clinera.io/auth/register?lang=es" rel="noopener" className="cta-final-dark__primary">
-                  Empezar prueba
-                </a>
+                <Link href="/reunion" className="cta-final-dark__primary">
+                  Hablar con ventas
+                </Link>
                 <Link href="/demo" className="cta-final-dark__secondary">
-                  Hablar con un humano
+                  Ver demo del software
                 </Link>
               </div>
             </div>

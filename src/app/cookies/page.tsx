@@ -253,10 +253,10 @@ export default function CookiesPage() {
                   textAlign: "center",
                 }}
               >
-                ¿Quieres probar Clinera sin compromiso?{" "}
-                <a href="https://app.clinera.io/auth/register?lang=es" rel="noopener" style={{ color: "var(--brand-cyan)", fontWeight: 600 }}>
-                  Empieza tu prueba gratis de 7 días →
-                </a>
+                ¿Quieres conocer Clinera sin compromiso?{" "}
+                <Link href="/reunion" style={{ color: "var(--brand-cyan)", fontWeight: 600 }}>
+                  Habla con ventas →
+                </Link>
               </div>
             </div>
           </div>
