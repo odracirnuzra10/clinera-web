@@ -57,6 +57,57 @@
   box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
 }
 
+/* ── LLM resources (collapsible in brand column) ── */
+.llmResources {
+  margin-top: 4px;
+}
+.llmResources > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-tech, 'DM Mono', monospace);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-tertiary, #8B92A5);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+.llmResources > summary::-webkit-details-marker {
+  display: none;
+}
+.llmResources > summary:hover {
+  color: var(--ink-secondary, #4A5168);
+}
+.llmResourcesChevron {
+  display: inline-block;
+  font-size: 0.7rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+.llmResources[open] .llmResourcesChevron {
+  transform: rotate(180deg);
+}
+.llmResourcesLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  padding-left: 2px;
+}
+.llmResourcesLinks a {
+  color: var(--ink-secondary, #4A5168);
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.llmResourcesLinks a:hover {
+  color: var(--brand-cyan, #009FE3);
+}
+
 /* ── Link columns ── */
 .footerLinks {
   display: flex;

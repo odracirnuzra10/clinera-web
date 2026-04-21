@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import styles from "./demo.module.css";
@@ -180,45 +179,6 @@ export default function DemoPage() {
       </a>
 
       <Footer />
-      <Script src="https://player.vimeo.com/api/player.js" strategy="lazyOnload" />
-
-      {/* Meta Pixel — InitiateCheckout on CTA click */}
-      <Script
-        id="demo-initiate-checkout"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function(){
-              window.dataLayer = window.dataLayer || [];
-              document.addEventListener('click', function(ev){
-                var a = ev.target.closest('a[data-plan]');
-                if (!a) return;
-                var plan = a.getAttribute('data-plan');
-                var name = a.getAttribute('data-plan-name') || (plan + ' trial');
-                var value = parseFloat(a.getAttribute('data-plan-value') || '0');
-                window.dataLayer.push({
-                  event: 'initiate_checkout',
-                  lead_source: 'demo_landing',
-                  plan: plan,
-                  content_name: name,
-                  value: value,
-                  currency: 'USD',
-                  page_path: '/demo'
-                });
-                if (typeof fbq === 'function') {
-                  fbq('track', 'InitiateCheckout', {
-                    content_name: name,
-                    content_category: 'landing_register',
-                    content_type: 'product',
-                    currency: 'USD',
-                    value: value
-                  });
-                }
-              }, { capture: true });
-            })();
-          `,
-        }}
-      />
     </>
   );
 }

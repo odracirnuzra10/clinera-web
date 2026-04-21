@@ -105,6 +105,198 @@ export default function Analytics() {
         c.callMethod=b.callMethod;c.queue=b.queue;c.loaded=b.loaded;
         c.version=b.version;window.fbq=c;window._fbq=c}})();`}
       </Script>
+
+      {/* Vimeo Player SDK (for video progress tracking) */}
+      <Script
+        id="vimeo-sdk"
+        src="https://player.vimeo.com/api/player.js"
+        strategy="lazyOnload"
+      />
+
+      {/* Global engagement tracking: ViewContent + engaged_60s + video progress + InitiateCheckout */}
+      <Script id="clinera-engagement" strategy="afterInteractive">
+        {`(function(){
+  var DL = function(){ window.dataLayer = window.dataLayer || []; return window.dataLayer; };
+  var state = { viewContentFired:false, engaged60Fired:false, scrollHit:{}, engagedSec:0, engagedTimer:null, visible:!document.hidden, path:location.pathname };
+
+  function resetState(){
+    state.viewContentFired = false;
+    state.engaged60Fired = false;
+    state.engagedSec = 0;
+    state.path = location.pathname;
+  }
+
+  /* --- Patch history for SPA route-change detection --- */
+  (function(){
+    var push = history.pushState, rep = history.replaceState;
+    history.pushState = function(){ var r=push.apply(this,arguments); window.dispatchEvent(new Event('clinera:routechange')); return r; };
+    history.replaceState = function(){ var r=rep.apply(this,arguments); window.dispatchEvent(new Event('clinera:routechange')); return r; };
+  })();
+  window.addEventListener('popstate', function(){ window.dispatchEvent(new Event('clinera:routechange')); });
+  window.addEventListener('clinera:routechange', function(){
+    resetState();
+    setTimeout(attachVideoTrackers, 300);
+    setTimeout(observeBottom, 300);
+  });
+
+  /* --- ViewContent: bottom reached or scroll 90% --- */
+  function fireViewContent(reason){
+    if (state.viewContentFired) return;
+    state.viewContentFired = true;
+    var meta = { page_path: location.pathname, page_title: document.title, trigger_reason: reason, currency:'USD', value:0 };
+    DL().push({ event:'view_content', ...meta });
+    if (typeof fbq === 'function') {
+      fbq('track', 'ViewContent', {
+        content_name: document.title,
+        content_category: 'page',
+        content_type: 'product',
+        currency: 'USD',
+        value: 0,
+        page_path: location.pathname,
+        trigger_reason: reason
+      });
+    }
+  }
+
+  var bottomObserver = null;
+  function observeBottom(){
+    if (bottomObserver) { try { bottomObserver.disconnect(); } catch(e){} }
+    if (!('IntersectionObserver' in window)) return;
+    var target = document.querySelector('footer') || document.body;
+    bottomObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) { fireViewContent('bottom_reached'); bottomObserver.disconnect(); }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+    bottomObserver.observe(target);
+  }
+  observeBottom();
+
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement.scrollHeight;
+    if (h <= window.innerHeight) return;
+    var reached = (window.innerHeight + window.scrollY) / h;
+    if (reached >= 0.9) fireViewContent('scroll_90');
+  }, { passive: true });
+
+  /* --- engaged_60s: Meta Pixel + dataLayer when user has been active 60s on page --- */
+  document.addEventListener('visibilitychange', function(){ state.visible = !document.hidden; });
+  function tickEngagement(){
+    if (!state.visible) return;
+    state.engagedSec++;
+    if (state.engagedSec >= 60 && !state.engaged60Fired) {
+      state.engaged60Fired = true;
+      var meta = { page_path: location.pathname, page_title: document.title, engaged_seconds: 60 };
+      DL().push({ event:'engaged_60s', ...meta });
+      if (typeof fbq === 'function') {
+        fbq('trackCustom', 'EngagedSession', {
+          engaged_seconds: 60,
+          page_path: location.pathname,
+          content_name: document.title
+        });
+      }
+    }
+  }
+  state.engagedTimer = setInterval(tickEngagement, 1000);
+
+  /* --- Video progress (Vimeo): 25/50/75/90/100 % --- */
+  function attachVideoTrackers(){
+    if (typeof window.Vimeo === 'undefined' || !window.Vimeo.Player) return;
+    document.querySelectorAll('iframe[src*="player.vimeo.com"]').forEach(function(iframe){
+      if (iframe.dataset.clineraTracked === '1') return;
+      iframe.dataset.clineraTracked = '1';
+      try {
+        var player = new window.Vimeo.Player(iframe);
+        var title = iframe.getAttribute('title') || '';
+        var src = iframe.getAttribute('src') || '';
+        var m = src.match(/video\\/(\\d+)/);
+        var videoId = m ? m[1] : '';
+        var milestones = [25, 50, 75, 90, 100];
+        var hit = {};
+        player.on('timeupdate', function(data){
+          if (!data || typeof data.percent !== 'number') return;
+          var pct = Math.floor(data.percent * 100);
+          milestones.forEach(function(ms){
+            if (pct >= ms && !hit[ms]) {
+              hit[ms] = true;
+              var payload = {
+                event: 'video_progress',
+                video_percent: ms,
+                video_title: title,
+                video_id: videoId,
+                video_provider: 'vimeo',
+                page_path: location.pathname
+              };
+              DL().push(payload);
+              if (typeof fbq === 'function') {
+                fbq('trackCustom', 'VideoProgress', {
+                  video_percent: ms,
+                  video_title: title,
+                  video_id: videoId,
+                  page_path: location.pathname
+                });
+              }
+            }
+          });
+        });
+        player.on('ended', function(){
+          if (hit[100]) return;
+          hit[100] = true;
+          DL().push({ event:'video_progress', video_percent:100, video_title:title, video_id:videoId, video_provider:'vimeo', page_path: location.pathname });
+          if (typeof fbq === 'function') {
+            fbq('trackCustom', 'VideoProgress', { video_percent:100, video_title:title, video_id:videoId, page_path: location.pathname });
+          }
+        });
+      } catch(e){}
+    });
+  }
+  /* Try several times as iframes may hydrate later or SDK may load after this script */
+  [500, 1500, 3000, 6000].forEach(function(ms){ setTimeout(attachVideoTrackers, ms); });
+
+  /* --- InitiateCheckout: global click on auth/register + buy.stripe.com --- */
+  document.addEventListener('click', function(ev){
+    var a = ev.target && ev.target.closest ? ev.target.closest('a') : null;
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    var isRegister = href.indexOf('app.clinera.io/auth/register') !== -1;
+    var isStripe = href.indexOf('buy.stripe.com') !== -1;
+    if (!isRegister && !isStripe) return;
+
+    var dataPlan = a.getAttribute('data-plan');
+    var planFromHref = (href.match(/[?&]plan=([a-z0-9_-]+)/i) || [])[1] || null;
+    var plan = dataPlan || planFromHref || null;
+    var planName = a.getAttribute('data-plan-name');
+    var planValue = parseFloat(a.getAttribute('data-plan-value') || '0');
+    if (!planValue) {
+      if (plan === 'growth')        { planValue = 59;  planName = planName || 'Growth trial'; }
+      else if (plan === 'conect')   { planValue = 89;  planName = planName || 'Conect trial'; }
+      else if (plan === 'advanced') { planValue = 149; planName = planName || 'Advanced trial'; }
+      else                          { planValue = 59;  planName = planName || 'trial_signup'; }
+    }
+    var text = (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\\s+/g,' ').slice(0,80);
+    DL().push({
+      event: 'initiate_checkout',
+      lead_source: location.pathname,
+      plan: plan,
+      content_name: planName,
+      value: planValue,
+      currency: 'USD',
+      page_path: location.pathname,
+      cta_text: text,
+      cta_href: href
+    });
+    if (typeof fbq === 'function') {
+      fbq('track', 'InitiateCheckout', {
+        content_name: planName,
+        content_category: isStripe ? 'stripe_checkout' : 'landing_register',
+        content_type: 'product',
+        currency: 'USD',
+        value: planValue
+      });
+    }
+  }, { capture: true });
+})();`}
+      </Script>
     </>
   );
 }

@@ -25,6 +25,17 @@ export default function Footer() {
               <span className={styles.trustDot} aria-hidden />
               +500 médicos · 10 países
             </div>
+
+            <details className={styles.llmResources}>
+              <summary className={styles.llmResourcesLabel}>
+                Recursos LLM
+                <span aria-hidden className={styles.llmResourcesChevron}>▾</span>
+              </summary>
+              <div className={styles.llmResourcesLinks}>
+                <a href="/llms.txt">Leer llms.txt</a>
+                <a href="/llms-full.txt">Leer llms-full.txt</a>
+              </div>
+            </details>
           </div>
 
           {/* Producto */}
