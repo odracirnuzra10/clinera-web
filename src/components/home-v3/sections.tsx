@@ -2450,6 +2450,27 @@ export function FinalCTA() {
               >
                 Agendar reunión
               </Link>
+              <a
+                href="https://wa.me/56985581524?text=Hola%2C%20quiero%20asistencia%20con%20Clinera."
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  background: "rgba(255,255,255,.08)",
+                  color: "#fff",
+                  border: "1px solid rgba(255,255,255,.18)",
+                  padding: "15px 26px",
+                  borderRadius: 10,
+                  fontWeight: 600,
+                  fontSize: 16,
+                  fontFamily: "Inter",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                Chatear con nosotros
+              </a>
             </div>
             <div
               style={{
