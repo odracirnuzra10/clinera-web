@@ -9,6 +9,7 @@ const cols: Col[] = [
   {
     t: "Producto",
     l: [
+      ["Ver demo", "/demo"],
       ["Funciones", "/funciones"],
       ["Planes", "/planes"],
       ["Novedades", "/novedades"],

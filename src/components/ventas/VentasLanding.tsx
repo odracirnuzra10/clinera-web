@@ -400,11 +400,12 @@ function TestimonialCarousel() {
           <p
             style={{
               fontFamily: "Inter",
-              fontSize: 12.5,
-              lineHeight: 1.3,
+              fontSize: 13,
+              lineHeight: 1.35,
               fontWeight: 500,
               margin: 0,
               letterSpacing: "-.01em",
+              color: "#fff",
               display: "-webkit-box",
               WebkitLineClamp: 2,
               WebkitBoxOrient: "vertical",
@@ -413,7 +414,7 @@ function TestimonialCarousel() {
           >
             &quot;{s.quote}&quot;
           </p>
-          <div style={{ fontFamily: "Inter", fontSize: 11.5, fontWeight: 600, color: "rgba(255,255,255,.85)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+          <div style={{ fontFamily: "Inter", fontSize: 11.5, fontWeight: 600, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
             {s.name}
           </div>
         </div>
