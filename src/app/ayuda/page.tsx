@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import NavV3 from '@/components/brand-v3/Nav';
+import FooterV3 from '@/components/brand-v3/Footer';
 import styles from './ayuda.module.css';
 
 
@@ -175,7 +175,7 @@ export default function AyudaPage() {
 
   return (
     <div className={styles.pageWrapper}>
-      <Header />
+      <NavV3 />
 
       {/* ── Hero Search ── */}
       <section className={styles.kbHero}>
@@ -292,7 +292,7 @@ export default function AyudaPage() {
         </div>
       )}
 
-      <Footer />
+      <FooterV3 />
     </div>
   );
 }

@@ -3,7 +3,13 @@
    Merged from style.css + home.css
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@400;600;700&family=Sora:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@400;600;700&family=Sora:wght@300;400&display=swap');
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 /* ==========================================================================
    CSS Custom Properties
@@ -1437,9 +1443,10 @@ a.btn:hover,
   --neon-glow-violet: 0 0 40px rgba(184, 71, 255, 0.4);
   --neon-glow-magenta: 0 0 40px rgba(255, 71, 217, 0.4);
 
-  /* Typography refresh — Outfit for display, DM Mono for eyebrows */
-  --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-  --font-tech: 'DM Mono', 'Source Code Pro', monospace;
+  /* Typography — Inter for body/display, JetBrains Mono for eyebrows (v3 brand) */
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-tech: 'JetBrains Mono', 'Source Code Pro', ui-monospace, monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 /* Apply Outfit to the whole redesign surface */

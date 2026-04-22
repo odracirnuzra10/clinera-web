@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 
 type Slug = "reservo" | "agendapro" | "medilink" | "manual";
 
@@ -636,7 +636,7 @@ export default async function ComparativaPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
-      <Header />
+      <NavV3 />
       <main>
         {/* HERO */}
         <section className="hero-v2">
@@ -1019,7 +1019,7 @@ export default async function ComparativaPage({
           </div>
         </section>
       </main>
-      <Footer />
+      <FooterV3 />
     </>
   );
 }

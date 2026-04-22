@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 import CalEmbed from "../reunion/CalEmbed";
 import styles from "../reunion/reunion.module.css";
 
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function ReunionComercialPage() {
   return (
     <>
-      <Header />
+      <NavV3 />
       <main>
         <section className={styles.hero}>
           <div className={styles.heroInner}>
@@ -42,7 +42,7 @@ export default function ReunionComercialPage() {
           <CalEmbed />
         </section>
       </main>
-      <Footer />
+      <FooterV3 />
     </>
   );
 }

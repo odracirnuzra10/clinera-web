@@ -1,0 +1,2544 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState, ReactNode } from "react";
+import { CtaPrimary, CtaSecondary, Eyebrow, Mono, GRAD } from "@/components/brand-v3/Brand";
+
+/* ============================================================
+   Reveal-on-scroll helper
+   ============================================================ */
+export function useReveal() {
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (es) =>
+        es.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0, rootMargin: "0px 0px -5% 0px" }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    const t = window.setTimeout(
+      () => document.querySelectorAll(".reveal").forEach((el) => el.classList.add("in")),
+      1200
+    );
+    return () => {
+      clearTimeout(t);
+      io.disconnect();
+    };
+  }, []);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+export function Hero() {
+  return (
+    <section style={{ position: "relative", padding: "80px 80px 40px", overflow: "hidden" }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse 85% 55% at 50% -5%, #DBEAFE 0%, #E9D5FF 30%, #FBE8F0 55%, #FFFFFF 80%)",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        className="home-hero-inner"
+        style={{ maxWidth: 1200, margin: "0 auto", position: "relative", zIndex: 1 }}
+      >
+        <div
+          className="home-hero-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.05fr 0.95fr",
+            gap: 56,
+            alignItems: "center",
+          }}
+        >
+          <div className="reveal">
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 12,
+                fontWeight: 500,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#0A0A0A",
+                background: "#fff",
+                border: "1px solid #E5E7EB",
+                padding: "6px 12px",
+                borderRadius: 999,
+                boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
+              }}
+            >
+              <span
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: 4,
+                  background: GRAD,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#fff",
+                  fontSize: 10,
+                  fontWeight: 700,
+                }}
+              >
+                ✦
+              </span>
+              NUEVA IA 2.0 · AURA
+              <span style={{ color: "#9CA3AF" }}>·</span>
+              <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>
+                en vivo en Chile y México
+              </span>
+            </span>
+
+            <h1
+              className="home-hero-title"
+              style={{
+                fontFamily: "Inter",
+                fontSize: 68,
+                fontWeight: 700,
+                letterSpacing: "-0.035em",
+                lineHeight: 1.02,
+                margin: "22px 0 0",
+                color: "#0A0A0A",
+              }}
+            >
+              Agenda pacientes{" "}
+              <span
+                style={{
+                  background: GRAD,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
+              >
+                con IA
+              </span>
+              ,<br />
+              las 24 horas.
+            </h1>
+            <p
+              style={{
+                fontFamily: "Inter",
+                fontSize: 19,
+                fontWeight: 400,
+                lineHeight: 1.55,
+                color: "#4B5563",
+                margin: "22px 0 0",
+                maxWidth: 560,
+              }}
+            >
+              Clinera responde tus WhatsApps, consulta tu agenda y tu base de datos, y confirma
+              citas por ti. Atiende mientras duermes, operas o estás con otro paciente.
+            </p>
+
+            <div style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
+              <CtaPrimary as={Link} href="/ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
+                Hablar con ventas <span>→</span>
+              </CtaPrimary>
+              <CtaSecondary as={Link} href="/reunion" style={{ padding: "15px 26px", fontSize: 16 }}>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#0A0A0A"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect x="3" y="5" width="18" height="16" rx="2" />
+                  <path d="M16 3v4M8 3v4M3 10h18" />
+                </svg>
+                Agendar reunión
+              </CtaSecondary>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                marginTop: 22,
+                flexWrap: "wrap",
+              }}
+            >
+              <div style={{ display: "flex" }}>
+                {["#FCE7F3", "#EDE9FE", "#DBEAFE", "#D1FAE5"].map((c, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 999,
+                      background: c,
+                      border: "2px solid #fff",
+                      marginLeft: i === 0 ? 0 : -8,
+                      fontFamily: "Inter",
+                      fontSize: 11,
+                      fontWeight: 600,
+                      color: "#0A0A0A",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {["KM", "FR", "PS", "AL"][i]}
+                  </div>
+                ))}
+              </div>
+              <div style={{ fontFamily: "Inter", fontSize: 13.5, color: "#4B5563" }}>
+                <b style={{ color: "#0A0A0A" }}>+500 médicos</b> en 10 países · Sin tarjeta · Cancela
+                cuando quieras
+              </div>
+            </div>
+          </div>
+
+          <div className="reveal home-hero-mockup-wrap">
+            <HeroMockup />
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @media (max-width: 980px) {
+          :global(.home-hero-grid) { grid-template-columns: 1fr !important; gap: 40px !important; }
+          :global(.home-hero-title) { font-size: 48px !important; }
+        }
+        @media (max-width: 560px) {
+          :global(.home-hero-title) { font-size: 38px !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+function HeroMockup() {
+  return (
+    <div style={{ position: "relative" }}>
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: 16,
+          boxShadow: "0 30px 80px rgba(15,10,30,.12), 0 8px 20px rgba(0,0,0,.04)",
+          border: "1px solid #EEECEA",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            padding: "12px 16px",
+            borderBottom: "1px solid #F0F0F0",
+            background: "#FAFAFA",
+          }}
+        >
+          <div style={{ display: "flex", gap: 6 }}>
+            <span style={{ width: 12, height: 12, borderRadius: 999, background: "#FF5F57" }} />
+            <span style={{ width: 12, height: 12, borderRadius: 999, background: "#FEBC2E" }} />
+            <span style={{ width: 12, height: 12, borderRadius: 999, background: "#28C840" }} />
+          </div>
+          <div
+            style={{
+              flex: 1,
+              textAlign: "center",
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 13,
+              color: "#6B7280",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            Agenda · Jueves 23 abril
+          </div>
+          <div
+            style={{
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 11.5,
+              color: "#0C4A6E",
+              background: "#E0F2FE",
+              padding: "4px 10px",
+              borderRadius: 999,
+              letterSpacing: "0.04em",
+            }}
+          >
+            24 citas
+          </div>
+        </div>
+        <div style={{ padding: 18, display: "flex", flexDirection: "column", gap: 2 }}>
+          {[
+            { t: "09:00", n: "Limpieza facial · Javiera S.", d: "Confirmada · 8:12 am" },
+            { t: "10:00", n: "Consulta nueva · Carla V.", d: "Agendada por AURA · hace 2 min", aura: true },
+            { t: "11:30", n: "Control · Matías Ríos", d: "Confirmada · ayer" },
+            { t: "12:30", n: "—", d: "Disponible", free: true },
+            { t: "14:00", n: "Primera vez · Ana Méndez", d: "Confirmada · recordatorio 24h enviado" },
+          ].map((r, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                gap: 16,
+                padding: "14px 12px",
+                background: r.aura ? "#E0F2FE" : "transparent",
+                borderRadius: 8,
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 13,
+                  color: "#6B7280",
+                  width: 54,
+                  flex: "0 0 54px",
+                  paddingTop: 2,
+                  border: "1px solid " + (r.aura ? "#BAE6FD" : "#E5E7EB"),
+                  borderRadius: 6,
+                  textAlign: "center",
+                  padding: "4px 0",
+                  background: r.aura ? "#fff" : "#FAFAFA",
+                }}
+              >
+                {r.t}
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div
+                  style={{
+                    fontFamily: "Inter",
+                    fontSize: 14.5,
+                    fontWeight: 600,
+                    color: r.free ? "#9CA3AF" : "#0A0A0A",
+                  }}
+                >
+                  {r.n}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "Inter",
+                    fontSize: 13,
+                    color: r.aura ? "#0C4A6E" : "#6B7280",
+                    marginTop: 2,
+                  }}
+                >
+                  {r.d}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Floating chat card */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: -36,
+          left: -22,
+          background: "#fff",
+          borderRadius: 16,
+          boxShadow: "0 20px 48px rgba(15,10,30,.18)",
+          border: "1px solid #F0F0F0",
+          padding: 16,
+          width: 320,
+          zIndex: 3,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 14,
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            <div
+              style={{
+                width: 34,
+                height: 34,
+                borderRadius: 999,
+                background: "#2EA5FF",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                fontFamily: "Inter",
+                fontWeight: 700,
+                fontSize: 14,
+              }}
+            >
+              A
+            </div>
+            <div style={{ fontFamily: "Inter", fontSize: 15, fontWeight: 600, color: "#0A0A0A" }}>
+              AURA
+            </div>
+          </div>
+          <div
+            style={{
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 11.5,
+              color: "#6B7280",
+            }}
+          >
+            10:02
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div
+            style={{
+              alignSelf: "flex-start",
+              maxWidth: "85%",
+              background: "#F3F4F6",
+              color: "#0A0A0A",
+              fontFamily: "Inter",
+              fontSize: 13.5,
+              padding: "10px 13px",
+              borderRadius: "14px 14px 14px 4px",
+              lineHeight: 1.4,
+            }}
+          >
+            Necesito cita mañana 10am
+          </div>
+          <div
+            className="msg-in"
+            style={{
+              alignSelf: "flex-end",
+              maxWidth: "90%",
+              background: "#2EA5FF",
+              color: "#fff",
+              fontFamily: "Inter",
+              fontSize: 13.5,
+              padding: "10px 13px",
+              borderRadius: "14px 14px 4px 14px",
+              lineHeight: 1.4,
+              boxShadow: "0 4px 10px rgba(46,165,255,.25)",
+            }}
+          >
+            <b>10:00 con Dra. Meza ✓</b>
+            <br />
+            Te agendé y te envié el recordatorio.
+          </div>
+        </div>
+      </div>
+
+      {/* Floating tag */}
+      <div
+        style={{
+          position: "absolute",
+          top: -14,
+          right: -14,
+          background: "#fff",
+          border: "1px solid #F0F0F0",
+          borderRadius: 12,
+          padding: "10px 12px",
+          boxShadow: "0 12px 32px rgba(0,0,0,.08)",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          zIndex: 3,
+        }}
+      >
+        <div
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: 8,
+            background: GRAD,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+            fontWeight: 700,
+            fontSize: 14,
+          }}
+        >
+          ✦
+        </div>
+        <div>
+          <div
+            style={{
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 10.5,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "#7C3AED",
+            }}
+          >
+            AURA · &lt; 1 s
+          </div>
+          <div style={{ fontFamily: "Inter", fontSize: 12.5, color: "#0A0A0A", fontWeight: 500 }}>
+            14 citas agendadas hoy
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   LOGOS
+   ============================================================ */
+export function Logos() {
+  const clinics = [
+    "Clínica Andes",
+    "Dermaclinic",
+    "Centro Estético Aurora",
+    "protocololumina.cl",
+    "Vitaderma",
+    "Nuevo Ser",
+    "Hospital del Valle",
+    "Clínica Providencia",
+  ];
+  return (
+    <section
+      className="reveal"
+      style={{ padding: "56px 80px", borderTop: "1px solid #F0F0F0", background: "#fff" }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto", textAlign: "center" }}>
+        <Mono>Usado por clínicas líderes en Chile y LATAM</Mono>
+        <div
+          className="home-logos-grid"
+          style={{
+            marginTop: 26,
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: "16px 40px",
+            alignItems: "center",
+            justifyItems: "center",
+          }}
+        >
+          {clinics.map((n, i) => (
+            <div
+              key={i}
+              style={{
+                fontFamily: "Inter",
+                fontSize: 17,
+                fontWeight: 600,
+                color: "#0A0A0A",
+                letterSpacing: "-0.015em",
+                opacity: 0.55,
+              }}
+            >
+              {n}
+            </div>
+          ))}
+        </div>
+      </div>
+      <style jsx>{`
+        @media (max-width: 720px) {
+          :global(.home-logos-grid) { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ============================================================
+   FEATURES
+   ============================================================ */
+export function Features() {
+  return (
+    <section
+      id="producto"
+      style={{ padding: "112px 80px 40px", borderTop: "1px solid #F0F0F0", background: "#fff" }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div className="reveal" style={{ maxWidth: 720, marginBottom: 56 }}>
+          <Eyebrow>La solución</Eyebrow>
+          <h2
+            className="home-h2-big"
+            style={{
+              fontFamily: "Inter",
+              fontSize: 52,
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.04,
+              margin: "14px 0 0",
+              color: "#0A0A0A",
+            }}
+          >
+            Una IA que conoce{" "}
+            <span
+              style={{
+                background: GRAD,
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              a cada paciente
+            </span>{" "}
+            como tu mejor recepcionista.
+          </h2>
+          <p
+            style={{
+              fontFamily: "Inter",
+              fontSize: 19,
+              color: "#4B5563",
+              marginTop: 18,
+              lineHeight: 1.55,
+            }}
+          >
+            AURA se conecta a tu base de datos y a tu agenda en tiempo real. Cada respuesta sale
+            con contexto real: historial, tratamientos, precios vigentes y horas disponibles ahora
+            mismo.
+          </p>
+        </div>
+
+        <FeatureRow
+          eyebrow="Agenda inteligente"
+          title="Conectada a tu agenda, sin colisiones."
+          body="AURA lee tu agenda al instante: sabe qué horas hay libres, qué profesional está disponible y qué servicios ofreces. Agenda, reagenda y bloquea cupos sin conflictos."
+          bullets={[
+            "Sincroniza con Google Calendar, AgendaPro, Medilink",
+            "Respeta tiempos por tipo de tratamiento",
+            "Reagendo con un tap, sin llamada ni email",
+          ]}
+          mockup={<AgendaMockup />}
+        />
+        <FeatureRow
+          reverse
+          eyebrow="Contexto real · Base de datos"
+          title="Responde con el historial de cada paciente."
+          body="AURA consulta tu base de datos en tiempo real antes de responder. Sabe quién es quién, qué tratamientos lleva, cuándo fue su última visita y qué precio le corresponde."
+          bullets={[
+            "Reconoce al paciente por teléfono o RUT",
+            "Recuerda tratamientos, alergias y observaciones",
+            "Aplica precios, promos y descuentos vigentes",
+          ]}
+          mockup={<ContextMockup />}
+        />
+        <FeatureRow
+          eyebrow="AURA · WhatsApp 24/7"
+          title="Habla como tu clínica, no como un bot."
+          body="AURA aprende el tono, los modismos y la forma de hablar de tu equipo. Responde con tu voz — ya sea formal de consulta médica, cercana de estética o coloquial chileno — y entiende audios y textos en español LATAM."
+          bullets={[
+            "Entiende audios y texto en español chileno, mexicano y LATAM",
+            "Traspasa a humano ante urgencias o reclamos reales",
+            "Aprende tus modismos, tus precios y tus promos vigentes",
+          ]}
+          mockup={<AuraMockup />}
+        />
+        <FeatureRow
+          reverse
+          eyebrow="Recuperación automática"
+          title="Tus pacientes inactivos vuelven solos."
+          body="Clinera detecta a quién no ha vuelto en 60, 90 o 180 días y los reactiva con un mensaje personalizado. Lo que antes se perdía, ahora llena los cupos que te sobran."
+          bullets={[
+            "Segmentación por tratamiento y tiempo",
+            "Mensajes con tu voz, no plantillas genéricas",
+            "Dashboard con recuperaciones del mes",
+          ]}
+          mockup={<RecoveryMockup />}
+        />
+      </div>
+    </section>
+  );
+}
+
+function FeatureRow({
+  eyebrow,
+  title,
+  body,
+  bullets,
+  mockup,
+  reverse,
+}: {
+  eyebrow: string;
+  title: string;
+  body: string;
+  bullets: string[];
+  mockup: ReactNode;
+  reverse?: boolean;
+}) {
+  return (
+    <div
+      className="reveal home-feature-row"
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: 72,
+        alignItems: "center",
+        padding: "72px 0",
+        borderTop: "1px solid #F3F2F0",
+      }}
+    >
+      <div style={{ order: reverse ? 2 : 1 }} className="home-feature-text">
+        <Eyebrow style={{ color: "#7C3AED" }}>{eyebrow}</Eyebrow>
+        <h3
+          style={{
+            fontFamily: "Inter",
+            fontSize: 38,
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            lineHeight: 1.06,
+            margin: "14px 0 16px",
+            color: "#0A0A0A",
+          }}
+        >
+          {title}
+        </h3>
+        <p
+          style={{
+            fontFamily: "Inter",
+            fontSize: 17,
+            lineHeight: 1.6,
+            color: "#4B5563",
+            margin: "0 0 22px",
+            maxWidth: 480,
+          }}
+        >
+          {body}
+        </p>
+        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+          {bullets.map((b, i) => (
+            <li
+              key={i}
+              style={{
+                display: "flex",
+                gap: 10,
+                alignItems: "flex-start",
+                fontFamily: "Inter",
+                fontSize: 15,
+                color: "#0A0A0A",
+                lineHeight: 1.5,
+              }}
+            >
+              <span
+                style={{
+                  flex: "0 0 18px",
+                  width: 18,
+                  height: 18,
+                  borderRadius: 999,
+                  background: "#ECFDF5",
+                  border: "1px solid #A7F3D0",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 2,
+                }}
+              >
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12l5 5L20 7" />
+                </svg>
+              </span>
+              {b}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div style={{ order: reverse ? 1 : 2 }}>{mockup}</div>
+      <style jsx>{`
+        @media (max-width: 900px) {
+          :global(.home-feature-row) {
+            grid-template-columns: 1fr !important;
+            gap: 36px !important;
+            padding: 56px 0 !important;
+          }
+          :global(.home-feature-row > div:nth-child(1)) { order: 1 !important; }
+          :global(.home-feature-row > div:nth-child(2)) { order: 2 !important; }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function AgendaMockup() {
+  const rows = [
+    { t: "09:00", n: "María Torres", tag: "Control" },
+    { t: "10:30", n: "Pedro Rojas", tag: "Primera vez", aura: true },
+    { t: "12:00", n: "—", tag: "Libre", free: true },
+    { t: "15:00", n: "Luis Alonso", tag: "Pagado", paid: true, aura: true },
+    { t: "16:30", n: "Ana Mena", tag: "Control" },
+  ];
+  return (
+    <div
+      style={{
+        background: "#fff",
+        borderRadius: 20,
+        boxShadow: "0 24px 64px rgba(0,0,0,.06)",
+        border: "1px solid #F0F0F0",
+        padding: 22,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 14,
+        }}
+      >
+        <Mono>Agenda · Viernes 24 oct</Mono>
+        <div
+          style={{
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 11,
+            color: "#10B981",
+            fontWeight: 500,
+          }}
+        >
+          94% ocupación
+        </div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {rows.map((r, i) => (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              padding: "10px 12px",
+              background: r.free ? "#fff" : "#FAFAFA",
+              border: "1px dashed " + (r.free ? "#E5E7EB" : "transparent"),
+              borderRadius: 10,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 12,
+                color: "#6B7280",
+                width: 44,
+              }}
+            >
+              {r.t}
+            </div>
+            <div
+              style={{
+                flex: 1,
+                fontSize: 13.5,
+                color: r.free ? "#9CA3AF" : "#0A0A0A",
+                fontWeight: r.free ? 400 : 500,
+                fontFamily: "Inter",
+              }}
+            >
+              {r.n}
+            </div>
+            {r.paid && (
+              <span
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 10,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#059669",
+                  background: "#ECFDF5",
+                  padding: "3px 7px",
+                  borderRadius: 999,
+                  border: "1px solid #A7F3D0",
+                }}
+              >
+                Pagado
+              </span>
+            )}
+            <span
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 10,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: r.aura ? "#7C3AED" : "#6B7280",
+                background: r.aura ? "rgba(124,58,237,.06)" : "#F3F4F6",
+                padding: "3px 8px",
+                borderRadius: 999,
+                border: "1px solid " + (r.aura ? "#DDD6FE" : "#E5E7EB"),
+              }}
+            >
+              {r.tag}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ContextMockup() {
+  return (
+    <div
+      style={{
+        background: "#fff",
+        borderRadius: 20,
+        boxShadow: "0 24px 64px rgba(0,0,0,.06)",
+        border: "1px solid #F0F0F0",
+        padding: 22,
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+        <Mono>Consulta en curso · AURA</Mono>
+        <span
+          style={{
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 10.5,
+            letterSpacing: "0.08em",
+            color: "#10B981",
+          }}
+        >
+          ● leyendo BD
+        </span>
+      </div>
+      <div
+        style={{
+          background: "#F8FAFC",
+          border: "1px solid #E5E7EB",
+          borderRadius: 12,
+          padding: 14,
+          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+          fontSize: 11.5,
+          color: "#374151",
+          lineHeight: 1.55,
+          marginBottom: 12,
+        }}
+      >
+        <div style={{ color: "#7C3AED" }}>→ buscar_paciente(tel:&quot;+56 9 ...&quot;)</div>
+        <div style={{ marginLeft: 14, marginTop: 4 }}>
+          <span style={{ color: "#10B981" }}>✓</span> Carla Pérez · RUT 17.xxx.xxx-3
+          <br />
+          <span style={{ color: "#10B981" }}>✓</span> Última visita: 14 ago (limpieza facial)
+          <br />
+          <span style={{ color: "#10B981" }}>✓</span> Precio cliente recurrente: $ 38.000
+        </div>
+        <div style={{ color: "#7C3AED", marginTop: 6 }}>
+          → horas_disponibles(prof:&quot;Meza&quot;, dia:&quot;mañana&quot;)
+        </div>
+        <div style={{ marginLeft: 14, marginTop: 4 }}>
+          <span style={{ color: "#10B981" }}>✓</span> 10:30, 15:00
+        </div>
+      </div>
+      <div
+        style={{
+          background: "#F3F4F6",
+          borderRadius: 12,
+          padding: "11px 13px",
+          fontFamily: "Inter",
+          fontSize: 13.5,
+          color: "#0A0A0A",
+          lineHeight: 1.5,
+        }}
+      >
+        Hola <b>Carla</b> 👋 Tengo hora con la Dra. Meza mañana <b>10:30</b> o <b>15:00</b>. Como
+        eres cliente frecuente, la limpieza queda en <b>$ 38.000</b>. ¿Cuál te acomoda?
+      </div>
+    </div>
+  );
+}
+
+function AuraMockup() {
+  return (
+    <div
+      style={{
+        background: "#fff",
+        borderRadius: 20,
+        boxShadow: "0 24px 64px rgba(0,0,0,.06),0 2px 4px rgba(0,0,0,.04)",
+        border: "1px solid #F0F0F0",
+        padding: 22,
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+        <div
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: 12,
+            background: GRAD,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#fff",
+            fontSize: 22,
+            boxShadow: "0 8px 24px -6px rgba(124,58,237,.4)",
+          }}
+        >
+          ✦
+        </div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontFamily: "Inter", fontSize: 15, fontWeight: 600, color: "#0A0A0A" }}>
+            AURA · Clínica Andes
+          </div>
+          <div
+            style={{
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 11,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "#10B981",
+              marginTop: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
+            <span
+              className="live-dot"
+              style={{
+                display: "inline-block",
+                width: 6,
+                height: 6,
+                borderRadius: 999,
+                background: "#10B981",
+              }}
+            />
+            En línea · &lt;1s
+          </div>
+        </div>
+        <div
+          style={{
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 10.5,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "#6B7280",
+            background: "#F3F4F6",
+            padding: "4px 8px",
+            borderRadius: 999,
+          }}
+        >
+          WhatsApp
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 14 }}>
+        {[
+          { k: "Agendadas", v: "94", d: "+12" },
+          { k: "Confirmadas", v: "81", d: "+8" },
+          { k: "Recuperadas", v: "12", d: "+3" },
+        ].map((s, i) => (
+          <div
+            key={i}
+            style={{
+              background: "#FAFAFA",
+              borderRadius: 10,
+              padding: "12px 14px",
+              border: "1px solid #F0F0F0",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 10,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "#6B7280",
+              }}
+            >
+              {s.k}
+            </div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginTop: 4 }}>
+              <div
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 26,
+                  fontWeight: 700,
+                  color: "#0A0A0A",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                {s.v}
+              </div>
+              <div
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 11,
+                  color: "#10B981",
+                  fontWeight: 500,
+                }}
+              >
+                {s.d}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div
+        style={{
+          background: "#FAFAFA",
+          border: "1px solid #F0F0F0",
+          borderRadius: 12,
+          padding: 14,
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+        }}
+      >
+        {[
+          { t: "10:32", m: "Agenda creada para Carla Pérez · jueves 23, 10:30" },
+          { t: "10:31", m: "Reserva cobrada · USD 22" },
+          { t: "10:28", m: "Paciente recuperada: Luisa R. (sin visita 92 días)" },
+        ].map((e, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13 }}>
+            <div
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 11,
+                color: "#6B7280",
+                width: 44,
+                flex: "0 0 44px",
+                paddingTop: 1,
+              }}
+            >
+              {e.t}
+            </div>
+            <div style={{ flex: 1, color: "#0A0A0A", fontFamily: "Inter", lineHeight: 1.45 }}>{e.m}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function RecoveryMockup() {
+  const rows = [
+    { n: "María G.", d: "Sin visita desde agosto", st: "Agendada", sc: "#10B981" },
+    { n: "Carlos P.", d: "Cumpleaños el 22", st: "Respondió", sc: "#7C3AED" },
+    { n: "Luisa R.", d: "Tratamiento interrumpido", st: "Mensaje enviado", sc: "#6B7280" },
+    { n: "Ignacio V.", d: "Control pendiente", st: "Agendada", sc: "#10B981" },
+  ];
+  return (
+    <div
+      style={{
+        background: "#fff",
+        borderRadius: 20,
+        boxShadow: "0 24px 64px rgba(0,0,0,.06)",
+        border: "1px solid #F0F0F0",
+        padding: 22,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+          marginBottom: 16,
+        }}
+      >
+        <div>
+          <Mono>Pacientes inactivos · 90 días</Mono>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginTop: 6 }}>
+            <div
+              style={{
+                fontFamily: "Inter",
+                fontSize: 40,
+                fontWeight: 700,
+                letterSpacing: "-0.03em",
+                color: "#0A0A0A",
+              }}
+            >
+              342
+            </div>
+            <div
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 12,
+                color: "#10B981",
+                fontWeight: 500,
+              }}
+            >
+              +18 esta semana
+            </div>
+          </div>
+        </div>
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height: 48 }}>
+          {[14, 22, 18, 28, 34, 30, 42, 48, 52, 44, 60, 66].map((h, i) => (
+            <div
+              key={i}
+              style={{
+                width: 6,
+                height: h,
+                borderRadius: 2,
+                background:
+                  i > 8
+                    ? "linear-gradient(180deg,#D946EF 0%,#7C3AED 50%,#3B82F6 100%)"
+                    : "#E5E7EB",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {rows.map((r, i) => (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              padding: "10px 12px",
+              background: "#FAFAFA",
+              border: "1px solid #F0F0F0",
+              borderRadius: 10,
+            }}
+          >
+            <div
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 999,
+                background: GRAD,
+                color: "#fff",
+                fontWeight: 600,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 12,
+                fontFamily: "Inter",
+              }}
+            >
+              {r.n[0]}
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 500, color: "#0A0A0A" }}>
+                {r.n}
+              </div>
+              <div style={{ fontFamily: "Inter", fontSize: 12, color: "#6B7280" }}>{r.d}</div>
+            </div>
+            <div
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 10,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: r.sc,
+                background:
+                  r.sc === "#10B981"
+                    ? "rgba(16,185,129,.08)"
+                    : r.sc === "#7C3AED"
+                    ? "rgba(124,58,237,.08)"
+                    : "#F3F4F6",
+                padding: "4px 8px",
+                borderRadius: 999,
+                border:
+                  "1px solid " +
+                  (r.sc === "#10B981"
+                    ? "#A7F3D0"
+                    : r.sc === "#7C3AED"
+                    ? "#DDD6FE"
+                    : "#E5E7EB"),
+              }}
+            >
+              {r.st}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   INTEGRACIONES
+   ============================================================ */
+export function Integraciones() {
+  const primary = [
+    { name: "Meta", sub: "Business Partner", emoji: "Ⓜ", color: "#1877F2" },
+    { name: "WhatsApp Business", sub: "API integrado oficialmente", emoji: "🟢", color: "#25D366" },
+    { name: "Google Calendar", sub: "Sincronización bidireccional", emoji: "📅", color: "#4285F4" },
+    { name: "Stripe", sub: "Pagos seguros certificados", emoji: "S", color: "#635BFF" },
+    { name: "MercadoPago", sub: "Pagos LATAM", emoji: "MP", color: "#00B0EE" },
+    { name: "WebPay / Transbank", sub: "Pagos oficiales en Chile", emoji: "W", color: "#E30613" },
+  ];
+  const agendas = [
+    { name: "AgendaPro", sub: "Integración con agenda", emoji: "AP", color: "#F97316" },
+    { name: "Reservo", sub: "Integración con agenda", emoji: "R", color: "#111827" },
+    { name: "Sacmed", sub: "Integración con agenda", emoji: "SM", color: "#0E7490" },
+    { name: "Medilink", sub: "Integración con agenda", emoji: "+", color: "#2563EB" },
+    { name: "Dentalink", sub: "Integración con agenda", emoji: "DL", color: "#0EA5E9" },
+    { name: "Más por venir", sub: "¿Pedir tu integración?", emoji: "+", color: "#6B7280", dashed: true },
+  ];
+
+  const tile = (p: { name: string; sub: string; emoji: string; color: string; dashed?: boolean }) => (
+    <div
+      key={p.name}
+      style={{
+        background: "#fff",
+        border: "1px solid #F0F0F0",
+        borderRadius: 14,
+        padding: "18px 20px",
+        display: "flex",
+        alignItems: "center",
+        gap: 14,
+        boxShadow: "0 4px 16px rgba(0,0,0,.03)",
+      }}
+    >
+      <div
+        style={{
+          width: 40,
+          height: 40,
+          borderRadius: 10,
+          background: "#FAFAFA",
+          border: "1px solid #F3F4F6",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            width: 26,
+            height: 26,
+            borderRadius: 6,
+            background: p.dashed ? "#F3F4F6" : p.color,
+            color: p.dashed ? "#6B7280" : "#fff",
+            fontFamily: "Inter",
+            fontWeight: 700,
+            fontSize: 12,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: p.dashed ? "1px dashed #D1D5DB" : "none",
+          }}
+        >
+          {p.emoji}
+        </div>
+      </div>
+      <div>
+        <div style={{ fontFamily: "Inter", fontSize: 15, fontWeight: 600, color: "#0A0A0A" }}>
+          {p.name}
+        </div>
+        <div style={{ fontFamily: "Inter", fontSize: 13, color: "#6B7280", marginTop: 2 }}>
+          {p.sub}
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <section
+      id="integraciones"
+      style={{
+        position: "relative",
+        padding: "112px 80px",
+        borderTop: "1px solid #F0F0F0",
+        background: "#fff",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(ellipse 50% 40% at 50% 0%, #DBEAFE 0%, #E9D5FF 40%, #FFFFFF 70%)",
+          pointerEvents: "none",
+        }}
+      />
+      <div style={{ maxWidth: 1160, margin: "0 auto", position: "relative" }}>
+        <div className="reveal" style={{ textAlign: "center", maxWidth: 780, margin: "0 auto 48px" }}>
+          <Eyebrow>Ecosistema Clinera</Eyebrow>
+          <h2
+            className="home-h2-big"
+            style={{
+              fontFamily: "Inter",
+              fontSize: 44,
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              margin: "14px 0 16px",
+              color: "#0A0A0A",
+            }}
+          >
+            Certificaciones oficiales <span style={{ color: "#7C3AED" }}>+</span> integraciones nativas
+          </h2>
+          <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", lineHeight: 1.55, margin: 0 }}>
+            Partner verificado de Meta, WhatsApp y Stripe. Se integra nativamente con las principales
+            agendas clínicas de LATAM.
+          </p>
+        </div>
+
+        <div className="reveal">
+          <div style={{ textAlign: "center", marginBottom: 20 }}>
+            <Mono>Partnerships y certificaciones</Mono>
+          </div>
+          <div
+            className="home-integra-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 16,
+              marginBottom: 36,
+            }}
+          >
+            {primary.map(tile)}
+          </div>
+
+          <div style={{ textAlign: "center", marginBottom: 20 }}>
+            <Mono>Se integra con otras agendas</Mono>
+          </div>
+          <div
+            className="home-integra-grid"
+            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}
+          >
+            {agendas.map(tile)}
+          </div>
+        </div>
+      </div>
+      <style jsx>{`
+        @media (max-width: 820px) {
+          :global(.home-integra-grid) { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 500px) {
+          :global(.home-integra-grid) { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ============================================================
+   DARK BREAK (quote)
+   ============================================================ */
+export function DarkBreak() {
+  return (
+    <section style={{ padding: "48px 80px 24px", background: "#fff" }}>
+      <div
+        className="reveal home-dark-break"
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          borderRadius: 28,
+          position: "relative",
+          overflow: "hidden",
+          background: "#0A0A0F",
+          color: "#fff",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "radial-gradient(ellipse 60% 80% at 90% 0%, rgba(217,70,239,.22) 0%, rgba(124,58,237,.1) 40%, transparent 70%),radial-gradient(ellipse 50% 70% at 0% 100%, rgba(59,130,246,.22) 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+            pointerEvents: "none",
+            maskImage:
+              "radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 85%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 70% 70% at 50% 50%, #000 40%, transparent 85%)",
+          }}
+        />
+
+        <div
+          className="home-dark-break-grid"
+          style={{
+            position: "relative",
+            padding: "72px 56px",
+            display: "grid",
+            gridTemplateColumns: "0.85fr 1.15fr",
+            gap: 56,
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <div
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 11,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,.55)",
+                marginBottom: 24,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+              }}
+            >
+              <span style={{ width: 24, height: 1, background: "linear-gradient(90deg,#3B82F6,#D946EF)" }} />
+              Benchmark AURA · Abril 2026
+            </div>
+            <div style={{ position: "relative" }}>
+              <div
+                className="home-dark-break-huge"
+                style={{
+                  background: GRAD,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                  fontFamily: "Inter",
+                  fontSize: 180,
+                  fontWeight: 800,
+                  letterSpacing: "-0.06em",
+                  lineHeight: 0.9,
+                  margin: 0,
+                }}
+              >
+                24/7
+              </div>
+              <div
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 12,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,.5)",
+                  marginTop: 12,
+                }}
+              >
+                Sin turnos · Sin feriados · Sin licencia
+              </div>
+            </div>
+          </div>
+
+          <div className="home-dark-break-quote" style={{ borderLeft: "1px solid rgba(255,255,255,.08)", paddingLeft: 56 }}>
+            <div
+              aria-hidden
+              style={{
+                fontFamily: "Inter",
+                fontSize: 72,
+                lineHeight: 1,
+                color: "rgba(217,70,239,.6)",
+                marginBottom: -12,
+                fontWeight: 700,
+              }}
+            >
+              &ldquo;
+            </div>
+            <blockquote
+              style={{
+                margin: 0,
+                fontFamily: "Inter",
+                fontSize: 32,
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                lineHeight: 1.2,
+                color: "#fff",
+              }}
+            >
+              Despertamos un martes y AURA ya había{" "}
+              <span
+                style={{
+                  background: GRAD,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
+              >
+                agendado 14 pacientes
+              </span>{" "}
+              durante la noche. En ese momento entendimos que no íbamos a volver al sistema antiguo.
+            </blockquote>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 16,
+                marginTop: 32,
+                paddingTop: 24,
+                borderTop: "1px solid rgba(255,255,255,.08)",
+              }}
+            >
+              <Image
+                src="/images/home/flavio.jpeg"
+                alt="Dr. Flavio Rojas"
+                width={52}
+                height={52}
+                style={{
+                  borderRadius: 999,
+                  objectFit: "cover",
+                  objectPosition: "center 25%",
+                  border: "2px solid rgba(255,255,255,.1)",
+                }}
+                unoptimized
+              />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontFamily: "Inter", fontSize: 15, fontWeight: 600, color: "#fff" }}>
+                  Dr. Flavio Rojas
+                </div>
+                <div style={{ fontFamily: "Inter", fontSize: 13.5, color: "rgba(255,255,255,.6)" }}>
+                  infiltracion.cl · Los Ángeles, Chile
+                </div>
+              </div>
+              <div style={{ display: "flex", gap: 6 }}>
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#D946EF">
+                    <path d="M12 .5l3.09 8.26L24 9.27l-7 6.04L18.18 24 12 19.77 5.82 24 7 15.31l-7-6.04 8.91-.51z" />
+                  </svg>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style jsx>{`
+        @media (max-width: 900px) {
+          :global(.home-dark-break-grid) {
+            grid-template-columns: 1fr !important;
+            padding: 48px 28px !important;
+            gap: 32px !important;
+          }
+          :global(.home-dark-break-huge) { font-size: 100px !important; }
+          :global(.home-dark-break-quote) { padding-left: 0 !important; border-left: 0 !important; border-top: 1px solid rgba(255,255,255,.08) !important; padding-top: 32px !important; }
+          :global(.home-dark-break-quote blockquote) { font-size: 22px !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ============================================================
+   TESTIMONIOS
+   ============================================================ */
+export function Testimonios() {
+  const items = [
+    {
+      q: "Por fin tengo tiempo para mis pacientes. AURA contesta incluso cuando estoy en pabellón o durmiendo. Mi secretaria ahora se dedica a lo importante.",
+      name: "Dra. Katherine Meza",
+      role: "Clínica Estética · Santiago",
+      photo: "/images/home/katherine.png",
+      pos: "center 20%",
+      stat: "No-shows 30% → 5%",
+    },
+    {
+      q: "Probamos Clinera un mes para ver. No volvimos atrás. Llenó la agenda sin gastar un peso más en Instagram.",
+      name: "Dr. Flavio Rojas",
+      role: "infiltracion.cl · Los Ángeles, Chile",
+      photo: "/images/home/flavio.jpeg",
+      pos: "center 25%",
+      stat: "−71% gasto en marketing",
+    },
+    {
+      q: "Lo que más me sorprende: las pacientes creen que AURA es la recepcionista nueva. Responde con el tono de la clínica, sin que nadie note que es IA.",
+      name: "Dra. Stefani Michailiszen",
+      role: "Dermaclinic · Las Condes",
+      photo: "/images/home/stefani.webp",
+      pos: "center 20%",
+      stat: "+38% agenda ocupada",
+    },
+    {
+      q: "AURA reactivó 47 pacientes inactivos el primer mes. Eso pagó la suscripción del año.",
+      name: "Tamara Oyarzún",
+      role: "Estética Corporal · Vitacura",
+      photo: "/images/home/tamara.jpeg",
+      pos: "center 25%",
+      stat: "+47 pacientes recuperados",
+    },
+    {
+      q: "Dejamos de perder pacientes por no contestar a tiempo. Responde en menos de un segundo y con el historial de cada uno.",
+      name: "Dra. Yasna Vásquez",
+      role: "Estética Facial · Talca",
+      photo: "/images/home/yasna.jpg",
+      pos: "center 15%",
+      stat: "Respuesta <1s · 24/7",
+    },
+  ];
+
+  const [perView, setPerView] = useState(3);
+
+  useEffect(() => {
+    const h = () => {
+      const w = window.innerWidth;
+      setPerView(w < 680 ? 1 : w < 980 ? 2 : 3);
+    };
+    h();
+    window.addEventListener("resize", h);
+    return () => window.removeEventListener("resize", h);
+  }, []);
+
+  const maxIdx = Math.max(0, items.length - perView);
+  const [idx, setIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    setIdx((i) => Math.min(i, maxIdx));
+  }, [maxIdx]);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => {
+      setIdx((i) => (i >= maxIdx ? 0 : i + 1));
+    }, 5200);
+    return () => clearInterval(t);
+  }, [paused, maxIdx]);
+
+  const GAP = 18;
+  const translate = `translateX(calc(${-idx} * ((100% - ${GAP * (perView - 1)}px) / ${perView} + ${GAP}px)))`;
+  const atStart = idx <= 0;
+  const atEnd = idx >= maxIdx;
+
+  return (
+    <section
+      id="historias"
+      style={{ padding: "112px 80px", borderTop: "1px solid #F0F0F0", background: "#fff" }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div
+          className="reveal"
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: 20,
+            marginBottom: 44,
+            flexWrap: "wrap",
+          }}
+        >
+          <div style={{ maxWidth: 680 }}>
+            <Eyebrow>Historias</Eyebrow>
+            <h2
+              className="home-h2-big"
+              style={{
+                fontFamily: "Inter",
+                fontSize: 44,
+                fontWeight: 700,
+                letterSpacing: "-0.03em",
+                lineHeight: 1.05,
+                margin: "14px 0 0",
+                color: "#0A0A0A",
+              }}
+            >
+              Clínicas chilenas que ya no vuelven atrás.
+            </h2>
+          </div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button
+              disabled={atStart}
+              onClick={() => {
+                setPaused(true);
+                setIdx((i) => Math.max(0, i - 1));
+              }}
+              aria-label="Anterior"
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 999,
+                border: "1px solid #E5E7EB",
+                background: "#fff",
+                cursor: atStart ? "not-allowed" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#0A0A0A",
+                opacity: atStart ? 0.35 : 1,
+                transition: "opacity .2s",
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              disabled={atEnd}
+              onClick={() => {
+                setPaused(true);
+                setIdx((i) => Math.min(maxIdx, i + 1));
+              }}
+              aria-label="Siguiente"
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 999,
+                border: "1px solid #0A0A0A",
+                background: "#0A0A0A",
+                cursor: atEnd ? "not-allowed" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                opacity: atEnd ? 0.35 : 1,
+                transition: "opacity .2s",
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div
+          className="reveal"
+          style={{ overflow: "hidden" }}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: GAP,
+              transition: "transform .7s cubic-bezier(.22,.8,.28,1)",
+              transform: translate,
+              willChange: "transform",
+            }}
+          >
+            {items.map((t, i) => (
+              <figure
+                key={i}
+                style={{
+                  flex: `0 0 calc((100% - ${GAP * (perView - 1)}px) / ${perView})`,
+                  background: "#FAFAFA",
+                  border: "1px solid #F0F0F0",
+                  borderRadius: 20,
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  overflow: "hidden",
+                  margin: 0,
+                }}
+              >
+                <div
+                  style={{
+                    height: 320,
+                    background: "#F3F4F6",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    src={t.photo}
+                    alt={t.name}
+                    fill
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: t.pos || "center top",
+                    }}
+                    unoptimized
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 12,
+                      left: 12,
+                      fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                      fontSize: 10.5,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: "#fff",
+                      background: "rgba(10,10,10,.7)",
+                      backdropFilter: "blur(6px)",
+                      padding: "5px 10px",
+                      borderRadius: 999,
+                      zIndex: 2,
+                    }}
+                  >
+                    {t.stat}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    padding: 24,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 18,
+                    flex: 1,
+                  }}
+                >
+                  <blockquote
+                    style={{
+                      margin: 0,
+                      fontFamily: "Inter",
+                      fontSize: 16.5,
+                      lineHeight: 1.5,
+                      letterSpacing: "-0.01em",
+                      color: "#0A0A0A",
+                    }}
+                  >
+                    &ldquo;{t.q}&rdquo;
+                  </blockquote>
+                  <figcaption style={{ marginTop: "auto" }}>
+                    <div style={{ fontFamily: "Inter", fontSize: 14, fontWeight: 600, color: "#0A0A0A" }}>
+                      {t.name}
+                    </div>
+                    <div style={{ fontFamily: "Inter", fontSize: 13, color: "#6B7280" }}>{t.role}</div>
+                  </figcaption>
+                </div>
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 28 }}>
+          {Array.from({ length: maxIdx + 1 }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setPaused(true);
+                setIdx(i);
+              }}
+              aria-label={`Ir a grupo ${i + 1}`}
+              style={{
+                width: i === idx ? 28 : 8,
+                height: 8,
+                borderRadius: 999,
+                border: 0,
+                padding: 0,
+                cursor: "pointer",
+                background: i === idx ? GRAD : "#E5E7EB",
+                transition: "all .3s",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+export function Pricing() {
+  const plans = [
+    {
+      name: "Growth",
+      price: "$89",
+      sub: "Mensajería IA para clínicas que ya tienen software.",
+      tags: [
+        { t: "Mensajería con IA", ok: true },
+        { t: "Módulo Clínico", ok: false },
+      ],
+      features: [
+        "150 conversaciones con IA/mes",
+        "WhatsApp API",
+        "Memoria contextual vía LangChain",
+        "Derivación automática a humano",
+        "Integración vía API y MCP",
+        "3 usuarios incluidos",
+      ],
+      stripe: "https://buy.stripe.com/00wcN79l7bmO9wT6VZ14415",
+    },
+    {
+      name: "Conect",
+      price: "$129",
+      sub: "Mensajería + clínica completa sin otro software.",
+      featured: true,
+      tags: [
+        { t: "Mensajería con IA", ok: true },
+        { t: "Módulo Clínico", ok: true },
+      ],
+      headline: "Todo de Growth, más",
+      features: [
+        "500 conversaciones/mes",
+        "5 usuarios",
+        "Agenda médica",
+        "Fichas clínicas",
+        "Consentimientos informados",
+        "Clinera Vault",
+        "Panel ventas",
+        "Trazabilidad campaña-cita-venta",
+      ],
+      stripe: "https://buy.stripe.com/aFa9AV8h3ez07oL2FJ14416",
+    },
+    {
+      name: "Advanced",
+      price: "$179",
+      sub: "Para cadenas clínicas multi-sede.",
+      tags: [
+        { t: "Mensajería con IA", ok: true },
+        { t: "Módulo Clínico", ok: true },
+      ],
+      headline: "Todo de Conect, más",
+      features: [
+        "2000 conversaciones/mes",
+        "15 usuarios",
+        "Multi-sede",
+        "Webhooks avanzados",
+        "Soporte prioritario",
+        "Onboarding dedicado",
+      ],
+      stripe: "https://buy.stripe.com/4gM3cxapb9eG4cz1BF1441a",
+    },
+  ];
+
+  return (
+    <section
+      id="precios"
+      style={{
+        padding: "112px 80px",
+        background: "#FAFAFA",
+        borderTop: "1px solid #F0F0F0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          width: 480,
+          height: 480,
+          background: "radial-gradient(circle at 70% 30%, rgba(217,70,239,.14), transparent 60%)",
+          pointerEvents: "none",
+        }}
+      />
+      <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
+        <div className="reveal" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 48px" }}>
+          <Eyebrow>Planes</Eyebrow>
+          <h2
+            className="home-h2-big"
+            style={{
+              fontFamily: "Inter",
+              fontSize: 44,
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              margin: "14px 0 14px",
+              color: "#0A0A0A",
+            }}
+          >
+            Un solo precio para toda LATAM, en dólares.
+          </h2>
+          <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", margin: 0, lineHeight: 1.55 }}>
+            Precios en <b>USD</b> para Chile, México y todo LATAM. Sin contratos. Sin sorpresas por
+            tipo de cambio. Cambias o cancelas cuando quieras.
+          </p>
+        </div>
+
+        <div
+          className="reveal home-pricing-grid"
+          style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}
+        >
+          {plans.map((p) => (
+            <article
+              key={p.name}
+              style={{
+                background: "#fff",
+                borderRadius: 20,
+                padding: 30,
+                border: p.featured ? "2px solid #7C3AED" : "1px solid #E5E7EB",
+                boxShadow: p.featured
+                  ? "0 28px 72px rgba(124,58,237,.16), 0 8px 20px rgba(217,70,239,.08)"
+                  : "0 4px 24px rgba(0,0,0,.03)",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {p.featured && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: -14,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: GRAD,
+                    color: "#fff",
+                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                    fontSize: 10.5,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    padding: "6px 14px",
+                    borderRadius: 999,
+                    fontWeight: 500,
+                    boxShadow: "0 8px 20px -4px rgba(124,58,237,.4)",
+                  }}
+                >
+                  Popular
+                </div>
+              )}
+              <div
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: "#0A0A0A",
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                {p.name}
+              </div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginTop: 10, marginBottom: 12 }}>
+                <div
+                  style={{
+                    fontFamily: "Inter",
+                    fontSize: 48,
+                    fontWeight: 800,
+                    color: "#0A0A0A",
+                    letterSpacing: "-0.04em",
+                    lineHeight: 1,
+                  }}
+                >
+                  {p.price}
+                </div>
+                <div style={{ fontFamily: "Inter", fontSize: 14, color: "#6B7280" }}>/mes</div>
+              </div>
+              <div
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 14,
+                  color: "#4B5563",
+                  marginBottom: 18,
+                  lineHeight: 1.5,
+                  minHeight: 42,
+                }}
+              >
+                {p.sub}
+              </div>
+
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 22 }}>
+                {p.tags.map((t, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                      fontFamily: "Inter",
+                      fontSize: 12.5,
+                      fontWeight: 500,
+                      color: t.ok ? "#065F46" : "#9CA3AF",
+                      background: t.ok ? "#ECFDF5" : "#F3F4F6",
+                      border: "1px solid " + (t.ok ? "#A7F3D0" : "#E5E7EB"),
+                      padding: "5px 10px",
+                      borderRadius: 999,
+                    }}
+                  >
+                    {t.ok ? (
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M5 12l5 5L20 7" />
+                      </svg>
+                    ) : (
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M6 6l12 12M18 6L6 18" />
+                      </svg>
+                    )}
+                    {t.t}
+                  </span>
+                ))}
+              </div>
+
+              <div style={{ borderTop: "1px solid #F3F2F0", paddingTop: 18, marginBottom: 20, flex: 1 }}>
+                <div
+                  style={{
+                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                    fontSize: 10.5,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "#6B7280",
+                    marginBottom: 12,
+                  }}
+                >
+                  {p.headline || "Incluye"}
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {p.features.map((f, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 10,
+                        fontFamily: "Inter",
+                        fontSize: 14,
+                        color: "#0A0A0A",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      <span
+                        style={{
+                          flex: "0 0 16px",
+                          width: 16,
+                          height: 16,
+                          borderRadius: 999,
+                          background: "#ECFDF5",
+                          border: "1px solid #A7F3D0",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginTop: 2,
+                        }}
+                      >
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12l5 5L20 7" />
+                        </svg>
+                      </span>
+                      {f}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: "auto" }}>
+                <Link
+                  href="/ventas"
+                  style={{
+                    textDecoration: "none",
+                    textAlign: "center",
+                    background: p.featured ? GRAD : "#fff",
+                    color: p.featured ? "#fff" : "#0A0A0A",
+                    border: p.featured ? "0" : "1px solid #0A0A0A",
+                    padding: "13px 20px",
+                    borderRadius: 10,
+                    fontWeight: 600,
+                    fontSize: 14.5,
+                    fontFamily: "Inter",
+                    boxShadow: p.featured ? "0 10px 24px -8px rgba(124,58,237,.45)" : "none",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  Hablar con ventas
+                </Link>
+                <a
+                  href={p.stripe}
+                  target="_blank"
+                  rel="noopener"
+                  style={{
+                    textDecoration: "none",
+                    textAlign: "center",
+                    background: "#F3F4F6",
+                    color: "#0A0A0A",
+                    border: "1px solid #E5E7EB",
+                    padding: "13px 20px",
+                    borderRadius: 10,
+                    fontWeight: 600,
+                    fontSize: 14.5,
+                    fontFamily: "Inter",
+                    boxSizing: "border-box",
+                  }}
+                  data-plan={p.name.toLowerCase()}
+                  data-plan-value={p.price.replace("$", "")}
+                  data-plan-name={`${p.name} pay`}
+                >
+                  Activar plan
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: 32,
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 11.5,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "#6B7280",
+          }}
+        >
+          Facturación en USD · Stripe · MercadoPago · WebPay · Boleta o factura según país
+        </div>
+      </div>
+      <style jsx>{`
+        @media (max-width: 980px) {
+          :global(.home-pricing-grid) { grid-template-columns: 1fr !important; gap: 20px !important; }
+        }
+        @media (max-width: 560px) {
+          :global(.home-h2-big) { font-size: 32px !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+export function Faq() {
+  const qs = [
+    { q: "¿Necesito cambiar mi número de WhatsApp?", a: "No. Clinera se conecta con tu número actual usando la API oficial de WhatsApp Business. Tus pacientes siguen escribiendo al mismo número de siempre." },
+    { q: "¿Cuánto demora en estar funcionando?", a: "Menos de una hora. Conectas tu WhatsApp, le cargas tu agenda y tus servicios, y AURA empieza a responder el mismo día." },
+    { q: "¿Y si AURA no entiende algo?", a: "Cuando detecta urgencias, reclamos o algo fuera de su alcance, traspasa la conversación a una persona de tu equipo al tiro. Tú decides las reglas." },
+    { q: "¿Puedo cobrar la reserva?", a: "Sí. AURA cobra con WebPay o MercadoPago al confirmar la hora. Esto baja los no-shows hasta un 72% en promedio." },
+    { q: "¿Funciona para clínicas con varios profesionales?", a: "Sí. En el plan Conect manejas hasta 5 profesionales; en Advanced, múltiples sedes y sin límite de usuarios." },
+    { q: "¿Dónde se guardan los datos de mis pacientes?", a: "Servidores en AWS (Sao Paulo), con cifrado en tránsito y reposo. Cumplimos Ley N° 19.628 de protección de datos en Chile." },
+  ];
+  const [open, setOpen] = useState<number>(0);
+  return (
+    <section id="faq" style={{ padding: "112px 80px", borderTop: "1px solid #F0F0F0", background: "#fff" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 40 }}>
+          <Eyebrow>Preguntas frecuentes</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "Inter",
+              fontSize: 40,
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              margin: "14px 0 0",
+              color: "#0A0A0A",
+            }}
+          >
+            Lo que siempre nos preguntan.
+          </h2>
+        </div>
+        <div className="reveal" style={{ borderTop: "1px solid #F0F0F0" }}>
+          {qs.map((it, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={i} style={{ borderBottom: "1px solid #F0F0F0" }}>
+                <button
+                  onClick={() => setOpen(isOpen ? -1 : i)}
+                  style={{
+                    width: "100%",
+                    textAlign: "left",
+                    background: "transparent",
+                    border: 0,
+                    padding: "22px 4px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: 20,
+                    cursor: "pointer",
+                    fontFamily: "Inter",
+                  }}
+                >
+                  <span style={{ fontSize: 17, fontWeight: 600, color: "#0A0A0A", letterSpacing: "-0.01em" }}>
+                    {it.q}
+                  </span>
+                  <span
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 999,
+                      border: "1px solid #E5E7EB",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#0A0A0A",
+                      flex: "0 0 28px",
+                      transform: isOpen ? "rotate(45deg)" : "none",
+                      transition: "transform .2s",
+                    }}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                {isOpen && (
+                  <div
+                    style={{
+                      padding: "0 4px 22px",
+                      fontFamily: "Inter",
+                      fontSize: 15.5,
+                      color: "#4B5563",
+                      lineHeight: 1.6,
+                      maxWidth: 720,
+                    }}
+                  >
+                    {it.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   FINAL CTA
+   ============================================================ */
+export function FinalCTA() {
+  return (
+    <section id="trial" style={{ padding: "16px 80px 24px", background: "#fff" }}>
+      <div
+        className="reveal home-final-cta"
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          borderRadius: 24,
+          padding: "72px 40px",
+          position: "relative",
+          overflow: "hidden",
+          background: "#0E1014",
+          color: "#fff",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "radial-gradient(ellipse 60% 80% at 80% 20%, rgba(217,70,239,.35) 0%, rgba(124,58,237,.15) 40%, transparent 70%),radial-gradient(ellipse 50% 60% at 10% 110%, rgba(34,211,238,.18) 0%, transparent 60%)",
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          className="home-final-cta-grid"
+          style={{
+            position: "relative",
+            display: "grid",
+            gridTemplateColumns: "1.2fr 1fr",
+            gap: 48,
+            alignItems: "center",
+          }}
+        >
+          <div>
+            <Eyebrow style={{ color: "#D946EF" }}>Empieza hoy</Eyebrow>
+            <h2
+              style={{
+                fontFamily: "Inter",
+                fontSize: 56,
+                fontWeight: 700,
+                letterSpacing: "-0.035em",
+                lineHeight: 1.02,
+                margin: "16px 0 20px",
+                color: "#fff",
+              }}
+              className="home-final-cta-title"
+            >
+              Esta noche, AURA ya podría estar agendando pacientes por ti.
+            </h2>
+            <p
+              style={{
+                fontFamily: "Inter",
+                fontSize: 18,
+                color: "#A0A6B2",
+                margin: "0 0 28px",
+                maxWidth: 520,
+                lineHeight: 1.55,
+              }}
+            >
+              Habla con ventas y te mostramos cómo quedaría AURA con tu agenda, tu base de datos y
+              tus precios. 30 minutos, sin compromiso.
+            </p>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <Link
+                href="/ventas"
+                style={{
+                  background: GRAD,
+                  color: "#fff",
+                  border: 0,
+                  padding: "15px 26px",
+                  borderRadius: 10,
+                  fontWeight: 600,
+                  fontSize: 16,
+                  fontFamily: "Inter",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  boxShadow: "0 12px 32px -8px rgba(217,70,239,.5)",
+                }}
+              >
+                Hablar con ventas <span>→</span>
+              </Link>
+              <Link
+                href="/reunion"
+                style={{
+                  background: "rgba(255,255,255,.08)",
+                  color: "#fff",
+                  border: "1px solid rgba(255,255,255,.18)",
+                  padding: "15px 26px",
+                  borderRadius: 10,
+                  fontWeight: 600,
+                  fontSize: 16,
+                  fontFamily: "Inter",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                Agendar reunión
+              </Link>
+            </div>
+            <div
+              style={{
+                marginTop: 22,
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 11.5,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#A0A6B2",
+              }}
+            >
+              ● Activación en &lt; 1 hora · Soporte en Chile y México · Factura en USD
+            </div>
+          </div>
+          <div
+            style={{
+              background: "rgba(255,255,255,.04)",
+              border: "1px solid rgba(255,255,255,.1)",
+              borderRadius: 16,
+              padding: 24,
+              backdropFilter: "blur(12px)",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  background: GRAD,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#fff",
+                  fontWeight: 700,
+                  fontSize: 20,
+                }}
+              >
+                ✦
+              </div>
+              <div style={{ fontFamily: "Inter", fontSize: 15, fontWeight: 600, color: "#fff" }}>
+                Así parte AURA en tu clínica
+              </div>
+            </div>
+            {[
+              { n: "01", t: "Conectas tu WhatsApp Business", d: "Sin cambiar de número. 2 minutos." },
+              { n: "02", t: "AURA se conecta a tu agenda y BD", d: "Importamos tu base de pacientes y horas disponibles." },
+              { n: "03", t: "Empieza a responder con contexto", d: "Esta misma tarde, sabiendo quién es quién." },
+            ].map((s, i) => (
+              <div
+                key={i}
+                style={{
+                  display: "flex",
+                  gap: 14,
+                  padding: "14px 0",
+                  borderTop: i === 0 ? "none" : "1px solid rgba(255,255,255,.08)",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                    fontSize: 12,
+                    letterSpacing: "0.1em",
+                    color: "#D946EF",
+                    flex: "0 0 28px",
+                  }}
+                >
+                  {s.n}
+                </div>
+                <div>
+                  <div style={{ fontFamily: "Inter", fontSize: 15, fontWeight: 500, color: "#fff" }}>
+                    {s.t}
+                  </div>
+                  <div style={{ fontFamily: "Inter", fontSize: 13, color: "#A0A6B2", marginTop: 2 }}>
+                    {s.d}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <style jsx>{`
+        @media (max-width: 900px) {
+          :global(.home-final-cta) { padding: 48px 28px !important; }
+          :global(.home-final-cta-grid) { grid-template-columns: 1fr !important; gap: 32px !important; }
+          :global(.home-final-cta-title) { font-size: 36px !important; }
+        }
+      `}</style>
+    </section>
+  );
+}

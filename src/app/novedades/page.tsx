@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 import styles from "./novedades.module.css";
 import Image from "next/image";
 
@@ -69,7 +69,7 @@ export default async function NovedadesPage() {
 
   return (
     <>
-      <Header />
+      <NavV3 />
 
       <main className={styles.mainContainer}>
         {/* Hero Section */}
@@ -188,7 +188,7 @@ export default async function NovedadesPage() {
         </section>
       </main>
 
-      <Footer />
+      <FooterV3 />
     </>
   );
 }

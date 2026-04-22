@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 
 export const metadata: Metadata = {
   title: "Términos y Condiciones — Clinera.io",
@@ -22,7 +22,7 @@ const LAST_UPDATED = "20 de abril de 2026";
 export default function TerminosPage() {
   return (
     <>
-      <Header />
+      <NavV3 />
       <main>
         <section className="section">
           <div className="container" style={{ maxWidth: 820 }}>
@@ -197,7 +197,7 @@ export default function TerminosPage() {
           </div>
         </section>
       </main>
-      <Footer />
+      <FooterV3 />
     </>
   );
 }

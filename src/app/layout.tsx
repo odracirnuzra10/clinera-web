@@ -49,9 +49,7 @@ export const metadata: Metadata = {
     description: "Inteligencia Artificial para tu clinica.",
     images: ["/images/og-banner.png"],
   },
-  icons: {
-    icon: "/favicon.svg",
-  },
+  // icons handled automatically by Next.js (src/app/icon.png + apple-icon.png)
   alternates: {
     canonical: "https://clinera.io",
   },
@@ -77,22 +75,14 @@ export default function RootLayout({
     <html lang="es">
       <head>
         <link rel="llms-txt" href="https://clinera.io/llms.txt" />
-        <link
-          rel="preconnect"
-          href="https://fonts.googleapis.com"
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        <link 
-          rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
-        />
       </head>
       <body>
-        {/* GTM noscript */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-NXT8BGS9"
@@ -101,16 +91,6 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-
-        {/* Background blurs */}
-        <div
-          className="blur-bg blur-magenta"
-          style={{ top: "-200px", right: "-200px" }}
-        />
-        <div
-          className="blur-bg blur-cyan"
-          style={{ top: "40%", left: "-300px" }}
-        />
 
         {children}
 

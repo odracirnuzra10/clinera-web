@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 import styles from "./blog-post.module.css";
 
 const AI_ENDPOINT =
@@ -74,7 +74,7 @@ export default function BlogPostPage() {
 
   return (
     <>
-      <Header />
+      <NavV3 />
 
       {loading && (
         <main className={styles.postMain}>
@@ -162,7 +162,7 @@ export default function BlogPostPage() {
         </main>
       )}
 
-      <Footer />
+      <FooterV3 />
     </>
   );
 }

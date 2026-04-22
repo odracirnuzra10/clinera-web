@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 import DemoWizard from "@/components/DemoWizard";
 
 export const metadata: Metadata = {
@@ -20,11 +20,11 @@ export const metadata: Metadata = {
 export default function ReunionPage() {
   return (
     <>
-      <Header />
+      <NavV3 />
       <main>
         <DemoWizard />
       </main>
-      <Footer />
+      <FooterV3 />
     </>
   );
 }

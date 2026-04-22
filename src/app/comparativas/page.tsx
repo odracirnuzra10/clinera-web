@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 
 export const metadata: Metadata = {
   title: "Comparativas — Clinera vs alternativas",
@@ -69,7 +69,7 @@ export default function ComparativasHub() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
-      <Header />
+      <NavV3 />
       <main>
         <section className="hero-v2">
           <div className="hero-v2__halo" aria-hidden />
@@ -170,7 +170,7 @@ export default function ComparativasHub() {
           </div>
         </section>
       </main>
-      <Footer />
+      <FooterV3 />
     </>
   );
 }

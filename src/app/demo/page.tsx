@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 import styles from "./demo.module.css";
 
 export const metadata: Metadata = {
@@ -69,7 +69,7 @@ const PLANS = [
 export default function DemoPage() {
   return (
     <>
-      <Header />
+      <NavV3 />
 
       <main>
         {/* Video Section */}
@@ -176,7 +176,7 @@ export default function DemoPage() {
         </section>
       </main>
 
-      <Footer />
+      <FooterV3 />
     </>
   );
 }
