@@ -96,6 +96,13 @@ const ENGAGEMENT_SRC = `(function(){
   window.addEventListener('popstate', function(){ window.dispatchEvent(new Event('clinera:routechange')); });
   window.addEventListener('clinera:routechange', function(){
     resetState();
+    // SPA: Meta Pixel does not auto-detect route changes — fire manually
+    if (typeof fbq === 'function') {
+      fbq('track', 'PageView');
+    }
+    DL().push({ event: 'spa_page_view', page_path: location.pathname, page_title: document.title });
+    // Fire ViewContent on SPA navigation (user requested: "navega entre paginas")
+    setTimeout(function(){ fireViewContent('navigation'); }, 150);
     setTimeout(attachVideoTrackers, 300);
     setTimeout(observeBottom, 300);
   });
