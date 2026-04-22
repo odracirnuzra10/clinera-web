@@ -29,20 +29,20 @@ Clinera ofrece una **Prueba Gratis de 7 días completa**. No se requiere tarjeta
 
 No hay contratos de permanencia (se pueden cancelar cuando el cliente lo decida).
 
-### 1. Plan Growth (Desde $59 USD/mes)
+### 1. Plan Growth (Desde $89 USD/mes)
 - **Para quién es:** Ideado para clínicas que recién comienzan o profesionales trabajando de forma independiente.
 - **Incluye:** 
   - Agente IA Básico y Agenda Inteligente
   - Fichas Clínicas y Consentimientos Informados
 
-### 2. Plan Conect (Desde $89 USD/mes) - El Más Popular
+### 2. Plan Conect (Desde $129 USD/mes) - El Más Popular
 - **Para quién es:** Médicos especialistas o clínicas en fase de crecimiento que necesitan delegar procesos operativos o administrativos repetitivos.
 - **Incluye:**
   - Todo lo del Plan Growth
   - Recordatorios de citas automatizados por WhatsApp
   - Respuestas automáticas a FAQs comunes de la clínica mediante IA
 
-### 3. Plan Advanced (Desde $149 USD/mes)
+### 3. Plan Advanced (Desde $179 USD/mes)
 - **Para quién es:** Centros médicos y clínicas multi-sucursal que requieren herramientas escalables y mayor capacidad de atención mensual.
 - **Incluye:**
   - Todo lo del Plan Conect

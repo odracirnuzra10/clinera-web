@@ -44,7 +44,7 @@ const PLANS: Plan[] = [
         <strong>3 usuarios</strong> y <strong>150 conversaciones al mes</strong>.
       </>
     ),
-    price: { amount: "US$59", per: "/mes" },
+    price: { amount: "US$89", per: "/mes" },
   },
   {
     id: "p-conect",
@@ -57,7 +57,7 @@ const PLANS: Plan[] = [
       </>
     ),
     tag: { label: "Más elegido" },
-    price: { amount: "US$89", per: "/mes" },
+    price: { amount: "US$129", per: "/mes" },
   },
   {
     id: "p-advanced",
@@ -69,7 +69,7 @@ const PLANS: Plan[] = [
         Incluye <strong>15 usuarios</strong> y <strong>2.000 conversaciones al mes</strong>.
       </>
     ),
-    price: { amount: "US$149", per: "/mes" },
+    price: { amount: "US$179", per: "/mes" },
   },
 ];
 

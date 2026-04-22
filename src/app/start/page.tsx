@@ -53,7 +53,7 @@ const FAQ_DATA = [
   },
   {
     q: "Cuales son los precios de los planes?",
-    a: "Growth cuesta $59 USD/mes (solo mensajeria IA), Conect $89 USD/mes (mensajeria + clinica completa) y Advanced $149 USD/mes (multi-sede con IA avanzada). Sin permanencia, cancela cuando quieras.",
+    a: "Growth cuesta $89 USD/mes (solo mensajeria IA), Conect $129 USD/mes (mensajeria + clinica completa) y Advanced $179 USD/mes (multi-sede con IA avanzada). Sin permanencia, cancela cuando quieras.",
   },
 ];
 
@@ -314,7 +314,7 @@ export default function StartPage() {
                 </span>
               </div>
               <h1 className={styles.heroTitle}>
-                Agenda pacientes con IA <span className={styles.price}>desde $59/mes</span>
+                Agenda pacientes con IA <span className={styles.price}>desde $89/mes</span>
               </h1>
               <p className={styles.heroSub}>
                 Conecta tu clinica con IA. Incluye agente IA, agenda, fichas clinicas, consentimientos informados, recordatorios y automatizaciones.
@@ -583,7 +583,7 @@ export default function StartPage() {
               <p className={styles.planDesc}>Mensajeria IA para clinicas que ya tienen software</p>
               <div className={styles.planPrice}>
                 <span className={styles.planCurrency}>$</span>
-                <span className={styles.planAmount}>59</span>
+                <span className={styles.planAmount}>89</span>
                 <span className={styles.planPeriod}>USD/mes</span>
               </div>
               <p className={styles.planBilling}>Facturacion mensual</p>
@@ -612,7 +612,7 @@ export default function StartPage() {
               <p className={styles.planDesc}>Mensajeria + clinica completa sin otro software</p>
               <div className={styles.planPrice}>
                 <span className={styles.planCurrency}>$</span>
-                <span className={styles.planAmount}>89</span>
+                <span className={styles.planAmount}>129</span>
                 <span className={styles.planPeriod}>USD/mes</span>
               </div>
               <p className={styles.planBilling}>Facturacion mensual</p>
@@ -643,7 +643,7 @@ export default function StartPage() {
               <p className={styles.planDesc}>Para cadenas clinicas multi-sede</p>
               <div className={styles.planPrice}>
                 <span className={styles.planCurrency}>$</span>
-                <span className={styles.planAmount}>149</span>
+                <span className={styles.planAmount}>179</span>
                 <span className={styles.planPeriod}>USD/mes</span>
               </div>
               <p className={styles.planBilling}>Facturacion mensual</p>
@@ -703,7 +703,7 @@ export default function StartPage() {
           <p className={styles.sectLabel}>&gt; Comparativa</p>
           <h2 className={styles.sectTitle}>Por que Clinera y no otro software?</h2>
           <p className={styles.sectDesc} style={{ margin: "0 auto" }}>
-            Clinera es el unico sistema que combina IA conversacional + gestion clinica completa desde $59 USD/mes.
+            Clinera es el unico sistema que combina IA conversacional + gestion clinica completa desde $89 USD/mes.
           </p>
           <div className={`${styles.compareTableWrap} ${styles.fadeUp}`}>
             <table className={styles.compareTable}>
@@ -746,7 +746,7 @@ export default function StartPage() {
                     <span style={{ display: "block", fontSize: 10, fontWeight: 400, color: "var(--ink-m)", marginTop: 2 }}>Software + agente IA conversacional</span>
                   </td>
                   <td className={styles.compareTdClinera} style={{ background: "rgba(0,159,227,0.08)", borderBottom: "none", padding: 16 }}>
-                    <strong style={{ color: "var(--cyan)", fontSize: 16 }}>$59/mes</strong>
+                    <strong style={{ color: "var(--cyan)", fontSize: 16 }}>$89/mes</strong>
                     <span style={{ display: "block", fontSize: 10, color: "var(--ink-m)", fontWeight: 400, marginTop: 2 }}>Todo incluido</span>
                   </td>
                   <td style={{ padding: 16 }}>
@@ -800,7 +800,7 @@ export default function StartPage() {
             <p className={styles.sectLabel}>&gt; Empieza hoy</p>
             <h2 className={styles.ctaFinalTitle}>Activa Clinera y comienza a recuperar pacientes con IA</h2>
             <p className={styles.ctaFinalDesc}>
-              Conecta tu WhatsApp e instala IA en tu clinica <strong>desde $59 USD/mes</strong>. Incluye agente IA, agenda, fichas clinicas, consentimientos informados, recordatorios y automatizaciones.
+              Conecta tu WhatsApp e instala IA en tu clinica <strong>desde $89 USD/mes</strong>. Incluye agente IA, agenda, fichas clinicas, consentimientos informados, recordatorios y automatizaciones.
             </p>
             <div className={styles.ctaFinalButtons}>
               <a href="#plans" className={styles.btnPrimary}>Activa ahora</a>

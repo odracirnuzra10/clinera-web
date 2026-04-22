@@ -55,7 +55,7 @@ const competitors: Record<Slug, Competitor> = {
       "Atribución de ventas a campañas (Meta/Google → conversación → cita → venta).",
       "IA integrable con tu agenda actual vía API y MCP (no obliga a migrar).",
       "Derivación automática a humano cuando la conversación lo requiere.",
-      "Precios públicos desde USD 59/mes, sin permanencia.",
+      "Precios públicos desde USD 89/mes, sin permanencia.",
       "Prueba gratis 7 días self-service, sin tarjeta de crédito.",
       "Setup en menos de 1 hora, sin programador.",
       "Reducción típica de no-shows del 30% al 5-10% en el primer mes.",
@@ -89,7 +89,7 @@ const competitors: Record<Slug, Competitor> = {
       { feature: "Panel de ventas / trazabilidad", clinera: "yes", them: "partial" },
       { feature: "Prueba gratis 7 días", clinera: "yes", them: "partial" },
       { feature: "Precios públicos", clinera: "yes", them: "no" },
-      { feature: "Plan desde USD", clinera: "$59", them: "consulta" },
+      { feature: "Plan desde USD", clinera: "$89", them: "consulta" },
     ],
     dimensions: [
       {
@@ -115,7 +115,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y planes",
         body:
-          "Clinera publica sus precios: Growth USD 59/mes, Conect USD 89/mes, Advanced USD 149/mes, sin permanencia y con 7 días de prueba gratis. Reservo no publica precios — atiende por formulario o teléfono con un plan único ajustado al tamaño del centro. Si valoras saber cuánto pagas antes de llamar, Clinera tiene la transparencia.",
+          "Clinera publica sus precios: Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes, sin permanencia y con 7 días de prueba gratis. Reservo no publica precios — atiende por formulario o teléfono con un plan único ajustado al tamaño del centro. Si valoras saber cuánto pagas antes de llamar, Clinera tiene la transparencia.",
       },
       {
         title: "Soporte y onboarding",
@@ -138,7 +138,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Cuánto cuesta Reservo vs Clinera?",
-        a: "Reservo no publica precios (cotización por tamaño de clínica). Clinera publica USD 59/89/149 por mes, sin permanencia y con prueba de 7 días gratis.",
+        a: "Reservo no publica precios (cotización por tamaño de clínica). Clinera publica USD 89/129/179 por mes, sin permanencia y con prueba de 7 días gratis.",
       },
       {
         q: "¿Reservo cubre dental?",
@@ -159,7 +159,7 @@ const competitors: Record<Slug, Competitor> = {
       "AgendaPro es el software de agendamiento más grande de LATAM (20.000+ negocios en 10+ países, US$35M levantados en 2025). Clinera está enfocada 100% en clínicas con IA conversacional. Esta es la comparativa honesta.",
     tldr: {
       clinera:
-        "Clinera es mejor si necesitas profundidad clínica real (ficha médica, consentimientos, memoria contextual en WhatsApp) y precios transparentes desde USD 59/mes.",
+        "Clinera es mejor si necesitas profundidad clínica real (ficha médica, consentimientos, memoria contextual en WhatsApp) y precios transparentes desde USD 89/mes.",
       them:
         "AgendaPro es mejor si tu negocio mezcla varios verticales (estética + spa + peluquería + gym) y necesitas escala comprobada con apps móviles nativas y pasarela de pagos pulida.",
     },
@@ -171,7 +171,7 @@ const competitors: Record<Slug, Competitor> = {
       "Landing pages de conversión con analítica medible.",
       "Atribución de ventas a campañas de marketing (campaña → cita → venta).",
       "Foco 100% clínico: ficha por especialidad, consentimientos, telemedicina.",
-      "Precio plano USD 59/mes con 3 usuarios incluidos (sin sumar por usuario).",
+      "Precio plano USD 89/mes con 3 usuarios incluidos (sin sumar por usuario).",
       "Integración MCP con cualquier stack existente.",
       "Prueba gratis 7 días sin tarjeta de crédito.",
       "Setup en menos de 1 hora y onboarding asistido en el plan Advanced.",
@@ -205,7 +205,7 @@ const competitors: Record<Slug, Competitor> = {
       { feature: "Cobertura LATAM", clinera: "yes", them: "yes" },
       { feature: "Prueba gratis", clinera: "yes", them: "yes" },
       { feature: "Precio publicado", clinera: "yes", them: "partial" },
-      { feature: "Plan base (USD/mes)", clinera: "$59 · 3 usuarios", them: "$19/usuario" },
+      { feature: "Plan base (USD/mes)", clinera: "$89 · 3 usuarios", them: "$19/usuario" },
     ],
     dimensions: [
       {
@@ -231,7 +231,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y planes",
         body:
-          "AgendaPro arranca en USD 19/usuario/mes (plus add-ons de pagos y recepcionista). Clinera publica Growth USD 59/mes con 3 usuarios incluidos, Conect USD 89/mes con 5 usuarios, Advanced USD 149/mes con 15 usuarios. Para equipos pequeños AgendaPro suele salir más barato; desde 4-5 usuarios Clinera empareja o queda más barato, y con la ventaja de IA conversacional incluida.",
+          "AgendaPro arranca en USD 19/usuario/mes (plus add-ons de pagos y recepcionista). Clinera publica Growth USD 89/mes con 3 usuarios incluidos, Conect USD 129/mes con 5 usuarios, Advanced USD 179/mes con 15 usuarios. Para equipos pequeños AgendaPro suele salir más barato; desde 4-5 usuarios Clinera empareja o queda más barato, y con la ventaja de IA conversacional incluida.",
       },
       {
         title: "Soporte y onboarding",
@@ -250,7 +250,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Cuál es más barato para mi clínica?",
-        a: "Depende del tamaño. Con 1-2 usuarios, AgendaPro (USD 19/usuario) suele salir más barato. Desde 3+ usuarios, Clinera Growth USD 59/mes con 3 usuarios incluidos empareja o queda más barato, e incluye IA conversacional.",
+        a: "Depende del tamaño. Con 1-2 usuarios, AgendaPro (USD 19/usuario) suele salir más barato. Desde 3+ usuarios, Clinera Growth USD 89/mes con 3 usuarios incluidos empareja o queda más barato, e incluye IA conversacional.",
       },
       {
         q: "¿Clinera sirve si tengo spa además de mi clínica?",
@@ -275,7 +275,7 @@ const competitors: Record<Slug, Competitor> = {
       "Medilink tiene uno de los relatos IA más fuertes en Chile pero su agente conversacional aún no está en producción generalizada. Clinera ya opera 24/7 con AURA, memoria contextual LangChain, coexistencia nativa con WhatsApp Business y precios públicos. Acá la comparativa honesta.",
     tldr: {
       clinera:
-        "Clinera es mejor si quieres IA conversacional que YA está operando en producción, con coexistencia con WhatsApp Business, difusiones masivas, landing pages de conversión y atribución de ventas — todo en un mismo panel. Precios desde USD 59/mes.",
+        "Clinera es mejor si quieres IA conversacional que YA está operando en producción, con coexistencia con WhatsApp Business, difusiones masivas, landing pages de conversión y atribución de ventas — todo en un mismo panel. Precios desde USD 89/mes.",
       them:
         "Medilink es mejor si necesitas ecosistema profundo en Chile (integraciones con BSale, Nubox, Kame, DTE completo) y llamadas telefónicas con IA, y no te importa esperar a que su agente WhatsApp entre en producción general.",
     },
@@ -287,7 +287,7 @@ const competitors: Record<Slug, Competitor> = {
       "Atribución de ventas a campañas de marketing.",
       "Memoria contextual LangChain documentada y operativa.",
       "IA integrable con agendas externas (Reservo, Dentalink, etc.) vía MCP + API.",
-      "Precios públicos: Growth $59, Conect $89, Advanced $149 USD/mes.",
+      "Precios públicos: Growth $89, Conect $129, Advanced $179 USD/mes.",
       "Prueba gratis self-service sin cotización telefónica.",
       "Setup en menos de 1 hora.",
       "Derivación automática a humano con trazabilidad completa.",
@@ -321,7 +321,7 @@ const competitors: Record<Slug, Competitor> = {
       { feature: "Panel ventas y trazabilidad", clinera: "yes", them: "yes" },
       { feature: "Prueba gratis 7 días", clinera: "yes", them: "partial" },
       { feature: "Precios públicos", clinera: "yes", them: "no" },
-      { feature: "Plan base (USD/mes)", clinera: "$59", them: "consulta" },
+      { feature: "Plan base (USD/mes)", clinera: "$89", them: "consulta" },
     ],
     dimensions: [
       {
@@ -347,7 +347,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y planes",
         body:
-          "Medilink no publica precios (cotización por clínica). Clinera publica Growth USD 59, Conect USD 89, Advanced USD 149, sin permanencia, con 7 días gratis y sin tarjeta de crédito. Si valoras transparencia total y precio predecible, Clinera tiene ventaja clara.",
+          "Medilink no publica precios (cotización por clínica). Clinera publica Growth USD 89, Conect USD 129, Advanced USD 179, sin permanencia, con 7 días gratis y sin tarjeta de crédito. Si valoras transparencia total y precio predecible, Clinera tiene ventaja clara.",
       },
       {
         title: "Soporte y onboarding",
@@ -370,7 +370,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Cuánto cuesta Medilink vs Clinera?",
-        a: "Medilink no publica precios — cotización telefónica. Clinera publica USD 59/89/149 por mes con 7 días gratis sin tarjeta.",
+        a: "Medilink no publica precios — cotización telefónica. Clinera publica USD 89/129/179 por mes con 7 días gratis sin tarjeta.",
       },
       {
         q: "¿Clinera tiene telemedicina?",
@@ -391,7 +391,7 @@ const competitors: Record<Slug, Competitor> = {
       "La decisión más cara que muchas clínicas toman es no decidir nada — seguir con una recepción manual contestando mensajes y llamando pacientes. Aquí los números reales de lo que cuesta quedarse así.",
     tldr: {
       clinera:
-        "Clinera se paga sola en menos de un mes: recupera revenue perdido por no-shows, libera 2h diarias de recepción y responde a pacientes fuera de horario. Precio USD 59-149/mes.",
+        "Clinera se paga sola en menos de un mes: recupera revenue perdido por no-shows, libera 2h diarias de recepción y responde a pacientes fuera de horario. Precio USD 89-179/mes.",
       them:
         "Seguir manual tiene sentido solo si atiendes menos de 30 citas al mes, no piensas crecer y tu recepción tiene capacidad sobrada. Para el resto, los números no dan.",
     },
@@ -406,7 +406,7 @@ const competitors: Record<Slug, Competitor> = {
       "Landing pages y difusiones masivas incluidas — marketing medible.",
       "Escalas sin aumentar costo operativo proporcional.",
       "Datos centralizados en la nube (sin Excel ni cuadernos).",
-      "ROI típico en menos de 30 días (USD 89/mes vs USD 2.000+ recuperados).",
+      "ROI típico en menos de 30 días (USD 129/mes vs USD 2.000+ recuperados).",
     ],
     themWins: [
       "Cero costo de software mensual (pero pagas con tiempo y revenue perdido).",
@@ -422,7 +422,7 @@ const competitors: Record<Slug, Competitor> = {
       { feature: "Atribución de ventas a campañas de marketing", clinera: "yes", them: "no", clineraHighlight: true },
       { feature: "IA integrable con agenda externa", clinera: "yes", them: "no", clineraHighlight: true },
       // Operational reality
-      { feature: "Costo mensual directo", clinera: "$59-149 USD", them: "$0 (aparente)" },
+      { feature: "Costo mensual directo", clinera: "$89-179 USD", them: "$0 (aparente)" },
       { feature: "Horas/día de recepción en mensajes", clinera: "< 30 min", them: "2-4 horas" },
       { feature: "Tasa de no-shows típica", clinera: "5-10%", them: "25-35%" },
       { feature: "Tiempo medio de primera respuesta", clinera: "< 1 min", them: "30 min – 2 h" },
@@ -441,7 +441,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "El costo real de no automatizar",
         body:
-          "El número más importante: la tasa de no-shows promedio en clínicas LATAM es ~30%. Si facturas USD 10.000/mes en citas agendadas, estás perdiendo ~USD 3.000/mes por citas que no llegan. Clinera baja eso típicamente a 5-10% — recuperas USD 2.000/mes solo en reducción de no-shows. El plan Conect cuesta USD 89/mes. El retorno es obvio.",
+          "El número más importante: la tasa de no-shows promedio en clínicas LATAM es ~30%. Si facturas USD 10.000/mes en citas agendadas, estás perdiendo ~USD 3.000/mes por citas que no llegan. Clinera baja eso típicamente a 5-10% — recuperas USD 2.000/mes solo en reducción de no-shows. El plan Conect cuesta USD 129/mes. El retorno es obvio.",
       },
       {
         title: "Tiempo de recepción",
@@ -472,7 +472,7 @@ const competitors: Record<Slug, Competitor> = {
     faqs: [
       {
         q: "¿Cuánto me ahorro pasando de manual a Clinera?",
-        a: "Depende del tamaño. Clínicas típicas de 1-3 profesionales recuperan USD 1.500-3.000/mes solo en reducción de no-shows + horas de recepción recuperadas. El plan Conect cuesta USD 89/mes. El payback suele ser de semanas, no meses.",
+        a: "Depende del tamaño. Clínicas típicas de 1-3 profesionales recuperan USD 1.500-3.000/mes solo en reducción de no-shows + horas de recepción recuperadas. El plan Conect cuesta USD 129/mes. El payback suele ser de semanas, no meses.",
       },
       {
         q: "¿Qué pasa si mis pacientes prefieren hablar con una persona?",

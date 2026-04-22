@@ -41,8 +41,8 @@ const softwareLd = {
   url: "https://clinera.io",
   offers: {
     "@type": "AggregateOffer",
-    lowPrice: "59",
-    highPrice: "149",
+    lowPrice: "89",
+    highPrice: "179",
     priceCurrency: "USD",
     offerCount: "3",
   },
@@ -377,7 +377,7 @@ export default function Home() {
               <article className="pricing-card-dark">
                 <div className="pricing-card-dark__name">Growth</div>
                 <div className="pricing-card-dark__price">
-                  <span className="pricing-card-dark__amount">$59</span>
+                  <span className="pricing-card-dark__amount">$89</span>
                   <span className="pricing-card-dark__period">USD / mes</span>
                 </div>
                 <p className="pricing-card-dark__tagline">
@@ -413,7 +413,7 @@ export default function Home() {
                 <span className="pricing-card-dark__badge">Popular</span>
                 <div className="pricing-card-dark__name">Conect</div>
                 <div className="pricing-card-dark__price">
-                  <span className="pricing-card-dark__amount">$89</span>
+                  <span className="pricing-card-dark__amount">$129</span>
                   <span className="pricing-card-dark__period">USD / mes</span>
                 </div>
                 <p className="pricing-card-dark__tagline">
@@ -450,7 +450,7 @@ export default function Home() {
               <article className="pricing-card-dark">
                 <div className="pricing-card-dark__name">Advanced</div>
                 <div className="pricing-card-dark__price">
-                  <span className="pricing-card-dark__amount">$149</span>
+                  <span className="pricing-card-dark__amount">$179</span>
                   <span className="pricing-card-dark__period">USD / mes</span>
                 </div>
                 <p className="pricing-card-dark__tagline">

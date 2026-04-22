@@ -5,15 +5,15 @@ import Footer from "@/components/Footer";
 import styles from "./planes.module.css";
 
 export const metadata: Metadata = {
-  title: "Planes y Precios — Clinera.io (desde USD 59/mes)",
+  title: "Planes y Precios — Clinera.io (desde USD 89/mes)",
   description:
-    "Growth USD 59/mes, Conect USD 89/mes, Advanced USD 149/mes. IA que agenda por WhatsApp 24/7. Prueba gratis 7 días sin tarjeta.",
+    "Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes. IA que agenda por WhatsApp 24/7. Prueba gratis 7 días sin tarjeta.",
   alternates: { canonical: "https://clinera.io/planes" },
   openGraph: {
     url: "https://clinera.io/planes",
     title: "Planes y Precios — Clinera.io",
     description:
-      "3 planes para clínicas en LATAM. Desde USD 59/mes con prueba gratis de 7 días.",
+      "3 planes para clínicas en LATAM. Desde USD 89/mes con prueba gratis de 7 días.",
     type: "website",
   },
 };
@@ -27,21 +27,21 @@ const jsonLd = {
     {
       "@type": "Offer",
       name: "Growth",
-      price: "59",
-      priceCurrency: "USD",
-      url: "https://clinera.io/planes",
-    },
-    {
-      "@type": "Offer",
-      name: "Conect",
       price: "89",
       priceCurrency: "USD",
       url: "https://clinera.io/planes",
     },
     {
       "@type": "Offer",
+      name: "Conect",
+      price: "129",
+      priceCurrency: "USD",
+      url: "https://clinera.io/planes",
+    },
+    {
+      "@type": "Offer",
       name: "Advanced",
-      price: "149",
+      price: "179",
       priceCurrency: "USD",
       url: "https://clinera.io/planes",
     },
@@ -77,7 +77,7 @@ export default function PlanesPage() {
           <div className={styles.planCard}>
             <h3 className={styles.planName}>Growth</h3>
             <div className={styles.planPrice}>
-              $59<span>/mes</span>
+              $89<span>/mes</span>
             </div>
             <p className={styles.planDesc}>
               Mensajería IA para clínicas que ya tienen software
@@ -110,7 +110,7 @@ export default function PlanesPage() {
                 href="/reunion"
                 className={`${styles.planCta} ${styles.planCtaPrimary}`}
                 data-plan="growth"
-                data-plan-value="59"
+                data-plan-value="89"
                 data-plan-name="Growth talk-to-sales"
               >
                 Hablar con ventas
@@ -121,7 +121,7 @@ export default function PlanesPage() {
                 rel="noopener"
                 className={styles.planCta}
                 data-plan="growth"
-                data-plan-value="59"
+                data-plan-value="89"
                 data-plan-name="Growth pay"
               >
                 Activar plan
@@ -134,7 +134,7 @@ export default function PlanesPage() {
             <span className={styles.popularBadge}>Popular</span>
             <h3 className={styles.planName}>Conect</h3>
             <div className={styles.planPrice}>
-              $89<span>/mes</span>
+              $129<span>/mes</span>
             </div>
             <p className={styles.planDesc}>
               Mensajería + clínica completa sin otro software
@@ -169,7 +169,7 @@ export default function PlanesPage() {
                 href="/reunion"
                 className={`${styles.planCta} ${styles.planCtaPrimary}`}
                 data-plan="conect"
-                data-plan-value="89"
+                data-plan-value="129"
                 data-plan-name="Conect talk-to-sales"
               >
                 Hablar con ventas
@@ -180,7 +180,7 @@ export default function PlanesPage() {
                 rel="noopener"
                 className={styles.planCta}
                 data-plan="conect"
-                data-plan-value="89"
+                data-plan-value="129"
                 data-plan-name="Conect pay"
               >
                 Activar plan
@@ -192,7 +192,7 @@ export default function PlanesPage() {
           <div className={styles.planCard}>
             <h3 className={styles.planName}>Advanced</h3>
             <div className={styles.planPrice}>
-              $149<span>/mes</span>
+              $179<span>/mes</span>
             </div>
             <p className={styles.planDesc}>
               Para cadenas clínicas multi-sede
@@ -225,7 +225,7 @@ export default function PlanesPage() {
                 href="/reunion"
                 className={`${styles.planCta} ${styles.planCtaPrimary}`}
                 data-plan="advanced"
-                data-plan-value="149"
+                data-plan-value="179"
                 data-plan-name="Advanced talk-to-sales"
               >
                 Hablar con ventas
@@ -236,7 +236,7 @@ export default function PlanesPage() {
                 rel="noopener"
                 className={styles.planCta}
                 data-plan="advanced"
-                data-plan-value="149"
+                data-plan-value="179"
                 data-plan-name="Advanced pay"
               >
                 Activar plan

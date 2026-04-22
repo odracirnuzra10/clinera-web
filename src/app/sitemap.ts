@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/inicia`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/reunion`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/reunion-comercial`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/ventas`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
 
     // Comparativas (bottom-funnel SEO/AEO hub)
     { url: `${baseUrl}/comparativas`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },

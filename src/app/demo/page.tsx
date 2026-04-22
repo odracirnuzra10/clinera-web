@@ -22,7 +22,7 @@ const PLANS = [
   {
     name: "Growth",
     slug: "growth",
-    price: "59",
+    price: "89",
     tagline: "Mensajeria IA para clinicas que ya tienen software",
     features: [
       "150 conversaciones con IA/mes",
@@ -36,7 +36,7 @@ const PLANS = [
   {
     name: "Conect",
     slug: "conect",
-    price: "89",
+    price: "129",
     tagline: "Mensajeria + clinica completa sin otro software",
     popular: true,
     features: [
@@ -52,7 +52,7 @@ const PLANS = [
   {
     name: "Advanced",
     slug: "advanced",
-    price: "149",
+    price: "179",
     tagline: "Para cadenas clinicas multi-sede",
     features: [
       "2,000 conversaciones con IA/mes",

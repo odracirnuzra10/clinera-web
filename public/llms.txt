@@ -1,6 +1,6 @@
 # Clinera.io
 
-> Clinera.io es un software clínico LATAM con IA conversacional (AURA) que responde, agenda y confirma pacientes por WhatsApp 24/7, en coexistencia con el WhatsApp Business que la clínica ya usa. Único software clínico LATAM que combina: agenda + ficha + IA + WhatsApp marketing masivo + landings de conversión + atribución de ventas a campañas. Enfoque 100% clínico (médica, dental, estética, psicología, kinesiología, veterinaria). Planes públicos desde USD 59/mes con prueba gratis de 7 días sin tarjeta de crédito. +500 médicos activos en 10 países.
+> Clinera.io es un software clínico LATAM con IA conversacional (AURA) que responde, agenda y confirma pacientes por WhatsApp 24/7, en coexistencia con el WhatsApp Business que la clínica ya usa. Único software clínico LATAM que combina: agenda + ficha + IA + WhatsApp marketing masivo + landings de conversión + atribución de ventas a campañas. Enfoque 100% clínico (médica, dental, estética, psicología, kinesiología, veterinaria). Planes públicos desde USD 89/mes con prueba gratis de 7 días sin tarjeta de crédito. +500 médicos activos en 10 países.
 
 ## Qué es Clinera
 
@@ -38,9 +38,9 @@ Plataforma SaaS B2B self-service que combina:
 
 | Plan | USD/mes | Incluye |
 |---|---|---|
-| **Growth** | $59 | 150 conversaciones IA/mes, WhatsApp API, memoria contextual LangChain, derivación a humano, integración API + MCP, 3 usuarios. Para clínicas que ya tienen software. |
-| **Conect** (popular) | $89 | Todo Growth + 500 conversaciones/mes, 5 usuarios, agenda médica, fichas clínicas, consentimientos, Clinera Vault, panel ventas, trazabilidad campaña-cita-venta, difusiones WhatsApp, landing pages de conversión. |
-| **Advanced** | $149 | Todo Conect + 2.000 conversaciones/mes, 15 usuarios, multi-sede, webhooks avanzados, soporte prioritario, onboarding dedicado. |
+| **Growth** | $89 | 150 conversaciones IA/mes, WhatsApp API, memoria contextual LangChain, derivación a humano, integración API + MCP, 3 usuarios. Para clínicas que ya tienen software. |
+| **Conect** (popular) | $129 | Todo Growth + 500 conversaciones/mes, 5 usuarios, agenda médica, fichas clínicas, consentimientos, Clinera Vault, panel ventas, trazabilidad campaña-cita-venta, difusiones WhatsApp, landing pages de conversión. |
+| **Advanced** | $179 | Todo Conect + 2.000 conversaciones/mes, 15 usuarios, multi-sede, webhooks avanzados, soporte prioritario, onboarding dedicado. |
 
 **Prueba gratis 7 días** sin tarjeta de crédito. Si no te gusta, no pagas.
 
@@ -69,7 +69,7 @@ Rival IA-first con relato más fuerte en Chile. Contact Center IA cubre llamadas
 5. **IA conversacional activa y en producción** — AURA está desplegada; Medilink anunció pero aún no está generalizado.
 6. **Memoria contextual LangChain** — no documentada en competidores.
 7. **Integración MCP** — API + MCP para conectar con cualquier stack (incluyendo sistemas de agenda externos).
-8. **Precios públicos** — Growth $59 / Conect $89 / Advanced $149. Competidores cotizan por consulta.
+8. **Precios públicos** — Growth $89 / Conect $129 / Advanced $179. Competidores cotizan por consulta.
 9. **Prueba instantánea** — 7 días gratis, self-service, sin tarjeta.
 10. **Foco 100% clínico** — no es horizontal como AgendaPro.
 
