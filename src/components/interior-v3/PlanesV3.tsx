@@ -1,0 +1,233 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
+import { FinalCTA, Pricing, useReveal } from "@/components/home-v3/sections";
+
+const FAQ = [
+  { q: "¿Qué incluye la prueba gratis?", a: "Acceso completo al plan que elijas durante 7 días, sin tarjeta de crédito. Puedes probar todas las funcionalidades sin restricciones." },
+  { q: "¿Puedo cambiar de plan después?", a: "Sí. Puedes subir o bajar de plan en cualquier momento desde tu panel. El cambio se aplica en tu próximo ciclo de facturación." },
+  { q: "¿Hay permanencia o contrato?", a: "No. Todos los planes son mes a mes. Puedes cancelar en cualquier momento sin penalizaciones." },
+  { q: "¿Qué pasa si supero las conversaciones incluidas?", a: "Tu servicio no se interrumpe. Te notificamos cuando estés cerca del límite y puedes agregar paquetes de +100 conversaciones por $15/mes." },
+  { q: "¿Se integra con mi software actual?", a: "Sí. Clinera se conecta vía API con Reservo, AgendaPro, Medilink, Dentalink, Sacmed y cualquier sistema que exponga una API REST o soporte MCP." },
+  { q: "¿Cómo funciona la IA de mensajería?", a: "Nuestra IA responde automáticamente por WhatsApp usando LangChain con memoria contextual. Agenda, confirma y responde consultas 24/7. Si necesita un humano, deriva la conversación automáticamente." },
+  { q: "¿Los precios incluyen IVA?", a: "Los precios están en USD y no incluyen impuestos locales. El monto final depende de la legislación tributaria de tu país." },
+];
+
+export default function PlanesV3() {
+  useReveal();
+  return (
+    <>
+      <style jsx global>{`
+        .reveal { opacity: 0; transform: translateY(12px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1); }
+        .reveal.in { opacity: 1; transform: none; }
+        @keyframes pulseDot { 0% { box-shadow: 0 0 0 0 rgba(16,185,129,.45); } 70% { box-shadow: 0 0 0 10px rgba(16,185,129,0); } 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); } }
+        .live-dot { animation: pulseDot 2.2s infinite; }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: 0ms !important; transition-duration: 0ms !important; } }
+        @media (max-width: 720px) {
+          main > section { padding-left: 32px !important; padding-right: 32px !important; }
+        }
+      `}</style>
+      <PlanesHero />
+      <Pricing />
+      <Addons />
+      <PlanesFaq />
+      <FinalCTA />
+    </>
+  );
+}
+
+function PlanesHero() {
+  return (
+    <section
+      style={{
+        padding: "96px 80px 40px",
+        background: "linear-gradient(180deg,#FFFFFF 0%,#FAFAFA 100%)",
+        borderBottom: "1px solid #F0F0F0",
+      }}
+    >
+      <div className="reveal" style={{ maxWidth: 980, margin: "0 auto", textAlign: "center" }}>
+        <Eyebrow>Planes y precios</Eyebrow>
+        <h1
+          style={{
+            fontFamily: "Inter",
+            fontSize: 64,
+            fontWeight: 700,
+            letterSpacing: "-0.035em",
+            lineHeight: 1.02,
+            margin: "16px 0 16px",
+            color: "#0A0A0A",
+          }}
+          className="planes-hero-title"
+        >
+          Elige tu plan.{" "}
+          <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+            Activa hoy.
+          </span>
+        </h1>
+        <p
+          style={{
+            fontFamily: "Inter",
+            fontSize: 19,
+            color: "#4B5563",
+            lineHeight: 1.55,
+            margin: "0 auto 28px",
+            maxWidth: 680,
+          }}
+        >
+          Todos los planes incluyen API completa, sin permanencia y con prueba gratis de 7 días. Precios en USD.
+        </p>
+        <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+          <CtaPrimary as={Link} href="/ventas">
+            Hablar con ventas <span style={{ marginLeft: 2 }}>→</span>
+          </CtaPrimary>
+          <CtaSecondary as={Link} href="/reunion">
+            Agendar reunión
+          </CtaSecondary>
+        </div>
+      </div>
+      <style jsx>{`
+        @media (max-width: 720px) {
+          :global(.planes-hero-title) { font-size: 40px !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+function Addons() {
+  const items = [
+    { price: "$15", unit: "/mes", label: "+100 conversaciones con IA" },
+    { price: "$9", unit: "/mes", label: "Profesional o usuario extra" },
+  ];
+  return (
+    <section style={{ padding: "80px 80px", background: "#fff", borderTop: "1px solid #F0F0F0" }}>
+      <div className="reveal" style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 40 }}>
+          <Eyebrow>Add-ons</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "Inter",
+              fontSize: 36,
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              margin: "12px 0 0",
+              color: "#0A0A0A",
+            }}
+          >
+            Escala cuando lo necesites.
+          </h2>
+        </div>
+        <div
+          className="planes-addons-grid"
+          style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20, maxWidth: 780, margin: "0 auto" }}
+        >
+          {items.map((it) => (
+            <div
+              key={it.label}
+              style={{
+                background: "#FAFAFA",
+                border: "1px solid #EEECEA",
+                borderRadius: 16,
+                padding: "28px 26px",
+                textAlign: "center",
+              }}
+            >
+              <div style={{ fontFamily: "Inter", fontSize: 36, fontWeight: 700, letterSpacing: "-0.02em", color: "#0A0A0A" }}>
+                {it.price}
+                <span style={{ fontSize: 16, fontWeight: 500, color: "#6B7280", marginLeft: 4 }}>{it.unit}</span>
+              </div>
+              <div style={{ fontFamily: "Inter", fontSize: 15, color: "#4B5563", marginTop: 8 }}>{it.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style jsx>{`
+        @media (max-width: 640px) {
+          :global(.planes-addons-grid) { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
+  );
+}
+
+function PlanesFaq() {
+  const [open, setOpen] = useState(0);
+  return (
+    <section style={{ padding: "96px 80px", borderTop: "1px solid #F0F0F0", background: "#FAFAFA" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        <div className="reveal" style={{ textAlign: "center", marginBottom: 40 }}>
+          <Eyebrow>Preguntas frecuentes</Eyebrow>
+          <h2
+            style={{
+              fontFamily: "Inter",
+              fontSize: 40,
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              margin: "14px 0 0",
+              color: "#0A0A0A",
+            }}
+          >
+            Dudas sobre tu plan.
+          </h2>
+        </div>
+        <div className="reveal" style={{ borderTop: "1px solid #E5E7EB" }}>
+          {FAQ.map((it, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={i} style={{ borderBottom: "1px solid #E5E7EB" }}>
+                <button
+                  onClick={() => setOpen(isOpen ? -1 : i)}
+                  style={{
+                    width: "100%",
+                    textAlign: "left",
+                    background: "transparent",
+                    border: 0,
+                    padding: "22px 4px",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: 20,
+                    cursor: "pointer",
+                    fontFamily: "Inter",
+                  }}
+                >
+                  <span style={{ fontSize: 17, fontWeight: 600, color: "#0A0A0A", letterSpacing: "-0.01em" }}>{it.q}</span>
+                  <span
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 999,
+                      border: "1px solid #E5E7EB",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#0A0A0A",
+                      flex: "0 0 28px",
+                      transform: isOpen ? "rotate(45deg)" : "none",
+                      transition: "transform .2s",
+                      background: "#fff",
+                    }}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </span>
+                </button>
+                {isOpen && (
+                  <div style={{ padding: "0 4px 22px", fontFamily: "Inter", fontSize: 15.5, color: "#4B5563", lineHeight: 1.6, maxWidth: 780 }}>
+                    {it.a}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+

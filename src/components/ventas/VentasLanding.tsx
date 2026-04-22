@@ -87,9 +87,32 @@ export default function VentasLanding() {
         @keyframes scaleBounce { 0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
         @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @media (prefers-reduced-motion: reduce) { * { animation-duration: 0ms !important; transition-duration: 0ms !important; } }
+        /* Desktop shows the big carousel card; mobile swaps to a compact horizontal strip */
+        .ventas-testi-desktop { display: block; }
+        .ventas-testi-mobile { display: none; }
         @media (max-width: 820px) {
-          .ventas-hero-grid { grid-template-columns: 1fr !important; }
-          .ventas-testi-card { min-height: 420px !important; }
+          .ventas-hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 14px !important;
+            padding: 12px 16px 16px !important;
+          }
+          .ventas-hero-badge { font-size: 10.5px !important; padding: 5px 10px !important; gap: 6px !important; }
+          .ventas-testi-desktop { display: none !important; }
+          .ventas-testi-mobile { display: flex !important; }
+          .ventas-integraciones { display: none !important; }
+          .ventas-wizard { padding: 20px 18px 18px !important; border-radius: 16px !important; }
+          .ventas-wizard-progress { margin-bottom: 16px !important; }
+          .ventas-step-title { font-size: 22px !important; letter-spacing: -.02em !important; }
+          .ventas-step-header { margin-bottom: 14px !important; }
+          .ventas-step-sub { font-size: 13px !important; }
+          .ventas-step-label { font-size: 10.5px !important; margin-bottom: 6px !important; }
+          .ventas-challenge-opt { padding: 10px 12px !important; gap: 10px !important; }
+          .ventas-challenge-icon { width: 36px !important; height: 36px !important; font-size: 18px !important; }
+          .ventas-challenge-title { font-size: 14px !important; }
+          .ventas-challenge-desc { font-size: 12px !important; }
+          .ventas-submit-btn { padding: 12px !important; font-size: 14.5px !important; }
+          .ventas-field { margin-bottom: 10px !important; }
+          .ventas-field-label { margin-bottom: 4px !important; }
         }
       `}</style>
       <ReunionHero />
@@ -127,6 +150,7 @@ function ReunionHero() {
       >
         <div className="reveal" style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
           <span
+            className="ventas-hero-badge"
             style={{
               alignSelf: "flex-start",
               display: "inline-flex",
@@ -172,6 +196,7 @@ function ReunionHero() {
           </div>
 
           <div
+            className="ventas-integraciones"
             style={{
               marginTop: 20,
               display: "flex",
@@ -247,83 +272,151 @@ function TestimonialCarousel() {
     const t = window.setInterval(() => setIdx((i) => (i + 1) % SLIDES.length), 4600);
     return () => clearInterval(t);
   }, []);
+  const s = SLIDES[idx];
   return (
     <div style={{ width: "100%", display: "flex", flexDirection: "column" }}>
+      {/* DESKTOP — big hero card */}
+      <div className="ventas-testi-desktop" style={{ width: "100%", display: "flex", flexDirection: "column", flex: 1 }}>
+        <div
+          style={{
+            position: "relative",
+            width: "100%",
+            flex: 1,
+            minHeight: 560,
+            borderRadius: 20,
+            overflow: "hidden",
+            background: "#141c25",
+            border: "1px solid rgba(255,255,255,.08)",
+            boxShadow: "0 30px 80px rgba(0,0,0,.4)",
+          }}
+        >
+          {SLIDES.map((sl, i) => (
+            <div
+              key={i}
+              style={{
+                position: "absolute",
+                inset: 0,
+                opacity: i === idx ? 1 : 0,
+                transform: i === idx ? "scale(1)" : "scale(.98)",
+                transition: "opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1)",
+                pointerEvents: i === idx ? "auto" : "none",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={sl.img} alt={sl.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 22%" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(14,20,26,0) 0%, rgba(14,20,26,.2) 45%, rgba(14,20,26,.95) 88%)" }} />
+              <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 26px 26px", color: "#fff" }}>
+                <div
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    letterSpacing: ".06em",
+                    color: "#10B981",
+                    background: "rgba(16,185,129,.14)",
+                    border: "1px solid rgba(16,185,129,.35)",
+                    padding: "5px 10px",
+                    borderRadius: 6,
+                    marginBottom: 14,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {sl.metric}
+                </div>
+                <p style={{ fontFamily: "Inter", fontSize: 20, lineHeight: 1.3, fontWeight: 500, margin: "0 0 12px", letterSpacing: "-.015em" }}>&quot;{sl.quote}&quot;</p>
+                <div style={{ fontFamily: "Inter", fontSize: 14.5, fontWeight: 600 }}>{sl.name}</div>
+                <div style={{ fontFamily: "Inter", fontSize: 12.5, color: "rgba(255,255,255,.55)", marginTop: 2 }}>{sl.clinic}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 6, justifyContent: "center", marginTop: 16 }}>
+          {SLIDES.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIdx(i)}
+              aria-label={"Testimonio " + (i + 1)}
+              style={{
+                width: i === idx ? 24 : 8,
+                height: 8,
+                borderRadius: i === idx ? 4 : 999,
+                background: i === idx ? "#0A0A0A" : "rgba(10,10,10,.25)",
+                border: 0,
+                padding: 0,
+                cursor: "pointer",
+                transition: "all .3s",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* MOBILE — compact horizontal strip */}
       <div
-        className="ventas-testi-card"
+        className="ventas-testi-mobile"
         style={{
-          position: "relative",
+          display: "none",
           width: "100%",
-          flex: 1,
-          minHeight: 560,
-          borderRadius: 20,
-          overflow: "hidden",
           background: "#141c25",
           border: "1px solid rgba(255,255,255,.08)",
-          boxShadow: "0 30px 80px rgba(0,0,0,.4)",
+          borderRadius: 14,
+          padding: 10,
+          gap: 12,
+          alignItems: "center",
+          boxShadow: "0 10px 24px rgba(0,0,0,.18)",
+          color: "#fff",
         }}
       >
-        {SLIDES.map((sl, i) => (
+        <div style={{ flexShrink: 0, width: 72, height: 72, borderRadius: 10, overflow: "hidden", background: "#0A0A0A" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={s.img} alt={s.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 22%", transition: "opacity .4s" }} />
+        </div>
+        <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
           <div
-            key={i}
             style={{
-              position: "absolute",
-              inset: 0,
-              opacity: i === idx ? 1 : 0,
-              transform: i === idx ? "scale(1)" : "scale(.98)",
-              transition: "opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1)",
-              pointerEvents: i === idx ? "auto" : "none",
+              alignSelf: "flex-start",
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 9.5,
+              fontWeight: 600,
+              letterSpacing: ".05em",
+              color: "#10B981",
+              background: "rgba(16,185,129,.14)",
+              border: "1px solid rgba(16,185,129,.35)",
+              padding: "3px 7px",
+              borderRadius: 5,
+              textTransform: "uppercase",
+              lineHeight: 1.2,
+              maxWidth: "100%",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={sl.img} alt={sl.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 22%" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(14,20,26,0) 0%, rgba(14,20,26,.2) 45%, rgba(14,20,26,.95) 88%)" }} />
-            <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 26px 26px", color: "#fff" }}>
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                  fontSize: 11,
-                  fontWeight: 600,
-                  letterSpacing: ".06em",
-                  color: "#10B981",
-                  background: "rgba(16,185,129,.14)",
-                  border: "1px solid rgba(16,185,129,.35)",
-                  padding: "5px 10px",
-                  borderRadius: 6,
-                  marginBottom: 14,
-                  textTransform: "uppercase",
-                }}
-              >
-                {sl.metric}
-              </div>
-              <p style={{ fontFamily: "Inter", fontSize: 20, lineHeight: 1.3, fontWeight: 500, margin: "0 0 12px", letterSpacing: "-.015em" }}>&quot;{sl.quote}&quot;</p>
-              <div style={{ fontFamily: "Inter", fontSize: 14.5, fontWeight: 600 }}>{sl.name}</div>
-              <div style={{ fontFamily: "Inter", fontSize: 12.5, color: "rgba(255,255,255,.55)", marginTop: 2 }}>{sl.clinic}</div>
-            </div>
+            {s.metric}
           </div>
-        ))}
-      </div>
-      <div style={{ display: "flex", gap: 6, justifyContent: "center", marginTop: 16 }}>
-        {SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setIdx(i)}
-            aria-label={"Testimonio " + (i + 1)}
+          <p
             style={{
-              width: i === idx ? 24 : 8,
-              height: 8,
-              borderRadius: i === idx ? 4 : 999,
-              background: i === idx ? "#0A0A0A" : "rgba(10,10,10,.25)",
-              border: 0,
-              padding: 0,
-              cursor: "pointer",
-              transition: "all .3s",
+              fontFamily: "Inter",
+              fontSize: 12.5,
+              lineHeight: 1.3,
+              fontWeight: 500,
+              margin: 0,
+              letterSpacing: "-.01em",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
             }}
-          />
-        ))}
+          >
+            &quot;{s.quote}&quot;
+          </p>
+          <div style={{ fontFamily: "Inter", fontSize: 11.5, fontWeight: 600, color: "rgba(255,255,255,.85)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            {s.name}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -341,6 +434,7 @@ function Wizard() {
 
   return (
     <div
+      className="ventas-wizard"
       style={{
         width: "100%",
         background: "#fff",
@@ -352,7 +446,7 @@ function Wizard() {
         overflow: "hidden",
       }}
     >
-      <div style={{ display: "flex", gap: 6, marginBottom: 24 }}>
+      <div className="ventas-wizard-progress" style={{ display: "flex", gap: 6, marginBottom: 24 }}>
         {[1, 2, 3].map((n) => (
           <div key={n} style={{ flex: 1, height: 4, borderRadius: 2, background: step >= n ? "#0A0A0A" : "#EEECEA", transition: "background .4s ease" }} />
         ))}
@@ -531,6 +625,7 @@ function StepChallenge({ challenge, setChallenge }: { challenge: Challenge | nul
               key={opt.id}
               type="button"
               onClick={() => setChallenge(opt)}
+              className="ventas-challenge-opt"
               style={{
                 position: "relative",
                 display: "flex",
@@ -551,6 +646,7 @@ function StepChallenge({ challenge, setChallenge }: { challenge: Challenge | nul
             >
               {sel && <span style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 3, background: GRAD }} />}
               <span
+                className="ventas-challenge-icon"
                 style={{
                   flexShrink: 0,
                   width: 44,
@@ -569,8 +665,8 @@ function StepChallenge({ challenge, setChallenge }: { challenge: Challenge | nul
                 {opt.emoji}
               </span>
               <span style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 2 }}>
-                <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: "-.012em" }}>{opt.title}</span>
-                <span style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.4 }}>{opt.desc}</span>
+                <span className="ventas-challenge-title" style={{ fontWeight: 700, fontSize: 15, letterSpacing: "-.012em" }}>{opt.title}</span>
+                <span className="ventas-challenge-desc" style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.4 }}>{opt.desc}</span>
               </span>
               <span
                 style={{
@@ -966,12 +1062,19 @@ function StepSuccess({
 // ============== SHARED ATOMS ==============
 function StepHeader({ label, title, sub }: { label: string; title: React.ReactNode; sub: string }) {
   return (
-    <div style={{ marginBottom: 22 }}>
-      <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontWeight: 600, fontSize: 11.5, letterSpacing: ".14em", color: "#3B82F6", marginBottom: 8, textTransform: "uppercase" }}>
+    <div className="ventas-step-header" style={{ marginBottom: 22 }}>
+      <div
+        className="ventas-step-label"
+        style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontWeight: 600, fontSize: 11.5, letterSpacing: ".14em", color: "#3B82F6", marginBottom: 8, textTransform: "uppercase" }}
+      >
         {label}
       </div>
-      <h2 style={{ fontFamily: "Inter", fontWeight: 800, fontSize: 32, lineHeight: 1.08, margin: "0 0 10px", letterSpacing: "-.028em", color: "#0A0A0A" }}>{title}</h2>
-      <p style={{ fontFamily: "Inter", fontSize: 14.5, color: "#6B7280", margin: 0, lineHeight: 1.5 }}>{sub}</p>
+      <h2 className="ventas-step-title" style={{ fontFamily: "Inter", fontWeight: 800, fontSize: 32, lineHeight: 1.08, margin: "0 0 10px", letterSpacing: "-.028em", color: "#0A0A0A" }}>
+        {title}
+      </h2>
+      <p className="ventas-step-sub" style={{ fontFamily: "Inter", fontSize: 14.5, color: "#6B7280", margin: 0, lineHeight: 1.5 }}>
+        {sub}
+      </p>
     </div>
   );
 }
@@ -1003,8 +1106,10 @@ function BackBtn({ onClick }: { onClick: () => void }) {
 }
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div style={{ marginBottom: 14 }}>
-      <label style={{ fontFamily: "Inter", fontSize: 12.5, fontWeight: 600, color: "#374151", marginBottom: 6, display: "block", letterSpacing: ".01em" }}>{label}</label>
+    <div className="ventas-field" style={{ marginBottom: 14 }}>
+      <label className="ventas-field-label" style={{ fontFamily: "Inter", fontSize: 12.5, fontWeight: 600, color: "#374151", marginBottom: 6, display: "block", letterSpacing: ".01em" }}>
+        {label}
+      </label>
       {children}
     </div>
   );
@@ -1058,6 +1163,7 @@ function SubmitBtn({ enabled, children, onClick }: { enabled: boolean; children:
     <button
       type="button"
       onClick={onClick}
+      className="ventas-submit-btn"
       style={{
         width: "100%",
         padding: 14,
