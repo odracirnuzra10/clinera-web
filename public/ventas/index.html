@@ -783,10 +783,14 @@
     .option-icon svg { width: 16px; height: 16px; }
     .option-check { width: 20px; height: 20px; }
 
-    .form-group { margin-bottom: .55rem; }
-    .form-label { font-size: .72rem; margin-bottom: .2rem; }
-    .form-input, .form-select, .phone-prefix { padding: .65rem .85rem; border-radius: 9px; }
-    .phone-prefix { flex: 0 0 96px; padding: .65rem .5rem; font-size: 14px; }
+    /* Step 2 (datos): sub es redundante con el título en mobile */
+    #step2 .step-sub { display: none; }
+    #step2 .step-title { margin-bottom: .8rem; }
+
+    .form-group { margin-bottom: .45rem; }
+    .form-label { font-size: .72rem; margin-bottom: .15rem; }
+    .form-input, .form-select, .phone-prefix { padding: .58rem .85rem; border-radius: 9px; }
+    .phone-prefix { flex: 0 0 96px; padding: .58rem .5rem; font-size: 14px; }
     .phone-row { gap: 6px; }
 
     .day-grid { gap: .4rem; margin-bottom: .75rem; }
@@ -799,8 +803,8 @@
     .slot-btn { min-width: 88px; padding: .6rem .4rem; font-size: .8rem; border-radius: 9px; }
     .slot-time { font-size: .66rem; margin-top: 2px; }
 
-    .submit-btn { padding: .85rem; font-size: .95rem; margin-top: .25rem; border-radius: 10px; }
-    .form-note { margin-top: .5rem; font-size: .72rem; }
+    .submit-btn { padding: .78rem; font-size: .95rem; margin-top: .2rem; border-radius: 10px; }
+    .form-note { margin-top: .45rem; font-size: .72rem; }
   }
 
   @media (max-width: 480px) {
@@ -819,9 +823,9 @@
     .step-sub { font-size: .8rem; margin-bottom: .75rem; }
     .option-card { padding: .6rem .75rem; font-size: .85rem; gap: .6rem; }
     .option-icon { width: 30px; height: 30px; }
-    .form-input, .form-select, .phone-prefix { padding: .6rem .75rem; }
-    .phone-prefix { flex: 0 0 88px; font-size: 13px; padding: .6rem .45rem; }
-    .submit-btn { padding: .8rem; font-size: .92rem; }
+    .form-input, .form-select, .phone-prefix { padding: .54rem .75rem; }
+    .phone-prefix { flex: 0 0 88px; font-size: 13px; padding: .54rem .45rem; }
+    .submit-btn { padding: .72rem; font-size: .92rem; }
     .form-note { font-size: .68rem; }
   }
 
