@@ -1,7 +1,7 @@
 .waFloat {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 96px;
+  left: 24px;
   z-index: 80;
   height: 52px;
   padding: 0 20px 0 16px;
@@ -61,8 +61,8 @@
 
 @media (max-width: 640px) {
   .waFloat {
-    bottom: 16px;
-    right: 16px;
+    bottom: 84px;
+    left: 16px;
     height: 48px;
     padding: 0 16px 0 14px;
   }
