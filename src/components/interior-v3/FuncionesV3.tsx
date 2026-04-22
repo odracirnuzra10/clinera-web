@@ -187,7 +187,7 @@ function Hero() {
             justifyContent: "center",
           }}
         >
-          <CtaPrimary as={Link} href="/ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
+          <CtaPrimary as={Link} href="/hablar-con-ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
             Hablar con ventas <span>→</span>
           </CtaPrimary>
           <CtaSecondary as={Link} href="/reunion" style={{ padding: "15px 26px", fontSize: 16 }}>
@@ -1305,7 +1305,7 @@ function FinalCTA() {
           </p>
           <div style={{ display: "flex", gap: 12, marginTop: 12, flexWrap: "wrap", justifyContent: "center" }}>
             <Link
-              href="/ventas"
+              href="/hablar-con-ventas"
               style={{
                 background: GRAD,
                 color: "#fff",

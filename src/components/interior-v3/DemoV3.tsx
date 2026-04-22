@@ -328,7 +328,7 @@ function PlansSection() {
                     ))}
                   </ul>
                   <Link
-                    href="/ventas"
+                    href="/hablar-con-ventas"
                     data-plan={plan.slug}
                     data-plan-value={plan.price}
                     data-plan-name={`${plan.name} talk-to-sales`}

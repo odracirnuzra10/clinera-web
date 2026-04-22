@@ -79,7 +79,7 @@ function PlanesHero() {
           Todos los planes incluyen API completa, sin permanencia y con prueba gratis de 7 días. Precios en USD.
         </p>
         <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-          <CtaPrimary as={Link} href="/ventas">
+          <CtaPrimary as={Link} href="/hablar-con-ventas">
             Hablar con ventas <span style={{ marginLeft: 2 }}>→</span>
           </CtaPrimary>
           <CtaSecondary as={Link} href="/reunion">

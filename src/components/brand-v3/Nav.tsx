@@ -125,7 +125,7 @@ export default function NavV3() {
           </CtaSecondary>
           <CtaPrimary
             as={Link}
-            href="/ventas"
+            href="/hablar-con-ventas"
             style={{ padding: "10px 16px", fontSize: 14 }}
           >
             Hablar con ventas <span style={{ marginLeft: 2 }}>→</span>
@@ -182,7 +182,7 @@ export default function NavV3() {
             </CtaSecondary>
             <CtaPrimary
               as={Link}
-              href="/ventas"
+              href="/hablar-con-ventas"
               onClick={() => setMobileOpen(false)}
               style={{ width: "100%", justifyContent: "center", padding: "14px 20px" }}
             >

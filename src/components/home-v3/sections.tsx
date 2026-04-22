@@ -145,7 +145,7 @@ export function Hero() {
             </p>
 
             <div style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
-              <CtaPrimary as={Link} href="/ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
+              <CtaPrimary as={Link} href="/hablar-con-ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
                 Hablar con ventas <span>→</span>
               </CtaPrimary>
               <CtaSecondary as={Link} href="/demo" style={{ padding: "15px 26px", fontSize: 16 }}>
@@ -2171,7 +2171,7 @@ export function Pricing() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: "auto" }}>
                 <Link
-                  href="/ventas"
+                  href="/hablar-con-ventas"
                   style={{
                     textDecoration: "none",
                     textAlign: "center",
@@ -2411,7 +2411,7 @@ export function FinalCTA() {
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <Link
-                href="/ventas"
+                href="/hablar-con-ventas"
                 style={{
                   background: GRAD,
                   color: "#fff",
