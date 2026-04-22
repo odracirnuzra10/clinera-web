@@ -392,113 +392,110 @@
     hyphens: auto;
   }
 
-  .option-list { display: flex; flex-direction: column; gap: .7rem; }
+  .option-list { display: flex; flex-direction: column; gap: .65rem; }
   .option-card {
     position: relative;
-    display: block;
-    padding: .85rem .95rem .95rem;
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding: .85rem 1rem;
     border: 1.5px solid #e7ebf0;
     border-radius: 14px;
     cursor: pointer;
-    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease, transform .15s ease;
     background: #fff;
     text-align: left;
     font-family: var(--font-main);
     color: #0E141A;
     width: 100%;
+    overflow: hidden;
+  }
+  .option-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #2EA5FF 0%, #A855F7 100%);
+    opacity: 0;
+    transition: opacity .2s ease;
   }
   .option-card:hover {
-    border-color: #0E141A;
-    box-shadow: 0 2px 14px rgba(14,20,26,.06);
+    border-color: #c7cfdb;
+    box-shadow: 0 4px 18px rgba(14,20,26,.06);
+    transform: translateY(-1px);
   }
   .option-card.selected {
     border-color: #0E141A;
     background: #fafbfd;
   }
-  .option-card.selected .option-title-box {
-    background: linear-gradient(135deg, #2EA5FF 0%, #A855F7 100%);
-    color: #fff;
-    border-color: transparent;
-  }
-  .option-card.selected .option-radio {
-    background: #0E141A;
-    border-color: #0E141A;
-  }
-  .option-card.selected .option-radio::after {
-    content: '';
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: #fff;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  .option-head {
-    display: flex;
-    align-items: center;
-    gap: .55rem;
-    margin-bottom: .55rem;
-  }
-  .option-icon {
+  .option-card.selected::before { opacity: 1; }
+
+  .option-emoji {
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    border-radius: 9px;
-    background: linear-gradient(135deg, rgba(46,165,255,.12), rgba(168,85,247,.12));
-    border: 1px solid rgba(46,165,255,.18);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f4f8ff 0%, #faf5ff 100%);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #7c3aed;
+    font-size: 22px;
+    line-height: 1;
     transition: all .25s ease;
   }
-  .option-icon svg { width: 17px; height: 17px; }
-  .option-card.selected .option-icon {
-    background: #0E141A;
-    border-color: #0E141A;
-    color: #fff;
+  .option-card.selected .option-emoji {
+    background: linear-gradient(135deg, #2EA5FF 0%, #A855F7 100%);
+    box-shadow: 0 6px 14px -4px rgba(124,58,237,.4);
   }
-  .option-title-box {
+
+  .option-body {
     flex: 1;
-    padding: .42rem .7rem;
-    background: #f4f6fa;
-    border: 1px solid #e7ebf0;
-    border-radius: 8px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .option-title {
     font-family: var(--font-main);
     font-weight: 700;
-    font-size: .88rem;
-    letter-spacing: -.01em;
+    font-size: .92rem;
+    letter-spacing: -.012em;
     color: #0E141A;
-    line-height: 1.25;
-    transition: all .25s ease;
+    line-height: 1.3;
   }
-  .option-radio {
+  .option-desc {
+    font-weight: 400;
+    font-size: .8rem;
+    color: #6b7280;
+    line-height: 1.4;
+    letter-spacing: -.003em;
+  }
+
+  .option-check {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     border: 1.5px solid #d1d5db;
     background: #fff;
     position: relative;
     transition: all .2s;
   }
-  .option-card:hover .option-radio { border-color: #9ca3af; }
-  .option-desc-box {
-    background: #f8fafc;
-    border: 1px dashed #e5e9f0;
-    border-radius: 8px;
-    padding: .55rem .7rem;
-    font-weight: 400;
-    font-size: .84rem;
-    color: #4b5563;
-    line-height: 1.42;
-    letter-spacing: -.003em;
+  .option-card:hover .option-check { border-color: #9ca3af; }
+  .option-card.selected .option-check {
+    background: #0E141A;
+    border-color: #0E141A;
   }
-  .option-card.selected .option-desc-box {
-    background: #fff;
-    border-color: #d8dde6;
-    border-style: solid;
-    color: #0E141A;
+  .option-card.selected .option-check::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
   }
 
   .form-group { margin-bottom: .8rem; }
@@ -869,13 +866,12 @@
     .step-sub { font-size: .8rem; margin-bottom: .75rem; }
 
     .option-list { gap: .55rem; }
-    .option-card { padding: .72rem .8rem .82rem; border-radius: 12px; }
-    .option-head { gap: .5rem; margin-bottom: .5rem; }
-    .option-icon { width: 28px; height: 28px; border-radius: 8px; }
-    .option-icon svg { width: 15px; height: 15px; }
-    .option-title-box { padding: .36rem .6rem; font-size: .82rem; border-radius: 7px; }
-    .option-radio { width: 18px; height: 18px; }
-    .option-desc-box { padding: .48rem .62rem; font-size: .8rem; line-height: 1.38; border-radius: 7px; }
+    .option-card { padding: .72rem .85rem; gap: .7rem; border-radius: 12px; }
+    .option-emoji { width: 38px; height: 38px; border-radius: 10px; font-size: 19px; }
+    .option-title { font-size: .86rem; }
+    .option-desc { font-size: .76rem; line-height: 1.36; }
+    .option-check { width: 20px; height: 20px; }
+    .option-card.selected .option-check::after { left: 6px; top: 2.5px; width: 4.5px; height: 9px; }
 
     .form-group { margin-bottom: .5rem; }
     .form-label { font-size: .68rem; margin-bottom: .18rem; }
@@ -915,12 +911,11 @@
     .right-col { padding: .85rem .8rem 1.1rem; }
     .step-title { font-size: 1.22rem; }
     .step-sub { font-size: .8rem; margin-bottom: .7rem; }
-    .option-card { padding: .7rem .78rem .8rem; }
-    .option-head { gap: .45rem; margin-bottom: .45rem; }
-    .option-icon { width: 26px; height: 26px; border-radius: 7px; }
-    .option-icon svg { width: 14px; height: 14px; }
-    .option-title-box { padding: .3rem .55rem; font-size: .78rem; }
-    .option-desc-box { padding: .42rem .58rem; font-size: .76rem; line-height: 1.36; }
+    .option-card { padding: .68rem .8rem; gap: .62rem; }
+    .option-emoji { width: 34px; height: 34px; font-size: 17px; border-radius: 9px; }
+    .option-title { font-size: .82rem; }
+    .option-desc { font-size: .72rem; line-height: 1.34; }
+    .option-check { width: 18px; height: 18px; }
   }
 
   /* Ultra compact only for very short screens — keep options legible */
@@ -934,9 +929,10 @@
     .step-title { font-size: 1.14rem; }
     .step-sub { font-size: .75rem; margin-bottom: .55rem; }
     .option-list { gap: .45rem; }
-    .option-card { padding: .6rem .72rem .7rem; }
-    .option-head { margin-bottom: .38rem; }
-    .option-desc-box { font-size: .72rem; padding: .38rem .55rem; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+    .option-card { padding: .58rem .7rem; gap: .55rem; }
+    .option-emoji { width: 30px; height: 30px; font-size: 15px; border-radius: 8px; }
+    .option-title { font-size: .78rem; }
+    .option-desc { font-size: .7rem; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
     .form-group { margin-bottom: .45rem; }
     .submit-btn { padding: .72rem; font-size: .88rem; }
   }
@@ -951,10 +947,10 @@
     .right-col { padding: .6rem .65rem .9rem; }
     .step-title { font-size: 1.05rem; }
     .step-sub { font-size: .7rem; margin-bottom: .45rem; }
-    .option-card { padding: .5rem .65rem; }
-    .option-head { margin-bottom: 0; }
-    .option-title-box { font-size: .74rem; }
-    .option-desc-box { display: none; }
+    .option-card { padding: .5rem .65rem; gap: .5rem; }
+    .option-emoji { width: 28px; height: 28px; font-size: 14px; border-radius: 7px; }
+    .option-title { font-size: .74rem; }
+    .option-desc { display: none; }
     .form-input, .form-select, .phone-prefix { padding: .55rem .7rem; }
     .day-btn { padding: .4rem .15rem; min-width: 48px; }
     .day-num { font-size: .92rem; }
@@ -1009,7 +1005,7 @@
             <div class="slide-metric">−71% en costos de marketing</div>
             <p class="slide-quote">&ldquo;Clinera me permite crecer sin pagar de más.&rdquo;</p>
             <div class="slide-name">Dr. Flavio Rojas</div>
-            <div class="slide-clinic">www.infiltraciones.cl</div>
+            <div class="slide-clinic">www.infiltracion.cl</div>
           </div>
         </div>
         <div class="slide" data-i="1">
@@ -1115,47 +1111,39 @@
           <p class="step-sub">Selecciona el que mejor describe tu situación. Personalizaremos Clinera para tu caso.</p>
           <div class="option-list" id="challengeList">
             <button type="button" class="option-card" data-id="automatizar" data-label="Automatizar respuestas repetitivas">
-              <div class="option-head">
-                <span class="option-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                </span>
-                <span class="option-title-box">Automatizar respuestas</span>
-                <span class="option-radio"></span>
-              </div>
-              <div class="option-desc-box">WhatsApp, email y agendamiento, sin intervención manual.</div>
+              <span class="option-emoji" aria-hidden>⚡</span>
+              <span class="option-body">
+                <span class="option-title">Automatizar respuestas</span>
+                <span class="option-desc">WhatsApp, email y agendamiento sin intervención manual.</span>
+              </span>
+              <span class="option-check"></span>
             </button>
 
             <button type="button" class="option-card" data-id="centralizar" data-label="Centralizar todo en un mismo sistema">
-              <div class="option-head">
-                <span class="option-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                </span>
-                <span class="option-title-box">Centralizar todo</span>
-                <span class="option-radio"></span>
-              </div>
-              <div class="option-desc-box">Agenda, mensajería y pacientes en una sola plataforma.</div>
+              <span class="option-emoji" aria-hidden>🧩</span>
+              <span class="option-body">
+                <span class="option-title">Centralizar todo</span>
+                <span class="option-desc">Agenda, mensajería y pacientes en una sola plataforma.</span>
+              </span>
+              <span class="option-check"></span>
             </button>
 
             <button type="button" class="option-card" data-id="responder" data-label="Responder más rápido">
-              <div class="option-head">
-                <span class="option-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                </span>
-                <span class="option-title-box">Responder más rápido</span>
-                <span class="option-radio"></span>
-              </div>
-              <div class="option-desc-box">Disponibilidad 24/7 en WhatsApp, reducir tiempos de espera.</div>
+              <span class="option-emoji" aria-hidden>💬</span>
+              <span class="option-body">
+                <span class="option-title">Responder más rápido</span>
+                <span class="option-desc">Disponibilidad 24/7 en WhatsApp, reducir tiempos de espera.</span>
+              </span>
+              <span class="option-check"></span>
             </button>
 
             <button type="button" class="option-card" data-id="convertir" data-label="Convertir más consultas en agendamientos">
-              <div class="option-head">
-                <span class="option-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                </span>
-                <span class="option-title-box">Convertir consultas</span>
-                <span class="option-radio"></span>
-              </div>
-              <div class="option-desc-box">IA que diagnostica, muestra casos de éxito y cierra la venta.</div>
+              <span class="option-emoji" aria-hidden>🎯</span>
+              <span class="option-body">
+                <span class="option-title">Convertir consultas</span>
+                <span class="option-desc">IA que diagnostica, muestra casos de éxito y cierra la venta.</span>
+              </span>
+              <span class="option-check"></span>
             </button>
           </div>
         </div>
