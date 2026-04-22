@@ -107,7 +107,7 @@ export default function PlanesPage() {
 
             <div className={styles.planActions}>
               <Link
-                href="/reunion"
+                href="/ventas"
                 className={`${styles.planCta} ${styles.planCtaPrimary}`}
                 data-plan="growth"
                 data-plan-value="89"
@@ -166,7 +166,7 @@ export default function PlanesPage() {
 
             <div className={styles.planActions}>
               <Link
-                href="/reunion"
+                href="/ventas"
                 className={`${styles.planCta} ${styles.planCtaPrimary}`}
                 data-plan="conect"
                 data-plan-value="129"
@@ -222,7 +222,7 @@ export default function PlanesPage() {
 
             <div className={styles.planActions}>
               <Link
-                href="/reunion"
+                href="/ventas"
                 className={`${styles.planCta} ${styles.planCtaPrimary}`}
                 data-plan="advanced"
                 data-plan-value="179"

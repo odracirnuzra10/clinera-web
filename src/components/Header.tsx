@@ -65,7 +65,7 @@ export default function Header() {
           </nav>
 
           <div className={styles.headerActions}>
-            <Link href="/reunion" className={styles.btnPrimary}>
+            <Link href="/ventas" className={styles.btnPrimary}>
               Hablar con ventas
             </Link>
           </div>
@@ -143,7 +143,7 @@ export default function Header() {
         </div>
 
         <div className={styles.headerActionsMobile}>
-          <Link href="/reunion" className={styles.btnPrimary} onClick={closeMobileMenu}>
+          <Link href="/ventas" className={styles.btnPrimary} onClick={closeMobileMenu}>
             Hablar con ventas
           </Link>
         </div>

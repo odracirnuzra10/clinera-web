@@ -88,7 +88,7 @@ export default function Home() {
                 automáticamente. Tu equipo se enfoca en pacientes, no en mensajes.
               </p>
               <div className="hero-v2__actions">
-                <Link href="/reunion" className="hero-v2__primary">
+                <Link href="/ventas" className="hero-v2__primary">
                   Hablar con ventas
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -393,7 +393,7 @@ export default function Home() {
                 </ul>
                 <div className="pricing-card-dark__actions">
                   <Link
-                    href="/reunion"
+                    href="/ventas"
                     className="pricing-card-dark__cta pricing-card-dark__cta--primary"
                   >
                     Hablar con ventas
@@ -431,7 +431,7 @@ export default function Home() {
                 </ul>
                 <div className="pricing-card-dark__actions">
                   <Link
-                    href="/reunion"
+                    href="/ventas"
                     className="pricing-card-dark__cta pricing-card-dark__cta--primary"
                   >
                     Hablar con ventas
@@ -466,7 +466,7 @@ export default function Home() {
                 </ul>
                 <div className="pricing-card-dark__actions">
                   <Link
-                    href="/reunion"
+                    href="/ventas"
                     className="pricing-card-dark__cta pricing-card-dark__cta--primary"
                   >
                     Hablar con ventas

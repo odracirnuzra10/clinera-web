@@ -126,7 +126,7 @@ export default function DemoPage() {
                     ))}
                   </ul>
                   <Link
-                    href="/reunion"
+                    href="/ventas"
                     className={`${styles.planCta} ${styles[`planCta_${plan.ctaClass}`]}`}
                     data-plan={plan.slug}
                     data-plan-value={plan.price}
