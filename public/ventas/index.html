@@ -1034,6 +1034,11 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label" for="inputEmail">Email</label>
+            <input id="inputEmail" class="form-input" type="email" placeholder="tu@clinica.com" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false">
+          </div>
+
+          <div class="form-group">
             <label class="form-label" for="inputPhone">Celular</label>
             <div class="phone-row">
               <select id="phonePrefix" class="phone-prefix" aria-label="Código de país">
@@ -1053,19 +1058,6 @@
               </select>
               <input id="inputPhone" class="form-input phone-input" type="tel" inputmode="numeric" placeholder="9 1234 5678" autocomplete="tel-national">
             </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label" for="inputSize">Tamaño de la clínica</label>
-            <select id="inputSize" class="form-select">
-              <option value="">Selecciona cantidad de profesionales</option>
-              <option>1 profesional (solo yo)</option>
-              <option>2 – 3 profesionales</option>
-              <option>4 – 7 profesionales</option>
-              <option>8 – 15 profesionales</option>
-              <option>16 – 30 profesionales</option>
-              <option>Más de 30 profesionales</option>
-            </select>
           </div>
 
           <button type="button" class="submit-btn disabled" id="btnStep2">
@@ -1212,43 +1204,47 @@
   // ====== STEP 2 — contact ======
   const inputNombre = document.getElementById('inputNombre');
   const inputClinica = document.getElementById('inputClinica');
+  const inputEmail = document.getElementById('inputEmail');
   const inputPhone = document.getElementById('inputPhone');
   const phonePrefix = document.getElementById('phonePrefix');
-  const inputSize = document.getElementById('inputSize');
   const btnStep2 = document.getElementById('btnStep2');
 
   const PHONE_LEN = {
     '+56': 9, '+54': 10, '+52': 10, '+57': 10, '+51': 9, '+593': 9,
     '+58': 10, '+591': 8, '+595': 9, '+598': 8, '+55': 11, '+1': 10, '+34': 9
   };
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
   function phoneValid() {
     const need = PHONE_LEN[phonePrefix.value] || 9;
     const digits = inputPhone.value.replace(/\D/g, '');
     return digits.length >= need - 1 && digits.length <= need + 1;
   }
+  function emailValid() {
+    return EMAIL_RE.test(inputEmail.value.trim());
+  }
   function step2Valid() {
     return inputNombre.value.trim().length >= 2
       && inputClinica.value.trim().length >= 2
-      && phoneValid()
-      && inputSize.value.length > 0;
+      && emailValid()
+      && phoneValid();
   }
   function refreshStep2() {
     btnStep2.className = 'submit-btn ' + (step2Valid() ? 'enabled' : 'disabled');
   }
-  [inputNombre, inputClinica, inputPhone, phonePrefix, inputSize].forEach(el => {
+  [inputNombre, inputClinica, inputEmail, inputPhone, phonePrefix].forEach(el => {
     el.addEventListener('input', refreshStep2);
     el.addEventListener('change', refreshStep2);
   });
   inputPhone.addEventListener('input', () => {
     inputPhone.value = inputPhone.value.replace(/[^\d\s]/g, '');
   });
-  [inputNombre, inputClinica, inputPhone].forEach((el, idx, arr) => {
+  [inputNombre, inputClinica, inputEmail, inputPhone].forEach((el, idx, arr) => {
     el.addEventListener('keydown', e => {
       if (e.key === 'Enter') {
         e.preventDefault();
-        const nxt = arr[idx + 1] || inputSize;
-        nxt.focus();
+        const nxt = arr[idx + 1];
+        if (nxt) nxt.focus(); else if (step2Valid()) btnStep2.click();
       }
     });
   });
@@ -1257,8 +1253,8 @@
     [
       [inputNombre, inputNombre.value.trim().length >= 2],
       [inputClinica, inputClinica.value.trim().length >= 2],
+      [inputEmail, emailValid()],
       [inputPhone, phoneValid()],
-      [inputSize, !!inputSize.value],
     ].forEach(([el, ok]) => {
       if (!ok) {
         el.classList.add('error');
@@ -1267,7 +1263,7 @@
       }
     });
     if (err) return;
-    if (window.dataLayer) window.dataLayer.push({ event: 'ventas_step2_complete', clinic_size: inputSize.value });
+    if (window.dataLayer) window.dataLayer.push({ event: 'ventas_step2_complete' });
     if (typeof fbq === 'function') fbq('track', 'InitiateCheckout', { content_name: 'Clinera Ventas' });
     goToStep(3, 'forward');
   });
@@ -1331,10 +1327,10 @@
       challenge_label: challenge.label,
       nombre: inputNombre.value.trim(),
       nombre_clinica: inputClinica.value.trim(),
+      email: inputEmail.value.trim(),
       celular: (phonePrefix.value + ' ' + phoneDigits).trim(),
       celular_prefix: phonePrefix.value,
       celular_digits: phoneDigits,
-      tamano_clinica: inputSize.value,
       fecha_reunion: selectedDay.toISOString().slice(0, 10),
       fecha_reunion_label: dayLabel,
       franja: selectedSlot.label,
@@ -1351,7 +1347,6 @@
       event: 'ventas_submit_lead',
       lead_source: LEAD_SOURCE,
       challenge: challenge.id,
-      clinic_size: inputSize.value,
       event_id: eventId
     });
     if (typeof fbq === 'function') fbq('track', 'Lead', {
@@ -1378,7 +1373,7 @@
       'Hola Clinera, acabo de agendar una reunión comercial desde /ventas.\n\n'
       + 'Nombre: ' + inputNombre.value.trim() + '\n'
       + 'Clínica: ' + inputClinica.value.trim() + '\n'
-      + 'Tamaño: ' + inputSize.value + '\n'
+      + 'Email: ' + inputEmail.value.trim() + '\n'
       + 'Desafío: ' + challenge.label + '\n'
       + 'Cuándo: ' + dayLabel + ' · ' + selectedSlot.label + ' (' + selectedSlot.time + ')'
     );
