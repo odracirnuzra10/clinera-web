@@ -94,6 +94,18 @@ const ENGAGEMENT_SRC = `(function(){
     history.replaceState = function(){ var r=rep.apply(this,arguments); window.dispatchEvent(new Event('clinera:routechange')); return r; };
   })();
   window.addEventListener('popstate', function(){ window.dispatchEvent(new Event('clinera:routechange')); });
+
+  // Fallback: poll location in case SPA framework bypasses history API wrappers
+  (function(){
+    var lastPath = location.pathname + location.search;
+    setInterval(function(){
+      var cur = location.pathname + location.search;
+      if (cur !== lastPath) {
+        lastPath = cur;
+        window.dispatchEvent(new Event('clinera:routechange'));
+      }
+    }, 400);
+  })();
   window.addEventListener('clinera:routechange', function(){
     resetState();
     // SPA: Meta Pixel does not auto-detect route changes — fire manually
@@ -101,8 +113,8 @@ const ENGAGEMENT_SRC = `(function(){
       fbq('track', 'PageView');
     }
     DL().push({ event: 'spa_page_view', page_path: location.pathname, page_title: document.title });
-    // Fire ViewContent on SPA navigation (user requested: "navega entre paginas")
-    setTimeout(function(){ fireViewContent('navigation'); }, 150);
+    // Fire ViewContent immediately on SPA navigation (user requested: "navega entre paginas")
+    fireViewContent('navigation');
     setTimeout(attachVideoTrackers, 300);
     setTimeout(observeBottom, 300);
   });
@@ -138,7 +150,11 @@ const ENGAGEMENT_SRC = `(function(){
     bottomObserver.observe(target);
   }
 
-  function init(){ observeBottom(); }
+  function init(){
+    observeBottom();
+    // Fire ViewContent on initial page visit (covers SPA nav + hard reload both)
+    setTimeout(function(){ fireViewContent('page_load'); }, 800);
+  }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
