@@ -19,3 +19,4 @@ CODIGO_IA_APPS_SCRIPT.js
 fluentia-api-develop (2).json
 .claude/
 next-env.d.ts
+tsconfig.tsbuildinfo
