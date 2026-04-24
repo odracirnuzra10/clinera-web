@@ -60,6 +60,7 @@ export default function EfectividadV3() {
         }
       `}</style>
       <Hero />
+      <VideoSection />
       <StatsGrid />
       <TimelineSection />
       <ReporteOriginal />
@@ -205,6 +206,36 @@ function Hero() {
           :global(.efectividad-hero-title) { font-size: 40px !important; }
         }
       `}</style>
+    </section>
+  );
+}
+
+/* ---------- 1b. VIDEO ---------- */
+function VideoSection() {
+  return (
+    <section style={{ padding: "40px 80px 20px", background: "#FAFAFA" }}>
+      <div
+        className="reveal"
+        style={{
+          maxWidth: 960,
+          margin: "0 auto",
+          borderRadius: 20,
+          overflow: "hidden",
+          border: "1px solid #EEECEA",
+          boxShadow: "0 30px 80px rgba(15,10,30,.10), 0 8px 20px rgba(0,0,0,.04)",
+          background: "#0E1014",
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", paddingTop: "75%" }}>
+          <iframe
+            src="https://player.vimeo.com/video/1186403367?badge=0&autopause=0&player_id=0&app_id=58479"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            title="Publicamos un estudio real en Clinera."
+            style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
+          />
+        </div>
+      </div>
     </section>
   );
 }
