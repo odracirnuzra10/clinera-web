@@ -12,6 +12,7 @@ const cols: Col[] = [
       ["Ver demo", "/demo"],
       ["Funciones", "/funciones"],
       ["Planes", "/planes"],
+      ["Efectividad 100%", "/efectividad"],
       ["Novedades", "/novedades"],
     ],
   },

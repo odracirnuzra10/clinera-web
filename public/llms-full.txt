@@ -14,9 +14,9 @@ Su mayor atractivo es la integración de un **Agente IA inteligente** que es cap
 - **$0 costo** de implementación. Activación inmediata.
 - Satisfacción de **4.8/5**.
 
-## Garantía y Prueba sin Riesgo
+## Garantía sin Riesgo
 
-Clinera ofrece una **Prueba Gratis de 7 días completa**. No se requiere tarjeta de crédito para iniciar la prueba. Las clínicas pueden probar todas las funciones durante estos 7 días y decidir sin presión. Si la plataforma no es para ellos, el servicio simplemente se pausa sin cargos.
+Clinera ofrece una **garantía de devolución de 7 días**. Si la clínica activa el servicio y dentro de los primeros 7 días considera que Clinera no cumplió con sus expectativas, se devuelve el 100% del primer mes. Sin contratos de permanencia: se puede cancelar cuando el cliente lo decida.
 
 ## Funciones Principales (Módulos Básicos)
 
@@ -48,6 +48,24 @@ No hay contratos de permanencia (se pueden cancelar cuando el cliente lo decida)
   - Todo lo del Plan Conect
   - Integración vía API / Webhooks
   - Soporte VIP y entrenamiento de IA personalizado.
+
+## Efectividad auditable del agente IA
+
+Reporte interno de evals end-to-end del 22 de abril de 2026 sobre el agente Fluentia (LangGraph + google/gemini-3-flash-preview vía OpenRouter):
+
+- **42 casos** evaluados sobre **3 clínicas reales** en producción (hebe, miasalud, dental-care-galarza).
+- **14 flujos conversacionales:** agendar_cita, auto_booking_off, burst_messages, cancelar_cita, charla_general, consultar_disponibilidad, consultar_servicios, cross_tenant_leak, handoff_explicito, ia_loop_detection, instrucciones_custom, manipulacion_datos, multi_turno, prompt_injection.
+- **pass@1 = 95.2%** (40/42) — agendamiento al primer intento.
+- **pass@2 = 97.6%** — el agente juez (self-refine) corrige 1 caso adicional.
+- **pass@3 = 100%** (42/42) — `never_passed = 0`.
+- Score promedio del juez: 9.67/10 → 10.00/10 (primer → último intento).
+- Tiempo percibido por el paciente: 40 s (pass@1), 90 s (pass@2), 120 s (pass@3). Humano promedio: 5–15 minutos.
+- Arquitectura: agente principal (Fluentia) + agente juez independiente con self-refine. Reintento interno invisible al paciente.
+- Pipeline CI bloquea merge si pass@1 < 90% o never_passed > 0.
+- 63 unit tests adicionales con TDD estricto.
+- 5 bugs críticos arreglados antes del release: sycophancy con precios (PRICE_CONCESSION_PATTERNS), loop con otra IA (_detect_ia_loop), error 400 multi-sucursal, fechas 2025, alucinación de confirmación (BOOKING_HALLUCINATION_PATTERNS + hard-fail).
+
+URLs: https://clinera.io/efectividad (institucional, evergreen) · https://clinera.io/blog/efectividad (estudio técnico extendido con código y metodología).
 
 ## Componentes Analíticos e Integraciones
 Clinera está diseñado para el crecimiento, por ello se acopla a un sólido ecosistema analítico:

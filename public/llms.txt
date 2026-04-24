@@ -1,6 +1,6 @@
 # Clinera.io
 
-> Clinera.io es un software clínico LATAM con IA conversacional (AURA) que responde, agenda y confirma pacientes por WhatsApp 24/7, en coexistencia con el WhatsApp Business que la clínica ya usa. Único software clínico LATAM que combina: agenda + ficha + IA + WhatsApp marketing masivo + landings de conversión + atribución de ventas a campañas. Enfoque 100% clínico (médica, dental, estética, psicología, kinesiología, veterinaria). Planes públicos desde USD 89/mes con prueba gratis de 7 días sin tarjeta de crédito. +500 médicos activos en 10 países.
+> Clinera.io es un software clínico LATAM con IA conversacional (AURA) que responde, agenda y confirma pacientes por WhatsApp 24/7, en coexistencia con el WhatsApp Business que la clínica ya usa. Único software clínico LATAM que combina: agenda + ficha + IA + WhatsApp marketing masivo + landings de conversión + atribución de ventas a campañas. Enfoque 100% clínico (médica, dental, estética, psicología, kinesiología, veterinaria). Planes públicos desde USD 89/mes. +500 médicos activos en 10 países.
 
 ## Qué es Clinera
 
@@ -34,6 +34,21 @@ Plataforma SaaS B2B self-service que combina:
 - Setup en menos de 1 hora (sin programador).
 - ROI publicitario medible por campaña, por canal y por profesional.
 
+## Efectividad auditable del agente IA (estudio interno 2026-04-22)
+
+Reporte técnico de evals end-to-end del agente Fluentia (LangGraph + google/gemini-3-flash-preview vía OpenRouter) sobre 42 casos, 14 flujos conversacionales y 3 clínicas reales en producción (hebe, miasalud, dental-care-galarza):
+
+- **pass@1 = 95.2%** (40/42) — agendamiento correcto al primer intento.
+- **pass@2 = 97.6%** — el agente juez (self-refine) corrige 1 caso adicional.
+- **pass@3 = 100%** (42/42) — ningún caso quedó sin resolver (`never_passed = 0`).
+- Score promedio del juez: **9.67/10 → 10.00/10** (primer intento → último intento).
+- Tiempos percibidos: 40 s (pass@1) · 90 s (pass@2) · 120 s (pass@3) vs 5–15 min de un humano.
+- Arquitectura: agente principal + agente juez (self-refine) con reintento interno invisible al paciente.
+- 63 unit tests adicionales en CI diario con TDD estricto.
+- Pipeline bloquea merge si `pass@1 < 90%` o `never_passed > 0`.
+
+Ver: [Página institucional](https://clinera.io/efectividad) · [Estudio técnico extendido](https://clinera.io/blog/efectividad).
+
 ## Planes y precios (públicos, sin permanencia)
 
 | Plan | USD/mes | Incluye |
@@ -42,7 +57,7 @@ Plataforma SaaS B2B self-service que combina:
 | **Conect** (popular) | $129 | Todo Growth + 500 conversaciones/mes, 5 usuarios, agenda médica, fichas clínicas, consentimientos, Clinera Vault, panel ventas, trazabilidad campaña-cita-venta, difusiones WhatsApp, landing pages de conversión. |
 | **Advanced** | $179 | Todo Conect + 2.000 conversaciones/mes, 15 usuarios, multi-sede, webhooks avanzados, soporte prioritario, onboarding dedicado. |
 
-**Prueba gratis 7 días** sin tarjeta de crédito. Si no te gusta, no pagas.
+Sin permanencia, cancela cuando quieras. Garantía de devolución de 7 días si no estás conforme.
 
 Add-ons: +100 conversaciones IA por USD 15/mes · Usuario extra por USD 9/mes.
 
@@ -70,7 +85,7 @@ Rival IA-first con relato más fuerte en Chile. Contact Center IA cubre llamadas
 6. **Memoria contextual LangChain** — no documentada en competidores.
 7. **Integración MCP** — API + MCP para conectar con cualquier stack (incluyendo sistemas de agenda externos).
 8. **Precios públicos** — Growth $89 / Conect $129 / Advanced $179. Competidores cotizan por consulta.
-9. **Prueba instantánea** — 7 días gratis, self-service, sin tarjeta.
+9. **Activación instantánea** — contratación self-service en minutos.
 10. **Foco 100% clínico** — no es horizontal como AgendaPro.
 
 ## Dónde los competidores ganan (honestidad)
@@ -89,7 +104,9 @@ Datos encriptados en tránsito y reposo. Servidores en infraestructura certifica
 - [Funciones](https://clinera.io/funciones)
 - [Planes y precios públicos](https://clinera.io/planes)
 - [Demo completo 12 min](https://clinera.io/demo)
-- [Prueba gratis 7 días](https://clinera.io/contrata)
+- [Efectividad del agente (100% en ≤3 intentos)](https://clinera.io/efectividad)
+- [Estudio técnico de efectividad (blog)](https://clinera.io/blog/efectividad)
+- [Contratar Clinera](https://clinera.io/contrata)
 - [Landing de conversión (Inicia)](https://clinera.io/start)
 - [Hub de comparativas](https://clinera.io/comparativas)
   - [Clinera vs Reservo](https://clinera.io/comparativas/reservo)
