@@ -33,7 +33,7 @@ export default function DemoPage() {
                 var a = ev.target.closest('a[data-plan]');
                 if (!a) return;
                 var plan = a.getAttribute('data-plan');
-                var name = a.getAttribute('data-plan-name') || (plan + ' trial');
+                var name = a.getAttribute('data-plan-name') || (plan + ' signup');
                 var value = parseFloat(a.getAttribute('data-plan-value') || '0');
                 window.dataLayer.push({
                   event: 'initiate_checkout',

@@ -6,7 +6,7 @@ import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/B
 import { FinalCTA, Pricing, useReveal } from "@/components/home-v3/sections";
 
 const FAQ = [
-  { q: "¿Qué incluye la prueba gratis?", a: "Acceso completo al plan que elijas durante 7 días, sin tarjeta de crédito. Puedes probar todas las funcionalidades sin restricciones." },
+  { q: "¿Hay garantía si no me gusta?", a: "Sí. Tienes 7 días de garantía desde que activas tu plan: si no estás conforme, te devolvemos el 100% de tu primer mes. Sin preguntas ni letra chica." },
   { q: "¿Puedo cambiar de plan después?", a: "Sí. Puedes subir o bajar de plan en cualquier momento desde tu panel. El cambio se aplica en tu próximo ciclo de facturación." },
   { q: "¿Hay permanencia o contrato?", a: "No. Todos los planes son mes a mes. Puedes cancelar en cualquier momento sin penalizaciones." },
   { q: "¿Qué pasa si supero las conversaciones incluidas?", a: "Tu servicio no se interrumpe. Te notificamos cuando estés cerca del límite y puedes agregar paquetes de +100 conversaciones por $15/mes." },
@@ -76,7 +76,7 @@ function PlanesHero() {
             maxWidth: 680,
           }}
         >
-          Todos los planes incluyen API completa, sin permanencia y con prueba gratis de 7 días. Precios en USD.
+          Todos los planes incluyen API completa, sin permanencia. Precios en USD.
         </p>
         <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
           <CtaPrimary as={Link} href="/hablar-con-ventas">

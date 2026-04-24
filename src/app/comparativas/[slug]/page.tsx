@@ -56,7 +56,6 @@ const competitors: Record<Slug, Competitor> = {
       "IA integrable con tu agenda actual vía API y MCP (no obliga a migrar).",
       "Derivación automática a humano cuando la conversación lo requiere.",
       "Precios públicos desde USD 89/mes, sin permanencia.",
-      "Prueba gratis 7 días self-service, sin tarjeta de crédito.",
       "Setup en menos de 1 hora, sin programador.",
       "Reducción típica de no-shows del 30% al 5-10% en el primer mes.",
     ],
@@ -87,7 +86,6 @@ const competitors: Record<Slug, Competitor> = {
       { feature: "Módulo de comisiones", clinera: "partial", them: "yes" },
       { feature: "App móvil nativa", clinera: "yes", them: "no" },
       { feature: "Panel de ventas / trazabilidad", clinera: "yes", them: "partial" },
-      { feature: "Prueba gratis 7 días", clinera: "yes", them: "partial" },
       { feature: "Precios públicos", clinera: "yes", them: "no" },
       { feature: "Plan desde USD", clinera: "$89", them: "consulta" },
     ],
@@ -115,7 +113,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y planes",
         body:
-          "Clinera publica sus precios: Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes, sin permanencia y con 7 días de prueba gratis. Reservo no publica precios — atiende por formulario o teléfono con un plan único ajustado al tamaño del centro. Si valoras saber cuánto pagas antes de llamar, Clinera tiene la transparencia.",
+          "Clinera publica sus precios: Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes, sin permanencia. Reservo no publica precios — atiende por formulario o teléfono con un plan único ajustado al tamaño del centro. Si valoras saber cuánto pagas antes de llamar, Clinera tiene la transparencia.",
       },
       {
         title: "Soporte y onboarding",
@@ -126,7 +124,7 @@ const competitors: Record<Slug, Competitor> = {
     faqs: [
       {
         q: "¿Puedo migrar mis datos desde Reservo a Clinera?",
-        a: "Sí. Clinera exporta pacientes, agenda y fichas desde Reservo vía API o CSV. Te acompañamos en la migración sin costo durante tu prueba de 7 días.",
+        a: "Sí. Clinera exporta pacientes, agenda y fichas desde Reservo vía API o CSV. Te acompañamos en la migración sin costo durante el onboarding.",
       },
       {
         q: "¿Reservo tiene IA conversacional como AURA?",
@@ -138,15 +136,11 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Cuánto cuesta Reservo vs Clinera?",
-        a: "Reservo no publica precios (cotización por tamaño de clínica). Clinera publica USD 89/129/179 por mes, sin permanencia y con prueba de 7 días gratis.",
+        a: "Reservo no publica precios (cotización por tamaño de clínica). Clinera publica USD 89/129/179 por mes, sin permanencia.",
       },
       {
         q: "¿Reservo cubre dental?",
         a: "Sí, con un módulo fuerte de odontograma. Clinera cubre dental también pero su fortaleza principal está en la capa de IA y WhatsApp; si dental es tu único vertical, evaluá ambos.",
-      },
-      {
-        q: "¿Puedo probar Clinera gratis?",
-        a: "Sí. 7 días sin tarjeta de crédito, acceso completo al plan que elijas. Si te gusta, pagas; si no, no hay ningún cobro.",
       },
     ],
   },
@@ -173,7 +167,6 @@ const competitors: Record<Slug, Competitor> = {
       "Foco 100% clínico: ficha por especialidad, consentimientos, telemedicina.",
       "Precio plano USD 89/mes con 3 usuarios incluidos (sin sumar por usuario).",
       "Integración MCP con cualquier stack existente.",
-      "Prueba gratis 7 días sin tarjeta de crédito.",
       "Setup en menos de 1 hora y onboarding asistido en el plan Advanced.",
     ],
     themWins: [
@@ -203,7 +196,6 @@ const competitors: Record<Slug, Competitor> = {
       { feature: "Apps móviles nativas iOS/Android", clinera: "partial", them: "yes" },
       { feature: "Recordatorios automáticos", clinera: "yes", them: "yes" },
       { feature: "Cobertura LATAM", clinera: "yes", them: "yes" },
-      { feature: "Prueba gratis", clinera: "yes", them: "yes" },
       { feature: "Precio publicado", clinera: "yes", them: "partial" },
       { feature: "Plan base (USD/mes)", clinera: "$89 · 3 usuarios", them: "$19/usuario" },
     ],
@@ -236,13 +228,13 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Soporte y onboarding",
         body:
-          "AgendaPro tiene presencia corporativa enorme y equipo regional. Clinera apuesta por setup en menos de 1 hora y soporte en español con onboarding dedicado en el plan Advanced. Ambas ofrecen prueba gratis; Clinera no pide tarjeta para empezar.",
+          "AgendaPro tiene presencia corporativa enorme y equipo regional. Clinera apuesta por setup en menos de 1 hora y soporte en español con onboarding dedicado en el plan Advanced.",
       },
     ],
     faqs: [
       {
         q: "¿Puedo migrar de AgendaPro a Clinera?",
-        a: "Sí. Exportamos tus pacientes y agenda vía API o CSV, y migramos conversaciones recientes de WhatsApp para que AURA arranque con contexto. Sin costo durante tu prueba de 7 días.",
+        a: "Sí. Exportamos tus pacientes y agenda vía API o CSV, y migramos conversaciones recientes de WhatsApp para que AURA arranque con contexto. Sin costo durante el onboarding.",
       },
       {
         q: "¿Julia (AgendaPro) y AURA (Clinera) hacen lo mismo?",
@@ -259,10 +251,6 @@ const competitors: Record<Slug, Competitor> = {
       {
         q: "¿Clinera tiene apps nativas como AgendaPro?",
         a: "Clinera tiene apps móviles pero AgendaPro las tiene más pulidas y con más años de iteración. Si la experiencia móvil es tu prioridad #1, es un punto a favor de AgendaPro.",
-      },
-      {
-        q: "¿Puedo probar Clinera sin tarjeta?",
-        a: "Sí. 7 días de prueba gratis, sin tarjeta de crédito. Si te gusta, pagas; si no, no hay cobro.",
       },
     ],
   },
@@ -288,7 +276,7 @@ const competitors: Record<Slug, Competitor> = {
       "Memoria contextual LangChain documentada y operativa.",
       "IA integrable con agendas externas (Reservo, Dentalink, etc.) vía MCP + API.",
       "Precios públicos: Growth $89, Conect $129, Advanced $179 USD/mes.",
-      "Prueba gratis self-service sin cotización telefónica.",
+      "Contratación self-service sin cotización telefónica.",
       "Setup en menos de 1 hora.",
       "Derivación automática a humano con trazabilidad completa.",
     ],
@@ -319,7 +307,6 @@ const competitors: Record<Slug, Competitor> = {
       { feature: "Integración BSale / Nubox / Kame", clinera: "partial", them: "yes" },
       { feature: "Multi-sede", clinera: "yes", them: "yes" },
       { feature: "Panel ventas y trazabilidad", clinera: "yes", them: "yes" },
-      { feature: "Prueba gratis 7 días", clinera: "yes", them: "partial" },
       { feature: "Precios públicos", clinera: "yes", them: "no" },
       { feature: "Plan base (USD/mes)", clinera: "$89", them: "consulta" },
     ],
@@ -347,18 +334,18 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y planes",
         body:
-          "Medilink no publica precios (cotización por clínica). Clinera publica Growth USD 89, Conect USD 129, Advanced USD 179, sin permanencia, con 7 días gratis y sin tarjeta de crédito. Si valoras transparencia total y precio predecible, Clinera tiene ventaja clara.",
+          "Medilink no publica precios (cotización por clínica). Clinera publica Growth USD 89, Conect USD 129, Advanced USD 179, sin permanencia. Si valoras transparencia total y precio predecible, Clinera tiene ventaja clara.",
       },
       {
         title: "Soporte y onboarding",
         body:
-          "Medilink se pitchea como no-contrato, actualizaciones gratis y soporte local. Clinera ofrece setup en menos de 1 hora y onboarding dedicado en Advanced. Los dos son sólidos en este frente — la diferencia está en el modelo comercial (Medilink: contacto y cotización; Clinera: autoservicio con prueba instantánea).",
+          "Medilink se pitchea como no-contrato, actualizaciones gratis y soporte local. Clinera ofrece setup en menos de 1 hora y onboarding dedicado en Advanced. Los dos son sólidos en este frente — la diferencia está en el modelo comercial (Medilink: contacto y cotización; Clinera: autoservicio con activación instantánea).",
       },
     ],
     faqs: [
       {
         q: "¿Puedo migrar de Medilink a Clinera?",
-        a: "Sí. Exportamos pacientes y fichas desde Medilink vía CSV/API. La mayoría de los datos críticos (paciente, historial, agenda) se mueven sin fricción durante tu prueba de 7 días.",
+        a: "Sí. Exportamos pacientes y fichas desde Medilink vía CSV/API. La mayoría de los datos críticos (paciente, historial, agenda) se mueven sin fricción durante el onboarding.",
       },
       {
         q: "¿Cuál IA es más inteligente: AURA o Contact Center IA de Medilink?",
@@ -370,15 +357,11 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Cuánto cuesta Medilink vs Clinera?",
-        a: "Medilink no publica precios — cotización telefónica. Clinera publica USD 89/129/179 por mes con 7 días gratis sin tarjeta.",
+        a: "Medilink no publica precios — cotización telefónica. Clinera publica USD 89/129/179 por mes, sin permanencia.",
       },
       {
         q: "¿Clinera tiene telemedicina?",
         a: "Clinera cubre teleconsulta básica. Medilink incluye telemedicina como módulo más maduro. Si teleconsulta es central para tu operación, revisá ambos.",
-      },
-      {
-        q: "¿Puedo probar Clinera sin compromiso?",
-        a: "Sí. 7 días gratis sin tarjeta de crédito. Si te gusta, pagas; si no, no hay cobro y tus datos se borran si lo pides.",
       },
     ],
   },
@@ -435,7 +418,6 @@ const competitors: Record<Slug, Competitor> = {
       { feature: "Escala sin contratar más recepción", clinera: "yes", them: "no" },
       { feature: "Riesgo humano (licencias, rotación)", clinera: "bajo", them: "alto" },
       { feature: "Capacidad 24/7 real", clinera: "yes", them: "no" },
-      { feature: "Prueba gratis", clinera: "yes · 7 días", them: "—" },
     ],
     dimensions: [
       {
@@ -489,10 +471,6 @@ const competitors: Record<Slug, Competitor> = {
       {
         q: "¿Qué mide la trazabilidad campaña → cita → venta?",
         a: "Sabes exactamente de qué campaña (Meta Ads, Google, referido) vino cada conversación, si agendó, si llegó a la cita y si convirtió en venta. Es lo que manual no puede darte.",
-      },
-      {
-        q: "¿Puedo probarlo gratis sin riesgo?",
-        a: "Sí. 7 días gratis sin tarjeta de crédito. Si te gusta, pagas; si no, no hay cobro y nada cambia en tu operación actual.",
       },
     ],
   },
@@ -1001,11 +979,11 @@ export default async function ComparativaPage({
           <div className="container">
             <div className="cta-final-dark">
               <h2 className="cta-final-dark__title">
-                Prueba Clinera 7 días{" "}
-                <span className="gt-neon">gratis</span>
+                Activa Clinera{" "}
+                <span className="gt-neon">hoy</span>
               </h2>
               <p className="cta-final-dark__sub">
-                Sin tarjeta. Si te gusta, pagas. Si no, no hay cobro. Simple.
+                Sin permanencia. Cancela cuando quieras. Simple.
               </p>
               <div className="cta-final-dark__actions">
                 <Link href="/hablar-con-ventas" className="cta-final-dark__primary">

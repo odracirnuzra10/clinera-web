@@ -6,13 +6,13 @@ import PlanesV3 from "@/components/interior-v3/PlanesV3";
 export const metadata: Metadata = {
   title: "Planes y Precios — Clinera.io (desde USD 89/mes)",
   description:
-    "Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes. IA que agenda por WhatsApp 24/7. Prueba gratis 7 días sin tarjeta.",
+    "Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes. IA que agenda por WhatsApp 24/7. Sin permanencia.",
   alternates: { canonical: "https://clinera.io/planes" },
   openGraph: {
     url: "https://clinera.io/planes",
     title: "Planes y Precios — Clinera.io",
     description:
-      "3 planes para clínicas en LATAM. Desde USD 89/mes con prueba gratis de 7 días.",
+      "3 planes para clínicas en LATAM. Desde USD 89/mes, sin permanencia.",
     type: "website",
   },
 };
@@ -47,7 +47,7 @@ export default function PlanesPage() {
                 var a = ev.target.closest('a[data-plan]');
                 if (!a) return;
                 var plan = a.getAttribute('data-plan');
-                var name = a.getAttribute('data-plan-name') || (plan + ' trial');
+                var name = a.getAttribute('data-plan-name') || (plan + ' signup');
                 var value = parseFloat(a.getAttribute('data-plan-value') || '0');
                 window.dataLayer.push({
                   event: 'initiate_checkout',

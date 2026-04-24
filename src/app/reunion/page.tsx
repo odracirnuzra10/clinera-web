@@ -6,7 +6,7 @@ import CalEmbed from "./CalEmbed";
 export const metadata: Metadata = {
   title: "Agenda tu reunión — Clinera.io",
   description:
-    "30 minutos con el equipo comercial de Clinera. Elige el horario que te acomode y te confirmamos por email. Sin tarjeta de crédito.",
+    "30 minutos con el equipo comercial de Clinera. Elige el horario que te acomode y te confirmamos por email.",
   alternates: { canonical: "https://clinera.io/reunion" },
   openGraph: {
     title: "Agenda tu reunión — Clinera.io",
@@ -49,7 +49,7 @@ export default function ReunionPage() {
             Elige el horario que te acomode
           </h1>
           <p style={{ fontFamily: "Inter", fontSize: 16, color: "#4B5563", margin: 0, lineHeight: 1.5 }}>
-            30 minutos por videollamada · te confirmamos por email · sin tarjeta de crédito.
+            30 minutos por videollamada · te confirmamos por email.
           </p>
         </div>
         <CalEmbed />

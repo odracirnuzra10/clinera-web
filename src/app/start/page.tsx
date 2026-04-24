@@ -367,7 +367,7 @@ export default function StartPage() {
           <div className={styles.guaranteeInner}>
             <div className={styles.guaranteeBadge}>
               <div className={styles.guaranteeDays}>7</div>
-              <div className={styles.guaranteeDaysLabel}>dias de prueba</div>
+              <div className={styles.guaranteeDaysLabel}>dias de garantia</div>
             </div>
             <div className={styles.guaranteeContent}>
               <div className={styles.guaranteeShield}>{"🛡️"} GARANTIA DE SATISFACCION</div>

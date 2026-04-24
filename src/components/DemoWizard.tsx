@@ -306,7 +306,7 @@ export default function DemoWizard() {
         <div className={styles.container}>
           <div className={styles.heroBadge}>
             <span className={styles.dot} />
-            Demostración personalizada · 30 min · sin tarjeta de crédito
+            Demostración personalizada · 30 min · sin compromiso
           </div>
           <h1 className={styles.heroTitle}>
             Agenda tu <span className={styles.gt}>demostración</span> y recupera pacientes con un agente IA

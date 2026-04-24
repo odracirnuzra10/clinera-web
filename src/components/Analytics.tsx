@@ -252,10 +252,10 @@ const ENGAGEMENT_SRC = `(function(){
     var planName = a.getAttribute('data-plan-name');
     var planValue = parseFloat(a.getAttribute('data-plan-value') || '0');
     if (!planValue) {
-      if (plan === 'growth')        { planValue = 89;  planName = planName || 'Growth trial'; }
-      else if (plan === 'conect')   { planValue = 129; planName = planName || 'Conect trial'; }
-      else if (plan === 'advanced') { planValue = 179; planName = planName || 'Advanced trial'; }
-      else                          { planValue = 89;  planName = planName || 'trial_signup'; }
+      if (plan === 'growth')        { planValue = 89;  planName = planName || 'Growth signup'; }
+      else if (plan === 'conect')   { planValue = 129; planName = planName || 'Conect signup'; }
+      else if (plan === 'advanced') { planValue = 179; planName = planName || 'Advanced signup'; }
+      else                          { planValue = 89;  planName = planName || 'plan_signup'; }
     }
     var text = (a.innerText || a.getAttribute('aria-label') || '').trim().replace(/\\s+/g,' ').slice(0,80);
     DL().push({
