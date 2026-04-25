@@ -34,16 +34,10 @@ export function ThanksContent() {
   const source = params.get("source") ?? "unknown";
   const eventId = params.get("event_id") ?? "";
   const ejecutivaParam = (params.get("ejecutiva") ?? "").toLowerCase();
-  // n8n puede pasar ?ejecutiva=catalina|nohelymar para asignación 100% precisa.
-  // Fallback heurístico: alterna por hora del día.
+  // n8n puede pasar ?ejecutiva=nohelymar para asignación 100% precisa.
+  // Default: siempre Catalina (decisión Ricardo 2026-04-25).
   const key: "catalina" | "nohelymar" =
-    ejecutivaParam === "nohelymar"
-      ? "nohelymar"
-      : ejecutivaParam === "catalina"
-        ? "catalina"
-        : new Date().getHours() % 2 === 0
-          ? "catalina"
-          : "nohelymar";
+    ejecutivaParam === "nohelymar" ? "nohelymar" : "catalina";
   const ejecutiva = TEAM[key];
   const firstName = ejecutiva.nombre.split(" ")[0];
   const waText = encodeURIComponent(
