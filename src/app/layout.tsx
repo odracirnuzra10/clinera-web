@@ -71,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es-CL">
       <head>
         <link rel="llms-txt" href="https://clinera.io/llms.txt" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

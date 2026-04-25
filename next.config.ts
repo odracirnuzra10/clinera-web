@@ -44,6 +44,11 @@ const nextConfig: NextConfig = {
         destination: '/planes',
         permanent: true,
       },
+      {
+        source: '/gracias.html',
+        destination: '/gracias',
+        permanent: true,
+      },
     ];
   },
 };

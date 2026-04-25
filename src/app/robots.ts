@@ -26,8 +26,11 @@ const aiCrawlers = [
   'Diffbot',
 ];
 
-// Competitive SEO scrapers (blocked)
-const scrapers = ['SemrushBot', 'AhrefsBot', 'MJ12bot', 'DotBot', 'rogerbot', 'BLEXBot'];
+// SEO measurement tools — allowed (Ricardo confirmó 2026-04-24)
+const seoTools = ['SemrushBot', 'AhrefsBot'];
+
+// Spam scrapers (blocked)
+const scrapers = ['MJ12bot', 'DotBot', 'rogerbot', 'BLEXBot'];
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -47,6 +50,11 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
       ...aiCrawlers.map((agent) => ({
+        userAgent: agent,
+        allow: '/',
+        disallow: ['/admin/', '/api/'],
+      })),
+      ...seoTools.map((agent) => ({
         userAgent: agent,
         allow: '/',
         disallow: ['/admin/', '/api/'],
