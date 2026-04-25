@@ -57,16 +57,34 @@ a&&(document.cookie="gclid="+a+";max-age=7776000;path=/;SameSite=Lax");
 ["utm_source","utm_medium","utm_campaign","utm_term","utm_content"].forEach(function(c){
 var d=b.get(c);d&&(document.cookie=c+"="+d+";max-age=7776000;path=/;SameSite=Lax")})})();`;
 
-const STRIPE_TRACKING_SRC = `document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(f){
-f.addEventListener("click",function(){
-var b="",c="",d="",e="",a=document.cookie.match(/(?:^|;\\s*)gclid=([^;]*)/);
-a&&(b=a[1]);if(a=document.cookie.match(/(?:^|;\\s*)_ga=([^;]*)/))a=a[1].split("."),
-a.length>=4&&(c=a.slice(2).join("."));
-(a=document.cookie.match(/(?:^|;\\s*)_fbc=([^;]*)/))&&(d=a[1]);
-if(a=document.cookie.match(/(?:^|;\\s*)_ga_GFB5YV66KKJ=([^;]*)/))a=a[1].split("."),
-a.length>=3&&(e=a[2]);a=[b,c,d,e];a=a.join("::");
-if(c||b||d||e)b=new URL(this.href),b.searchParams.set("client_reference_id",a),
-this.href=b.toString()})});`;
+// Builds Stripe `client_reference_id` with 7 `::`-separated segments —
+// gclid::gaClientId::fbc::gaSessionId::fbp::ip::userAgent — required by the
+// n8n SUSCRIPCION workflow parser to recover attribution on Purchase.
+const STRIPE_TRACKING_SRC = `(function(){
+function ck(n){var m=document.cookie.match(new RegExp("(?:^|; )"+n+"=([^;]*)"));return m?decodeURIComponent(m[1]):""}
+function gaSid(){var cs=document.cookie?document.cookie.split("; "):[];for(var i=0;i<cs.length;i++){var p=cs[i].split("=");if(p[0]&&p[0].indexOf("_ga_")===0&&p[0]!=="_ga"){var v=(p[1]||"").split(".");if(v.length>=3)return v[2]}}return ""}
+function build(){
+var gclid=ck("gclid")||"";
+var gaRaw=ck("_ga")||"",gaCid="";
+if(gaRaw){var p=gaRaw.split(".");if(p.length>=4)gaCid=p.slice(2).join(".")}
+var fbc=(ck("_fbc")||"").replace("fb.1.","");
+var sid=gaSid();
+var fbp=(ck("_fbp")||"").replace("fb.1.","");
+var ua=encodeURIComponent(navigator.userAgent||"");
+return [gclid,gaCid,fbc,sid,fbp,"",ua].join("::");
+}
+function patch(){
+document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){
+if(a.dataset.stripeRefPatched)return;
+a.dataset.stripeRefPatched="1";
+a.addEventListener("click",function(){
+try{var u=new URL(this.href);u.searchParams.set("client_reference_id",build());this.href=u.toString()}catch(e){}
+});
+});
+}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",patch)}else{patch()}
+window.addEventListener("clinera:routechange",function(){setTimeout(patch,200)});
+})();`;
 
 const FBQ_FIX_SRC = `(function(){if(typeof fbq!=="undefined"){var b=fbq,c=function(){
 var a=Array.prototype.slice.call(arguments);

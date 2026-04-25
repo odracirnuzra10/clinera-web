@@ -106,7 +106,7 @@ Datos encriptados en tránsito y reposo. Servidores en infraestructura certifica
 - [Demo completo 12 min](https://clinera.io/demo)
 - [Efectividad del agente (100% en ≤3 intentos)](https://clinera.io/efectividad)
 - [Estudio técnico de efectividad (blog)](https://clinera.io/blog/efectividad)
-- [Contratar Clinera](https://clinera.io/contrata)
+- [Contratar Clinera](https://clinera.io/planes)
 - [Landing de conversión (Inicia)](https://clinera.io/start)
 - [Hub de comparativas](https://clinera.io/comparativas)
   - [Clinera vs Reservo](https://clinera.io/comparativas/reservo)

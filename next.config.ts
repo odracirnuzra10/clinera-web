@@ -12,10 +12,6 @@ const nextConfig: NextConfig = {
         destination: '/support/index.html',
       },
       {
-        source: '/contrata',
-        destination: '/contrata/index.html',
-      },
-      {
         source: '/presentacion',
         destination: '/presentacion/index.html',
       },
@@ -36,6 +32,16 @@ const nextConfig: NextConfig = {
       {
         source: '/funcionalidades',
         destination: '/funciones',
+        permanent: true,
+      },
+      {
+        source: '/contrata',
+        destination: '/planes',
+        permanent: true,
+      },
+      {
+        source: '/contrata/:path*',
+        destination: '/planes',
         permanent: true,
       },
     ];
