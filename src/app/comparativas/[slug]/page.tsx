@@ -604,6 +604,39 @@ export default async function ComparativaPage({
     })),
   };
 
+  // Testimonio asignado por slug (citas EXACTAS de /ventas, sección 7.5 del plan SEO).
+  const testimoniosBySlug: Record<Slug, { author: string; clinic: string; quote: string }> = {
+    agendapro: {
+      author: "Dr. Flavio Rojas",
+      clinic: "Infiltracion.cl",
+      quote: "Clinera me permite crecer sin pagar de más.",
+    },
+    reservo: {
+      author: "Dra. Stefani Michailiszen",
+      clinic: "Dermaclinic · Las Condes",
+      quote: "Clinera es el corazón de mi clínica.",
+    },
+    medilink: {
+      author: "Dra. Yasna Vásquez",
+      clinic: "Estética Facial · Talca",
+      quote: "Clinera me ayuda a organizar todo.",
+    },
+    manual: {
+      author: "Tamara Oyarzún",
+      clinic: "Estética Corporal · Vitacura",
+      quote: "Clinera nos simplificó las comunicaciones.",
+    },
+  };
+  const t = testimoniosBySlug[slug as Slug];
+  const reviewLd = {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
+    author: { "@type": "Person", name: t.author, affiliation: t.clinic },
+    reviewBody: t.quote,
+    itemReviewed: { "@id": "https://clinera.io/#software" },
+  };
+
   return (
     <>
       <script
@@ -613,6 +646,10 @@ export default async function ComparativaPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewLd) }}
       />
       <NavV3 />
       <main>
