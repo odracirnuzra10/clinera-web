@@ -75,7 +75,7 @@
 
 Ubicación sugerida: **dentro de "Configuración → Perfil público"** (no en onboarding inicial — el cliente no tiene aún data completa para llenar el wizard).
 
-Punto de entrada: card vacía "Aparece en clinera.io/clinicas — captá pacientes desde Google" + botón "Activar perfil público".
+Punto de entrada: card vacía "Aparece en clinera.io/clinicas — capta pacientes desde Google" + botón "Activar perfil público".
 
 ### 3.2 Campos del wizard (8 pasos lineales o single-page)
 
@@ -141,7 +141,7 @@ Mostrar en la UI del wizard / dashboard:
 | `pending_review` | "Tu perfil está en revisión. Suele tardar menos de 24h." |
 | `published` | "Tu página está en vivo: [link]" |
 | `withdrawn` | "Tu perfil público está pausado" |
-| `rejected` | "Necesitamos ajustar algunos datos. Revisá tu email." (raro) |
+| `rejected` | "Necesitamos ajustar algunos datos. Revisa tu email." (raro) |
 
 ---
 
@@ -373,11 +373,11 @@ return { content: Buffer.from(newContent, 'utf-8').toString('base64') };
 - [ ] Especialidades dentro de scope clínico
 - [ ] CI verde (typecheck + lint)
 
-## Si rechazás
+## Si rechazas
 
-1. Cerrá el PR sin merge
+1. Cierra el PR sin merge
 2. Backend Clinera marca status `rejected` automáticamente vía webhook
-3. Loops manda email al cliente con motivo (editás vos en el dashboard de Loops)
+3. Loops manda email al cliente con motivo (editas tú en el dashboard de Loops)
 ```
 
 ### 5.5 PAT del bot user
@@ -418,10 +418,10 @@ Cuando el PR se mergea:
   ```
   ¡Tu perfil público está en vivo!
 
-  Mirá tu página: https://clinera.io/clinicas/{{slug}}
-  Compartila por WhatsApp y redes para empezar a captar pacientes.
+  Mira tu página: https://clinera.io/clinicas/{{slug}}
+  Compártela por WhatsApp y redes para empezar a captar pacientes.
 
-  Tip: agregá el link en tu Instagram bio.
+  Tip: agrega el link en tu Instagram bio.
   ```
 - Dashboard del cliente muestra card "Perfil público — publicado el {{published_at}}" con botón "Editar datos" (V2) y "Pausar" (V2).
 
