@@ -1,4 +1,7 @@
 import type { MetadataRoute } from 'next';
+import { allClinics } from '@/content/clinics';
+import { allCruzadas } from '@/content/comparativas-cross';
+import { publishedRecursos } from '@/content/recursos';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://clinera.io';
@@ -16,13 +19,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/reunion-comercial`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/hablar-con-ventas`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/ventas`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/presentacion`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
 
-    // Comparativas (bottom-funnel SEO/AEO hub)
+    // Comparativas (bottom-funnel SEO/AEO hub) — directas
     { url: `${baseUrl}/comparativas`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/comparativas/reservo`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/comparativas/agendapro`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/comparativas/medilink`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/comparativas/manual`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/comparativas/dentalink`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/comparativas/sacmed`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
 
     // Trust / evidence (evergreen + companion article)
     { url: `${baseUrl}/efectividad`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
@@ -43,5 +49,41 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/cookies`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
   ];
 
-  return urls;
+  // ============================================================
+  // Bloques dinámicos (Pilar B.1 + B.3 + B.4)
+  // ============================================================
+
+  const dynamicUrls: MetadataRoute.Sitemap = [
+    // Hubs nuevos
+    { url: `${baseUrl}/clinicas`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/recursos`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+
+    // Pilar B.1 — clínicas con consentimiento
+    ...allClinics
+      .filter((c) => c.consentGranted)
+      .map((c) => ({
+        url: `${baseUrl}/clinicas/${c.slug}`,
+        lastModified: c.updatedAt ? new Date(c.updatedAt) : new Date(c.publishedAt),
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
+      })),
+
+    // Pilar B.3 — comparativas cruzadas
+    ...allCruzadas.map((c) => ({
+      url: `${baseUrl}/comparativas/${c.slug}`,
+      lastModified: c.updatedAt ? new Date(c.updatedAt) : new Date(c.publishedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+
+    // Pilar B.4 — recursos geo publicados
+    ...publishedRecursos.map((r) => ({
+      url: `${baseUrl}/recursos/${r.slug}`,
+      lastModified: r.updatedAt ? new Date(r.updatedAt) : new Date(r.publishedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ];
+
+  return [...urls, ...dynamicUrls];
 }
