@@ -10,6 +10,8 @@ const GRAD = "linear-gradient(135deg,#3B82F6 0%,#7C3AED 50%,#D946EF 100%)";
 const PHONE_RULES: Record<string, { name: string; len: number; placeholder: string }> = {
   "+56": { name: "Chile", len: 9, placeholder: "9 1234 5678" },
   "+52": { name: "México", len: 10, placeholder: "55 1234 5678" },
+  "+34": { name: "España", len: 9, placeholder: "612 345 678" },
+  "+51": { name: "Perú", len: 9, placeholder: "912 345 678" },
 };
 
 type Challenge = { id: string; emoji: string; title: string; desc: string };
@@ -736,6 +738,11 @@ function StepContact({
       if (d.length <= 5) return d[0] + " " + d.slice(1);
       return d[0] + " " + d.slice(1, 5) + " " + d.slice(5);
     }
+    if (prefix === "+34" || prefix === "+51") {
+      if (d.length <= 3) return d;
+      if (d.length <= 6) return d.slice(0, 3) + " " + d.slice(3);
+      return d.slice(0, 3) + " " + d.slice(3, 6) + " " + d.slice(6);
+    }
     if (d.length <= 2) return d;
     if (d.length <= 6) return d.slice(0, 2) + " " + d.slice(2);
     return d.slice(0, 2) + " " + d.slice(2, 6) + " " + d.slice(6);
@@ -804,6 +811,8 @@ function StepContact({
           >
             <option value="+56">🇨🇱 +56</option>
             <option value="+52">🇲🇽 +52</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+51">🇵🇪 +51</option>
           </select>
           <Input
             style={{ flex: 1 }}
