@@ -166,7 +166,7 @@ export const medicalBusinessSchema = (clinic: {
   name: string;
   city: string;
   region: string;
-  countryCode: "CL" | "PE" | "CO" | "MX" | "AR";
+  countryCode: "CL" | "PE" | "CO" | "MX" | "AR" | "EC" | "PA";
   address?: string;
   phone?: string;
   whatsapp?: string;
