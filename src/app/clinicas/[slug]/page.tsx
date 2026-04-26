@@ -30,7 +30,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const clinic = allClinics.find((c) => c.slug === slug && c.consentGranted);
   if (!clinic) return {};
-  const title = `${clinic.nombre} en ${clinic.ciudad} — Agenda por WhatsApp 24/7`;
+  // Si el nombre ya incluye la ciudad, no la repetimos en el title
+  // (evita "Antuka Spa Osorno en Osorno" o "Terapia Saheba en Panamá").
+  const nombreIncluyeCiudad = clinic.nombre
+    .toLowerCase()
+    .includes(clinic.ciudad.toLowerCase());
+  const title = nombreIncluyeCiudad
+    ? `${clinic.nombre} — Agenda por WhatsApp 24/7`
+    : `${clinic.nombre} en ${clinic.ciudad} — Agenda por WhatsApp 24/7`;
   const description = `Agenda con ${clinic.nombre} (${clinic.ciudad}) por WhatsApp en cualquier momento. ${clinic.especialidades.slice(0, 3).join(", ")}. Confirmación inmediata.`;
   const url = `https://clinera.io/clinicas/${slug}`;
   return {
