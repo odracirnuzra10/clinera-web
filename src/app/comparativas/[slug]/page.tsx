@@ -6,7 +6,7 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import { CrossComparativa } from "@/components/comparativas/CrossComparativa";
 import { cruzadas, getCruzadasForCompetitor } from "@/content/comparativas-cross";
 
-type Slug = "reservo" | "agendapro" | "medilink" | "manual";
+type Slug = "reservo" | "agendapro" | "medilink" | "manual" | "dentalink" | "sacmed";
 
 type Row = {
   feature: string;
@@ -142,7 +142,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Reservo cubre dental?",
-        a: "Sí, con un módulo fuerte de odontograma. Clinera cubre dental también pero su fortaleza principal está en la capa de IA y WhatsApp; si dental es tu único vertical, evaluá ambos.",
+        a: "Sí, con un módulo fuerte de odontograma. Clinera cubre dental también pero su fortaleza principal está en la capa de IA y WhatsApp; si dental es tu único vertical, evalúa ambos.",
       },
     ],
   },
@@ -363,7 +363,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Clinera tiene telemedicina?",
-        a: "Clinera cubre teleconsulta básica. Medilink incluye telemedicina como módulo más maduro. Si teleconsulta es central para tu operación, revisá ambos.",
+        a: "Clinera cubre teleconsulta básica. Medilink incluye telemedicina como módulo más maduro. Si teleconsulta es central para tu operación, revisa ambos.",
       },
     ],
   },
@@ -473,6 +473,212 @@ const competitors: Record<Slug, Competitor> = {
       {
         q: "¿Qué mide la trazabilidad campaña → cita → venta?",
         a: "Sabes exactamente de qué campaña (Meta Ads, Google, referido) vino cada conversación, si agendó, si llegó a la cita y si convirtió en venta. Es lo que manual no puede darte.",
+      },
+    ],
+  },
+
+  dentalink: {
+    name: "Dentalink",
+    siteLabel: "softwaredentalink.com",
+    title: "Clinera vs Dentalink: ¿cuál es mejor para tu clínica en 2026?",
+    intro:
+      "Dentalink es el software dental más usado en LATAM (15.000+ clientes), 100% vertical en odontología, con odontograma maduro, agenda y asistente IA propio. Clinera es agnóstico de vertical, con AURA atendiendo WhatsApp 24/7 e integrable con cualquier agenda. Comparativa honesta para una clínica que considera ambos.",
+    tldr: {
+      clinera:
+        "Clinera es mejor si tu clínica atiende más de una vertical (estética + odontología, médico + dental, etc.) y quieres un agente IA que opere por WhatsApp con tu agenda actual sin migrar.",
+      them:
+        "Dentalink es mejor si tu clínica es 100% odontológica y necesitas odontograma + periodontograma + módulo de ortodoncia con la profundidad que solo da un sistema vertical especializado.",
+    },
+    clineraWins: [
+      "Agnóstico de vertical: si abres una sucursal estética junto a la dental, Clinera la cubre sin pagar otro software.",
+      "AURA opera por WhatsApp Business con coexistencia (mismo número que ya usa tu clínica).",
+      "Integración MCP + API abierta: Clinera puede operar el WhatsApp encima de Dentalink sin migrar la ficha clínica.",
+      "Atribución real de ventas a campañas Meta y Google Ads — Dentalink no tiene panel de marketing.",
+      "Memoria contextual entre conversaciones (LangChain).",
+      "Difusiones masivas de WhatsApp marketing desde el panel.",
+      "Precios públicos desde USD 89/mes con 3 usuarios incluidos, sin permanencia.",
+      "Setup en menos de 1 hora.",
+    ],
+    themWins: [
+      "Líder absoluto en dental LATAM con 15.000+ clientes — la marca y la confianza están consolidadas.",
+      "Odontograma + periodontograma + módulo de ortodoncia diseñados específicamente para odontología.",
+      "Asistente IA propio especializado en flujos dentales (análisis de RX, reportes IA).",
+      "Financiamiento de pacientes y control de caja maduros, integrados al flujo dental.",
+    ],
+    table: [
+      // Diferenciadores Clinera
+      { feature: "Agnóstico de vertical (estética, médico, dental)", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Coexistencia con WhatsApp Business (mismo número)", clinera: "yes", them: "partial", clineraHighlight: true },
+      { feature: "Integración MCP / API para que IA opere encima", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Atribución de ventas a campañas Meta/Google", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Difusiones masivas WhatsApp marketing", clinera: "yes", them: "partial", clineraHighlight: true },
+      // Capabilities core
+      { feature: "IA conversacional WhatsApp 24/7", clinera: "yes", them: "yes" },
+      { feature: "Memoria contextual entre conversaciones", clinera: "yes", them: "partial" },
+      { feature: "Derivación automática a humano", clinera: "yes", them: "partial" },
+      { feature: "Agenda multi-profesional", clinera: "yes", them: "yes" },
+      { feature: "Reserva online 24/7", clinera: "yes", them: "yes" },
+      { feature: "Multi-sede", clinera: "yes", them: "yes" },
+      { feature: "Ficha clínica digital", clinera: "yes", them: "yes" },
+      { feature: "Odontograma dental nativo", clinera: "partial", them: "yes" },
+      { feature: "Periodontograma", clinera: "no", them: "yes" },
+      { feature: "Módulo de ortodoncia especializado", clinera: "no", them: "yes" },
+      { feature: "Análisis IA de imágenes radiológicas", clinera: "no", them: "yes" },
+      { feature: "Pagos online integrados", clinera: "yes", them: "yes" },
+      { feature: "Financiamiento de pacientes", clinera: "partial", them: "yes" },
+      { feature: "Telemedicina integrada", clinera: "partial", them: "yes" },
+      { feature: "Precios públicos en web", clinera: "yes", them: "no" },
+      { feature: "Plan inicial USD/mes", clinera: "$89 (3 usuarios)", them: "consultar" },
+    ],
+    dimensions: [
+      {
+        title: "Especialización vertical vs cobertura horizontal",
+        body:
+          "La pregunta no es cuál es mejor en abstracto, sino qué necesita tu clínica. Si atiendes solo dental, Dentalink es referente: odontograma, periodontograma y ortodoncia están diseñados como producto principal, no como módulo complementario. Si tu clínica abre o ya tiene una vertical adicional (estética facial, medicina general), Clinera te cubre todo el portafolio sin pagar dos sistemas distintos.",
+      },
+      {
+        title: "IA conversacional — ambos la tienen, qué cambia",
+        body:
+          "Dentalink incorporó asistente IA propio, especializado en flujos dentales. Clinera (con AURA) opera con LangChain + MCP, integrable a cualquier sistema de agenda externo. Si quieres mantener Dentalink como núcleo dental y agregar AURA como capa WhatsApp encima — sin migrar la ficha — Clinera lo soporta vía API. Si quieres todo en un mismo proveedor 100% dental, Dentalink lo da nativo.",
+      },
+      {
+        title: "Atribución de marketing y trazabilidad de ventas",
+        body:
+          "Dentalink no tiene panel de marketing — vive en el módulo clínico-financiero. Clinera trazabiliza cada conversación desde la campaña Meta o Google que la originó, hasta la cita y la venta. Si tu cuello de botella es entender qué anuncios traen pacientes reales (no solo clicks), Clinera es la diferencia.",
+      },
+      {
+        title: "Ficha clínica especializada",
+        body:
+          "Dentalink gana sin discusión en odontograma, periodontograma, módulo de ortodoncia y análisis IA de radiografías. Son features que solo construye un equipo enfocado 100% en dental. Clinera cubre ficha clínica digital con consentimientos y telemedicina, pero su odontograma es básico.",
+      },
+      {
+        title: "Precio y transparencia",
+        body:
+          "Dentalink no publica precios — atiende por demo o cotización. Clinera publica Growth USD 89/mes (3 usuarios incluidos), Conect USD 129/mes, Advanced USD 179/mes, todos sin permanencia y con devolución 100% en los primeros 7 días.",
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Puedo usar Clinera sin migrar de Dentalink?",
+        a: "Sí. Clinera se integra vía API y MCP con Dentalink. AURA opera el canal WhatsApp por encima y sincroniza la agenda con tu Dentalink. Mantienes el odontograma, periodontograma y ficha en Dentalink, y agregas la capa de IA conversacional WhatsApp + atribución de marketing.",
+      },
+      {
+        q: "¿Dentalink es solo para clínicas dentales?",
+        a: "Sí, 100%. Si tienes una clínica que mezcla dental con otras verticales (estética, medicina general), Dentalink no cubre las otras y necesitarás un segundo sistema. Clinera es agnóstico y cubre todas las verticales en un solo lugar.",
+      },
+      {
+        q: "¿Cuál tiene mejor IA conversacional?",
+        a: "Distintos enfoques. Dentalink tiene IA especializada en flujos dentales (análisis de RX, asistente CRM dental). Clinera tiene IA agnóstica de vertical, con memoria contextual LangChain y derivación automática a humano. Si tu cuello de botella son los WhatsApps sin responder, Clinera está pensada para ese problema.",
+      },
+      {
+        q: "¿Cuál es más caro?",
+        a: "Dentalink no publica precios, así que es difícil comparar — la cotización depende del tamaño de la clínica y los módulos contratados. Clinera publica Growth USD 89/mes con 3 usuarios, sin permanencia. Para una clínica dental pequeña-mediana, ambos suelen estar en el rango USD 90-200/mes.",
+      },
+      {
+        q: "¿Migrar de Dentalink a Clinera tiene sentido?",
+        a: "Solo si tu clínica dejó de ser 100% dental. Si sigue siendo dental pura, Dentalink tiene odontograma y módulo de ortodoncia que Clinera no replica con la misma profundidad. Lo recomendado para clínicas dentales es: mantener Dentalink + agregar Clinera para la capa WhatsApp + marketing.",
+      },
+    ],
+  },
+
+  sacmed: {
+    name: "Sacmed",
+    siteLabel: "sacmed.cl",
+    title: "Clinera vs Sacmed: ¿cuál es mejor para tu clínica médica en 2026?",
+    intro:
+      "Sacmed es un software médico chileno con telemedicina certificada por Fonasa, recetas electrónicas con QR y agenda. Clinera tiene AURA, agente IA que atiende WhatsApp 24/7, e integra con tu agenda actual. Comparativa honesta para clínicas médicas en Chile.",
+    tldr: {
+      clinera:
+        "Clinera es mejor si tu cuello de botella son los WhatsApps sin responder y quieres AURA atendiendo, agendando y derivando 24/7 con memoria contextual.",
+      them:
+        "Sacmed es mejor si tu prioridad es telemedicina certificada por Fonasa con receta electrónica QR y necesitas un sistema médico chileno con precios bajos publicados.",
+    },
+    clineraWins: [
+      "AURA, agente IA conversacional que atiende WhatsApp 24/7 con memoria contextual.",
+      "Coexistencia con WhatsApp Business (mismo número que ya usa tu clínica).",
+      "Integración MCP + API: Clinera puede operar el WhatsApp encima de Sacmed sin migrar la ficha.",
+      "Atribución real de ventas a campañas Meta y Google Ads.",
+      "Difusiones masivas de WhatsApp marketing desde el panel.",
+      "Derivación automática a humano cuando la conversación lo requiere.",
+      "Cobertura LATAM: CL, PE, CO, MX, AR, EC, UY, CR, PA.",
+      "Setup en menos de 1 hora, sin programador.",
+    ],
+    themWins: [
+      "Telemedicina certificada por Fonasa — diferenciador fuerte para clínicas médicas chilenas.",
+      "Receta electrónica con QR integrada nativamente al flujo de telemedicina.",
+      "Precios públicos desde $26.000 CLP/mes (~USD 27) — el más accesible de los chilenos.",
+      "Agenda + ficha clínica + telemedicina en un solo sistema, pensado para Chile.",
+    ],
+    table: [
+      // Diferenciadores Clinera
+      { feature: "IA conversacional WhatsApp 24/7", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Coexistencia con WhatsApp Business", clinera: "yes", them: "partial", clineraHighlight: true },
+      { feature: "Memoria contextual entre conversaciones", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Atribución de ventas a campañas Meta/Google", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Integración MCP / API para que IA opere encima", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Difusiones masivas WhatsApp marketing", clinera: "yes", them: "partial", clineraHighlight: true },
+      // Diferenciadores Sacmed
+      { feature: "Telemedicina certificada por Fonasa", clinera: "no", them: "yes" },
+      { feature: "Receta electrónica con QR", clinera: "partial", them: "yes" },
+      // Capabilities comunes
+      { feature: "Agenda multi-profesional", clinera: "yes", them: "yes" },
+      { feature: "Reserva online 24/7", clinera: "yes", them: "yes" },
+      { feature: "Multi-sede", clinera: "yes", them: "yes" },
+      { feature: "Ficha clínica digital", clinera: "yes", them: "yes" },
+      { feature: "Pagos online integrados", clinera: "yes", them: "yes" },
+      { feature: "Facturación electrónica", clinera: "partial", them: "yes" },
+      { feature: "Recordatorios automáticos", clinera: "yes", them: "yes" },
+      { feature: "Cobertura LATAM (no solo Chile)", clinera: "yes", them: "no" },
+      { feature: "Precios públicos en web", clinera: "yes", them: "yes" },
+      { feature: "Plan inicial mensual", clinera: "$89 (3 usuarios)", them: "$26.000 CLP (~$27)" },
+    ],
+    dimensions: [
+      {
+        title: "Foco en lo que cada uno hace mejor",
+        body:
+          "Sacmed pone su énfasis en telemedicina nativa certificada por Fonasa con recetas electrónicas QR — diferenciador fuerte para clínicas médicas chilenas que hacen mucha consulta remota. Clinera pone el énfasis en AURA atendiendo WhatsApp 24/7 con IA conversacional — diferenciador para clínicas que se les acumulan los mensajes sin responder. La pregunta es cuál es tu cuello de botella real.",
+      },
+      {
+        title: "Telemedicina y compliance Fonasa",
+        body:
+          "Sacmed tiene certificación Fonasa para telemedicina y receta electrónica con QR — eso significa que puedes facturar consultas remotas a Fonasa con cumplimiento normativo. Clinera no tiene esa certificación nativa; si tu modelo depende de telemedicina facturada a Fonasa, Sacmed encaja mejor.",
+      },
+      {
+        title: "WhatsApp e IA conversacional — donde gana Clinera",
+        body:
+          "Sacmed integra WhatsApp como canal complementario (notificaciones, recordatorios, soporte). No tiene un agente IA que mantenga conversaciones reales con pacientes y agende solo. Clinera (AURA) opera 24/7 desde tu WhatsApp Business con memoria contextual y derivación automática a humano. Si tu volumen alto es chats sin responder, Clinera resuelve eso.",
+      },
+      {
+        title: "Atribución de marketing",
+        body:
+          "Sacmed no tiene panel de marketing ni atribución de ventas a campañas Meta/Google. Clinera trazabiliza cada conversación desde la campaña que la originó hasta la cita y la venta. Si invertís en publicidad digital, Clinera te dice qué anuncios traen pacientes reales — no solo clicks.",
+      },
+      {
+        title: "Precio y transparencia",
+        body:
+          "Sacmed publica desde $26.000 CLP/mes (~USD 27) en plan Starter. Clinera publica Growth USD 89/mes con 3 usuarios incluidos, Conect USD 129/mes, Advanced USD 179/mes. En precio bajo nominal, Sacmed gana; en valor por dólar para clínicas que invierten en marketing digital, Clinera tiene atribución que justifica el delta.",
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Puedo usar Clinera sin migrar de Sacmed?",
+        a: "Sí. Clinera se integra vía API y MCP con Sacmed. AURA opera el canal WhatsApp por encima y sincroniza la agenda con tu Sacmed. Mantienes la telemedicina y la receta electrónica QR en Sacmed, y agregas la capa de IA conversacional WhatsApp + atribución de marketing.",
+      },
+      {
+        q: "¿Sacmed tiene IA conversacional como AURA?",
+        a: "No. Sacmed integra WhatsApp como canal complementario (notificaciones, soporte) pero no tiene un agente IA que conteste, agende y derive en conversaciones reales con pacientes. AURA es la diferencia categórica.",
+      },
+      {
+        q: "¿Cuál es más caro?",
+        a: "En precio nominal, Sacmed es más barato (~USD 27/mes vs USD 89 de Clinera Growth). Clinera incluye 3 usuarios, IA conversacional, atribución de marketing y difusiones WhatsApp. Para clínicas que invierten en marketing digital, el delta se paga solo con la atribución.",
+      },
+      {
+        q: "¿Sacmed cubre clínicas fuera de Chile?",
+        a: "Sacmed es chileno y su foco principal es Chile, con compliance Fonasa específico. Si tu clínica opera en otros países LATAM (PE, CO, MX, AR, etc.), Clinera tiene cobertura nativa multi-país.",
+      },
+      {
+        q: "¿Vale la pena combinar Sacmed + Clinera?",
+        a: "Es la decisión común para clínicas médicas chilenas que quieren mantener telemedicina Fonasa pero suman IA WhatsApp. Sacmed sigue siendo el sistema clínico/telemedicina; Clinera opera el canal WhatsApp y el marketing por encima vía API.",
       },
     ],
   },
@@ -679,7 +885,10 @@ export default async function ComparativaPage({
   };
 
   // Testimonio asignado por slug (citas EXACTAS de /ventas, sección 7.5 del plan SEO).
-  const testimoniosBySlug: Record<Slug, { author: string; clinic: string; quote: string }> = {
+  // Sacmed queda sin testimonio inline por ahora — TODO Ricardo: asignar uno real.
+  const testimoniosBySlug: Partial<
+    Record<Slug, { author: string; clinic: string; quote: string }>
+  > = {
     agendapro: {
       author: "Dr. Flavio Rojas",
       clinic: "Infiltracion.cl",
@@ -700,16 +909,23 @@ export default async function ComparativaPage({
       clinic: "Estética Corporal · Vitacura",
       quote: "Clinera nos simplificó las comunicaciones.",
     },
+    dentalink: {
+      author: "Katherine Meza",
+      clinic: "@km_estetica_avanzada",
+      quote: "Clinera me libera de responder mensajes.",
+    },
   };
   const t = testimoniosBySlug[slug as Slug];
-  const reviewLd = {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
-    author: { "@type": "Person", name: t.author, affiliation: t.clinic },
-    reviewBody: t.quote,
-    itemReviewed: { "@id": "https://clinera.io/#software" },
-  };
+  const reviewLd = t
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
+        author: { "@type": "Person", name: t.author, affiliation: t.clinic },
+        reviewBody: t.quote,
+        itemReviewed: { "@id": "https://clinera.io/#software" },
+      }
+    : null;
 
   return (
     <>
@@ -721,10 +937,12 @@ export default async function ComparativaPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewLd) }}
-      />
+      {reviewLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewLd) }}
+        />
+      )}
       <NavV3 />
       <main>
         {/* HERO */}
@@ -1135,8 +1353,12 @@ export default async function ComparativaPage({
                     </li>
                   ))}
                 {/* Cruzadas que incluyen este competidor */}
-                {(slug === "agendapro" || slug === "reservo" || slug === "medilink") &&
-                  getCruzadasForCompetitor(slug as "agendapro" | "reservo" | "medilink").map((c) => (
+                {(slug === "agendapro" ||
+                  slug === "reservo" ||
+                  slug === "medilink" ||
+                  slug === "dentalink" ||
+                  slug === "sacmed") &&
+                  getCruzadasForCompetitor(slug).map((c) => (
                     <li key={c.slug}>
                       <Link
                         href={`/comparativas/${c.slug}`}
