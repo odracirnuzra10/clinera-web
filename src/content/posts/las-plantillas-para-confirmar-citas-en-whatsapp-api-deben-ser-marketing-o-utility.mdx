@@ -1,0 +1,161 @@
+---
+title: "¿Las plantillas para confirmar citas en WhatsApp API deben ser Marketing o Utility?"
+description: "Elegir la categoría correcta es importante, Meta revisa cada plantilla antes de aprobarla. Si se clasifica mal, puede ser rechazada, o podrías estar perdiendo dinero."
+slug: las-plantillas-para-confirmar-citas-en-whatsapp-api-deben-ser-marketing-o-utility
+publishedAt: '2026-04-26'  # TODO Ricardo: fecha real de publicación
+category: "GENERAL"
+tags: ["whatsapp"]
+heroImage: "https://lh3.googleusercontent.com/d/1XEWVtHAGMhJMTXV0HtX044TtoRpr4r-r"
+author: Clinera
+wordsApprox: 725
+---
+
+Cuando se utiliza ****WhatsApp Business API**** para automatizar mensajes, una de las dudas más comunes es ****qué categoría debe tener una plantilla para confirmar una cita o agenda****.
+
+Elegir la categoría correcta es importante, porque ****Meta Platforms revisa cada plantilla antes de aprobarla. Si se clasifica mal, puede ser rechazada o incluso limitar el envío de mensajes.
+
+En este artículo veremos ****cuándo una plantilla debe ser **Utility**, cuándo pasa a ser **Marketing** y ejemplos reales que suelen aprobarse sin problemas****.
+
+## Qué significa cada categoría de plantilla
+
+En la API de WhatsApp existen varias categorías de plantillas, pero las dos más usadas por clínicas, centros de salud y empresas de servicios son **Utility** y **Marketing**.
+
+## Plantillas **Utility**
+
+Las plantillas **Utility** se utilizan para ****mensajes transaccionales****, es decir, comunicaciones relacionadas con ****acciones que el cliente ya realizó****.
+
+Por ejemplo:
+
+* Confirmación de una cita
+* Recordatorio de una cita
+* Confirmación de una compra
+* Actualización del estado de un servicio
+* Envío de información solicitada
+
+En otras palabras, ****no buscan vender****, sino ****informar algo que el usuario espera recibir****.
+
+Una confirmación de agenda normalmente entra en esta categoría.
+
+## Plantillas **Marketing**
+
+Las plantillas **Marketing** se utilizan cuando el mensaje tiene un ****objetivo promocional o comercial****.
+
+Por ejemplo:
+
+* Ofrecer descuentos
+* Promocionar tratamientos
+* Invitar a reservar una hora
+* Difundir campañas o promociones
+
+Si el mensaje ****intenta incentivar una compra o una reserva****, Meta lo clasificará como **Marketing**.
+
+## Cuándo una confirmación de cita es realmente **Utility**
+
+Una plantilla de confirmación de agenda se considera **Utility** cuando:
+
+**El cliente****ya solicitó la cita***
+**El mensaje****solo confirma o recuerda la información***
+* No hay promociones ni ventas adicionales
+
+Ejemplo típico:
+
+Hola {{1}}, te confirmamos tu cita para {{2}} el día {{3}} a las {{4}}.
+Si necesitas modificarla, puedes responder a este mensaje.
+
+Este tipo de mensaje suele aprobarse sin problemas porque ****cumple con el propósito informativo de una plantilla **Utility******.
+
+## 3 ejemplos de plantillas de confirmación que Meta suele aprobar
+
+A continuación, tres ejemplos de plantillas que normalmente ****pasan la revisión sin inconvenientes****.
+
+### Ejemplo 1: Confirmación simple
+
+Hola {{1}},
+te confirmamos tu cita para {{2}} el día {{3}} a las {{4}}.
+
+Si necesitas reagendar, responde a este mensaje.
+
+Categoría recomendada: **Utility**
+
+## Ejemplo 2: Confirmación con datos del centro
+
+Hola {{1}},
+te escribimos desde {{2}} para confirmar tu cita del {{3}} a las {{4}}.
+
+Te esperamos. Si necesitas modificar la hora, puedes responder a este mensaje.
+
+Categoría recomendada: **Utility**
+
+## Ejemplo 3: Confirmación con ubicación
+
+Hola {{1}},
+tu cita en {{2}} está confirmada para el {{3}} a las {{4}}.
+
+Dirección: {{5}}
+Si necesitas reagendar, por favor responde a este mensaje.
+
+Categoría recomendada: **Utility**
+
+En estos casos el mensaje ****solo informa y facilita la comunicación****, por lo que cumple con las reglas de Meta.
+
+## 2 ejemplos de plantillas que suelen ser rechazadas o clasificadas como Marketing
+
+Ahora veamos algunos ejemplos que ****frecuentemente generan rechazo o reclasificación****.
+
+## Caso 1: Confirmación con promoción
+
+Hola {{1}},
+tu cita para {{2}} está confirmada el {{3}} a las {{4}}.
+
+Además, este mes tenemos **20% de descuento** en limpieza dental.
+
+Problema: el mensaje ****incluye una promoción****, por lo que Meta lo considera **Marketing**.
+
+## Caso 2: Confirmación que incentiva agendar
+
+Hola {{1}},
+tu cita está confirmada para {{3}} a las {{4}}.
+
+Si deseas agendar otro tratamiento, revisa nuestras promociones del mes.
+
+Problema: el mensaje ****invita a comprar o agendar más servicios****, lo que también lo convierte en **Marketing**.
+
+## Regla rápida para elegir la categoría correcta
+
+Puedes usar esta regla simple:
+
+Si el mensaje:
+
+✔ confirma
+✔ recuerda
+✔ actualiza información
+
+entonces es **Utility**.
+
+Si el mensaje:
+
+❌ promociona
+❌ vende
+❌ incentiva comprar o reservar
+
+entonces es **Marketing**.
+
+## Un consejo importante para evitar rechazos
+
+Aunque la plantilla sea **Utility**, Meta espera que exista ****contexto con el cliente****.
+
+Esto significa que el usuario debe haber tenido alguna interacción previa, por ejemplo:
+
+* Haber solicitado una cita
+* Haber iniciado conversación con la empresa
+* Haber entregado su número para recibir confirmaciones
+
+Si no existe ese contexto, el envío puede generar problemas incluso si la plantilla fue aprobada.
+
+## Conclusión
+
+Las plantillas de confirmación de citas en ****WhatsApp Business API normalmente deben clasificarse como **Utility**, siempre que el mensaje ****solo informe o confirme algo que el cliente ya solicitó****.
+
+Agregar promociones, descuentos o invitaciones a reservar nuevos servicios cambia automáticamente la naturaleza del mensaje, pasando a ser **Marketing**.
+
+Por eso, ****mantener las confirmaciones simples y transaccionales es la mejor forma de asegurar que las plantillas sean aprobadas por Meta****.
