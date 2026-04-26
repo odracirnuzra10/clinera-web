@@ -1,9 +1,19 @@
 "use client";
 
+import Link from "next/link";
 import { Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { FinalCTA, useReveal } from "@/components/home-v3/sections";
 
-type Blog = { title: string; excerpt?: string; category?: string; image?: string; url?: string };
+type Blog = {
+  title: string;
+  excerpt?: string;
+  category?: string;
+  image?: string;
+  url?: string;
+  slug?: string;
+  publishedAt?: string;
+  tags?: string[];
+};
 type Faq = { title: string; content: string; icon?: string };
 
 function createSlug(title: string) {
@@ -16,7 +26,27 @@ function createSlug(title: string) {
     .replace(/(^-|-$)/g, "");
 }
 
-export default function NovedadesV3({ blogs, faqs }: { blogs: Blog[]; faqs: Faq[] }) {
+function fmtDate(iso?: string) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  return d.toLocaleDateString("es-CL", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+export default function NovedadesV3({
+  blogs,
+  faqs,
+  allTags = [],
+  activeTag = null,
+}: {
+  blogs: Blog[];
+  faqs: Faq[];
+  allTags?: { tag: string; count: number }[];
+  activeTag?: string | null;
+}) {
   useReveal();
   return (
     <>
@@ -28,7 +58,10 @@ export default function NovedadesV3({ blogs, faqs }: { blogs: Blog[]; faqs: Faq[
           main > section { padding-left: 32px !important; padding-right: 32px !important; }
         }
       `}</style>
-      <NovedadesHero />
+      <NovedadesHero activeTag={activeTag} />
+      {allTags.length > 0 && (
+        <TagFilter allTags={allTags} activeTag={activeTag} />
+      )}
       <BlogSection blogs={blogs} />
       <FaqSection faqs={faqs} />
       <FinalCTA />
@@ -36,7 +69,93 @@ export default function NovedadesV3({ blogs, faqs }: { blogs: Blog[]; faqs: Faq[
   );
 }
 
-function NovedadesHero() {
+function TagFilter({
+  allTags,
+  activeTag,
+}: {
+  allTags: { tag: string; count: number }[];
+  activeTag: string | null;
+}) {
+  return (
+    <section
+      style={{
+        background: "#FAFAFA",
+        borderBottom: "1px solid #F0F0F0",
+        padding: "20px 80px",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          flexWrap: "wrap",
+        }}
+      >
+        <span
+          style={{
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 11,
+            fontWeight: 600,
+            letterSpacing: "0.14em",
+            color: "#6B7280",
+            textTransform: "uppercase",
+            marginRight: 4,
+          }}
+        >
+          Filtrar:
+        </span>
+        <Link
+          href="/novedades"
+          style={{
+            ...tagPillStyle,
+            background: activeTag === null ? "#0A0A0A" : "#fff",
+            color: activeTag === null ? "#fff" : "#374151",
+            borderColor: activeTag === null ? "#0A0A0A" : "#E5E7EB",
+          }}
+        >
+          Todos
+        </Link>
+        {allTags.map((t) => {
+          const isActive = activeTag === t.tag;
+          return (
+            <Link
+              key={t.tag}
+              href={`/novedades?tag=${encodeURIComponent(t.tag)}`}
+              style={{
+                ...tagPillStyle,
+                background: isActive ? "#0A0A0A" : "#fff",
+                color: isActive ? "#fff" : "#374151",
+                borderColor: isActive ? "#0A0A0A" : "#E5E7EB",
+              }}
+            >
+              {t.tag}{" "}
+              <span style={{ opacity: 0.6, marginLeft: 4 }}>({t.count})</span>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+const tagPillStyle = {
+  display: "inline-flex",
+  alignItems: "center",
+  fontFamily: "Inter",
+  fontSize: 13,
+  fontWeight: 600,
+  padding: "7px 14px",
+  borderRadius: 999,
+  border: "1px solid #E5E7EB",
+  textDecoration: "none",
+  transition: "background .15s, color .15s",
+} as const;
+
+function NovedadesHero({ activeTag }: { activeTag: string | null }) {
+  void activeTag;
   return (
     <section
       style={{
@@ -176,6 +295,21 @@ function BlogSection({ blogs }: { blogs: Blog[] }) {
                 {featured.excerpt}
               </p>
             )}
+            {featured.publishedAt && (
+              <div
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  color: "#6B7280",
+                  textTransform: "uppercase",
+                  marginBottom: 12,
+                }}
+              >
+                <time dateTime={featured.publishedAt}>{fmtDate(featured.publishedAt)}</time>
+              </div>
+            )}
             <span
               style={{
                 fontFamily: "Inter",
@@ -259,6 +393,21 @@ function BlogSection({ blogs }: { blogs: Blog[] }) {
                       <p style={{ fontFamily: "Inter", fontSize: 14, color: "#4B5563", lineHeight: 1.5, margin: "0 0 14px" }}>
                         {b.excerpt}
                       </p>
+                    )}
+                    {b.publishedAt && (
+                      <div
+                        style={{
+                          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                          fontSize: 10.5,
+                          fontWeight: 500,
+                          letterSpacing: "0.1em",
+                          color: "#6B7280",
+                          textTransform: "uppercase",
+                          marginBottom: 10,
+                        }}
+                      >
+                        <time dateTime={b.publishedAt}>{fmtDate(b.publishedAt)}</time>
+                      </div>
                     )}
                     <span
                       style={{

@@ -2,54 +2,125 @@ import type { Metadata } from "next";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import NovedadesV3 from "@/components/interior-v3/NovedadesV3";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema, orgSchema } from "@/components/seo/schemas";
+import { allPosts, getAllTags } from "@/content/posts";
 
 export const metadata: Metadata = {
-  title: "Novedades y Changelog — Clinera.io",
+  title: "Blog y novedades — Clinera",
   description:
-    "Últimas novedades, releases y artículos de Clinera: nueva funcionalidad de IA, mejoras de agenda, integraciones y casos de uso.",
+    "Lo nuevo de Clinera: estudios técnicos, guías de WhatsApp Business + IA, casos reales de clínicas LATAM y operaciones para clínicas médicas y estéticas.",
   alternates: { canonical: "https://clinera.io/novedades" },
   openGraph: {
-    url: "https://clinera.io/novedades",
-    title: "Novedades y Changelog — Clinera.io",
-    description: "Releases, mejoras y artículos de Clinera.",
     type: "website",
+    locale: "es_CL",
+    url: "https://clinera.io/novedades",
+    siteName: "Clinera.io",
+    title: "Blog y novedades — Clinera",
+    description: "Estudios técnicos, guías de WhatsApp + IA y casos reales.",
+    images: ["/images/og-banner.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog y novedades — Clinera",
+    description: "Estudios, guías y casos reales para clínicas LATAM.",
+    images: ["/images/og-banner.png"],
   },
 };
 
-const AI_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbwJKtkMCOV8nDh3J5ngXzmU39xiB9zXbs6zFm5bTV1rlo6WKzm_XZXFFOzgEjEuIKF-/exec";
-const APP_TOKEN = "Clinera_Internal_Secure_Key_2026";
+type Blog = {
+  title: string;
+  excerpt?: string;
+  category?: string;
+  image?: string;
+  url?: string;
+  slug?: string;
+  publishedAt?: string;
+  tags?: string[];
+};
 
-export const revalidate = 60;
+type SearchParams = Promise<{ tag?: string | string[] }>;
 
-type Blog = { title: string; excerpt?: string; category?: string; image?: string; url?: string };
-type Faq = { title: string; content: string; icon?: string };
+export default async function NovedadesPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const params = await searchParams;
+  const rawTag = params.tag;
+  const activeTag = (Array.isArray(rawTag) ? rawTag[0] : rawTag) ?? null;
 
-async function getHelpData(): Promise<{ blogs: Blog[]; faqs: Faq[] }> {
-  try {
-    const res = await fetch(AI_ENDPOINT, {
-      method: "POST",
-      body: JSON.stringify({ type: "get_all_help_data", token: APP_TOKEN }),
-    });
-    if (!res.ok) throw new Error("Failed to fetch data");
-    return (await res.json()) as { blogs: Blog[]; faqs: Faq[] };
-  } catch (error) {
-    console.error("Error fetching data from Google Script", error);
-    return { blogs: [], faqs: [] };
-  }
-}
+  // Filtrado por tag (si aplica) sobre allPosts (ya viene ordenado: featured/recientes primero)
+  const filtered = activeTag
+    ? allPosts.filter((p) => p.tags?.includes(activeTag))
+    : allPosts;
 
-export default async function NovedadesPage() {
-  const data = await getHelpData();
-  const faqs = data.faqs ?? [];
-  // Show newest first
-  const blogs = (data.blogs ?? []).slice().reverse();
+  const blogs: Blog[] = filtered.map((p) => ({
+    title: p.title,
+    excerpt: p.description,
+    category: p.category,
+    image: p.heroImage,
+    url: `/blog/${p.slug}`,
+    slug: p.slug,
+    publishedAt: p.publishedAt,
+    tags: p.tags,
+  }));
+
+  const allTags = getAllTags();
+
+  // Schema Blog + ItemList
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": "https://clinera.io/novedades#blog",
+    name: "Blog Clinera",
+    url: "https://clinera.io/novedades",
+    description:
+      "Estudios técnicos, guías de WhatsApp + IA, casos reales y operaciones para clínicas LATAM.",
+    publisher: { "@id": "https://clinera.io/#organization" },
+    blogPost: filtered.slice(0, 12).map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      url: `https://clinera.io/blog/${p.slug}`,
+      datePublished: p.publishedAt,
+      ...(p.updatedAt && { dateModified: p.updatedAt }),
+      ...(p.author && { author: { "@type": "Person", name: p.author } }),
+      ...(p.description && { description: p.description }),
+    })),
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: filtered.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://clinera.io/blog/${p.slug}`,
+      name: p.title,
+    })),
+  };
 
   return (
     <>
+      <JsonLd
+        data={[
+          orgSchema,
+          breadcrumbSchema([
+            { name: "Inicio", url: "https://clinera.io" },
+            { name: "Blog", url: "https://clinera.io/novedades" },
+          ]),
+          blogSchema,
+          itemListSchema,
+        ]}
+      />
       <NavV3 />
       <main>
-        <NovedadesV3 blogs={blogs} faqs={faqs} />
+        <NovedadesV3
+          blogs={blogs}
+          faqs={[]}
+          allTags={allTags}
+          activeTag={activeTag}
+        />
       </main>
       <FooterV3 />
     </>
