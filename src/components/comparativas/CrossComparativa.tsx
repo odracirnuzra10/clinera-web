@@ -154,7 +154,7 @@ export function CrossComparativa({ data }: { data: Cruzada }) {
                       marginBottom: 8,
                     }}
                   >
-                    Si elegís {A.name}
+                    Si eliges {A.name}
                   </div>
                   <p
                     style={{
@@ -185,7 +185,7 @@ export function CrossComparativa({ data }: { data: Cruzada }) {
                       marginBottom: 8,
                     }}
                   >
-                    Si elegís {B.name}
+                    Si eliges {B.name}
                   </div>
                   <p
                     style={{
@@ -237,7 +237,7 @@ export function CrossComparativa({ data }: { data: Cruzada }) {
                       marginBottom: 8,
                     }}
                   >
-                    Si elegís Clinera
+                    Si eliges Clinera
                   </div>
                   <p
                     style={{
@@ -516,7 +516,7 @@ export function CrossComparativa({ data }: { data: Cruzada }) {
                   letterSpacing: "-0.02em",
                 }}
               >
-                ¿Querés ver Clinera en acción?
+                ¿Quieres ver Clinera en acción?
               </h2>
               <p
                 style={{

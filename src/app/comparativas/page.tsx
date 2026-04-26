@@ -61,6 +61,26 @@ const items = [
       "Payback en semanas: recuperas ~USD 2.000/mes en no-shows evitados por USD 129/mes.",
     ],
   },
+  {
+    slug: "dentalink",
+    competitor: "Dentalink",
+    headline: "¿Dentalink o Clinera?",
+    bullets: [
+      "Dentalink: líder dental LATAM (15.000+ clientes), 100% odontología con odontograma + ortodoncia + IA dental.",
+      "Clinera: agnóstico de vertical, AURA WhatsApp 24/7 e integrable encima de Dentalink vía API/MCP.",
+      "Si tu clínica también atiende otra vertical, Clinera la cubre sin pagar dos sistemas.",
+    ],
+  },
+  {
+    slug: "sacmed",
+    competitor: "Sacmed",
+    headline: "¿Sacmed o Clinera?",
+    bullets: [
+      "Sacmed: chileno, telemedicina certificada por Fonasa con receta QR, desde $26.000 CLP/mes.",
+      "Clinera: AURA WhatsApp 24/7 con memoria contextual, atribución Meta/Google, cobertura LATAM.",
+      "Combinable: Sacmed para telemedicina Fonasa + Clinera para WhatsApp y marketing.",
+    ],
+  },
 ];
 
 export default function ComparativasHub() {

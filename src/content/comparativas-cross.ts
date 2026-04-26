@@ -16,10 +16,12 @@ export type CrossDimension = {
   body: string;
 };
 
+export type CompetitorKey = "agendapro" | "reservo" | "medilink" | "doctocliq" | "dentalink" | "sacmed";
+
 export type Cruzada = {
   slug: string;
-  competitorA: { key: "agendapro" | "reservo" | "medilink" | "doctocliq"; name: string; siteLabel: string };
-  competitorB: { key: "agendapro" | "reservo" | "medilink" | "doctocliq"; name: string; siteLabel: string };
+  competitorA: { key: CompetitorKey; name: string; siteLabel: string };
+  competitorB: { key: CompetitorKey; name: string; siteLabel: string };
   title: string;
   description: string;
   h1: string;
@@ -37,6 +39,8 @@ const COMPETITORS = {
   reservo: { key: "reservo" as const, name: "Reservo", siteLabel: "reservo.cl" },
   medilink: { key: "medilink" as const, name: "Medilink", siteLabel: "medilink.cl" },
   doctocliq: { key: "doctocliq" as const, name: "Doctocliq", siteLabel: "doctocliq.com" },
+  dentalink: { key: "dentalink" as const, name: "Dentalink", siteLabel: "softwaredentalink.com" },
+  sacmed: { key: "sacmed" as const, name: "Sacmed", siteLabel: "sacmed.cl" },
 };
 
 // Filas comunes de la tabla — solo varían los cell-values entre cruzadas.
@@ -55,7 +59,7 @@ export const cruzadas: Record<string, Cruzada> = {
       "AgendaPro y Reservo comparados feature por feature: agenda, ficha clínica, WhatsApp, integraciones, precio. Más una tercera alternativa con IA conversacional para tu clínica.",
     h1: "AgendaPro vs Reservo 2026: ¿cuál conviene a tu clínica?",
     intro:
-      "AgendaPro tiene escala regional con 20.000+ negocios en LATAM y atiende múltiples verticales (salud, spa, gym). Reservo es chileno, enfocado en clínicas médicas, con 500+ clínicas activas. Ambos resuelven agenda + cobros, pero ninguno tiene IA conversacional en producción para responder WhatsApp 24/7. Si ese es tu cuello de botella, evaluá Clinera como tercera opción.",
+      "AgendaPro tiene escala regional con 20.000+ negocios en LATAM y atiende múltiples verticales (salud, spa, gym). Reservo es chileno, enfocado en clínicas médicas, con 500+ clínicas activas. Ambos resuelven agenda + cobros, pero ninguno tiene IA conversacional en producción para responder WhatsApp 24/7. Si ese es tu cuello de botella, evalúa Clinera como tercera opción.",
     tldr: {
       A: "AgendaPro es mejor si tienes negocio multi-vertical (no sólo clínica) y quieres una marca consolidada en toda LATAM con muchas integraciones de pagos.",
       B: "Reservo es mejor si tu prioridad es ficha clínica madura (odontograma, plantillas por especialidad) y facturación electrónica DTE en Chile.",
@@ -128,7 +132,7 @@ export const cruzadas: Record<string, Cruzada> = {
       },
       {
         q: "¿Tengo que elegir solo uno?",
-        a: "No necesariamente. Clinera puede convivir con AgendaPro o Reservo: vos mantenés tu agenda donde está y AURA opera el canal WhatsApp + analítica de marketing por encima vía API. Es la decisión típica de clínicas que ya invirtieron mucho tiempo en su sistema actual.",
+        a: "No necesariamente. Clinera puede convivir con AgendaPro o Reservo: tú mantenés tu agenda donde está y AURA opera el canal WhatsApp + analítica de marketing por encima vía API. Es la decisión típica de clínicas que ya invirtieron mucho tiempo en su sistema actual.",
       },
     ],
     publishedAt: "2026-04-25",
@@ -148,8 +152,8 @@ export const cruzadas: Record<string, Cruzada> = {
     intro:
       "AgendaPro es la solución de agenda más usada en LATAM (20.000+ negocios, multi-vertical). Medilink es chileno y tiene IA pero por canal de voz (Contact Center). Si tu paciente prefiere WhatsApp antes que llamada, ninguno cubre eso bien — Clinera es la tercera opción.",
     tldr: {
-      A: "AgendaPro es mejor si querés escala regional, app móvil sólida y precios por usuario claros, sin foco IA.",
-      B: "Medilink es mejor si tu cuello de botella son las llamadas perdidas y querés un Contact Center IA por voz integrado a tu agenda.",
+      A: "AgendaPro es mejor si quieres escala regional, app móvil sólida y precios por usuario claros, sin foco IA.",
+      B: "Medilink es mejor si tu cuello de botella son las llamadas perdidas y quieres un Contact Center IA por voz integrado a tu agenda.",
       clinera:
         "Clinera es mejor si tus pacientes hablan por WhatsApp (no llaman). AURA atiende, agenda y confirma 24/7 desde tu WhatsApp Business.",
     },
@@ -198,7 +202,7 @@ export const cruzadas: Record<string, Cruzada> = {
     faqs: [
       {
         q: "¿Medilink es mejor que AgendaPro para una clínica médica?",
-        a: "Medilink suele ser mejor si tu volumen alto es de llamadas telefónicas y querés que IA las conteste. AgendaPro es mejor si tu prioridad es agenda + cobros + multi-vertical y no necesitas IA. Para WhatsApp con IA, ninguno — ahí Clinera tiene ventaja.",
+        a: "Medilink suele ser mejor si tu volumen alto es de llamadas telefónicas y quieres que IA las conteste. AgendaPro es mejor si tu prioridad es agenda + cobros + multi-vertical y no necesitas IA. Para WhatsApp con IA, ninguno — ahí Clinera tiene ventaja.",
       },
       {
         q: "¿Cuál tiene mejor app móvil?",
@@ -232,12 +236,12 @@ export const cruzadas: Record<string, Cruzada> = {
       "Reservo vs Medilink: ficha clínica robusta vs Contact Center IA por voz. Más una alternativa con IA WhatsApp 24/7 que se integra con tu agenda actual.",
     h1: "Reservo vs Medilink 2026: ¿cuál conviene a tu clínica chilena?",
     intro:
-      "Ambos son chilenos, los dos tienen ficha clínica madura y los dos están enfocados 100% en clínicas médicas. La diferencia está en IA: Reservo no tiene, Medilink tiene IA por canal de voz. Si tus pacientes prefieren WhatsApp, evaluá Clinera como tercera opción.",
+      "Ambos son chilenos, los dos tienen ficha clínica madura y los dos están enfocados 100% en clínicas médicas. La diferencia está en IA: Reservo no tiene, Medilink tiene IA por canal de voz. Si tus pacientes prefieren WhatsApp, evalúa Clinera como tercera opción.",
     tldr: {
       A: "Reservo es mejor si tu prioridad absoluta es ficha clínica madura, odontograma, DTE, y no necesitas IA conversacional.",
-      B: "Medilink es mejor si te pierdes muchas llamadas y querés un Contact Center IA que las atienda 24/7.",
+      B: "Medilink es mejor si te pierdes muchas llamadas y quieres un Contact Center IA que las atienda 24/7.",
       clinera:
-        "Clinera es mejor si tu canal principal es WhatsApp y querés IA que responda, agende y derive a humano sin recepción humana detrás.",
+        "Clinera es mejor si tu canal principal es WhatsApp y quieres IA que responda, agende y derive a humano sin recepción humana detrás.",
     },
     table: [
       { feature: "IA conversacional WhatsApp en producción", A: "no", B: "no", clinera: "yes" },
@@ -325,10 +329,10 @@ export const cruzadas: Record<string, Cruzada> = {
     intro:
       "AgendaPro es la opción de agenda más usada en LATAM con 20.000+ negocios y foco multi-vertical. Doctocliq es mexicana, especializada en telemedicina + agenda con foco en consulta médica. Ninguno tiene IA conversacional en producción para responder pacientes por WhatsApp 24/7 — ahí entra Clinera como tercera opción.",
     tldr: {
-      A: "AgendaPro es mejor si querés agenda multi-vertical (clínica + spa + gym), app móvil pulida y escala regional consolidada.",
-      B: "Doctocliq es mejor si tu volumen alto es telemedicina y necesitás un flujo de videoconsulta integrado a la agenda.",
+      A: "AgendaPro es mejor si quieres agenda multi-vertical (clínica + spa + gym), app móvil pulida y escala regional consolidada.",
+      B: "Doctocliq es mejor si tu volumen alto es telemedicina y necesitas un flujo de videoconsulta integrado a la agenda.",
       clinera:
-        "Clinera es mejor si tu canal de captación principal es WhatsApp y querés IA que atienda, agende y derive 24/7.",
+        "Clinera es mejor si tu canal de captación principal es WhatsApp y quieres IA que atienda, agende y derive 24/7.",
     },
     table: [
       { feature: "IA conversacional WhatsApp en producción", A: "no", B: "no", clinera: "yes" },
@@ -364,7 +368,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Multi-vertical vs especialización médica",
         body:
-          "AgendaPro sirve por igual a clínicas, spas, gym, barberías y centros estéticos. Doctocliq es 100% médico. Si tienes operación mixta o querés un único proveedor para varios negocios, AgendaPro encaja; si es solo clínica médica, Doctocliq y Clinera son más específicos.",
+          "AgendaPro sirve por igual a clínicas, spas, gym, barberías y centros estéticos. Doctocliq es 100% médico. Si tienes operación mixta o quieres un único proveedor para varios negocios, AgendaPro encaja; si es solo clínica médica, Doctocliq y Clinera son más específicos.",
       },
       {
         title: "WhatsApp e IA — donde gana Clinera",
@@ -414,12 +418,12 @@ export const cruzadas: Record<string, Cruzada> = {
       "Reservo (Chile) vs Doctocliq (México): ambos enfocados en clínicas médicas. Comparativa de ficha clínica, telemedicina, precio. Más alternativa con IA WhatsApp.",
     h1: "Reservo vs Doctocliq 2026: ¿cuál conviene a tu clínica?",
     intro:
-      "Reservo es chileno, fuerte en agenda + ficha clínica + DTE local (500+ clínicas). Doctocliq es mexicano, fuerte en telemedicina + receta médica electrónica. Ambos son 100% médicos. Si querés agregar IA conversacional WhatsApp, Clinera es la tercera opción.",
+      "Reservo es chileno, fuerte en agenda + ficha clínica + DTE local (500+ clínicas). Doctocliq es mexicano, fuerte en telemedicina + receta médica electrónica. Ambos son 100% médicos. Si quieres agregar IA conversacional WhatsApp, Clinera es la tercera opción.",
     tldr: {
-      A: "Reservo es mejor si tu clínica está en Chile y necesitás DTE + ficha clínica madura + odontograma dental.",
+      A: "Reservo es mejor si tu clínica está en Chile y necesitas DTE + ficha clínica madura + odontograma dental.",
       B: "Doctocliq es mejor si tu clínica está en México o tu volumen alto es telemedicina con receta médica electrónica.",
       clinera:
-        "Clinera es mejor si querés WhatsApp con IA conversacional 24/7 y atribución real de ventas a tus campañas Meta/Google.",
+        "Clinera es mejor si quieres WhatsApp con IA conversacional 24/7 y atribución real de ventas a tus campañas Meta/Google.",
     },
     table: [
       { feature: "IA conversacional WhatsApp en producción", A: "no", B: "no", clinera: "yes" },
@@ -507,10 +511,10 @@ export const cruzadas: Record<string, Cruzada> = {
     intro:
       "Medilink es chileno y tiene IA por canal de voz (Contact Center). Doctocliq es mexicano y se especializa en telemedicina + agenda. Ambos cubren clínica médica pero por canales muy distintos. Si tu paciente prefiere WhatsApp, Clinera es la tercera opción que ninguno tiene.",
     tldr: {
-      A: "Medilink es mejor si te pierdes muchas llamadas y querés un Contact Center IA por voz que atienda 24/7 desde Chile.",
-      B: "Doctocliq es mejor si tu volumen alto es telemedicina y necesitás videoconsulta + receta electrónica integrada (México).",
+      A: "Medilink es mejor si te pierdes muchas llamadas y quieres un Contact Center IA por voz que atienda 24/7 desde Chile.",
+      B: "Doctocliq es mejor si tu volumen alto es telemedicina y necesitas videoconsulta + receta electrónica integrada (México).",
       clinera:
-        "Clinera es mejor si tu canal principal es WhatsApp y querés IA que atienda, agende y derive 24/7 con memoria contextual.",
+        "Clinera es mejor si tu canal principal es WhatsApp y quieres IA que atienda, agende y derive 24/7 con memoria contextual.",
     },
     table: [
       { feature: "IA conversacional WhatsApp en producción", A: "no", B: "no", clinera: "yes" },
@@ -541,7 +545,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Foco geográfico",
         body:
-          "Medilink es chileno, fuerte en CL. Doctocliq es mexicano, fuerte en MX. Clinera opera en CL, PE, CO, MX, AR, EC, UY, CR, PA. Si tu clínica está fuera de CL o MX, validá la cobertura local de Medilink y Doctocliq antes de cotizar.",
+          "Medilink es chileno, fuerte en CL. Doctocliq es mexicano, fuerte en MX. Clinera opera en CL, PE, CO, MX, AR, EC, UY, CR, PA. Si tu clínica está fuera de CL o MX, valida la cobertura local de Medilink y Doctocliq antes de cotizar.",
       },
       {
         title: "Telemedicina y receta electrónica",
@@ -585,13 +589,281 @@ export const cruzadas: Record<string, Cruzada> = {
   },
 };
 
+// ============================================================
+// 7. Dentalink vs Reservo  (dental especializado vs general chileno)
+// ============================================================
+cruzadas["dentalink-vs-reservo"] = {
+  slug: "dentalink-vs-reservo",
+  competitorA: COMPETITORS.dentalink,
+  competitorB: COMPETITORS.reservo,
+  title: "Dentalink vs Reservo 2026: ¿software dental especializado o agenda general?",
+  description:
+    "Dentalink (15.000+ clientes, 100% dental con odontograma + IA) vs Reservo (chileno, multi-vertical clínico con DTE). Más una alternativa con IA WhatsApp 24/7.",
+  h1: "Dentalink vs Reservo 2026: ¿cuál conviene a tu clínica dental?",
+  intro:
+    "Dentalink es el software dental líder en LATAM (15.000+ clientes), 100% vertical, con odontograma, periodontograma, módulo de ortodoncia y asistente IA dental. Reservo es chileno, vertical clínico médico-dental, con DTE y ficha clínica madura. Si tu cuello de botella es WhatsApp, Clinera entra como tercera opción.",
+  tldr: {
+    A: "Dentalink es mejor si tu clínica es 100% dental y necesitas odontograma + ortodoncia + análisis IA de RX con la profundidad del líder vertical.",
+    B: "Reservo es mejor si tu clínica mezcla dental con otras especialidades médicas y necesitas DTE chileno con ficha clínica multi-especialidad.",
+    clinera:
+      "Clinera es mejor si tu cuello de botella son los WhatsApps sin responder. AURA atiende 24/7 e integra encima de Dentalink o Reservo vía API.",
+  },
+  table: [
+    { feature: "IA conversacional WhatsApp 24/7 (paciente real)", A: "yes", B: "no", clinera: "yes" },
+    { feature: "Coexistencia con WhatsApp Business", A: "partial", B: "no", clinera: "yes" },
+    { feature: "Memoria contextual entre conversaciones", A: "partial", B: "no", clinera: "yes" },
+    { feature: "Integración MCP / API para IA externa", A: "no", B: "no", clinera: "yes" },
+    { feature: "Atribución de ventas a campañas Meta/Google", A: "no", B: "no", clinera: "yes" },
+    { feature: "Difusiones masivas WhatsApp marketing", A: "partial", B: "partial", clinera: "yes" },
+    { feature: "Foco vertical 100% dental", A: "yes", B: "partial", clinera: "no" },
+    { feature: "Odontograma + periodontograma nativo", A: "yes", B: "yes", clinera: "partial" },
+    { feature: "Módulo de ortodoncia especializado", A: "yes", B: "partial", clinera: "no" },
+    { feature: "Análisis IA de imágenes radiológicas", A: "yes", B: "no", clinera: "no" },
+    { feature: "Agenda multi-profesional", A: "yes", B: "yes", clinera: "yes" },
+    { feature: "Multi-sede", A: "yes", B: "yes", clinera: "yes" },
+    { feature: "Pagos online + financiamiento de pacientes", A: "yes", B: "partial", clinera: "partial" },
+    { feature: "Facturación electrónica DTE Chile", A: "partial", B: "yes", clinera: "partial" },
+    { feature: "Cobertura LATAM (no solo Chile)", A: "yes", B: "no", clinera: "yes" },
+    { feature: "Precios públicos en web", A: "no", B: "no", clinera: "yes" },
+    { feature: "Plan inicial USD/mes", A: "consultar", B: "consultar", clinera: "$89 (3 usuarios)" },
+  ],
+  dimensions: [
+    {
+      title: "Especialización dental vs cobertura clínica",
+      body:
+        "Dentalink es referente absoluto dental: odontograma, periodontograma, ortodoncia y análisis IA de RX están diseñados como producto principal. Reservo es vertical clínico amplio (médico, dental, estética) con módulos sólidos pero sin la profundidad dental de Dentalink. Si tu clínica es 100% dental, gana Dentalink; si es mixta, Reservo cubre más escenarios.",
+    },
+    {
+      title: "IA — los tres tienen una propuesta distinta",
+      body:
+        "Dentalink incorporó IA especializada en flujos dentales (asistente CRM, análisis de RX). Reservo no tiene IA conversacional. Clinera (con AURA) opera con IA agnóstica de vertical, integrable encima de cualquier sistema vía API/MCP. Para clínica dental: Dentalink + Clinera es una arquitectura común (clínica en Dentalink, WhatsApp en AURA).",
+    },
+    {
+      title: "Geografía",
+      body:
+        "Dentalink es LATAM (CL, MX, CO, AR, PE, EC, etc.). Reservo es 100% Chile con DTE y módulo financiero local. Para clínicas dentales fuera de Chile, Dentalink tiene mejor cobertura nativa.",
+    },
+    {
+      title: "Marketing y atribución de ventas",
+      body:
+        "Ni Dentalink ni Reservo tienen panel de marketing con atribución a campañas Meta/Google. Clinera trazabiliza cada conversación desde la campaña hasta la cita y la venta. Si invertís en publicidad digital, ese delta lo paga Clinera sola.",
+    },
+    {
+      title: "Precio y transparencia",
+      body:
+        "Ni Dentalink ni Reservo publican precios — atienden por demo o cotización. Clinera publica Growth USD 89/mes con 3 usuarios, sin permanencia y devolución 100% en los primeros 7 días.",
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Dentalink o Reservo es mejor para una clínica dental?",
+      a: "Dentalink, sin duda, si la clínica es 100% dental. Reservo cubre dental pero no con la misma profundidad de odontograma + periodontograma + ortodoncia que un sistema vertical especializado.",
+    },
+    {
+      q: "¿Cuál tiene mejor IA?",
+      a: "Distintas IAs. Dentalink tiene IA especializada en RX y CRM dental. Clinera tiene AURA, IA conversacional WhatsApp 24/7 agnóstica de vertical. Reservo no tiene IA conversacional. Para una clínica dental: combinar Dentalink + Clinera vía API es la arquitectura más común.",
+    },
+    {
+      q: "¿Reservo cubre dental con la misma profundidad que Dentalink?",
+      a: "No. Reservo tiene odontograma y módulo dental sólido, pero Dentalink construyó 15 años enfocado solo en dental. Para clínicas dentales puras, Dentalink gana en profundidad.",
+    },
+    {
+      q: "¿Se puede usar Clinera con Dentalink o Reservo al mismo tiempo?",
+      a: "Sí. Clinera se integra vía API/MCP con ambos. AURA opera el canal WhatsApp por encima y sincroniza la agenda con tu Dentalink o Reservo. Mantienes la ficha clínica donde está y agregas la capa de IA conversacional + atribución de marketing.",
+    },
+    {
+      q: "¿Cuál es más caro?",
+      a: "Ni Dentalink ni Reservo publican precios. Para clínicas pequeñas-medianas suelen estar en USD 80-200/mes según módulos. Clinera Growth es USD 89/mes fijo con 3 usuarios incluidos.",
+    },
+  ],
+  publishedAt: "2026-04-25",
+};
+
+// ============================================================
+// 8. Sacmed vs Medilink  (médico chileno vs IA por voz)
+// ============================================================
+cruzadas["sacmed-vs-medilink"] = {
+  slug: "sacmed-vs-medilink",
+  competitorA: COMPETITORS.sacmed,
+  competitorB: COMPETITORS.medilink,
+  title: "Sacmed vs Medilink 2026: telemedicina Fonasa vs Contact Center IA por voz",
+  description:
+    "Sacmed (telemedicina Fonasa con receta QR, desde $26.000 CLP) vs Medilink (Contact Center IA por voz). Más una alternativa con IA conversacional WhatsApp 24/7.",
+  h1: "Sacmed vs Medilink 2026: ¿cuál conviene a tu clínica médica chilena?",
+  intro:
+    "Ambos son chilenos y enfocados en clínica médica. Sacmed apuesta por telemedicina certificada por Fonasa con receta QR y precios bajos publicados (~USD 27/mes). Medilink apuesta por IA en canal de voz (Contact Center). Si tu paciente prefiere WhatsApp, evalúa Clinera como tercera opción.",
+  tldr: {
+    A: "Sacmed es mejor si tu clínica hace mucha telemedicina y necesita certificación Fonasa + receta QR + precio bajo publicado.",
+    B: "Medilink es mejor si te pierdes muchas llamadas y necesitas un Contact Center IA por voz que conteste 24/7.",
+    clinera:
+      "Clinera es mejor si tu canal principal es WhatsApp y quieres AURA atendiendo, agendando y derivando 24/7 con memoria contextual e integración a tu sistema actual.",
+  },
+  table: [
+    { feature: "IA conversacional WhatsApp 24/7", A: "no", B: "no", clinera: "yes" },
+    { feature: "IA por canal de voz (llamadas)", A: "no", B: "yes", clinera: "no" },
+    { feature: "Telemedicina certificada por Fonasa", A: "yes", B: "partial", clinera: "no" },
+    { feature: "Receta electrónica con QR", A: "yes", B: "yes", clinera: "partial" },
+    { feature: "Coexistencia WhatsApp Business (mismo número)", A: "partial", B: "partial", clinera: "yes" },
+    { feature: "Atención 24/7 sin recepción humana", A: "no", B: "yes", clinera: "yes" },
+    { feature: "Memoria contextual IA entre conversaciones", A: "no", B: "partial", clinera: "yes" },
+    { feature: "Integración MCP / API para IA externa", A: "no", B: "no", clinera: "yes" },
+    { feature: "Atribución de ventas a campañas Meta/Google", A: "no", B: "no", clinera: "yes" },
+    { feature: "Difusiones masivas WhatsApp marketing", A: "partial", B: "partial", clinera: "yes" },
+    { feature: "Agenda multi-profesional", A: "yes", B: "yes", clinera: "yes" },
+    { feature: "Multi-sede", A: "yes", B: "yes", clinera: "yes" },
+    { feature: "Ficha clínica digital", A: "yes", B: "yes", clinera: "yes" },
+    { feature: "Pagos online integrados", A: "yes", B: "partial", clinera: "yes" },
+    { feature: "Facturación electrónica DTE Chile", A: "yes", B: "yes", clinera: "partial" },
+    { feature: "Cobertura LATAM (no solo Chile)", A: "no", B: "no", clinera: "yes" },
+    { feature: "Precios públicos en web", A: "yes", B: "no", clinera: "yes" },
+    { feature: "Plan inicial mensual", A: "$26.000 CLP (~$27)", B: "consultar", clinera: "$89 (3 usuarios)" },
+  ],
+  dimensions: [
+    {
+      title: "Estrategia de canal — voz, telemedicina o chat",
+      body:
+        "Sacmed apuesta por telemedicina Fonasa: el paciente toma consulta remota con receta electrónica QR. Medilink apuesta por voz: IA atiende llamadas 24/7. Clinera apuesta por chat: AURA opera WhatsApp con IA conversacional. La elección depende del comportamiento real de tus pacientes — qué canal usan más para agendar y consultar.",
+    },
+    {
+      title: "Compliance Fonasa y receta electrónica",
+      body:
+        "Sacmed tiene certificación Fonasa nativa para telemedicina con receta QR — eso significa cumplimiento normativo para facturar consultas remotas. Medilink cubre receta electrónica pero su foco principal es Contact Center IA, no telemedicina certificada. Clinera no tiene certificación Fonasa nativa.",
+    },
+    {
+      title: "WhatsApp e IA conversacional",
+      body:
+        "Sacmed integra WhatsApp como canal complementario (notificaciones). Medilink puede integrar WhatsApp como canal anexo a su Contact Center. Ninguno tiene un agente IA que mantenga conversaciones reales en chat. Clinera (AURA) opera 24/7 desde tu WhatsApp Business con memoria contextual y derivación a humano automática.",
+    },
+    {
+      title: "Marketing y atribución de ventas",
+      body:
+        "Ni Sacmed ni Medilink tienen panel de atribución a campañas Meta/Google. Clinera trazabiliza la conversación desde la campaña hasta la venta. Para clínicas que invierten en publicidad digital, esa atribución justifica el delta de precio.",
+    },
+    {
+      title: "Precio",
+      body:
+        "Sacmed publica desde $26.000 CLP/mes (~USD 27) en plan Starter — el más accesible de los chilenos. Medilink no publica precios. Clinera publica Growth USD 89/mes con 3 usuarios incluidos. Sacmed gana en precio nominal; Clinera gana en valor por dólar para clínicas con marketing digital.",
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Sacmed o Medilink es mejor para telemedicina?",
+      a: "Sacmed, claramente. Tiene certificación Fonasa nativa con receta electrónica QR diseñada para telemedicina facturable. Medilink la cubre pero su foco principal es el Contact Center IA por voz.",
+    },
+    {
+      q: "¿Cuál atiende llamadas 24/7?",
+      a: "Medilink. Tiene Contact Center IA por voz que atiende llamadas fuera de horario, agenda y deriva. Sacmed no — depende de tu recepción humana.",
+    },
+    {
+      q: "¿Cuál es más barato?",
+      a: "Sacmed publica desde $26.000 CLP/mes (~USD 27) en plan Starter. Medilink no publica precios pero suele cotizarse en USD 100-200/mes. Sacmed gana en precio nominal.",
+    },
+    {
+      q: "¿Hay alternativa con IA conversacional WhatsApp?",
+      a: "Clinera. Es chilena, opera AURA 24/7 sobre WhatsApp Business con memoria contextual LangChain + integración MCP. Cobertura LATAM completa.",
+    },
+    {
+      q: "¿Puedo combinar Sacmed (telemedicina) + Clinera (WhatsApp)?",
+      a: "Sí. Clinera se integra vía API/MCP con Sacmed. Mantienes telemedicina Fonasa y receta QR en Sacmed, y AURA opera el canal WhatsApp + atribución de marketing por encima.",
+    },
+  ],
+  publishedAt: "2026-04-25",
+};
+
+// ============================================================
+// 9. Dentalink vs Sacmed  (vertical dental vs vertical médico, ambos en CL)
+// ============================================================
+cruzadas["dentalink-vs-sacmed"] = {
+  slug: "dentalink-vs-sacmed",
+  competitorA: COMPETITORS.dentalink,
+  competitorB: COMPETITORS.sacmed,
+  title: "Dentalink vs Sacmed 2026: ¿software dental especializado o médico con telemedicina?",
+  description:
+    "Comparativa entre Dentalink (líder dental LATAM, 15.000+ clientes) y Sacmed (chileno, telemedicina Fonasa). Para decidir según el vertical real de tu clínica.",
+  h1: "Dentalink vs Sacmed 2026: ¿cuál encaja con tu clínica?",
+  intro:
+    "Esta comparativa solo aplica si tu clínica está decidiendo entre dos verticales: dental u otra especialidad médica. Dentalink es 100% dental y referente regional. Sacmed es 100% médico, chileno, con telemedicina Fonasa. Si tu clínica mezcla verticales, Clinera es la tercera opción que cubre ambas.",
+  tldr: {
+    A: "Dentalink es mejor si tu clínica es 100% odontológica — odontograma, periodontograma, ortodoncia y análisis IA de RX dentales.",
+    B: "Sacmed es mejor si tu clínica es médica general (no dental) y necesitas telemedicina certificada por Fonasa con receta QR.",
+    clinera:
+      "Clinera es mejor si tu clínica atiende dental + médico + estética (multi-vertical) o quieres IA WhatsApp 24/7 encima de cualquiera de los dos sistemas.",
+  },
+  table: [
+    { feature: "IA conversacional WhatsApp 24/7", A: "yes", B: "no", clinera: "yes" },
+    { feature: "Coexistencia WhatsApp Business", A: "partial", B: "partial", clinera: "yes" },
+    { feature: "Memoria contextual IA entre conversaciones", A: "partial", B: "no", clinera: "yes" },
+    { feature: "Foco 100% dental", A: "yes", B: "no", clinera: "no" },
+    { feature: "Foco 100% médico (no dental)", A: "no", B: "yes", clinera: "no" },
+    { feature: "Multi-vertical (dental + médico + estética)", A: "no", B: "no", clinera: "yes" },
+    { feature: "Odontograma + periodontograma nativo", A: "yes", B: "no", clinera: "partial" },
+    { feature: "Módulo de ortodoncia especializado", A: "yes", B: "no", clinera: "no" },
+    { feature: "Telemedicina certificada por Fonasa", A: "no", B: "yes", clinera: "no" },
+    { feature: "Receta electrónica con QR", A: "no", B: "yes", clinera: "partial" },
+    { feature: "Análisis IA de imágenes radiológicas", A: "yes", B: "no", clinera: "no" },
+    { feature: "Atribución de ventas a campañas Meta/Google", A: "no", B: "no", clinera: "yes" },
+    { feature: "Integración MCP / API para IA externa", A: "no", B: "no", clinera: "yes" },
+    { feature: "Cobertura LATAM (no solo Chile)", A: "yes", B: "no", clinera: "yes" },
+    { feature: "Precios públicos en web", A: "no", B: "yes", clinera: "yes" },
+    { feature: "Plan inicial mensual", A: "consultar", B: "$26.000 CLP (~$27)", clinera: "$89 (3 usuarios)" },
+  ],
+  dimensions: [
+    {
+      title: "Vertical real de tu clínica",
+      body:
+        "Esta comparativa raramente es honesta entre los dos: Dentalink y Sacmed sirven a verticales muy distintos. Dentalink es 100% dental; Sacmed es médico general. Si dudas entre los dos, probablemente tu clínica está en transición de vertical o atiende mixto. Clinera es agnóstica y cubre todas las verticales en un solo sistema.",
+    },
+    {
+      title: "Profundidad de ficha por vertical",
+      body:
+        "Dentalink construyó 15 años de profundidad dental: odontograma, periodontograma, ortodoncia con seguimiento, análisis IA de RX. Sacmed construyó profundidad médica con telemedicina Fonasa, receta electrónica QR y compliance chileno. Ambos son referentes en su vertical.",
+    },
+    {
+      title: "Telemedicina y compliance",
+      body:
+        "Sacmed gana sin discusión en telemedicina certificada Fonasa con receta QR — está diseñado para clínicas médicas chilenas que facturan consulta remota. Dentalink cubre telemedicina como módulo complementario, no como producto principal.",
+    },
+    {
+      title: "WhatsApp e IA conversacional",
+      body:
+        "Dentalink incorporó asistente IA dental especializado. Sacmed integra WhatsApp como canal complementario sin agente IA. Clinera (AURA) opera con IA conversacional WhatsApp 24/7 agnóstica de vertical, integrable encima de cualquiera de los dos vía API/MCP.",
+    },
+    {
+      title: "Cobertura geográfica",
+      body:
+        "Dentalink opera en toda LATAM (CL, MX, CO, AR, PE, EC, etc.). Sacmed es 100% Chile con compliance Fonasa específico. Si tu clínica está en otro país de LATAM, Sacmed no aplica; Dentalink sí (si es dental) o Clinera (si es multi-vertical).",
+    },
+  ],
+  faqs: [
+    {
+      q: "¿Dentalink o Sacmed cubre mejor mi clínica?",
+      a: "Si es 100% dental: Dentalink, sin duda. Si es médica general (no dental): Sacmed. Si es mixta o no estás en Chile: Clinera, que cubre ambas verticales en un solo sistema.",
+    },
+    {
+      q: "¿Cuál tiene mejor IA?",
+      a: "Dentalink tiene asistente IA especializado en flujos dentales (CRM, análisis RX). Sacmed no tiene IA conversacional. Clinera (AURA) tiene IA conversacional agnóstica de vertical, operando 24/7 sobre WhatsApp Business.",
+    },
+    {
+      q: "¿Cuál es más caro?",
+      a: "Sacmed publica desde $26.000 CLP/mes (~USD 27) en plan Starter — el más barato. Dentalink no publica precios. Clinera Growth es USD 89/mes con 3 usuarios incluidos.",
+    },
+    {
+      q: "¿Sirve fuera de Chile?",
+      a: "Dentalink opera en toda LATAM. Sacmed es 100% Chile (compliance Fonasa local). Clinera tiene cobertura nativa en CL, PE, CO, MX, AR, EC, UY, CR, PA.",
+    },
+    {
+      q: "¿Puedo combinar Clinera con Dentalink o Sacmed?",
+      a: "Sí. Clinera se integra vía API/MCP con ambos. Mantienes la ficha clínica especializada en Dentalink (dental) o Sacmed (médico) y AURA opera el canal WhatsApp + atribución de marketing por encima.",
+    },
+  ],
+  publishedAt: "2026-04-25",
+};
+
 export const allCruzadas = Object.values(cruzadas);
 
-// Mapeo: dado un slug directo (reservo, agendapro, etc.), ¿qué cruzadas lo incluyen?
+// Mapeo: dado un slug directo (reservo, agendapro, dentalink, etc.), ¿qué cruzadas lo incluyen?
 // Útil para internal-linking desde la página de comparativa directa.
-export function getCruzadasForCompetitor(
-  competitorKey: "agendapro" | "reservo" | "medilink" | "doctocliq",
-): Cruzada[] {
+export function getCruzadasForCompetitor(competitorKey: CompetitorKey): Cruzada[] {
   return allCruzadas.filter(
     (c) => c.competitorA.key === competitorKey || c.competitorB.key === competitorKey,
   );
