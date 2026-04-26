@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
+import { CrossComparativa } from "@/components/comparativas/CrossComparativa";
+import { cruzadas, getCruzadasForCompetitor } from "@/content/comparativas-cross";
 
 type Slug = "reservo" | "agendapro" | "medilink" | "manual";
 
@@ -477,7 +479,10 @@ const competitors: Record<Slug, Competitor> = {
 };
 
 export function generateStaticParams() {
-  return Object.keys(competitors).map((slug) => ({ slug }));
+  return [
+    ...Object.keys(competitors).map((slug) => ({ slug })),
+    ...Object.keys(cruzadas).map((slug) => ({ slug })),
+  ];
 }
 
 export async function generateMetadata({
@@ -486,6 +491,32 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+
+  // Cruzada (A vs B)
+  const cross = cruzadas[slug];
+  if (cross) {
+    return {
+      title: cross.title,
+      description: cross.description,
+      alternates: { canonical: `https://clinera.io/comparativas/${slug}` },
+      openGraph: {
+        type: "website",
+        locale: "es_CL",
+        url: `https://clinera.io/comparativas/${slug}`,
+        title: cross.title,
+        description: cross.description,
+        images: ["/images/og-banner.png"],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: cross.title,
+        description: cross.description,
+        images: ["/images/og-banner.png"],
+      },
+    };
+  }
+
+  // Directa (Clinera vs X)
   const data = competitors[slug as Slug];
   if (!data) return {};
   return {
@@ -573,6 +604,49 @@ export default async function ComparativaPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  // Cruzada (renderer separado, layout más simple)
+  const cross = cruzadas[slug];
+  if (cross) {
+    const breadcrumbCrossLd = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Inicio", item: "https://clinera.io/" },
+        { "@type": "ListItem", position: 2, name: "Comparativas", item: "https://clinera.io/comparativas" },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: `${cross.competitorA.name} vs ${cross.competitorB.name}`,
+          item: `https://clinera.io/comparativas/${slug}`,
+        },
+      ],
+    };
+    const faqCrossLd = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: cross.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    };
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbCrossLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqCrossLd) }}
+        />
+        <CrossComparativa data={cross} />
+      </>
+    );
+  }
+
+  // Directa (Clinera vs X) — render existente
   const data = competitors[slug as Slug];
   if (!data) notFound();
 
@@ -1006,6 +1080,138 @@ export default async function ComparativaPage({
                   </details>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Internal linking — otras comparativas y recursos */}
+        <section className="section" style={{ paddingTop: 60, paddingBottom: 20 }}>
+          <div className="container">
+            <div style={{ maxWidth: 1040, margin: "0 auto" }}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-tech)",
+                  fontSize: "0.78rem",
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--ink-tertiary)",
+                  textAlign: "center",
+                  margin: "0 0 18px",
+                }}
+              >
+                Seguir comparando
+              </h2>
+              <ul
+                style={{
+                  listStyle: "none",
+                  padding: 0,
+                  margin: 0,
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+                  gap: 10,
+                }}
+              >
+                {/* Otras 3 directas */}
+                {(Object.keys(competitors) as Slug[])
+                  .filter((s) => s !== slug)
+                  .map((otherSlug) => (
+                    <li key={otherSlug}>
+                      <Link
+                        href={`/comparativas/${otherSlug}`}
+                        style={{
+                          display: "block",
+                          padding: "14px 18px",
+                          background: "#fff",
+                          border: "1px solid var(--divider-subtle)",
+                          borderRadius: 12,
+                          textDecoration: "none",
+                          color: "var(--ink-primary)",
+                          fontSize: "0.93rem",
+                          fontWeight: 500,
+                        }}
+                      >
+                        Clinera vs {competitors[otherSlug].name} →
+                      </Link>
+                    </li>
+                  ))}
+                {/* Cruzadas que incluyen este competidor */}
+                {(slug === "agendapro" || slug === "reservo" || slug === "medilink") &&
+                  getCruzadasForCompetitor(slug as "agendapro" | "reservo" | "medilink").map((c) => (
+                    <li key={c.slug}>
+                      <Link
+                        href={`/comparativas/${c.slug}`}
+                        style={{
+                          display: "block",
+                          padding: "14px 18px",
+                          background: "#fff",
+                          border: "1px solid var(--divider-subtle)",
+                          borderRadius: 12,
+                          textDecoration: "none",
+                          color: "var(--ink-primary)",
+                          fontSize: "0.93rem",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {c.competitorA.name} vs {c.competitorB.name} →
+                      </Link>
+                    </li>
+                  ))}
+                {/* Recursos relacionados */}
+                <li>
+                  <Link
+                    href="/efectividad"
+                    style={{
+                      display: "block",
+                      padding: "14px 18px",
+                      background: "#fff",
+                      border: "1px solid var(--divider-subtle)",
+                      borderRadius: 12,
+                      textDecoration: "none",
+                      color: "var(--ink-primary)",
+                      fontSize: "0.93rem",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Estudio de efectividad: 100% en ≤3 intentos →
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/blog/efectividad"
+                    style={{
+                      display: "block",
+                      padding: "14px 18px",
+                      background: "#fff",
+                      border: "1px solid var(--divider-subtle)",
+                      borderRadius: 12,
+                      textDecoration: "none",
+                      color: "var(--ink-primary)",
+                      fontSize: "0.93rem",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Cómo medimos la efectividad (metodología) →
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/planes"
+                    style={{
+                      display: "block",
+                      padding: "14px 18px",
+                      background: "#fff",
+                      border: "1px solid var(--divider-subtle)",
+                      borderRadius: 12,
+                      textDecoration: "none",
+                      color: "var(--ink-primary)",
+                      fontSize: "0.93rem",
+                      fontWeight: 500,
+                    }}
+                  >
+                    Ver planes desde USD 89/mes →
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </section>

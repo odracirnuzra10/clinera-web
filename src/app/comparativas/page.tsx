@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
+import { allCruzadas } from "@/content/comparativas-cross";
 
 export const metadata: Metadata = {
   title: "Comparativas — Clinera vs alternativas",
   description:
-    "Comparamos Clinera con Reservo, AgendaPro, Medilink y hacerlo manual. Features, precio, soporte y casos de uso para ayudarte a decidir.",
+    "Comparamos Clinera con Reservo, AgendaPro, Medilink y hacerlo manual. Más comparativas cruzadas (AgendaPro vs Reservo, etc.) para decidir con datos.",
   alternates: { canonical: "https://clinera.io/comparativas" },
 };
 
@@ -166,6 +167,106 @@ export default function ComparativasHub() {
                   </Link>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Otras comparativas útiles — cruzadas */}
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+              <div style={{ marginBottom: 28 }}>
+                <span
+                  style={{
+                    fontFamily: "var(--font-tech)",
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "var(--ink-tertiary)",
+                  }}
+                >
+                  COMPARATIVAS CRUZADAS
+                </span>
+                <h2
+                  style={{
+                    fontSize: "1.7rem",
+                    margin: "8px 0 8px",
+                    color: "var(--ink-primary)",
+                  }}
+                >
+                  Otras comparativas útiles
+                </h2>
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    color: "var(--ink-secondary)",
+                    margin: 0,
+                    maxWidth: 720,
+                  }}
+                >
+                  Si ya estás comparando entre dos alternativas que no incluyen
+                  a Clinera, dejamos el análisis honesto y agregamos a Clinera
+                  como tercera opción.
+                </p>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns:
+                    "repeat(auto-fit, minmax(280px, 1fr))",
+                  gap: 14,
+                }}
+              >
+                {allCruzadas.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/comparativas/${c.slug}`}
+                    style={{
+                      display: "block",
+                      background: "#fff",
+                      border: "1px solid var(--divider-subtle)",
+                      borderRadius: 14,
+                      padding: "20px 22px",
+                      textDecoration: "none",
+                      color: "inherit",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "var(--font-tech)",
+                        fontSize: "0.7rem",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "var(--ink-tertiary)",
+                        marginBottom: 6,
+                      }}
+                    >
+                      {c.competitorA.name} vs {c.competitorB.name}
+                    </div>
+                    <h3
+                      style={{
+                        fontSize: "1.05rem",
+                        fontWeight: 700,
+                        letterSpacing: "-0.015em",
+                        color: "var(--ink-primary)",
+                        margin: "0 0 8px",
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      {c.h1}
+                    </h3>
+                    <span
+                      style={{
+                        color: "var(--brand-cyan)",
+                        fontWeight: 600,
+                        fontSize: "0.9rem",
+                      }}
+                    >
+                      Ver comparativa →
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
