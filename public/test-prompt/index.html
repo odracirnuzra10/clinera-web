@@ -297,15 +297,6 @@
     }
     .f-select:focus { border-color: var(--violet); }
 
-    /* === TOGGLE ROW === */
-    .toggle-row {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-
-    .toggle-info { flex: 1; }
-    .toggle-title { font-size: 13.5px; font-weight: 600; color: var(--t1); margin-bottom: 2px; }
-    .toggle-sub { font-size: 11.5px; color: var(--t3); font-weight: 400; }
-
     .toggle {
       width: 42px; height: 23px; border-radius: 12px;
       background: var(--grad); position: relative;
@@ -659,6 +650,7 @@
                   <div class="p-role">agente IA · activa</div>
                 </div>
                 <span class="badge-verified">Verificado</span>
+                <button class="toggle" onclick="this.classList.toggle('off')" aria-label="Activar agente" title="Activar agente"></button>
               </div>
               <div class="field">
                 <label class="f-label">Nombre</label>
@@ -671,19 +663,6 @@
                   <option>Português</option>
                   <option>English</option>
                 </select>
-              </div>
-            </div>
-
-            <div class="card-divider"></div>
-
-            <!-- Toggle -->
-            <div class="card-inner">
-              <div class="toggle-row">
-                <div class="toggle-info">
-                  <div class="toggle-title">Agente habilitado</div>
-                  <div class="toggle-sub">Responde automáticamente vía WhatsApp</div>
-                </div>
-                <button class="toggle" onclick="this.classList.toggle('off')"></button>
               </div>
             </div>
 
