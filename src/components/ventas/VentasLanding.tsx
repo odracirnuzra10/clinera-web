@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // ============== SHARED CONSTANTS ==============
-const DOW = ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"];
-const MON = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
 const GRAD = "linear-gradient(135deg,#3B82F6 0%,#7C3AED 50%,#D946EF 100%)";
 
 const PHONE_RULES: Record<string, { name: string; len: number; placeholder: string }> = {
@@ -25,7 +23,6 @@ const CHALLENGES: Challenge[] = [
 const WEBHOOK_URL = "https://clinerasoftware.app.n8n.cloud/webhook/088a2cfe-5c93-4a4b-a4e5-ac2617979ea5";
 const WA_NUMBER = "56985581524";
 
-type Slot = { id: string; label: string; time: string };
 type Form = { nombre: string; clinica: string; prefix: string; phone: string; email: string };
 
 // ============== TRACKING HELPERS ==============
@@ -102,8 +99,9 @@ export default function VentasLanding() {
           .ventas-testi-desktop { display: none !important; }
           .ventas-testi-mobile { display: flex !important; }
           .ventas-integraciones { display: none !important; }
-          .ventas-wizard { padding: 20px 18px 18px !important; border-radius: 16px !important; }
+          .ventas-wizard { padding: 20px 14px 16px !important; border-radius: 16px !important; }
           .ventas-wizard-progress { margin-bottom: 16px !important; }
+          .ventas-cal-embed { min-height: 560px !important; }
           .ventas-step-title { font-size: 22px !important; letter-spacing: -.02em !important; }
           .ventas-step-header { margin-bottom: 14px !important; }
           .ventas-step-sub { font-size: 13px !important; }
@@ -430,9 +428,9 @@ function Wizard() {
   const [step, setStep] = useState(1);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [form, setForm] = useState<Form>({ nombre: "", clinica: "", prefix: "+56", phone: "", email: "" });
-  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
-  const [selectedSlot, setSelectedSlot] = useState<Slot | null>(null);
   const [errors, setErrors] = useState<Record<string, boolean>>({});
+  const [leadCtx, setLeadCtx] = useState<{ eventId: string; leadSource: string } | null>(null);
+  const [booking, setBooking] = useState<CalBooking | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
   return (
@@ -478,49 +476,61 @@ function Wizard() {
             if (typeof window !== "undefined" && typeof window.fbq === "function") {
               window.fbq("track", "InitiateCheckout", { content_name: "Clinera Ventas" });
             }
+            // Capturar el lead en n8n en background — sin bloquear el avance al embed.
+            // El fetch usa keepalive, así que se completa aunque cambie de pestaña.
+            submitPartialLead({ form, challenge }).then((ctx) => {
+              if (ctx) setLeadCtx(ctx);
+            });
             setStep(3);
           }}
         />
       )}
       {!submitted && step === 3 && (
-        <StepDate
-          selectedDay={selectedDay}
-          setSelectedDay={setSelectedDay}
-          selectedSlot={selectedSlot}
-          setSelectedSlot={setSelectedSlot}
+        <StepCalCom
+          form={form}
+          challenge={challenge}
           onBack={() => setStep(2)}
-          onSubmit={async () => {
-            await submitLead({ form, challenge, day: selectedDay, slot: selectedSlot });
+          onBooked={async (calBooking) => {
+            setBooking(calBooking);
+            await submitBookingConfirmation({ form, challenge, leadCtx, booking: calBooking });
             setSubmitted(true);
           }}
         />
       )}
-      {submitted && <StepSuccess form={form} challenge={challenge} day={selectedDay} slot={selectedSlot} />}
+      {submitted && <StepSuccess form={form} challenge={challenge} booking={booking} />}
     </div>
   );
 }
 
 // ============== SUBMIT + META DEDUP ==============
-async function submitLead({
+// El lead se captura en DOS etapas:
+// 1) submitPartialLead — al final del paso 2 (datos de contacto). Garantiza que n8n
+//    reciba el lead aunque después abandone el embed de Cal.com.
+// 2) submitBookingConfirmation — cuando Cal.com dispara `bookingSuccessful`.
+//    Manda los detalles del calendario y referencia al lead anterior.
+
+type CalBooking = {
+  booking?: { uid?: string; eventTypeId?: number; startTime?: string; endTime?: string };
+  eventType?: { title?: string; slug?: string; length?: number };
+  date?: string;
+  duration?: number;
+  organizer?: { name?: string; email?: string; timeZone?: string };
+  confirmed?: boolean;
+};
+
+async function submitPartialLead({
   form,
   challenge,
-  day,
-  slot,
 }: {
   form: Form;
   challenge: Challenge | null;
-  day: Date | null;
-  slot: Slot | null;
-}) {
-  if (!day || !slot || !challenge) return;
+}): Promise<{ eventId: string; leadSource: string } | null> {
+  if (!challenge) return null;
 
-  // a. Generate ids BEFORE firing anything
   const eventId = "ventas_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9);
   const eventTime = Math.floor(Date.now() / 1000);
 
-  // fbp from cookie
   const fbp = getCookie("_fbp");
-  // fbc from cookie, or constructed from ?fbclid
   let fbc = getCookie("_fbc");
   if (!fbc && typeof window !== "undefined") {
     const fbclid = new URLSearchParams(window.location.search).get("fbclid");
@@ -530,9 +540,9 @@ async function submitLead({
   const leadSource = detectLeadSource();
   const rule = PHONE_RULES[form.prefix];
   const digits = form.phone.replace(/\D/g, "");
-  const dayLabel = `${DOW[day.getDay()]} ${day.getDate()} ${MON[day.getMonth()]}`;
 
-  // b. Fire Pixel FIRST — before the webhook fetch — so it's not lost if the tab closes
+  // Fire Pixel Lead — el lead está calificado: nombre + clínica + tel + email.
+  // El booking en Cal.com es un upgrade adicional, no un requisito para considerarlo lead.
   if (typeof window !== "undefined" && typeof window.fbq === "function") {
     window.fbq(
       "track",
@@ -541,6 +551,7 @@ async function submitLead({
         content_name: "Clinera Ventas",
         content_category: "booking",
         lead_source: leadSource,
+        booking_status: "pending",
         value: 10,
         currency: "USD",
       },
@@ -554,12 +565,11 @@ async function submitLead({
       lead_source: leadSource,
       challenge: challenge.id,
       event_id: eventId,
+      booking_status: "pending",
     });
   }
 
-  // c. POST to webhook (n8n → Meta CAPI) with dedup payload
   const payload = {
-    // Meta dedup fields — MUST match the Pixel call
     event_id: eventId,
     event_time: eventTime,
     event_source_url: typeof window !== "undefined" ? window.location.href : "",
@@ -568,7 +578,7 @@ async function submitLead({
     fbc,
     client_user_agent: typeof navigator !== "undefined" ? navigator.userAgent : "",
 
-    // Business payload (unchanged)
+    booking_status: "pending",
     lead_source: leadSource,
     challenge_id: challenge.id,
     challenge_label: challenge.title,
@@ -579,11 +589,6 @@ async function submitLead({
     celular_digits: digits,
     celular_pais: rule?.name,
     email: form.email.trim(),
-    fecha_reunion: day.toISOString().slice(0, 10),
-    fecha_reunion_label: dayLabel,
-    franja: slot.label,
-    franja_id: slot.id,
-    franja_time: slot.time,
     fuente: "Landing /ventas — Clinera",
     landing_url: typeof window !== "undefined" ? location.href : "",
     referrer: typeof document !== "undefined" ? document.referrer : "",
@@ -599,7 +604,101 @@ async function submitLead({
       keepalive: true,
     });
   } catch (e) {
-    console.error("Webhook failed", e);
+    console.error("Partial lead webhook failed", e);
+  }
+
+  return { eventId, leadSource };
+}
+
+async function submitBookingConfirmation({
+  form,
+  challenge,
+  leadCtx,
+  booking,
+}: {
+  form: Form;
+  challenge: Challenge | null;
+  leadCtx: { eventId: string; leadSource: string } | null;
+  booking: CalBooking;
+}) {
+  if (!challenge) return;
+
+  const confirmEventId =
+    "ventas_confirm_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9);
+
+  // Disparar Schedule pixel — funnel step posterior al Lead.
+  if (typeof window !== "undefined" && typeof window.fbq === "function") {
+    window.fbq(
+      "track",
+      "Schedule",
+      {
+        content_name: "Clinera Ventas",
+        content_category: "booking",
+        lead_source: leadCtx?.leadSource,
+        cal_booking_uid: booking?.booking?.uid,
+      },
+      { eventID: confirmEventId },
+    );
+  }
+
+  if (typeof window !== "undefined" && window.dataLayer) {
+    window.dataLayer.push({
+      event: "ventas_booking_confirmed",
+      lead_event_id: leadCtx?.eventId,
+      cal_booking_uid: booking?.booking?.uid,
+      cal_date: booking?.date,
+    });
+  }
+
+  const rule = PHONE_RULES[form.prefix];
+  const digits = form.phone.replace(/\D/g, "");
+
+  const payload = {
+    event_id: confirmEventId,
+    parent_event_id: leadCtx?.eventId ?? null,
+    event_time: Math.floor(Date.now() / 1000),
+    booking_status: "confirmed",
+
+    // Datos del calendario (Cal.com)
+    cal_booking_uid: booking?.booking?.uid ?? null,
+    cal_event_type_id: booking?.booking?.eventTypeId ?? null,
+    cal_event_type_title: booking?.eventType?.title ?? null,
+    cal_event_type_slug: booking?.eventType?.slug ?? null,
+    cal_date: booking?.date ?? null,
+    cal_start_time: booking?.booking?.startTime ?? null,
+    cal_end_time: booking?.booking?.endTime ?? null,
+    cal_duration: booking?.duration ?? null,
+    cal_organizer_name: booking?.organizer?.name ?? null,
+    cal_organizer_email: booking?.organizer?.email ?? null,
+    cal_organizer_timezone: booking?.organizer?.timeZone ?? null,
+    cal_confirmed: booking?.confirmed ?? null,
+
+    // Datos del contacto (re-incluidos para que el segundo evento sea autosuficiente)
+    lead_source: leadCtx?.leadSource ?? detectLeadSource(),
+    challenge_id: challenge.id,
+    challenge_label: challenge.title,
+    nombre: form.nombre.trim(),
+    nombre_clinica: form.clinica.trim(),
+    celular: (form.prefix + digits).trim(),
+    celular_prefix: form.prefix,
+    celular_digits: digits,
+    celular_pais: rule?.name,
+    email: form.email.trim(),
+    fuente: "Landing /ventas — Clinera (Cal.com confirm)",
+    landing_url: typeof window !== "undefined" ? location.href : "",
+    created_at: new Date().toISOString(),
+    timestamp: Date.now(),
+  };
+
+  try {
+    await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    });
+  } catch (e) {
+    console.error("Booking confirmation webhook failed", e);
   }
 }
 
@@ -842,39 +941,105 @@ function StepContact({
   );
 }
 
-// ============== STEP 3 ==============
-function StepDate({
-  selectedDay,
-  setSelectedDay,
-  selectedSlot,
-  setSelectedSlot,
+// ============== STEP 3 — Cal.com inline embed ==============
+function StepCalCom({
+  form,
+  challenge,
   onBack,
-  onSubmit,
+  onBooked,
 }: {
-  selectedDay: Date | null;
-  setSelectedDay: (d: Date) => void;
-  selectedSlot: Slot | null;
-  setSelectedSlot: (s: Slot) => void;
+  form: Form;
+  challenge: Challenge | null;
   onBack: () => void;
-  onSubmit: () => void;
+  onBooked: (b: CalBooking) => void;
 }) {
-  const days = useMemo(() => {
-    const res: Date[] = [];
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    while (res.length < 4) {
-      const dow = d.getDay();
-      if (dow !== 0 && dow !== 6) res.push(new Date(d));
-      d.setDate(d.getDate() + 1);
+  // Mantenemos el callback más reciente sin re-registrar el listener.
+  const onBookedRef = useRef(onBooked);
+  useEffect(() => {
+    onBookedRef.current = onBooked;
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const w = window as unknown as {
+      Cal?: CalGlobal;
+      __clineraCalListener?: boolean;
+    };
+
+    // Cargador oficial de Cal.com (idempotente).
+    if (!w.Cal) {
+      (function (C: typeof w, A: string, L: string) {
+        const p = (a: { q: unknown[] }, ar: unknown) => a.q.push(ar);
+        const d = document;
+        C.Cal =
+          C.Cal ||
+          ((...rest: unknown[]) => {
+            const cal = C.Cal as CalGlobal;
+            const ar = rest;
+            if (!cal.loaded) {
+              cal.ns = {};
+              cal.q = cal.q || [];
+              const s = d.createElement("script");
+              s.src = A;
+              d.head.appendChild(s);
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api: CalApi = function (...a: unknown[]) {
+                p(api, a);
+              } as CalApi;
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === "string") {
+                cal.ns![namespace] = cal.ns![namespace] || api;
+                p(cal.ns![namespace] as { q: unknown[] }, ar);
+                p(cal as unknown as { q: unknown[] }, ["initNamespace", namespace]);
+              } else {
+                p(cal as unknown as { q: unknown[] }, ar);
+              }
+              return;
+            }
+            p(cal as unknown as { q: unknown[] }, ar);
+          });
+      })(w, "https://app.cal.com/embed/embed.js", "init");
     }
-    return res;
-  }, []);
-  const slots: Slot[] = [
-    { id: "manana", label: "Mañana", time: "10:00 – 13:00" },
-    { id: "tarde", label: "Tarde", time: "15:00 – 18:00" },
-    { id: "final-tarde", label: "Final tarde", time: "18:00 – 20:00" },
-  ];
-  const ready = selectedDay && selectedSlot;
+
+    const Cal = w.Cal!;
+    Cal("init", "ventas", { origin: "https://app.cal.com" });
+
+    const notes = [
+      challenge ? `Desafío: ${challenge.title}` : null,
+      form.clinica ? `Clínica: ${form.clinica}` : null,
+      form.phone ? `Teléfono: ${form.prefix} ${form.phone}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    Cal.ns!.ventas("inline", {
+      elementOrSelector: "#my-cal-inline-ventas",
+      config: {
+        layout: "month_view",
+        useSlotsViewOnSmallScreen: "true",
+        name: form.nombre,
+        email: form.email,
+        notes,
+      },
+      calLink: "team/clinera.io/ventas",
+    });
+
+    Cal.ns!.ventas("ui", { hideEventTypeDetails: true, layout: "month_view" });
+
+    // Registrar el listener una sola vez por sesión: cal.com no expone "off".
+    if (!w.__clineraCalListener) {
+      Cal.ns!.ventas("on", {
+        action: "bookingSuccessful",
+        callback: (e: { detail?: { data?: CalBooking } }) => {
+          onBookedRef.current?.(e?.detail?.data ?? {});
+        },
+      });
+      w.__clineraCalListener = true;
+    }
+  }, [form.nombre, form.email, form.clinica, form.phone, form.prefix, challenge]);
 
   return (
     <div>
@@ -883,100 +1048,59 @@ function StepDate({
         label="Paso 3 de 3"
         title={
           <>
-            ¿Qué día te{" "}
-            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>acomoda</em>?
+            Elige tu{" "}
+            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>horario</em>
           </>
         }
-        sub="Disponibilidad los próximos 4 días hábiles. Elige cuándo y te confirmamos la hora exacta por WhatsApp."
+        sub="Selecciona el día y hora que mejor te acomode. Recibirás la confirmación por email."
       />
-      <div style={{ display: "flex", gap: 8, marginBottom: 18, flexWrap: "wrap" }}>
-        {days.map((d, i) => {
-          const sel = selectedDay && selectedDay.toISOString().slice(0, 10) === d.toISOString().slice(0, 10);
-          return (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setSelectedDay(d)}
-              style={{
-                flex: 1,
-                minWidth: 64,
-                padding: "10px 4px",
-                border: "1.5px solid " + (sel ? "#0A0A0A" : "#E0E4EA"),
-                borderRadius: 10,
-                background: sel ? "#0A0A0A" : "#fff",
-                color: sel ? "#fff" : "#0A0A0A",
-                cursor: "pointer",
-                textAlign: "center",
-                fontFamily: "Inter",
-                transition: "all .2s",
-              }}
-            >
-              <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".08em", textTransform: "uppercase", opacity: sel ? 1 : 0.65 }}>{DOW[d.getDay()]}</div>
-              <div style={{ fontSize: 22, fontWeight: 700, lineHeight: 1.2 }}>{d.getDate()}</div>
-              <div style={{ fontSize: 10, fontWeight: 500, opacity: sel ? 1 : 0.55, letterSpacing: ".06em", textTransform: "uppercase", marginTop: 1 }}>
-                {MON[d.getMonth()]}
-              </div>
-            </button>
-          );
-        })}
-      </div>
-      <div style={{ fontSize: 12, color: "#6B7280", fontWeight: 600, marginBottom: 8, letterSpacing: ".02em", textTransform: "uppercase" }}>Franja horaria</div>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
-        {slots.map((sl) => {
-          const sel = selectedSlot?.id === sl.id;
-          return (
-            <button
-              key={sl.id}
-              type="button"
-              onClick={() => setSelectedSlot(sl)}
-              style={{
-                flex: 1,
-                minWidth: 100,
-                padding: "12px 8px",
-                border: "1.5px solid " + (sel ? "#0A0A0A" : "#E0E4EA"),
-                borderRadius: 10,
-                background: sel ? "#0A0A0A" : "#fff",
-                color: sel ? "#fff" : "#0A0A0A",
-                cursor: "pointer",
-                textAlign: "center",
-                fontFamily: "Inter",
-                fontSize: 14,
-                fontWeight: 600,
-                transition: "all .2s",
-              }}
-            >
-              {sl.label}
-              <div style={{ fontSize: 11, fontWeight: 400, opacity: sel ? 0.85 : 0.6, marginTop: 3 }}>{sl.time}</div>
-            </button>
-          );
-        })}
-      </div>
-      <SubmitBtn enabled={!!ready} onClick={() => ready && onSubmit()}>
-        <WhatsAppIcon size={17} />
-        Agendar reunión
-      </SubmitBtn>
+      <div
+        id="my-cal-inline-ventas"
+        className="ventas-cal-embed"
+        style={{
+          width: "100%",
+          minHeight: 620,
+          overflow: "auto",
+          borderRadius: 12,
+        }}
+      />
       <FormNote>
-        <strong>Sin compromiso</strong> · Te confirmamos por WhatsApp
+        <strong>Sin compromiso</strong> · 30 min por videollamada
       </FormNote>
     </div>
   );
 }
 
 // ============== SUCCESS ==============
+function formatBookingDate(iso?: string | null): string {
+  if (!iso) return "";
+  try {
+    const d = new Date(iso);
+    return d.toLocaleString("es-CL", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+  } catch {
+    return "";
+  }
+}
+
 function StepSuccess({
   form,
   challenge,
-  day,
-  slot,
+  booking,
 }: {
   form: Form;
   challenge: Challenge | null;
-  day: Date | null;
-  slot: Slot | null;
+  booking: CalBooking | null;
 }) {
-  const dayLabel = day ? `${DOW[day.getDay()]} ${day.getDate()} ${MON[day.getMonth()]}` : "";
+  const bookingLabel = formatBookingDate(booking?.date);
   const msg = encodeURIComponent(
-    `Hola Clinera, acabo de agendar una reunión comercial desde /ventas.\n\nNombre: ${form.nombre}\nClínica: ${form.clinica}\nEmail: ${form.email}\nDesafío: ${challenge?.title || ""}\nCuándo: ${dayLabel} · ${slot?.label} (${slot?.time})`,
+    `Hola Clinera, acabo de agendar una reunión comercial desde /ventas.\n\nNombre: ${form.nombre}\nClínica: ${form.clinica}\nEmail: ${form.email}\nDesafío: ${challenge?.title || ""}${bookingLabel ? `\nCuándo: ${bookingLabel}` : ""}`,
   );
   const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
 
@@ -1002,23 +1126,25 @@ function StepSuccess({
       </div>
       <h2 style={{ fontFamily: "Inter", fontSize: 30, fontWeight: 800, letterSpacing: "-.028em", color: "#0A0A0A", margin: "0 0 10px" }}>¡Reunión recibida!</h2>
       <p style={{ fontFamily: "Inter", fontSize: 15, color: "#4B5563", lineHeight: 1.5, margin: "0 auto 8px", maxWidth: 380 }}>
-        Te confirmamos por WhatsApp la hora exacta dentro de la franja que elegiste.
+        Recibirás la confirmación con el link de la videollamada por email.
       </p>
-      <div
-        style={{
-          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-          fontSize: 12,
-          color: "#0A0A0A",
-          background: "#F3F4F6",
-          border: "1px solid #E5E7EB",
-          padding: "8px 12px",
-          borderRadius: 8,
-          margin: "18px auto 22px",
-          display: "inline-block",
-        }}
-      >
-        {dayLabel} · {slot?.label} ({slot?.time})
-      </div>
+      {bookingLabel && (
+        <div
+          style={{
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 12,
+            color: "#0A0A0A",
+            background: "#F3F4F6",
+            border: "1px solid #E5E7EB",
+            padding: "8px 12px",
+            borderRadius: 8,
+            margin: "18px auto 22px",
+            display: "inline-block",
+          }}
+        >
+          {bookingLabel}
+        </div>
+      )}
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "center" }}>
         <a
           href={waUrl}
@@ -1208,6 +1334,13 @@ function WhatsAppIcon({ size = 17 }: { size?: number }) {
 }
 
 // ============== WINDOW TYPES ==============
+type CalApi = ((...args: unknown[]) => void) & { q: unknown[] };
+type CalGlobal = ((...args: unknown[]) => void) & {
+  loaded?: boolean;
+  ns?: Record<string, CalApi>;
+  q?: unknown[];
+};
+
 declare global {
   interface Window {
     fbq?: (...args: unknown[]) => void;

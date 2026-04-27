@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
         destination: '/presentacion/index.html',
       },
       {
+        source: '/test-prompt',
+        destination: '/test-prompt/index.html',
+      },
+      {
         // Marketing landing alias — /inicia serves the /start page
         source: '/inicia',
         destination: '/start',
