@@ -240,6 +240,15 @@
       margin-bottom: 16px;
     }
 
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-header .section-label { margin-bottom: 0; }
+
     /* === PROFILE ROW === */
     .profile-row {
       display: flex; align-items: center; gap: 14px;
@@ -639,7 +648,10 @@
           <div class="card">
             <!-- Perfil -->
             <div class="card-inner">
-              <div class="section-label">Perfil del agente</div>
+              <div class="section-header">
+                <span class="section-label">Perfil del agente</span>
+                <button class="toggle" onclick="this.classList.toggle('off')" aria-label="Activar agente" title="Activar agente"></button>
+              </div>
               <div class="profile-row">
                 <div class="p-avatar">
                   S
@@ -650,7 +662,6 @@
                   <div class="p-role">agente IA · activa</div>
                 </div>
                 <span class="badge-verified">Verificado</span>
-                <button class="toggle" onclick="this.classList.toggle('off')" aria-label="Activar agente" title="Activar agente"></button>
               </div>
               <div class="field">
                 <label class="f-label">Nombre</label>
