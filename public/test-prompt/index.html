@@ -547,66 +547,6 @@
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
 
-    /* === SCHEDULE OPTS === */
-    .schedule-opts { display: flex; flex-direction: column; gap: 8px; }
-
-    .schedule-opt {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 11px 12px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      cursor: pointer;
-      background: var(--surface);
-      transition: border-color 150ms, background 150ms;
-      position: relative;
-    }
-    .schedule-opt:hover { border-color: rgba(124,58,237,0.35); }
-    .schedule-opt.active {
-      border-color: var(--violet);
-      background: rgba(124,58,237,0.03);
-    }
-
-    .schedule-opt-radio {
-      position: absolute; opacity: 0; pointer-events: none;
-    }
-
-    .schedule-opt-dot {
-      flex-shrink: 0;
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      margin-top: 1px;
-      transition: border-color 150ms, border-width 150ms;
-      box-sizing: border-box;
-    }
-    .schedule-opt.active .schedule-opt-dot {
-      border-color: var(--violet);
-      border-width: 5px;
-    }
-
-    .schedule-opt-content { flex: 1; min-width: 0; }
-    .schedule-opt-title {
-      font-size: 13px; font-weight: 600; color: var(--t1);
-      margin-bottom: 2px;
-    }
-    .schedule-opt-sub {
-      font-size: 11.5px; color: var(--t3); line-height: 1.4;
-    }
-
-    .schedule-opt-input {
-      margin-top: 10px;
-      width: 100%;
-      display: none;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px; padding: 7px 10px;
-      color: var(--t1); font-family: 'Sora', sans-serif;
-      font-size: 12.5px; outline: none;
-      transition: border-color 150ms;
-    }
-    .schedule-opt-input:focus { border-color: var(--violet); }
-    .schedule-opt.active .schedule-opt-input { display: block; }
-
     /* === ANIMATIONS === */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(8px); }
@@ -744,33 +684,12 @@
             <!-- Formato de agendamiento -->
             <div class="card-inner">
               <div class="section-label">Formato de agendamiento</div>
-              <div class="schedule-opts">
-                <label class="schedule-opt active">
-                  <input type="radio" name="schedule" value="auto" class="schedule-opt-radio" checked>
-                  <span class="schedule-opt-dot"></span>
-                  <span class="schedule-opt-content">
-                    <span class="schedule-opt-title">Automático inteligente</span>
-                    <span class="schedule-opt-sub">El agente decide cuándo agendar según el contexto de la conversación.</span>
-                  </span>
-                </label>
-                <label class="schedule-opt">
-                  <input type="radio" name="schedule" value="internal" class="schedule-opt-radio">
-                  <span class="schedule-opt-dot"></span>
-                  <span class="schedule-opt-content">
-                    <span class="schedule-opt-title">Link interno</span>
-                    <span class="schedule-opt-sub">Comparte el calendario integrado de Clinera.</span>
-                  </span>
-                </label>
-                <label class="schedule-opt">
-                  <input type="radio" name="schedule" value="external" class="schedule-opt-radio">
-                  <span class="schedule-opt-dot"></span>
-                  <span class="schedule-opt-content">
-                    <span class="schedule-opt-title">Link externo</span>
-                    <span class="schedule-opt-sub">Pega un link de Cal.com, Calendly u otro.</span>
-                    <input type="url" id="externalLinkInput" class="schedule-opt-input" placeholder="https://cal.com/tu-equipo">
-                  </span>
-                </label>
-              </div>
+              <select id="scheduleSelect" class="f-select">
+                <option value="auto">Automático inteligente</option>
+                <option value="internal">Link interno</option>
+                <option value="external">Link externo</option>
+              </select>
+              <input type="url" id="externalLinkInput" class="f-input" placeholder="https://cal.com/tu-equipo" style="margin-top:8px; display:none;">
             </div>
           </div>
 
@@ -956,24 +875,21 @@
 
     /* === SCHEDULE FORMAT === */
     const schedule = { mode: 'auto', externalLink: '' };
+    const scheduleSelect = document.getElementById('scheduleSelect');
+    const externalLinkInput = document.getElementById('externalLinkInput');
 
-    document.querySelectorAll('input[name="schedule"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        document.querySelectorAll('.schedule-opt').forEach(o => o.classList.remove('active'));
-        radio.closest('.schedule-opt').classList.add('active');
-        schedule.mode = radio.value;
-        if (schedule.mode === 'external') {
-          setTimeout(() => document.getElementById('externalLinkInput')?.focus(), 80);
-        }
-      });
+    scheduleSelect?.addEventListener('change', () => {
+      schedule.mode = scheduleSelect.value;
+      if (schedule.mode === 'external') {
+        externalLinkInput.style.display = 'block';
+        setTimeout(() => externalLinkInput.focus(), 50);
+      } else {
+        externalLinkInput.style.display = 'none';
+      }
     });
 
-    document.getElementById('externalLinkInput')?.addEventListener('input', (e) => {
+    externalLinkInput?.addEventListener('input', (e) => {
       schedule.externalLink = e.target.value;
-    });
-
-    document.getElementById('externalLinkInput')?.addEventListener('click', (e) => {
-      e.stopPropagation();
     });
 
     /* === SAVE TOPBAR === */
