@@ -6,7 +6,7 @@ import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/B
 import { FinalCTA, Pricing, useReveal } from "@/components/home-v3/sections";
 
 const FAQ = [
-  { q: "¿Hay garantía si no me gusta?", a: "Sí. Tienes 7 días de garantía desde que activas tu plan: si no estás conforme, te devolvemos el 100% de tu primer mes. Sin preguntas ni letra chica." },
+  { q: "¿Tiene costo de implementación?", a: "No. La implementación es asistida por un humano del equipo de Clinera y tiene costo $0 en todos los planes. Setup en menos de 1 hora, sin programador: configuramos AURA con la voz de tu clínica, conectamos tu WhatsApp Business, integramos tu agenda actual y dejamos a AURA operando esa misma tarde." },
   { q: "¿Puedo cambiar de plan después?", a: "Sí. Puedes subir o bajar de plan en cualquier momento desde tu panel. El cambio se aplica en tu próximo ciclo de facturación." },
   { q: "¿Hay permanencia o contrato?", a: "No. Todos los planes son mes a mes. Puedes cancelar en cualquier momento sin penalizaciones." },
   { q: "¿Qué pasa si supero las conversaciones incluidas?", a: "Tu servicio no se interrumpe. Te notificamos cuando estés cerca del límite y puedes agregar paquetes de +100 conversaciones por $15/mes." },

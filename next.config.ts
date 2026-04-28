@@ -19,11 +19,6 @@ const nextConfig: NextConfig = {
         source: '/test-prompt',
         destination: '/test-prompt/index.html',
       },
-      {
-        // Marketing landing alias — /inicia serves the /start page
-        source: '/inicia',
-        destination: '/start',
-      },
     ];
   },
   async redirects() {
@@ -51,6 +46,16 @@ const nextConfig: NextConfig = {
       {
         source: '/gracias.html',
         destination: '/gracias',
+        permanent: true,
+      },
+      {
+        source: '/start',
+        destination: '/planes',
+        permanent: true,
+      },
+      {
+        source: '/inicia',
+        destination: '/planes',
         permanent: true,
       },
     ];

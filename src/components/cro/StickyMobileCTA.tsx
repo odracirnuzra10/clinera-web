@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-const HIDDEN_PATHS = ["/gracias", "/start", "/inicia"];
+const HIDDEN_PATHS = ["/gracias"];
 
 export default function StickyMobileCTA() {
   const pathname = usePathname();
