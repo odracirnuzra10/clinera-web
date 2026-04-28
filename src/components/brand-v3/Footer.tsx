@@ -13,7 +13,6 @@ const cols: Col[] = [
       ["Funciones", "/funciones"],
       ["Planes", "/planes"],
       ["Efectividad 100%", "/efectividad"],
-      ["¿Por qué migrar a Clinera?", "/migracion"],
     ],
   },
   {
@@ -29,6 +28,7 @@ const cols: Col[] = [
     t: "Soporte",
     l: [
       ["Centro de ayuda", "/ayuda"],
+      ["Migrar a Clinera", "/migracion"],
       ["Agendar reunión", "/reunion"],
       ["Hablar con ventas", "/hablar-con-ventas"],
     ],
