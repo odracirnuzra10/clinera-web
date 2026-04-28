@@ -6,7 +6,7 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import { CrossComparativa } from "@/components/comparativas/CrossComparativa";
 import { cruzadas, getCruzadasForCompetitor } from "@/content/comparativas-cross";
 
-type Slug = "reservo" | "agendapro" | "medilink" | "manual" | "dentalink" | "sacmed";
+type Slug = "reservo" | "agendapro" | "medilink" | "manual" | "dentalink" | "sacmed" | "doctocliq";
 
 type Row = {
   feature: string;
@@ -679,6 +679,114 @@ const competitors: Record<Slug, Competitor> = {
       {
         q: "¿Vale la pena combinar Sacmed + Clinera?",
         a: "Es la decisión común para clínicas médicas chilenas que quieren mantener telemedicina Fonasa pero suman IA WhatsApp. Sacmed sigue siendo el sistema clínico/telemedicina; Clinera opera el canal WhatsApp y el marketing por encima vía API.",
+      },
+    ],
+  },
+
+  doctocliq: {
+    name: "Doctocliq",
+    siteLabel: "doctocliq.com",
+    title: "Clinera vs Doctocliq: ¿cuál es mejor para tu clínica en 2026?",
+    intro:
+      "Doctocliq es un software de agenda y ficha clínica para profesionales de salud en LATAM, con foco en consulta individual, telemedicina y reserva online. Clinera es un ecosistema con IA conversacional que atiende WhatsApp 24/7. Aquí la comparativa honesta, con tabla y casos de migración.",
+    tldr: {
+      clinera:
+        "Clinera es mejor si tu clínica recibe muchos mensajes por WhatsApp y necesitas que se respondan, agenden y confirmen pacientes 24/7 sin sumar recepción.",
+      them:
+        "Doctocliq es mejor si eres un profesional independiente o consulta pequeña que solo necesita agenda online + ficha clínica + telemedicina, sin capa de IA ni marketing.",
+    },
+    clineraWins: [
+      "IA conversacional AURA que responde WhatsApp 24/7 con memoria contextual LangChain.",
+      "Coexistencia con WhatsApp Business — opera en el mismo número que ya usa tu clínica.",
+      "Difusiones masivas de WhatsApp marketing desde el panel.",
+      "Landing pages de conversión con analítica medible incluidas.",
+      "Atribución de ventas a campañas de marketing (campaña → cita → venta).",
+      "IA integrable con tu agenda actual vía API y MCP (no obliga a migrar).",
+      "Derivación automática a humano cuando la conversación lo requiere.",
+      "Precios públicos desde USD 89/mes, sin permanencia.",
+      "Setup en menos de 1 hora, sin programador.",
+      "Plataforma multi-sede y multi-profesional pensada para clínicas medianas.",
+    ],
+    themWins: [
+      "Doctocliq tiene una experiencia de reserva online muy directa, pensada para consulta individual.",
+      "Telemedicina integrada con videollamada nativa para profesionales que atienden remoto.",
+      "Buena curva de aprendizaje: ideal para profesionales que recién digitalizan su agenda.",
+    ],
+    table: [
+      // Differentiators (marketing + IA + coexistencia)
+      { feature: "IA conversacional WhatsApp activa en producción", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Coexistencia con WhatsApp Business (mismo número)", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Difusiones masivas de WhatsApp marketing", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Landing pages de conversión con analítica medible", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Atribución de ventas a campañas de marketing", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "IA integrable con agenda externa (vía API/MCP)", clinera: "yes", them: "no", clineraHighlight: true },
+      // Core capabilities
+      { feature: "Memoria contextual (LangChain)", clinera: "yes", them: "no" },
+      { feature: "Derivación automática a humano", clinera: "yes", them: "no" },
+      { feature: "Agenda multi-profesional", clinera: "yes", them: "yes" },
+      { feature: "Reserva online 24/7", clinera: "yes", them: "yes" },
+      { feature: "Ficha clínica digital", clinera: "yes", them: "yes" },
+      { feature: "Telemedicina con videollamada", clinera: "partial", them: "yes" },
+      { feature: "Consentimientos informados", clinera: "yes", them: "partial" },
+      { feature: "Multi-sede", clinera: "yes", them: "partial" },
+      { feature: "Pasarela de pagos", clinera: "yes", them: "yes" },
+      { feature: "App móvil nativa", clinera: "yes", them: "partial" },
+      { feature: "Panel de ventas / trazabilidad", clinera: "yes", them: "no" },
+      { feature: "Precios públicos", clinera: "yes", them: "partial" },
+      { feature: "Plan desde USD", clinera: "$89", them: "consulta" },
+    ],
+    dimensions: [
+      {
+        title: "IA y automatización",
+        body:
+          "Esta es la diferencia más grande. Clinera nació con IA conversacional: AURA entiende intención, ofrece horarios, agenda, confirma y deriva a humano cuando hace falta — todo por WhatsApp 24/7 con memoria contextual entre conversaciones. Doctocliq se enfoca en que el paciente reserve por sí mismo en una página web; si el paciente prefiere escribir por WhatsApp, alguien tiene que responder manualmente.",
+      },
+      {
+        title: "Agendamiento y experiencia de reserva",
+        body:
+          "Doctocliq tiene una experiencia limpia de reserva online directa, ideal para profesional individual. Clinera apunta al mismo escenario más el caso de clínica con varios profesionales y sedes, y agrega que AURA agenda por WhatsApp sin pasar por una página web. Los dos sincronizan con Google Calendar.",
+      },
+      {
+        title: "Telemedicina",
+        body:
+          "Doctocliq incluye videollamada nativa para consulta remota como parte de su core. Clinera cubre telemedicina integrada con videollamada y receta digital, pero su foco principal está en la capa conversacional con IA. Si tu único valor agregado es telemedicina pura, Doctocliq tiene una propuesta más directa para ese caso de uso.",
+      },
+      {
+        title: "Marketing y crecimiento",
+        body:
+          "Clinera trae marketing y crecimiento como parte del producto: difusiones masivas de WhatsApp, landing pages, atribución de campañas Meta/Google y panel de ventas. Doctocliq no cubre esa capa — está pensado para gestión clínica, no para conseguir más pacientes con publicidad. Si tu cuello de botella es captar pacientes nuevos y medir ROAS, Clinera tiene la ventaja completa.",
+      },
+      {
+        title: "Precio y planes",
+        body:
+          "Clinera publica sus precios: Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes, sin permanencia. Doctocliq atiende por formulario o cotización con tarifas que varían según país y especialidad. Si valoras saber cuánto pagas antes de hablar con ventas, Clinera tiene la transparencia.",
+      },
+      {
+        title: "Tipo de cliente ideal",
+        body:
+          "Doctocliq encaja muy bien en profesional independiente o consulta pequeña con uno o dos especialistas. Clinera está pensada para clínicas medianas con varios profesionales, sedes y volumen de WhatsApp diario que justifique tener un agente IA siempre activo.",
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Puedo migrar mis datos desde Doctocliq a Clinera?",
+        a: "Sí. Clinera importa pacientes, agenda y fichas desde Doctocliq vía CSV o API durante el onboarding, sin costo. La migración corre por nuestra cuenta y no necesitas parar de atender.",
+      },
+      {
+        q: "¿Doctocliq tiene IA conversacional como AURA?",
+        a: "A abril 2026, según materiales públicos de Doctocliq, no. Doctocliq se enfoca en agenda, ficha y telemedicina; no ofrece un agente IA autónomo que responda WhatsApp 24/7.",
+      },
+      {
+        q: "¿Puedo mantener Doctocliq y sumar Clinera solo para la IA?",
+        a: "Sí. El plan Growth de Clinera está diseñado para clínicas que ya tienen software clínico y solo quieren sumar la capa de mensajería con IA. Conectamos vía API o MCP — sigues usando Doctocliq para la ficha y Clinera atiende el WhatsApp.",
+      },
+      {
+        q: "¿Cuánto cuesta Doctocliq vs Clinera?",
+        a: "Doctocliq cotiza por país y especialidad sin precios públicos consistentes. Clinera publica USD 89/129/179 por mes según plan, sin permanencia.",
+      },
+      {
+        q: "¿Doctocliq cubre clínicas medianas con varios profesionales?",
+        a: "Doctocliq funciona mejor en consulta individual o profesional independiente. Para clínicas con +3 profesionales, multi-sede o flujo alto por WhatsApp, Clinera cubre mejor el caso completo.",
       },
     ],
   },

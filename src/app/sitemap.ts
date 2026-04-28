@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/comparativas/manual`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/comparativas/dentalink`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/comparativas/sacmed`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/comparativas/doctocliq`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
 
     // Trust / evidence (evergreen + companion article)
     { url: `${baseUrl}/efectividad`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
