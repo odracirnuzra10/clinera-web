@@ -174,7 +174,7 @@ export const medicalBusinessSchema = (clinic: {
   hours?: string;
 }) => ({
   "@context": "https://schema.org",
-  "@type": ["MedicalBusiness", "LocalBusiness"],
+  "@type": "MedicalBusiness",
   "@id": `${SITE_URL}/clinicas/${clinic.slug}#business`,
   name: clinic.name,
   url: `${SITE_URL}/clinicas/${clinic.slug}`,

@@ -106,6 +106,7 @@ export const allClinics: Clinic[] = [
     region: "Región Metropolitana",
     countryCode: "CL",
     comuna: "Vitacura",
+    // TODO(seo): agregar direccion completa (calle, numero, of, codigo postal) para schema PostalAddress
     whatsapp: "+56963222683",
     webOriginal: "https://www.protocololumina.cl",
     especialidades: [
@@ -129,6 +130,7 @@ export const allClinics: Clinic[] = [
     ciudad: "Concón",
     region: "Valparaíso",
     countryCode: "CL",
+    // TODO(seo): agregar direccion completa (calle, numero, of, codigo postal) para schema PostalAddress
     whatsapp: "+56963222683",
     webOriginal: "https://www.protocololumina.cl",
     especialidades: [
@@ -150,6 +152,7 @@ export const allClinics: Clinic[] = [
     ciudad: "Los Ángeles",
     region: "Biobío",
     countryCode: "CL",
+    // TODO(seo): agregar direccion completa (calle, numero, of, codigo postal) para schema PostalAddress
     whatsapp: "+56963222683",
     webOriginal: "https://www.protocololumina.cl",
     especialidades: [
