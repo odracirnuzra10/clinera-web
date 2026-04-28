@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Analytics from "@/components/Analytics";
+import StickyMobileCTA from "@/components/cro/StickyMobileCTA";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://clinera.io"),
@@ -92,6 +93,8 @@ export default function RootLayout({
         </noscript>
 
         {children}
+
+        <StickyMobileCTA />
 
         <Analytics />
       </body>

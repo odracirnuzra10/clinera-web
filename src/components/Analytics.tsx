@@ -168,11 +168,26 @@ const ENGAGEMENT_SRC = `(function(){
     bottomObserver.observe(target);
   }
 
+  function fireRouteContext(){
+    var path = location.pathname;
+    var m;
+    if ((m = path.match(/^\\/clinicas\\/([^\\/?#]+)/))) {
+      DL().push({ event:'view_clinic', clinic_slug: m[1], page_path: path });
+    } else if ((m = path.match(/^\\/comparativas\\/([^\\/?#]+)/))) {
+      DL().push({ event:'view_comparative', competitor_slug: m[1], page_path: path });
+    } else if ((m = path.match(/^\\/recursos\\/([^\\/?#]+)/))) {
+      DL().push({ event:'view_recurso', recurso_slug: m[1], page_path: path });
+    } else if ((m = path.match(/^\\/blog\\/([^\\/?#]+)/))) {
+      DL().push({ event:'view_post', post_slug: m[1], page_path: path });
+    }
+  }
+
   function init(){
     observeBottom();
     // Fire ViewContent on initial page visit (covers SPA nav + hard reload both)
-    setTimeout(function(){ fireViewContent('page_load'); }, 800);
+    setTimeout(function(){ fireViewContent('page_load'); fireRouteContext(); }, 800);
   }
+  window.addEventListener('clinera:routechange', function(){ setTimeout(fireRouteContext, 100); });
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
@@ -260,6 +275,23 @@ const ENGAGEMENT_SRC = `(function(){
     var a = ev.target && ev.target.closest ? ev.target.closest('a') : null;
     if (!a) return;
     var href = a.getAttribute('href') || '';
+
+    // whatsapp_click: cualquier wa.me o api.whatsapp.com
+    if (href.indexOf('wa.me/') !== -1 || href.indexOf('api.whatsapp.com/send') !== -1) {
+      var ctx = 'general';
+      var pp = location.pathname;
+      if (pp.indexOf('/clinicas/') === 0) ctx = 'clinic';
+      else if (pp === '/hablar-con-ventas' || pp === '/reunion' || pp === '/gracias') ctx = 'sales';
+      else if (pp.indexOf('/comparativas/') === 0) ctx = 'comparative';
+      else if (pp.indexOf('/recursos/') === 0) ctx = 'recurso';
+      DL().push({
+        event: 'whatsapp_click',
+        wa_context: ctx,
+        wa_href: href,
+        page_path: pp
+      });
+    }
+
     var isRegister = href.indexOf('app.clinera.io/auth/register') !== -1;
     var isStripe = href.indexOf('buy.stripe.com') !== -1;
     if (!isRegister && !isStripe) return;

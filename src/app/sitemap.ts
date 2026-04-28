@@ -57,6 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Hubs nuevos
     { url: `${baseUrl}/clinicas`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
     { url: `${baseUrl}/recursos`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/recursos/calculadora-roi`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
 
     // Pilar B.1 — clínicas con consentimiento
     ...allClinics

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import PlanesV3 from "@/components/interior-v3/PlanesV3";
+import TrialBanner from "@/components/cro/TrialBanner";
 
 export const metadata: Metadata = {
   title: "Planes y Precios — Clinera.io (desde USD 89/mes)",
@@ -35,6 +36,7 @@ export default function PlanesPage() {
       <NavV3 />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main>
+        <TrialBanner />
         <PlanesV3 />
       </main>
       <FooterV3 />

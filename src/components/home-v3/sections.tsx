@@ -203,6 +203,50 @@ export function Hero() {
                 cuando quieras
               </div>
             </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                marginTop: 18,
+                flexWrap: "wrap",
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 12,
+                color: "#374151",
+                letterSpacing: "0.01em",
+              }}
+            >
+              <span
+                className="live-dot"
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: 999,
+                  background: "#10B981",
+                  display: "inline-block",
+                }}
+              />
+              <span>+52 clínicas activas</span>
+              <span style={{ color: "#9CA3AF" }}>·</span>
+              <span>+2.400 citas agendadas por IA</span>
+              <span style={{ color: "#9CA3AF" }}>·</span>
+              <span>
+                <b style={{ color: "#0A0A0A" }}>100% en ≤3 intentos</b>
+              </span>
+              <Link
+                href="/efectividad"
+                style={{
+                  color: "#7C3AED",
+                  textDecoration: "underline",
+                  textDecorationThickness: 1,
+                  textUnderlineOffset: 3,
+                  marginLeft: 4,
+                }}
+              >
+                Ver estudio →
+              </Link>
+            </div>
           </div>
 
           <div className="reveal home-hero-mockup-wrap">

@@ -1,5 +1,6 @@
 "use client";
 
+import TrialBanner from "@/components/cro/TrialBanner";
 import {
   DarkBreak,
   Faq,
@@ -51,6 +52,7 @@ export default function HomeV3() {
         }
       `}</style>
       <Hero />
+      <TrialBanner />
       <Logos />
       <Features />
       <Integraciones />
