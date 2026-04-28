@@ -13,7 +13,7 @@ const cols: Col[] = [
       ["Funciones", "/funciones"],
       ["Planes", "/planes"],
       ["Efectividad 100%", "/efectividad"],
-      ["Novedades", "/novedades"],
+      ["¿Por qué migrar a Clinera?", "/migracion"],
     ],
   },
   {
@@ -22,7 +22,7 @@ const cols: Col[] = [
       ["Calculadora de ROI", "/recursos/calculadora-roi"],
       ["Estudio de efectividad", "/efectividad"],
       ["Recursos por ciudad", "/recursos"],
-      ["Blog Clinera", "/novedades"],
+      ["Novedades Clinera", "/novedades"],
     ],
   },
   {

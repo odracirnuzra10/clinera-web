@@ -1292,14 +1292,15 @@ export function Integraciones() {
     { name: "MercadoPago", sub: "Pagos LATAM", emoji: "MP", color: "#00B0EE" },
     { name: "WebPay / Transbank", sub: "Pagos oficiales en Chile", emoji: "W", color: "#E30613" },
   ];
-  const agendas = [
-    { name: "AgendaPro", sub: "Integración con agenda", emoji: "AP", color: "#F97316" },
-    { name: "Reservo", sub: "Integración con agenda", emoji: "R", color: "#111827" },
-    { name: "Sacmed", sub: "Integración con agenda", emoji: "SM", color: "#0E7490" },
-    { name: "Medilink", sub: "Integración con agenda", emoji: "+", color: "#2563EB" },
-    { name: "Dentalink", sub: "Integración con agenda", emoji: "DL", color: "#0EA5E9" },
-    { name: "Más por venir", sub: "¿Pedir tu integración?", emoji: "+", color: "#6B7280", dashed: true },
-  ];
+  // Pausado — reactivar cuando se relancen integraciones de agenda en home
+  // const agendas = [
+  //   { name: "AgendaPro", sub: "Integración con agenda", emoji: "AP", color: "#F97316" },
+  //   { name: "Reservo", sub: "Integración con agenda", emoji: "R", color: "#111827" },
+  //   { name: "Sacmed", sub: "Integración con agenda", emoji: "SM", color: "#0E7490" },
+  //   { name: "Medilink", sub: "Integración con agenda", emoji: "+", color: "#2563EB" },
+  //   { name: "Dentalink", sub: "Integración con agenda", emoji: "DL", color: "#0EA5E9" },
+  //   { name: "Más por venir", sub: "¿Pedir tu integración?", emoji: "+", color: "#6B7280", dashed: true },
+  // ];
 
   const tile = (p: { name: string; sub: string; emoji: string; color: string; dashed?: boolean }) => (
     <div
@@ -1395,8 +1396,8 @@ export function Integraciones() {
             Certificaciones oficiales <span style={{ color: "#7C3AED" }}>+</span> integraciones nativas
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", lineHeight: 1.55, margin: 0 }}>
-            Partner verificado de Meta, WhatsApp y Stripe. Se integra nativamente con las principales
-            agendas clínicas de LATAM.
+            Partner verificado de Meta, WhatsApp y Stripe — los canales que tu clínica realmente usa,
+            integrados oficialmente.
           </p>
         </div>
 
@@ -1416,6 +1417,7 @@ export function Integraciones() {
             {primary.map(tile)}
           </div>
 
+          {/* Pausado — reactivar cuando se relancen integraciones de agenda en home
           <div style={{ textAlign: "center", marginBottom: 20 }}>
             <Mono>Se integra con otras agendas</Mono>
           </div>
@@ -1425,6 +1427,7 @@ export function Integraciones() {
           >
             {agendas.map(tile)}
           </div>
+          */}
         </div>
       </div>
       <style jsx>{`

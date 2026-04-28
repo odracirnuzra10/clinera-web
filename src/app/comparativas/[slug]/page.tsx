@@ -1008,6 +1008,114 @@ export default async function ComparativaPage({
           </div>
         </section>
 
+        {/* Banner migración — ahorro */}
+        <section className="section" style={{ paddingTop: 32 }}>
+          <div className="container">
+            <Link
+              href="/migracion"
+              aria-label="Migra a Clinera y ahorra hasta USD 600 al mes"
+              style={{
+                display: "block",
+                textDecoration: "none",
+                maxWidth: 1040,
+                margin: "0 auto",
+              }}
+            >
+              <div
+                style={{
+                  position: "relative",
+                  overflow: "hidden",
+                  borderRadius: 18,
+                  padding: "22px 28px",
+                  background:
+                    "linear-gradient(135deg, #3B82F6 0%, #7C3AED 50%, #D946EF 100%)",
+                  color: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 20,
+                  flexWrap: "wrap",
+                  boxShadow: "0 12px 40px -12px rgba(124,58,237,.45)",
+                }}
+                className="mig-banner"
+              >
+                <div
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      "radial-gradient(ellipse 60% 80% at 100% 0%, rgba(255,255,255,.18) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 0% 100%, rgba(255,255,255,.12) 0%, transparent 60%)",
+                    pointerEvents: "none",
+                  }}
+                />
+                <div style={{ position: "relative", display: "flex", alignItems: "center", gap: 16, flex: 1, minWidth: 280 }}>
+                  <span
+                    aria-hidden
+                    style={{
+                      flex: "0 0 44px",
+                      width: 44,
+                      height: 44,
+                      borderRadius: 12,
+                      background: "rgba(255,255,255,.16)",
+                      border: "1px solid rgba(255,255,255,.24)",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 22,
+                    }}
+                  >
+                    💰
+                  </span>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 2, lineHeight: 1.25 }}>
+                    <span
+                      style={{
+                        fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                        fontSize: 11,
+                        fontWeight: 600,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        color: "rgba(255,255,255,.78)",
+                      }}
+                    >
+                      Migra a Clinera.io
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "Inter",
+                        fontSize: 20,
+                        fontWeight: 700,
+                        letterSpacing: "-0.015em",
+                        color: "#fff",
+                      }}
+                    >
+                      Ahorra hasta <span style={{ background: "rgba(255,255,255,.18)", padding: "2px 10px", borderRadius: 999 }}>USD 600 / mes</span> con todo en una sola plataforma.
+                    </span>
+                  </div>
+                </div>
+                <span
+                  style={{
+                    position: "relative",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    background: "#fff",
+                    color: "#0A0A0A",
+                    fontFamily: "Inter",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    padding: "10px 18px",
+                    borderRadius: 999,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  ¿Por qué migrar? <span aria-hidden>→</span>
+                </span>
+              </div>
+            </Link>
+          </div>
+        </section>
+
         {/* Dónde gana cada uno — 2 cajas */}
         <section className="section" style={{ paddingTop: 40 }}>
           <div className="container">
@@ -1379,6 +1487,25 @@ export default async function ComparativaPage({
                     </li>
                   ))}
                 {/* Recursos relacionados */}
+                <li>
+                  <Link
+                    href="/migracion"
+                    style={{
+                      display: "block",
+                      padding: "14px 18px",
+                      background:
+                        "linear-gradient(135deg, rgba(59,130,246,.06), rgba(124,58,237,.06), rgba(217,70,239,.06))",
+                      border: "1px solid #DDD6FE",
+                      borderRadius: 12,
+                      textDecoration: "none",
+                      color: "var(--ink-primary)",
+                      fontSize: "0.93rem",
+                      fontWeight: 600,
+                    }}
+                  >
+                    ¿Por qué migrar a Clinera? →
+                  </Link>
+                </li>
                 <li>
                   <Link
                     href="/efectividad"
