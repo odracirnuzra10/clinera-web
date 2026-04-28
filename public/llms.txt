@@ -13,7 +13,7 @@ Uruguay, Costa Rica, Panamá.
 Idioma del producto: Español (todas las variantes LATAM).
 Soporte: Español, en horario LATAM.
 
-## Planes (USD, sin permanencia, garantía 7 días con devolución 100%)
+## Planes (USD, sin permanencia, costo de implementación $0)
 
 - Growth — USD 89/mes — 3 usuarios incluidos
 - Conect — USD 129/mes — 5 usuarios, agenda médica, fichas, panel de ventas

@@ -554,7 +554,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y transparencia",
         body:
-          "Dentalink no publica precios — atiende por demo o cotización. Clinera publica Growth USD 89/mes (3 usuarios incluidos), Conect USD 129/mes, Advanced USD 179/mes, todos sin permanencia y con devolución 100% en los primeros 7 días.",
+          "Dentalink no publica precios — atiende por demo o cotización. Clinera publica Growth USD 89/mes (3 usuarios incluidos), Conect USD 129/mes, Advanced USD 179/mes, todos sin permanencia y con costo de implementación $0.",
       },
     ],
     faqs: [

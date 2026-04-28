@@ -295,7 +295,7 @@ function mejorSoftwareTemplate(r: Recurso): RecursoContent {
     },
     {
       q: `¿Hay versión gratuita?`,
-      a: `Ninguno de los softwares de esta lista ofrece plan gratuito permanente. Clinera ofrece prueba con devolución 100% en los primeros 7 días — si no te convence, te devolvemos el cobro completo del mes inicial. Es el equivalente práctico a una versión gratis de evaluación.`,
+      a: `Ninguno de los softwares de esta lista ofrece plan gratuito permanente. Clinera tiene costo de implementación $0 y sin permanencia: pagas solo el plan mensual desde USD 89/mes y puedes cancelar cuando quieras.`,
     },
     {
       q: `¿Migrar de un software a otro pierde datos?`,
@@ -312,7 +312,7 @@ function mejorSoftwareTemplate(r: Recurso): RecursoContent {
   // CTA final dinámico — apunta a la comparativa relevante por topic
   const cta = {
     title: `¿Tu clínica en ${ciudad} ya pierde pacientes por no contestar WhatsApp?`,
-    body: `Activa Clinera 7 días con devolución 100% si no te convence. Setup en menos de 1 hora, sin programador. AURA empieza a contestar tu WhatsApp Business hoy mismo.`,
+    body: `Activa Clinera con costo de implementación $0 y sin permanencia. Setup en menos de 1 hora, sin programador. AURA empieza a contestar tu WhatsApp Business hoy mismo.`,
     primaryHref: "/planes",
     primaryLabel: "Ver planes desde USD 89/mes",
     secondaryHref: `/comparativas/${comparativaSlug}`,

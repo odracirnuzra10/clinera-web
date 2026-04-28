@@ -138,6 +138,115 @@ export default function RecursosIndexPage() {
             gap: 48,
           }}
         >
+          <section>
+            <h2
+              style={{
+                fontFamily: "JetBrains Mono, ui-monospace, monospace",
+                fontSize: 12,
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                color: "#6B7280",
+                textTransform: "uppercase",
+                margin: "0 0 6px",
+              }}
+            >
+              Herramientas
+            </h2>
+            <p
+              style={{
+                fontSize: 14,
+                color: "#9CA3AF",
+                margin: "0 0 16px",
+              }}
+            >
+              Calculadoras y guías para evaluar tu operación clínica
+            </p>
+            <Link
+              href="/recursos/calculadora-roi"
+              style={{
+                display: "block",
+                background:
+                  "linear-gradient(135deg, #0A0A0A 0%, #1F1B2E 100%)",
+                color: "#fff",
+                borderRadius: 16,
+                padding: "28px 32px",
+                textDecoration: "none",
+                backgroundImage:
+                  "radial-gradient(ellipse 60% 70% at 100% 0%, rgba(217,70,239,.18), transparent 60%), radial-gradient(ellipse 50% 60% at 0% 120%, rgba(124,58,237,.20), transparent 60%), linear-gradient(135deg, #0A0A0A 0%, #1F1B2E 100%)",
+                boxShadow: "0 18px 40px -16px rgba(124,58,237,0.25)",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 24,
+                  flexWrap: "wrap",
+                }}
+              >
+                <div style={{ flex: 1, minWidth: 240 }}>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      fontFamily:
+                        "JetBrains Mono, ui-monospace, monospace",
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      color: "#D946EF",
+                      background: "rgba(217,70,239,0.14)",
+                      padding: "5px 12px",
+                      borderRadius: 999,
+                      marginBottom: 14,
+                    }}
+                  >
+                    Nuevo · Calculadora
+                  </span>
+                  <h3
+                    style={{
+                      fontSize: 22,
+                      fontWeight: 700,
+                      letterSpacing: "-0.02em",
+                      margin: "0 0 8px",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    ¿Cuánto pierde tu clínica por no-shows?
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: 14.5,
+                      color: "rgba(255,255,255,0.72)",
+                      margin: 0,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    Mete 3 datos básicos y obtén tu ahorro anual estimado
+                    con Clinera. Reporte personalizado por WhatsApp.
+                  </p>
+                </div>
+                <span
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #7C3AED 0%, #D946EF 100%)",
+                    color: "#fff",
+                    padding: "12px 22px",
+                    borderRadius: 10,
+                    fontWeight: 600,
+                    fontSize: 14.5,
+                    flexShrink: 0,
+                    boxShadow:
+                      "0 12px 28px -8px rgba(124,58,237,0.5)",
+                  }}
+                >
+                  Calcular ROI →
+                </span>
+              </div>
+            </Link>
+          </section>
+
           {(
             Object.entries(byTopic) as [
               keyof typeof TOPIC_LABELS,

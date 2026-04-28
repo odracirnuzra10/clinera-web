@@ -17,6 +17,15 @@ const cols: Col[] = [
     ],
   },
   {
+    t: "Recursos",
+    l: [
+      ["Calculadora de ROI", "/recursos/calculadora-roi"],
+      ["Estudio de efectividad", "/efectividad"],
+      ["Recursos por ciudad", "/recursos"],
+      ["Blog Clinera", "/novedades"],
+    ],
+  },
+  {
     t: "Soporte",
     l: [
       ["Centro de ayuda", "/ayuda"],
@@ -82,8 +91,8 @@ export default function FooterV3() {
           maxWidth: 1200,
           margin: "0 auto",
           display: "grid",
-          gridTemplateColumns: "1.6fr repeat(4, 1fr)",
-          gap: 40,
+          gridTemplateColumns: "1.6fr repeat(5, 1fr)",
+          gap: 32,
         }}
       >
         <div>

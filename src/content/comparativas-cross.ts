@@ -196,7 +196,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Precio y transparencia",
         body:
-          "AgendaPro publica USD 19/usuario/mes. Medilink no publica precios — atiende por demo/cotización. Clinera publica Growth USD 89/mes, Conect USD 129, Advanced USD 179, todos sin permanencia y con devolución 100% en los primeros 7 días.",
+          "AgendaPro publica USD 19/usuario/mes. Medilink no publica precios — atiende por demo/cotización. Clinera publica Growth USD 89/mes, Conect USD 129, Advanced USD 179, todos sin permanencia y con costo de implementación $0.",
       },
     ],
     faqs: [
@@ -651,7 +651,7 @@ cruzadas["dentalink-vs-reservo"] = {
     {
       title: "Precio y transparencia",
       body:
-        "Ni Dentalink ni Reservo publican precios — atienden por demo o cotización. Clinera publica Growth USD 89/mes con 3 usuarios, sin permanencia y devolución 100% en los primeros 7 días.",
+        "Ni Dentalink ni Reservo publican precios — atienden por demo o cotización. Clinera publica Growth USD 89/mes con 3 usuarios, sin permanencia y con costo de implementación $0.",
     },
   ],
   faqs: [

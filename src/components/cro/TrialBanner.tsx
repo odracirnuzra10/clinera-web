@@ -8,7 +8,7 @@ export default function TrialBanner({ variant = "light" }: Props) {
   const dark = variant === "dark";
   return (
     <section
-      aria-label="Prueba Clinera 7 días"
+      aria-label="Implementación de Clinera sin costo"
       style={{
         padding: "32px 24px",
         background: dark ? "#0A0A0A" : "#FAF8FF",
@@ -58,7 +58,7 @@ export default function TrialBanner({ variant = "light" }: Props) {
                 letterSpacing: "-0.01em",
               }}
             >
-              Prueba Clinera 7 días
+              Costo de implementación $0
             </p>
             <p
               style={{
@@ -68,7 +68,7 @@ export default function TrialBanner({ variant = "light" }: Props) {
                 color: dark ? "rgba(255,255,255,0.72)" : "#4B5563",
               }}
             >
-              Devolución 100% si no te convence. Sin tarjeta para empezar la conversación.
+              Setup en menos de 1 hora, sin programador. AURA empieza a operar tu WhatsApp esa misma tarde.
             </p>
           </div>
         </div>
