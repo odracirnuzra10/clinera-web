@@ -327,9 +327,18 @@ function CompareSection() {
               ico="A"
               name="AgendaPro / Reservo / Medilink"
               sub="plan con API"
-              price="USD 250"
+              price="USD 260"
+              sourceHref="https://agendapro.com/cl/planes"
+              sourceLabel="agendapro.com/planes"
             />
-            <ToolRow ico="✦" name="Vambe.ai" sub="solo agenda por link" price="USD 550" />
+            <ToolRow
+              ico="✦"
+              name="Vambe.ai"
+              sub="solo agenda por link"
+              price="USD 550"
+              sourceHref="https://www.vambe.ai/pricing"
+              sourceLabel="vambe.ai/pricing"
+            />
             <div
               style={{
                 marginTop: "auto",
@@ -556,11 +565,15 @@ function ToolRow({
   name,
   sub,
   price,
+  sourceHref,
+  sourceLabel,
 }: {
   ico: string;
   name: string;
   sub: string;
   price: string;
+  sourceHref?: string;
+  sourceLabel?: string;
 }) {
   return (
     <div
@@ -599,16 +612,39 @@ function ToolRow({
           {sub}
         </span>
       </span>
-      <span
-        style={{
-          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-          fontSize: 14,
-          fontWeight: 700,
-          color: "#B91C1C",
-          letterSpacing: "-0.01em",
-        }}
-      >
-        {price}
+      <span style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2 }}>
+        <span
+          style={{
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 14,
+            fontWeight: 700,
+            color: "#B91C1C",
+            letterSpacing: "-0.01em",
+          }}
+        >
+          {price}
+        </span>
+        {sourceHref && (
+          <a
+            href={sourceHref}
+            target="_blank"
+            rel="noopener nofollow"
+            style={{
+              fontFamily: "Inter",
+              fontSize: 10.5,
+              color: "#6B7280",
+              textDecoration: "underline",
+              textDecorationColor: "#FCA5A5",
+              textUnderlineOffset: 2,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 3,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {sourceLabel ?? "ver fuente"} <span aria-hidden style={{ fontSize: 9 }}>↗</span>
+          </a>
+        )}
       </span>
     </div>
   );
@@ -627,7 +663,7 @@ function ReasonsSection() {
     {
       num: "01 · Ahorro",
       title: "Pagas una sola herramienta, no dos.",
-      body: "Agenda médica con API >USD 250 + Vambe.ai USD 550 = USD 800+/mes. Clinera Advanced incluye agente IA por USD 179. Un solo proveedor, un solo cobro.",
+      body: "Agenda médica con API USD 260 + Vambe.ai USD 550 = USD 800+/mes. Clinera Advanced incluye agente IA por USD 179. Un solo proveedor, un solo cobro.",
       bullets: [
         "Sin set-up fee · sin permanencia",
         "Cancelas cuando quieras",
