@@ -61,7 +61,7 @@ export default function robots(): MetadataRoute.Robots {
       })),
       ...scrapers.map((agent) => ({ userAgent: agent, disallow: '/' })),
     ],
-    sitemap: 'https://clinera.io/sitemap.xml',
-    host: 'https://clinera.io',
+    sitemap: 'https://www.clinera.io/sitemap.xml',
+    host: 'https://www.clinera.io',
   };
 }

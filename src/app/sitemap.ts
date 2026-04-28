@@ -4,7 +4,7 @@ import { allCruzadas } from '@/content/comparativas-cross';
 import { publishedRecursos } from '@/content/recursos';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://clinera.io';
+  const baseUrl = 'https://www.clinera.io';
   const now = new Date();
 
   const urls: MetadataRoute.Sitemap = [
