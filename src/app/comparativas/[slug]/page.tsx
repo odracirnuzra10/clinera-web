@@ -6,7 +6,16 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import { CrossComparativa } from "@/components/comparativas/CrossComparativa";
 import { cruzadas, getCruzadasForCompetitor } from "@/content/comparativas-cross";
 
-type Slug = "reservo" | "agendapro" | "medilink" | "manual" | "dentalink" | "sacmed" | "doctocliq";
+type Slug =
+  | "reservo"
+  | "agendapro"
+  | "medilink"
+  | "manual"
+  | "dentalink"
+  | "sacmed"
+  | "medifolios"
+  | "saludtools"
+  | "doctocliq";
 
 type Row = {
   feature: string;
@@ -682,112 +691,246 @@ const competitors: Record<Slug, Competitor> = {
       },
     ],
   },
-
-  doctocliq: {
-    name: "Doctocliq",
-    siteLabel: "doctocliq.com",
-    title: "Clinera vs Doctocliq: ¿cuál es mejor para tu clínica en 2026?",
+  medifolios: {
+    name: "Medifolios",
+    siteLabel: "medifolios.net",
+    title: "Clinera vs Medifolios: ¿cuál es mejor para tu clínica o IPS en Colombia 2026?",
     intro:
-      "Doctocliq es un software de agenda y ficha clínica para profesionales de salud en LATAM, con foco en consulta individual, telemedicina y reserva online. Clinera es un ecosistema con IA conversacional que atiende WhatsApp 24/7. Aquí la comparativa honesta, con tabla y casos de migración.",
+      "Medifolios es el software clínico colombiano líder (13 años, +900 IPS, +13.000 médicos). Clinera es un software con IA conversacional que atiende WhatsApp 24/7. Aquí la comparativa honesta para clínicas e IPS en Colombia, con tabla, precios en COP y casos de uso reales.",
     tldr: {
       clinera:
-        "Clinera es mejor si tu clínica recibe muchos mensajes por WhatsApp y necesitas que se respondan, agenden y confirmen pacientes 24/7 sin sumar recepción.",
+        "Clinera es mejor si el cuello de botella es contestar WhatsApp 24/7, atribuir ventas a campañas digitales (Meta/Google) y operar marketing por encima del sistema clínico.",
       them:
-        "Doctocliq es mejor si eres un profesional independiente o consulta pequeña que solo necesita agenda online + ficha clínica + telemedicina, sin capa de IA ni marketing.",
+        "Medifolios es mejor si tu IPS necesita RIPS automáticos, facturación electrónica DIAN y un módulo clínico maduro para múltiples especialidades. Pueden combinarse vía API.",
     },
     clineraWins: [
-      "IA conversacional AURA que responde WhatsApp 24/7 con memoria contextual LangChain.",
-      "Coexistencia con WhatsApp Business — opera en el mismo número que ya usa tu clínica.",
-      "Difusiones masivas de WhatsApp marketing desde el panel.",
-      "Landing pages de conversión con analítica medible incluidas.",
-      "Atribución de ventas a campañas de marketing (campaña → cita → venta).",
-      "IA integrable con tu agenda actual vía API y MCP (no obliga a migrar).",
-      "Derivación automática a humano cuando la conversación lo requiere.",
-      "Precios públicos desde USD 89/mes, sin permanencia.",
+      "AURA: agente IA conversacional autónomo que cierra agendamientos por WhatsApp 24/7 (Medifolios tiene chatbot de tareas específicas, no agente).",
+      "Coexistencia con WhatsApp Business — opera en el mismo número que ya usa la clínica.",
+      "Atribución end-to-end campaña Meta/Google → conversación → cita → venta.",
       "Setup en menos de 1 hora, sin programador.",
-      "Plataforma multi-sede y multi-profesional pensada para clínicas medianas.",
+      "Precios públicos en USD, sin permanencia, costo de implementación $0.",
+      "Memoria contextual LangChain entre conversaciones.",
+      "Integración MCP + API: puede operar sobre Medifolios sin obligar a migrar.",
     ],
     themWins: [
-      "Doctocliq tiene una experiencia de reserva online muy directa, pensada para consulta individual.",
-      "Telemedicina integrada con videollamada nativa para profesionales que atienden remoto.",
-      "Buena curva de aprendizaje: ideal para profesionales que recién digitalizan su agenda.",
+      "Líder colombiano con 13 años: conoce profundamente el mercado regulado local.",
+      "RIPS automáticos + facturación electrónica DIAN nativos (compliance MinSalud).",
+      "Cubre desde consultorio individual hasta IPS de alta complejidad (50-500+ usuarios).",
+      "Validación pre-facturación con IA y dictado de voz para HC.",
+      "Precios públicos en COP: Consultorio desde $1.670.000/año (~USD 35/mes año 1).",
     ],
     table: [
-      // Differentiators (marketing + IA + coexistencia)
-      { feature: "IA conversacional WhatsApp activa en producción", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "IA conversacional WhatsApp autónoma (cierra agendamientos)", clinera: "yes", them: "no", clineraHighlight: true },
       { feature: "Coexistencia con WhatsApp Business (mismo número)", clinera: "yes", them: "no", clineraHighlight: true },
-      { feature: "Difusiones masivas de WhatsApp marketing", clinera: "yes", them: "no", clineraHighlight: true },
-      { feature: "Landing pages de conversión con analítica medible", clinera: "yes", them: "no", clineraHighlight: true },
-      { feature: "Atribución de ventas a campañas de marketing", clinera: "yes", them: "no", clineraHighlight: true },
-      { feature: "IA integrable con agenda externa (vía API/MCP)", clinera: "yes", them: "no", clineraHighlight: true },
-      // Core capabilities
-      { feature: "Memoria contextual (LangChain)", clinera: "yes", them: "no" },
-      { feature: "Derivación automática a humano", clinera: "yes", them: "no" },
-      { feature: "Agenda multi-profesional", clinera: "yes", them: "yes" },
-      { feature: "Reserva online 24/7", clinera: "yes", them: "yes" },
+      { feature: "Atribución de ventas a campañas Meta/Google", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Memoria contextual entre conversaciones (LangChain)", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Setup en menos de 1 hora", clinera: "yes", them: "no" },
+      { feature: "RIPS automáticos", clinera: "no", them: "yes" },
+      { feature: "Facturación electrónica DIAN", clinera: "no", them: "yes" },
+      { feature: "Módulo IPS alta complejidad", clinera: "partial", them: "yes" },
+      { feature: "Validación pre-facturación con IA", clinera: "no", them: "yes" },
+      { feature: "Recordatorios automáticos WhatsApp", clinera: "yes", them: "yes" },
+      { feature: "Chatbot WhatsApp 24/7", clinera: "yes", them: "yes", themNote: "tareas específicas, no agente autónomo" },
       { feature: "Ficha clínica digital", clinera: "yes", them: "yes" },
-      { feature: "Telemedicina con videollamada", clinera: "partial", them: "yes" },
-      { feature: "Consentimientos informados", clinera: "yes", them: "partial" },
-      { feature: "Multi-sede", clinera: "yes", them: "partial" },
-      { feature: "Pasarela de pagos", clinera: "yes", them: "yes" },
-      { feature: "App móvil nativa", clinera: "yes", them: "partial" },
-      { feature: "Panel de ventas / trazabilidad", clinera: "yes", them: "no" },
-      { feature: "Precios públicos", clinera: "yes", them: "partial" },
-      { feature: "Plan desde USD", clinera: "$89", them: "consulta" },
+      { feature: "Multi-sede", clinera: "yes", them: "yes" },
+      { feature: "Precios públicos", clinera: "yes", them: "yes" },
+      { feature: "Plan desde", clinera: "USD 89/mes", them: "COP $1.670.000/año (~USD 35/mes)" },
+      { feature: "Permanencia", clinera: "no", them: "anual (precio año 1 vs año 2+)" },
     ],
     dimensions: [
       {
-        title: "IA y automatización",
+        title: "Foco del producto: IA conversacional vs ERP médico colombiano",
         body:
-          "Esta es la diferencia más grande. Clinera nació con IA conversacional: AURA entiende intención, ofrece horarios, agenda, confirma y deriva a humano cuando hace falta — todo por WhatsApp 24/7 con memoria contextual entre conversaciones. Doctocliq se enfoca en que el paciente reserve por sí mismo en una página web; si el paciente prefiere escribir por WhatsApp, alguien tiene que responder manualmente.",
+          "Esta es la diferencia clave. Medifolios resuelve la operación clínica regulada de Colombia: RIPS, DIAN, MinSalud, IPS multi-complejidad, contabilidad médica. Es un ERP médico maduro. Clinera resuelve el otro extremo: contestar WhatsApp 24/7 con IA conversacional autónoma y atribuir ventas a campañas digitales. Si tu clínica/IPS pierde pacientes porque nadie contesta el WhatsApp fuera de horario, Medifolios no resuelve eso (su chatbot es para tareas específicas, no agente IA). Si tu clínica/IPS necesita RIPS automáticos para sobrevivir auditorías MinSalud, Clinera no lo cubre. La combinación más común en clínicas colombianas con marketing activo: Medifolios para la capa clínica regulada + Clinera vía API/MCP para WhatsApp y atribución.",
       },
       {
-        title: "Agendamiento y experiencia de reserva",
+        title: "Precio y modelo comercial",
         body:
-          "Doctocliq tiene una experiencia limpia de reserva online directa, ideal para profesional individual. Clinera apunta al mismo escenario más el caso de clínica con varios profesionales y sedes, y agrega que AURA agenda por WhatsApp sin pasar por una página web. Los dos sincronizan con Google Calendar.",
+          "Medifolios publica precios en COP con modelo anual decreciente: año 1 más caro (incluye onboarding), año 2+ baja considerablemente. Consultorio: $1.670.000 año 1 / $840.000 año 2+ (~USD 35/USD 17/mes). Clinera publica precios en USD con modelo mensual sin permanencia: Growth USD 89/mes (3 usuarios), Conect USD 129/mes (5 usuarios), Advanced USD 179/mes (15 usuarios). Costo de implementación $0 en todos los planes. Para clínicas que recién arrancan en digital, Medifolios año 1 es más caro upfront pero año 2+ se vuelve más barato. Clinera es predecible mes a mes sin compromiso.",
       },
       {
-        title: "Telemedicina",
+        title: "Combinar ambos: Medifolios + Clinera",
         body:
-          "Doctocliq incluye videollamada nativa para consulta remota como parte de su core. Clinera cubre telemedicina integrada con videollamada y receta digital, pero su foco principal está en la capa conversacional con IA. Si tu único valor agregado es telemedicina pura, Doctocliq tiene una propuesta más directa para ese caso de uso.",
+          "La integración vía API/MCP permite que Medifolios siga siendo el sistema clínico/RIPS/DIAN y Clinera opere encima la capa WhatsApp + marketing + atribución. AURA consulta la agenda de Medifolios, agenda en su nombre, registra la cita y dispara los recordatorios. El equipo de la IPS sigue trabajando en la interfaz Medifolios para todo lo clínico-administrativo. Para clínicas en Bogotá/Medellín que ya tienen Medifolios y quieren sumar IA conversacional sin migrar, esta es la decisión correcta.",      },
+    ],
+    faqs: [
+      {
+        q: "¿Medifolios y Clinera son competidores directos?",
+        a: "Parcialmente. Compiten en el mismo dueño/decisor (gerente de clínica o IPS) pero resuelven cuellos de botella distintos: Medifolios la operación clínica regulada (RIPS, DIAN, MinSalud), Clinera la conversación con pacientes vía WhatsApp 24/7 y la atribución de marketing. La pregunta correcta no es 'Medifolios o Clinera' sino 'Medifolios solo, Clinera solo, o ambos integrados vía API'.",
       },
       {
-        title: "Marketing y crecimiento",
-        body:
-          "Clinera trae marketing y crecimiento como parte del producto: difusiones masivas de WhatsApp, landing pages, atribución de campañas Meta/Google y panel de ventas. Doctocliq no cubre esa capa — está pensado para gestión clínica, no para conseguir más pacientes con publicidad. Si tu cuello de botella es captar pacientes nuevos y medir ROAS, Clinera tiene la ventaja completa.",
+        q: "¿Clinera cumple con la Ley 1581 (Habeas Data) colombiana?",
+        a: "Cifrado en reposo y en tránsito, hosting AWS São Paulo, acuerdos de confidencialidad y minimización de datos según buenas prácticas internacionales. Para auditoría formal de Habeas Data te entregamos toda la documentación técnica al activar el plan. Para RIPS/DIAN el sistema autoritativo sigue siendo Medifolios (o equivalente).",
       },
       {
-        title: "Precio y planes",
-        body:
-          "Clinera publica sus precios: Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes, sin permanencia. Doctocliq atiende por formulario o cotización con tarifas que varían según país y especialidad. Si valoras saber cuánto pagas antes de hablar con ventas, Clinera tiene la transparencia.",
+        q: "¿Pierdo mis datos si migro de Medifolios a Clinera?",
+        a: "No es necesario migrar — la integración por API permite que ambos sistemas convivan. Si igual quisieras consolidar todo en Clinera, Medifolios exporta a CSV; el acompañamiento de migración es parte del onboarding sin costo adicional. Pero la decisión común no es migrar, es sumar Clinera por encima vía API.",
       },
       {
-        title: "Tipo de cliente ideal",
+        q: "¿En qué ciudades de Colombia opera Clinera hoy?",
+        a: "Clinera opera nacional en Colombia (Bogotá, Medellín, Cali, Barranquilla, Cartagena y resto). El producto es 100% en español con soporte en horario LATAM. No requiere número telefónico colombiano: opera con tu WhatsApp Business actual desde el primer día.",
+      },
+    ],
+  },
+  saludtools: {
+    name: "Saludtools",
+    siteLabel: "saludtools.com",
+    title: "Clinera vs Saludtools: ¿cuál es mejor para tu consultorio o clínica en Colombia 2026?",
+    intro:
+      "Saludtools es software médico colombiano nativo (+7.000 médicos) con foco en consultorios independientes y clínicas pequeñas/medianas, RIPS y DIAN nativos, IA en plan Premium. Clinera es software con IA conversacional autónoma para WhatsApp 24/7. Aquí la comparativa honesta.",
+    tldr: {
+      clinera:
+        "Clinera es mejor si tu cuello de botella es contestar WhatsApp 24/7 con IA real (no solo recordatorios) y necesitas atribución de ventas a campañas Meta/Google.",
+      them:
+        "Saludtools es mejor si necesitas HC + RIPS + facturación DIAN como prioridad #1 y la IA aplicada al dictado clínico te suma valor (plan Premium). Pueden combinarse vía API.",
+    },
+    clineraWins: [
+      "AURA: agente IA conversacional autónomo (no solo asistente de triaje como el de Saludtools).",
+      "IA conversacional disponible en todos los planes desde USD 89/mes (vs Premium-only en Saludtools).",
+      "Coexistencia con WhatsApp Business — mismo número que ya usa la clínica.",
+      "Atribución end-to-end campaña Meta/Google → conversación → cita → venta.",
+      "Memoria contextual LangChain entre conversaciones.",
+      "Precios públicos en USD, sin permanencia, costo de implementación $0.",
+      "Setup en menos de 1 hora, sin programador.",
+    ],
+    themWins: [
+      "Colombiano nativo, RIPS y DIAN nativos sin parches.",
+      "+7.000 médicos colombianos activos en la plataforma.",
+      "IA aplicada a HC en Premium: dictado de voz, transcripción de exámenes, resúmenes inteligentes.",
+      "Asistente de triaje IA por WhatsApp para filtrar consultas iniciales.",
+      "3 planes (Estándar/Plus/Premium) con flexibilidad para distintos tamaños.",
+    ],
+    table: [
+      { feature: "IA conversacional WhatsApp autónoma (cierra agendamientos)", clinera: "yes", them: "partial", themNote: "asistente de triaje, no agente autónomo", clineraHighlight: true },
+      { feature: "IA disponible en plan de entrada", clinera: "yes", them: "no", themNote: "solo Premium", clineraHighlight: true },
+      { feature: "Coexistencia con WhatsApp Business (mismo número)", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Atribución de ventas a campañas Meta/Google", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Memoria contextual entre conversaciones", clinera: "yes", them: "no" },
+      { feature: "RIPS automáticos", clinera: "no", them: "yes" },
+      { feature: "Facturación electrónica DIAN", clinera: "no", them: "yes" },
+      { feature: "IA dictado a HC", clinera: "no", them: "yes", themNote: "Premium" },
+      { feature: "Transcripción de exámenes con IA", clinera: "no", them: "yes", themNote: "Premium" },
+      { feature: "Recordatorios automáticos WhatsApp", clinera: "yes", them: "yes" },
+      { feature: "Auto-agendamiento por paciente", clinera: "yes", them: "yes" },
+      { feature: "Ficha clínica digital", clinera: "yes", them: "yes" },
+      { feature: "Multi-especialidad", clinera: "yes", them: "yes" },
+      { feature: "Precios públicos en home", clinera: "yes", them: "no", themNote: "ver /precios" },
+      { feature: "Plan desde", clinera: "USD 89/mes", them: "consulta /precios" },
+      { feature: "Permanencia", clinera: "no", them: "consulta" },
+    ],
+    dimensions: [
+      {
+        title: "IA conversacional autónoma vs IA aplicada al backoffice clínico",
         body:
-          "Doctocliq encaja muy bien en profesional independiente o consulta pequeña con uno o dos especialistas. Clinera está pensada para clínicas medianas con varios profesionales, sedes y volumen de WhatsApp diario que justifique tener un agente IA siempre activo.",
+          "Saludtools usa IA donde realmente brilla para el médico: dictar la consulta y que se transcriba a HC, leer un examen y resumirlo, hacer triaje básico antes de derivar a un humano. Es IA de productividad clínica. Clinera usa IA donde realmente brilla para la operación: AURA es agente conversacional autónomo que entiende intención del paciente, ofrece horarios reales, agenda, confirma, deriva — sin que un humano intervenga. Es IA de cierre de agendamientos. Las dos son IAs útiles, resuelven cosas distintas. Para clínicas con marketing activo + alto volumen WhatsApp, Clinera mueve la aguja. Para consultorios médicos individuales que viven de la calidad de su HC, Saludtools Premium suma más.",
+      },
+      {
+        title: "Precio y modelo comercial",
+        body:
+          "Saludtools tiene 3 planes (Estándar/Plus/Premium) sin precios visibles en home (hay que ir a /precios o contactar comercial). La IA está reservada al plan Premium, que es el más caro. Clinera tiene 3 planes con precios públicos en USD: Growth USD 89/mes, Conect USD 129/mes, Advanced USD 179/mes. La IA conversacional está en TODOS los planes, no escalonada por tier. Costo de implementación $0 en todos los planes Clinera; Saludtools no especifica setup en home.",
+      },
+      {
+        title: "Combinar ambos: Saludtools + Clinera",
+        body:
+          "Si ya usas Saludtools y te cierra el módulo clínico/RIPS, sumar Clinera por encima vía API/MCP es la jugada típica. Saludtools sigue siendo tu sistema clínico (HC, RIPS, DIAN, IA dictado en Premium); Clinera opera la capa WhatsApp con AURA + atribución de marketing + difusiones. AURA consulta la agenda de Saludtools, agenda en su nombre, registra la cita en la HC. El consultorio sigue trabajando en Saludtools para todo lo clínico.",
       },
     ],
     faqs: [
       {
-        q: "¿Puedo migrar mis datos desde Doctocliq a Clinera?",
-        a: "Sí. Clinera importa pacientes, agenda y fichas desde Doctocliq vía CSV o API durante el onboarding, sin costo. La migración corre por nuestra cuenta y no necesitas parar de atender.",
+        q: "¿Saludtools y Clinera son competidores directos?",
+        a: "Solo en la capa WhatsApp/agendamiento. Saludtools es un software médico colombiano completo (HC, RIPS, DIAN, IA clínica). Clinera es agente IA WhatsApp + atribución de marketing. Compiten en quién contesta el primer WhatsApp del paciente, pero el resto del stack lo cubre Saludtools. Lo común: combinarlos vía API.",
       },
       {
-        q: "¿Doctocliq tiene IA conversacional como AURA?",
-        a: "A abril 2026, según materiales públicos de Doctocliq, no. Doctocliq se enfoca en agenda, ficha y telemedicina; no ofrece un agente IA autónomo que responda WhatsApp 24/7.",
+        q: "¿La IA de Saludtools en Premium reemplaza a AURA?",
+        a: "No. La IA Premium de Saludtools es para el médico (dictado a HC, transcripción, resúmenes, asistente de triaje básico). AURA es para el paciente: entiende lo que pregunta, ofrece horarios reales, cierra el agendamiento sin humano. Son dos IAs distintas resolviendo lados opuestos del flujo.",
       },
       {
-        q: "¿Puedo mantener Doctocliq y sumar Clinera solo para la IA?",
-        a: "Sí. El plan Growth de Clinera está diseñado para clínicas que ya tienen software clínico y solo quieren sumar la capa de mensajería con IA. Conectamos vía API o MCP — sigues usando Doctocliq para la ficha y Clinera atiende el WhatsApp.",
+        q: "¿Clinera cumple con Habeas Data colombiano?",
+        a: "Cifrado en reposo y en tránsito, hosting AWS São Paulo, acuerdos de confidencialidad y minimización de datos. Para auditoría formal te entregamos la documentación técnica al activar el plan. Para RIPS/DIAN el sistema autoritativo sigue siendo Saludtools (o equivalente).",
       },
       {
-        q: "¿Cuánto cuesta Doctocliq vs Clinera?",
-        a: "Doctocliq cotiza por país y especialidad sin precios públicos consistentes. Clinera publica USD 89/129/179 por mes según plan, sin permanencia.",
+        q: "¿En qué planes de Clinera está la IA?",
+        a: "En todos. AURA (agente IA WhatsApp 24/7) viene en Growth (USD 89/mes), Conect (USD 129/mes) y Advanced (USD 179/mes). No es feature de tier alto: es el core del producto.",
+      },
+    ],
+  },
+  doctocliq: {
+    name: "Doctocliq",
+    siteLabel: "doctocliq.com",
+    title: "Clinera vs Doctocliq: ¿cuál es mejor para tu clínica dental, médica o estética en LATAM 2026?",
+    intro:
+      "Doctocliq es plataforma multi-país (foco fuerte Perú, alianza con el Colegio Odontológico del Perú) con plan gratis real y plan pago desde USD 19/mes. Clinera es software con IA conversacional autónoma para WhatsApp 24/7. Comparativa honesta para clínicas dentales, médicas y estéticas.",
+    tldr: {
+      clinera:
+        "Clinera es mejor si tu cuello de botella es contestar WhatsApp 24/7 con IA real (no solo recordatorios) y necesitas atribuir cada cita a su campaña de marketing.",
+      them:
+        "Doctocliq es mejor si recién empiezas a digitalizar y quieres probar sin pagar nada, o si tu clínica es 100% dental con presupuesto bajo. Pueden combinarse vía API.",
+    },
+    clineraWins: [
+      "AURA: agente IA conversacional autónomo que cierra agendamientos (Doctocliq tiene asistente IA + recordatorios, no agente autónomo).",
+      "Coexistencia con WhatsApp Business — opera en el mismo número que ya usa la clínica.",
+      "Atribución end-to-end campaña Meta/Google → conversación → cita → venta.",
+      "Memoria contextual LangChain entre conversaciones.",
+      "Integración MCP + API: puede operar sobre Doctocliq sin obligar a migrar.",
+      "Setup en menos de 1 hora, sin programador.",
+      "Foco multi-vertical (dental, médico, estético, fisio, etc) sin sesgos.",
+    ],
+    themWins: [
+      "Plan GRATIS real (sin tarjeta) — punto de entrada cero costo.",
+      "Plan pago desde USD 19/mes — el más barato del mercado LATAM.",
+      "Cobertura en 20+ países con foco Perú/México/Uruguay.",
+      "Certificado Meta Business Partners (WhatsApp API oficial).",
+      "Alianza fuerte con el Colegio Odontológico del Perú: presencia dental fuerte.",
+    ],
+    table: [
+      { feature: "IA conversacional WhatsApp autónoma (cierra agendamientos)", clinera: "yes", them: "partial", themNote: "asistente IA + recordatorios", clineraHighlight: true },
+      { feature: "Coexistencia con WhatsApp Business (mismo número)", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Atribución de ventas a campañas Meta/Google", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Memoria contextual entre conversaciones", clinera: "yes", them: "no", clineraHighlight: true },
+      { feature: "Plan gratis", clinera: "no", them: "yes" },
+      { feature: "Recordatorios automáticos WhatsApp", clinera: "yes", them: "yes" },
+      { feature: "Asistente IA en producto", clinera: "yes", them: "yes", themNote: "asistente, no agente" },
+      { feature: "Ficha clínica digital", clinera: "yes", them: "yes" },
+      { feature: "Multi-vertical (dental, médico, estética)", clinera: "yes", them: "yes" },
+      { feature: "Cobertura LATAM", clinera: "yes", them: "yes", themNote: "20+ países" },
+      { feature: "Setup en menos de 1 hora", clinera: "yes", them: "yes" },
+      { feature: "Precios públicos", clinera: "yes", them: "yes" },
+      { feature: "Plan desde", clinera: "USD 89/mes", them: "USD 0 (gratis) / USD 19/mes" },
+      { feature: "Permanencia", clinera: "no", them: "no" },
+    ],
+    dimensions: [
+      {
+        title: "Plan gratis + USD 19/mes vs USD 89/mes con IA conversacional autónoma",
+        body:
+          "La diferencia de precio es real: Doctocliq tiene plan gratis y plan pago desde USD 19/mes; Clinera arranca en USD 89/mes. Pero lo que cambia entre los dos no es 'más features por más precio' — es **agente vs asistente**. Doctocliq tiene asistente IA que ayuda con recordatorios y tareas específicas. Clinera tiene AURA: agente IA conversacional autónomo que entiende lo que el paciente quiere, ofrece horarios reales de la agenda, cierra el agendamiento, confirma, deriva si es necesario. Para una clínica que paga publicidad en Meta/Google y pierde pacientes porque nadie contesta el WhatsApp a las 22:00, AURA cierra el ROI en menos de 1 mes. Para una clínica que recién empieza y solo necesita ordenar la agenda + recordatorios, Doctocliq gratis es el punto de entrada correcto.",
       },
       {
-        q: "¿Doctocliq cubre clínicas medianas con varios profesionales?",
-        a: "Doctocliq funciona mejor en consulta individual o profesional independiente. Para clínicas con +3 profesionales, multi-sede o flujo alto por WhatsApp, Clinera cubre mejor el caso completo.",
+        title: "Foco dental fuerte vs multi-vertical sin sesgo",
+        body:
+          "Doctocliq nació con foco dental fuerte (alianza con el Colegio Odontológico del Perú, casos visibles de clínicas dentales) aunque ya cubre médico, estético y terapia. Clinera es multi-vertical desde el día 1 (estética, dental, médico, fisio, dermatología, ginecología, traumatología, medicina general) sin sesgo a un solo vertical. Para clínicas dentales puras buscando lo más económico, Doctocliq tiene ventaja. Para clínicas multi-vertical, estéticas o médicas con marketing activo, Clinera está mejor diseñado.",
       },
+      {
+        title: "Combinar ambos: Doctocliq + Clinera vía API",
+        body:
+          "Si ya usas Doctocliq por su precio y te cierra para la capa básica, sumar Clinera por encima vía API/MCP es la jugada para escalar. Doctocliq sigue siendo el sistema clínico (agenda, ficha, recordatorios); Clinera opera AURA en el WhatsApp + atribución de marketing + difusiones. Cuando AURA cierra una cita, la registra en Doctocliq. La clínica sigue trabajando en Doctocliq para todo lo clínico.",
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Doctocliq y Clinera son competidores directos?",
+        a: "Parcialmente. Compiten en agenda + recordatorios + asistente IA, pero resuelven cuellos de botella distintos: Doctocliq es la entrada económica para digitalización clínica básica; Clinera es la capa premium de IA conversacional + atribución de marketing. Pueden combinarse vía API.",
+      },
+      {
+        q: "¿Vale la pena pagar USD 89/mes en Clinera si tengo el plan gratis de Doctocliq?",
+        a: "Solo si tu clínica paga publicidad y pierde pacientes por no contestar WhatsApp a tiempo. En ese caso Clinera se paga sola en menos de 1 mes (1-2 pacientes nuevos cubiertos = ROI positivo). Si la clínica recién arranca y no invierte en marketing aún, el plan gratis de Doctocliq es el punto correcto y volves a Clinera cuando empieces a pautar.",
+      },
+      {
+        q: "¿Clinera funciona en Perú?",
+        a: "Sí. Clinera opera en 9 países LATAM incluyendo Perú. Soporte en español, planes en USD, no requiere número telefónico local — opera con tu WhatsApp Business actual desde el primer día.",
+      },
+      {
+        q: "¿Puedo migrar mis datos de Doctocliq a Clinera?",
+        a: "Sí, Doctocliq exporta a CSV. La migración manual de pacientes y agenda toma 1-2 horas con acompañamiento de Clinera, sin costo adicional (incluido en el costo de implementación $0).",      },
     ],
   },
 };

@@ -46,20 +46,32 @@ const topics: RecursoTopic[] = [
 ];
 
 // Ola 1: solo mejor-software-clinicas × 8 ciudades CL.
-// Los otros (44 - 8 = 36 entries) quedan en dataset con published:false hasta su ola.
+// Ola 5: mejor-software-clinicas × 3 ciudades LATAM (Lima, Bogotá, Medellín).
+// Las fechas se escalonan deliberadamente en ola 5 para que Google no detecte
+// "publicación masiva" del mismo día (señal de thin content programático).
+const PUBLISHED_AT_BY_SLUG: Record<string, string> = {
+  "mejor-software-clinicas-lima-2026": "2026-04-27",
+  "mejor-software-clinicas-bogota-2026": "2026-04-28",
+  "mejor-software-clinicas-medellin-2026": "2026-04-29",
+};
+
 export const allRecursos: Recurso[] = ciudades.flatMap((c) =>
   topics.map((topic) => {
     const isOla1 =
       topic === "mejor-software-clinicas" && c.country === "CL";
+    const isOla5 =
+      topic === "mejor-software-clinicas" &&
+      (c.country === "PE" || c.country === "CO");
+    const slug = `${topic}-${c.ciudadSlug}-2026`;
     return {
-      slug: `${topic}-${c.ciudadSlug}-2026`,
+      slug,
       topic,
       ciudad: c.ciudad,
       ciudadSlug: c.ciudadSlug,
       countryCode: c.country,
       year: 2026,
-      publishedAt: "2026-04-26",
-      published: isOla1,
+      publishedAt: PUBLISHED_AT_BY_SLUG[slug] ?? "2026-04-26",
+      published: isOla1 || isOla5,
     };
   }),
 );
