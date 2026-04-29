@@ -27,6 +27,8 @@ export type CompetitorApiPricing = {
   price: string;
   /** Si NO tiene precio público, true → solo suma Vambe al total */
   priceIsConsulta?: boolean;
+  /** Si el precio es estimación regional (no verificado en pricing público), true → muestra * y nota al pie */
+  priceIsEstimated?: boolean;
   /** Valor numérico USD para sumar al total (ignorado si priceIsConsulta=true) */
   priceUsd?: number;
   /** URL al pricing público del competidor */
@@ -157,7 +159,11 @@ export default function MigrationCompareBanner({ competitor }: Props) {
                 ico={competitor.name.charAt(0)}
                 name={competitor.name}
                 sub={competitor.plan}
-                price={competitor.price}
+                price={
+                  competitor.priceIsEstimated
+                    ? `${competitor.price}*`
+                    : competitor.price
+                }
                 sourceHref={competitor.priceUrl}
                 sourceLabel={competitor.priceLabel}
               />
@@ -406,6 +412,25 @@ export default function MigrationCompareBanner({ competitor }: Props) {
             >
               Ver el cálculo completo en /migracion <span aria-hidden>→</span>
             </Link>
+            {competitor.priceIsEstimated && (
+              <p
+                style={{
+                  marginTop: 14,
+                  fontFamily: "Inter, system-ui, sans-serif",
+                  fontSize: 12,
+                  color: "#9CA3AF",
+                  fontStyle: "italic",
+                  maxWidth: 640,
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}
+              >
+                * Precio estimado para el plan con API en base a planes
+                equivalentes regionales del segmento. {competitor.name} no
+                publica precios públicos en su sitio — para tarifa exacta
+                consultar directamente al proveedor.
+              </p>
+            )}
           </div>
         </div>
 

@@ -101,8 +101,9 @@ const COMPETITOR_API_PRICING: Partial<Record<Slug, CompetitorApiPricing>> = {
   saludtools: {
     name: "Saludtools",
     plan: "Plan Premium (con API)",
-    price: "Consulta",
-    priceIsConsulta: true,
+    price: "USD 180",
+    priceUsd: 180,
+    priceIsEstimated: true,
     priceUrl: "https://www.saludtools.com/precios",
     priceLabel: "saludtools.com/precios",
   },
@@ -113,6 +114,14 @@ const COMPETITOR_API_PRICING: Partial<Record<Slug, CompetitorApiPricing>> = {
     priceUsd: 49,
     priceUrl: "https://www.doctocliq.com/planes",
     priceLabel: "doctocliq.com/planes",
+  },
+  sacmed: {
+    name: "Sacmed",
+    plan: "Plan Premium (con API)",
+    price: "USD 180",
+    priceUsd: 180,
+    priceUrl: "https://sacmed.cl",
+    priceLabel: "sacmed.cl",
   },
 };
 
