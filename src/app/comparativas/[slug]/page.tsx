@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import { CrossComparativa } from "@/components/comparativas/CrossComparativa";
+import MigrationCompareBanner, {
+  type CompetitorApiPricing,
+} from "@/components/comparativas/MigrationCompareBanner";
 import { cruzadas, getCruzadasForCompetitor } from "@/content/comparativas-cross";
 
 type Slug =
@@ -43,6 +46,74 @@ type Competitor = {
   table: Row[];
   dimensions: Dimension[];
   faqs: FaqItem[];
+};
+
+/**
+ * Precios públicos del plan más completo (con API) por competidor.
+ * Verificado en vivo abril 2026. Los que no publican precios se marcan
+ * priceIsConsulta:true → el banner muestra "USD 574+ (lo que pagues por X)"
+ * sumando solo Vambe.ai Advanced (USD 574/mes verificado).
+ *
+ * "manual" y "sacmed" no tienen banner: la narrativa "API + IA por separado"
+ * no aplica a "hacerlo manual" y Sacmed quedó fuera del scope inicial.
+ */
+const COMPETITOR_API_PRICING: Partial<Record<Slug, CompetitorApiPricing>> = {
+  agendapro: {
+    name: "AgendaPro",
+    plan: "Plan Pro (con API)",
+    price: "USD 270",
+    priceUsd: 270,
+    priceUrl: "https://www.agendapro.com/planes",
+    priceLabel: "agendapro.com/planes",
+  },
+  reservo: {
+    name: "Reservo",
+    plan: "Plan Empresarial (con API)",
+    price: "Consulta",
+    priceIsConsulta: true,
+    priceUrl: "https://www.reservo.cl",
+    priceLabel: "reservo.cl",
+  },
+  medilink: {
+    name: "Medilink",
+    plan: "Plan Enterprise (con API)",
+    price: "Consulta",
+    priceIsConsulta: true,
+    priceUrl: "https://medilink.cl",
+    priceLabel: "medilink.cl",
+  },
+  dentalink: {
+    name: "Dentalink",
+    plan: "Plan Titanium (incluye API)",
+    price: "Consulta",
+    priceIsConsulta: true,
+    priceUrl: "https://www.softwaredentalink.com",
+    priceLabel: "softwaredentalink.com",
+  },
+  medifolios: {
+    name: "Medifolios",
+    plan: "IPS Alta Complejidad (con API)",
+    price: "USD 295",
+    priceUsd: 295,
+    priceUrl: "https://medifolios.net",
+    priceLabel: "medifolios.net (COP $14.188.500/año)",
+  },
+  saludtools: {
+    name: "Saludtools",
+    plan: "Plan Premium (con API)",
+    price: "Consulta",
+    priceIsConsulta: true,
+    priceUrl: "https://www.saludtools.com/precios",
+    priceLabel: "saludtools.com/precios",
+  },
+  doctocliq: {
+    name: "Doctocliq",
+    plan: "Plan Avanzado (con API)",
+    price: "USD 49",
+    priceUsd: 49,
+    priceUrl: "https://www.doctocliq.com/planes",
+    priceLabel: "doctocliq.com/planes",
+  },
 };
 
 const competitors: Record<Slug, Competitor> = {
@@ -1366,6 +1437,13 @@ export default async function ComparativaPage({
             </Link>
           </div>
         </section>
+
+        {/* Banner ANTES vs DESPUÉS — comparativa de costos por competidor */}
+        {COMPETITOR_API_PRICING[slug as Slug] && (
+          <MigrationCompareBanner
+            competitor={COMPETITOR_API_PRICING[slug as Slug]!}
+          />
+        )}
 
         {/* Dónde gana cada uno — 2 cajas */}
         <section className="section" style={{ paddingTop: 40 }}>
