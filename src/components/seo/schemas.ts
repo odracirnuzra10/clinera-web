@@ -1,4 +1,4 @@
-const SITE_URL = "https://clinera.io";
+const SITE_URL = "https://www.clinera.io";
 
 export const orgSchema = {
   "@context": "https://schema.org",
@@ -130,6 +130,38 @@ export const breadcrumbSchema = (items: { name: string; url: string }[]) => ({
   })),
 });
 
+// Catalogo de autores reales con credenciales + sameAs (LinkedIn). E-E-A-T.
+// Cuando se firma un post con uno de estos nombres, el Schema BlogPosting
+// emite Person enriquecido en lugar de un string plano.
+export const KNOWN_AUTHORS: Record<
+  string,
+  {
+    name: string;
+    jobTitle: string;
+    sameAs: string[];
+    description?: string;
+  }
+> = {
+  "Ricardo Oyarzún": {
+    name: "Ricardo Oyarzún",
+    jobTitle: "Co-fundador y Head of Growth, Clinera",
+    sameAs: [
+      "https://www.linkedin.com/in/ricardooyarzunmarketingdigital/",
+    ],
+    description:
+      "Marketing digital para clínicas en LATAM. Co-fundador de Clinera, Método Hebe y Protocolo Lumina.",
+  },
+  "Mauricio López": {
+    name: "Mauricio López",
+    jobTitle: "Operaciones y producto, Clinera",
+    sameAs: [
+      "https://www.linkedin.com/in/mauro-l%C3%B3pez-5b5642179/",
+    ],
+    description:
+      "Operaciones y producto en Clinera, con foco en agenda inteligente, ficha clínica electrónica e implementación en clínicas LATAM.",
+  },
+};
+
 export const blogPostingSchema = (post: {
   title: string;
   description: string;
@@ -138,28 +170,42 @@ export const blogPostingSchema = (post: {
   dateModified?: string;
   authorName?: string;
   image?: string;
-}) => ({
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "@id": `${SITE_URL}/blog/${post.slug}#post`,
-  headline: post.title,
-  description: post.description,
-  url: `${SITE_URL}/blog/${post.slug}`,
-  datePublished: post.datePublished,
-  dateModified: post.dateModified || post.datePublished,
-  author: {
-    "@type": post.authorName ? "Person" : "Organization",
-    name: post.authorName || "Clinera",
-  },
-  publisher: { "@id": `${SITE_URL}/#organization` },
-  ...(post.image && {
-    image: post.image.startsWith("http") ? post.image : `${SITE_URL}${post.image}`,
-  }),
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": `${SITE_URL}/blog/${post.slug}`,
-  },
-});
+}) => {
+  const known = post.authorName ? KNOWN_AUTHORS[post.authorName] : undefined;
+  const author = known
+    ? {
+        "@type": "Person",
+        name: known.name,
+        jobTitle: known.jobTitle,
+        sameAs: known.sameAs,
+        ...(known.description && { description: known.description }),
+        worksFor: { "@id": `${SITE_URL}/#organization` },
+      }
+    : {
+        "@type": post.authorName ? "Person" : "Organization",
+        name: post.authorName || "Clinera",
+      };
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${SITE_URL}/blog/${post.slug}#post`,
+    headline: post.title,
+    description: post.description,
+    url: `${SITE_URL}/blog/${post.slug}`,
+    datePublished: post.datePublished,
+    dateModified: post.dateModified || post.datePublished,
+    author,
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    ...(post.image && {
+      image: post.image.startsWith("http") ? post.image : `${SITE_URL}${post.image}`,
+    }),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/blog/${post.slug}`,
+    },
+  };
+};
 
 export const medicalBusinessSchema = (clinic: {
   slug: string;

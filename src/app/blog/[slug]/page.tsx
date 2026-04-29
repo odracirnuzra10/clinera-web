@@ -27,7 +27,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
-  const url = `https://clinera.io/blog/${slug}`;
+  const url = `https://www.clinera.io/blog/${slug}`;
   return {
     title: post.title,
     description: post.description,
@@ -64,7 +64,7 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const related = getRelatedPosts(post, 3);
-  const url = `https://clinera.io/blog/${slug}`;
+  const url = `https://www.clinera.io/blog/${slug}`;
 
   const fmtDate = (iso: string) =>
     new Date(iso).toLocaleDateString("es-CL", {
@@ -88,8 +88,8 @@ export default async function BlogPostPage({
             image: post.heroImage,
           }),
           breadcrumbSchema([
-            { name: "Inicio", url: "https://clinera.io" },
-            { name: "Blog", url: "https://clinera.io/novedades" },
+            { name: "Inicio", url: "https://www.clinera.io" },
+            { name: "Blog", url: "https://www.clinera.io/novedades" },
             { name: post.title, url },
           ]),
           ...(post.faq && post.faq.length > 0 ? [faqSchema(post.faq)] : []),
