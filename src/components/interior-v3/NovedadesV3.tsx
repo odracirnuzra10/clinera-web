@@ -41,11 +41,15 @@ export default function NovedadesV3({
   faqs,
   allTags = [],
   activeTag = null,
+  categoryName,
+  categoryIntro,
 }: {
   blogs: Blog[];
   faqs: Faq[];
   allTags?: { tag: string; count: number }[];
   activeTag?: string | null;
+  categoryName?: string;
+  categoryIntro?: string;
 }) {
   useReveal();
   return (
@@ -58,7 +62,7 @@ export default function NovedadesV3({
           main > section { padding-left: 32px !important; padding-right: 32px !important; }
         }
       `}</style>
-      <NovedadesHero activeTag={activeTag} />
+      <NovedadesHero activeTag={activeTag} categoryName={categoryName} categoryIntro={categoryIntro} />
       {allTags.length > 0 && (
         <TagFilter allTags={allTags} activeTag={activeTag} />
       )}
@@ -123,7 +127,7 @@ function TagFilter({
           return (
             <Link
               key={t.tag}
-              href={`/novedades?tag=${encodeURIComponent(t.tag)}`}
+              href={`/novedades/${encodeURIComponent(t.tag)}`}
               style={{
                 ...tagPillStyle,
                 background: isActive ? "#0A0A0A" : "#fff",
@@ -154,8 +158,17 @@ const tagPillStyle = {
   transition: "background .15s, color .15s",
 } as const;
 
-function NovedadesHero({ activeTag }: { activeTag: string | null }) {
+function NovedadesHero({
+  activeTag,
+  categoryName,
+  categoryIntro,
+}: {
+  activeTag: string | null;
+  categoryName?: string;
+  categoryIntro?: string;
+}) {
   void activeTag;
+  const isCategory = Boolean(categoryName);
   return (
     <section
       style={{
@@ -165,7 +178,7 @@ function NovedadesHero({ activeTag }: { activeTag: string | null }) {
       }}
     >
       <div className="reveal" style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <Eyebrow>Blog y novedades</Eyebrow>
+        <Eyebrow>{isCategory ? `Categoría · ${categoryName}` : "Blog y novedades"}</Eyebrow>
         <h1
           className="novedades-hero-title"
           style={{
@@ -178,11 +191,23 @@ function NovedadesHero({ activeTag }: { activeTag: string | null }) {
             color: "#0A0A0A",
           }}
         >
-          Lo nuevo de{" "}
-          <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-            Clinera
-          </span>
-          .
+          {isCategory ? (
+            <>
+              Categoría:{" "}
+              <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                {categoryName}
+              </span>
+              .
+            </>
+          ) : (
+            <>
+              Lo nuevo de{" "}
+              <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                Clinera
+              </span>
+              .
+            </>
+          )}
         </h1>
         <p
           style={{
@@ -194,7 +219,9 @@ function NovedadesHero({ activeTag }: { activeTag: string | null }) {
             maxWidth: 680,
           }}
         >
-          Releases, artículos y mejores prácticas para que tu clínica saque el máximo de Clinera.
+          {isCategory
+            ? categoryIntro ?? `Artículos sobre ${categoryName} en Clinera.`
+            : "Releases, artículos y mejores prácticas para que tu clínica saque el máximo de Clinera."}
         </p>
       </div>
       <style jsx>{`

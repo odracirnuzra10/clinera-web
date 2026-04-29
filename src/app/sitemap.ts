@@ -38,6 +38,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Content / support
     { url: `${baseUrl}/novedades`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    // Categorias del blog (path-based URLs, mejor SEO que query strings)
+    { url: `${baseUrl}/novedades/whatsapp`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/novedades/ia`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/novedades/operaciones`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/novedades/no-shows`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/novedades/estrategia`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/novedades/ltv`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/novedades/marketing`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/novedades/estetica`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    { url: `${baseUrl}/novedades/fichas-clinicas`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/ayuda`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
 

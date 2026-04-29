@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { permanentRedirect } from "next/navigation";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import NovedadesV3 from "@/components/interior-v3/NovedadesV3";
@@ -50,10 +51,12 @@ export default async function NovedadesPage({
   const rawTag = params.tag;
   const activeTag = (Array.isArray(rawTag) ? rawTag[0] : rawTag) ?? null;
 
-  // Filtrado por tag (si aplica) sobre allPosts (ya viene ordenado: featured/recientes primero)
-  const filtered = activeTag
-    ? allPosts.filter((p) => p.tags?.includes(activeTag))
-    : allPosts;
+  // Redirect 308 de /novedades?tag=X → /novedades/X (URLs path-based son canónicas)
+  if (activeTag) {
+    permanentRedirect(`/novedades/${encodeURIComponent(activeTag)}`);
+  }
+
+  const filtered = allPosts;
 
   const blogs: Blog[] = filtered.map((p) => ({
     title: p.title,
