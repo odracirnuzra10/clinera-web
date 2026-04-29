@@ -205,23 +205,25 @@
 .agend-chat{display:flex;flex-direction:column;gap:6px;padding:8px 0}
 .agend-msg{display:flex;max-width:85%;opacity:0;transform:translateY(6px);transition:opacity .35s ease,transform .35s ease}
 .agend-msg.visible{opacity:1;transform:none}
-.agend-msg span{font-family:var(--font-sans);font-size:12.5px;line-height:1.4;padding:8px 12px;border-radius:14px;display:inline-block}
+.agend-msg > span{font-family:var(--font-sans);font-size:12.5px;line-height:1.4;padding:8px 12px;border-radius:14px;display:inline-block}
 .agend-msg b{font-weight:700}
 .agend-msg-in{align-self:flex-start}
-.agend-msg-in span{background:#F3F4F6;color:var(--ink);border-bottom-left-radius:4px}
-.agend-col-native .agend-msg-in span{background:rgba(255,255,255,.08);color:rgba(255,255,255,.92)}
+.agend-msg-in > span{background:#F3F4F6;color:var(--ink);border-bottom-left-radius:4px}
+.agend-col-native .agend-msg-in > span{background:rgba(255,255,255,.08);color:rgba(255,255,255,.92)}
 .agend-msg-out{align-self:flex-end}
-.agend-msg-out span{background:#2EA5FF;color:#fff;border-bottom-right-radius:4px;box-shadow:0 4px 10px rgba(46,165,255,.2)}
-.agend-msg-aura span{background:linear-gradient(135deg,#3B82F6 0%,#7C3AED 50%,#D946EF 100%);box-shadow:0 6px 14px rgba(124,58,237,.35)}
+.agend-msg-out > span{background:#2EA5FF;color:#fff;border-bottom-right-radius:4px;box-shadow:0 4px 10px rgba(46,165,255,.2)}
+.agend-msg-aura > span{background:linear-gradient(135deg,#3B82F6 0%,#7C3AED 50%,#D946EF 100%);box-shadow:0 6px 14px rgba(124,58,237,.35)}
 .agend-msg-link{flex-direction:column;gap:6px}
 .agend-link-pill{display:inline-flex !important;align-items:center;gap:6px;background:#fff !important;color:var(--brand-violet) !important;font-family:var(--font-mono) !important;font-size:11px !important;font-weight:600;border:1px solid #DDD6FE;border-radius:var(--r-pill) !important;padding:6px 10px !important;box-shadow:0 2px 6px rgba(124,58,237,.18) !important;align-self:stretch}
-.agend-msg-final span{background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;font-weight:600}
-.agend-msg-confirm{flex-direction:column;gap:8px}
-.agend-cita-card{background:rgba(255,255,255,.96);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;width:100%;align-self:stretch;box-shadow:0 6px 18px rgba(0,0,0,.18)}
-.agend-cita-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.agend-cita-label{font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray-500)}
-.agend-cita-val{font-family:var(--font-sans);font-size:12px;font-weight:600;color:var(--ink)}
-.agend-cita-status{font-family:var(--font-sans);font-size:11px;font-weight:700;color:#065F46;background:#ECFDF5;border:1px solid #A7F3D0;padding:2px 8px;border-radius:var(--r-pill)}
+.agend-msg-final > span{background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;font-weight:600}
+.agend-msg-confirm{flex-direction:column;gap:8px;align-items:flex-end}
+.agend-msg-confirm > span:first-child{align-self:flex-end}
+.agend-cita-card{background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;width:100%;max-width:280px;align-self:flex-end;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.agend-cita-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0}
+.agend-cita-row + .agend-cita-row{padding-top:8px;border-top:1px solid rgba(255,255,255,.08)}
+.agend-cita-label{font-family:var(--font-mono);font-size:9.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,.55);background:transparent;border:0;padding:0;border-radius:0;display:inline}
+.agend-cita-val{font-family:var(--font-sans);font-size:13px;font-weight:600;color:#fff;background:transparent;border:0;padding:0;border-radius:0;text-align:right;letter-spacing:-0.005em;display:inline}
+.agend-cita-status{font-family:var(--font-sans);font-size:11px;font-weight:700;color:#A7F3D0;background:rgba(16,185,129,.16);border:1px solid rgba(16,185,129,.4);padding:3px 10px;border-radius:var(--r-pill);display:inline-flex;align-items:center;gap:4px;letter-spacing:0}
 .agend-foot{margin-top:12px;display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:var(--r-md);font-family:var(--font-sans);font-size:11.5px;line-height:1.45;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
 .agend-foot.visible{opacity:1;transform:none}
 .agend-foot-link{background:var(--bg-cream);border:1px dashed var(--gray-200);color:var(--gray-600)}
