@@ -140,20 +140,22 @@ export default function StickyMobileCTA() {
         }
         .sticky-secondary,
         .sticky-primary {
-          flex: 1;
+          flex: 1 1 0;
+          min-width: 0;
           text-align: center;
-          padding: 15px 16px;
+          padding: 14px 12px;
           border-radius: 12px;
           font-family: Inter, system-ui, sans-serif;
           font-weight: 600;
-          font-size: 15px;
+          font-size: 14.5px;
           letter-spacing: -0.01em;
           text-decoration: none;
           line-height: 1.2;
+          white-space: nowrap;
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
+          gap: 7px;
           transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
         }
         .sticky-secondary:active,
