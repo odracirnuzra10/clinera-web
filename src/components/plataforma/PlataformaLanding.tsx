@@ -239,6 +239,14 @@ export default function PlataformaLanding() {
           .plt-h2 { font-size: 30px !important; }
           .plt-section-pad { padding-top: 96px !important; padding-bottom: 96px !important; }
         }
+        @media (max-width: 560px) {
+          /* El input del chat no cabe con el selector de modelo: se oculta y
+             el texto se alinea a la derecha mientras escribe para que la cola
+             (y el cursor) queden siempre visibles. */
+          .plt-cia-model { display: none !important; }
+          .plt-cia-text { font-size: 14px !important; }
+          .plt-cia-text.typing { text-align: right !important; }
+        }
         @media (max-width: 460px) {
           .plt-cta-row { flex-direction: column; align-items: stretch; }
           .plt-cta-row > a { width: 100%; justify-content: center; }
@@ -1070,7 +1078,10 @@ function ChatIA() {
         <span style={{ width: 30, height: 30, borderRadius: 999, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#9CA3AF", fontSize: 21, fontWeight: 300, flexShrink: 0 }}>
           +
         </span>
-        <div style={{ flex: 1, fontFamily: "Inter", fontSize: 15, color: "#0A0A0A", whiteSpace: "nowrap", overflow: "hidden", textAlign: "left" }}>
+        <div
+          className={"plt-cia-text" + (typingInput ? " typing" : "")}
+          style={{ flex: 1, fontFamily: "Inter", fontSize: 15, color: "#0A0A0A", whiteSpace: "nowrap", overflow: "hidden", textAlign: "left" }}
+        >
           {typingInput ? (
             <>
               {item.q.slice(0, chars)}
@@ -1080,7 +1091,7 @@ function ChatIA() {
             <span style={{ color: "#9CA3AF" }}>Pregunta lo que quieras</span>
           )}
         </div>
-        <span style={{ fontFamily: "Inter", fontSize: 13, color: "#6B7280", fontWeight: 500, flexShrink: 0 }}>Thinking ▾</span>
+        <span className="plt-cia-model" style={{ fontFamily: "Inter", fontSize: 13, color: "#6B7280", fontWeight: 500, flexShrink: 0 }}>Thinking ▾</span>
         <span style={{ width: 34, height: 34, borderRadius: 999, background: "#0A0A0A", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="9" width="2" height="6" rx="1"/><rect x="8" y="6" width="2" height="12" rx="1"/><rect x="12" y="3" width="2" height="18" rx="1"/><rect x="16" y="7" width="2" height="10" rx="1"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg>
         </span>
