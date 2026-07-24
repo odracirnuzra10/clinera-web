@@ -181,6 +181,20 @@ export default function PlataformaLanding() {
         }
         .plt-typing i:nth-child(2) { animation-delay: 0.18s; }
         .plt-typing i:nth-child(3) { animation-delay: 0.36s; }
+        @keyframes pltCur {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+        .plt-cur {
+          display: inline-block;
+          width: 2px;
+          height: 17px;
+          background: #0A0A0A;
+          margin-left: 1px;
+          vertical-align: -3px;
+          animation: pltCur 1s steps(1) infinite;
+        }
+        .plt-cia-ans b { color: #fff; font-weight: 600; }
         @keyframes pltWave {
           0%, 100% { height: 5px; }
           50% { height: 17px; }
@@ -202,10 +216,12 @@ export default function PlataformaLanding() {
         .plt-wave i:nth-child(7) { animation-delay: 0.72s; }
         @media (prefers-reduced-motion: reduce) {
           .reveal { opacity: 1 !important; transform: none !important; }
-          .plt-dot, .plt-msg, .plt-typing i, .plt-wave i { animation: none; }
+          .plt-dot, .plt-msg, .plt-typing i, .plt-wave i, .plt-cur { animation: none; }
           .plt-msg { opacity: 1; transform: none; }
         }
         @media (max-width: 900px) {
+          .plt-cnn-grid { grid-template-columns: 1fr !important; padding: 28px 24px !important; }
+          .plt-clientes-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .plt-canales-grid { grid-template-columns: 1fr !important; }
           .plt-seg-grid { grid-template-columns: 1fr !important; }
           .plt-sec-band { grid-template-columns: 1fr !important; }
@@ -226,6 +242,7 @@ export default function PlataformaLanding() {
         @media (max-width: 460px) {
           .plt-cta-row { flex-direction: column; align-items: stretch; }
           .plt-cta-row > a { width: 100%; justify-content: center; }
+          .plt-clientes-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
 
@@ -524,7 +541,7 @@ export default function PlataformaLanding() {
             sub="Como Clinera unifica todo, su IA conoce cada venta, cada hora y cada paciente de tus sedes. Pregúntale en español, como a un miembro más del equipo."
             dark
           />
-          <AuraChat />
+          <ChatIA />
           <div className="reveal" style={{ textAlign: "center", marginTop: 22 }}>
             <Mono color="rgba(255,255,255,0.4)" size={10.5}>Datos consolidados de todas tus sedes, en tiempo real</Mono>
           </div>
@@ -615,6 +632,9 @@ export default function PlataformaLanding() {
       {/* ============== SEGURIDAD / COMPLIANCE ============== */}
       <SeguridadBand />
 
+      {/* ============== CONFIANZA — PRENSA CNN + CLIENTES ============== */}
+      <PrensaConfianza />
+
       {/* ============== CTA FINAL ============== */}
       <section
         className="plt-section plt-section-pad"
@@ -688,7 +708,7 @@ function CredencialesStrip() {
   return (
     <section
       className="plt-section"
-      aria-label="Respaldo: partners oficiales, prensa y evidencia auditada"
+      aria-label="Respaldo: partners oficiales y evidencia auditada"
       style={{ background: "#fff", borderTop: `1px solid ${HAIR}`, borderBottom: `1px solid ${HAIR}`, padding: "36px 80px" }}
     >
       <div
@@ -712,9 +732,6 @@ function CredencialesStrip() {
         <span className="plt-cred-sep" aria-hidden style={{ width: 1, height: 36, background: "#EFEDEA" }} />
 
         <span style={{ display: "inline-flex", alignItems: "center", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-          <Mono color="#9AA0AE" size={11}>Visto en</Mono>
-          <CnnLogo height={20} />
-          <span aria-hidden style={{ color: "#D1D5DB" }}>·</span>
           <Mono color="#6B7280" size={11}>100% de agendamientos en ≤3 intentos · estudio auditado · 42 casos</Mono>
         </span>
       </div>
@@ -950,167 +967,272 @@ function SeguridadBand() {
   );
 }
 
-/* ============ Chat IA interno — AURA responde sobre tus operaciones ============ */
-const AURA_TURNS: { q: string; a: ReactNode }[] = [
-  { q: "¿Cuánto vendí este mes?", a: <>Vas en <b>$18.240.000</b> — 12% sobre el mes pasado.</> },
-  { q: "¿Cuántos no-shows tuve esta semana?", a: <>9 no-shows. Ya reagendé <b>6</b> por WhatsApp, sola.</> },
-  { q: "¿Qué sede rinde más?", a: <>Providencia: <b>91%</b> de ocupación. Ñuñoa va en 73%.</> },
-  { q: "¿Cuánto tengo por cobrar?", a: <><b>$3.180.000</b> pendientes. Envié 14 recordatorios hoy.</> },
+/* ============ Chat IA interno — pregúntale a tu clínica (port del deck /presentacion) ============ */
+type CiaItem = {
+  q: string;
+  lead: string;
+  items: { main: ReactNode; meta?: string }[];
+  total?: string;
+};
+
+const CIA_QA: CiaItem[] = [
+  {
+    q: "¿cuánto vendí el mes pasado?",
+    lead: "Cerraste $4.820.000 el mes pasado.",
+    items: [
+      { main: <><b>Tratamientos</b> — $3.100.000</> },
+      { main: <><b>Productos</b> — $920.000</> },
+      { main: <><b>Membresías</b> — $800.000</> },
+    ],
+    total: "+12% vs. el mes anterior",
+  },
+  {
+    q: "¿cuál es mi próximo paciente?",
+    lead: "Tu próximo paciente:",
+    items: [{ main: <><b>Camila P.</b> — 14:00 · Limpieza facial</>, meta: "box 2 · Dra. Meza" }],
+  },
+  {
+    q: "¿cuáles pacientes están morosos?",
+    lead: "3 pacientes morosos:",
+    items: [
+      { main: <><b>Juan R.</b> — $85.000</>, meta: "30 días" },
+      { main: <><b>Ana M.</b> — $12.300</>, meta: "18 días" },
+      { main: <><b>Luis A.</b> — $45.000</>, meta: "22 días" },
+    ],
+    total: "Total · $142.300",
+  },
+  {
+    q: "ayúdame a construir un agente de voz para calificar leads",
+    lead: "Listo, te armo el agente de voz:",
+    items: [
+      { main: <>Saluda y pregunta el <b>motivo de consulta</b></> },
+      { main: <>Califica <b>presupuesto y urgencia</b></> },
+      { main: <>Agenda o <b>deriva a un humano</b></> },
+    ],
+    total: "¿Lo activo?",
+  },
 ];
 
-function AuraChat() {
-  // Un solo intervalo → estado derivado (lint-safe: setState va en el callback del timer).
-  const [step, setStep] = useState(0);
+function ChatIA() {
+  // Máquina de estados del ciclo original de /presentacion: boot 900ms →
+  // typewriter (40-70ms/char) → 650ms → burbuja usuario + typing 1500ms →
+  // respuesta 5000ms → siguiente pregunta. setState solo en callbacks de timers.
+  const [qi, setQi] = useState(0);
+  const [chars, setChars] = useState(0);
+  const [phase, setPhase] = useState<"boot" | "type" | "dots" | "ans">("boot");
+  const item = CIA_QA[qi % CIA_QA.length];
+  const qLen = item.q.length;
+
   useEffect(() => {
-    const id = window.setInterval(() => setStep((s) => s + 1), 2200);
-    return () => window.clearInterval(id);
-  }, []);
-  const ti = Math.floor(step / 2) % AURA_TURNS.length;
-  const turn = AURA_TURNS[ti];
-  const answered = step % 2 === 1;
+    let t: number;
+    if (phase === "boot") {
+      t = window.setTimeout(() => setPhase("type"), 900);
+    } else if (phase === "type") {
+      if (chars < qLen) {
+        t = window.setTimeout(() => setChars((c) => c + 1), 40 + Math.random() * 30);
+      } else {
+        t = window.setTimeout(() => setPhase("dots"), 650);
+      }
+    } else if (phase === "dots") {
+      t = window.setTimeout(() => setPhase("ans"), 1500);
+    } else {
+      t = window.setTimeout(() => {
+        setChars(0);
+        setQi((i) => i + 1);
+        setPhase("type");
+      }, 5000);
+    }
+    return () => window.clearTimeout(t);
+  }, [phase, chars, qLen]);
+
+  const typingInput = phase === "type" && chars > 0;
+  const showChat = phase === "dots" || phase === "ans";
 
   return (
-    <div className="reveal" style={{ maxWidth: 480, margin: "60px auto 0" }}>
+    <div className="reveal" style={{ maxWidth: 640, margin: "56px auto 0" }}>
+      {/* input estilo agente */}
       <div
         style={{
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.1)",
-          borderRadius: 20,
-          padding: 18,
-          backdropFilter: "blur(8px)",
-          boxShadow: "0 40px 90px -40px rgba(0,0,0,0.85)",
+          background: "#fff",
+          border: typingInput ? "1px solid rgba(124,58,237,0.45)" : "1px solid #E5E7EB",
+          borderRadius: 30,
+          padding: "7px 7px 7px 16px",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          minHeight: 54,
+          boxShadow: typingInput
+            ? "0 12px 44px -10px rgba(124,58,237,0.4)"
+            : "0 18px 50px -18px rgba(0,0,0,0.55)",
+          transition: "border-color .3s, box-shadow .3s",
         }}
       >
-        {/* header */}
-        <div style={{ display: "flex", alignItems: "center", gap: 11, paddingBottom: 14, borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/agents/aura.jpg"
-            alt="AURA — agente de IA de Clinera"
-            width={38}
-            height={38}
-            loading="lazy"
-            decoding="async"
-            style={{ borderRadius: 999, objectFit: "cover", border: "1px solid rgba(255,255,255,0.15)" }}
-          />
-          <div>
-            <div style={{ fontFamily: "Inter", fontSize: 14, fontWeight: 700, color: "#fff", lineHeight: 1.1 }}>AURA</div>
-            <div style={{ fontFamily: "Inter", fontSize: 12, color: "rgba(255,255,255,0.5)" }}>Núcleo IA · toda tu operación</div>
-          </div>
-          <span
-            style={{
-              marginLeft: "auto",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-              fontFamily: MONO_STACK,
-              fontSize: 10.5,
-              letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              color: "#34D399",
-            }}
-          >
-            <span className="plt-dot" style={{ width: 7, height: 7, borderRadius: 999, background: "#10B981" }} />
-            en línea
-          </span>
-        </div>
-
-        {/* cuerpo del chat */}
-        <div style={{ minHeight: 128, display: "flex", flexDirection: "column", gap: 10, padding: "16px 2px 8px" }}>
-          <div
-            key={`q-${ti}`}
-            className="plt-msg"
-            style={{
-              alignSelf: "flex-end",
-              maxWidth: "82%",
-              background: "rgba(255,255,255,0.08)",
-              color: "#fff",
-              fontFamily: "Inter",
-              fontSize: 14,
-              lineHeight: 1.45,
-              padding: "10px 13px",
-              borderRadius: 13,
-              borderBottomRightRadius: 3,
-            }}
-          >
-            {turn.q}
-          </div>
-          {answered ? (
-            <div
-              key={`a-${ti}`}
-              className="plt-msg"
-              style={{
-                alignSelf: "flex-start",
-                maxWidth: "90%",
-                background: "rgba(124,58,237,0.18)",
-                border: "1px solid rgba(124,58,237,0.32)",
-                color: "rgba(255,255,255,0.96)",
-                fontFamily: "Inter",
-                fontSize: 14,
-                lineHeight: 1.45,
-                padding: "10px 13px",
-                borderRadius: 13,
-                borderBottomLeftRadius: 3,
-              }}
-            >
-              {turn.a}
-            </div>
+        <span style={{ width: 30, height: 30, borderRadius: 999, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "#9CA3AF", fontSize: 21, fontWeight: 300, flexShrink: 0 }}>
+          +
+        </span>
+        <div style={{ flex: 1, fontFamily: "Inter", fontSize: 15, color: "#0A0A0A", whiteSpace: "nowrap", overflow: "hidden", textAlign: "left" }}>
+          {typingInput ? (
+            <>
+              {item.q.slice(0, chars)}
+              <span className="plt-cur" aria-hidden />
+            </>
           ) : (
-            <div
-              key={`t-${ti}`}
-              className="plt-msg"
-              style={{
-                alignSelf: "flex-start",
-                background: "rgba(124,58,237,0.14)",
-                border: "1px solid rgba(124,58,237,0.28)",
-                padding: "13px 15px",
-                borderRadius: 13,
-                borderBottomLeftRadius: 3,
-              }}
-            >
-              <span className="plt-typing" style={{ display: "inline-flex", alignItems: "center" }}>
-                <i />
-                <i />
-                <i />
-              </span>
-            </div>
+            <span style={{ color: "#9CA3AF" }}>Pregunta lo que quieras</span>
           )}
         </div>
+        <span style={{ fontFamily: "Inter", fontSize: 13, color: "#6B7280", fontWeight: 500, flexShrink: 0 }}>Thinking ▾</span>
+        <span style={{ width: 34, height: 34, borderRadius: 999, background: "#0A0A0A", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="9" width="2" height="6" rx="1"/><rect x="8" y="6" width="2" height="12" rx="1"/><rect x="12" y="3" width="2" height="18" rx="1"/><rect x="16" y="7" width="2" height="10" rx="1"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg>
+        </span>
+      </div>
 
-        {/* input decorativo */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-            marginTop: 6,
-            padding: "11px 14px",
-            background: "rgba(255,255,255,0.05)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            borderRadius: 12,
-          }}
-        >
-          <span style={{ fontFamily: "Inter", fontSize: 13.5, color: "rgba(255,255,255,0.42)", flex: 1 }}>
-            Pregúntale a tu operación…
-          </span>
-          <span
-            style={{
-              width: 28,
-              height: 28,
-              borderRadius: 8,
-              background: GRAD,
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-            </svg>
-          </span>
-        </div>
+      {/* conversación (altura reservada para no saltar entre ciclos) */}
+      <div style={{ minHeight: 218, marginTop: 18 }}>
+        {showChat && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, textAlign: "left" }}>
+            <div
+              className="plt-msg"
+              style={{ alignSelf: "flex-end", maxWidth: "84%", background: "rgba(255,255,255,0.1)", color: "#fff", fontFamily: "Inter", fontSize: 14, fontWeight: 500, lineHeight: 1.4, padding: "11px 16px", borderRadius: 18 }}
+            >
+              {item.q}
+            </div>
+            <div style={{ alignSelf: "flex-start", width: "100%", maxWidth: "94%" }}>
+              {phase === "dots" ? (
+                <div className="plt-msg" style={{ display: "inline-flex", padding: "12px 15px", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 16 }}>
+                  <span className="plt-typing" style={{ display: "inline-flex", alignItems: "center" }}>
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                </div>
+              ) : (
+                <div className="plt-msg plt-cia-ans" style={{ fontFamily: "Inter", fontSize: 14, lineHeight: 1.6, color: "rgba(255,255,255,0.75)", padding: 2 }}>
+                  <span style={{ display: "block", color: "#fff", fontWeight: 600, fontSize: 14.5, marginBottom: 9, letterSpacing: "-0.005em" }}>
+                    {item.lead}
+                  </span>
+                  <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 6 }}>
+                    {item.items.map((li, i) => (
+                      <li key={i} style={{ position: "relative", paddingLeft: 14, fontSize: 13.5, lineHeight: 1.5 }}>
+                        <span aria-hidden style={{ position: "absolute", left: 0, color: "#C4B5FD", fontWeight: 700 }}>•</span>
+                        {li.main}
+                        {li.meta && (
+                          <span style={{ fontFamily: MONO_STACK, fontSize: 11, color: "rgba(255,255,255,0.45)", marginLeft: 6 }}>{li.meta}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  {item.total && (
+                    <div style={{ fontFamily: MONO_STACK, fontSize: 11.5, color: "#C4B5FD", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", marginTop: 12, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
+                      {item.total}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
+  );
+}
+
+/* ============ Confianza — prensa CNN + clínicas que ya operan ============ */
+const CLIENT_LOGOS: { src: string; alt: string; tile?: boolean }[] = [
+  { src: "/presentacion/clientes/andes.png", alt: "Andes Salud" },
+  { src: "/presentacion/clientes/everest.png", alt: "Everest Clínicas Dentales", tile: true },
+  { src: "/presentacion/clientes/sanatorio.png", alt: "Sanatorio Alemán" },
+  { src: "/presentacion/clientes/sonrie.png", alt: "Sonríe" },
+  { src: "/presentacion/clientes/lumina.png", alt: "Lumina · Clínica Facial" },
+  { src: "/presentacion/clientes/hebe.png", alt: "Método Hebe" },
+];
+
+function PrensaConfianza() {
+  return (
+    <section className="plt-section" style={{ background: "#fff", borderTop: `1px solid ${HAIR}`, padding: "110px 80px" }}>
+      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+        {/* Card CNN (patrón dark-enterprise) */}
+        <div className="reveal" style={{ position: "relative", background: DARK, borderRadius: 28, overflow: "hidden", color: "#fff" }}>
+          <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: GRAD }} />
+          <div aria-hidden style={{ position: "absolute", top: -160, right: -120, width: 460, height: 460, background: "radial-gradient(circle, rgba(217,70,239,0.16) 0%, transparent 65%)", pointerEvents: "none" }} />
+          <div aria-hidden style={{ position: "absolute", bottom: -180, left: -140, width: 460, height: 460, background: "radial-gradient(circle, rgba(59,130,246,0.13) 0%, transparent 65%)", pointerEvents: "none" }} />
+          <div
+            className="plt-cnn-grid"
+            style={{ position: "relative", display: "grid", gridTemplateColumns: "0.92fr 1.08fr", gap: 44, alignItems: "center", padding: "44px 48px" }}
+          >
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
+                <span aria-hidden style={{ width: 24, height: 1, background: "linear-gradient(90deg,#3B82F6,#D946EF)" }} />
+                <Mono color="rgba(255,255,255,0.55)" size={11}>Clinera en la prensa</Mono>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 13, marginBottom: 20 }}>
+                <Mono color="rgba(255,255,255,0.45)" size={11}>Visto en</Mono>
+                <CnnLogo height={22} color="#F23A30" />
+              </div>
+              <h3 style={{ fontFamily: "Inter", fontSize: 34, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.05, color: "#fff", margin: "0 0 16px" }}>
+                Un gran paso para{" "}
+                <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>Clinera</span>.
+              </h3>
+              <p style={{ fontFamily: "Inter", fontSize: 15.5, lineHeight: 1.6, color: "rgba(255,255,255,0.72)", margin: "0 0 22px", maxWidth: 440 }}>
+                Ricardo Oyarzún, fundador de Clinera, fue entrevistado por <b style={{ color: "#fff" }}>CNN</b> sobre
+                cómo la IA está transformando la atención de las clínicas en LATAM.
+              </p>
+              <a
+                href="https://www.youtube.com/watch?v=Gskr4kELyx4"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: MONO_STACK, fontSize: 10.5, letterSpacing: "0.07em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", textDecoration: "none" }}
+              >
+                Ver emisión original en YouTube ↗
+              </a>
+            </div>
+            <div style={{ position: "relative", aspectRatio: "16 / 9", borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 40px 90px -20px rgba(0,0,0,0.6)", background: "#000" }}>
+              <iframe
+                src="https://player.vimeo.com/video/1205127087?badge=0&autopause=0&player_id=0&app_id=58479"
+                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                loading="lazy"
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 }}
+                title="CNN entrevista a Clinera"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Clínicas que ya operan con Clinera */}
+        <div className="reveal" style={{ marginTop: 44, textAlign: "center" }}>
+          <Mono color="#9AA0AE" size={11}>Clínicas que ya operan con Clinera</Mono>
+          <div
+            className="plt-clientes-grid"
+            style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 12, marginTop: 18 }}
+          >
+            {CLIENT_LOGOS.map((l) => (
+              <div
+                key={l.src}
+                style={{
+                  background: l.tile ? "#014C8F" : "#fff",
+                  border: l.tile ? "1px solid transparent" : "1px solid #EAEAEA",
+                  borderRadius: 13,
+                  height: 78,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: l.tile ? 0 : "12px 16px",
+                  overflow: "hidden",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={l.src}
+                  alt={l.alt}
+                  loading="lazy"
+                  decoding="async"
+                  style={l.tile ? { width: "100%", height: "100%", objectFit: "cover" } : { maxWidth: "100%", maxHeight: "100%", objectFit: "contain", display: "block" }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
