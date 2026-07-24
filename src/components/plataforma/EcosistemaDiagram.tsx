@@ -59,8 +59,45 @@ function actTile(p: { n: string; s: string; d: string }) {
 }
 
 export default function EcosistemaDiagram() {
+  const sedes = ["Providencia", "Las Condes", "Viña del Mar"];
   return (
     <>
+      {/* Cabecera de contexto: la red concreta que alimenta el núcleo */}
+      <div
+        className="reveal"
+        style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, flexWrap: "wrap", marginBottom: 32 }}
+      >
+        {sedes.map((s, i) => (
+          <span
+            key={s}
+            style={{
+              fontFamily: "Inter",
+              fontSize: 12.5,
+              fontWeight: 600,
+              padding: "6px 12px",
+              borderRadius: 8,
+              background: i === 0 ? "#F6F5FF" : "#fff",
+              border: i === 0 ? "1px solid rgba(124,58,237,0.3)" : "1px solid #EFEDEA",
+              color: i === 0 ? "#5B21B6" : "#6B7280",
+            }}
+          >
+            {s}
+          </span>
+        ))}
+        <span
+          style={{
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 10.5,
+            letterSpacing: "0.06em",
+            textTransform: "uppercase",
+            color: "#059669",
+            marginLeft: 6,
+          }}
+        >
+          3 sedes · consolidado central
+        </span>
+      </div>
+
       <div className="reveal plt-eco-grid" style={{ display: "grid", gridTemplateColumns: "1.5fr 0.85fr 1.1fr", gap: 28, alignItems: "center" }}>
         <div>
           <div style={{ marginBottom: 14 }}><Mono>Cada sede alimenta la IA</Mono></div>

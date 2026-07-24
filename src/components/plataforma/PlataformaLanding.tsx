@@ -24,7 +24,6 @@ import EcosistemaDiagram from "@/components/plataforma/EcosistemaDiagram";
    ============================================================ */
 
 const ACCENT = "#7C3AED";
-const ACCENT_SOFT = "rgba(124,58,237,0.08)";
 const DARK = "#0A0A0F"; // negro del patrón enterprise de la home (DarkBreak)
 const HAIR = "#F1EFEC"; // hairline claro entre secciones
 
@@ -393,7 +392,7 @@ export default function PlataformaLanding() {
           </div>
 
           {/* Puente multi-sede */}
-          <div className="reveal" style={{ marginTop: 76 }}>
+          <div className="reveal" style={{ marginTop: 72 }}>
             <Mono color="#9AA0AE" size={11}>Multi-sede por diseño</Mono>
             <div
               style={{
@@ -408,11 +407,6 @@ export default function PlataformaLanding() {
               Opera 2, 5 o 20 sedes con la misma precisión que una.
             </div>
           </div>
-
-          {/* Visual: una capa (Clinera) sobre operaciones sueltas */}
-          <div className="reveal" style={{ maxWidth: 680, margin: "44px auto 0", transitionDelay: "90ms" }}>
-            <UnifyVisual accent={ACCENT} accentSoft={ACCENT_SOFT} />
-          </div>
         </div>
       </section>
 
@@ -426,7 +420,7 @@ export default function PlataformaLanding() {
             num="01"
             eyebrow="Estandariza toda tu red"
             title="Unifica todas tus operaciones con IA."
-            sub="Una sola fuente de verdad para tu equipo y todas tus sedes — el mismo estándar en 2, 5 o 20 sucursales. Sin planillas paralelas, sin datos que no cuadran, sin herramientas que no se hablan entre sí."
+            sub="Una sola fuente de verdad para tu equipo y todas tus sedes. Sin planillas paralelas, sin datos que no cuadran, sin herramientas que no se hablan entre sí."
           />
 
           <div className="reveal" style={{ marginTop: 76 }}>
@@ -1116,152 +1110,6 @@ function AuraChat() {
             </svg>
           </span>
         </div>
-      </div>
-    </div>
-  );
-}
-
-/* ============ Visual del hero: una capa (Clinera) sobre módulos sueltos ============ */
-function UnifyVisual({ accent, accentSoft }: { accent: string; accentSoft: string }) {
-  const modulos = ["Agenda", "WhatsApp", "Fichas", "Cobros", "Recuperación", "Reportes"];
-  const sedes = ["Providencia", "Las Condes", "Viña del Mar"];
-  return (
-    <div
-      style={{
-        background: "#fff",
-        border: "1px solid #EAEAEA",
-        borderRadius: 20,
-        boxShadow: "0 40px 90px -44px rgba(17,19,24,0.28)",
-        padding: 24,
-        textAlign: "left",
-      }}
-    >
-      {/* barra tipo app */}
-      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 16 }}>
-        <span style={{ width: 10, height: 10, borderRadius: 999, background: "#FF5F57" }} />
-        <span style={{ width: 10, height: 10, borderRadius: 999, background: "#FEBC2E" }} />
-        <span style={{ width: 10, height: 10, borderRadius: 999, background: "#28C840" }} />
-        <span
-          style={{
-            marginLeft: 8,
-            fontFamily: MONO_STACK,
-            fontSize: 11,
-            letterSpacing: "0.08em",
-            color: "#9CA3AF",
-            textTransform: "uppercase",
-          }}
-        >
-          clinera · panel único
-        </span>
-      </div>
-
-      {/* fila de sedes — consolidado multi-sucursal */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14, flexWrap: "wrap" }}>
-        {sedes.map((s, i) => (
-          <span
-            key={s}
-            style={{
-              fontFamily: "Inter",
-              fontSize: 12,
-              fontWeight: 600,
-              padding: "5px 10px",
-              borderRadius: 8,
-              background: i === 0 ? "#F6F5FF" : "#FAFAFA",
-              border: i === 0 ? "1px solid rgba(124,58,237,0.3)" : "1px solid #EFEDEA",
-              color: i === 0 ? "#5B21B6" : "#6B7280",
-            }}
-          >
-            {s}
-          </span>
-        ))}
-        <span
-          style={{
-            marginLeft: "auto",
-            fontFamily: MONO_STACK,
-            fontSize: 10.5,
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            color: "#059669",
-          }}
-        >
-          3 sedes · consolidado central
-        </span>
-      </div>
-
-      {/* núcleo IA */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          padding: "14px 16px",
-          borderRadius: 12,
-          background: accentSoft,
-          border: `1px solid rgba(124,58,237,0.18)`,
-          marginBottom: 16,
-        }}
-      >
-        <span
-          style={{
-            width: 34,
-            height: 34,
-            borderRadius: 9,
-            background: GRAD,
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#fff",
-            fontWeight: 700,
-            fontFamily: "Inter",
-            fontSize: 16,
-            flexShrink: 0,
-          }}
-        >
-          c
-        </span>
-        <div>
-          <div style={{ fontFamily: "Inter", fontSize: 14, fontWeight: 700, color: "#0A0A0A" }}>Una sola IA operando</div>
-          <div style={{ fontFamily: "Inter", fontSize: 12.5, color: "#6B7280" }}>Todas tus sedes, en tiempo real</div>
-        </div>
-        <span
-          style={{
-            marginLeft: "auto",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-            fontFamily: MONO_STACK,
-            fontSize: 10.5,
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            color: "#059669",
-          }}
-        >
-          <span className="plt-dot" style={{ width: 7, height: 7, borderRadius: 999, background: "#10B981" }} />
-          activo
-        </span>
-      </div>
-
-      {/* módulos unificados */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-        {modulos.map((m) => (
-          <div
-            key={m}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 9,
-              padding: "11px 13px",
-              borderRadius: 10,
-              background: "#FAFAFA",
-              border: "1px solid #EFEDEA",
-            }}
-          >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12.5l4 4 10-10.5" />
-            </svg>
-            <span style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 500, color: "#0A0A0A" }}>{m}</span>
-          </div>
-        ))}
       </div>
     </div>
   );
