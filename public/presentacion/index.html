@@ -743,14 +743,14 @@
   /* CNN + logos combinados en slide4 */
   .trust-logos-strip{ margin:26px auto 0; text-align:center; }
   .trust-strip-lbl{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-2); margin-bottom:14px; }
-  #slide4 .cnn-slide-grid{ padding:clamp(20px,2.4vw,34px); gap:clamp(20px,2.6vw,36px); }
-  #slide4 .cnn-title{ font-size:clamp(22px,2.4vw,34px); }
-  #slide4 .cnn-desc{ font-size:clamp(13px,1vw,15px); margin-bottom:16px; }
-  #slide4 .trust-logos{ grid-template-columns:repeat(6,1fr); max-width:100%; gap:12px; }
-  #slide4 .trust-logo{ height:74px; padding:12px 16px; border-radius:13px; }
-  @media (max-width:980px){ #slide4 .trust-logos{ grid-template-columns:repeat(3,1fr); } }
+  #slide5 .cnn-slide-grid{ padding:clamp(20px,2.4vw,34px); gap:clamp(20px,2.6vw,36px); }
+  #slide5 .cnn-title{ font-size:clamp(22px,2.4vw,34px); }
+  #slide5 .cnn-desc{ font-size:clamp(13px,1vw,15px); margin-bottom:16px; }
+  #slide5 .trust-logos{ grid-template-columns:repeat(6,1fr); max-width:100%; gap:12px; }
+  #slide5 .trust-logo{ height:74px; padding:12px 16px; border-radius:13px; }
+  @media (max-width:980px){ #slide5 .trust-logos{ grid-template-columns:repeat(3,1fr); } }
   @media (max-height:820px) and (min-width:981px){
-    #slide4 .trust-logo{ height:62px; }
+    #slide5 .trust-logo{ height:62px; }
     .trust-logos-strip{ margin-top:18px; }
   }
 
@@ -1014,8 +1014,32 @@
     </div>
   </section>
 
-  <!-- 05 — Entrevista CNN + logos de clínicas -->
+  <!-- 05 — Agente conversacional interno (chat IA) -->
   <section class="slide" id="slide4">
+    <div class="slide-inner" style="max-width:840px;">
+      <div class="kicker" style="justify-content:center;"><span class="pip"></span>Chat IA interno · sobre toda tu operación</div>
+      <h2 class="h-display" style="text-align:center;">Pregúntale a tu <span class="em">clínica</span>.</h2>
+      <p class="lead" style="text-align:center; max-width:580px; margin:0 auto;">Un agente IA interno que responde en lenguaje natural sobre tus ventas, tu agenda y tus pacientes — y hasta te arma otros agentes.</p>
+      <div class="cia">
+        <div class="cia-input" id="ciaInput">
+          <span class="cia-plus">+</span>
+          <div class="cia-text"><span class="cia-ph" id="ciaPh">Pregunta lo que quieras</span><span id="ciaType"></span><span class="cia-cur hidden" id="ciaCur"></span></div>
+          <span class="cia-model">Thinking ▾</span>
+          <span class="cia-send"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="9" width="2" height="6" rx="1"/><rect x="8" y="6" width="2" height="12" rx="1"/><rect x="12" y="3" width="2" height="18" rx="1"/><rect x="16" y="7" width="2" height="10" rx="1"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg></span>
+        </div>
+        <div class="cia-chat" id="ciaChat">
+          <div class="cia-user" id="ciaUser">¿cuánto vendí el mes pasado?</div>
+          <div class="cia-ai">
+            <div class="cia-typing" id="ciaDots"><span></span><span></span><span></span></div>
+            <div class="cia-ans" id="ciaAns"><span class="cia-lead">Cerraste $4.820.000 el mes pasado.</span><ul><li><b>Tratamientos</b> — $3.100.000</li><li><b>Productos</b> — $920.000</li><li><b>Membresías</b> — $800.000</li></ul><div class="cia-total">+12% vs. el mes anterior</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — Entrevista CNN + logos de clínicas -->
+  <section class="slide" id="slide5">
     <div class="slide-inner" style="max-width:1160px;">
 
       <div class="cnn-press-card" style="max-width:1000px;margin:0 auto;">
@@ -1060,7 +1084,7 @@
   </section>
 
   <!-- 06 — Seguridad de datos · due diligence (dark) -->
-  <section class="slide" id="slide5">
+  <section class="slide" id="slide6">
     <div class="slide-inner" style="max-width:1180px;">
       <div class="sec-card">
         <div class="sec-glow" aria-hidden="true"></div>
@@ -1119,7 +1143,7 @@
   </section>
 
   <!-- 07 — Cierre -->
-  <section class="slide" id="slide6">
+  <section class="slide" id="slide7">
     <div class="slide-inner" style="max-width:940px;text-align:center;">
       <div class="kicker" style="justify-content:center;"><span class="pip"></span>Un solo sistema · todo incluido</div>
       <h2 class="h-display" style="text-align:center;">Un sistema, <span class="em">todo incluido</span>.</h2>
@@ -1138,7 +1162,7 @@
 </div>
 
 <script>
-  const TOTAL_SLIDES = 7;
+  const TOTAL_SLIDES = 8;
   let currentSlide = 0;
   let isAnimating = false;
   function $(id){ return document.getElementById(id); }
@@ -1173,8 +1197,9 @@
     if (n === 1) playFuel();
     if (n === 2) playOverlap();
     if (n === 3) playFunciones();
-    if (n === 5) playSecurity();
-    // n===4 (CNN+logos) y n===6 (cierre) no requieren animación JS
+    if (n === 4) playChatIA();
+    if (n === 6) playSecurity();
+    // n===5 (CNN+logos) y n===7 (cierre) no requieren animación JS
   }
 
   function advanceSubStep(){ if (!isAnimating) goToSlide(currentSlide + 1); }
@@ -1270,9 +1295,62 @@
   let secTimers = [];
   function playSecurity(){
     secTimers.forEach(function(t){ clearTimeout(t); }); secTimers = [];
-    const items = document.querySelectorAll('#slide5 .sec-item');
+    const items = document.querySelectorAll('#slide6 .sec-item');
     items.forEach(function(el){ el.classList.remove('show'); });
     items.forEach(function(el, i){ secTimers.push(setTimeout(function(){ el.classList.add('show'); }, 150 + i * 90)); });
+  }
+
+
+  // ── Chat IA interno (slide 4) ──
+  let ciaTimers = [];
+  let ciaIdx = 0;
+  const CIA_QA = [
+    { q: '¿cuánto vendí el mes pasado?', a: '<span class="cia-lead">Cerraste $4.820.000 el mes pasado.</span><ul><li><b>Tratamientos</b> — $3.100.000</li><li><b>Productos</b> — $920.000</li><li><b>Membresías</b> — $800.000</li></ul><div class="cia-total">+12% vs. el mes anterior</div>' },
+    { q: '¿cuál es mi próximo paciente?', a: '<span class="cia-lead">Tu próximo paciente:</span><ul><li><b>Camila P.</b> — 14:00 · Limpieza facial<span class="meta">box 2 · Dra. Meza</span></li></ul>' },
+    { q: '¿cuáles pacientes están morosos?', a: '<span class="cia-lead">3 pacientes morosos:</span><ul><li><b>Juan R.</b> — $85.000<span class="meta">30 días</span></li><li><b>Ana M.</b> — $12.300<span class="meta">18 días</span></li><li><b>Luis A.</b> — $45.000<span class="meta">22 días</span></li></ul><div class="cia-total">Total · $142.300</div>' },
+    { q: 'ayúdame a construir un agente de voz para calificar leads', a: '<span class="cia-lead">Listo, te armo el agente de voz:</span><ul><li>Saluda y pregunta el <b>motivo de consulta</b></li><li>Califica <b>presupuesto y urgencia</b></li><li>Agenda o <b>deriva a un humano</b></li></ul><div class="cia-total">¿Lo activo?</div>' },
+  ];
+  function playChatIA(){
+    ciaTimers.forEach(function(t){ clearTimeout(t); }); ciaTimers = [];
+    const input = document.getElementById('ciaInput');
+    const ph = document.getElementById('ciaPh');
+    const type = document.getElementById('ciaType');
+    const cur = document.getElementById('ciaCur');
+    const chat = document.getElementById('ciaChat');
+    const user = document.getElementById('ciaUser');
+    const dots = document.getElementById('ciaDots');
+    const ans = document.getElementById('ciaAns');
+    if (!input || !chat) return;
+    function reset(){
+      ph.classList.remove('hidden'); cur.classList.add('hidden'); type.textContent = '';
+      input.classList.remove('focused'); chat.classList.remove('visible');
+      dots.classList.remove('hidden'); ans.classList.remove('visible');
+    }
+    function cycle(){
+      reset();
+      const item = CIA_QA[ciaIdx % CIA_QA.length]; ciaIdx++;
+      ciaTimers.push(setTimeout(function(){
+        ph.classList.add('hidden'); cur.classList.remove('hidden'); input.classList.add('focused');
+        let i = 0;
+        (function typeChar(){
+          if (i <= item.q.length){
+            type.textContent = item.q.slice(0, i); i++;
+            ciaTimers.push(setTimeout(typeChar, 40 + Math.random() * 30));
+          } else {
+            ciaTimers.push(setTimeout(function(){
+              user.textContent = item.q;
+              chat.classList.add('visible');
+              type.textContent = ''; cur.classList.add('hidden'); ph.classList.remove('hidden'); input.classList.remove('focused');
+              ciaTimers.push(setTimeout(function(){
+                dots.classList.add('hidden'); ans.innerHTML = item.a; ans.classList.add('visible');
+                ciaTimers.push(setTimeout(cycle, 5000));
+              }, 1500));
+            }, 650));
+          }
+        })();
+      }, 900));
+    }
+    cycle();
   }
 
   // ── Mobile: mostrar todo (layout scroll) ──
@@ -1281,6 +1359,9 @@
     document.querySelectorAll('.aa-card, .fx-card, .fuel-src, .fuel-out, .mig-step, .sec-item').forEach(function(el){ el.classList.add('show'); });
     document.querySelectorAll('.zdt').forEach(function(z){ z.classList.add('play'); });
     document.querySelectorAll('#slide3 .fx-amount').forEach(function(a){ a.textContent = '$' + (+a.dataset.to || 1240000).toLocaleString('es-CL'); });
+    const ciaC = document.getElementById('ciaChat'); if (ciaC) ciaC.classList.add('visible');
+    const ciaD = document.getElementById('ciaDots'); if (ciaD) ciaD.classList.add('hidden');
+    const ciaA = document.getElementById('ciaAns'); if (ciaA) ciaA.classList.add('visible');
   } else {
     updateProgress();
     triggerSlide(0);
