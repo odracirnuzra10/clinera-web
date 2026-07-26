@@ -246,7 +246,8 @@ export default function PlataformaLanding() {
           .plt-h2 { font-size: 30px !important; }
           .plt-section-pad { padding-top: 96px !important; padding-bottom: 96px !important; }
           .plt-consola-kpis { grid-template-columns: 1fr 1fr !important; }
-          .plt-strip-badges > img { width: 128px !important; height: auto !important; }
+          /* El hero cierra más pegado a la franja de respaldo en pantallas chicas */
+          .plt-hero { padding-bottom: 64px !important; }
         }
         @media (max-width: 560px) {
           /* El input del chat no cabe con el selector de modelo: se oculta y
@@ -262,6 +263,21 @@ export default function PlataformaLanding() {
           .plt-clientes-grid { grid-template-columns: repeat(2, 1fr) !important; }
           /* La URL simulada no cabe junto al badge de IA activa */
           .plt-consola-url { display: none !important; }
+        }
+        /* ---- Franja de respaldo: las dos filas tienen que terminar en el mismo
+           borde. En flex los 4 badges cortan antes que los logos y la franja se
+           ve descuadrada, así que abajo de 760px pasan a grilla: 2 columnas en
+           teléfono (igual que los logos) y 4 en el tramo tablet. ---- */
+        @media (max-width: 760px) {
+          .plt-strip-badges { display: grid !important; gap: 10px !important; }
+          .plt-strip-badges > img { width: 100% !important; height: auto !important; }
+        }
+        @media (max-width: 560px) {
+          .plt-strip-badges { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+          .plt-clientes-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (min-width: 561px) and (max-width: 760px) {
+          .plt-strip-badges { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
         }
       `}</style>
 
@@ -317,7 +333,7 @@ export default function PlataformaLanding() {
       </header>
 
       {/* ============== HERO (centrado, dominante) ============== */}
-      <section className="plt-section" style={{ position: "relative", padding: "88px 80px 110px", overflow: "hidden", background: "#fff" }}>
+      <section className="plt-section plt-hero" style={{ position: "relative", padding: "88px 80px 110px", overflow: "hidden", background: "#fff" }}>
         <div
           aria-hidden
           style={{
