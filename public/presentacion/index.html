@@ -576,6 +576,44 @@
   .aa-demo .ok{ color:var(--green); font-weight:600; }
   @media (max-width:980px){ .aa{ grid-template-columns:1fr; gap:12px; } }
 
+  /* Dos tipos de clínicas — calificación */
+  .fit{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:8px; align-items:stretch; }
+  .fit-card{ position:relative; display:flex; flex-direction:column; gap:14px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px 24px; box-shadow:0 12px 34px -22px rgba(11,11,15,.2); opacity:0; transform:translateY(12px); transition:opacity .5s ease, transform .5s ease; }
+  .fit-card.show{ opacity:1; transform:none; }
+  .fit-card.pick{ border-color:rgba(124,58,237,.28); box-shadow:0 22px 50px -26px rgba(124,58,237,.45); }
+  .fit-card.pick::before{ content:''; position:absolute; left:0; right:0; top:0; height:3px; border-radius:16px 16px 0 0; background:linear-gradient(90deg,var(--cyan),var(--violet) 55%,var(--magenta)); }
+  .fit-tag{ display:inline-flex; align-items:center; gap:8px; width:max-content; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; border-radius:999px; padding:6px 12px; color:var(--muted); background:#F4F4F6; border:1px solid var(--line); }
+  .fit-card.pick .fit-tag{ color:var(--violet); background:rgba(124,58,237,.08); border-color:rgba(124,58,237,.22); }
+  .fit-tag svg{ width:13px; height:13px; flex:none; }
+  .fit-t{ font-size:clamp(18px,1.6vw,23px); font-weight:700; letter-spacing:-.015em; line-height:1.3; color:var(--ink-2); }
+  .fit-card.pick .fit-t{ color:var(--ink); }
+  .fit-list{ display:flex; flex-direction:column; gap:9px; }
+  .fit-li{ display:flex; align-items:flex-start; gap:10px; font-size:13.5px; line-height:1.45; color:var(--muted); }
+  .fit-li .ic{ width:22px; height:22px; border-radius:7px; flex:none; display:grid; place-items:center; background:rgba(124,58,237,.1); color:var(--violet); margin-top:1px; }
+  .fit-li:nth-child(2) .ic{ background:rgba(0,159,227,.1); color:var(--cyan); }
+  .fit-li:nth-child(3) .ic{ background:rgba(200,80,192,.1); color:var(--magenta); }
+  .fit-li .ic svg{ width:12px; height:12px; }
+  .fit-viz{ display:flex; flex-direction:column; gap:8px; }
+  .fit-viz .k{ font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted-2); }
+  .fit-slots{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .fit-slots i{ display:block; height:24px; border-radius:6px; background:transparent; border:1px dashed var(--line); }
+  .fit-slots i.on{ background:#EDEDF1; border:1px solid var(--line); }
+  .fit-verdict{ margin-top:auto; padding-top:16px; border-top:1px dashed var(--line); font-size:15px; font-weight:600; color:var(--muted); }
+  .fit-verdict b{ font-weight:800; }
+  .fit-card.pick .fit-verdict{ border-top-color:rgba(124,58,237,.22); color:var(--ink); }
+  .fit-card.pick .fit-verdict b{ background:linear-gradient(90deg,var(--cyan),var(--violet) 55%,var(--magenta)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .fit-foot{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; margin:26px auto 0; opacity:0; transform:translateY(8px); transition:opacity .6s ease, transform .6s ease; }
+  .fit-foot.show{ opacity:1; transform:none; }
+  .fit-claim{ font-size:clamp(16px,1.4vw,20px); font-weight:700; letter-spacing:-.02em; color:var(--ink); }
+  .fit-proof{ display:inline-flex; align-items:center; gap:9px; font-size:12.5px; color:var(--ink-2); background:#fff; border:1px solid var(--line); border-radius:999px; padding:8px 15px; box-shadow:0 8px 22px -18px rgba(11,11,15,.35); }
+  .fit-proof b{ color:var(--ink); font-weight:700; }
+  .fit-proof .dot{ width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 4px rgba(16,185,129,.16); flex:none; animation:rmPulse 2s infinite; }
+  @media (max-width:980px){
+    .fit{ grid-template-columns:1fr; gap:12px; }
+    .fit-card{ padding:20px 18px; }
+    .fit-foot{ flex-direction:column; gap:14px; margin-top:20px; }
+  }
+
   /* Ficha clínica — bento 6 */
   .fc{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:8px; }
   .fc-card{ background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 10px 30px -22px rgba(11,11,15,.2); opacity:0; transform:translateY(10px); transition:opacity .45s ease, transform .45s ease; overflow:hidden; }
@@ -822,7 +860,7 @@
   <div class="meta-tag">Presentación · Clinera</div>
 </div>
 
-<div class="step-counter" id="stepCounter"><span class="current">01</span> / 07</div>
+<div class="step-counter" id="stepCounter"><span class="current">01</span> / 09</div>
 <div class="hint">
   Click o <span class="arrow">→</span> para continuar
 </div>
@@ -831,8 +869,44 @@
 
 <div class="stage" id="stage">
 
-  <!-- 01 — ¿Por qué quieres migrar? -->
-  <section class="slide active" id="slide0">
+  <!-- 01 — Dos tipos de clínicas · para quién es Clinera -->
+  <section class="slide active" id="slideFit">
+    <div class="slide-inner" style="max-width:1080px;">
+      <div class="kicker" style="justify-content:center;"><span class="pip"></span>Para quién es · y para quién no</div>
+      <h2 class="h-display" style="text-align:center;">Hay <span class="em">dos tipos</span> de clínicas.</h2>
+      <p class="lead" style="text-align:center;max-width:640px;margin:0 auto 30px;">Solo una de las dos tiene un problema que la IA puede resolver.</p>
+
+      <div class="fit" id="fitCards">
+        <div class="fit-card" data-fit="0">
+          <div class="fit-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>Clínica tipo 1</div>
+          <div class="fit-t">La que necesita <b>más pacientes</b>.</div>
+          <div class="fit-viz">
+            <span class="k">Agenda con espacios libres</span>
+            <div class="fit-slots"><i class="on"></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i class="on"></i><i></i></div>
+          </div>
+          <div class="fit-verdict">Esa necesita <b>marketing</b>.</div>
+        </div>
+        <div class="fit-card pick" data-fit="1">
+          <div class="fit-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></svg>Clínica tipo 2</div>
+          <div class="fit-t">La que <b>ya tiene pacientes</b>, pero no da abasto.</div>
+          <div class="fit-list">
+            <div class="fit-li"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"/><path d="M12 8v4M12 15.5v.01"/></svg></span>Se le caen ventas por no responder mensajes</div>
+            <div class="fit-li"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.2-8.6"/><path d="M12 7v5l3 2"/></svg></span>Se le pierden los seguimientos</div>
+            <div class="fit-li"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></span>No da abasto con la operación</div>
+          </div>
+          <div class="fit-verdict">Esa necesita <b>IA</b>.</div>
+        </div>
+      </div>
+
+      <div class="fit-foot" id="fitFoot">
+        <span class="fit-claim">Clinera es para la segunda.</span>
+        <span class="fit-proof"><span class="dot"></span><b>80+ clínicas</b> en Chile, México y Perú ya la usan</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — ¿Por qué quieres migrar? -->
+  <section class="slide" id="slide0">
     <div class="slide-inner" style="max-width:1080px;">
       <div class="kicker" style="justify-content:center;"><span class="pip"></span>El punto de partida · por qué cambiarte</div>
       <h2 class="h-display" style="text-align:center;">¿Por qué quieres <span class="em">migrar a Clinera</span>?</h2>
@@ -1162,7 +1236,10 @@
 </div>
 
 <script>
-  const TOTAL_SLIDES = 8;
+  // El orden de las diapositivas lo define el DOM, no el id: así se pueden
+  // insertar diapositivas nuevas sin renumerar los #slideN del CSS y del JS.
+  const SLIDES = Array.prototype.slice.call(document.querySelectorAll('#stage .slide'));
+  const TOTAL_SLIDES = SLIDES.length;
   let currentSlide = 0;
   let isAnimating = false;
   function $(id){ return document.getElementById(id); }
@@ -1178,8 +1255,8 @@
   function goToSlide(n){
     if (n < 0 || n >= TOTAL_SLIDES || isAnimating) return;
     isAnimating = true;
-    const oldSlide = $('slide' + currentSlide);
-    const newSlide = $('slide' + n);
+    const oldSlide = SLIDES[currentSlide];
+    const newSlide = SLIDES[n];
     oldSlide.classList.remove('active');
     oldSlide.classList.add('exit');
     setTimeout(function(){
@@ -1193,13 +1270,15 @@
   }
 
   function triggerSlide(n){
-    if (n === 0) playReasons();
-    if (n === 1) playFuel();
-    if (n === 2) playOverlap();
-    if (n === 3) playFunciones();
-    if (n === 4) playChatIA();
-    if (n === 6) playSecurity();
-    // n===5 (CNN+logos) y n===7 (cierre) no requieren animación JS
+    const id = SLIDES[n] ? SLIDES[n].id : '';
+    if (id === 'slideFit') playFit();
+    if (id === 'slide0') playReasons();
+    if (id === 'slide1') playFuel();
+    if (id === 'slide2') playOverlap();
+    if (id === 'slide3') playFunciones();
+    if (id === 'slide4') playChatIA();
+    if (id === 'slide6') playSecurity();
+    // slide5 (CNN+logos) y slide7 (cierre) no requieren animación JS
   }
 
   function advanceSubStep(){ if (!isAnimating) goToSlide(currentSlide + 1); }
@@ -1230,6 +1309,18 @@
     if (dx > 0) advanceSubStep();
     else if (currentSlide > 0) goToSlide(currentSlide - 1);
   }, { passive: true });
+
+  // ── Dos tipos de clínicas (slideFit) ──
+  let fitTimers = [];
+  function playFit(){
+    fitTimers.forEach(function(t){ clearTimeout(t); }); fitTimers = [];
+    const cards = document.querySelectorAll('#slideFit .fit-card');
+    const foot = $('fitFoot');
+    cards.forEach(function(c){ c.classList.remove('show'); });
+    if (foot) foot.classList.remove('show');
+    cards.forEach(function(c, i){ fitTimers.push(setTimeout(function(){ c.classList.add('show'); }, 200 + i * 320)); });
+    if (foot) fitTimers.push(setTimeout(function(){ foot.classList.add('show'); }, 200 + cards.length * 320 + 200));
+  }
 
   // ── Razones para migrar (slide0) ──
   let reasonTimers = [];
@@ -1356,7 +1447,7 @@
   // ── Mobile: mostrar todo (layout scroll) ──
   if (isMobile()){
     document.querySelectorAll('.slide').forEach(function(s){ s.classList.add('active'); });
-    document.querySelectorAll('.aa-card, .fx-card, .fuel-src, .fuel-out, .mig-step, .sec-item').forEach(function(el){ el.classList.add('show'); });
+    document.querySelectorAll('.aa-card, .fx-card, .fuel-src, .fuel-out, .mig-step, .sec-item, .fit-card, .fit-foot').forEach(function(el){ el.classList.add('show'); });
     document.querySelectorAll('.zdt').forEach(function(z){ z.classList.add('play'); });
     document.querySelectorAll('#slide3 .fx-amount').forEach(function(a){ a.textContent = '$' + (+a.dataset.to || 1240000).toLocaleString('es-CL'); });
     const ciaC = document.getElementById('ciaChat'); if (ciaC) ciaC.classList.add('visible');
