@@ -214,6 +214,8 @@ export default function PlataformaLanding() {
         .plt-wave i:nth-child(5) { animation-delay: 0.48s; }
         .plt-wave i:nth-child(6) { animation-delay: 0.60s; }
         .plt-wave i:nth-child(7) { animation-delay: 0.72s; }
+        /* Variante clara de la onda de voz (consola del hero, fondo blanco) */
+        .plt-wave-light i { background: #7C3AED; }
         @media (prefers-reduced-motion: reduce) {
           .reveal { opacity: 1 !important; transform: none !important; }
           .plt-dot, .plt-msg, .plt-typing i, .plt-wave i, .plt-cur { animation: none; }
@@ -228,6 +230,11 @@ export default function PlataformaLanding() {
           .plt-sec-chips { justify-content: flex-start !important; max-width: none !important; }
           .plt-cred { flex-direction: column !important; gap: 26px !important; text-align: center; }
           .plt-cred-sep { display: none !important; }
+          /* Consola del hero: el consolidado y el agente se apilan */
+          .plt-consola-grid { grid-template-columns: 1fr !important; }
+          .plt-consola-red { border-right: none !important; border-bottom: 1px solid #F1EFEC; }
+          /* Franja de respaldo: la etiqueta pasa arriba de cada fila */
+          .plt-strip-row { grid-template-columns: 1fr !important; gap: 16px !important; }
         }
         @media (max-width: 760px) {
           .plt-section { padding-left: 24px !important; padding-right: 24px !important; }
@@ -238,6 +245,8 @@ export default function PlataformaLanding() {
           .plt-h1 { font-size: 40px !important; }
           .plt-h2 { font-size: 30px !important; }
           .plt-section-pad { padding-top: 96px !important; padding-bottom: 96px !important; }
+          .plt-consola-kpis { grid-template-columns: 1fr 1fr !important; }
+          .plt-strip-badges > img { width: 128px !important; height: auto !important; }
         }
         @media (max-width: 560px) {
           /* El input del chat no cabe con el selector de modelo: se oculta y
@@ -251,6 +260,8 @@ export default function PlataformaLanding() {
           .plt-cta-row { flex-direction: column; align-items: stretch; }
           .plt-cta-row > a { width: 100%; justify-content: center; }
           .plt-clientes-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          /* La URL simulada no cabe junto al badge de IA activa */
+          .plt-consola-url { display: none !important; }
         }
       `}</style>
 
@@ -433,10 +444,15 @@ export default function PlataformaLanding() {
             </div>
           </div>
         </div>
+
+        {/* Consola de red — 3 sedes en vivo + el agente IA respondiendo por texto y voz */}
+        <div style={{ maxWidth: 1120, margin: "40px auto 0", position: "relative", zIndex: 1 }}>
+          <ConsolaRed />
+        </div>
       </section>
 
-      {/* ============== FRANJA DE CREDENCIALES ============== */}
-      <CredencialesStrip />
+      {/* ============== FRANJA DE RESPALDO — PARTNERS + CLIENTES ============== */}
+      <RespaldoStrip />
 
       {/* ============== 01 · ECOSISTEMA ============== */}
       <section className="plt-section plt-section-pad" style={{ padding: "150px 80px", background: "#FBFBFA" }}>
@@ -692,7 +708,7 @@ export default function PlataformaLanding() {
               color: "#6B7280",
             }}
           >
-            {["Desde USD 279/mes", "Sin permanencia", "Migración incluida", "WhatsApp Business API"].map((t, i) => (
+            {["Desde USD 379/mes", "Sin permanencia", "Migración incluida", "WhatsApp Business API"].map((t, i) => (
               <span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
                 {i > 0 && <span style={{ color: "#D1D5DB" }}>·</span>}
                 {t}
@@ -705,43 +721,319 @@ export default function PlataformaLanding() {
   );
 }
 
-/* ============ Franja de credenciales — partners + prensa + evidencia ============ */
-function CredencialesStrip() {
-  const badges = [
-    { src: "/images/badges/meta-business-partner.svg", alt: "Meta Business Partner" },
-    { src: "/images/badges/whatsapp-business.svg", alt: "WhatsApp Business API oficial" },
-    { src: "/images/badges/stripe.svg", alt: "Stripe — pagos certificados" },
-    { src: "/images/badges/google-calendar.svg", alt: "Google Calendar — integración oficial" },
-  ];
+/* ============ Consola de red (hero) — 3 sedes en vivo + agente IA por texto y voz ============
+   Una sola pieza responde a las dos preguntas del hero: "¿cómo veo todas mis
+   sedes?" (consolidado central, izquierda) y "¿quién atiende?" (AURA por
+   WhatsApp y por teléfono, derecha). Estética light de /plataforma: hairlines,
+   mono para etiquetas y violeta como único acento.
+   ============================================================================ */
+const CONSOLA_KPIS: { l: string; v: string; d: string }[] = [
+  { l: "Citas", v: "2.347", d: "+11,4%" },
+  { l: "Ocupación", v: "83%", d: "+6 pts" },
+  { l: "No-show", v: "6,1%", d: "−8,3 pts" },
+  { l: "Recuperados", v: "184", d: "por IA" },
+];
+
+const CONSOLA_SEDES: { n: string; pct: number; c: string }[] = [
+  { n: "Providencia", pct: 88, c: "#7C3AED" },
+  { n: "Las Condes", pct: 81, c: "#3B82F6" },
+  { n: "Viña del Mar", pct: 74, c: "#D946EF" },
+];
+
+function ConsolaRed() {
+  return (
+    <div
+      className="reveal plt-consola"
+      style={{
+        background: "#fff",
+        border: "1px solid #EAE8E4",
+        borderRadius: 20,
+        overflow: "hidden",
+        textAlign: "left",
+        boxShadow: "0 44px 96px -34px rgba(15,10,30,0.24), 0 8px 22px -12px rgba(0,0,0,0.05)",
+      }}
+    >
+      {/* Barra de navegador */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 14,
+          padding: "12px 16px",
+          borderBottom: "1px solid #F1EFEC",
+          background: "#FBFBFA",
+        }}
+      >
+        <span style={{ display: "inline-flex", gap: 6, flexShrink: 0 }}>
+          {["#FF5F57", "#FEBC2E", "#28C840"].map((c) => (
+            <span key={c} aria-hidden style={{ width: 10, height: 10, borderRadius: 999, background: c }} />
+          ))}
+        </span>
+        <span
+          className="plt-consola-url"
+          style={{
+            flex: 1,
+            fontFamily: MONO_STACK,
+            fontSize: 12,
+            color: "#6B7280",
+            letterSpacing: "0.01em",
+            background: "#fff",
+            border: "1px solid #EFEDEA",
+            borderRadius: 8,
+            padding: "5px 12px",
+            textAlign: "center",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          app.clinera.io / consolidado-red
+        </span>
+        <span
+          className="plt-consola-live"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 7,
+            fontFamily: MONO_STACK,
+            fontSize: 10,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#5B21B6",
+            background: "#F5F3FF",
+            border: "1px solid #DDD6FE",
+            borderRadius: 999,
+            padding: "4px 10px",
+            flexShrink: 0,
+          }}
+        >
+          <span className="plt-dot" aria-hidden style={{ width: 6, height: 6, borderRadius: 999, background: "#7C3AED", display: "inline-block" }} />
+          IA activa
+        </span>
+      </div>
+
+      <div
+        className="plt-consola-grid"
+        style={{ display: "grid", gridTemplateColumns: "1.22fr 0.98fr", alignItems: "stretch" }}
+      >
+        {/* ---------- Izquierda: consolidado de las 3 sedes ---------- */}
+        <div className="plt-consola-red" style={{ padding: "24px 26px 22px", borderRight: "1px solid #F1EFEC" }}>
+          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ fontFamily: "Inter", fontSize: 17, fontWeight: 700, letterSpacing: "-0.02em", color: "#0A0A0A" }}>
+              Consolidado de red
+            </div>
+            <Mono color="#9AA0AE" size={10.5}>3 sedes · este mes</Mono>
+          </div>
+
+          {/* KPIs de toda la red */}
+          <div className="plt-consola-kpis" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1, background: "#F1EFEC", border: "1px solid #F1EFEC", borderRadius: 12, overflow: "hidden", marginTop: 18 }}>
+            {CONSOLA_KPIS.map((k) => (
+              <div key={k.l} style={{ background: "#fff", padding: "13px 14px" }}>
+                <Mono color="#9AA0AE" size={9.5}>{k.l}</Mono>
+                <div style={{ fontFamily: "Inter", fontSize: 23, fontWeight: 700, letterSpacing: "-0.03em", color: "#0A0A0A", marginTop: 7, lineHeight: 1 }}>
+                  {k.v}
+                </div>
+                <div style={{ fontFamily: MONO_STACK, fontSize: 10.5, color: ACCENT, marginTop: 6 }}>{k.d}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Ocupación por sucursal */}
+          <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12 }}>
+            {CONSOLA_SEDES.map((s) => (
+              <div key={s.n} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <span aria-hidden style={{ width: 8, height: 8, borderRadius: 3, background: s.c, flexShrink: 0 }} />
+                <span style={{ fontFamily: "Inter", fontSize: 14, fontWeight: 600, color: "#0A0A0A", flex: "0 0 116px", letterSpacing: "-0.01em" }}>
+                  {s.n}
+                </span>
+                <span style={{ flex: 1, height: 6, borderRadius: 999, background: "#F1EFEC", overflow: "hidden", minWidth: 60 }}>
+                  <span style={{ display: "block", width: `${s.pct}%`, height: "100%", borderRadius: 999, background: s.c }} />
+                </span>
+                <span style={{ fontFamily: MONO_STACK, fontSize: 12.5, color: "#374151", flexShrink: 0, minWidth: 34, textAlign: "right" }}>
+                  {s.pct}%
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 20, paddingTop: 14, borderTop: "1px solid #F1EFEC" }}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9AA0AE" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 2" />
+            </svg>
+            <Mono color="#9AA0AE" size={10}>Sincronizado hace 40 s · 3 sedes · 41 profesionales</Mono>
+          </div>
+        </div>
+
+        {/* ---------- Derecha: el agente IA responde por texto y por voz ---------- */}
+        <div style={{ padding: "24px 26px 22px", background: "#FCFCFB", display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
+            <span
+              aria-hidden
+              style={{
+                width: 34,
+                height: 34,
+                borderRadius: 10,
+                background: GRAD,
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                fontSize: 16,
+                flexShrink: 0,
+                boxShadow: "0 8px 18px -8px rgba(124,58,237,.6)",
+              }}
+            >
+              ✦
+            </span>
+            <span style={{ flex: 1, minWidth: 0 }}>
+              <span style={{ display: "block", fontFamily: "Inter", fontSize: 15, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.015em", lineHeight: 1.2 }}>
+                AURA
+              </span>
+              <span style={{ display: "block", fontFamily: "Inter", fontSize: 12.5, color: "#6B7280", marginTop: 1 }}>
+                Atiende las 3 sedes · 24/7
+              </span>
+            </span>
+          </div>
+
+          {/* Canal 1 — texto (WhatsApp) */}
+          <div style={{ marginTop: 20 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 11 }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z" />
+              </svg>
+              <Mono color="#6B7280" size={10}>Responde por texto</Mono>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+              <div style={{ alignSelf: "flex-start", maxWidth: "92%", background: "#fff", border: "1px solid #EFEDEA", color: "#0A0A0A", fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.45, padding: "8px 11px", borderRadius: 11, borderBottomLeftRadius: 3 }}>
+                Hola, ¿tienen hora mañana en Las Condes?
+              </div>
+              <div style={{ alignSelf: "flex-end", maxWidth: "92%", background: "#E8FBF0", border: "1px solid #C6F0DA", color: "#0A0A0A", fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.45, padding: "8px 11px", borderRadius: 11, borderBottomRightRadius: 3 }}>
+                Sí: mañana 10:00 con la Dra. Meza. ¿Se la agendo?
+              </div>
+            </div>
+          </div>
+
+          {/* Canal 2 — voz (llamada) */}
+          <div style={{ marginTop: 20, paddingTop: 18, borderTop: "1px solid #F1EFEC" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 11 }}>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7A2 2 0 0 1 22 17z" />
+              </svg>
+              <Mono color="#6B7280" size={10}>Y también por voz</Mono>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 11, padding: "10px 12px", background: "#fff", border: "1px solid #EFEDEA", borderRadius: 12 }}>
+              <span style={{ width: 30, height: 30, borderRadius: 999, background: "#F5F3FF", border: "1px solid #EDE9FE", display: "inline-flex", alignItems: "center", justifyContent: "center", fontFamily: "Inter", fontSize: 11, fontWeight: 700, color: "#5B21B6", flexShrink: 0 }}>
+                MR
+              </span>
+              <span style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ display: "block", fontFamily: "Inter", fontSize: 13, fontWeight: 600, color: "#0A0A0A", lineHeight: 1.2 }}>Sra. Rojas</span>
+                <span style={{ display: "block", fontFamily: MONO_STACK, fontSize: 10.5, color: "#059669", marginTop: 2 }}>en llamada · 00:14</span>
+              </span>
+              <span className="plt-wave plt-wave-light" aria-hidden><i /><i /><i /><i /><i /><i /><i /></span>
+            </div>
+            <div style={{ fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.45, color: "#4B5563", marginTop: 10 }}>
+              <span style={{ color: ACCENT, fontWeight: 600 }}>AURA:</span> «Le confirmo su hora del martes 15:00 en Providencia.»
+            </div>
+          </div>
+
+          <div style={{ marginTop: "auto", paddingTop: 18, display: "inline-flex", alignItems: "center", gap: 8 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <span style={{ fontFamily: "Inter", fontSize: 12.5, fontWeight: 600, color: "#059669" }}>
+              14 citas agendadas hoy, en las 3 sedes
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============ Franja única de respaldo — partners + clínicas + evidencia ============ */
+const CLIENT_LOGOS: { src: string; alt: string; tile?: boolean }[] = [
+  { src: "/presentacion/clientes/andes.png", alt: "Andes Salud" },
+  { src: "/presentacion/clientes/everest.png", alt: "Everest Clínicas Dentales", tile: true },
+  { src: "/presentacion/clientes/sanatorio.png", alt: "Sanatorio Alemán" },
+  { src: "/presentacion/clientes/sonrie.png", alt: "Sonríe" },
+  { src: "/presentacion/clientes/lumina.png", alt: "Lumina · Clínica Facial" },
+  { src: "/presentacion/clientes/hebe.png", alt: "Método Hebe" },
+];
+
+const PARTNER_BADGES: { src: string; alt: string }[] = [
+  { src: "/images/badges/meta-business-partner.svg", alt: "Meta Business Partner" },
+  { src: "/images/badges/whatsapp-business.svg", alt: "WhatsApp Business API oficial" },
+  { src: "/images/badges/stripe.svg", alt: "Stripe — pagos certificados" },
+  { src: "/images/badges/google-calendar.svg", alt: "Google Calendar — integración oficial" },
+];
+
+function StripLabel({ children }: { children: ReactNode }) {
+  return (
+    <span className="plt-strip-label" style={{ display: "inline-flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+      <span aria-hidden style={{ width: 24, height: 1, background: "#D8DBE2" }} />
+      <Mono color="#9AA0AE" size={11}>{children}</Mono>
+    </span>
+  );
+}
+
+function RespaldoStrip() {
   return (
     <section
       className="plt-section"
-      aria-label="Respaldo: partners oficiales y evidencia auditada"
-      style={{ background: "#fff", borderTop: `1px solid ${HAIR}`, borderBottom: `1px solid ${HAIR}`, padding: "36px 80px" }}
+      aria-label="Respaldo: partners oficiales, clínicas activas y evidencia auditada"
+      style={{ background: "#fff", borderTop: `1px solid ${HAIR}`, borderBottom: `1px solid ${HAIR}`, padding: "40px 80px" }}
     >
-      <div
-        className="plt-cred reveal"
-        style={{ maxWidth: 1180, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "center", gap: 36 }}
-      >
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
-          <span aria-hidden style={{ width: 24, height: 1, background: "#D8DBE2" }} />
-          <Mono color="#9AA0AE" size={11}>Respaldo y partners</Mono>
-        </span>
+      <div className="reveal" style={{ maxWidth: 1180, margin: "0 auto" }}>
+        {/* Fila 1 — partners oficiales */}
+        <div className="plt-strip-row" style={{ display: "grid", gridTemplateColumns: "232px minmax(0, 1fr)", gap: 28, alignItems: "center" }}>
+          <StripLabel>Respaldo y partners</StripLabel>
+          <div className="plt-strip-badges" style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+            {PARTNER_BADGES.map((b) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={b.src} src={b.src} alt={b.alt} width={147} height={44} loading="lazy" decoding="async" style={{ display: "block" }} />
+            ))}
+          </div>
+        </div>
 
-        <span className="plt-cred-sep" aria-hidden style={{ width: 1, height: 36, background: "#EFEDEA" }} />
+        <div aria-hidden style={{ height: 1, background: "#F4F2EF", margin: "26px 0" }} />
 
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 14, flexWrap: "wrap", justifyContent: "center" }}>
-          {badges.map((b) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={b.src} src={b.src} alt={b.alt} width={147} height={44} loading="lazy" decoding="async" style={{ display: "block" }} />
-          ))}
-        </span>
+        {/* Fila 2 — clínicas que ya operan con Clinera */}
+        <div className="plt-strip-row" style={{ display: "grid", gridTemplateColumns: "232px minmax(0, 1fr)", gap: 28, alignItems: "center" }}>
+          <StripLabel>Clínicas que ya operan</StripLabel>
+          <div className="plt-clientes-grid" style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 10 }}>
+            {CLIENT_LOGOS.map((l) => (
+              <div
+                key={l.src}
+                style={{
+                  background: l.tile ? "#014C8F" : "#fff",
+                  border: l.tile ? "1px solid transparent" : "1px solid #EAEAEA",
+                  borderRadius: 11,
+                  height: 62,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: l.tile ? 0 : "10px 12px",
+                  overflow: "hidden",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={l.src}
+                  alt={l.alt}
+                  loading="lazy"
+                  decoding="async"
+                  style={l.tile ? { width: "100%", height: "100%", objectFit: "cover" } : { maxWidth: "100%", maxHeight: "100%", objectFit: "contain", display: "block" }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <span className="plt-cred-sep" aria-hidden style={{ width: 1, height: 36, background: "#EFEDEA" }} />
-
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+        {/* Evidencia auditada — cierre de la franja */}
+        <div style={{ marginTop: 26, paddingTop: 20, borderTop: "1px solid #F4F2EF", textAlign: "center" }}>
           <Mono color="#6B7280" size={11}>100% de agendamientos en ≤3 intentos · estudio auditado · 42 casos</Mono>
-        </span>
+        </div>
       </div>
     </section>
   );
@@ -793,11 +1085,11 @@ function SegmentoOperacion() {
             <div style={{ marginTop: "auto" }}>
               <div style={{ paddingTop: 18, borderTop: "1px solid #F1EFEC", display: "flex", alignItems: "baseline", gap: 8 }}>
                 <Mono color="#6B7280" size={10.5}>Desde</Mono>
-                <span style={{ fontFamily: "Inter", fontSize: 32, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.02em", lineHeight: 1 }}>$279</span>
+                <span style={{ fontFamily: "Inter", fontSize: 32, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.02em", lineHeight: 1 }}>$379</span>
                 <Mono color="#6B7280" size={10.5}>USD/mes</Mono>
               </div>
               <div style={{ marginTop: 8 }}>
-                <Mono color="#9AA0AE" size={10.5}>Plan Vortex</Mono>
+                <Mono color="#9AA0AE" size={10.5}>Plan Atlas · texto + voz</Mono>
               </div>
               <Link
                 href="/ventas"
@@ -851,11 +1143,11 @@ function SegmentoOperacion() {
             <div style={{ marginTop: "auto" }}>
               <div style={{ paddingTop: 18, borderTop: "1px solid #F1EFEC", display: "flex", alignItems: "baseline", gap: 8 }}>
                 <Mono color="#6B7280" size={10.5}>Desde</Mono>
-                <span style={{ fontFamily: "Inter", fontSize: 32, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.02em", lineHeight: 1 }}>$379</span>
+                <span style={{ fontFamily: "Inter", fontSize: 32, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.02em", lineHeight: 1 }}>$479</span>
                 <Mono color="#6B7280" size={10.5}>USD/mes</Mono>
               </div>
               <div style={{ marginTop: 8 }}>
-                <Mono color="#9AA0AE" size={10.5}>Atlas · Summit $479 · sucursales ilimitadas</Mono>
+                <Mono color="#9AA0AE" size={10.5}>Plan Summit · sucursales ilimitadas</Mono>
               </div>
               <Link
                 href="/ventas"
@@ -1147,16 +1439,7 @@ function ChatIA() {
   );
 }
 
-/* ============ Confianza — prensa CNN + clínicas que ya operan ============ */
-const CLIENT_LOGOS: { src: string; alt: string; tile?: boolean }[] = [
-  { src: "/presentacion/clientes/andes.png", alt: "Andes Salud" },
-  { src: "/presentacion/clientes/everest.png", alt: "Everest Clínicas Dentales", tile: true },
-  { src: "/presentacion/clientes/sanatorio.png", alt: "Sanatorio Alemán" },
-  { src: "/presentacion/clientes/sonrie.png", alt: "Sonríe" },
-  { src: "/presentacion/clientes/lumina.png", alt: "Lumina · Clínica Facial" },
-  { src: "/presentacion/clientes/hebe.png", alt: "Método Hebe" },
-];
-
+/* ============ Confianza — prensa CNN (los clientes viven en RespaldoStrip) ============ */
 function PrensaConfianza() {
   return (
     <section className="plt-section" style={{ background: "#fff", borderTop: `1px solid ${HAIR}`, padding: "110px 80px" }}>
@@ -1206,41 +1489,6 @@ function PrensaConfianza() {
                 title="CNN entrevista a Clinera"
               />
             </div>
-          </div>
-        </div>
-
-        {/* Clínicas que ya operan con Clinera */}
-        <div className="reveal" style={{ marginTop: 44, textAlign: "center" }}>
-          <Mono color="#9AA0AE" size={11}>Clínicas que ya operan con Clinera</Mono>
-          <div
-            className="plt-clientes-grid"
-            style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 12, marginTop: 18 }}
-          >
-            {CLIENT_LOGOS.map((l) => (
-              <div
-                key={l.src}
-                style={{
-                  background: l.tile ? "#014C8F" : "#fff",
-                  border: l.tile ? "1px solid transparent" : "1px solid #EAEAEA",
-                  borderRadius: 13,
-                  height: 78,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: l.tile ? 0 : "12px 16px",
-                  overflow: "hidden",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={l.src}
-                  alt={l.alt}
-                  loading="lazy"
-                  decoding="async"
-                  style={l.tile ? { width: "100%", height: "100%", objectFit: "cover" } : { maxWidth: "100%", maxHeight: "100%", objectFit: "contain", display: "block" }}
-                />
-              </div>
-            ))}
           </div>
         </div>
       </div>

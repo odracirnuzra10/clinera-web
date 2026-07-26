@@ -32,12 +32,14 @@ const softwareLd = {
   description:
     "Plataforma con IA que unifica agenda, WhatsApp, ficha clínica, cobros, recuperación de pacientes y control central de todas las sedes de una clínica o grupo clínico.",
   url: "https://www.clinera.io/plataforma",
+  // Coherente con los precios visibles en esta landing: Atlas 379 → Corporativo
+  // 1.900. El plan de entrada (279) se presenta en la videollamada, no aquí.
   offers: {
     "@type": "AggregateOffer",
-    lowPrice: "279",
-    highPrice: "1500",
+    lowPrice: "379",
+    highPrice: "1900",
     priceCurrency: "USD",
-    offerCount: "4",
+    offerCount: "3",
   },
 };
 
