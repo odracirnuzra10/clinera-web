@@ -261,8 +261,6 @@ export default function PlataformaLanding() {
           .plt-cta-row { flex-direction: column; align-items: stretch; }
           .plt-cta-row > a { width: 100%; justify-content: center; }
           .plt-clientes-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          /* La URL simulada no cabe junto al badge de IA activa */
-          .plt-consola-url { display: none !important; }
         }
         /* ---- Franja de respaldo: las dos filas tienen que terminar en el mismo
            borde. En flex los 4 badges cortan antes que los logos y la franja se
@@ -275,6 +273,10 @@ export default function PlataformaLanding() {
         @media (max-width: 560px) {
           .plt-strip-badges { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
           .plt-clientes-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          /* La URL completa se recorta al lado del badge de IA activa: se deja
+             solo la ruta, que sigue empujando el badge al borde de la barra. */
+          .plt-consola-host { display: none !important; }
+          .plt-consola-url { font-size: 11px !important; padding: 5px 8px !important; }
         }
         @media (min-width: 561px) and (max-width: 760px) {
           .plt-strip-badges { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
@@ -803,7 +805,7 @@ function ConsolaRed() {
             textOverflow: "ellipsis",
           }}
         >
-          app.clinera.io / consolidado-red
+          <span className="plt-consola-host">app.clinera.io / </span>consolidado-red
         </span>
         <span
           className="plt-consola-live"
