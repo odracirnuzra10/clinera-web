@@ -1,0 +1,477 @@
+/* ==========================================================================
+   Triage — formulario interno de reportes
+   --------------------------------------------------------------------------
+   Formulario de trabajo, no una landing: fondo claro, un solo acento (cyan),
+   bordes suaves y nada de sombras pesadas.
+
+   Usa los tokens de src/app/globals.css (--brand-cyan, --ink-*, --surface-*,
+   --divider-*, --radius-*). Outfit y DM Mono ya vienen self-hosted desde
+   src/app/fonts.css; acá se aplican sólo dentro de esta página.
+   ========================================================================== */
+
+.pagina {
+  --acento: var(--brand-cyan);
+  --acento-suave: rgba(0, 159, 227, 0.08);
+  --acento-borde: rgba(0, 159, 227, 0.35);
+  --peligro: #C0392B;
+  --peligro-suave: rgba(192, 57, 43, 0.06);
+  --peligro-borde: rgba(192, 57, 43, 0.22);
+
+  font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--surface-1);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 32px 16px calc(48px + env(safe-area-inset-bottom));
+}
+
+.marco {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ── Encabezado ─────────────────────────────────────────────────────────── */
+
+.encabezado {
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--acento);
+  margin-bottom: 10px;
+}
+
+.titulo {
+  font-family: inherit;
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--ink-primary);
+  margin-bottom: 8px;
+}
+
+.bajada {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink-secondary);
+}
+
+/* ── Formulario ─────────────────────────────────────────────────────────── */
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--surface-0);
+  border: 1px solid var(--divider-subtle);
+  border-radius: 14px;
+  padding: 24px 20px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.etiqueta {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-primary);
+  margin-bottom: 7px;
+}
+
+.opcional {
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+  border: 1px solid var(--divider-strong);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* 16px es el mínimo: por debajo, iOS hace zoom al enfocar el campo. */
+.input,
+.select,
+.textarea {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-primary);
+  background: var(--surface-0);
+  border: 1px solid var(--divider-strong);
+  border-radius: 10px;
+  padding: 13px 14px;
+  width: 100%;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 132px;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--ink-tertiary);
+}
+
+.input:hover:not(:disabled),
+.select:hover:not(:disabled),
+.textarea:hover:not(:disabled) {
+  border-color: var(--ink-tertiary);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px var(--acento-suave);
+}
+
+/* El foco por teclado mantiene además el anillo global de globals.css. */
+.input:focus-visible,
+.select:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 1px;
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  background: var(--surface-2);
+  color: var(--ink-secondary);
+  cursor: not-allowed;
+}
+
+.input[aria-invalid="true"],
+.textarea[aria-invalid="true"],
+.select[aria-invalid="true"] {
+  border-color: var(--peligro-borde);
+}
+
+/* ── Select ─────────────────────────────────────────────────────────────── */
+
+.selectEnvoltorio {
+  position: relative;
+  display: flex;
+}
+
+.select {
+  padding-right: 42px;
+  cursor: pointer;
+}
+
+.selectFlecha {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--ink-tertiary);
+  pointer-events: none;
+}
+
+.selectFlecha svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── Ayudas y errores ───────────────────────────────────────────────────── */
+
+.ayuda {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink-tertiary);
+  margin-top: 7px;
+}
+
+/* Nota permanente de datos de pacientes: se lee siempre, no sólo al fallar. */
+.ayudaPermanente {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--ink-secondary);
+  margin-top: 8px;
+  padding: 9px 12px;
+  background: var(--surface-2);
+  border-left: 2px solid var(--acento);
+  border-radius: 0 6px 6px 0;
+}
+
+.error {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  font-weight: 500;
+  color: var(--peligro);
+  margin-top: 7px;
+}
+
+/* ── Avisos de bloque ───────────────────────────────────────────────────── */
+
+.avisoPii {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-primary);
+  background: var(--peligro-suave);
+  border: 1px solid var(--peligro-borde);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+
+.avisoPiiTitulo {
+  font-weight: 600;
+  color: var(--peligro);
+}
+
+.bloqueError {
+  background: var(--peligro-suave);
+  border: 1px solid var(--peligro-borde);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+
+.bloqueErrorTexto {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-primary);
+}
+
+.listaErrores {
+  list-style: disc;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink-primary);
+}
+
+.botonReintentar {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--peligro);
+  background: transparent;
+  border: 1px solid var(--peligro-borde);
+  border-radius: 8px;
+  padding: 9px 16px;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.botonReintentar:hover {
+  background: rgba(192, 57, 43, 0.09);
+}
+
+/* ── Botones ────────────────────────────────────────────────────────────── */
+
+/* Ancho completo y alto generoso: se aprieta con el pulgar, de pie, apurado. */
+.botonEnviar {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--acento);
+  border: none;
+  border-radius: 10px;
+  padding: 16px 24px;
+  width: 100%;
+  min-height: 54px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.botonEnviar:hover:not(:disabled) {
+  background: var(--brand-cyan-hover);
+}
+
+.botonEnviar:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.botonSecundario {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-primary);
+  background: var(--surface-0);
+  border: 1px solid var(--divider-strong);
+  border-radius: 10px;
+  padding: 14px 24px;
+  width: 100%;
+  min-height: 50px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.botonSecundario:hover {
+  background: var(--surface-2);
+  border-color: var(--ink-tertiary);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+}
+
+/* ── Confirmación ───────────────────────────────────────────────────────── */
+
+.exito {
+  background: var(--surface-0);
+  border: 1px solid var(--divider-subtle);
+  border-radius: 14px;
+  padding: 36px 24px 28px;
+  text-align: center;
+}
+
+.exitoIcono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: var(--acento);
+  background: var(--acento-suave);
+  border: 1px solid var(--acento-borde);
+  margin-bottom: 18px;
+}
+
+.exitoIcono svg {
+  width: 24px;
+  height: 24px;
+}
+
+.exitoTitulo {
+  font-family: inherit;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ink-primary);
+  margin-bottom: 18px;
+}
+
+.exitoTitulo:focus {
+  outline: none;
+}
+
+.exitoTitulo:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.exitoIssue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 22px;
+  background: var(--surface-1);
+  border: 1px solid var(--divider-strong);
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+.exitoIssueEtiqueta {
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary);
+}
+
+.exitoIssueId {
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink-primary);
+}
+
+.exitoTexto {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-secondary);
+  margin-bottom: 22px;
+}
+
+.exitoEnlace {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--acento);
+  margin-bottom: 22px;
+}
+
+/* ── Escritorio ─────────────────────────────────────────────────────────── */
+
+@media (min-width: 640px) {
+  .pagina {
+    padding: 64px 24px 80px;
+  }
+
+  .titulo {
+    font-size: 2rem;
+  }
+
+  .formulario {
+    padding: 32px 28px;
+    gap: 24px;
+  }
+
+  .exito {
+    padding: 44px 36px 32px;
+  }
+
+  /* En escritorio el botón no necesita ocupar todo el ancho. */
+  .botonSecundario {
+    width: auto;
+    min-width: 220px;
+  }
+}
