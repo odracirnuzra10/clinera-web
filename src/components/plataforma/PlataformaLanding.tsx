@@ -49,8 +49,8 @@ function gridLight(maskAt: "top" | "bottom"): CSSProperties {
 }
 
 const STATS: { n: string; l: string }[] = [
-  { n: "+52", l: "clínicas activas" },
-  { n: "+500", l: "profesionales coordinados" },
+  { n: "80+", l: "clínicas activas" },
+  { n: "500+", l: "profesionales coordinados" },
   { n: "10", l: "países en LATAM" },
   { n: "24/7", l: "operación con IA" },
 ];
