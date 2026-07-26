@@ -337,7 +337,7 @@ export default function PlataformaLanding() {
       </header>
 
       {/* ============== HERO (centrado, dominante) ============== */}
-      <section className="plt-section plt-hero" style={{ position: "relative", padding: "88px 80px 110px", overflow: "hidden", background: "#fff" }}>
+      <section className="plt-section plt-hero" style={{ position: "relative", padding: "60px 80px 110px", overflow: "hidden", background: "#fff" }}>
         <div
           aria-hidden
           style={{
@@ -447,26 +447,13 @@ export default function PlataformaLanding() {
             </div>
           </div>
 
-          {/* Puente multi-sede */}
-          <div className="reveal" style={{ marginTop: 72 }}>
-            <Mono color="#9AA0AE" size={11}>Multi-sede por diseño</Mono>
-            <div
-              style={{
-                fontFamily: "Inter",
-                fontSize: 21,
-                fontWeight: 600,
-                letterSpacing: "-0.02em",
-                color: "#0A0A0A",
-                marginTop: 10,
-              }}
-            >
-              Opera 2, 5 o 20 sedes con la misma precisión que una.
-            </div>
-          </div>
         </div>
 
-        {/* Consola de red — 3 sedes en vivo + el agente IA respondiendo por texto y voz */}
-        <div style={{ maxWidth: 1120, margin: "40px auto 0", position: "relative", zIndex: 1 }}>
+        {/* Consola de red — 3 sedes en vivo + el agente IA respondiendo por texto y voz.
+            El puente "Multi-sede por diseño" vivía acá y repetía lo que ya dicen el
+            chip de segmento y la propia consola; sacarlo sube la card ~125px y la
+            deja asomando sobre el fold en laptop. */}
+        <div className="plt-hero-consola" style={{ maxWidth: 1120, margin: "52px auto 0", position: "relative", zIndex: 1 }}>
           <ConsolaRed />
         </div>
       </section>
