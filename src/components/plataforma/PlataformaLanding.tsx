@@ -1115,7 +1115,7 @@ function ParaQuienEs() {
           >
             <Mono color="#9AA0AE" size={10.5}>Clínica A</Mono>
             <div style={{ fontFamily: "Inter", fontSize: 22, fontWeight: 700, color: "#4B5563", letterSpacing: "-0.018em", margin: "14px 0 0", lineHeight: 1.25 }}>
-              La que necesita más pacientes
+              La que necesita pacientes
             </div>
             <p style={{ fontFamily: "Inter", fontSize: 15, lineHeight: 1.6, color: "#6B7280", margin: "12px 0 22px" }}>
               Le sobra capacidad. La demanda no alcanza para llenar la agenda, y lo que falta está antes de la puerta de la clínica.
@@ -1154,10 +1154,10 @@ function ParaQuienEs() {
             <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: GRAD }} />
             <Mono color={ACCENT} size={10.5}>Clínica B</Mono>
             <div style={{ fontFamily: "Inter", fontSize: 22, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.018em", margin: "14px 0 0", lineHeight: 1.25 }}>
-              La que ya tiene pacientes, pero no da abasto
+              La que tiene pacientes, pero los pierde
             </div>
             <p style={{ fontFamily: "Inter", fontSize: 15, lineHeight: 1.6, color: "#4B5563", margin: "12px 0 22px" }}>
-              La demanda ya llega. El problema es lo que pasa después: la clínica no alcanza a responderle a todos los que ya levantaron la mano.
+              La demanda ya llega. El problema es lo que pasa después: la clínica no alcanza a responderle a todos los que ya levantaron la mano, y los pierde en el camino.
             </p>
             <ul style={{ listStyle: "none", margin: "0 0 26px", padding: 0, display: "flex", flexDirection: "column", gap: 11 }}>
               {B_SINTOMAS.map((s) => (
