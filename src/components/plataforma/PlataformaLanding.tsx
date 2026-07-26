@@ -49,8 +49,8 @@ function gridLight(maskAt: "top" | "bottom"): CSSProperties {
 }
 
 const STATS: { n: string; l: string }[] = [
-  { n: "+52", l: "clínicas activas" },
-  { n: "+500", l: "profesionales coordinados" },
+  { n: "80+", l: "clínicas activas" },
+  { n: "500+", l: "profesionales coordinados" },
   { n: "10", l: "países en LATAM" },
   { n: "24/7", l: "operación con IA" },
 ];
@@ -226,6 +226,8 @@ export default function PlataformaLanding() {
           .plt-clientes-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .plt-canales-grid { grid-template-columns: 1fr !important; }
           .plt-seg-grid { grid-template-columns: 1fr !important; }
+          .plt-quien-grid { grid-template-columns: 1fr !important; }
+          .plt-quien-foot { flex-direction: column !important; gap: 12px !important; text-align: center; }
           .plt-sec-band { grid-template-columns: 1fr !important; }
           .plt-sec-chips { justify-content: flex-start !important; max-width: none !important; }
           .plt-cred { flex-direction: column !important; gap: 26px !important; text-align: center; }
@@ -472,11 +474,14 @@ export default function PlataformaLanding() {
       {/* ============== FRANJA DE RESPALDO — PARTNERS + CLIENTES ============== */}
       <RespaldoStrip />
 
-      {/* ============== 01 · ECOSISTEMA ============== */}
-      <section className="plt-section plt-section-pad" style={{ padding: "150px 80px", background: "#FBFBFA" }}>
+      {/* ============== 01 · ¿PARA QUIÉN ES CLINERA? (filtro A vs B) ============== */}
+      <ParaQuienEs />
+
+      {/* ============== 02 · ECOSISTEMA ============== */}
+      <section className="plt-section plt-section-pad" style={{ padding: "150px 80px", background: "#FBFBFA", borderTop: `1px solid ${HAIR}` }}>
         <div style={{ maxWidth: 1180, margin: "0 auto" }}>
           <SectionIntro
-            num="01"
+            num="02"
             eyebrow="Estandariza toda tu red"
             title="Unifica todas tus operaciones con IA."
             sub="Una sola fuente de verdad para tu equipo y todas tus sedes. Sin planillas paralelas, sin datos que no cuadran, sin herramientas que no se hablan entre sí."
@@ -527,7 +532,7 @@ export default function PlataformaLanding() {
         </div>
       </section>
 
-      {/* ============== SLIDE NEGRO — 02 chat + 03 canales ============== */}
+      {/* ============== SLIDE NEGRO — 03 chat + 04 canales ============== */}
       <section
         id="la-ia"
         className="plt-section plt-section-pad"
@@ -575,9 +580,9 @@ export default function PlataformaLanding() {
           }}
         />
         <div style={{ maxWidth: 1080, margin: "0 auto", position: "relative", zIndex: 1 }}>
-          {/* 02 — Inteligencia interna */}
+          {/* 03 — Inteligencia interna */}
           <SectionIntro
-            num="02"
+            num="03"
             eyebrow="Una sola IA · toda tu operación"
             title="Y le puedes preguntar lo que sea."
             sub="Como Clinera unifica todo, su IA conoce cada venta, cada hora y cada paciente de tus sedes. Pregúntale en español, como a un miembro más del equipo."
@@ -588,10 +593,10 @@ export default function PlataformaLanding() {
             <Mono color="rgba(255,255,255,0.4)" size={10.5}>Datos consolidados de todas tus sedes, en tiempo real</Mono>
           </div>
 
-          {/* 03 — Dos canales */}
+          {/* 04 — Dos canales */}
           <div style={{ marginTop: 144 }}>
             <SectionIntro
-              num="03"
+              num="04"
               eyebrow="Una IA · dos canales"
               title="Una IA, 2 canales para atender a tus pacientes."
               sub="Tus pacientes eligen: por teléfono o por WhatsApp. La misma IA llama, confirma, reagenda y responde en ambos — sin que se te escape ninguno."
@@ -668,7 +673,7 @@ export default function PlataformaLanding() {
         </div>
       </section>
 
-      {/* ============== 04 · TAMAÑO DE OPERACIÓN ============== */}
+      {/* ============== 05 · TAMAÑO DE OPERACIÓN ============== */}
       <SegmentoOperacion />
 
       {/* ============== SEGURIDAD / COMPLIANCE ============== */}
@@ -1057,13 +1062,156 @@ function RespaldoStrip() {
   );
 }
 
-/* ============ 04 · Tamaño de operación — escalera de segmentos (auto-calificación) ============ */
+/* ============ 01 · ¿Para quién es Clinera? — filtro explicativo Clínica A vs Clínica B ============
+   Califica antes de que el lector invierta tiempo: separa el problema de
+   demanda (marketing) del problema de capacidad de respuesta (IA). La
+   escalera de /plataforma más abajo resuelve el tamaño; esto resuelve
+   el "¿es mi problema?". ============================================== */
+function ParaQuienEs() {
+  const A_SINTOMAS = [
+    "Quedan bloques sin llenar en la agenda del día",
+    "Llegan pocos mensajes y pocas consultas nuevas",
+    "El equipo tiene tiempo muerto entre paciente y paciente",
+  ];
+  const B_SINTOMAS = [
+    "Se caen ventas por no responder los mensajes a tiempo",
+    "Se pierden los seguimientos y las reactivaciones",
+    "El equipo no da abasto con la operación del día",
+  ];
+
+  return (
+    <section className="plt-section plt-section-pad" style={{ background: "#fff", padding: "150px 80px" }}>
+      <div style={{ maxWidth: 1180, margin: "0 auto" }}>
+        <SectionIntro
+          num="01"
+          eyebrow="Antes de seguir leyendo"
+          title="¿Para quién es Clinera?"
+          sub="Detrás de “necesito crecer” hay dos clínicas muy distintas. Solo una de las dos tiene un problema que la IA resuelve — y preferimos decírtelo ahora."
+        />
+
+        <div
+          className="plt-quien-grid reveal"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 20,
+            marginTop: 64,
+            maxWidth: 980,
+            marginLeft: "auto",
+            marginRight: "auto",
+            alignItems: "stretch",
+          }}
+        >
+          {/* Clínica A — problema de demanda: no es Clinera */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              background: "#FBFBFA",
+              border: "1px solid #E5E7EB",
+              borderRadius: 18,
+              padding: "32px 30px",
+            }}
+          >
+            <Mono color="#9AA0AE" size={10.5}>Clínica A</Mono>
+            <div style={{ fontFamily: "Inter", fontSize: 22, fontWeight: 700, color: "#4B5563", letterSpacing: "-0.018em", margin: "14px 0 0", lineHeight: 1.25 }}>
+              La que necesita pacientes
+            </div>
+            <p style={{ fontFamily: "Inter", fontSize: 15, lineHeight: 1.6, color: "#6B7280", margin: "12px 0 22px" }}>
+              Le sobra capacidad. La demanda no alcanza para llenar la agenda, y lo que falta está antes de la puerta de la clínica.
+            </p>
+            <ul style={{ listStyle: "none", margin: "0 0 26px", padding: 0, display: "flex", flexDirection: "column", gap: 11 }}>
+              {A_SINTOMAS.map((s) => (
+                <li key={s} style={{ display: "flex", alignItems: "flex-start", gap: 11, fontFamily: "Inter", fontSize: 14.5, lineHeight: 1.5, color: "#6B7280" }}>
+                  <span aria-hidden style={{ width: 5, height: 5, borderRadius: 999, background: "#C9CDD6", flex: "none", marginTop: 8 }} />
+                  {s}
+                </li>
+              ))}
+            </ul>
+            <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid #EAE8E4" }}>
+              <div style={{ fontFamily: "Inter", fontSize: 18, fontWeight: 700, color: "#4B5563", letterSpacing: "-0.015em" }}>
+                Esa necesita marketing.
+              </div>
+              <p style={{ fontFamily: "Inter", fontSize: 14, lineHeight: 1.55, color: "#9AA0AE", margin: "8px 0 0" }}>
+                La IA le ordenaría una operación que todavía no tiene volumen que ordenar. Ahí Clinera no te va a mover la aguja.
+              </p>
+            </div>
+          </div>
+
+          {/* Clínica B — problema de capacidad de respuesta: sí es Clinera */}
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              background: "#fff",
+              border: "1px solid #0A0A0A",
+              borderRadius: 18,
+              padding: "32px 30px",
+              overflow: "hidden",
+            }}
+          >
+            <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: GRAD }} />
+            <Mono color={ACCENT} size={10.5}>Clínica B</Mono>
+            <div style={{ fontFamily: "Inter", fontSize: 22, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.018em", margin: "14px 0 0", lineHeight: 1.25 }}>
+              La que tiene pacientes, pero los pierde
+            </div>
+            <p style={{ fontFamily: "Inter", fontSize: 15, lineHeight: 1.6, color: "#4B5563", margin: "12px 0 22px" }}>
+              La demanda ya llega. El problema es lo que pasa después: la clínica no alcanza a responderle a todos los que ya levantaron la mano, y los pierde en el camino.
+            </p>
+            <ul style={{ listStyle: "none", margin: "0 0 26px", padding: 0, display: "flex", flexDirection: "column", gap: 11 }}>
+              {B_SINTOMAS.map((s) => (
+                <li key={s} style={{ display: "flex", alignItems: "flex-start", gap: 11, fontFamily: "Inter", fontSize: 14.5, lineHeight: 1.5, color: "#374151" }}>
+                  <span aria-hidden style={{ width: 5, height: 5, borderRadius: 999, background: ACCENT, flex: "none", marginTop: 8 }} />
+                  {s}
+                </li>
+              ))}
+            </ul>
+            <div style={{ marginTop: "auto", paddingTop: 20, borderTop: "1px solid #F1EFEC" }}>
+              <div style={{ fontFamily: "Inter", fontSize: 18, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.015em" }}>
+                Esa necesita IA.
+              </div>
+              <p style={{ fontFamily: "Inter", fontSize: 14, lineHeight: 1.55, color: "#6B7280", margin: "8px 0 0" }}>
+                Cada mensaje sin responder es una venta que tu marketing ya pagó. Ahí es exactamente donde entra Clinera.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Veredicto */}
+        <div
+          className="plt-quien-foot reveal"
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 18,
+            marginTop: 40,
+          }}
+        >
+          <span style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.02em" }}>
+            Clinera es para la Clínica B.
+          </span>
+          <Link
+            href="/ventas"
+            style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "Inter", fontSize: 15, fontWeight: 600, color: ACCENT, textDecoration: "none" }}
+          >
+            Ver si califico <span aria-hidden>→</span>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============ 05 · Tamaño de operación — escalera de segmentos (auto-calificación) ============ */
 function SegmentoOperacion() {
   return (
     <section className="plt-section plt-section-pad" style={{ background: "#fff", borderTop: `1px solid ${HAIR}`, padding: "150px 80px" }}>
       <div style={{ maxWidth: 1180, margin: "0 auto" }}>
         <SectionIntro
-          num="04"
+          num="05"
           eyebrow="Para operaciones con volumen"
           title="¿De qué tamaño es tu operación?"
           sub="Clinera está diseñada para clínicas con equipo — desde una sede con alto volumen hasta cadenas con decenas de sucursales. Elige tu plan por el tamaño de tu operación."
