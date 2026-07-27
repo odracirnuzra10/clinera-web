@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CnnLogo } from "@/components/brand-v3/Brand";
 import styles from "./PlataformaLanding.module.css";
 
 const CLIENTS = [
@@ -101,32 +102,6 @@ function Check() {
     <svg aria-hidden="true" viewBox="0 0 20 20" width="17" height="17" fill="none">
       <path d="m5 10 3 3 7-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  );
-}
-
-function ClineraMark() {
-  return (
-    <span className={styles.brand}>
-      <span className={styles.brandMark} aria-hidden="true">c</span>
-      <span>clinera<span className={styles.brandDot}>.</span>io</span>
-    </span>
-  );
-}
-
-function Navigation() {
-  return (
-    <header className={styles.nav}>
-      <div className={styles.navInner}>
-        <Link href="/" aria-label="Ir al inicio de Clinera">
-          <ClineraMark />
-        </Link>
-        <span className={styles.navSegment}>Para clínicas medianas</span>
-        <Link className={styles.navCta} href="/ventas">
-          Ver Clinera con mi operación
-          <Arrow />
-        </Link>
-      </div>
-    </header>
   );
 }
 
@@ -246,7 +221,7 @@ function ClientProof() {
 
 function Outcomes() {
   return (
-    <section className={styles.section}>
+    <section className={`${styles.section} ${styles.outcomesSection}`}>
       <div className={styles.container}>
         <div className={styles.sectionIntro}>
           <span className={styles.eyebrow}>Lo que cambia en tu operación</span>
@@ -290,6 +265,39 @@ function CustomerResult() {
             </span>
           </figcaption>
         </figure>
+      </div>
+    </section>
+  );
+}
+
+function PressCNN() {
+  return (
+    <section className={styles.pressSection} aria-labelledby="cnn-title">
+      <div className={styles.pressCard}>
+        <div className={styles.pressCopy}>
+          <span className={styles.pressEyebrow}>Clinera en la prensa</span>
+          <CnnLogo height={36} color="#F03A47" />
+          <h2 id="cnn-title">Un gran paso para Clinera.</h2>
+          <p>
+            CNN conoció cómo estamos construyendo la infraestructura que ayuda a las clínicas de LATAM a
+            crecer con más control, automatización e inteligencia.
+          </p>
+          <div className={styles.pressLinks}>
+            <Link href="/prensa">Ver cobertura y prensa <Arrow /></Link>
+            <a href="https://www.youtube.com/watch?v=Gskr4kELyx4" target="_blank" rel="noreferrer">
+              Abrir en YouTube
+            </a>
+          </div>
+        </div>
+
+        <div className={styles.pressVideo}>
+          <iframe
+            src="https://player.vimeo.com/video/1205127087?badge=0&autopause=0&player_id=0&app_id=58479"
+            title="Reportaje de CNN sobre Clinera"
+            allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+            allowFullScreen
+          />
+        </div>
       </div>
     </section>
   );
@@ -462,11 +470,11 @@ function FinalCta() {
 export default function PlataformaLanding() {
   return (
     <div className={styles.page}>
-      <Navigation />
       <Hero />
       <ClientProof />
       <Outcomes />
       <CustomerResult />
+      <PressCNN />
       <Migration />
       <Pricing />
       <Trust />

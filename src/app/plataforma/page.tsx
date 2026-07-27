@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import FooterV3 from "@/components/brand-v3/Footer";
+import NavV3 from "@/components/brand-v3/Nav";
 import PlataformaLanding from "@/components/plataforma/PlataformaLanding";
 
 export const metadata: Metadata = {
@@ -55,9 +57,11 @@ export default function PlataformaPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
       />
 
+      <NavV3 ctaHref="/ventas" ctaLabel="Ver Clinera con mi operación" />
       <main>
         <PlataformaLanding />
       </main>
+      <FooterV3 />
     </>
   );
 }

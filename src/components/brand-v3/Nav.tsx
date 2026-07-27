@@ -4,7 +4,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CtaPrimary, Wordmark } from "./Brand";
 
-export default function NavV3() {
+type NavV3Props = {
+  ctaHref?: string;
+  ctaLabel?: string;
+};
+
+export default function NavV3({
+  ctaHref = "/plataforma",
+  ctaLabel = "Hablar con ventas",
+}: NavV3Props) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -134,10 +142,10 @@ export default function NavV3() {
         <div className="nav-v3-actions" style={{ display: "flex", gap: 10, alignItems: "center" }}>
           <CtaPrimary
             as={Link}
-            href="/plataforma"
+            href={ctaHref}
             style={{ padding: "10px 16px", fontSize: 14 }}
           >
-            Hablar con ventas <span style={{ marginLeft: 2 }}>→</span>
+            {ctaLabel} <span style={{ marginLeft: 2 }}>→</span>
           </CtaPrimary>
         </div>
 
@@ -185,11 +193,11 @@ export default function NavV3() {
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 18 }}>
             <CtaPrimary
               as={Link}
-              href="/plataforma"
+              href={ctaHref}
               onClick={() => setMobileOpen(false)}
               style={{ width: "100%", justifyContent: "center", padding: "14px 20px" }}
             >
-              Hablar con ventas <span>→</span>
+              {ctaLabel} <span>→</span>
             </CtaPrimary>
           </div>
         </div>
