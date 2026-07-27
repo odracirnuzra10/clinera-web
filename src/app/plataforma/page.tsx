@@ -34,14 +34,15 @@ const softwareLd = {
   description:
     "Plataforma enterprise con IA que unifica agenda, WhatsApp, llamadas de voz, ficha clínica, cobros y control central de todas las sedes.",
   url: "https://www.clinera.io/plataforma",
-  // Coherente con los planes semestrales mid-market visibles en esta landing.
+  // Coherente con los modos mensual y semestral visibles en esta landing.
   offers: {
     "@type": "AggregateOffer",
-    lowPrice: "1819.20",
+    lowPrice: "379",
     highPrice: "9120",
     priceCurrency: "USD",
-    offerCount: "3",
-    description: "Valor total por 6 meses con 20% de descuento y permanencia mínima semestral.",
+    offerCount: "6",
+    description:
+      "Facturación mensual con permanencia mínima de 6 meses o pago semestral anticipado con 20% de descuento.",
   },
 };
 
