@@ -4,15 +4,15 @@ import NavV3 from "@/components/brand-v3/Nav";
 import PlataformaLanding from "@/components/plataforma/PlataformaLanding";
 
 export const metadata: Metadata = {
-  title: "Centraliza tu clínica y escala con control",
+  title: "IA enterprise para todas tus sedes",
   description:
-    "Clinera centraliza agenda, WhatsApp, fichas, cobros y seguimiento con IA. Migración, configuración y capacitación para clínicas con alto volumen o varias sedes.",
+    "Todas tus sedes en una sola IA. Clinera centraliza la operación y AURA atiende por WhatsApp y llamadas de voz, con implementación gestionada.",
   alternates: { canonical: "https://www.clinera.io/plataforma" },
   openGraph: {
     url: "https://www.clinera.io/plataforma",
-    title: "Centraliza tu clínica. Escala sin perder el control — Clinera.io",
+    title: "Todas tus sedes, en una sola IA — Clinera.io",
     description:
-      "Una plataforma con IA para operar todas tus sedes, con migración gestionada, configuración y capacitación.",
+      "La solución enterprise de IA que usan las clínicas grandes, al alcance de la tuya. WhatsApp, llamadas de voz y control central.",
   },
 };
 
@@ -32,16 +32,16 @@ const softwareLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web, iOS, Android",
   description:
-    "Plataforma con IA que unifica agenda, WhatsApp, ficha clínica, cobros, recuperación de pacientes y control central de todas las sedes de una clínica o grupo clínico.",
+    "Plataforma enterprise con IA que unifica agenda, WhatsApp, llamadas de voz, ficha clínica, cobros y control central de todas las sedes.",
   url: "https://www.clinera.io/plataforma",
-  // Coherente con los planes mid-market visibles en esta landing. El plan de
-  // entrada de USD 279 se mantiene en /planes y no se presenta aquí.
+  // Coherente con los planes semestrales mid-market visibles en esta landing.
   offers: {
     "@type": "AggregateOffer",
-    lowPrice: "379",
-    highPrice: "1900",
+    lowPrice: "1819.20",
+    highPrice: "9120",
     priceCurrency: "USD",
     offerCount: "3",
+    description: "Valor total por 6 meses con 20% de descuento y permanencia mínima semestral.",
   },
 };
 

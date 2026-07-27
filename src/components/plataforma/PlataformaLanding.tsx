@@ -21,18 +21,18 @@ const PARTNERS = [
 
 const OUTCOMES = [
   {
-    label: "Control central",
-    title: "Tu operación completa, visible.",
-    copy: "Agenda, ocupación, ventas y rendimiento de cada sede sin consolidar planillas ni perseguir reportes.",
-    metric: "3 sedes",
-    detail: "una sola vista",
+    label: "Núcleo único",
+    title: "Toda tu operación alimenta una sola IA.",
+    copy: "Agenda, fichas, pagos, ventas y rendimiento de cada sede, conectados sin consolidar planillas.",
+    metric: "Todas",
+    detail: "tus sedes",
   },
   {
-    label: "Atención continua",
-    title: "Cada consulta recibe respuesta.",
-    copy: "AURA responde, agenda, reagenda, cobra y reactiva pacientes por WhatsApp y voz, incluso fuera de horario.",
+    label: "Voz + WhatsApp",
+    title: "AURA responde, llama y confirma.",
+    copy: "Atiende por WhatsApp y realiza llamadas de voz para confirmar citas, reagendar y recuperar pacientes.",
     metric: "24/7",
-    detail: "texto + voz",
+    detail: "confirmación por voz",
   },
   {
     label: "Escala operativa",
@@ -69,20 +69,29 @@ const MIGRATION_STEPS = [
 const PLANS = [
   {
     name: "Atlas",
-    price: "379",
+    monthlyPrice: "379",
+    semesterListPrice: "2.274",
+    semesterPrice: "1.819,20",
+    monthlyEquivalent: "303,20",
     audience: "Clínicas con alto volumen o dos sedes.",
     detail: "Texto + voz · 15 usuarios · 2 sedes",
   },
   {
     name: "Summit",
-    price: "479",
+    monthlyPrice: "479",
+    semesterListPrice: "2.874",
+    semesterPrice: "2.299,20",
+    monthlyEquivalent: "383,20",
     audience: "Grupos clínicos que necesitan control central.",
     detail: "Texto + voz + API · 25 usuarios · sedes ilimitadas",
     featured: true,
   },
   {
     name: "Corporativo",
-    price: "1.900",
+    monthlyPrice: "1.900",
+    semesterListPrice: "11.400",
+    semesterPrice: "9.120",
+    monthlyEquivalent: "1.520",
     audience: "Cadenas, redes y hospitales.",
     detail: "Capacidad a medida · SLA · integraciones",
     dark: true,
@@ -172,6 +181,9 @@ function Hero() {
             Centraliza tu clínica.
             <span> Escala sin perder el control.</span>
           </h1>
+          <strong className={styles.enterpriseThesis}>
+            La solución enterprise de IA que usan las clínicas grandes, al alcance de la tuya.
+          </strong>
           <p>
             Clinera reúne agenda, WhatsApp, fichas, cobros y seguimiento en una sola plataforma con IA.
             Migramos tus datos, configuramos la operación y capacitamos a tu equipo.
@@ -210,7 +222,7 @@ function ClientProof() {
         <div className={styles.clientLogos}>
           {CLIENTS.map((client) => (
             <div key={client.src} className={styles.clientLogo}>
-              <Image src={client.src} alt={client.alt} width={150} height={56} />
+              <Image src={client.src} alt={client.alt} width={180} height={64} />
             </div>
           ))}
         </div>
@@ -224,9 +236,12 @@ function Outcomes() {
     <section className={`${styles.section} ${styles.outcomesSection}`}>
       <div className={styles.container}>
         <div className={styles.sectionIntro}>
-          <span className={styles.eyebrow}>Lo que cambia en tu operación</span>
-          <h2>Tres resultados. Un solo sistema.</h2>
-          <p>La IA trabaja en el día a día. Tu equipo conserva el control y ve lo que ocurre en toda la red.</p>
+          <span className={styles.eyebrow}>Todo conectado · una sola IA</span>
+          <h2 className={styles.outcomesTitle}>Todas tus sedes, <span>en una sola IA.</span></h2>
+          <p>
+            Agenda, fichas, pagos y WhatsApp de cada sede alimentan un solo núcleo. AURA actúa en toda
+            la red, incluso confirmando citas mediante llamadas de voz.
+          </p>
         </div>
         <div className={styles.outcomeGrid}>
           {OUTCOMES.map((outcome) => (
@@ -350,12 +365,34 @@ function Migration() {
 
 function Pricing() {
   return (
-    <section className={styles.section}>
+    <section className={`${styles.section} ${styles.pricingSection}`}>
       <div className={styles.container}>
         <div className={styles.sectionIntro}>
-          <span className={styles.eyebrow}>Planes para operaciones con volumen</span>
-          <h2>Elige según el tamaño de tu operación.</h2>
-          <p>Mostramos aquí los planes diseñados para clínicas medianas, grupos clínicos y redes.</p>
+          <span className={styles.eyebrow}>Plan semestral · 20% OFF</span>
+          <h2>Seis meses para implementar, adoptar y escalar.</h2>
+          <p>
+            Todos los planes de esta landing incluyen 20% de descuento sobre seis mensualidades y
+            permanencia mínima de 6 meses.
+          </p>
+        </div>
+
+        <div className={styles.semesterFocus} aria-label="Plan semestral activo con 20% de descuento">
+          <div className={styles.activeCore} aria-hidden="true">
+            <span className={styles.activeRing} />
+            <span className={styles.activeOrb}>
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+                <path d="M16 3c1.7 7.4 5.6 11.3 13 13-7.4 1.7-11.3 5.6-13 13C14.3 21.6 10.4 17.7 3 16 10.4 14.3 14.3 10.4 16 3Z" fill="currentColor" />
+              </svg>
+            </span>
+          </div>
+          <div className={styles.semesterCopy}>
+            <span><i /> Plan semestral activo</span>
+            <strong>20% OFF aplicado</strong>
+            <small>El precio que ves es el total por 6 meses.</small>
+          </div>
+          <div className={styles.voiceBars} aria-hidden="true">
+            <i /><i /><i /><i /><i /><i /><i />
+          </div>
         </div>
 
         <div className={styles.planGrid}>
@@ -364,21 +401,26 @@ function Pricing() {
               key={plan.name}
               className={`${styles.planCard} ${plan.featured ? styles.planFeatured : ""} ${plan.dark ? styles.planDark : ""}`}
             >
-              {plan.featured && <span className={styles.planBadge}>Más elegido</span>}
+              <span className={styles.planBadge}>{plan.featured ? "Recomendado · 20% OFF" : "20% OFF"}</span>
               <span className={styles.planName}>{plan.name}</span>
-              <div className={styles.planPrice}>
-                <small>Desde</small>
-                <strong>USD {plan.price}</strong>
-                <small>/ mes</small>
+              <div className={styles.planOriginal}>
+                <span>6 mensualidades de USD {plan.monthlyPrice}</span>
+                <s>USD {plan.semesterListPrice}</s>
               </div>
+              <div className={styles.planPrice}>
+                <strong>USD {plan.semesterPrice}</strong>
+                <small>/ 6 meses</small>
+              </div>
+              <span className={styles.planEquivalent}>Equivale a USD {plan.monthlyEquivalent}/mes</span>
               <p>{plan.audience}</p>
               <div className={styles.planDetail}><Check />{plan.detail}</div>
+              <span className={styles.planCommitment}>Permanencia mínima: 6 meses</span>
             </article>
           ))}
         </div>
 
         <div className={styles.pricingAction}>
-          <p>El wizard define el plan correcto según tu software actual, sedes y volumen.</p>
+          <p>El wizard define el plan semestral correcto según tu software actual, sedes y volumen.</p>
           <Link className={styles.primaryCta} href="/ventas">Ver mi plan <Arrow /></Link>
         </div>
       </div>
@@ -420,7 +462,7 @@ function FrequentlyAsked() {
     },
     {
       q: "¿Hay permanencia?",
-      a: "Los planes Atlas y Summit no exigen permanencia. Los acuerdos corporativos se definen según SLA, capacidad e integraciones.",
+      a: "Sí. Desde ahora todos los planes tienen una permanencia mínima de 6 meses. El valor semestral visible ya incluye 20% de descuento.",
     },
   ];
 
@@ -449,14 +491,16 @@ function FinalCta() {
   return (
     <section className={styles.finalCta}>
       <div className={styles.finalCtaInner}>
-        <span className={styles.finalEyebrow}>Tu operación, no una demo genérica</span>
-        <h2>Hablemos de tu clínica.</h2>
+        <span className={styles.finalEyebrow}>IA enterprise para clínicas medianas</span>
+        <h2>La solución enterprise de IA que usan las clínicas grandes, al alcance de la tuya.</h2>
         <p>En 30 minutos te mostramos cómo se verían tus sedes, tu equipo y tus procesos dentro de Clinera.</p>
         <Link className={styles.finalButton} href="/ventas">Ver Clinera con mi operación <Arrow /></Link>
         <div className={styles.finalMeta}>
-          <span>Desde USD 379/mes</span>
+          <span>Desde USD 1.819,20 / 6 meses</span>
           <i />
-          <span>Sin permanencia</span>
+          <span>20% OFF aplicado</span>
+          <i />
+          <span>Permanencia mínima: 6 meses</span>
           <i />
           <span>Migración gestionada</span>
           <i />
