@@ -145,7 +145,7 @@ Webhook (header auth) → Validar → ¿Válido? ─┬─ no → Responder erro
 | **Responder fallo Linear** | Rama de error del nodo de Linear. Sin ella, un fallo devolvía **200 con el cuerpo vacío** — lo peor posible, porque el cliente no puede distinguirlo de un éxito. |
 | **Preparar avisos** | Arma el correo y el mensaje de Chat cruzando el resultado de Linear con lo que se envió en el formulario. La lista de copia del equipo vive acá, en la constante `COPIA`. |
 | **Gmail: avisar** | Confirmación a quien reportó, con el equipo en copia. Credencial `Gmail account`. |
-| **Google Chat: avisar** | Aviso al espacio del equipo, reusando el webhook del workflow `Solicitudes Panel`. |
+| **Google Chat: avisar** | Aviso al espacio de Chat dedicado a triage (`spaces/AAQAkURWlEk`), por webhook entrante. |
 
 **El orden importa.** Se responde al navegador (`Responder OK`) **antes** de mandar
 los avisos: la issue ya está creada, así que si Gmail o Chat fallan, quien
@@ -245,7 +245,9 @@ dominio y no por nombre antes de tocar variables.
   pena romperle el flujo a quien reportó. Pero eso significa que si Gmail deja de
   funcionar, la issue se sigue creando y nadie recibe el correo. Se detecta
   mirando las ejecuciones del workflow, no desde el formulario.
-- **El aviso de Chat comparte espacio.** Reusa el webhook del workflow
-  `Solicitudes Panel`, así que los reportes de triage caen mezclados con lo que
-  ya llegaba ahí. Si hace ruido, se crea un webhook propio y se cambia la URL en
-  el nodo `Google Chat: avisar`.
+- **La URL del webhook de Chat está en el nodo, no en una credencial.** Un
+  webhook entrante de Google Chat lleva `key` y `token` en la query string, así
+  que cualquiera que abra el workflow puede leerlos y publicar en el espacio. El
+  daño posible es acotado (publicar mensajes ahí, nada más), pero si el espacio
+  crece conviene moverla a una credencial de n8n. Para rotarla: se borra el
+  webhook en el espacio, se crea otro y se pega la URL nueva en el nodo.
