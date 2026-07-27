@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import PlataformaLanding from "@/components/plataforma/PlataformaLanding";
 
 export const metadata: Metadata = {
-  title: "La plataforma con IA que unifica toda la operación de tu clínica",
+  title: "Centraliza tu clínica y escala con control",
   description:
-    "Clinera unifica agenda, WhatsApp, fichas, cobros y recuperación de pacientes de todas tus sedes en una sola plataforma operada con IA. Para clínicas medianas y grandes: 2+ sedes o alto volumen.",
+    "Clinera centraliza agenda, WhatsApp, fichas, cobros y seguimiento con IA. Migración, configuración y capacitación para clínicas con alto volumen o varias sedes.",
   alternates: { canonical: "https://www.clinera.io/plataforma" },
   openGraph: {
     url: "https://www.clinera.io/plataforma",
-    title: "Una clínica que crece no se opera en cinco sistemas — Clinera.io",
+    title: "Centraliza tu clínica. Escala sin perder el control — Clinera.io",
     description:
-      "Agenda, WhatsApp, fichas, cobros y recuperación de todas tus sedes en un solo sistema, operado con IA. Visibilidad y control central.",
+      "Una plataforma con IA para operar todas tus sedes, con migración gestionada, configuración y capacitación.",
   },
 };
 
@@ -32,8 +32,8 @@ const softwareLd = {
   description:
     "Plataforma con IA que unifica agenda, WhatsApp, ficha clínica, cobros, recuperación de pacientes y control central de todas las sedes de una clínica o grupo clínico.",
   url: "https://www.clinera.io/plataforma",
-  // Coherente con los precios visibles en esta landing: Atlas 379 → Corporativo
-  // 1.900. El plan de entrada (279) se presenta en la videollamada, no aquí.
+  // Coherente con los planes mid-market visibles en esta landing. El plan de
+  // entrada de USD 279 se mantiene en /planes y no se presenta aquí.
   offers: {
     "@type": "AggregateOffer",
     lowPrice: "379",
