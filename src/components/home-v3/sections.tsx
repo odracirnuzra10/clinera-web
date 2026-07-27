@@ -2790,7 +2790,6 @@ export function EcosistemaIA() {
 
   return (
     <section id="ecosistema" style={{ position: "relative", padding: "112px 80px", borderTop: "1px solid #F0F0F0", background: "#FAFAFA", overflow: "hidden" }}>
-      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 55% 45% at 50% 0%, #E9D5FF 0%, #FBE8F0 40%, #FAFAFA 72%)", pointerEvents: "none" }} />
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
         <div className="reveal" style={{ textAlign: "center", maxWidth: 760, margin: "0 auto 52px" }}>
           <Eyebrow>Todo conectado · una sola IA</Eyebrow>
