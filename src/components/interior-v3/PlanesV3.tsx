@@ -67,7 +67,7 @@ function PlanesHero() {
             maxWidth: 600,
           }}
         >
-          Del equipo de recepción a varias sedes. Precios en USD, sin permanencia. Calcula tu plan abajo.
+          Del equipo de recepción a varias sedes. Precios en USD, permanencia mínima de 6 meses y 20% OFF al pagar el semestre.
         </p>
       </div>
       <style jsx>{`
@@ -215,4 +215,3 @@ function PlanesFaq() {
     </section>
   );
 }
-

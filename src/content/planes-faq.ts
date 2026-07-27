@@ -10,7 +10,7 @@ export const PLANES_FAQ = [
   { q: "¿Puedo elegir el modelo de IA?", a: "Sí. Puedes elegir entre varios modelos de IA (Gemini, Kimi, Claude, GLM, MiniMax, entre otros) según lo que mejor funcione para tu clínica, en cualquiera de los planes." },
   { q: "¿Puedo cambiar de plan después?", a: "Sí. Puedes subir o bajar de plan en cualquier momento desde tu panel. El cambio se aplica en tu próximo ciclo de facturación." },
   { q: "¿Tienen plan para cadenas grandes u hospitales?", a: "Sí, el plan Corporativo (desde USD 1.900/mes) es personalizado: capacidad a medida, onboarding white-glove, SLA personalizado, integraciones a medida, soporte dedicado y facturación adaptada. La implementación se cotiza aparte. Habla con ventas para armar la propuesta." },
-  { q: "¿Hay permanencia o contrato?", a: "No. Todos los planes son mes a mes. Puedes cancelar en cualquier momento sin penalizaciones." },
+  { q: "¿Hay permanencia o contrato?", a: "Sí. Todos los planes tienen una permanencia mínima de 6 meses. Puedes pagar mes a mes o anticipar el semestre completo con 20% de descuento." },
   { q: "¿Se integra con mi software actual?", a: "Sí. Clinera se conecta vía API con Reservo, AgendaPro, Medilink, Dentalink, Sacmed y cualquier sistema que exponga una API REST o soporte MCP." },
   { q: "¿Los precios incluyen IVA?", a: "Los precios están en USD y no incluyen impuestos locales. El monto final depende de la legislación tributaria de tu país." },
 ];

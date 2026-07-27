@@ -3967,71 +3967,92 @@ export function PrensaCNN() {
    ============================================================ */
 type Agent = { id: "aura" | "lia" | "camila"; name: string; soon?: boolean };
 
-export type Billing = "monthly" | "annual";
+export type Billing = "monthly" | "semester";
 
 export function BillingToggle({ billing, onChange }: { billing: Billing; onChange: (b: Billing) => void }) {
-  const annual = billing === "annual";
+  const semester = billing === "semester";
   const base = {
     appearance: "none" as const,
     cursor: "pointer",
     border: 0,
-    fontFamily: "Inter",
-    fontSize: 14,
+    fontFamily: "Outfit, sans-serif",
     fontWeight: 600,
-    borderRadius: 999,
+    borderRadius: 9,
     transition: "background .2s, color .2s, box-shadow .2s",
+    minWidth: 172,
+    minHeight: 58,
+    padding: "9px 18px",
+    display: "flex",
+    flexDirection: "column" as const,
+    alignItems: "flex-start",
+    justifyContent: "center",
+    gap: 2,
   };
   return (
     <div
       role="group"
       aria-label="Frecuencia de facturación"
       style={{
-        display: "inline-flex",
+        display: "inline-grid",
+        gridTemplateColumns: "1fr 1fr",
         alignItems: "center",
         gap: 4,
-        background: "#fff",
+        background: "#F6F6F7",
         border: "1px solid #E5E7EB",
-        borderRadius: 999,
-        padding: 5,
-        boxShadow: "0 1px 2px rgba(0,0,0,.05)",
+        borderRadius: 12,
+        padding: 4,
       }}
     >
       <button
+        className="billing-toggle-option"
         type="button"
-        onClick={() => onChange("monthly")}
-        aria-pressed={!annual}
+        onClick={() => onChange("semester")}
+        aria-pressed={semester}
         style={{
           ...base,
-          background: !annual ? "#0A0A0A" : "transparent",
-          color: !annual ? "#fff" : "#4B5563",
-          padding: "9px 20px",
+          background: semester ? "#111318" : "transparent",
+          color: semester ? "#fff" : "#6D28D9",
+          boxShadow: semester ? "0 1px 2px rgba(17,19,24,.16)" : "inset 0 0 0 1px rgba(124,58,237,.22)",
         }}
       >
-        Mensual
+        <span style={{ fontSize: 14 }}>Semestral</span>
+        <small style={{ color: semester ? "#C4B5FD" : "#7C3AED", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
+          Primera opción · 20% OFF
+        </small>
       </button>
       <button
+        className="billing-toggle-option"
         type="button"
-        onClick={() => onChange("annual")}
-        aria-pressed={annual}
+        onClick={() => onChange("monthly")}
+        aria-pressed={!semester}
         style={{
           ...base,
-          background: annual ? "#0A0A0A" : "transparent",
-          color: annual ? "#fff" : "#4B5563",
-          padding: "9px 20px",
+          background: !semester ? "#111318" : "transparent",
+          color: !semester ? "#fff" : "#4B5563",
+          boxShadow: !semester ? "0 1px 2px rgba(17,19,24,.16)" : "none",
         }}
       >
-        Anual
+        <span style={{ fontSize: 14 }}>Mensual</span>
+        <small style={{ color: !semester ? "#D1D5DB" : "#777E89", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
+          Pago mes a mes
+        </small>
       </button>
     </div>
   );
 }
 
 export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) {
+  const [billing, setBilling] = useState<Billing>("semester");
+  const isSemester = billing === "semester";
   const IA_MODELS = ["Gemini 3.0 Flash", "Gemini 2.5 Flash", "Sonnet 5", "Opus 4.8", "Kimi K2.6", "GLM 5.2", "MiniMax M3"];
   const plans = [
     {
       name: "Vortex",
       price: "$279",
+      monthlyValue: 279,
+      semesterMonthly: "$223,20",
+      semesterTotal: "USD 1.339,20",
+      semesterValue: 1339.2,
       credits: "28.000",
       impl: "+ USD 450 implementación (pago único)",
       sub: "Para clínicas con equipo de recepción y varios profesionales que empiezan a ordenar su operación.",
@@ -4045,10 +4066,15 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
       ],
       agents: [{ id: "aura", name: "AURA" }] as Agent[],
       stripe: "https://buy.stripe.com/4gM7sN7cZ4Yq9wT5RV1441u",
+      stripeSemester: "https://buy.stripe.com/dRmfZj0OBduW5gDcgj1441x",
     },
     {
       name: "Atlas",
       price: "$379",
+      monthlyValue: 379,
+      semesterMonthly: "$303,20",
+      semesterTotal: "USD 1.819,20",
+      semesterValue: 1819.2,
       credits: "37.000",
       impl: "+ USD 450 implementación (pago único)",
       sub: "Para clínicas con alto volumen o 2+ sedes que necesitan estandarizar la atención.",
@@ -4066,10 +4092,15 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
         { id: "camila", name: "CAMILA" },
       ] as Agent[],
       stripe: "https://buy.stripe.com/5kQ7sN40Nez08sP9471441v",
+      stripeSemester: "https://buy.stripe.com/3cIfZj7cZfD410ncgj1441y",
     },
     {
       name: "Summit",
       price: "$479",
+      monthlyValue: 479,
+      semesterMonthly: "$383,20",
+      semesterTotal: "USD 2.299,20",
+      semesterValue: 2299.2,
       credits: "46.000",
       impl: "+ USD 450 implementación (pago único)",
       sub: "Para grupos clínicos y clínicas de alto volumen —una o varias sedes— que necesitan control central de toda la operación.",
@@ -4089,6 +4120,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
         { id: "lia", name: "LIA" },
       ] as Agent[],
       stripe: "https://buy.stripe.com/5kQ6oJbtf3UmdN94NR1441w",
+      stripeSemester: "https://buy.stripe.com/aFa8wR9l79eG10nbcf1441z",
     },
   ];
 
@@ -4115,7 +4147,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
         }}
       />
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
-        <div className="reveal" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 48px" }}>
+        <div className="reveal" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 26px" }}>
           <Eyebrow>Planes</Eyebrow>
           <h2
             className="home-h2-big"
@@ -4134,6 +4166,27 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", margin: 0, lineHeight: 1.55 }}>
             Desde clínicas con equipo de recepción y varios profesionales hasta grupos con varias sedes. Todos los planes incluyen agentes de IA que agendan, confirman, cobran y recuperan pacientes por WhatsApp 24/7, con <b>visibilidad y control central</b> de toda tu operación.
           </p>
+        </div>
+
+        <div className="reveal home-billing-toggle" style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
+          <BillingToggle billing={billing} onChange={setBilling} />
+        </div>
+        <div
+          className="reveal"
+          aria-live="polite"
+          style={{
+            maxWidth: 660,
+            margin: "0 auto 32px",
+            textAlign: "center",
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 10.5,
+            letterSpacing: ".05em",
+            color: "#6B7280",
+          }}
+        >
+          {isSemester
+            ? "Semestral seleccionado · precio equivalente mensual · total de 6 meses con 20% OFF"
+            : "Mensual seleccionado · facturación mes a mes · permanencia mínima de 6 meses"}
         </div>
 
         <div
@@ -4222,9 +4275,21 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
                     lineHeight: 1,
                   }}
                 >
-                  {p.price}
+                  {isSemester ? p.semesterMonthly : p.price}
                 </div>
                 <div style={{ fontFamily: "Inter", fontSize: 14, color: "#6B7280" }}>/mes</div>
+              </div>
+              <div
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 10.5,
+                  color: isSemester ? "#7C3AED" : "#6B7280",
+                  fontWeight: 600,
+                  letterSpacing: ".03em",
+                  marginTop: 4,
+                }}
+              >
+                {isSemester ? `Total semestral: ${p.semesterTotal}` : "Permanencia mínima: 6 meses"}
               </div>
               <div
                 style={{
@@ -4232,7 +4297,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
                   fontSize: 12.5,
                   color: "#6B7280",
                   fontWeight: 500,
-                  marginTop: 2,
+                  marginTop: 8,
                   marginBottom: 16,
                 }}
               >
@@ -4487,7 +4552,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
                   Agendar demo
                 </Link>
                 <a
-                  href={p.stripe}
+                  href={isSemester ? p.stripeSemester : p.stripe}
                   target="_blank"
                   rel="noopener"
                   style={{
@@ -4504,11 +4569,11 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
                     boxSizing: "border-box",
                   }}
                   data-plan={p.name.toLowerCase()}
-                  data-plan-billing="monthly"
-                  data-plan-value={p.price.replace(/[$.]/g, "")}
-                  data-plan-name={`${p.name} pay monthly`}
+                  data-plan-billing={billing}
+                  data-plan-value={isSemester ? p.semesterValue : p.monthlyValue}
+                  data-plan-name={`${p.name} pay ${billing}`}
                 >
-                  Contratar {p.name}
+                  Contratar {p.name} {isSemester ? "semestral" : "mensual"}
                 </a>
               </div>
             </article>
@@ -4517,7 +4582,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
 
         {/* Info compartida de los 3 planes de autoservicio */}
         <div className="reveal" style={{ textAlign: "center", marginTop: 20, fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 11.5, letterSpacing: "0.06em", color: "#6B7280" }}>
-          Todos los planes: ingeniero E2E · soporte prioritario · sin permanencia
+          Todos los planes: ingeniero E2E · soporte prioritario · permanencia mínima de 6 meses
         </div>
 
         {/* Captura explícita de la clínica grande de una sola sede */}
@@ -4564,12 +4629,19 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
             </div>
           </div>
           <div className="home-corp-band-right" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 14 }}>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
-              <span style={{ fontSize: 12, color: "rgba(255,255,255,.55)", fontFamily: "'JetBrains Mono', ui-monospace, monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Desde</span>
-              <span style={{ fontFamily: "Inter", fontSize: 40, fontWeight: 800, color: "#fff", letterSpacing: "-0.03em", lineHeight: 1 }}>$1.900</span>
-              <span style={{ fontSize: 14, color: "rgba(255,255,255,.55)" }}>USD/mes</span>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
+                <span style={{ fontSize: 12, color: "rgba(255,255,255,.55)", fontFamily: "'JetBrains Mono', ui-monospace, monospace", letterSpacing: "0.08em", textTransform: "uppercase" }}>Desde</span>
+                <span style={{ fontFamily: "Inter", fontSize: 40, fontWeight: 800, color: "#fff", letterSpacing: "-0.03em", lineHeight: 1 }}>
+                  {isSemester ? "$1.520" : "$1.900"}
+                </span>
+                <span style={{ fontSize: 14, color: "rgba(255,255,255,.55)" }}>USD/mes</span>
+              </div>
+              <small style={{ color: "rgba(255,255,255,.62)", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10, letterSpacing: ".04em" }}>
+                {isSemester ? "Total semestral: USD 9.120 · 20% OFF" : "Permanencia mínima: 6 meses"}
+              </small>
             </div>
-            <Link href="/hablar-con-ventas" data-plan="corporativo" data-plan-value="1900" data-plan-name="Corporativo talk-to-sales" style={{ background: GRAD, color: "#fff", padding: "13px 26px", borderRadius: 10, fontFamily: "Inter", fontWeight: 600, fontSize: 14.5, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 10px 24px -8px rgba(124,58,237,.55)" }}>
+            <Link href="/hablar-con-ventas" data-plan="corporativo" data-plan-billing={billing} data-plan-value={isSemester ? "9120" : "1900"} data-plan-name={`Corporativo ${billing} talk-to-sales`} style={{ background: GRAD, color: "#fff", padding: "13px 26px", borderRadius: 10, fontFamily: "Inter", fontWeight: 600, fontSize: 14.5, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 10px 24px -8px rgba(124,58,237,.55)" }}>
               Agendar demo →
             </Link>
           </div>
@@ -4637,6 +4709,8 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
         }
         @media (max-width: 560px) {
           :global(.home-h2-big) { font-size: 32px !important; }
+          :global(.home-billing-toggle > div) { width: 100% !important; }
+          :global(.billing-toggle-option) { min-width: 0 !important; padding-left: 11px !important; padding-right: 11px !important; }
         }
       `}</style>
     </section>

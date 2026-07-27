@@ -53,32 +53,39 @@
 }
 
 .billingSwitch button {
-  min-width: 152px;
-  min-height: 46px;
+  min-width: 196px;
+  min-height: 58px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   border: 0;
   border-radius: 9px;
   background: transparent;
   color: #666d79;
   padding: 0 16px;
   font: inherit;
-  font-size: 14px;
-  font-weight: 650;
   cursor: pointer;
   transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
-.billingSwitch button span {
-  border-radius: 999px;
-  background: #ede9fe;
-  padding: 4px 7px;
-  color: #6d28d9;
+.billingOption {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+}
+
+.billingOption strong {
+  font-size: 14px;
+  font-weight: 680;
+}
+
+.billingOption small {
+  color: #777e89;
   font-family: "JetBrains Mono", monospace;
-  font-size: 8px;
-  letter-spacing: 0.05em;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
 }
 
 .billingSwitch button.active {
@@ -87,9 +94,16 @@
   box-shadow: 0 5px 14px -10px rgba(17, 19, 24, 0.9);
 }
 
-.billingSwitch button.active span {
-  background: rgba(196, 181, 253, 0.18);
-  color: #ddd6fe;
+.billingSwitch button.active .billingOption small {
+  color: #c4b5fd;
+}
+
+.preferredMode:not(.active) {
+  box-shadow: inset 0 0 0 1px rgba(124, 58, 237, 0.24);
+}
+
+.preferredMode:not(.active) .billingOption strong {
+  color: #6d28d9;
 }
 
 .billingSwitch button:focus-visible {
@@ -192,7 +206,8 @@
 }
 
 .dark .planName,
-.dark .equivalent {
+.dark .equivalent,
+.dark .semesterTotal {
   color: #c4b5fd;
 }
 
@@ -248,11 +263,45 @@
   font-size: 12px;
 }
 
-.equivalent {
+.equivalent,
+.semesterTotal {
   margin-top: 7px;
   color: #7c3aed;
   font-size: 12px;
   font-weight: 650;
+}
+
+.semesterTotal {
+  color: #666d79;
+  font-size: 11px;
+  font-weight: 550;
+}
+
+.implementationFee {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 3px 6px;
+  margin-top: 14px;
+  border-top: 1px solid #ececf0;
+  padding-top: 13px;
+  color: #5f6672;
+  font-size: 12px;
+}
+
+.implementationFee strong {
+  color: #111318;
+  font-size: 14px;
+  font-weight: 720;
+}
+
+.implementationFee small {
+  grid-column: 1 / -1;
+  color: #8a909b;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
 }
 
 .planCard > p {
@@ -277,6 +326,39 @@
   color: #7c3aed;
 }
 
+.section a.planCta {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  border: 1px solid #111318;
+  border-radius: 10px;
+  background: #111318;
+  padding: 0 15px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 680;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 160ms ease, background 200ms ease;
+}
+
+.section a.planCta:hover {
+  background: #272a31;
+  transform: translateY(-1px);
+}
+
+.section a.planCta:active {
+  transform: scale(0.98);
+}
+
+.section a.planCta:focus-visible {
+  outline: 3px solid rgba(124, 58, 237, 0.3);
+  outline-offset: 3px;
+}
+
 .commitment {
   margin-top: 18px;
   border-top: 1px solid #e5e7eb;
@@ -295,6 +377,29 @@
 .dark .monthlyLabel,
 .dark .commitment {
   color: #b4b8c2;
+}
+
+.dark .implementationFee {
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #c5c9d1;
+}
+
+.dark .implementationFee strong {
+  color: #fff;
+}
+
+.dark .implementationFee small {
+  color: #9298a4;
+}
+
+.dark a.planCta {
+  border-color: #fff;
+  background: #fff;
+  color: #111318;
+}
+
+.dark a.planCta:hover {
+  background: #ececf0;
 }
 
 .dark .commitment {
@@ -316,33 +421,34 @@
   font-size: 15px;
 }
 
-.action a {
+.section .action a {
   min-height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 9px;
   border-radius: 10px;
-  background: linear-gradient(118deg, #3b82f6 0%, #7c3aed 52%, #d946ef 100%);
+  background: #111318;
   padding: 0 20px;
   color: #fff;
   font-size: 15px;
   font-weight: 650;
   text-decoration: none;
-  box-shadow: 0 12px 30px -16px rgba(124, 58, 237, 0.72);
+  box-shadow: 0 1px 2px rgba(17, 19, 24, 0.08);
   transition: transform 160ms ease, box-shadow 200ms ease;
 }
 
-.action a:hover {
+.section .action a:hover {
+  background: #272a31;
   transform: translateY(-1px);
-  box-shadow: 0 16px 34px -16px rgba(124, 58, 237, 0.82);
+  box-shadow: 0 3px 8px rgba(17, 19, 24, 0.12);
 }
 
-.action a:active {
+.section .action a:active {
   transform: scale(0.98);
 }
 
-.action a:focus-visible {
+.section .action a:focus-visible {
   outline: 3px solid rgba(124, 58, 237, 0.3);
   outline-offset: 3px;
 }
@@ -389,6 +495,10 @@
     padding: 0 10px;
   }
 
+  .billingOption small {
+    font-size: 7.5px;
+  }
+
   .planCard {
     min-height: 0;
     padding: 26px;
@@ -398,13 +508,14 @@
     font-size: 31px;
   }
 
-  .action a {
+  .section .action a {
     width: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .billingSwitch button,
+  .planCta,
   .action a {
     transition: none;
   }

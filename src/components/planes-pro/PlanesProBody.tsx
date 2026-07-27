@@ -68,7 +68,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
             </a>
           </div>
           <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginTop: 32 }}>
-            {["Sin permanencia", "Implementación USD 450 (pago único)", "Facturación en USD"].map((t) => (
+            {["Permanencia mínima: 6 meses", "Implementación USD 450 (pago único)", "Facturación en USD"].map((t) => (
               <span key={t} style={chip}>
                 <Check /> {t}
               </span>
@@ -204,8 +204,8 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
                 Decide con todo a la vista.
               </h2>
               <p style={{ fontFamily: FONT, fontSize: 16.5, lineHeight: 1.6, color: "rgba(255,255,255,0.78)", maxWidth: 560, margin: "0 0 28px" }}>
-                Sin permanencia · implementación USD 450 (pago único) · cambias de plan cuando
-                quieras. Empieza con el plan que la calculadora te recomendó, o conversemos tu caso.
+                Permanencia mínima de 6 meses · implementación USD 450 (pago único) · puedes cambiar
+                de plan en tu próximo ciclo. Empieza con el plan que la calculadora te recomendó.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 26 }}>
                 <a href="#calculadora" style={{ display: "inline-block", background: GRAD, color: "#fff", padding: "14px 26px", borderRadius: 999, fontWeight: 700, fontSize: 15.5, textDecoration: "none" }}>
@@ -216,7 +216,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
                 </a>
               </div>
               <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-                {["Sin permanencia", "Implementación USD 450 (pago único)", "USD · Stripe · MercadoPago · WebPay"].map((t) => (
+                {["Permanencia mínima: 6 meses", "Implementación USD 450 (pago único)", "USD · Stripe · MercadoPago · WebPay"].map((t) => (
                   <span key={t} style={{ ...chip, color: "rgba(255,255,255,0.6)" }}>
                     <Check light /> {t}
                   </span>

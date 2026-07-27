@@ -13,6 +13,8 @@ const PLANS = [
     monthlyEquivalent: "303,20",
     audience: "Clínicas con alto volumen o dos sedes.",
     detail: "Texto + voz · 15 usuarios · 2 sedes",
+    monthlyCheckoutUrl: "https://buy.stripe.com/5kQ7sN40Nez08sP9471441v",
+    semesterCheckoutUrl: "https://buy.stripe.com/3cIfZj7cZfD410ncgj1441y",
   },
   {
     name: "Summit",
@@ -22,6 +24,8 @@ const PLANS = [
     monthlyEquivalent: "383,20",
     audience: "Grupos clínicos que necesitan control central.",
     detail: "Texto + voz + API · 25 usuarios · sedes ilimitadas",
+    monthlyCheckoutUrl: "https://buy.stripe.com/5kQ6oJbtf3UmdN94NR1441w",
+    semesterCheckoutUrl: "https://buy.stripe.com/aFa8wR9l79eG10nbcf1441z",
     featured: true,
   },
   {
@@ -65,34 +69,39 @@ export default function PlatformPricing() {
           <span>Planes para operaciones con volumen</span>
           <h2 id="platform-pricing-title">Elige cómo pagar tus primeros 6 meses.</h2>
           <p>
-            La permanencia mínima es de 6 meses. Puedes pagar mensualmente o anticipar el semestre
-            completo con 20% de descuento.
+            El semestral es la primera opción: anticipas 6 meses con 20% de descuento. También puedes
+            pagar mensualmente, con permanencia mínima de 6 meses. La implementación cuesta USD 450.
           </p>
         </div>
 
         <div className={styles.billingSwitch} role="group" aria-label="Frecuencia de pago">
           <button
             type="button"
+            className={`${styles.preferredMode} ${isSemester ? styles.active : ""}`}
+            aria-pressed={isSemester}
+            onClick={() => setBillingMode("semester")}
+          >
+            <span className={styles.billingOption}>
+              <strong>Semestral</strong>
+              <small>Primera opción · 20% OFF</small>
+            </span>
+          </button>
+          <button
+            type="button"
             className={!isSemester ? styles.active : ""}
             aria-pressed={!isSemester}
             onClick={() => setBillingMode("monthly")}
           >
-            Mensual
-          </button>
-          <button
-            type="button"
-            className={isSemester ? styles.active : ""}
-            aria-pressed={isSemester}
-            onClick={() => setBillingMode("semester")}
-          >
-            Semestral
-            <span>20% OFF</span>
+            <span className={styles.billingOption}>
+              <strong>Mensual</strong>
+              <small>Pago mes a mes</small>
+            </span>
           </button>
         </div>
 
         <div className={styles.billingStatus} aria-live="polite">
-          <span>{isSemester ? "Pago semestral seleccionado" : "Pago mensual seleccionado"}</span>
-          <strong>{isSemester ? "20% OFF aplicado al total de 6 meses" : "Facturación mensual durante 6 meses"}</strong>
+          <span>{isSemester ? "Primera opción seleccionada" : "Pago mensual seleccionado"}</span>
+          <strong>{isSemester ? "Semestral · 20% OFF aplicado al total de 6 meses" : "Mensual · facturación mes a mes durante 6 meses"}</strong>
           <small>Permanencia mínima: 6 meses</small>
         </div>
 
@@ -113,10 +122,10 @@ export default function PlatformPricing() {
                     <s>USD {plan.semesterListPrice}</s>
                   </div>
                   <div className={styles.price}>
-                    <strong>USD {plan.semesterPrice}</strong>
-                    <small>/ 6 meses</small>
+                    <strong>USD {plan.monthlyEquivalent}</strong>
+                    <small>/ mes</small>
                   </div>
-                  <span className={styles.equivalent}>Equivale a USD {plan.monthlyEquivalent}/mes</span>
+                  <span className={styles.semesterTotal}>Total semestral: USD {plan.semesterPrice}</span>
                 </>
               ) : (
                 <>
@@ -129,16 +138,45 @@ export default function PlatformPricing() {
                 </>
               )}
 
+              <div className={styles.implementationFee}>
+                <strong>+ USD 450</strong>
+                <span>de implementación</span>
+                <small>Pago único adicional</small>
+              </div>
+
               <p>{plan.audience}</p>
               <div className={styles.detail}><Check />{plan.detail}</div>
+              {isSemester && plan.semesterCheckoutUrl ? (
+                <a
+                  className={styles.planCta}
+                  href={plan.semesterCheckoutUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Contratar {plan.name} semestral <Arrow />
+                </a>
+              ) : !isSemester && plan.monthlyCheckoutUrl ? (
+                <a
+                  className={styles.planCta}
+                  href={plan.monthlyCheckoutUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Contratar {plan.name} mensual <Arrow />
+                </a>
+              ) : (
+                <Link className={styles.planCta} href="/ventas">
+                  Hablar con ventas <Arrow />
+                </Link>
+              )}
               <span className={styles.commitment}>Permanencia mínima: 6 meses</span>
             </article>
           ))}
         </div>
 
         <div className={styles.action}>
-          <p>El wizard define el plan correcto según tu software actual, sedes y volumen.</p>
-          <Link href="/ventas">Ver mi plan <Arrow /></Link>
+          <p>¿Necesitas ayuda para elegir? Revisamos tu software actual, sedes y volumen.</p>
+          <Link href="/ventas">Hablar con ventas <Arrow /></Link>
         </div>
       </div>
     </section>
