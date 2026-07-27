@@ -125,16 +125,57 @@ no sólo cuando la detección se dispara.
 
 ---
 
+## El workflow de n8n
+
+`OACG TECH | Triage (Formulario Web) → Linear` (id `0NwF96A4d8iweADN`), activo.
+
+```
+Webhook (header auth) → Validar reporte → ¿Válido? ─┬─ sí → Linear issueCreate ─┬─ ok    → Responder OK (200)
+                                                    │                           └─ falla → Responder fallo (502)
+                                                    └─ no → Responder errores (400)
+```
+
+| Nodo | Qué hace |
+|---|---|
+| **Webhook Triage** | `POST /webhook/triage`. Autenticación por header con la credencial `Triage Form Secret` (`X-Triage-Token`). n8n corta con 403 antes de ejecutar nada si el token no calza. |
+| **Validar reporte** | Revalida los siete campos y vuelve a correr los tres patrones de datos de pacientes. Arma el título y la descripción markdown de la issue. |
+| **Linear: crear issue** | `issueCreate` por GraphQL contra el equipo OACG, forzando el estado **Triage**. Usa la credencial `Linear API (Triage)`. |
+| **Responder fallo Linear** | Rama de error del nodo de Linear. Sin ella, un fallo devolvía **200 con el cuerpo vacío** — lo peor posible, porque el cliente no puede distinguirlo de un éxito. |
+
+La validación está duplicada a propósito: el webhook es una superficie propia y
+quien tenga el token se saltaría el endpoint de Clinera por completo.
+
+Las issues entran **sin prioridad** y con el título prefijado por tipo
+(`[Bug]`, `[Solicitud]`, `[Consulta]`).
+
+### Credenciales que usa
+
+| Credencial | Tipo | Para qué |
+|---|---|---|
+| `Triage Form Secret` | `httpHeaderAuth` | Valida el `X-Triage-Token` entrante. Su valor es el mismo `TRIAGE_FORM_SECRET` de Vercel. |
+| `Linear API (Triage)` | `httpHeaderAuth` | `Authorization` con una personal API key de Linear (`lin_api_…`), sin prefijo `Bearer`. |
+
+---
+
 ## Verificado
 
-Con un mock del webhook en `127.0.0.1:5999` y las dos variables configuradas:
+Cadena completa en producción, confirmada con el log de ejecución de n8n
+(`user-agent: node`, IP de AWS — es decir, la petición vino de la función de
+Vercel y no de una terminal):
 
-- Un envío válido llega a n8n con el header `x-triage-token` y el body de los
-  siete campos; la respuesta devuelve `issue` y se pinta en pantalla.
-- Un RUT enviado por `curl` (saltándose el navegador) se corta con 400 y **n8n
+```
+navegador → www.clinera.io/api/triage → n8n (token aceptado) → Linear
+```
+
+- Un envío válido crea la issue y devuelve `{ ok: true, issue, url }`. Probado:
+  `OACG-105` y `OACG-106`, ambas en el buzón de **Triage**, sin prioridad
+  (canceladas después — eran de prueba).
+- Un RUT enviado por `curl` saltándose el navegador se corta con 400 y **Linear
   no recibe nada**.
 - Un correo fuera de `@oacg.cl` se corta con 400.
 - Un `Origin` de otro sitio se corta con 403.
+- Sin token o con token incorrecto, el webhook responde 403.
+- Un fallo de Linear devuelve 502 con mensaje legible, nunca un 200 vacío.
 - `TRIAGE_FORM_SECRET` no aparece en `.next/static` tras `next build`.
 
 Los 12 tests de [`tests/triage.spec.ts`](../tests/triage.spec.ts) pasan:
@@ -143,8 +184,11 @@ Los 12 tests de [`tests/triage.spec.ts`](../tests/triage.spec.ts) pasan:
 npx playwright test tests/triage.spec.ts
 ```
 
-**No se probó contra el n8n real** — hace falta el valor real de
-`TRIAGE_FORM_SECRET` y que el workflow esté publicado.
+### Dónde viven las variables
+
+El proyecto de Vercel que sirve `www.clinera.io` es **`clinera-website`** — no
+`clinera-web`, que es otro proyecto del mismo equipo. Conviene identificarlo por
+dominio y no por nombre antes de tocar variables.
 
 ---
 
@@ -164,3 +208,8 @@ npx playwright test tests/triage.spec.ts
 - **Doble envío.** Lo bloquea el cliente (ref + botón deshabilitado). Si se
   quiere garantía end-to-end habría que agregar una clave de idempotencia, y eso
   requiere cambiar el contrato con n8n.
+- **Un reporte que falla se pierde.** Si Linear está caído, la persona ve un 502
+  y puede reintentar, pero nadie más se entera: no hay reintento automático ni
+  cola de reproceso. El texto del reporte sólo existe en el navegador de quien
+  lo escribió. Si esto pasa seguido, el arreglo es un nodo de aviso a Google
+  Chat en la rama de error del workflow.
