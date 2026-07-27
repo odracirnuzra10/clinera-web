@@ -130,9 +130,11 @@ no sólo cuando la detección se dispara.
 `OACG TECH | Triage (Formulario Web) → Linear` (id `0NwF96A4d8iweADN`), activo.
 
 ```
-Webhook (header auth) → Validar reporte → ¿Válido? ─┬─ sí → Linear issueCreate ─┬─ ok    → Responder OK (200)
-                                                    │                           └─ falla → Responder fallo (502)
-                                                    └─ no → Responder errores (400)
+Webhook (header auth) → Validar → ¿Válido? ─┬─ no → Responder errores (400)
+                                            └─ sí → Linear issueCreate ─┬─ falla → Responder fallo (502)
+                                                                        └─ ok → Preparar avisos
+                                                                                 → Responder OK (200)
+                                                                                 → Gmail → Google Chat
 ```
 
 | Nodo | Qué hace |
@@ -141,6 +143,27 @@ Webhook (header auth) → Validar reporte → ¿Válido? ─┬─ sí → Linea
 | **Validar reporte** | Revalida los siete campos y vuelve a correr los tres patrones de datos de pacientes. Arma el título y la descripción markdown de la issue. |
 | **Linear: crear issue** | `issueCreate` por GraphQL contra el equipo OACG, forzando el estado **Triage**. Usa la credencial `Linear API (Triage)`. |
 | **Responder fallo Linear** | Rama de error del nodo de Linear. Sin ella, un fallo devolvía **200 con el cuerpo vacío** — lo peor posible, porque el cliente no puede distinguirlo de un éxito. |
+| **Preparar avisos** | Arma el correo y el mensaje de Chat cruzando el resultado de Linear con lo que se envió en el formulario. La lista de copia del equipo vive acá, en la constante `COPIA`. |
+| **Gmail: avisar** | Confirmación a quien reportó, con el equipo en copia. Credencial `Gmail account`. |
+| **Google Chat: avisar** | Aviso al espacio del equipo, reusando el webhook del workflow `Solicitudes Panel`. |
+
+**El orden importa.** Se responde al navegador (`Responder OK`) **antes** de mandar
+los avisos: la issue ya está creada, así que si Gmail o Chat fallan, quien
+reportó no tiene por qué ver un error. Los dos nodos de aviso van con
+`onError: continueRegularOutput` para que un fallo de correo no impida el aviso
+por Chat.
+
+### Quién recibe el correo
+
+`Para` es siempre quien reportó — necesita el número de issue para poder
+preguntar por el estado después. En copia va el equipo, definido en la constante
+`COPIA` del nodo `Preparar avisos`:
+
+`jorge.quispe@` · `jorge.cheul@` · `mauricio@` · `david.vasquez@` ·
+`ricardo@` · `rebeca@` · `catalina.fuentes@` · `nohelymar.sanchez@`
+
+Si quien reporta ya está en esa lista, se lo quita de la copia para no
+duplicarlo. Para sumar o sacar gente se edita esa constante y nada más.
 
 La validación está duplicada a propósito: el webhook es una superficie propia y
 quien tenga el token se saltaría el endpoint de Clinera por completo.
@@ -154,6 +177,7 @@ Las issues entran **sin prioridad** y con el título prefijado por tipo
 |---|---|---|
 | `Triage Form Secret` | `httpHeaderAuth` | Valida el `X-Triage-Token` entrante. Su valor es el mismo `TRIAGE_FORM_SECRET` de Vercel. |
 | `Linear API (Triage)` | `httpHeaderAuth` | `Authorization` con una personal API key de Linear (`lin_api_…`), sin prefijo `Bearer`. |
+| `Gmail account` | `gmailOAuth2` | Envía la confirmación. Es la credencial de Gmail que ya existía en n8n, compartida con otros workflows. |
 
 ---
 
@@ -176,6 +200,9 @@ navegador → www.clinera.io/api/triage → n8n (token aceptado) → Linear
 - Un `Origin` de otro sitio se corta con 403.
 - Sin token o con token incorrecto, el webhook responde 403.
 - Un fallo de Linear devuelve 502 con mensaje legible, nunca un 200 vacío.
+- Los avisos salen: en `OACG-107` se verificó el correo enviado (`Para` el
+  reportante, `CC` los otros siete, sin duplicarlo) y el mensaje al espacio de
+  Chat. Los tres destinos se disparan con un solo envío.
 - `TRIAGE_FORM_SECRET` no aparece en `.next/static` tras `next build`.
 
 Los 12 tests de [`tests/triage.spec.ts`](../tests/triage.spec.ts) pasan:
@@ -213,3 +240,12 @@ dominio y no por nombre antes de tocar variables.
   cola de reproceso. El texto del reporte sólo existe en el navegador de quien
   lo escribió. Si esto pasa seguido, el arreglo es un nodo de aviso a Google
   Chat en la rama de error del workflow.
+- **Un aviso que falla es silencioso.** Gmail y Chat van con
+  `onError: continueRegularOutput` a propósito — la issue ya existe y no vale la
+  pena romperle el flujo a quien reportó. Pero eso significa que si Gmail deja de
+  funcionar, la issue se sigue creando y nadie recibe el correo. Se detecta
+  mirando las ejecuciones del workflow, no desde el formulario.
+- **El aviso de Chat comparte espacio.** Reusa el webhook del workflow
+  `Solicitudes Panel`, así que los reportes de triage caen mezclados con lo que
+  ya llegaba ahí. Si hace ruido, se crea un webhook propio y se cambia la URL en
+  el nodo `Google Chat: avisar`.
