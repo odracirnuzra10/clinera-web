@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import SetupFeeBand from "@/components/cro/SetupFeeBand";
+import { SETUP_FEE_NUMBER } from "@/content/pricing";
 import styles from "./PlatformPricing.module.css";
 
 const PLANS = [
@@ -37,6 +39,7 @@ const PLANS = [
     audience: "Cadenas, redes y hospitales.",
     detail: "Capacidad a medida · SLA · integraciones",
     dark: true,
+    quotedSetup: true,
   },
 ];
 
@@ -70,9 +73,12 @@ export default function PlatformPricing() {
           <h2 id="platform-pricing-title">Elige cómo pagar tus primeros 6 meses.</h2>
           <p>
             El semestral es la primera opción: anticipas 6 meses con 20% de descuento. También puedes
-            pagar mensualmente, con permanencia mínima de 6 meses. La implementación cuesta USD 1.500.
+            pagar mensualmente, con permanencia mínima de 6 meses. A eso se suma un único costo de
+            configuración inicial.
           </p>
         </div>
+
+        <SetupFeeBand style={{ marginTop: 26 }} />
 
         <div className={styles.billingSwitch} role="group" aria-label="Frecuencia de pago">
           <button
@@ -139,8 +145,8 @@ export default function PlatformPricing() {
               )}
 
               <div className={styles.implementationFee}>
-                <strong>+ USD 1.500</strong>
-                <span>de implementación</span>
+                <strong>{plan.quotedSetup ? "A cotizar" : `+ USD ${SETUP_FEE_NUMBER}`}</strong>
+                <span>de configuración inicial</span>
                 <small>Pago único adicional</small>
               </div>
 

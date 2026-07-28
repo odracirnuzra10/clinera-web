@@ -1059,6 +1059,54 @@
   @media (prefers-reduced-motion:reduce){
     .qr-demo-cta{ transition:none; }
   }
+
+  /* ── Costo de configuración (cierre) ───────────────────────── */
+  .setup-fee{
+    margin: 34px auto 0;
+    max-width: 720px;
+    text-align: left;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 24px rgba(11,11,15,.04);
+  }
+  .setup-fee-head{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .setup-fee-label{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .setup-fee-amount{
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .setup-fee-copy{
+    margin: 10px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #3A3A42;
+  }
+  @media (max-width:560px){
+    .setup-fee{ padding: 20px; }
+    .setup-fee-amount{ font-size: 26px; }
+  }
+  @media (max-height:820px) and (min-width:981px){
+    .setup-fee{ margin-top: 24px; padding: 20px 24px; }
+  }
 </style>
 </head>
 <body>
@@ -1476,6 +1524,13 @@
         <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.02em;color:#3A3A42;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;">Ventas</span>
         <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.02em;color:#3A3A42;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;">Marketing</span>
         <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.02em;color:#3A3A42;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;">IA 24/7</span>
+      </div>
+      <div class="setup-fee">
+        <div class="setup-fee-head">
+          <span class="setup-fee-label">Costo de configuración · pago único</span>
+          <span class="setup-fee-amount">USD 1.500</span>
+        </div>
+        <p class="setup-fee-copy">Se paga una sola vez, al inicio. Incluye migración de fichas clínicas, datos históricos, pacientes y tratamientos, configuración y entrenamiento de tus agentes de IA, y capacitación de tu equipo. Después, solo el plan mensual.</p>
       </div>
       <a href="https://www.clinera.io/planes" target="_self" style="display:inline-flex;align-items:center;gap:8px;margin-top:34px;background:linear-gradient(90deg,var(--cyan),var(--violet));color:#fff;font-weight:600;font-size:15px;padding:15px 30px;border-radius:999px;text-decoration:none;box-shadow:0 10px 28px rgba(124,58,237,.24);">Ver planes en clinera.io →</a>
     </div>
