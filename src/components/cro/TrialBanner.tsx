@@ -58,7 +58,7 @@ export default function TrialBanner({ variant = "light" }: Props) {
                 letterSpacing: "-0.01em",
               }}
             >
-              Configuración inicial USD 1.500 (pago único)
+              Configuración inicial USD 750 (pago único)
             </p>
             <p
               style={{

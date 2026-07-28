@@ -68,7 +68,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
             </a>
           </div>
           <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginTop: 32 }}>
-            {["Permanencia mínima: 6 meses", "Configuración inicial USD 1.500 (pago único)", "Facturación en USD"].map((t) => (
+            {["Permanencia mínima: 6 meses", "Configuración inicial USD 750 (pago único)", "Facturación en USD"].map((t) => (
               <span key={t} style={chip}>
                 <Check /> {t}
               </span>
@@ -158,7 +158,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
             Cada plan trae su bolsa mensual de créditos —{" "}
             <strong style={{ color: INK }}>visible en cada tarjeta</strong>. Esa es la fuente de
             verdad; las conversaciones de referencia son orientativas. Los tres planes suman{" "}
-            <strong style={{ color: INK }}>+ USD 1.500 de configuración inicial (pago único)</strong>:
+            <strong style={{ color: INK }}>+ USD 750 de configuración inicial (pago único)</strong>:
             onboarding asistido por una persona. Aun así, un plan completo cuesta menos que una
             recepcionista (~USD 950/mes).
           </p>
@@ -204,7 +204,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
                 Decide con todo a la vista.
               </h2>
               <p style={{ fontFamily: FONT, fontSize: 16.5, lineHeight: 1.6, color: "rgba(255,255,255,0.78)", maxWidth: 560, margin: "0 0 28px" }}>
-                Permanencia mínima de 6 meses · configuración inicial USD 1.500 (pago único) · puedes cambiar
+                Permanencia mínima de 6 meses · configuración inicial USD 750 (pago único) · puedes cambiar
                 de plan en tu próximo ciclo. Empieza con el plan que la calculadora te recomendó.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 26 }}>
@@ -216,7 +216,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
                 </a>
               </div>
               <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-                {["Permanencia mínima: 6 meses", "Configuración inicial USD 1.500 (pago único)", "USD · Stripe · MercadoPago · WebPay"].map((t) => (
+                {["Permanencia mínima: 6 meses", "Configuración inicial USD 750 (pago único)", "USD · Stripe · MercadoPago · WebPay"].map((t) => (
                   <span key={t} style={{ ...chip, color: "rgba(255,255,255,0.6)" }}>
                     <Check light /> {t}
                   </span>

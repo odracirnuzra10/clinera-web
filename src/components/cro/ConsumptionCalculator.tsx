@@ -9,7 +9,7 @@ const CR_AGENDA = 195; // por agendamiento automático (Agentic)
 const CR_VOZ = 25; // por minuto de voz (CAMILA)
 const CR_LIA = 4000; // fiscalización + informes (LIA), por mes
 
-const IMPL = 1500; // implementación, pago único
+const IMPL = 750; // implementación, pago único
 const CORP_FROM = 1900; // Corporativo desde USD/mes
 
 type Plan = {

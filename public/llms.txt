@@ -13,7 +13,7 @@ Uruguay, Costa Rica, Panamá.
 Idioma del producto: Español (todas las variantes LATAM).
 Soporte: Español, en horario LATAM.
 
-## Planes (USD, sin permanencia; configuración inicial USD 1.500 pago único)
+## Planes (USD, sin permanencia; configuración inicial USD 750 pago único)
 
 Modelo de una sola bolsa de créditos/mes: el agendamiento no consume créditos,
 solo pagas la conversación. Tarifa: conversación de texto (AURA) = 10 créditos;
@@ -25,7 +25,7 @@ de LIA = 0; informes de LIA ≈ 4.000 créditos/mes.
 - SUMMIT — USD 479/mes — 46.000 créditos/mes, AURA + CAMILA + LIA, 25 usuarios, sucursales ilimitadas, Webhooks + API
 - Corporativo — desde USD 1.900/mes — multi-sede sin límite de usuarios, SLA e integraciones a medida
 
-Configuración inicial USD 1.500 (pago único, los 3 planes): onboarding asistido por
+Configuración inicial USD 750 (pago único, los 3 planes): onboarding asistido por
 humano (config de AURA, conexión de WhatsApp Business, importación de pacientes
 y tratamientos, integración de agenda, capacitación). Operando el mismo día.
 Add-ons: recarga USD 55 → 5.000 créditos; usuario extra USD 9/mes; sucursal

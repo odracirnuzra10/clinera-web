@@ -555,7 +555,7 @@ function CompareSection() {
                 textAlign: "right",
               }}
             >
-              + USD 1.500 configuración inicial (pago único)
+              + USD 750 configuración inicial (pago único)
             </p>
           </div>
         </div>
@@ -1273,7 +1273,7 @@ function Faq() {
     },
     {
       q: "¿Hay permanencia o costo de configuración?",
-      a: "Sin permanencia: cancelas cuando quieras. El costo de configuración es un pago único de USD 1.500 — onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo. Quedas operando el mismo día.",
+      a: "Sin permanencia: cancelas cuando quieras. El costo de configuración es un pago único de USD 750 — onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo. Quedas operando el mismo día.",
     },
     {
       q: "¿Cuánto tiempo toma la migración completa?",

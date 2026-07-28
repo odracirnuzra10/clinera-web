@@ -1379,7 +1379,7 @@ function StepSize({
               Una sola vez
             </div>
             <div style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 800, letterSpacing: "-.03em", color: "#0A0A0A", lineHeight: 1 }}>
-              USD 1.500
+              USD 750
             </div>
             <p style={{ fontFamily: "Inter", fontSize: 12.5, color: "#4B5563", lineHeight: 1.45, margin: "7px 0 0" }}>
               Configuración y migración de fichas, datos, pacientes y tratamientos. Tus agentes de IA quedan listos.
