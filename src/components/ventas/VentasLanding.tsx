@@ -698,6 +698,7 @@ function Wizard({
         <StepSize
           size={size}
           setSize={setSize}
+          software={software}
           interes={interes}
           onInteres={(v) => {
             setInteres(v);
@@ -1089,6 +1090,17 @@ function StepSoftware({
   label: string;
   onNext: () => void;
 }) {
+  // Elegir el software avanza solo: el paso no tiene nada más que responder y
+  // un "Continuar" ahí es un tap de más. El respiro alcanza para ver el check.
+  const advanceRef = useRef<number | null>(null);
+  useEffect(() => () => {
+    if (advanceRef.current !== null) window.clearTimeout(advanceRef.current);
+  }, []);
+  const pick = (id: SoftwareId) => {
+    setSoftware(id);
+    if (advanceRef.current !== null) window.clearTimeout(advanceRef.current);
+    advanceRef.current = window.setTimeout(onNext, 320);
+  };
   return (
     <div>
       <StepHeader
@@ -1111,7 +1123,7 @@ function StepSoftware({
             <button
               key={opt.id}
               type="button"
-              onClick={() => setSoftware(opt.id)}
+              onClick={() => pick(opt.id)}
               className="ventas-challenge-opt"
               style={{
                 position: "relative",
@@ -1167,40 +1179,6 @@ function StepSoftware({
         })}
       </div>
 
-      {software && (
-        <div
-          key={software}
-          style={{
-            marginTop: 14,
-            display: "flex",
-            alignItems: "flex-start",
-            gap: 10,
-            padding: "13px 15px",
-            background: "linear-gradient(135deg,#F4F8FF 0%,#FAF5FF 100%)",
-            border: "1px solid rgba(124,58,237,.16)",
-            borderRadius: 12,
-            animation: "ventasFadeUp .3s ease both",
-          }}
-        >
-          <span style={{ flexShrink: 0, marginTop: 1, color: "#7C3AED" }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M20 6L9 17l-5-5" />
-            </svg>
-          </span>
-          <span style={{ fontFamily: "Inter", fontSize: 13.5, color: "#374151", lineHeight: 1.45 }}>
-            {softwareMicrocopy(software)}
-          </span>
-        </div>
-      )}
-
-      <div style={{ marginTop: 18 }}>
-        <SubmitBtn enabled={!!software} onClick={() => software && onNext()}>
-          Continuar
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </SubmitBtn>
-      </div>
     </div>
   );
 }
@@ -1268,6 +1246,7 @@ function ChipGroup({
 function StepSize({
   size,
   setSize,
+  software,
   interes,
   onInteres,
   label,
@@ -1276,6 +1255,7 @@ function StepSize({
 }: {
   size: SizeAnswers;
   setSize: (s: SizeAnswers) => void;
+  software: SoftwareId | null;
   interes: "si" | "no" | null;
   onInteres: (v: "si" | "no") => void;
   label: string;
@@ -1299,6 +1279,32 @@ function StepSize({
         }
         sub="Para que no haya sorpresas en la reunión."
       />
+
+      {/* El microcopy del software elegido vive acá: el paso 1 avanza solo y no
+          alcanzaba a leerse, y acá justifica el monto que viene abajo. */}
+      {software && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: 10,
+            padding: "12px 14px",
+            background: "#F8FAFC",
+            border: "1px solid #E7EBF0",
+            borderRadius: 12,
+            marginBottom: 12,
+          }}
+        >
+          <span style={{ flexShrink: 0, marginTop: 1, color: "#7C3AED" }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 6L9 17l-5-5" />
+            </svg>
+          </span>
+          <span style={{ fontFamily: "Inter", fontSize: 13.5, color: "#374151", lineHeight: 1.45 }}>
+            {softwareMicrocopy(software)}
+          </span>
+        </div>
+      )}
 
       {/* Gate de precio — el pago único y el recurrente separados, que es lo que
           más se confunde cuando el costo de configuración se menciona de pasada. */}
