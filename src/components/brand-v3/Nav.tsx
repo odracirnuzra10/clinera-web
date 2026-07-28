@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CtaPrimary, Wordmark } from "./Brand";
+import { CtaPrimary, GRAD, Wordmark } from "./Brand";
 
 type NavV3Props = {
   ctaHref?: string;
@@ -118,13 +118,26 @@ export default function NavV3({
           className="nav-v3-links"
           style={{
             display: "flex",
-            gap: 30,
+            gap: 24,
             fontFamily: "Inter",
             fontSize: 15,
             fontWeight: 500,
             color: "#0A0A0A",
           }}
         >
+          <Link
+            href="/#clinera-intelligence"
+            style={{
+              background: GRAD,
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+              textDecoration: "none",
+              fontWeight: 700,
+            }}
+          >
+            Clinera Intelligence
+          </Link>
           <Link href="/funciones" style={{ color: "#0A0A0A", textDecoration: "none" }}>
             Funciones
           </Link>
@@ -176,6 +189,7 @@ export default function NavV3({
       {mobileOpen && (
         <div className="nav-v3-mobile">
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <Link href="/#clinera-intelligence" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link" style={{ color: "#7C3AED" }}>Clinera Intelligence</Link>
             <Link href="/funciones" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link">Funciones</Link>
             <Link href="/planes" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link">Planes</Link>
             <Link href="/prensa" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link">Prensa</Link>

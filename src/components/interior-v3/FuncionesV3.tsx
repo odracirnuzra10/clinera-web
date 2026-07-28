@@ -134,7 +134,7 @@ function Hero() {
           >
             ✦
           </span>
-          Funciones · AURA 2.0
+          Clinera Intelligence · funciones
         </span>
 
         <h1
@@ -150,7 +150,7 @@ function Hero() {
             maxWidth: 920,
           }}
         >
-          Todo lo que hace Clinera{" "}
+          Todo lo que hace Clinera Intelligence{" "}
           <span
             style={{
               background: GRAD,
@@ -175,9 +175,9 @@ function Hero() {
             maxWidth: 720,
           }}
         >
-          AURA no es un chatbot. Es una plataforma completa conectada a tu agenda, a tu base de
-          datos de pacientes, a tus cobros y a tus anuncios. Cada función está diseñada para que tu
-          clínica opere sola mientras tú atiendes.
+          Clinera Intelligence no es un chatbot. Es la capa que conecta AURA y los agentes de IA con
+          tu agenda, tus pacientes, cobros y campañas. Cada función usa ese contexto para que tu
+          clínica opere con precisión mientras tú atiendes.
         </p>
 
         <div
