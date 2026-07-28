@@ -3176,10 +3176,6 @@
 
       function startOutcomeTimer() {
         stopOutcomeTimer();
-        if (reducedMotion.matches || mobile.matches || slides[current].id !== "resultados") return;
-        outcomeTimer = window.setInterval(function () {
-          showOutcome(outcomeCurrent + 1, false);
-        }, 5200);
       }
 
       function syncSlideEffects(slide) {
@@ -3190,12 +3186,16 @@
 
       function setSlide(index) {
         if (mobile.matches || index < 0 || index >= slides.length || index === current) return;
+        const previousIndex = current;
         slides[current].classList.remove("active");
         slides[current].setAttribute("aria-hidden", "true");
         current = index;
         const slide = slides[current];
         slide.classList.add("active");
         slide.setAttribute("aria-hidden", "false");
+        if (slide.id === "resultados" && outcomeCards.length) {
+          showOutcome(current > previousIndex ? 0 : outcomeCards.length - 1, false);
+        }
 
         const isDark = slide.dataset.theme === "dark";
         hud.classList.toggle("is-dark", isDark);
@@ -3210,10 +3210,18 @@
       }
 
       function forward() {
+        if (slides[current].id === "resultados" && outcomeCurrent < outcomeCards.length - 1) {
+          showOutcome(outcomeCurrent + 1, true);
+          return;
+        }
         if (current < slides.length - 1) setSlide(current + 1);
       }
 
       function back() {
+        if (slides[current].id === "resultados" && outcomeCurrent > 0) {
+          showOutcome(outcomeCurrent - 1, true);
+          return;
+        }
         if (current > 0) setSlide(current - 1);
       }
 
