@@ -1525,6 +1525,30 @@
       background: linear-gradient(135deg, rgba(124,58,237,.18), rgba(200,80,192,.26));
       border: 1px solid rgba(124,58,237,.16);
     }
+    .specialty-viz { gap: 6px; }
+    .mini-specialties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .mini-specialties span {
+      padding: 3px 5px;
+      border-radius: 999px;
+      color: #5b3bc4;
+      background: rgba(124,58,237,.08);
+      border: 1px solid rgba(124,58,237,.12);
+      font-family: var(--mono);
+      font-size: 6.5px;
+      letter-spacing: .03em;
+    }
+    .mini-consent {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #047857;
+      font-size: 7.5px;
+      font-weight: 700;
+    }
     .soon-label {
       position: absolute;
       top: 13px;
@@ -1577,6 +1601,7 @@
     #funciones:is(.active, .in-view) .feature-card:nth-child(5) { animation-delay: .28s; }
     #funciones:is(.active, .in-view) .feature-card:nth-child(6) { animation-delay: .35s; }
     #funciones:is(.active, .in-view) .feature-card:nth-child(7) { animation-delay: .42s; }
+    #funciones:is(.active, .in-view) .feature-card:nth-child(8) { animation-delay: .49s; }
     #funciones:is(.active, .in-view) .feature-card:nth-child(1) .mini-bubble:first-child,
     #funciones:is(.active, .in-view) .feature-card:nth-child(7) .mini-bubble:first-child {
       animation: bubbleIn 1.8s .46s both;
@@ -1615,7 +1640,261 @@
     #funciones:is(.active, .in-view) .mini-audience i:nth-child(3) { animation-delay: .28s; }
     #funciones:is(.active, .in-view) .mini-audience i:nth-child(4) { animation-delay: .42s; }
 
-    /* 06 — Carrusel de situación y resolución */
+    /* 06 — Fichas clínicas personalizadas */
+    .records-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 34px;
+      align-items: end;
+    }
+    .records-head .lead {
+      max-width: 720px;
+      margin-top: 12px;
+    }
+    .record-specialties {
+      max-width: 430px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 7px;
+      padding-bottom: 4px;
+    }
+    .record-specialties span {
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: #5b3bc4;
+      background: rgba(124,58,237,.07);
+      border: 1px solid rgba(124,58,237,.12);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .records-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr .92fr;
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .record-card {
+      min-height: 272px;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 20px 50px -38px rgba(9,20,33,.52);
+    }
+    .record-card.facial {
+      background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(239,246,255,.94));
+    }
+    .record-card.body {
+      background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(249,240,255,.94));
+    }
+    .record-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .record-kicker {
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    .record-card h3 {
+      margin-top: 5px;
+      font-family: var(--display);
+      font-size: 17px;
+      letter-spacing: -.025em;
+      line-height: 1.1;
+    }
+    .record-status {
+      flex: 0 0 auto;
+      padding: 5px 7px;
+      border-radius: 999px;
+      color: #047857;
+      background: #e8f8f1;
+      border: 1px solid rgba(16,185,129,.16);
+      font-family: var(--mono);
+      font-size: 6.5px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .record-preview {
+      min-height: 168px;
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 11px;
+      border: 1px solid rgba(15,25,38,.07);
+      border-radius: 14px;
+      background: rgba(248,250,252,.86);
+    }
+    .clinical-map {
+      height: 142px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(124,58,237,.10), transparent 48%),
+        #fff;
+      border: 1px solid rgba(124,58,237,.10);
+    }
+    .clinical-map svg {
+      width: 88%;
+      height: 88%;
+      overflow: visible;
+    }
+    .clinical-map .outline {
+      fill: rgba(255,255,255,.72);
+      stroke: #6b7280;
+      stroke-width: 1.35;
+    }
+    .clinical-map .detail {
+      fill: none;
+      stroke: #a3aab5;
+      stroke-width: 1;
+      stroke-linecap: round;
+    }
+    .clinical-map .zone {
+      fill: rgba(124,58,237,.16);
+      stroke: #7c3aed;
+      stroke-width: 1.1;
+    }
+    .body .clinical-map .zone {
+      fill: rgba(200,80,192,.15);
+      stroke: #c850c0;
+    }
+    .record-fields {
+      display: grid;
+      gap: 7px;
+    }
+    .record-field {
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(15,25,38,.07);
+    }
+    .record-field:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+    .record-field b,
+    .medical-row b {
+      display: block;
+      font-size: 8.5px;
+      line-height: 1.25;
+    }
+    .record-field span,
+    .medical-row span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 7.5px;
+      line-height: 1.35;
+    }
+    .medical-preview {
+      min-height: 168px;
+      margin-top: 12px;
+      padding: 11px;
+      border: 1px solid rgba(15,25,38,.07);
+      border-radius: 14px;
+      background: #f8fafc;
+    }
+    .vitals {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      margin-bottom: 9px;
+    }
+    .vital {
+      padding: 6px 4px;
+      text-align: center;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid rgba(15,25,38,.07);
+    }
+    .vital strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 12px;
+      letter-spacing: -.03em;
+    }
+    .vital small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 5.5px;
+      text-transform: uppercase;
+    }
+    .medical-rows { display: grid; gap: 7px; }
+    .medical-row {
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(15,25,38,.07);
+    }
+    .medical-row:last-child { border-bottom: 0; }
+    .consent-strip {
+      min-height: 72px;
+      margin-top: 13px;
+      padding: 12px 15px;
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid rgba(124,58,237,.15);
+      border-radius: 16px;
+      background: linear-gradient(90deg, rgba(239,246,255,.96), rgba(250,245,255,.96));
+      box-shadow: 0 16px 40px -34px rgba(124,58,237,.52);
+    }
+    .consent-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--brand-gradient);
+      font-size: 17px;
+    }
+    .consent-copy b {
+      display: block;
+      font-size: 10px;
+    }
+    .consent-copy span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.35;
+    }
+    .consent-proof {
+      min-width: 148px;
+      padding-left: 16px;
+      border-left: 1px solid rgba(124,58,237,.14);
+    }
+    .consent-proof span {
+      display: block;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 6.5px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .consent-proof strong {
+      display: block;
+      margin-top: 4px;
+      color: #047857;
+      font-family: var(--display);
+      font-size: 13px;
+    }
+
+    /* 07 — Carrusel de situación y resolución */
     .flow-engine {
       display: flex;
       align-items: center;
@@ -2372,6 +2651,11 @@
       .feature-card { min-height: 145px; padding: 11px 12px; }
       .feature-title { margin-top: 7px; }
       .feature-viz { min-height: 42px; }
+      .records-grid { margin-top: 14px; }
+      .record-card { min-height: 226px; padding: 12px; }
+      .record-preview, .medical-preview { min-height: 138px; margin-top: 9px; }
+      .clinical-map { height: 116px; }
+      .consent-strip { min-height: 60px; margin-top: 9px; padding: 9px 12px; }
       .patient-demo, .ask-console { margin-top: 18px; }
       .patient-qr { min-height: 260px; }
       .ask-answer-card { min-height: 92px; padding: 13px; }
@@ -2511,6 +2795,16 @@
       .clinic-core { order: -1; margin: 10px 0; }
       .clinic-core .aura-ring { width: 150px; height: 150px; }
       .feature-card { flex-basis: calc(50% - 12px); max-width: none; }
+      .records-head { grid-template-columns: 1fr; gap: 16px; }
+      .record-specialties { justify-content: flex-start; max-width: none; }
+      .records-grid { grid-template-columns: 1fr; }
+      .record-card { min-height: 310px; }
+      .consent-strip { grid-template-columns: 38px 1fr; }
+      .consent-proof {
+        grid-column: 2;
+        padding-left: 0;
+        border-left: 0;
+      }
       .patient-demo { grid-template-columns: 1fr; }
       .patient-qr { min-height: 280px; }
       .ask-answer { grid-template-columns: 1fr 1fr; }
@@ -2561,6 +2855,9 @@
       .cta-row { flex-direction: column; }
       .cta { width: 100%; }
       .feature-card { flex-basis: 100%; min-width: 0; }
+      .records-grid { gap: 12px; }
+      .record-preview { grid-template-columns: 92px minmax(0, 1fr); }
+      .record-specialties span { font-size: 6.5px; }
       .patient-copy { padding: 24px; }
       .patient-steps { grid-template-columns: 1fr; }
       .ask-query { grid-template-columns: 32px 1fr; padding: 10px 13px; font-size: 14px; }
@@ -2740,7 +3037,7 @@
           <div class="features-head">
             <div class="eyebrow">Funciones de Clinera Intelligence · solo en Clinera</div>
             <h2 class="display medium">Lo que <span class="accent">nadie más</span> hace por tu clínica.</h2>
-            <p class="lead">Clinera Intelligence agenda, identifica, cobra y difunde — todo dentro del mismo sistema.</p>
+            <p class="lead">Clinera Intelligence agenda, identifica, documenta, cobra y difunde — todo dentro del mismo sistema.</p>
           </div>
           <div class="feature-grid">
             <article class="feature-card">
@@ -2806,11 +3103,106 @@
                 <div class="mini-bubble reply">Llevas $4.820.000</div>
               </div>
             </article>
+            <article class="feature-card">
+              <div class="feature-icon">▤</div>
+              <div class="feature-title">Fichas y consentimientos por especialidad</div>
+              <div class="feature-desc">Médica, kinesiológica, estética facial, corporal y más.</div>
+              <div class="feature-viz specialty-viz">
+                <div class="mini-specialties"><span>Facial</span><span>Corporal</span><span>Médica</span></div>
+                <div class="mini-consent">✓ Consentimiento firmado</div>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="slide dark" id="resultados" data-name="Resultados" data-theme="dark" data-mobile-index="06 · Resultados" aria-hidden="true">
+      <section class="slide light-grid clinical-records-slide" id="fichas-clinicas" data-name="Fichas clínicas" data-theme="light" data-mobile-index="06 · Fichas clínicas" aria-hidden="true">
+        <div class="slide-inner">
+          <div class="records-head">
+            <div>
+              <div class="eyebrow">Migración clínica · sin perder detalle</div>
+              <h2 class="display medium">Tus fichas, <span class="accent">migradas perfectamente en Clinera.</span></h2>
+              <p class="lead">Respetamos la estructura, el historial y los campos propios de cada especialidad. Tu equipo continúa exactamente donde quedó.</p>
+            </div>
+            <div class="record-specialties" aria-label="Especialidades compatibles">
+              <span>Médica</span><span>Kinesiológica</span><span>Estética facial</span><span>Estética corporal</span><span>Salud mental</span>
+            </div>
+          </div>
+          <div class="records-grid">
+            <article class="record-card facial">
+              <div class="record-top">
+                <div><div class="record-kicker">Especialidad · estética facial</div><h3>Ficha estética facial</h3></div>
+                <span class="record-status">Migrada ✓</span>
+              </div>
+              <div class="record-preview">
+                <div class="clinical-map" aria-label="Mapa facial">
+                  <svg viewBox="0 0 110 150" role="img" aria-label="Rostro con zonas de tratamiento">
+                    <ellipse class="outline" cx="55" cy="67" rx="34" ry="45"></ellipse>
+                    <path class="detail" d="M34 55c7-5 14-5 21 0M56 55c7-5 14-5 21 0M55 58v20l-5 4M43 91c8 6 16 6 24 0M28 42c6-19 48-27 57 2"></path>
+                    <ellipse class="zone" cx="55" cy="43" rx="19" ry="7"></ellipse>
+                    <circle class="zone" cx="39" cy="65" r="6"></circle>
+                    <circle class="zone" cx="71" cy="65" r="6"></circle>
+                    <ellipse class="zone" cx="55" cy="96" rx="12" ry="4"></ellipse>
+                  </svg>
+                </div>
+                <div class="record-fields">
+                  <div class="record-field"><b>Zonas tratadas</b><span>Frente · periocular · labios</span></div>
+                  <div class="record-field"><b>Protocolo y dosis</b><span>Detalle por producto y sesión</span></div>
+                  <div class="record-field"><b>Evolución fotográfica</b><span>Antes · control · resultado</span></div>
+                </div>
+              </div>
+            </article>
+            <article class="record-card body">
+              <div class="record-top">
+                <div><div class="record-kicker">Especialidad · estética corporal</div><h3>Ficha estética corporal</h3></div>
+                <span class="record-status">Migrada ✓</span>
+              </div>
+              <div class="record-preview">
+                <div class="clinical-map" aria-label="Mapa corporal">
+                  <svg viewBox="0 0 110 160" role="img" aria-label="Cuerpo con zonas de tratamiento">
+                    <circle class="outline" cx="55" cy="18" r="9"></circle>
+                    <path class="outline" d="M43 31c-8 7-11 20-10 34l4 34 6 47h12l2-42 2 42h12l6-47 4-34c1-14-2-27-10-34l-12 5Z"></path>
+                    <path class="detail" d="M43 33 28 69l-10 30M67 33l15 36 10 30M55 38v63M40 72h30"></path>
+                    <ellipse class="zone" cx="55" cy="66" rx="16" ry="10"></ellipse>
+                    <ellipse class="zone" cx="45" cy="92" rx="8" ry="12"></ellipse>
+                    <ellipse class="zone" cx="65" cy="92" rx="8" ry="12"></ellipse>
+                  </svg>
+                </div>
+                <div class="record-fields">
+                  <div class="record-field"><b>Mediciones</b><span>Cintura · abdomen · muslos</span></div>
+                  <div class="record-field"><b>Zonas tratadas</b><span>Abdomen · flancos · piernas</span></div>
+                  <div class="record-field"><b>Evolución</b><span>Perímetros y fotografías</span></div>
+                </div>
+              </div>
+            </article>
+            <article class="record-card medical">
+              <div class="record-top">
+                <div><div class="record-kicker">Especialidad · médica</div><h3>Ficha médica</h3></div>
+                <span class="record-status">Migrada ✓</span>
+              </div>
+              <div class="medical-preview">
+                <div class="vitals">
+                  <div class="vital"><strong>120/80</strong><small>Presión</small></div>
+                  <div class="vital"><strong>72</strong><small>FC</small></div>
+                  <div class="vital"><strong>98%</strong><small>SpO₂</small></div>
+                </div>
+                <div class="medical-rows">
+                  <div class="medical-row"><b>Motivo de consulta</b><span>Control y evaluación clínica</span></div>
+                  <div class="medical-row"><b>Antecedentes y alergias</b><span>Historial completo y alertas</span></div>
+                  <div class="medical-row"><b>Diagnóstico y plan</b><span>Indicaciones, recetas y seguimiento</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <div class="consent-strip" aria-label="Consentimientos informados">
+            <div class="consent-icon">✍</div>
+            <div class="consent-copy"><b>Consentimientos informados por tratamiento</b><span>Plantillas personalizadas, firma digital, versión del documento y trazabilidad completa.</span></div>
+            <div class="consent-proof"><span>Paciente · documento</span><strong>Firmado y validado ✓</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide dark" id="resultados" data-name="Resultados" data-theme="dark" data-mobile-index="07 · Resultados" aria-hidden="true">
         <div class="slide-inner narrow">
           <div class="results-head">
             <div class="eyebrow">Ejemplos reales de uso</div>
@@ -2913,7 +3305,7 @@
         </div>
       </section>
 
-      <section class="slide light-grid" id="experiencia" data-name="Experiencia paciente" data-theme="light" data-mobile-index="07 · Experiencia paciente" aria-hidden="true">
+      <section class="slide light-grid" id="experiencia" data-name="Experiencia paciente" data-theme="light" data-mobile-index="08 · Experiencia paciente" aria-hidden="true">
         <div class="slide-inner">
           <div class="clinic-os-head">
             <div class="eyebrow">Experiencia en vivo · lado paciente</div>
@@ -2940,7 +3332,7 @@
         </div>
       </section>
 
-      <section class="slide light-grid" id="preguntale" data-name="Pregúntale a tu clínica" data-theme="light" data-mobile-index="08 · Pregúntale a tu clínica" aria-hidden="true">
+      <section class="slide light-grid" id="preguntale" data-name="Pregúntale a tu clínica" data-theme="light" data-mobile-index="09 · Pregúntale a tu clínica" aria-hidden="true">
         <div class="slide-inner">
           <div class="ask-head">
             <div class="eyebrow">Clinera Intelligence · sobre toda tu operación</div>
@@ -2982,7 +3374,7 @@
         </div>
       </section>
 
-      <section class="slide light-grid" id="implementacion" data-name="Implementación" data-theme="light" data-mobile-index="09 · Implementación" aria-hidden="true">
+      <section class="slide light-grid" id="implementacion" data-name="Implementación" data-theme="light" data-mobile-index="10 · Implementación" aria-hidden="true">
         <div class="slide-inner">
           <div class="migration-head">
             <div class="eyebrow">Proceso de solapamiento · migración sin cortes</div>
@@ -3027,7 +3419,7 @@
         </div>
       </section>
 
-      <section class="slide light-grid" id="equipo" data-name="Equipo" data-theme="light" data-mobile-index="10 · Equipo" aria-hidden="true">
+      <section class="slide light-grid" id="equipo" data-name="Equipo" data-theme="light" data-mobile-index="11 · Equipo" aria-hidden="true">
         <div class="slide-inner">
           <div class="eyebrow">El equipo detrás de la operación</div>
           <h2 class="display medium">Ingeniería E2E que entiende tu clínica.</h2>
@@ -3050,7 +3442,7 @@
         </div>
       </section>
 
-      <section class="slide dark" id="seguridad" data-name="Seguridad" data-theme="dark" data-mobile-index="11 · Seguridad" aria-hidden="true">
+      <section class="slide dark" id="seguridad" data-name="Seguridad" data-theme="dark" data-mobile-index="12 · Seguridad" aria-hidden="true">
         <div class="slide-inner security-layout">
           <div class="shield" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
@@ -3073,7 +3465,7 @@
         </div>
       </section>
 
-      <section class="slide light-grid" id="inversion" data-name="Inversión" data-theme="light" data-mobile-index="12 · Inversión" aria-hidden="true">
+      <section class="slide light-grid" id="inversion" data-name="Inversión" data-theme="light" data-mobile-index="13 · Inversión" aria-hidden="true">
         <div class="slide-inner investment-layout">
           <div>
             <div class="eyebrow">La siguiente categoría</div>
@@ -3101,7 +3493,7 @@
     </main>
 
     <div class="progress is-dark" id="progress" aria-hidden="true">
-      <div class="progress-count"><span id="currentCount">01</span> / <span id="totalCount">12</span></div>
+      <div class="progress-count"><span id="currentCount">01</span> / <span id="totalCount">13</span></div>
       <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
