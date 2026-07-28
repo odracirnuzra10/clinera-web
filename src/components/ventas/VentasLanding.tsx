@@ -308,6 +308,10 @@ export default function VentasLanding({
           .ventas-field-label { margin-bottom: 4px !important; }
           .ventas-volume-num { font-size: 46px !important; }
         }
+        /* Las dos tarjetas de costo se apilan cuando ya no caben lado a lado. */
+        @media (max-width: 480px) {
+          .ventas-cost-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
       <ReunionHero enableMigrationQualification={enableMigrationQualification} />
     </>
@@ -1286,17 +1290,18 @@ function StepSize({
         label={label}
         title={
           <>
-            ¿Clinera es para{" "}
+            Así funciona la{" "}
             <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-              tu clínica
+              inversión
             </em>
-            ?
+            .
           </>
         }
-        sub="Una pregunta rápida antes de coordinar tu reunión."
+        sub="Para que no haya sorpresas en la reunión."
       />
 
-      {/* Pregunta de interés (gate) — precio de entrada */}
+      {/* Gate de precio — el pago único y el recurrente separados, que es lo que
+          más se confunde cuando el costo de configuración se menciona de pasada. */}
       <div
         style={{
           background: "linear-gradient(135deg,#F4F8FF 0%,#FAF5FF 100%)",
@@ -1306,10 +1311,46 @@ function StepSize({
           marginBottom: 18,
         }}
       >
-        <p style={{ fontFamily: "Inter", fontSize: 14, color: "#374151", lineHeight: 1.5, margin: "0 0 12px" }}>
-          <strong style={{ color: "#0A0A0A" }}>Costo de configuración único: USD 1.500.</strong> El equipo de
-          Clinera configura y migra todos los datos de tu clínica para que quede 100% operativa y personalizada.
-          A eso súmale el plan mensual o semestral. ¿Te interesa?
+        <div className="ventas-cost-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
+          <div
+            style={{
+              background: "#fff",
+              border: "1.5px solid rgba(124,58,237,.30)",
+              borderRadius: 12,
+              padding: "12px 13px",
+            }}
+          >
+            <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 9, letterSpacing: ".1em", textTransform: "uppercase", color: "#7C3AED", marginBottom: 6 }}>
+              Una sola vez
+            </div>
+            <div style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 800, letterSpacing: "-.03em", color: "#0A0A0A", lineHeight: 1 }}>
+              USD 1.500
+            </div>
+            <p style={{ fontFamily: "Inter", fontSize: 12.5, color: "#4B5563", lineHeight: 1.45, margin: "7px 0 0" }}>
+              Configuración y migración de fichas, datos, pacientes y tratamientos. Tus agentes de IA quedan listos.
+            </p>
+          </div>
+          <div
+            style={{
+              background: "#fff",
+              border: "1.5px solid #E7EBF0",
+              borderRadius: 12,
+              padding: "12px 13px",
+            }}
+          >
+            <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 9, letterSpacing: ".1em", textTransform: "uppercase", color: "#6B7280", marginBottom: 6 }}>
+              Después, cada mes
+            </div>
+            <div style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 800, letterSpacing: "-.03em", color: "#0A0A0A", lineHeight: 1 }}>
+              desde USD 279
+            </div>
+            <p style={{ fontFamily: "Inter", fontSize: 12.5, color: "#4B5563", lineHeight: 1.45, margin: "7px 0 0" }}>
+              Plan mensual o semestral, con 20% OFF al anticipar los 6 meses.
+            </p>
+          </div>
+        </div>
+        <p style={{ fontFamily: "Inter", fontSize: 14, fontWeight: 600, color: "#0A0A0A", margin: "0 0 10px" }}>
+          ¿Te hace sentido?
         </p>
         <div style={{ display: "flex", gap: 8 }}>
           <button
@@ -1330,7 +1371,7 @@ function StepSize({
               transition: "all .2s",
             }}
           >
-            Sí, me interesa
+            Sí, me sirve
           </button>
           <button
             type="button"

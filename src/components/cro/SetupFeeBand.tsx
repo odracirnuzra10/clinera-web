@@ -84,8 +84,16 @@ export default function SetupFeeBand({
       </div>
       <style>{`
         @media (max-width: 720px) {
-          .setup-fee-band { grid-template-columns: 1fr !important; gap: 12px !important; padding: 16px 18px !important; }
-          .setup-fee-band .setup-fee-band-right { align-items: flex-start !important; }
+          .setup-fee-band { grid-template-columns: 1fr !important; gap: 10px !important; padding: 16px 18px !important; }
+          /* En móvil el monto sube al tope y comparte fila con su nota: es el dato
+             que se busca, y así la banda no obliga a leer el párrafo para llegar a él. */
+          .setup-fee-band .setup-fee-band-right {
+            order: -1 !important;
+            flex-direction: row !important;
+            align-items: baseline !important;
+            flex-wrap: wrap !important;
+            gap: 4px 10px !important;
+          }
           .setup-fee-band .setup-fee-band-right small { text-align: left !important; }
         }
       `}</style>
