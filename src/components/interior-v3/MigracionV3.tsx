@@ -555,7 +555,7 @@ function CompareSection() {
                 textAlign: "right",
               }}
             >
-              + USD 450 implementación (pago único)
+              + USD 1.500 implementación (pago único)
             </p>
           </div>
         </div>
@@ -1272,8 +1272,8 @@ function Faq() {
       a: "Técnicamente sí, pero el agente IA solo verá la mitad del ciclo y no podrá atribuir campañas. Vas a estar pagando dos herramientas sin aprovechar ninguna al máximo. Por eso recomendamos migrar.",
     },
     {
-      q: "¿Hay permanencia o costo de implementación?",
-      a: "Sin permanencia: cancelas cuando quieras. La implementación es un pago único de USD 450 — onboarding asistido por un humano que configura AURA, conecta tu WhatsApp Business, importa tus pacientes y tratamientos, integra tu agenda y capacita a tu equipo. Quedas operando el mismo día.",
+      q: "¿Hay permanencia o costo de configuración?",
+      a: "Sin permanencia: cancelas cuando quieras. El costo de configuración es un pago único de USD 1.500 — onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo. Quedas operando el mismo día.",
     },
     {
       q: "¿Cuánto tiempo toma la migración completa?",

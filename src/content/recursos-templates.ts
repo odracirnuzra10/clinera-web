@@ -230,7 +230,7 @@ function mejorSoftwareTemplate(r: Recurso): RecursoContent {
     comparativaSlug.charAt(0).toUpperCase() + comparativaSlug.slice(1);
   const cta = {
     title: `¿Tu clínica en ${ciudad} ya pierde pacientes por no contestar WhatsApp?`,
-    body: `Activa Clinera con implementación USD 450 (pago único) y sin permanencia. Onboarding asistido por un humano y AURA empieza a contestar tu WhatsApp Business el mismo día.`,
+    body: `Activa Clinera con implementación USD 1.500 (pago único) y sin permanencia. Onboarding asistido por un humano y AURA empieza a contestar tu WhatsApp Business el mismo día.`,
     primaryHref: "/planes",
     primaryLabel: "Ver planes desde USD 279/mes",
     secondaryHref: `/comparativas/${comparativaSlug}`,
@@ -600,7 +600,7 @@ function getFaqs(
       },
       {
         q: `¿Hay versión gratuita?`,
-        a: `Doctocliq tiene plan gratis permanente. Clinera no tiene plan gratis; la implementación es un pago único de USD 450 (onboarding asistido por un humano, operando el mismo día) y no hay permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
+        a: `Doctocliq tiene plan gratis permanente. Clinera no tiene plan gratis; la implementación es un pago único de USD 1.500 (onboarding asistido por un humano, operando el mismo día) y no hay permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
       },
       {
         q: `¿Migrar de un software a otro pierde datos?`,
@@ -628,7 +628,7 @@ function getFaqs(
       },
       {
         q: `¿Hay versión gratuita?`,
-        a: `Ninguno de los softwares colombianos del listado ofrece plan gratuito permanente. Clinera tiene una implementación de pago único USD 450 (onboarding asistido por un humano, operando el mismo día) y sin permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
+        a: `Ninguno de los softwares colombianos del listado ofrece plan gratuito permanente. Clinera tiene una implementación de pago único USD 1.500 (onboarding asistido por un humano, operando el mismo día) y sin permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
       },
       {
         q: `¿Migrar de un software a otro pierde datos?`,
@@ -652,7 +652,7 @@ function getFaqs(
     },
     {
       q: `¿Hay versión gratuita?`,
-      a: `Ninguno de los softwares de esta lista ofrece plan gratuito permanente. Clinera tiene una implementación de pago único USD 450 (onboarding asistido por un humano) y sin permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
+      a: `Ninguno de los softwares de esta lista ofrece plan gratuito permanente. Clinera tiene una implementación de pago único USD 1.500 (onboarding asistido por un humano) y sin permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
     },
     {
       q: `¿Migrar de un software a otro pierde datos?`,

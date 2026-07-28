@@ -70,7 +70,7 @@ export default function PlatformPricing() {
           <h2 id="platform-pricing-title">Elige cómo pagar tus primeros 6 meses.</h2>
           <p>
             El semestral es la primera opción: anticipas 6 meses con 20% de descuento. También puedes
-            pagar mensualmente, con permanencia mínima de 6 meses. La implementación cuesta USD 450.
+            pagar mensualmente, con permanencia mínima de 6 meses. La implementación cuesta USD 1.500.
           </p>
         </div>
 
@@ -139,7 +139,7 @@ export default function PlatformPricing() {
               )}
 
               <div className={styles.implementationFee}>
-                <strong>+ USD 450</strong>
+                <strong>+ USD 1.500</strong>
                 <span>de implementación</span>
                 <small>Pago único adicional</small>
               </div>
