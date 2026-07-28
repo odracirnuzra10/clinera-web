@@ -64,15 +64,6 @@ const SOFTWARE_LABELS: Record<SoftwareId, string> = SOFTWARE_OPTIONS.reduce(
   {} as Record<SoftwareId, string>,
 );
 
-const SOFTWARE_MICROCOPY_MIGRATE =
-  "Perfecto. Nuestro ingeniero migra tus fichas, pacientes y tratamientos desde tu sistema actual — tú no haces nada.";
-const SOFTWARE_MICROCOPY_CUSTOM =
-  "Perfecto. Nuestro ingeniero se conecta con tu sistema a medida y migra todo por ti.";
-
-function softwareMicrocopy(id: SoftwareId): string {
-  return id === "desarrollo_propio" ? SOFTWARE_MICROCOPY_CUSTOM : SOFTWARE_MICROCOPY_MIGRATE;
-}
-
 // ============== PASO 2 — TAMAÑO DE LA OPERACIÓN ==============
 // Prioridad comercial. AJUSTA AQUÍ (único lugar del código). Toda clínica que
 // completa el paso 2 CALIFICA (el precio de entrada de US$279 auto-selecciona);
@@ -698,7 +689,6 @@ function Wizard({
         <StepSize
           size={size}
           setSize={setSize}
-          software={software}
           interes={interes}
           onInteres={(v) => {
             setInteres(v);
@@ -1246,7 +1236,6 @@ function ChipGroup({
 function StepSize({
   size,
   setSize,
-  software,
   interes,
   onInteres,
   label,
@@ -1255,7 +1244,6 @@ function StepSize({
 }: {
   size: SizeAnswers;
   setSize: (s: SizeAnswers) => void;
-  software: SoftwareId | null;
   interes: "si" | "no" | null;
   onInteres: (v: "si" | "no") => void;
   label: string;
@@ -1279,32 +1267,6 @@ function StepSize({
         }
         sub="Para que no haya sorpresas en la reunión."
       />
-
-      {/* El microcopy del software elegido vive acá: el paso 1 avanza solo y no
-          alcanzaba a leerse, y acá justifica el monto que viene abajo. */}
-      {software && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: 10,
-            padding: "12px 14px",
-            background: "#F8FAFC",
-            border: "1px solid #E7EBF0",
-            borderRadius: 12,
-            marginBottom: 12,
-          }}
-        >
-          <span style={{ flexShrink: 0, marginTop: 1, color: "#7C3AED" }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M20 6L9 17l-5-5" />
-            </svg>
-          </span>
-          <span style={{ fontFamily: "Inter", fontSize: 13.5, color: "#374151", lineHeight: 1.45 }}>
-            {softwareMicrocopy(software)}
-          </span>
-        </div>
-      )}
 
       {/* Gate de precio — el pago único y el recurrente separados, que es lo que
           más se confunde cuando el costo de configuración se menciona de pasada. */}
