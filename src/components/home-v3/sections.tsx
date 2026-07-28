@@ -4043,9 +4043,16 @@ export function BillingToggle({ billing, onChange }: { billing: Billing; onChang
   );
 }
 
-export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) {
+export function Pricing({
+  showCredits = true,
+  intro = "default",
+}: {
+  showCredits?: boolean;
+  intro?: "default" | "comparison";
+} = {}) {
   const [billing, setBilling] = useState<Billing>("semester");
   const isSemester = billing === "semester";
+  const isComparisonIntro = intro === "comparison";
   const IA_MODELS = ["Gemini 3.0 Flash", "Gemini 2.5 Flash", "Sonnet 5", "Opus 4.8", "Kimi K2.6", "GLM 5.2", "MiniMax M3"];
   const plans = [
     {
@@ -4130,7 +4137,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
     <section
       id="precios"
       style={{
-        padding: "112px 80px",
+        padding: isComparisonIntro ? "80px 80px 112px" : "112px 80px",
         background: "#FAFAFA",
         borderTop: "1px solid #F0F0F0",
         position: "relative",
@@ -4150,7 +4157,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
       />
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
         <div className="reveal" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 26px" }}>
-          <Eyebrow>Planes</Eyebrow>
+          <Eyebrow>{isComparisonIntro ? "Comparación" : "Planes"}</Eyebrow>
           <h2
             className="home-h2-big"
             style={{
@@ -4163,10 +4170,27 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
               color: "#0A0A0A",
             }}
           >
-            Elige tu plan por el tamaño de tu operación.
+            {isComparisonIntro ? (
+              <>
+                La misma inteligencia.{" "}
+                <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                  Distinta capacidad operativa.
+                </span>
+              </>
+            ) : (
+              "Elige tu plan por el tamaño de tu operación."
+            )}
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", margin: 0, lineHeight: 1.55 }}>
-            Desde clínicas con equipo de recepción y varios profesionales hasta grupos con varias sedes. Todos los planes incluyen agentes de IA que agendan, confirman, cobran y recuperan pacientes por WhatsApp 24/7, con <b>visibilidad y control central</b> de toda tu operación.
+            {isComparisonIntro ? (
+              <>
+                Todos los planes incluyen AURA por WhatsApp. Compara créditos, agentes, usuarios y sedes para encontrar la capacidad que tu clínica necesita hoy.
+              </>
+            ) : (
+              <>
+                Desde clínicas con equipo de recepción y varios profesionales hasta grupos con varias sedes. Todos los planes incluyen agentes de IA que agendan, confirman, cobran y recuperan pacientes por WhatsApp 24/7, con <b>visibilidad y control central</b> de toda tu operación.
+              </>
+            )}
           </p>
         </div>
 

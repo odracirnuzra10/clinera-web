@@ -22,7 +22,7 @@ export default function PlanesV3() {
         }
       `}</style>
       <PlanesHero />
-      <Pricing />
+      <Pricing intro="comparison" />
       <Addons />
       <PlanesFaq />
       <FinalCTA />
