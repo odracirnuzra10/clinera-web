@@ -15,4 +15,4 @@ export const SETUP_FEE_INLINE = `+ USD ${SETUP_FEE_NUMBER} configuración inicia
 export const SETUP_FEE_TITLE = "Costo de configuración: una sola vez";
 
 export const SETUP_FEE_COPY =
-  "Migración de fichas clínicas, datos históricos, pacientes y tratamientos, más la configuración y el entrenamiento de tus agentes de IA. Se paga al inicio y no se repite.";
+  "Migramos fichas clínicas, datos históricos, pacientes y tratamientos, y configuramos tus agentes de IA. Se paga al inicio y no se repite.";
