@@ -348,7 +348,7 @@ function PlansSection() {
             Elige tu plan y activa hoy.
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", margin: 0 }}>
-            Sin permanencia · implementación USD 450 pago único · precios en USD.
+            Sin permanencia · implementación USD 1.500 pago único · precios en USD.
           </p>
         </div>
         <div

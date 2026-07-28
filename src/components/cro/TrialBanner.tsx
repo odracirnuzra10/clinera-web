@@ -58,7 +58,7 @@ export default function TrialBanner({ variant = "light" }: Props) {
                 letterSpacing: "-0.01em",
               }}
             >
-              Implementación USD 450 (pago único)
+              Implementación USD 1.500 (pago único)
             </p>
             <p
               style={{

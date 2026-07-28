@@ -10,7 +10,7 @@ const URL = "https://www.clinera.io/planes-pro";
 export const metadata: Metadata = {
   title: "Planes Pro · precios y créditos explicados al detalle — Clinera.io",
   description:
-    "La vista a fondo de los planes de Clinera: qué es un crédito, por qué una conversación no siempre cuesta lo mismo (Eficiente ~10 vs Agentic ~195) y cuánto rinde cada plan. Vortex 28.000 cr, Atlas 37.000 cr, Summit 46.000 cr. Calculadora de consumo incluida. Permanencia mínima de 6 meses · semestral con 20% OFF · + USD 450 implementación.",
+    "La vista a fondo de los planes de Clinera: qué es un crédito, por qué una conversación no siempre cuesta lo mismo (Eficiente ~10 vs Agentic ~195) y cuánto rinde cada plan. Vortex 28.000 cr, Atlas 37.000 cr, Summit 46.000 cr. Calculadora de consumo incluida. Permanencia mínima de 6 meses · semestral con 20% OFF · + USD 1.500 implementación.",
   alternates: { canonical: URL },
   openGraph: {
     type: "website",
@@ -65,8 +65,8 @@ const FAQS: { q: string; a: string; confirmar?: boolean }[] = [
     a: "La facturación es mensual en USD y puedes pagar con Stripe, MercadoPago o WebPay. El ciclo de créditos se cuenta por fecha de facturación, no por mes calendario.",
   },
   {
-    q: "¿Incluye implementación?",
-    a: "La implementación es un pago único de USD 450 en los tres planes (Vortex, Atlas y Summit). Es un onboarding asistido por una persona: configuramos tus agentes, tu agenda y tus flujos contigo antes de salir a producción. Es la única inversión inicial y no se repite.",
+    q: "¿Incluye configuración?",
+    a: "El costo de configuración es un pago único de USD 1.500 en los tres planes (Vortex, Atlas y Summit). Es un onboarding asistido por una persona: migramos tus fichas clínicas, datos históricos, pacientes y tratamientos, y configuramos tus agentes, tu agenda y tus flujos contigo antes de salir a producción. Es la única inversión inicial y no se repite.",
   },
 ];
 
