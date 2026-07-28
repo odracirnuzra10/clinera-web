@@ -406,20 +406,33 @@
     .transform-color {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(180deg, rgba(4,10,17,.08) 38%, rgba(4,10,17,.88) 100%),
-        url("./assets/performance-clinica.webp") center / cover no-repeat;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+      object-position: center;
     }
     .transform-photo {
-      filter: saturate(.28) contrast(1.05);
+      z-index: 0;
+      filter: grayscale(.72) saturate(.38) contrast(1.08) brightness(.84);
     }
     .transform-color {
+      z-index: 1;
       clip-path: inset(0 100% 0 0);
-      filter: saturate(.92) contrast(1.02);
+      filter: saturate(1.08) contrast(1.04) brightness(.98);
       transition: clip-path 1.25s .2s var(--ease);
     }
     .transform-slide.active .transform-color {
       clip-path: inset(0 0 0 50%);
+    }
+    .transform-shade {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(2,8,14,.24), transparent 42%, rgba(2,8,14,.06)),
+        linear-gradient(180deg, rgba(2,8,14,.02) 42%, rgba(2,8,14,.78) 100%);
+      pointer-events: none;
     }
     .transform-seam {
       position: absolute;
@@ -2434,7 +2447,7 @@
       }
       .transform-side.after { justify-self: end; }
       .transform-seam { display: none; }
-      .transform-photo, .transform-color { background-position: center; }
+      .transform-photo, .transform-color { object-position: center; }
       .transform-color { clip-path: inset(0 0 0 50%); }
       .proof-layout, .live-layout { grid-template-columns: 1fr; }
       .press-panel { grid-template-columns: 1fr; }
@@ -2518,7 +2531,7 @@
       .hero-proof { align-items: flex-start; flex-direction: column; }
       .transform-slide { min-height: 700px !important; }
       .transform-photo, .transform-color {
-        background-position: 49% center;
+        object-position: 49% center;
       }
       .transform-title { font-size: 34px; }
       .quote-panel, .press-copy, .chat-panel, .qr-panel, .investment-card { padding: 22px; }
@@ -2609,8 +2622,9 @@
       </section>
 
       <section class="slide dark transform-slide" id="transformacion" data-name="Transformación" data-theme="dark" data-mobile-index="02 · Transformación" aria-hidden="true">
-        <div class="transform-photo" aria-hidden="true"></div>
-        <div class="transform-color" aria-hidden="true"></div>
+        <img class="transform-photo" src="/presentacion/assets/performance-clinica.webp" alt="" aria-hidden="true" loading="eager" decoding="async" />
+        <img class="transform-color" src="/presentacion/assets/performance-clinica.webp" alt="" aria-hidden="true" loading="eager" decoding="async" />
+        <div class="transform-shade" aria-hidden="true"></div>
         <div class="transform-seam" aria-hidden="true"></div>
         <div class="transform-overlay">
           <div class="transform-side">
