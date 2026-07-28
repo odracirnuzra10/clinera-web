@@ -36,6 +36,13 @@ const CAPI_ENDPOINT = "/api/meta/capi";
 // Atributos de calificación (SIN PII) que viajan como custom_data.
 export type QualCustomData = {
   software_actual: string;
+  /** Perfil operativo del paso 2 (esquema nuevo). */
+  operational_profile: string;
+  locations_band: string;
+  /** "lte_500" | "gt_500" | "unknown" — nunca se infiere en multisede. */
+  patients_band: string;
+  lead_priority: string;
+  /** Legacy derivado del perfil: se mantiene para audiencias ya creadas en Meta. */
   sucursales: string;
   pacientes_mes: string;
   prioridad_alta: boolean;

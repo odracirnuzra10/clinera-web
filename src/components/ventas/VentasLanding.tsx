@@ -64,66 +64,98 @@ const SOFTWARE_LABELS: Record<SoftwareId, string> = SOFTWARE_OPTIONS.reduce(
   {} as Record<SoftwareId, string>,
 );
 
-const SOFTWARE_MICROCOPY_MIGRATE =
-  "Perfecto. Nuestro ingeniero migra tus fichas, pacientes y tratamientos desde tu sistema actual — tú no haces nada.";
-const SOFTWARE_MICROCOPY_CUSTOM =
-  "Perfecto. Nuestro ingeniero se conecta con tu sistema a medida y migra todo por ti.";
+// ============== PASO 2 — PERFIL OPERATIVO ==============
+// Una sola pregunta reemplaza a las dos anteriores (sucursales + pacientes/mes).
+// Los campos legacy siguen saliendo en el payload, DERIVADOS de este perfil, para
+// no romper n8n → Baserow 152 / Monday / Meta. Donde el perfil no permite conocer
+// el dato (volumen de pacientes en multisede) se emite "" / "unknown": nunca se
+// fabrica un valor.
+export type OperationalProfileId =
+  | "single_upto_500"
+  | "single_over_500"
+  | "multi_2_3"
+  | "multi_4_plus";
 
-function softwareMicrocopy(id: SoftwareId): string {
-  return id === "desarrollo_propio" ? SOFTWARE_MICROCOPY_CUSTOM : SOFTWARE_MICROCOPY_MIGRATE;
-}
+export type LeadPriority = "standard" | "high" | "strategic";
 
-// ============== PASO 2 — TAMAÑO DE LA OPERACIÓN ==============
-// Prioridad comercial. AJUSTA AQUÍ (único lugar del código). Toda clínica que
-// completa el paso 2 CALIFICA (el precio de entrada de US$279 auto-selecciona);
-// "prioridad alta" es solo una señal de tamaño para el equipo comercial.
-const PRIORITY_THRESHOLDS = {
-  sucursales: 2, // prioridad alta si sucursales >= 2
-  pacientesMes: 500, // prioridad alta si pacientes/mes >= 500
-} as const;
+/** Bandas normalizadas. `unknown` = el perfil no permite saberlo. */
+type LocationsBand = "1" | "2_3" | "4_plus";
+type PatientsBand = "lte_500" | "gt_500" | "unknown";
 
-// `value` = piso numérico del rango; lo consume la regla de prioridad.
-type SizeChoice = { id: string; label: string; value: number };
-
-const SUCURSALES_OPTIONS: SizeChoice[] = [
-  { id: "1", label: "1", value: 1 },
-  { id: "2", label: "2", value: 2 },
-  { id: "3plus", label: "más de 3", value: 4 },
-];
-
-const PACIENTES_OPTIONS: SizeChoice[] = [
-  { id: "200_500", label: "200–500", value: 200 },
-  { id: "500_1000", label: "500–1.000", value: 500 },
-  { id: "gt1000", label: "más de 1.000", value: 1000 },
-];
-
-type SizeAnswers = {
-  sucursales: SizeChoice | null;
-  pacientes: SizeChoice | null;
+type OperationalProfile = {
+  id: OperationalProfileId;
+  label: string;
+  priority: LeadPriority;
+  prioridadAlta: boolean;
+  locationsBand: LocationsBand;
+  patientsBand: PatientsBand;
+  /** Equivalencias con el esquema anterior, para los consumidores legacy. */
+  legacy: { sucursales: string; sucursalesLabel: string; pacientesMes: string; pacientesMesLabel: string };
 };
 
-export type Qualification = { califica: boolean; prioridadAlta: boolean };
+// AJUSTA AQUÍ la prioridad comercial (único lugar del código).
+const OPERATIONAL_PROFILES: OperationalProfile[] = [
+  {
+    id: "single_upto_500",
+    label: "1 sede · hasta 500 pacientes/mes",
+    priority: "standard",
+    prioridadAlta: false,
+    locationsBand: "1",
+    patientsBand: "lte_500",
+    legacy: { sucursales: "1", sucursalesLabel: "1", pacientesMes: "200_500", pacientesMesLabel: "200–500" },
+  },
+  {
+    id: "single_over_500",
+    label: "1 sede · más de 500 pacientes/mes",
+    priority: "high",
+    prioridadAlta: true,
+    locationsBand: "1",
+    patientsBand: "gt_500",
+    legacy: { sucursales: "1", sucursalesLabel: "1", pacientesMes: "500_1000", pacientesMesLabel: "500–1.000" },
+  },
+  {
+    id: "multi_2_3",
+    label: "2–3 sedes",
+    priority: "high",
+    prioridadAlta: true,
+    locationsBand: "2_3",
+    patientsBand: "unknown",
+    // El perfil no dice nada del volumen → los campos de pacientes van vacíos.
+    legacy: { sucursales: "2", sucursalesLabel: "2", pacientesMes: "", pacientesMesLabel: "" },
+  },
+  {
+    id: "multi_4_plus",
+    label: "4 o más sedes",
+    priority: "strategic",
+    prioridadAlta: true,
+    locationsBand: "4_plus",
+    patientsBand: "unknown",
+    legacy: { sucursales: "3plus", sucursalesLabel: "más de 3", pacientesMes: "", pacientesMesLabel: "" },
+  },
+];
+
+/** El estado del paso 2. Se mantiene el nombre `SizeAnswers` para no tocar el resto. */
+type SizeAnswers = { profile: OperationalProfile | null };
+
+export type Qualification = { califica: boolean; prioridadAlta: boolean; priority: LeadPriority };
 
 // Regla PURA — toda clínica que completa el filtro califica (el precio de entrada
-// auto-selecciona). prioridad_alta = señal de tamaño para el equipo comercial.
+// auto-selecciona). prioridad_alta / priority = señal de tamaño para el equipo comercial.
 // FUENTE DE VERDAD única: el tracking (src/lib/metaEvents.ts) consume este resultado.
 function evaluateQualification(size: SizeAnswers): Qualification {
-  const prioridadAlta =
-    (size.sucursales?.value ?? 0) >= PRIORITY_THRESHOLDS.sucursales ||
-    (size.pacientes?.value ?? 0) >= PRIORITY_THRESHOLDS.pacientesMes;
-  return { califica: true, prioridadAlta };
+  return {
+    califica: true,
+    prioridadAlta: size.profile?.prioridadAlta ?? false,
+    priority: size.profile?.priority ?? "standard",
+  };
 }
 
 function sizeComplete(size: SizeAnswers): boolean {
-  return !!(size.sucursales && size.pacientes);
+  return !!size.profile;
 }
 
 function sizeSummaryLabel(size: SizeAnswers): string {
-  const suc = size.sucursales
-    ? `${size.sucursales.label} sucursal${size.sucursales.id === "1" ? "" : "es"}`
-    : null;
-  const pac = size.pacientes ? `${size.pacientes.label} pacientes/mes` : null;
-  return [suc, pac].filter(Boolean).join(" · ");
+  return size.profile?.label ?? "";
 }
 
 // Tipo de clínica que atendemos hoy — dentales pausadas por el momento.
@@ -189,15 +221,24 @@ function sizeAttributes(
   size: SizeAnswers,
   qual: Qualification | null,
 ) {
+  const p = size.profile;
   return {
     software_actual: software ?? "",
     software_actual_label: software ? SOFTWARE_LABELS[software] : "",
-    sucursales: size.sucursales?.id ?? "",
-    sucursales_label: size.sucursales?.label ?? "",
-    pacientes_mes: size.pacientes?.id ?? "",
-    pacientes_mes_label: size.pacientes?.label ?? "",
+    // Perfil operativo (esquema nuevo).
+    operational_profile: p?.id ?? "",
+    operational_profile_label: p?.label ?? "",
+    locations_band: p?.locationsBand ?? "",
+    patients_band: p?.patientsBand ?? "unknown",
+    lead_priority: qual?.priority ?? "standard",
     prioridad_alta: qual?.prioridadAlta ?? false,
     califica: qual?.califica ?? false,
+    // Legacy DERIVADO del perfil — se mantiene para n8n → Baserow 152 / Monday.
+    // En multisede el volumen de pacientes es desconocido: va vacío, no inventado.
+    sucursales: p?.legacy.sucursales ?? "",
+    sucursales_label: p?.legacy.sucursalesLabel ?? "",
+    pacientes_mes: p?.legacy.pacientesMes ?? "",
+    pacientes_mes_label: p?.legacy.pacientesMesLabel ?? "",
   };
 }
 
@@ -210,10 +251,16 @@ function qualCustomData(
   qual: Qualification | null,
   pais: string,
 ): QualCustomData {
+  const p = size.profile;
   return {
     software_actual: software ?? "",
-    sucursales: size.sucursales?.id ?? "",
-    pacientes_mes: size.pacientes?.id ?? "",
+    operational_profile: p?.id ?? "",
+    locations_band: p?.locationsBand ?? "",
+    patients_band: p?.patientsBand ?? "unknown",
+    lead_priority: qual?.priority ?? "standard",
+    // Legacy derivado: Meta ya tiene audiencias/columnas armadas sobre estos.
+    sucursales: p?.legacy.sucursales ?? "",
+    pacientes_mes: p?.legacy.pacientesMes ?? "",
     prioridad_alta: qual?.prioridadAlta ?? false,
     pais,
   };
@@ -223,15 +270,18 @@ function qualCustomData(
 // del esquema anterior: tamano_clinica, patient_volume, migration_intent, etc.).
 // Toda clínica que llega aquí ya tiene software → su intención es migrar.
 function backCompatFields(software: SoftwareId | null, size: SizeAnswers, qual: Qualification | null) {
-  const pacientesValue = size.pacientes?.value ?? 0;
+  // `patient_volume` solo se puede afirmar cuando el perfil trae banda de pacientes.
+  // En multisede queda "unknown" en vez de fabricar un tramo.
+  const band = size.profile?.patientsBand ?? "unknown";
+  const patientVolume = band === "unknown" ? "unknown" : "over_100";
   return {
     tamano_clinica: sizeSummaryLabel(size),
-    patient_volume: pacientesValue >= 100 ? "over_100" : "under_100",
+    patient_volume: patientVolume,
     migration_intent: "yes_migrate",
     migration_intent_label: "Queremos migrar a Clinera",
     software_actual_migracion: software ? SOFTWARE_LABELS[software] : "",
     monday_initial_status: "quiere migrar",
-    lead_priority: qual?.prioridadAlta ? "high" : "standard",
+    lead_priority: qual?.priority ?? "standard",
     calendar_access: "allowed",
   };
 }
@@ -643,8 +693,7 @@ function Wizard({
 }) {
   const [step, setStep] = useState(1);
   const [software, setSoftware] = useState<SoftwareId | null>(null);
-  const [size, setSize] = useState<SizeAnswers>({ sucursales: null, pacientes: null });
-  const [interes, setInteres] = useState<"si" | "no" | null>(null);
+  const [size, setSize] = useState<SizeAnswers>({ profile: null });
   const [qualification, setQualification] = useState<Qualification | null>(null);
   const [form, setForm] = useState<Form>({ nombre: "", clinica: "", tipoClinica: "", prefix: "+56", phone: "", email: "" });
   const [leadCtx, setLeadCtx] = useState<{ eventId: string; leadSource: string } | null>(null);
@@ -698,10 +747,7 @@ function Wizard({
         <StepSize
           size={size}
           setSize={setSize}
-          software={software}
-          interes={interes}
           onInteres={(v) => {
-            setInteres(v);
             if (v === "no") {
               pushDL("no_interesa", {
                 software_actual: software ?? "",
@@ -727,12 +773,17 @@ function Wizard({
             }
             // event_id único del lead — compartido con el webhook n8n y, si
             // MQL_TRIGGER === "qualified_step2", con el par Pixel+CAPI del MQL.
-            const eventId = newLeadEventId();
+            // Se reutiliza si el usuario ya pasó por acá (volver + avanzar de nuevo
+            // no debe abrir un lead nuevo).
+            const eventId = leadCtx?.eventId ?? newLeadEventId();
+            // El contexto se fija AQUÍ, de forma síncrona. Antes solo se seteaba en
+            // el .then() del webhook: si el paso 3 se enviaba antes de que ese fetch
+            // resolviera, submitContactLead caía en su fallback y generaba un
+            // event_id distinto → n8n abría un segundo lead en vez de hacer upsert.
+            if (!leadCtx) setLeadCtx({ eventId, leadSource: detectLeadSource() });
             // Persistir el lead parcial YA (apenas se completa el paso 2): así queda
             // capturado aunque el usuario abandone antes de dejar sus datos.
-            submitSizeLead({ software, size, qual, eventId }).then((ctx) => {
-              if (ctx) setLeadCtx(ctx);
-            });
+            void submitSizeLead({ software, size, qual, eventId });
             // MQL en el Paso 2 sólo si el equipo lo activó. Sin user_data:
             // todavía no hay datos de contacto (email/teléfono).
             if (MQL_TRIGGER === "qualified_step2") {
@@ -803,10 +854,7 @@ function Wizard({
       )}
       {!submitted && declined && (
         <StepDeclined
-          onBack={() => {
-            setDeclined(false);
-            setInteres(null);
-          }}
+          onBack={() => setDeclined(false)}
         />
       )}
       {submitted && <StepSuccess form={form} software={software} size={size} booking={booking} />}
@@ -1183,20 +1231,18 @@ function StepSoftware({
   );
 }
 
-// ============== STEP 2 — TAMAÑO DE LA OPERACIÓN ==============
-function ChipGroup({
-  groupLabel,
-  options,
+// ============== STEP 2 — PERFIL OPERATIVO ==============
+// Lista vertical (no chips): las etiquetas son largas y en móvil los chips
+// obligaban a truncar o a scroll horizontal.
+function ProfilePicker({
   selected,
   onSelect,
 }: {
-  groupLabel: string;
-  options: SizeChoice[];
-  selected: SizeChoice | null;
-  onSelect: (o: SizeChoice) => void;
+  selected: OperationalProfile | null;
+  onSelect: (p: OperationalProfile) => void;
 }) {
   return (
-    <div style={{ marginBottom: 18 }}>
+    <div style={{ marginBottom: 16 }}>
       <div
         style={{
           fontFamily: "Inter",
@@ -1207,34 +1253,65 @@ function ChipGroup({
           marginBottom: 9,
         }}
       >
-        {groupLabel}
+        ¿Cuál describe mejor tu operación?
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {options.map((opt) => {
+      <div role="radiogroup" aria-label="Perfil operativo" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {OPERATIONAL_PROFILES.map((opt) => {
           const sel = selected?.id === opt.id;
           return (
             <button
               key={opt.id}
               type="button"
+              role="radio"
+              aria-checked={sel}
               onClick={() => onSelect(opt)}
               style={{
-                flex: "1 1 auto",
-                minWidth: "fit-content",
-                padding: "11px 16px",
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                width: "100%",
+                textAlign: "left",
+                padding: "13px 15px",
                 border: "1.5px solid " + (sel ? "#0A0A0A" : "#E7EBF0"),
-                borderRadius: 999,
+                borderRadius: 12,
                 background: sel ? "#FAFBFD" : "#fff",
                 cursor: "pointer",
                 fontFamily: "Inter",
                 fontWeight: sel ? 700 : 500,
-                fontSize: 14,
+                fontSize: 14.5,
                 letterSpacing: "-.01em",
                 color: sel ? "#0A0A0A" : "#4B5563",
-                whiteSpace: "nowrap",
                 transition: "all .2s",
               }}
             >
-              {opt.label}
+              <span
+                aria-hidden
+                style={{
+                  flexShrink: 0,
+                  width: 18,
+                  height: 18,
+                  borderRadius: 999,
+                  border: "1.5px solid " + (sel ? "#0A0A0A" : "#D1D5DB"),
+                  background: sel ? "#0A0A0A" : "#fff",
+                  position: "relative",
+                }}
+              >
+                {sel && (
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: 5.5,
+                      top: 2,
+                      width: 4,
+                      height: 8,
+                      border: "solid #fff",
+                      borderWidth: "0 2px 2px 0",
+                      transform: "rotate(45deg)",
+                    }}
+                  />
+                )}
+              </span>
+              <span style={{ flex: 1, minWidth: 0 }}>{opt.label}</span>
             </button>
           );
         })}
@@ -1246,8 +1323,6 @@ function ChipGroup({
 function StepSize({
   size,
   setSize,
-  software,
-  interes,
   onInteres,
   label,
   onBack,
@@ -1255,14 +1330,14 @@ function StepSize({
 }: {
   size: SizeAnswers;
   setSize: (s: SizeAnswers) => void;
-  software: SoftwareId | null;
-  interes: "si" | "no" | null;
   onInteres: (v: "si" | "no") => void;
   label: string;
   onBack?: () => void;
   onNext: () => void;
 }) {
-  const complete = interes === "si" && sizeComplete(size);
+  // Ya no hay gate de "¿te hace sentido?": el CTA principal ES la aceptación.
+  // Basta con haber elegido perfil operativo.
+  const complete = sizeComplete(size);
   return (
     <div>
       {onBack && <BackBtn onClick={onBack} />}
@@ -1279,32 +1354,6 @@ function StepSize({
         }
         sub="Para que no haya sorpresas en la reunión."
       />
-
-      {/* El microcopy del software elegido vive acá: el paso 1 avanza solo y no
-          alcanzaba a leerse, y acá justifica el monto que viene abajo. */}
-      {software && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: 10,
-            padding: "12px 14px",
-            background: "#F8FAFC",
-            border: "1px solid #E7EBF0",
-            borderRadius: 12,
-            marginBottom: 12,
-          }}
-        >
-          <span style={{ flexShrink: 0, marginTop: 1, color: "#7C3AED" }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M20 6L9 17l-5-5" />
-            </svg>
-          </span>
-          <span style={{ fontFamily: "Inter", fontSize: 13.5, color: "#374151", lineHeight: 1.45 }}>
-            {softwareMicrocopy(software)}
-          </span>
-        </div>
-      )}
 
       {/* Gate de precio — el pago único y el recurrente separados, que es lo que
           más se confunde cuando el costo de configuración se menciona de pasada. */}
@@ -1355,76 +1404,49 @@ function StepSize({
             </p>
           </div>
         </div>
-        <p style={{ fontFamily: "Inter", fontSize: 14, fontWeight: 600, color: "#0A0A0A", margin: "0 0 10px" }}>
-          ¿Te hace sentido?
-        </p>
-        <div style={{ display: "flex", gap: 8 }}>
-          <button
-            type="button"
-            onClick={() => onInteres("si")}
-            style={{
-              flex: 1,
-              padding: "12px 14px",
-              border: "1.5px solid " + (interes === "si" ? "#0A0A0A" : "#D7C9F0"),
-              borderRadius: 12,
-              background: interes === "si" ? "#0A0A0A" : "#fff",
-              color: interes === "si" ? "#fff" : "#0A0A0A",
-              fontFamily: "Inter",
-              fontWeight: 700,
-              fontSize: 14.5,
-              letterSpacing: "-.01em",
-              cursor: "pointer",
-              transition: "all .2s",
-            }}
-          >
-            Sí, me sirve
-          </button>
-          <button
-            type="button"
-            onClick={() => onInteres("no")}
-            style={{
-              flex: "0 0 auto",
-              padding: "12px 18px",
-              border: "1.5px solid #E7EBF0",
-              borderRadius: 12,
-              background: "#fff",
-              color: "#6B7280",
-              fontFamily: "Inter",
-              fontWeight: 600,
-              fontSize: 14.5,
-              cursor: "pointer",
-              transition: "all .2s",
-            }}
-          >
-            No
-          </button>
-        </div>
       </div>
 
-      {/* Datos de tamaño — sólo si dijo que le interesa */}
-      {interes === "si" && (
-        <div key="size-groups" style={{ animation: "ventasFadeUp .3s ease both" }}>
-          <ChipGroup
-            groupLabel="¿Cuántas sucursales tienes?"
-            options={SUCURSALES_OPTIONS}
-            selected={size.sucursales}
-            onSelect={(o) => setSize({ ...size, sucursales: o })}
-          />
-          <ChipGroup
-            groupLabel="¿Cuántos pacientes atiendes al mes?"
-            options={PACIENTES_OPTIONS}
-            selected={size.pacientes}
-            onSelect={(o) => setSize({ ...size, pacientes: o })}
-          />
-        </div>
-      )}
+      <ProfilePicker
+        selected={size.profile}
+        onSelect={(profile) => setSize({ profile })}
+      />
 
-      <SubmitBtn enabled={complete} onClick={() => complete && onNext()}>
-        Continuar
+      <SubmitBtn
+        enabled={complete}
+        onClick={() => {
+          if (!complete) return;
+          // El CTA principal es la aceptación explícita: mantiene interes_confirmado
+          // para los dashboards y automatizaciones que ya lo consumen.
+          onInteres("si");
+          onNext();
+        }}
+      >
+        Continuar con esta inversión
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </SubmitBtn>
+
+      {/* Abandono explícito para analytics: enlace discreto, nunca compite con el CTA. */}
+      <div style={{ textAlign: "center", marginTop: 12 }}>
+        <button
+          type="button"
+          onClick={() => onInteres("no")}
+          style={{
+            background: "transparent",
+            border: 0,
+            padding: "4px 6px",
+            fontFamily: "Inter",
+            fontSize: 13,
+            color: "#9CA3AF",
+            textDecoration: "underline",
+            textUnderlineOffset: 3,
+            cursor: "pointer",
+          }}
+        >
+          No es para mí
+        </button>
+      </div>
     </div>
   );
 }
@@ -2221,6 +2243,10 @@ function SubmitBtn({ enabled, children, onClick }: { enabled: boolean; children:
     <button
       type="button"
       onClick={onClick}
+      // Deshabilitado de verdad, no solo en gris: lo leen el teclado y los
+      // lectores de pantalla, no únicamente la vista.
+      disabled={!enabled}
+      aria-disabled={!enabled}
       className="ventas-submit-btn"
       style={{
         width: "100%",

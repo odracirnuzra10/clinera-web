@@ -76,13 +76,11 @@ async function fbqNames(page: Page): Promise<FbqCall[]> {
   return page.evaluate(() => (window as unknown as { __fbqCalls: FbqCall[] }).__fbqCalls);
 }
 
-// Recorre el paso 2 (filtro): interés Sí + 1 sucursal + 200–500 → prioridad_alta false.
-async function fillSizeStep(page: Page) {
-  await expect(page.getByRole("heading", { level: 2 })).toContainText(/tu clínica/i);
-  await page.getByRole("button", { name: /me interesa/i }).click();
-  await page.getByRole("button", { name: "1", exact: true }).click();
-  await page.getByRole("button", { name: "200–500", exact: true }).click();
-  await page.getByRole("button", { name: /Continuar/i }).click();
+// Recorre el paso 2: elige perfil operativo y acepta con el CTA principal.
+async function fillSizeStep(page: Page, profile = "1 sede · hasta 500 pacientes/mes") {
+  await expect(page.getByRole("heading", { level: 2 })).toContainText(/inversión/i);
+  await page.getByRole("radio", { name: profile }).click();
+  await page.getByRole("button", { name: /Continuar con esta inversión/i }).click();
 }
 
 async function fillContactStep(page: Page) {
@@ -103,7 +101,6 @@ test.describe("Meta events — /ventas wizard", () => {
     await page.waitForTimeout(400);
 
     await page.getByRole("button", { name: "AgendaPro", exact: true }).click();
-    await page.getByRole("button", { name: /Continuar/i }).click();
 
     await fillSizeStep(page);
 
@@ -138,6 +135,10 @@ test.describe("Meta events — /ventas wizard", () => {
     expect(mql.custom_data?.software_actual).toBe("agendapro");
     expect(mql.custom_data?.sucursales).toBe("1");
     expect(mql.custom_data?.pacientes_mes).toBe("200_500");
+    expect(mql.custom_data?.operational_profile).toBe("single_upto_500");
+    expect(mql.custom_data?.locations_band).toBe("1");
+    expect(mql.custom_data?.patients_band).toBe("lte_500");
+    expect(mql.custom_data?.lead_priority).toBe("standard");
     expect(mql.custom_data?.prioridad_alta).toBe(false);
     expect(mql.custom_data?.pais).toBe("Chile");
     expect(JSON.stringify(mql.custom_data)).not.toContain("example.com"); // sin email
@@ -149,8 +150,8 @@ test.describe("Meta events — /ventas wizard", () => {
     expect(pixelMqls[0].opts?.eventID).toBe(mql.event_id);
   });
 
-  // --- Criterio 2: prioridad_alta se marca con sucursales>=2 o pacientes>=500 -
-  test("2 sucursales → prioridad_alta true en el MQL", async ({ page }) => {
+  // --- Criterio 2: prioridad_alta la marca el perfil operativo multisede ----
+  test("2–3 sedes → prioridad_alta true y lead_priority high en el MQL", async ({ page }) => {
     await installFbqRecorder(page);
     const capi = mockNetwork(page);
 
@@ -158,11 +159,7 @@ test.describe("Meta events — /ventas wizard", () => {
     await page.waitForTimeout(400);
 
     await page.getByRole("button", { name: "Medilink", exact: true }).click();
-    await page.getByRole("button", { name: /Continuar/i }).click();
-    await page.getByRole("button", { name: /me interesa/i }).click();
-    await page.getByRole("button", { name: "2", exact: true }).click();
-    await page.getByRole("button", { name: "200–500", exact: true }).click();
-    await page.getByRole("button", { name: /Continuar/i }).click();
+    await fillSizeStep(page, "2–3 sedes");
 
     await expect(page.getByRole("heading", { level: 2 })).toContainText(/datos/i);
     await fillContactStep(page);
@@ -176,6 +173,10 @@ test.describe("Meta events — /ventas wizard", () => {
     await page.waitForTimeout(300);
 
     const mql = capi.filter((c) => c.event_name === "MQL")[0];
+    expect(mql.custom_data?.operational_profile).toBe("multi_2_3");
+    expect(mql.custom_data?.locations_band).toBe("2_3");
+    expect(mql.custom_data?.patients_band).toBe("unknown");
+    expect(mql.custom_data?.lead_priority).toBe("high");
     expect(mql.custom_data?.sucursales).toBe("2");
     expect(mql.custom_data?.prioridad_alta).toBe(true);
   });
@@ -187,7 +188,6 @@ test.describe("Meta events — /ventas wizard", () => {
 
     async function runFlow() {
       await page.getByRole("button", { name: "AgendaPro", exact: true }).click();
-      await page.getByRole("button", { name: /Continuar/i }).click();
       await fillSizeStep(page);
       await expect(page.getByRole("heading", { level: 2 })).toContainText(/datos/i);
       await fillContactStep(page);
