@@ -555,7 +555,7 @@ function CompareSection() {
                 textAlign: "right",
               }}
             >
-              + USD 1.500 implementación (pago único)
+              + USD 1.500 configuración inicial (pago único)
             </p>
           </div>
         </div>

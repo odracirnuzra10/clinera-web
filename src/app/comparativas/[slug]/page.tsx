@@ -643,7 +643,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y transparencia",
         body:
-          "Dentalink no publica precios — atiende por demo o cotización. Clinera publica VORTEX USD 279/mes, ATLAS USD 379/mes, SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), sin permanencia; implementación USD 1.500 (pago único) con onboarding asistido — operando el mismo día.",
+          "Dentalink no publica precios — atiende por demo o cotización. Clinera publica VORTEX USD 279/mes, ATLAS USD 379/mes, SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), sin permanencia; configuración inicial USD 1.500 (pago único) con onboarding asistido — operando el mismo día.",
       },
     ],
     faqs: [
@@ -826,7 +826,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y modelo comercial",
         body:
-          "Medifolios publica precios en COP con modelo anual decreciente: año 1 más caro (incluye onboarding), año 2+ baja considerablemente. Consultorio: $1.670.000 año 1 / $840.000 año 2+ (~USD 35/USD 17/mes). Clinera publica precios en USD con modelo mensual sin permanencia: VORTEX USD 279/mes, ATLAS USD 379/mes y SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000). Implementación USD 1.500 (pago único) con onboarding asistido — operando el mismo día. Para clínicas que recién arrancan en digital, Medifolios año 1 es más caro upfront pero año 2+ se vuelve más barato. Clinera es predecible mes a mes sin compromiso.",
+          "Medifolios publica precios en COP con modelo anual decreciente: año 1 más caro (incluye onboarding), año 2+ baja considerablemente. Consultorio: $1.670.000 año 1 / $840.000 año 2+ (~USD 35/USD 17/mes). Clinera publica precios en USD con modelo mensual sin permanencia: VORTEX USD 279/mes, ATLAS USD 379/mes y SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000). Configuración inicial USD 1.500 (pago único) con onboarding asistido — operando el mismo día. Para clínicas que recién arrancan en digital, Medifolios año 1 es más caro upfront pero año 2+ se vuelve más barato. Clinera es predecible mes a mes sin compromiso.",
       },
       {
         title: "Combinar ambos: Medifolios + Clinera",
@@ -907,7 +907,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y modelo comercial",
         body:
-          "Saludtools tiene 3 planes (Estándar/Plus/Premium) sin precios visibles en home (hay que ir a /precios o contactar comercial). La IA está reservada al plan Premium, que es el más caro. Clinera tiene 3 planes con precios públicos en USD: VORTEX USD 279/mes, ATLAS USD 379/mes, SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000). La IA conversacional está en TODOS los planes, no escalonada por tier. Implementación USD 1.500 (pago único) con onboarding asistido en todos los planes Clinera; Saludtools no especifica setup en home.",
+          "Saludtools tiene 3 planes (Estándar/Plus/Premium) sin precios visibles en home (hay que ir a /precios o contactar comercial). La IA está reservada al plan Premium, que es el más caro. Clinera tiene 3 planes con precios públicos en USD: VORTEX USD 279/mes, ATLAS USD 379/mes, SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000). La IA conversacional está en TODOS los planes, no escalonada por tier. Configuración inicial USD 1.500 (pago único) con onboarding asistido en todos los planes Clinera; Saludtools no especifica setup en home.",
       },
       {
         title: "Combinar ambos: Saludtools + Clinera",

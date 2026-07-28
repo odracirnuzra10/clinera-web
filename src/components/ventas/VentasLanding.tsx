@@ -1307,7 +1307,9 @@ function StepSize({
         }}
       >
         <p style={{ fontFamily: "Inter", fontSize: 14, color: "#374151", lineHeight: 1.5, margin: "0 0 12px" }}>
-          Clinera es para clínicas con <strong style={{ color: "#0A0A0A" }}>equipo y volumen</strong> —una o varias sedes— que necesitan estandarizar y controlar su operación con IA. ¿Te interesa?
+          <strong style={{ color: "#0A0A0A" }}>Costo de configuración único: USD 1.500.</strong> El equipo de
+          Clinera configura y migra todos los datos de tu clínica para que quede 100% operativa y personalizada.
+          A eso súmale el plan mensual o semestral. ¿Te interesa?
         </p>
         <div style={{ display: "flex", gap: 8 }}>
           <button

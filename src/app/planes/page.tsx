@@ -8,13 +8,13 @@ import { PLANES_FAQ } from "@/content/planes-faq";
 export const metadata: Metadata = {
   title: "Planes y Precios — Clinera.io (desde USD 279/mes)",
   description:
-    "Vortex USD 279/mes (28.000 créditos · AURA por WhatsApp), Atlas USD 379/mes (37.000 créditos · AURA + CAMILA por voz), Summit USD 479/mes (46.000 créditos · AURA + CAMILA + LIA). Implementación USD 1.500 (pago único). Pago semestral con 20% OFF o mensual con permanencia mínima de 6 meses.",
+    "Vortex USD 279/mes (28.000 créditos · AURA por WhatsApp), Atlas USD 379/mes (37.000 créditos · AURA + CAMILA por voz), Summit USD 479/mes (46.000 créditos · AURA + CAMILA + LIA). Configuración inicial USD 1.500 (pago único). Pago semestral con 20% OFF o mensual con permanencia mínima de 6 meses.",
   alternates: { canonical: "https://www.clinera.io/planes" },
   openGraph: {
     url: "https://www.clinera.io/planes",
     title: "Planes y Precios — Clinera.io",
     description:
-      "3 planes con bolsa de créditos para clínicas en LATAM. Desde USD 279/mes + USD 1.500 de implementación. Semestral con 20% OFF.",
+      "3 planes con bolsa de créditos para clínicas en LATAM. Desde USD 279/mes + USD 1.500 de configuración inicial. Semestral con 20% OFF.",
     type: "website",
   },
 };

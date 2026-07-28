@@ -4,7 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, ReactNode } from "react";
 import { CtaPrimary, CtaSecondary, Eyebrow, Mono, GRAD, CnnLogo } from "@/components/brand-v3/Brand";
+import SetupFeeBand from "@/components/cro/SetupFeeBand";
 import { HOME_FAQ } from "@/content/home-faq";
+import { SETUP_FEE_INLINE } from "@/content/pricing";
 
 /* ============================================================
    Reveal-on-scroll helper
@@ -4054,7 +4056,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
       semesterTotal: "USD 1.339,20",
       semesterValue: 1339.2,
       credits: "28.000",
-      impl: "+ USD 1.500 configuración inicial (pago único)",
+      impl: SETUP_FEE_INLINE,
       sub: "Para clínicas con equipo de recepción y varios profesionales que empiezan a ordenar su operación.",
       tags: [
         { t: "Texto", ok: true },
@@ -4076,7 +4078,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
       semesterTotal: "USD 1.819,20",
       semesterValue: 1819.2,
       credits: "37.000",
-      impl: "+ USD 1.500 configuración inicial (pago único)",
+      impl: SETUP_FEE_INLINE,
       sub: "Para clínicas con alto volumen o 2+ sedes que necesitan estandarizar la atención.",
       tags: [
         { t: "Texto + voz", ok: true },
@@ -4102,7 +4104,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
       semesterTotal: "USD 2.299,20",
       semesterValue: 2299.2,
       credits: "46.000",
-      impl: "+ USD 1.500 configuración inicial (pago único)",
+      impl: SETUP_FEE_INLINE,
       sub: "Para grupos clínicos y clínicas de alto volumen —una o varias sedes— que necesitan control central de toda la operación.",
       featured: true,
       tags: [
@@ -4169,54 +4171,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
         </div>
 
         {/* Configuración inicial — pago único, va antes de los planes */}
-        <div
-          className="reveal home-setup-band"
-          style={{
-            margin: "0 0 34px",
-            background: "linear-gradient(135deg, #0E1014 0%, #1F1B2E 100%)",
-            borderRadius: 18,
-            padding: "32px 36px",
-            position: "relative",
-            overflow: "hidden",
-            boxShadow: "0 24px 48px -16px rgba(124,58,237,.25)",
-            display: "grid",
-            gridTemplateColumns: "1.5fr 1fr",
-            gap: 32,
-            alignItems: "center",
-          }}
-        >
-          <div aria-hidden style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: GRAD }} />
-          <div>
-            <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,.6)", marginBottom: 12, display: "inline-flex", alignItems: "center", gap: 8 }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#D946EF", display: "inline-block" }} />
-              Antes de elegir plan · pago único
-            </div>
-            <h3 style={{ fontFamily: "Inter", fontSize: 26, fontWeight: 700, color: "#fff", letterSpacing: "-0.02em", margin: "0 0 10px" }}>
-              Costo de configuración: una sola vez
-            </h3>
-            <p style={{ fontFamily: "Inter", fontSize: 14.5, color: "rgba(255,255,255,.75)", lineHeight: 1.6, margin: "0 0 16px", maxWidth: 560 }}>
-              Dejamos tu clínica operando desde el día uno: migración de fichas clínicas, datos históricos,
-              pacientes y tratamientos, más la configuración y el entrenamiento de tus agentes de IA con tu
-              agenda, tus servicios y tu forma de atender. Es un solo pago al inicio, no se repite.
-            </p>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {["Migración de fichas y datos", "Pacientes y tratamientos", "Configuración de agentes", "Capacitación del equipo"].map((t, i) => (
-                <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: "Inter", fontSize: 12.5, fontWeight: 500, color: "#E9D5FF", background: "rgba(124,58,237,.14)", border: "1px solid rgba(124,58,237,.35)", padding: "5px 10px", borderRadius: 999 }}>{t}</span>
-              ))}
-            </div>
-          </div>
-          <div className="home-setup-band-right" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
-              <span style={{ fontFamily: "Inter", fontSize: 40, fontWeight: 800, color: "#fff", letterSpacing: "-0.03em", lineHeight: 1 }}>
-                $1.500
-              </span>
-              <span style={{ fontSize: 14, color: "rgba(255,255,255,.55)" }}>USD</span>
-            </div>
-            <small style={{ color: "rgba(255,255,255,.62)", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10, letterSpacing: ".04em", textAlign: "right" }}>
-              Pago único · no recurrente · aplica a los 3 planes
-            </small>
-          </div>
-        </div>
+        <SetupFeeBand className="reveal" style={{ margin: "0 0 34px" }} />
 
         <div className="reveal home-billing-toggle" style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
           <BillingToggle billing={billing} onChange={setBilling} />
@@ -4697,9 +4652,6 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
           :global(.home-pricing-grid) { grid-template-columns: 1fr !important; gap: 28px !important; }
           :global(.home-plan-card) { transform: none !important; }
           :global(.home-plan-card-featured) { order: -1; }
-          :global(.home-setup-band) { grid-template-columns: 1fr !important; gap: 20px !important; padding: 24px !important; }
-          :global(.home-setup-band-right) { align-items: flex-start !important; }
-          :global(.home-setup-band-right small) { text-align: left !important; }
         }
         @media (max-width: 600px) {
           :global(.home-ia-label) { display: none !important; }
