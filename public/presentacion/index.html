@@ -1065,11 +1065,18 @@
     margin: 34px auto 0;
     max-width: 720px;
     text-align: left;
-    background: #fff;
-    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0E1014 0%, #1F1B2E 100%);
+    border: 1px solid rgba(124,58,237,.30);
     border-radius: 16px;
     padding: 24px 28px;
-    box-shadow: 0 4px 24px rgba(11,11,15,.04);
+    box-shadow: 0 14px 32px -16px rgba(124,58,237,.45);
+  }
+  .setup-fee::before{
+    content:"";
+    position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--cyan), var(--violet), var(--magenta));
   }
   .setup-fee-head{
     display: flex;
@@ -1083,22 +1090,19 @@
     font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: rgba(255,255,255,.62);
   }
   .setup-fee-amount{
     font-size: 30px;
     font-weight: 700;
     letter-spacing: -0.03em;
-    background: linear-gradient(90deg, var(--cyan), var(--violet));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: #fff;
   }
   .setup-fee-copy{
     margin: 10px 0 0;
     font-size: 14px;
     line-height: 1.6;
-    color: #3A3A42;
+    color: rgba(255,255,255,.75);
   }
   @media (max-width:560px){
     .setup-fee{ padding: 20px; }
