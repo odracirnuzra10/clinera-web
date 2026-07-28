@@ -78,8 +78,6 @@ export default function PlatformPricing() {
           </p>
         </div>
 
-        <SetupFeeBand style={{ marginTop: 26 }} />
-
         <div className={styles.billingSwitch} role="group" aria-label="Frecuencia de pago">
           <button
             type="button"
@@ -110,6 +108,8 @@ export default function PlatformPricing() {
           <strong>{isSemester ? "Semestral · 20% OFF aplicado al total de 6 meses" : "Mensual · facturación mes a mes durante 6 meses"}</strong>
           <small>Permanencia mínima: 6 meses</small>
         </div>
+
+        <SetupFeeBand style={{ marginTop: 18 }} />
 
         <div className={styles.planGrid} aria-live="polite">
           {PLANS.map((plan) => (

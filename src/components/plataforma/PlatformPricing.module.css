@@ -89,13 +89,13 @@
 }
 
 .billingSwitch button.active {
-  background: #111318;
+  background: #7c3aed;
   color: #fff;
-  box-shadow: 0 5px 14px -10px rgba(17, 19, 24, 0.9);
+  box-shadow: 0 6px 16px -6px rgba(124, 58, 237, 0.55);
 }
 
 .billingSwitch button.active .billingOption small {
-  color: #c4b5fd;
+  color: #ddd6fe;
 }
 
 .preferredMode:not(.active) {

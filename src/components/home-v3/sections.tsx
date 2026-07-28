@@ -4012,13 +4012,13 @@ export function BillingToggle({ billing, onChange }: { billing: Billing; onChang
         aria-pressed={semester}
         style={{
           ...base,
-          background: semester ? "#111318" : "transparent",
+          background: semester ? "#7C3AED" : "transparent",
           color: semester ? "#fff" : "#6D28D9",
-          boxShadow: semester ? "0 1px 2px rgba(17,19,24,.16)" : "inset 0 0 0 1px rgba(124,58,237,.22)",
+          boxShadow: semester ? "0 6px 16px -6px rgba(124,58,237,.55)" : "inset 0 0 0 1px rgba(124,58,237,.22)",
         }}
       >
         <span style={{ fontSize: 14 }}>Semestral</span>
-        <small style={{ color: semester ? "#C4B5FD" : "#7C3AED", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
+        <small style={{ color: semester ? "#DDD6FE" : "#7C3AED", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
           Primera opción · 20% OFF
         </small>
       </button>
@@ -4029,13 +4029,13 @@ export function BillingToggle({ billing, onChange }: { billing: Billing; onChang
         aria-pressed={!semester}
         style={{
           ...base,
-          background: !semester ? "#111318" : "transparent",
+          background: !semester ? "#7C3AED" : "transparent",
           color: !semester ? "#fff" : "#4B5563",
-          boxShadow: !semester ? "0 1px 2px rgba(17,19,24,.16)" : "none",
+          boxShadow: !semester ? "0 6px 16px -6px rgba(124,58,237,.55)" : "none",
         }}
       >
         <span style={{ fontSize: 14 }}>Mensual</span>
-        <small style={{ color: !semester ? "#D1D5DB" : "#777E89", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
+        <small style={{ color: !semester ? "#DDD6FE" : "#777E89", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
           Pago mes a mes
         </small>
       </button>
@@ -4170,9 +4170,6 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
           </p>
         </div>
 
-        {/* Configuración inicial — pago único, va antes de los planes */}
-        <SetupFeeBand className="reveal" style={{ margin: "0 0 34px" }} />
-
         <div className="reveal home-billing-toggle" style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
           <BillingToggle billing={billing} onChange={setBilling} />
         </div>
@@ -4181,7 +4178,7 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
           aria-live="polite"
           style={{
             maxWidth: 660,
-            margin: "0 auto 32px",
+            margin: "0 auto 20px",
             textAlign: "center",
             fontFamily: "'JetBrains Mono', ui-monospace, monospace",
             fontSize: 10.5,
@@ -4193,6 +4190,9 @@ export function Pricing({ showCredits = true }: { showCredits?: boolean } = {}) 
             ? "Semestral seleccionado · precio equivalente mensual · total de 6 meses con 20% OFF"
             : "Mensual seleccionado · facturación mes a mes · permanencia mínima de 6 meses"}
         </div>
+
+        {/* Configuración inicial — pago único, justo arriba de las tarjetas */}
+        <SetupFeeBand className="reveal" style={{ margin: "0 0 26px" }} />
 
         <div
           className="reveal home-pricing-grid"
