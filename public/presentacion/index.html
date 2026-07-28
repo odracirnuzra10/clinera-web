@@ -952,68 +952,71 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #f59e0b;
+      background: var(--brand-gradient);
+      box-shadow: 0 0 0 5px rgba(124,58,237,.08);
     }
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 34px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 26px;
     }
     .team-card {
       position: relative;
-      min-height: 280px;
+      min-height: 320px;
       border-radius: 22px;
       overflow: hidden;
+      isolation: isolate;
       color: #fff;
-      background:
-        radial-gradient(circle at 50% 25%, rgba(116,87,255,.34), transparent 27%),
-        linear-gradient(150deg, #283746, #101b27 68%);
+      background: #101b27;
+      border: 1px solid rgba(9,20,33,.12);
       box-shadow: 0 18px 42px rgba(9,20,33,.10);
     }
+    .team-photo {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.92) contrast(1.03);
+    }
+    .team-card.product .team-photo { object-position: center 25%; }
+    .team-card.ai .team-photo { object-position: center 19%; }
+    .team-card.implementation .team-photo { object-position: center 24%; }
     .team-card::before {
       content: "";
       position: absolute;
-      left: 50%;
-      top: 42px;
-      width: 84px;
-      height: 84px;
-      border-radius: 50%;
-      transform: translateX(-50%);
-      border: 1px solid rgba(255,255,255,.25);
+      inset: 0;
+      z-index: -1;
       background:
-        radial-gradient(circle at 50% 36%, rgba(255,255,255,.28) 0 14%, transparent 15%),
-        radial-gradient(ellipse at 50% 100%, rgba(255,255,255,.18) 0 38%, transparent 39%);
+        linear-gradient(180deg, rgba(7,14,22,.02) 22%, rgba(7,14,22,.18) 48%, rgba(7,14,22,.96) 100%),
+        linear-gradient(120deg, rgba(16,185,129,.06), rgba(124,58,237,.10));
     }
     .team-card::after {
-      content: "Foto pendiente";
+      content: "";
       position: absolute;
-      top: 140px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      color: rgba(255,255,255,.38);
-      font-family: var(--mono);
-      font-size: 8px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
+      inset: 10px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,.12);
+      pointer-events: none;
     }
     .team-info {
       position: absolute;
       inset: auto 0 0;
-      padding: 20px;
-      background: linear-gradient(transparent, rgba(3,9,15,.92) 42%);
+      z-index: 2;
+      padding: 22px;
     }
     .team-info b {
       display: block;
       font-family: var(--display);
-      font-size: 17px;
+      font-size: 18px;
       letter-spacing: -.025em;
     }
     .team-info span {
       display: block;
       margin-top: 6px;
-      color: rgba(255,255,255,.5);
+      color: rgba(255,255,255,.68);
       font-size: 10px;
       line-height: 1.45;
     }
@@ -3029,12 +3032,20 @@
           <div class="eyebrow">El equipo detrás de la operación</div>
           <h2 class="display medium">Ingeniería que entiende tu clínica.</h2>
           <p class="lead">No entregamos una licencia y desaparecemos. Diseñamos, configuramos y cuidamos la infraestructura que sostiene tu operación.</p>
-          <div class="team-note">Reemplazar estos espacios con las fotografías reales del equipo</div>
+          <div class="team-note">3 ingenieros · diseño, IA e implementación</div>
           <div class="team-grid">
-            <article class="team-card"><div class="team-info"><b>Ingeniería de producto</b><span>Convierte las reglas de la clínica en una experiencia clara y estable.</span></div></article>
-            <article class="team-card"><div class="team-info"><b>IA y automatización</b><span>Entrena agentes y diseña flujos con contexto clínico real.</span></div></article>
-            <article class="team-card"><div class="team-info"><b>Seguridad e infraestructura</b><span>Protege datos, continuidad y trazabilidad.</span></div></article>
-            <article class="team-card"><div class="team-info"><b>Implementación clínica</b><span>Migra, configura y acompaña al equipo hasta la salida en vivo.</span></div></article>
+            <article class="team-card product">
+              <img class="team-photo" src="assets/team-engineer-product.png" alt="Ingeniero del equipo de producto de Clinera" loading="lazy" />
+              <div class="team-info"><b>Ingeniería de producto</b><span>Convierte las reglas de la clínica en una experiencia clara y estable.</span></div>
+            </article>
+            <article class="team-card ai">
+              <img class="team-photo" src="assets/team-engineer-ai.webp" alt="Ingeniera del equipo de inteligencia artificial de Clinera" loading="lazy" />
+              <div class="team-info"><b>IA y automatización</b><span>Entrena agentes y diseña flujos con contexto clínico real.</span></div>
+            </article>
+            <article class="team-card implementation">
+              <img class="team-photo" src="assets/team-engineer-implementation.jpg" alt="Ingeniera del equipo de implementación de Clinera" loading="lazy" />
+              <div class="team-info"><b>Implementación e infraestructura</b><span>Migra datos, protege la continuidad y acompaña al equipo hasta la salida en vivo.</span></div>
+            </article>
           </div>
         </div>
       </section>
