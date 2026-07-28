@@ -5,15 +5,15 @@ import HomeV3 from "@/components/home-v3/HomeV3";
 import { HOME_FAQ } from "@/content/home-faq";
 
 export const metadata: Metadata = {
-  title: "Clinera.io | El sistema con IA que opera y estandariza tus clínicas",
+  title: "Clinera Intelligence | Opera y estandariza tus clínicas con IA",
   description:
-    "Agentes de IA que operan la agenda de todo tu equipo y todas tus sedes por WhatsApp: agendan, confirman, cobran y recuperan pacientes 24/7. Visibilidad y control central. +52 clínicas en Chile y LATAM.",
+    "Clinera Intelligence conecta agenda, pacientes, ventas y agentes de IA para operar todas tus sedes: agenda, confirma, cobra y recupera pacientes 24/7.",
   alternates: { canonical: "https://www.clinera.io/" },
   openGraph: {
     url: "https://www.clinera.io/",
-    title: "Clinera.io — Opera y estandariza todas tus clínicas con IA",
+    title: "Clinera Intelligence — Toda tu clínica pensando y actuando como una",
     description:
-      "Agentes de IA sobre la agenda de tu equipo y tus sedes por WhatsApp: agendan, confirman, cobran y recuperan pacientes 24/7, sin que se te escape un lead. Visibilidad y control central.",
+      "La capa de inteligencia de Clinera conecta agenda, pacientes, ventas y agentes de IA para operar todas tus sedes con visibilidad y control central.",
   },
 };
 
@@ -37,7 +37,7 @@ const softwareLd = {
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web, iOS, Android",
   description:
-    "Plataforma con IA para grupos clínicos y clínicas con volumen: agentes que agendan, confirman, cobran y recuperan pacientes por WhatsApp 24/7, con visibilidad y control central de toda la operación.",
+    "Clinera Intelligence conecta agenda, pacientes, ventas y agentes de IA para grupos clínicos: agenda, confirma, cobra y recupera pacientes por WhatsApp 24/7 con control central.",
   url: "https://www.clinera.io",
   offers: {
     "@type": "AggregateOffer",

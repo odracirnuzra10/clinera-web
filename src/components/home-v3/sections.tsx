@@ -99,7 +99,7 @@ export function Hero() {
               >
                 ✦
               </span>
-              PLATAFORMA IA · OPERACIÓN CLÍNICA
+              CLINERA INTELLIGENCE · OPERACIÓN CLÍNICA
               <span style={{ color: "#9CA3AF" }}>·</span>
               <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>
                 en vivo en Chile y México
@@ -145,7 +145,7 @@ export function Hero() {
                 maxWidth: 580,
               }}
             >
-              Clinera pone agentes de IA a trabajar sobre la agenda de <b style={{ color: "#0A0A0A" }}>todo tu equipo y todas tus sedes</b> por WhatsApp: agendan, reagendan, confirman, cobran y recuperan pacientes 24/7 — sin que se te escape un lead ni quede una hora-box vacía. Toda tu operación bajo control, con visibilidad central.
+              <b style={{ color: "#0A0A0A" }}>Clinera Intelligence</b> pone agentes de IA a trabajar sobre la agenda de <b style={{ color: "#0A0A0A" }}>todo tu equipo y todas tus sedes</b> por WhatsApp: agendan, reagendan, confirman, cobran y recuperan pacientes 24/7 — sin que se te escape un lead ni quede una hora-box vacía. Toda tu operación bajo control, con visibilidad central.
             </p>
 
             <div style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
@@ -2791,22 +2791,22 @@ export function EcosistemaIA() {
   );
 
   return (
-    <section id="ecosistema" style={{ position: "relative", padding: "112px 80px", borderTop: "1px solid #F0F0F0", background: "#FAFAFA", overflow: "hidden" }}>
+    <section id="clinera-intelligence" style={{ position: "relative", padding: "112px 80px", borderTop: "1px solid #F0F0F0", background: "#FAFAFA", overflow: "hidden", scrollMarginTop: 96 }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
         <div className="reveal" style={{ textAlign: "center", maxWidth: 760, margin: "0 auto 52px" }}>
-          <Eyebrow>Todo conectado · una sola IA</Eyebrow>
+          <Eyebrow>Clinera Intelligence · núcleo operativo</Eyebrow>
           <h2 className="home-h2-big" style={{ fontFamily: "Inter", fontSize: 44, fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.05, margin: "14px 0 16px", color: "#0A0A0A" }}>
-            Todas tus sedes,{" "}
-            <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>en una sola IA</span>.
+            Clinera Intelligence:{" "}
+            <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>toda tu clínica pensando y actuando como una</span>.
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", lineHeight: 1.55, margin: 0 }}>
-            Agenda, fichas, tratamientos, pagos, marketing y WhatsApp de cada sede alimentan un solo núcleo. Clinera aprende de toda tu operación y actúa —en una o en veinte sedes, con visibilidad y control central.
+            Agenda, fichas, tratamientos, pagos, marketing y WhatsApp alimentan Clinera Intelligence. La capa que entiende el contexto completo, coordina agentes y actúa —en una o en veinte sedes— con visibilidad y control central.
           </p>
         </div>
 
         <div className="reveal home-eco-grid" style={{ display: "grid", gridTemplateColumns: "1.5fr 0.85fr 1.1fr", gap: 28, alignItems: "center" }}>
           <div>
-            <div style={{ marginBottom: 14 }}><Mono>Cada sede alimenta la IA</Mono></div>
+            <div style={{ marginBottom: 14 }}><Mono>Toda tu operación la alimenta</Mono></div>
             <div className="home-eco-src" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
               {sources.map(srcTile)}
             </div>
@@ -2817,12 +2817,12 @@ export function EcosistemaIA() {
               <span style={{ color: "#fff", fontSize: 46, fontWeight: 700, lineHeight: 1 }}>✦</span>
             </div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontFamily: "Inter", fontSize: 18, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.01em" }}>AURA</div>
-              <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7C3AED", marginTop: 5 }}>Núcleo IA · una sola</div>
+              <div style={{ fontFamily: "Inter", fontSize: 18, fontWeight: 750, color: "#0A0A0A", letterSpacing: "-0.025em" }}>Clinera Intelligence</div>
+              <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7C3AED", marginTop: 5 }}>Contexto · decisiones · acción</div>
             </div>
           </div>
           <div>
-            <div style={{ marginBottom: 14 }}><Mono>La IA ejecuta por ti</Mono></div>
+            <div style={{ marginBottom: 14 }}><Mono>Clinera Intelligence actúa</Mono></div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {actions.map(actTile)}
             </div>
