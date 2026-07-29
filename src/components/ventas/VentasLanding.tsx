@@ -358,10 +358,6 @@ export default function VentasLanding({
           .ventas-field-label { margin-bottom: 4px !important; }
           .ventas-volume-num { font-size: 46px !important; }
         }
-        /* Las dos tarjetas de costo se apilan cuando ya no caben lado a lado. */
-        @media (max-width: 480px) {
-          .ventas-cost-grid { grid-template-columns: 1fr !important; }
-        }
       `}</style>
       <ReunionHero enableMigrationQualification={enableMigrationQualification} />
     </>
@@ -1355,8 +1351,8 @@ function StepSize({
         sub="Para que no haya sorpresas en la reunión."
       />
 
-      {/* Gate de precio — el pago único y el recurrente separados, que es lo que
-          más se confunde cuando el costo de configuración se menciona de pasada. */}
+      {/* Gate de precio — muestra solo el valor mensual de entrada para no
+          convertir la implementación en un filtro antes de la reunión. */}
       <div
         style={{
           background: "linear-gradient(135deg,#F4F8FF 0%,#FAF5FF 100%)",
@@ -1366,42 +1362,20 @@ function StepSize({
           marginBottom: 18,
         }}
       >
-        <div className="ventas-cost-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
-          <div
-            style={{
-              background: "#fff",
-              border: "1.5px solid rgba(124,58,237,.30)",
-              borderRadius: 12,
-              padding: "12px 13px",
-            }}
-          >
-            <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 9, letterSpacing: ".1em", textTransform: "uppercase", color: "#7C3AED", marginBottom: 6 }}>
-              Una sola vez
-            </div>
-            <div style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 800, letterSpacing: "-.03em", color: "#0A0A0A", lineHeight: 1 }}>
-              USD 750
-            </div>
-            <p style={{ fontFamily: "Inter", fontSize: 12.5, color: "#4B5563", lineHeight: 1.45, margin: "7px 0 0" }}>
-              Configuración y migración de fichas, datos, pacientes y tratamientos. Tus agentes de IA quedan listos.
-            </p>
+        <div
+          style={{
+            background: "#fff",
+            border: "1.5px solid rgba(124,58,237,.30)",
+            borderRadius: 12,
+            padding: "14px 16px",
+            textAlign: "center",
+          }}
+        >
+          <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 9, letterSpacing: ".1em", textTransform: "uppercase", color: "#7C3AED", marginBottom: 7 }}>
+            Planes desde
           </div>
-          <div
-            style={{
-              background: "#fff",
-              border: "1.5px solid #E7EBF0",
-              borderRadius: 12,
-              padding: "12px 13px",
-            }}
-          >
-            <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 9, letterSpacing: ".1em", textTransform: "uppercase", color: "#6B7280", marginBottom: 6 }}>
-              Después, cada mes
-            </div>
-            <div style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 800, letterSpacing: "-.03em", color: "#0A0A0A", lineHeight: 1 }}>
-              desde USD 279
-            </div>
-            <p style={{ fontFamily: "Inter", fontSize: 12.5, color: "#4B5563", lineHeight: 1.45, margin: "7px 0 0" }}>
-              Plan mensual o semestral, con 20% OFF al anticipar los 6 meses.
-            </p>
+          <div style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 800, letterSpacing: "-.03em", color: "#0A0A0A", lineHeight: 1.15 }}>
+            USD 279 mensuales
           </div>
         </div>
       </div>

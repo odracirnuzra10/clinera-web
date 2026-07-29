@@ -79,6 +79,8 @@ test.describe("Ventas wizard — software + tamaño + payload n8n", () => {
 
     // Paso 2 — Perfil operativo (1 sede · hasta 500 → prioridad standard)
     await expect(page.getByRole("heading", { level: 2 })).toContainText(/inversión/i);
+    await expect(page.getByText("USD 279 mensuales", { exact: true })).toBeVisible();
+    await expect(page.getByText("USD 750", { exact: true })).toHaveCount(0);
     await expect(page.getByText("¿Cuál describe mejor tu operación?")).toBeVisible();
     const ctaPaso2 = page.getByRole("button", { name: /Continuar con esta inversión/i });
     await expect(ctaPaso2, "el CTA arranca deshabilitado sin perfil").toBeDisabled();
@@ -86,10 +88,8 @@ test.describe("Ventas wizard — software + tamaño + payload n8n", () => {
     await expect(ctaPaso2).toBeEnabled();
     await ctaPaso2.click();
 
-    // Paso 3 — Contacto + card de inversión
+    // Paso 3 — Contacto
     await expect(page.getByRole("heading", { level: 2 })).toContainText(/datos/i);
-    // NOTA: este assert apuntaba a "Planes desde US$279/mes", texto que ya no
-    // existe en el paso 3 ni en origin/main — el test venía roto de antes.
     await expect(page.getByText("Te escribimos directo a quien decide, no a recepción.")).toBeVisible();
 
     await page.locator('input[autocomplete="name"]').fill(`[E2E TEST] ${nonce} Dueño`);

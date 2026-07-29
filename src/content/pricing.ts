@@ -1,12 +1,12 @@
 // Fuente única del costo de configuración inicial (pago único).
 // Lo consumen <SetupFeeBand />, las tarjetas de planes de home-v3/planes/planes-pro,
 // PlatformPricing (/plataforma) y las calculadoras de consumo.
-export const SETUP_FEE_USD = 750;
+export const SETUP_FEE_USD = 450;
 
-/** Monto formateado en es-CL, sin símbolo ni moneda: "750". */
-export const SETUP_FEE_NUMBER = "750";
+/** Monto formateado en es-CL, sin símbolo ni moneda: "450". */
+export const SETUP_FEE_NUMBER = "450";
 
-/** Monto con símbolo, para el precio de la banda: "$750". */
+/** Monto con símbolo, para el precio de la banda: "$450". */
 export const SETUP_FEE_AMOUNT = `$${SETUP_FEE_NUMBER}`;
 
 /** Línea corta para poner debajo del precio de cada plan. */
