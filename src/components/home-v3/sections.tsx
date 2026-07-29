@@ -6,7 +6,12 @@ import { useEffect, useState, ReactNode } from "react";
 import { CtaPrimary, CtaSecondary, Eyebrow, Mono, GRAD, CnnLogo } from "@/components/brand-v3/Brand";
 import SetupFeeBand from "@/components/cro/SetupFeeBand";
 import { HOME_FAQ } from "@/content/home-faq";
-import { SETUP_FEE_INLINE } from "@/content/pricing";
+import {
+  CLINERA_PLANS,
+  SEMESTER_DISCOUNT_PERCENT,
+  SEMESTER_MONTHS,
+  SETUP_FEE_INLINE,
+} from "@/content/pricing";
 
 /* ============================================================
    Reveal-on-scroll helper
@@ -4019,7 +4024,7 @@ export function BillingToggle({ billing, onChange }: { billing: Billing; onChang
       >
         <span style={{ fontSize: 14 }}>Semestral</span>
         <small style={{ color: semester ? "#DDD6FE" : "#7C3AED", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
-          Primera opción · 20% OFF
+          Primera opción · {SEMESTER_DISCOUNT_PERCENT}% OFF
         </small>
       </button>
       <button
@@ -4054,84 +4059,34 @@ export function Pricing({
   const isSemester = billing === "semester";
   const isComparisonIntro = intro === "comparison";
   const IA_MODELS = ["Gemini 3.0 Flash", "Gemini 2.5 Flash", "Sonnet 5", "Opus 4.8", "Kimi K2.6", "GLM 5.2", "MiniMax M3"];
-  const plans = [
-    {
-      name: "Vortex",
-      price: "$279",
-      monthlyValue: 279,
-      semesterMonthly: "$223,20",
-      semesterTotal: "USD 1.339,20",
-      semesterValue: 1339.2,
-      credits: "28.000",
-      impl: SETUP_FEE_INLINE,
-      sub: "Para clínicas con equipo de recepción y varios profesionales que empiezan a ordenar su operación.",
-      tags: [
-        { t: "Texto", ok: true },
-      ],
-      features: [
-        "~2.800 conversaciones o ~143 agendamientos automáticos",
-        "10 usuarios / profesionales",
-        "1 sucursal",
-      ],
-      agents: [{ id: "aura", name: "AURA" }] as Agent[],
-      stripe: "https://buy.stripe.com/4gM7sN7cZ4Yq9wT5RV1441u",
-      stripeSemester: "https://buy.stripe.com/dRmfZj0OBduW5gDcgj1441x",
-    },
-    {
-      name: "Atlas",
-      price: "$379",
-      monthlyValue: 379,
-      semesterMonthly: "$303,20",
-      semesterTotal: "USD 1.819,20",
-      semesterValue: 1819.2,
-      credits: "37.000",
-      impl: SETUP_FEE_INLINE,
-      sub: "Para clínicas con alto volumen o 2+ sedes que necesitan estandarizar la atención.",
-      tags: [
-        { t: "Texto + voz", ok: true },
-      ],
-      headline: "Todo de Vortex, más",
-      features: [
-        "~3.700 conversaciones o ~190 agendamientos · ~320 min de voz (pronto)",
-        "15 usuarios / profesionales",
-        "2 sucursales",
-      ],
-      agents: [
-        { id: "aura", name: "AURA" },
-        { id: "camila", name: "CAMILA" },
-      ] as Agent[],
-      stripe: "https://buy.stripe.com/5kQ7sN40Nez08sP9471441v",
-      stripeSemester: "https://buy.stripe.com/3cIfZj7cZfD410ncgj1441y",
-    },
-    {
-      name: "Summit",
-      price: "$479",
-      monthlyValue: 479,
-      semesterMonthly: "$383,20",
-      semesterTotal: "USD 2.299,20",
-      semesterValue: 2299.2,
-      credits: "46.000",
-      impl: SETUP_FEE_INLINE,
-      sub: "Para grupos clínicos y clínicas de alto volumen —una o varias sedes— que necesitan control central de toda la operación.",
-      featured: true,
-      tags: [
-        { t: "Texto + voz + API", ok: true },
-      ],
-      headline: "Todo de Atlas, más",
-      features: [
-        "~4.600 conversaciones o ~236 agendamientos · ~440 min de voz (pronto)",
-        "25 usuarios / profesionales",
-        "Sucursales ilimitadas",
-      ],
-      agents: [
-        { id: "aura", name: "AURA" },
-        { id: "camila", name: "CAMILA" },
-        { id: "lia", name: "LIA" },
-      ] as Agent[],
-      stripe: "https://buy.stripe.com/5kQ6oJbtf3UmdN94NR1441w",
-      stripeSemester: "https://buy.stripe.com/aFa8wR9l79eG10nbcf1441z",
-    },
-  ];
+  const plans = CLINERA_PLANS.map((plan) => ({
+    name: plan.name,
+    price: `$${plan.monthlyPrice}`,
+    monthlyValue: plan.monthlyPrice,
+    semesterMonthly: `$${plan.semesterMonthly.toLocaleString("es-CL", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`,
+    semesterTotal: `USD ${plan.semesterTotal.toLocaleString("es-CL", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`,
+    semesterValue: plan.semesterTotal,
+    credits: plan.credits.toLocaleString("es-CL"),
+    impl: SETUP_FEE_INLINE,
+    sub: plan.description,
+    tags: [{ t: plan.channel, ok: true }],
+    headline: plan.headline,
+    features: [
+      plan.consumptionReference,
+      `${plan.users} usuarios / profesionales`,
+      plan.branches,
+    ],
+    agents: plan.agents.map((agent) => ({ ...agent })) as Agent[],
+    stripe: plan.stripe,
+    stripeSemester: plan.stripeSemester,
+    featured: plan.featured,
+  }));
 
   return (
     <section
@@ -4211,8 +4166,8 @@ export function Pricing({
           }}
         >
           {isSemester
-            ? "Semestral seleccionado · precio equivalente mensual · total de 6 meses con 20% OFF"
-            : "Mensual seleccionado · facturación mes a mes · permanencia mínima de 6 meses"}
+            ? `Semestral seleccionado · precio equivalente mensual · total de ${SEMESTER_MONTHS} meses con ${SEMESTER_DISCOUNT_PERCENT}% OFF`
+            : `Mensual seleccionado · facturación mes a mes · permanencia mínima de ${SEMESTER_MONTHS} meses`}
         </div>
 
         {/* Configuración inicial — pago único, justo arriba de las tarjetas */}
@@ -4318,7 +4273,9 @@ export function Pricing({
                   marginTop: 4,
                 }}
               >
-                {isSemester ? `Total semestral: ${p.semesterTotal}` : "Permanencia mínima: 6 meses"}
+                {isSemester
+                  ? `Total semestral: ${p.semesterTotal}`
+                  : `Permanencia mínima: ${SEMESTER_MONTHS} meses`}
               </div>
               <div
                 style={{

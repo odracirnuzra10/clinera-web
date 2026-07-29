@@ -4,6 +4,11 @@ import { useState } from "react";
 import { Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { FinalCTA, Pricing, useReveal } from "@/components/home-v3/sections";
 import { PLANES_FAQ } from "@/content/planes-faq";
+import {
+  EXTRA_CREDIT_PACK_CREDITS,
+  EXTRA_CREDIT_PACK_USD,
+  EXTRA_USER_USD,
+} from "@/content/pricing";
 
 const FAQ = PLANES_FAQ;
 
@@ -81,8 +86,18 @@ function PlanesHero() {
 
 function Addons() {
   const items = [
-    { price: "$20", unit: "recarga", label: "5.000 créditos extras",  sub: "≈500 conversaciones de emergencia cuando agotas la bolsa del mes." },
-    { price: "$9",  unit: "/mes", label: "Usuario / profesional extra", sub: "Suma asientos sin cambiar de plan." },
+    {
+      price: `$${EXTRA_CREDIT_PACK_USD}`,
+      unit: "recarga",
+      label: `${EXTRA_CREDIT_PACK_CREDITS.toLocaleString("es-CL")} créditos extras`,
+      sub: "≈500 conversaciones de emergencia cuando agotas la bolsa del mes.",
+    },
+    {
+      price: `$${EXTRA_USER_USD}`,
+      unit: "/mes",
+      label: "Usuario / profesional extra",
+      sub: "Suma asientos sin cambiar de plan.",
+    },
   ];
   return (
     <section style={{ padding: "80px 80px", background: "#fff", borderTop: "1px solid #F0F0F0" }}>
