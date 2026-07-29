@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-const LAST_UPDATED = "13 de julio de 2026";
+const LAST_UPDATED = "13 de marzo de 2026";
 
 export default function TerminosPage() {
   return (
