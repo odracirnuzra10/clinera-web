@@ -4,6 +4,7 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import PlanesV3 from "@/components/interior-v3/PlanesV3";
 import TrialBanner from "@/components/cro/TrialBanner";
 import { PLANES_FAQ } from "@/content/planes-faq";
+import { CLINERA_PLANS } from "@/content/pricing";
 
 export const metadata: Metadata = {
   title: "Planes y Precios — Clinera.io (desde USD 279/mes)",
@@ -25,9 +26,13 @@ const jsonLd = {
   name: "Clinera.io",
   description: "Software de IA para clínicas",
   offers: [
-    { "@type": "Offer", name: "Vortex", price: "279",  priceCurrency: "USD", url: "https://www.clinera.io/planes" },
-    { "@type": "Offer", name: "Atlas",  price: "379",  priceCurrency: "USD", url: "https://www.clinera.io/planes" },
-    { "@type": "Offer", name: "Summit", price: "479",  priceCurrency: "USD", url: "https://www.clinera.io/planes" },
+    ...CLINERA_PLANS.map((plan) => ({
+      "@type": "Offer",
+      name: plan.name,
+      price: String(plan.monthlyPrice),
+      priceCurrency: "USD",
+      url: "https://www.clinera.io/planes",
+    })),
     { "@type": "Offer", name: "Corporativo", price: "1900", priceCurrency: "USD", url: "https://www.clinera.io/planes", availability: "https://schema.org/PreOrder", description: "Plan personalizado desde USD 1.900/mes" },
   ],
 };
