@@ -1770,77 +1770,77 @@
     .photo-zone {
       position: absolute;
       z-index: 1;
-      border: 1.5px solid var(--violet);
-      border-radius: 50%;
-      background: rgba(124,58,237,.14);
+      border: 1px solid rgba(2,132,199,.62);
+      border-radius: 44%;
+      background: linear-gradient(135deg, rgba(56,189,248,.24), rgba(59,130,246,.16));
       box-shadow:
-        0 0 0 2px rgba(255,255,255,.72),
-        0 0 0 4px rgba(124,58,237,.12);
-    }
-    .photo-zone::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 4px;
-      height: 4px;
-      border: 1px solid #fff;
-      border-radius: 50%;
-      background: var(--violet);
-      transform: translate(-50%,-50%);
+        inset 0 0 12px rgba(186,230,253,.38),
+        0 0 0 1px rgba(255,255,255,.52);
+      backdrop-filter: saturate(1.12);
     }
     .face-map .zone-forehead {
       top: 22%;
       left: 50%;
-      width: 44%;
+      width: 46%;
       height: 12%;
       transform: translateX(-50%);
+      border-radius: 52% 52% 38% 38%;
     }
-    .face-map .zone-eye-left {
+    .face-map .zone-cheek-left {
+      top: 45%;
+      left: 13%;
+      width: 29%;
+      height: 16%;
+      transform: rotate(10deg);
+    }
+    .face-map .zone-cheek-right {
+      top: 45%;
+      right: 13%;
+      width: 29%;
+      height: 16%;
+      transform: rotate(-10deg);
+    }
+    .face-map .zone-nose {
       top: 42%;
-      left: 23%;
-      width: 19%;
-      height: 10%;
-    }
-    .face-map .zone-eye-right {
-      top: 42%;
-      right: 23%;
-      width: 19%;
-      height: 10%;
-    }
-    .face-map .zone-lips {
-      top: 64%;
       left: 50%;
-      width: 27%;
-      height: 8%;
+      width: 13%;
+      height: 21%;
       transform: translateX(-50%);
+      border-radius: 48% 48% 42% 42%;
+    }
+    .face-map .zone-chin {
+      top: 69%;
+      left: 50%;
+      width: 24%;
+      height: 9%;
+      transform: translateX(-50%);
+      border-radius: 42% 42% 56% 56%;
     }
     .body-map .photo-zone {
-      border-color: var(--magenta);
-      background: rgba(200,80,192,.17);
+      border-color: rgba(192,38,211,.52);
+      background: linear-gradient(135deg, rgba(232,121,249,.20), rgba(168,85,247,.14));
       box-shadow:
-        0 0 0 2px rgba(255,255,255,.72),
-        0 0 0 4px rgba(200,80,192,.12);
+        inset 0 0 12px rgba(250,232,255,.32),
+        0 0 0 1px rgba(255,255,255,.48);
     }
-    .body-map .photo-zone::after { background: var(--magenta); }
     .body-map .zone-abdomen {
-      top: 45%;
+      top: 46%;
       left: 50%;
-      width: 30%;
-      height: 11%;
+      width: 28%;
+      height: 9%;
       transform: translateX(-50%);
     }
     .body-map .zone-thigh-left {
       top: 60%;
-      left: 34%;
-      width: 14%;
-      height: 16%;
+      left: 35%;
+      width: 12%;
+      height: 15%;
     }
     .body-map .zone-thigh-right {
       top: 60%;
-      right: 34%;
-      width: 14%;
-      height: 16%;
+      right: 35%;
+      width: 12%;
+      height: 15%;
     }
     .clinical-map .outline {
       fill: rgba(255,255,255,.72);
@@ -3228,12 +3228,13 @@
                 <div class="clinical-map photo-map face-map" aria-label="Rostro real con zonas de tratamiento">
                   <img class="clinical-photo" src="../presentacion/assets/clinical-face-woman.webp" alt="Rostro frontal de una mujer para ficha estética facial" loading="lazy" />
                   <span class="photo-zone zone-forehead" aria-hidden="true"></span>
-                  <span class="photo-zone zone-eye-left" aria-hidden="true"></span>
-                  <span class="photo-zone zone-eye-right" aria-hidden="true"></span>
-                  <span class="photo-zone zone-lips" aria-hidden="true"></span>
+                  <span class="photo-zone zone-cheek-left" aria-hidden="true"></span>
+                  <span class="photo-zone zone-cheek-right" aria-hidden="true"></span>
+                  <span class="photo-zone zone-nose" aria-hidden="true"></span>
+                  <span class="photo-zone zone-chin" aria-hidden="true"></span>
                 </div>
                 <div class="record-fields">
-                  <div class="record-field"><b>Zonas tratadas</b><span>Frente · periocular · labios</span></div>
+                  <div class="record-field"><b>Zonas tratadas</b><span>Frente · pómulos · nariz · mentón</span></div>
                   <div class="record-field"><b>Protocolo y dosis</b><span>Detalle por producto y sesión</span></div>
                   <div class="record-field"><b>Evolución fotográfica</b><span>Antes · control · resultado</span></div>
                 </div>
