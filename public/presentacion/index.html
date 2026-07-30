@@ -6,7 +6,7 @@
   <title>Clinera — Gestión clínica centralizada con IA</title>
   <meta
     name="description"
-    content="Presentación de Clinera: gestión clínica centralizada, módulos integrados e IA Aura para reducir la carga administrativa."
+    content="Presentación de Clinera: gestión clínica centralizada, módulos integrados y Clinera Intelligence para reducir la carga administrativa."
   />
   <meta name="robots" content="noindex,nofollow" />
   <meta name="theme-color" content="#f8fafc" />
@@ -30,6 +30,10 @@
       --mint: #10b981;
       --mint-soft: #e9fbf4;
       --mint-deep: #047857;
+      --brand-cyan: #3b82f6;
+      --brand-violet: #7c3aed;
+      --brand-magenta: #d946ef;
+      --brand-gradient: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-violet) 52%, var(--brand-magenta) 100%);
       --display: "Outfit", sans-serif;
       --mono: "DM Mono", monospace;
       --ease: cubic-bezier(.22, .8, .25, 1);
@@ -387,89 +391,494 @@
       box-shadow: 0 0 0 5px rgba(110, 231, 183, .16);
     }
 
-    .aura-layout {
+    .intelligence-layout {
+      position: relative;
       display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(430px, 1.1fr);
+      grid-template-columns: minmax(360px, 1.45fr) minmax(190px, .76fr) minmax(300px, 1.08fr);
       align-items: center;
-      gap: clamp(42px, 7vw, 96px);
+      gap: clamp(20px, 2.4vw, 32px);
     }
 
-    .aura-stage {
-      position: relative;
-      min-height: min(68vh, 650px);
+    .intelligence-panel-label {
+      margin: 0 0 14px;
+      color: #7a8291;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .intelligence-source-grid {
       display: grid;
-      place-items: center;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
     }
 
-    .aura-stage::before,
-    .aura-stage::after {
-      content: "";
-      position: absolute;
-      border: 1px solid rgba(16, 185, 129, .24);
-      border-radius: 50%;
-    }
-
-    .aura-stage::before {
-      width: min(42vw, 510px);
-      height: min(42vw, 510px);
-    }
-
-    .aura-stage::after {
-      width: min(32vw, 390px);
-      height: min(32vw, 390px);
-      border-style: dashed;
-    }
-
-    .aura-image {
-      position: relative;
-      z-index: 2;
-      width: min(27vw, 330px);
-      aspect-ratio: 1;
-      overflow: hidden;
-      border: 8px solid var(--paper);
-      border-radius: 50%;
-      box-shadow: 0 0 0 1px var(--line);
-      background: var(--paper);
-    }
-
-    .aura-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .orbit-label {
-      position: absolute;
-      z-index: 3;
+    .intelligence-source,
+    .intelligence-action {
       display: flex;
       align-items: center;
-      gap: 9px;
-      min-width: 142px;
-      padding: 11px 13px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: rgba(255, 255, 255, .92);
-      color: var(--navy);
-      font-size: 12px;
-      font-weight: 600;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, .055);
-      backdrop-filter: blur(10px);
+      gap: 11px;
+      min-width: 0;
+      border-radius: 12px;
     }
 
-    .orbit-label span {
+    .intelligence-source {
+      min-height: 62px;
+      padding: 10px 12px;
+      border: 1px solid #eaeaea;
+      background: var(--paper);
+      box-shadow: 0 3px 12px rgba(15, 23, 42, .035);
+    }
+
+    .intelligence-icon {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid #ede9fe;
+      border-radius: 9px;
+      color: var(--brand-violet);
+      background: #f6f5ff;
+    }
+
+    .intelligence-icon svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .intelligence-source b,
+    .intelligence-source small,
+    .intelligence-action b,
+    .intelligence-action small {
+      display: block;
+      min-width: 0;
+    }
+
+    .intelligence-source b {
+      color: #111318;
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.2;
+    }
+
+    .intelligence-source small {
+      margin-top: 2px;
+      color: #717988;
+      font-size: 10.5px;
+      line-height: 1.25;
+    }
+
+    .intelligence-core {
+      position: relative;
+      min-height: 410px;
+      display: grid;
+      align-content: center;
+      place-items: center;
+      text-align: center;
+    }
+
+    .intelligence-flow {
+      position: absolute;
+      z-index: 0;
+      top: 45%;
+      left: -42px;
+      width: calc(100% + 84px);
+      height: 1px;
+      overflow: visible;
+      background: linear-gradient(90deg, transparent, rgba(124, 58, 237, .28) 18%, rgba(124, 58, 237, .28) 82%, transparent);
+    }
+
+    .intelligence-flow span {
+      position: absolute;
+      top: -3px;
+      left: 0;
       width: 7px;
       height: 7px;
-      flex: 0 0 auto;
       border-radius: 50%;
-      background: var(--mint);
+      background: var(--brand-violet);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, .1);
+      opacity: 0;
     }
 
-    .orbit-label.one { top: 13%; left: 5%; }
-    .orbit-label.two { top: 12%; right: 2%; }
-    .orbit-label.three { top: 44%; left: -2%; }
-    .orbit-label.four { top: 43%; right: -3%; }
-    .orbit-label.five { bottom: 12%; left: 7%; }
-    .orbit-label.six { right: 4%; bottom: 13%; }
+    .intelligence-flow span:nth-child(2) {
+      animation-delay: 1.35s !important;
+    }
+
+    .intelligence-flow span:nth-child(3) {
+      animation-delay: 2.7s !important;
+    }
+
+    .intelligence-orbit {
+      position: absolute;
+      z-index: 1;
+      width: 194px;
+      height: 194px;
+      border: 1px solid rgba(124, 58, 237, .2);
+      border-radius: 50%;
+    }
+
+    .intelligence-orbit::before,
+    .intelligence-orbit::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .intelligence-orbit::before {
+      inset: 13px;
+      border: 1px dashed rgba(124, 58, 237, .25);
+    }
+
+    .intelligence-orbit::after {
+      top: 16px;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background: var(--brand-cyan);
+      box-shadow: 0 0 0 5px rgba(59, 130, 246, .1);
+      transform: translateX(-50%);
+    }
+
+    .intelligence-mark {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      width: 144px;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 6px solid rgba(255, 255, 255, .85);
+      border-radius: 50%;
+      color: var(--paper);
+      background: var(--brand-gradient);
+      box-shadow:
+        0 0 0 2px rgba(124, 58, 237, .28),
+        0 24px 52px -22px rgba(124, 58, 237, .68);
+    }
+
+    .intelligence-mark svg {
+      width: 58px;
+      height: 58px;
+    }
+
+    .intelligence-mark::after {
+      content: "";
+      position: absolute;
+      inset: 15px;
+      border: 1px solid rgba(255, 255, 255, .24);
+      border-radius: 50%;
+    }
+
+    .intelligence-name {
+      position: relative;
+      z-index: 2;
+      margin-top: 22px;
+      color: #111318;
+      font-size: 19px;
+      font-weight: 750;
+      letter-spacing: -.035em;
+    }
+
+    .intelligence-caption {
+      position: relative;
+      z-index: 2;
+      margin-top: 7px;
+      color: var(--brand-violet);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .intelligence-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .intelligence-action {
+      min-height: 72px;
+      padding: 12px 14px;
+      border: 1px solid #272331;
+      color: var(--paper);
+      background: #111318;
+      box-shadow: 0 12px 28px -20px rgba(124, 58, 237, .6);
+    }
+
+    .intelligence-action .intelligence-icon {
+      border-color: rgba(124, 58, 237, .42);
+      color: #d8b4fe;
+      background: rgba(124, 58, 237, .18);
+    }
+
+    .intelligence-action b {
+      color: var(--paper);
+      font-size: 13.5px;
+      font-weight: 650;
+      line-height: 1.2;
+    }
+
+    .intelligence-action small {
+      margin-top: 3px;
+      color: rgba(255, 255, 255, .58);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .slide.active .intelligence-source,
+    .slide.active .intelligence-action {
+      opacity: 0;
+      animation: intelligenceCardIn .52s var(--ease) forwards;
+      animation-delay: var(--delay);
+    }
+
+    .slide.active .intelligence-mark {
+      animation: intelligenceFloat 4s ease-in-out infinite;
+    }
+
+    .slide.active .intelligence-mark svg {
+      animation: intelligenceSpark 2.4s ease-in-out infinite;
+    }
+
+    .slide.active .intelligence-orbit {
+      animation: intelligenceOrbit 10s linear infinite;
+    }
+
+    .slide.active .intelligence-flow span {
+      animation: intelligenceData 4s linear infinite;
+    }
+
+    @keyframes intelligenceCardIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes intelligenceFloat {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.025); }
+    }
+
+    @keyframes intelligenceSpark {
+      0%, 100% { transform: scale(.9) rotate(0deg); opacity: .9; }
+      50% { transform: scale(1.08) rotate(8deg); opacity: 1; }
+    }
+
+    @keyframes intelligenceOrbit {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes intelligenceData {
+      0% { left: 0; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { left: calc(100% - 7px); opacity: 0; }
+    }
+
+    .intelligence-layout::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      left: 48%;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(124, 58, 237, .045);
+      filter: blur(14px);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .intelligence-source-panel,
+    .intelligence-action-panel {
+      min-width: 0;
+    }
+
+    .intelligence-action-panel .intelligence-panel-label {
+      padding-left: 2px;
+    }
+
+    .intelligence-source > span:last-child,
+    .intelligence-action > span:last-child {
+      min-width: 0;
+    }
+
+    .intelligence-source small,
+    .intelligence-action small {
+      overflow-wrap: anywhere;
+    }
+
+    .intelligence-source:hover {
+      border-color: #ddd6fe;
+      background: #fdfcff;
+    }
+
+    .intelligence-action:hover {
+      border-color: rgba(124, 58, 237, .55);
+      background: #15131c;
+    }
+
+    .intelligence-source,
+    .intelligence-action {
+      transition:
+        border-color .24s ease,
+        background .24s ease,
+        transform .24s ease;
+    }
+
+    .intelligence-source:hover,
+    .intelligence-action:hover {
+      transform: translateY(-2px);
+    }
+
+    .intelligence-core[aria-label] {
+      outline: none;
+    }
+
+    .intelligence-flow,
+    .intelligence-orbit {
+      pointer-events: none;
+    }
+
+    .intelligence-mark,
+    .intelligence-name,
+    .intelligence-caption {
+      user-select: none;
+    }
+
+    .intelligence-mark {
+      will-change: transform;
+    }
+
+    .intelligence-orbit {
+      will-change: transform;
+    }
+
+    .intelligence-source,
+    .intelligence-action {
+      will-change: transform, opacity;
+    }
+
+    .intelligence-panel-label::before {
+      content: "";
+      display: inline-block;
+      width: 18px;
+      height: 1px;
+      margin-right: 9px;
+      vertical-align: middle;
+      background: currentColor;
+      opacity: .58;
+    }
+
+    .intelligence-action-panel .intelligence-panel-label {
+      color: var(--brand-violet);
+    }
+
+    .intelligence-source-panel .intelligence-panel-label {
+      color: #717988;
+    }
+
+    .intelligence-core {
+      isolation: isolate;
+    }
+
+    .intelligence-mark {
+      overflow: hidden;
+    }
+
+    .intelligence-mark::before {
+      content: "";
+      position: absolute;
+      width: 48%;
+      height: 180%;
+      top: -40%;
+      left: -70%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .28), transparent);
+      transform: rotate(22deg);
+    }
+
+    .slide.active .intelligence-mark::before {
+      animation: intelligenceSweep 3.8s ease-in-out infinite;
+    }
+
+    @keyframes intelligenceSweep {
+      0%, 18% { left: -70%; }
+      48%, 100% { left: 125%; }
+    }
+
+    .intelligence-source span,
+    .intelligence-action span {
+      position: relative;
+    }
+
+    .intelligence-source .intelligence-icon,
+    .intelligence-action .intelligence-icon {
+      overflow: hidden;
+    }
+
+    .intelligence-source .intelligence-icon::after,
+    .intelligence-action .intelligence-icon::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .34), transparent 58%);
+      pointer-events: none;
+    }
+
+    .intelligence-action .intelligence-icon::after {
+      background: linear-gradient(135deg, rgba(255, 255, 255, .1), transparent 58%);
+    }
+
+    .intelligence-source svg,
+    .intelligence-action svg {
+      position: relative;
+      z-index: 1;
+    }
+
+    .intelligence-flow::before,
+    .intelligence-flow::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      width: 5px;
+      height: 5px;
+      border-top: 1px solid rgba(124, 58, 237, .36);
+      border-right: 1px solid rgba(124, 58, 237, .36);
+      transform: rotate(45deg);
+    }
+
+    .intelligence-flow::before {
+      left: 20%;
+    }
+
+    .intelligence-flow::after {
+      right: 20%;
+    }
+
+    .intelligence-mark svg {
+      position: relative;
+      z-index: 2;
+    }
+
+    .intelligence-core-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .intelligence-source,
+    .intelligence-action {
+      display: flex;
+    }
 
     .modules-head {
       display: grid;
@@ -963,7 +1372,7 @@
 
     @media (max-width: 980px) {
       .hero-grid,
-      .aura-layout,
+      .intelligence-layout,
       .modules-head,
       .launch-head {
         grid-template-columns: 1fr;
@@ -989,26 +1398,21 @@
         object-position: center 30%;
       }
 
-      .aura-layout {
-        gap: 28px;
+      .intelligence-layout {
+        gap: 32px;
       }
 
-      .aura-stage {
-        min-height: 470px;
+      .intelligence-core {
+        min-height: 300px;
+        order: -1;
       }
 
-      .aura-stage::before {
-        width: 420px;
-        height: 420px;
+      .intelligence-flow {
+        display: none;
       }
 
-      .aura-stage::after {
-        width: 320px;
-        height: 320px;
-      }
-
-      .aura-image {
-        width: 250px;
+      .intelligence-source-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .modules-head,
@@ -1088,30 +1492,65 @@
         border-radius: 16px;
       }
 
-      .aura-stage {
-        min-height: 0;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .intelligence-layout {
+        gap: 28px;
+      }
+
+      .intelligence-core {
+        min-height: 248px;
+      }
+
+      .intelligence-orbit {
+        width: 168px;
+        height: 168px;
+      }
+
+      .intelligence-mark {
+        width: 122px;
+      }
+
+      .intelligence-mark svg {
+        width: 48px;
+        height: 48px;
+      }
+
+      .intelligence-name {
+        margin-top: 18px;
+        font-size: 18px;
+      }
+
+      .intelligence-panel-label {
+        margin-bottom: 11px;
+        font-size: 9px;
+      }
+
+      .intelligence-source-grid,
+      .intelligence-actions {
         gap: 8px;
-        margin: 24px 0 0;
       }
 
-      .aura-stage::before,
-      .aura-stage::after {
-        display: none;
-      }
-
-      .aura-image {
-        grid-column: 1 / -1;
-        width: 190px;
-        margin: 0 auto 14px;
-        border-width: 6px;
-      }
-
-      .orbit-label {
-        position: static;
-        width: 100%;
-        min-width: 122px;
+      .intelligence-source {
+        min-height: 58px;
         padding: 9px 10px;
+      }
+
+      .intelligence-action {
+        min-height: 66px;
+        padding: 11px 12px;
+      }
+
+      .intelligence-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .intelligence-source b,
+      .intelligence-action b {
+        font-size: 12px;
+      }
+
+      .intelligence-source small,
+      .intelligence-action small {
         font-size: 10px;
       }
 
@@ -1202,8 +1641,32 @@
         height: 62vh;
       }
 
-      .aura-stage {
-        min-height: 520px;
+      .intelligence-core {
+        min-height: 340px;
+      }
+
+      .intelligence-source-grid,
+      .intelligence-actions {
+        gap: 8px;
+      }
+
+      .intelligence-source {
+        min-height: 54px;
+        padding: 8px 10px;
+      }
+
+      .intelligence-action {
+        min-height: 64px;
+        padding: 10px 12px;
+      }
+
+      .intelligence-mark {
+        width: 124px;
+      }
+
+      .intelligence-orbit {
+        width: 170px;
+        height: 170px;
       }
 
       .module-workspace {
@@ -1273,29 +1736,155 @@
       <section
         class="slide"
         id="aura"
-        data-name="IA Aura"
+        data-name="Clinera Intelligence"
         data-theme="light"
         aria-hidden="true"
       >
-        <div class="slide-inner aura-layout">
-          <div>
-            <div class="eyebrow">IA Aura · dentro de Clinera</div>
-            <h2 class="display medium">
-              Clinera: toda tu clínica centralizada en una sola plataforma con la
-              <span class="accent">IA Aura.</span>
-            </h2>
-            <p class="lead">Una compañera de trabajo más para tu equipo.</p>
-          </div>
-          <div class="aura-stage reveal" aria-label="Funciones de la IA Aura">
-            <div class="aura-image">
-              <img src="/agents/aura-fullbody.png" alt="Aura, asistente de inteligencia artificial de Clinera" loading="lazy" />
+        <div class="slide-inner intelligence-layout reveal">
+          <div class="intelligence-source-panel">
+            <h2 class="intelligence-panel-label">Toda tu operación la alimenta</h2>
+            <div class="intelligence-source-grid">
+              <article class="intelligence-source" style="--delay:.20s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="17" rx="2"></rect>
+                    <path d="M3 9h18M8 2v4M16 2v4"></path>
+                  </svg>
+                </span>
+                <span><b>Agenda</b><small>Horas y bloqueos</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.26s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 21h18M5 21V8l7-5 7 5v13M10 21v-5h4v5"></path>
+                  </svg>
+                </span>
+                <span><b>Sedes</b><small>Toda tu operación</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.32s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 13h6M9 17h6"></path>
+                  </svg>
+                </span>
+                <span><b>Fichas</b><small>Historial de cada paciente</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.38s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m12 3 1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"></path>
+                  </svg>
+                </span>
+                <span><b>Tratamientos</b><small>Precios y protocolos</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.44s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v18h18M7 15l3-4 3 2 5-6"></path>
+                  </svg>
+                </span>
+                <span><b>Ventas</b><small>Qué se vende y cuánto</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.50s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                    <path d="M2 10h20"></path>
+                  </svg>
+                </span>
+                <span><b>Pagos</b><small>Cobros y conciliación</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.56s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m3 11 16-5v13L3 14zM11 15.5A3 3 0 0 1 5.5 14"></path>
+                  </svg>
+                </span>
+                <span><b>Marketing</b><small>Campañas y difusiones</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.62s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"></path>
+                  </svg>
+                </span>
+                <span><b>WhatsApp</b><small>Toda la conversación</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.68s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 15l1.5 1.5L14 13"></path>
+                  </svg>
+                </span>
+                <span><b>Consentimientos</b><small>Firmados y archivados</small></span>
+              </article>
+              <article class="intelligence-source" style="--delay:.74s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                  </svg>
+                </span>
+                <span><b>Exámenes</b><small>Resultados y controles</small></span>
+              </article>
             </div>
-            <div class="orbit-label one"><span aria-hidden="true"></span>Agenda y reagenda</div>
-            <div class="orbit-label two"><span aria-hidden="true"></span>Identifica pacientes</div>
-            <div class="orbit-label three"><span aria-hidden="true"></span>Documenta atenciones</div>
-            <div class="orbit-label four"><span aria-hidden="true"></span>Confirma y recupera</div>
-            <div class="orbit-label five"><span aria-hidden="true"></span>Cobra y da seguimiento</div>
-            <div class="orbit-label six"><span aria-hidden="true"></span>Analiza la operación</div>
+          </div>
+
+          <div class="intelligence-core" aria-label="Logo animado de Clinera Intelligence">
+            <div class="intelligence-flow" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="intelligence-orbit" aria-hidden="true"></div>
+            <div class="intelligence-mark" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none">
+                <path
+                  d="M32 6c2.9 14.3 11.7 23.1 26 26-14.3 2.9-23.1 11.7-26 26C29.1 43.7 20.3 34.9 6 32 20.3 29.1 29.1 20.3 32 6Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <div class="intelligence-core-copy">
+              <div class="intelligence-name">Clinera Intelligence</div>
+              <div class="intelligence-caption">Contexto · decisiones · acción</div>
+            </div>
+          </div>
+
+          <div class="intelligence-action-panel">
+            <h2 class="intelligence-panel-label">Clinera Intelligence actúa</h2>
+            <div class="intelligence-actions">
+              <article class="intelligence-action" style="--delay:.36s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="17" rx="2"></rect>
+                    <path d="M3 9h18M8 2v4M16 2v4M9 15l2 2 4-4"></path>
+                  </svg>
+                </span>
+                <span><b>Agenda y reagenda</b><small>Reserva y mueve horas sola</small></span>
+              </article>
+              <article class="intelligence-action" style="--delay:.46s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"></path>
+                  </svg>
+                </span>
+                <span><b>Responde 24/7</b><small>Por WhatsApp, sin descanso</small></span>
+              </article>
+              <article class="intelligence-action" style="--delay:.56s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </span>
+                <span><b>Cobra y recupera</b><small>Confirma pagos, reactiva pacientes</small></span>
+              </article>
+              <article class="intelligence-action" style="--delay:.66s">
+                <span class="intelligence-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m13 2-10 12h8l-1 8 10-12h-8z"></path>
+                  </svg>
+                </span>
+                <span><b>Automatiza</b><small>Flujos que se disparan solos</small></span>
+              </article>
+            </div>
           </div>
         </div>
       </section>
