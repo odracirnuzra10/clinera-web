@@ -66,7 +66,8 @@ Mitzi Guajardo · Sub-gerente
      ├──────────────────────────┬───────────────────────────
      │                          │
  Jorge Cheul                Mauricio López
- Customer excellence        CTO
+ ● Canal 1 ·                ● Canal 2 · CTO
+   Customer excellence
      ├─ Rebeca Navarro          ├─ Jorge Quispe · Desarrollo
      │  Jefa soporte técnico    ├─ Daniel Rozitchner · Desarrollo
      ├─ Karla Barros            ├─ David Vásquez · Desarrollo
@@ -165,3 +166,8 @@ Si alguien retoma el deck, estas son las restricciones con las que se escribió:
 - Los nombres van completos la primera vez que aparecen.
 - Dos colores de acento y no más: cyan para el canal de Jorge Cheul, violeta
   para el de Mauricio López. Nunca los dos en un mismo degradado.
+- En el organigrama, el cargo de Cheul y el de Lopez van en el color de su
+  canal y los demás en gris: son el nodo que explica el resto del diagrama, y
+  ese color es el mismo que después identifica a las láminas 4 y 5. Para texto
+  se usa la variante oscurecida del acento (`--a1-ink` / `--a2-ink`), porque el
+  acento puro no da contraste suficiente a 12px.
