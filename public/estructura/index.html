@@ -233,6 +233,27 @@ body{
   color:var(--ink-3);
   margin-top:5px;
 }
+/* Los dos jefes de canal son el nodo que explica el resto del diagrama, asi
+   que su cargo no va en el gris mas tenue: toma el color de su propio canal,
+   el mismo que despues identifica a las laminas 4 y 5. El tono --c-ink es la
+   version oscurecida del acento, para que a 12px siga siendo legible. */
+.node__role--canal{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  font-size:12.5px;
+  font-weight:500;
+  color:var(--c-ink);
+  margin-top:8px;
+}
+.node__role--canal::before{
+  content:'';
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--c);
+  flex:none;
+}
 .fork{position:relative;height:34px;width:100%}
 .fork i{position:absolute;display:block;background:var(--line)}
 .fork__bar{left:0;top:0;width:var(--split);height:1px}
@@ -467,10 +488,10 @@ body{
             <i class="fork__leg fork__leg--b"></i>
           </div>
           <div class="org__cols">
-            <div class="branchgroup" style="--c:var(--a1)" data-anim>
+            <div class="branchgroup" style="--c:var(--a1);--c-ink:var(--a1-ink)" data-anim>
               <div class="branchgroup__head">
                 <span class="node__name">Jorge Cheul</span>
-                <span class="node__role">Customer excellence</span>
+                <span class="node__role node__role--canal">Canal 1 · Customer excellence</span>
               </div>
               <ul class="branch">
                 <li>
@@ -489,10 +510,10 @@ body{
                 </li>
               </ul>
             </div>
-            <div class="branchgroup" style="--c:var(--a2)" data-anim>
+            <div class="branchgroup" style="--c:var(--a2);--c-ink:var(--a2-ink)" data-anim>
               <div class="branchgroup__head">
                 <span class="node__name">Mauricio López</span>
-                <span class="node__role">CTO</span>
+                <span class="node__role node__role--canal">Canal 2 · CTO</span>
               </div>
               <ul class="branch">
                 <li><div class="person"><span class="person__name">Jorge Quispe</span><span class="person__role">Desarrollo</span></div></li>
