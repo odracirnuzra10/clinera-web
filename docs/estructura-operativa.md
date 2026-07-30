@@ -66,8 +66,7 @@ Mitzi Guajardo · Sub-gerente
      ├──────────────────────────┬───────────────────────────
      │                          │
  Jorge Cheul                Mauricio López
- ● Canal 1 ·                ● Canal 2 · CTO
-   Customer excellence
+ ● Canal 1 · COO            ● Canal 2 · CTO
      ├─ Rebeca Navarro          ├─ Jorge Quispe · Desarrollo
      │  Jefa soporte técnico    ├─ Daniel Rozitchner · Desarrollo
      ├─ Karla Barros            ├─ David Vásquez · Desarrollo
@@ -85,7 +84,7 @@ Mitzi Guajardo · Sub-gerente
 
 ## Lámina 4 — Canal 1
 
-**● CANAL 1 · CUSTOMER EXCELLENCE**
+**● CANAL 1 · COO**
 
 # Jorge Cheul
 
@@ -110,7 +109,7 @@ Mitzi Guajardo · Sub-gerente
 
 ## Lámina 5 — Canal 2
 
-**● CANAL 2 · TECNOLOGÍA**
+**● CANAL 2 · CTO**
 
 # Mauricio "Lopez" López
 
@@ -171,3 +170,10 @@ Si alguien retoma el deck, estas son las restricciones con las que se escribió:
   ese color es el mismo que después identifica a las láminas 4 y 5. Para texto
   se usa la variante oscurecida del acento (`--a1-ink` / `--a2-ink`), porque el
   acento puro no da contraste suficiente a 12px.
+- Sus nombres van en bloque sólido, el único elemento del deck con fondo
+  lleno. El bloque se arma con los tokens `--ink` y `--ground`, no con un negro
+  fijo, para que en tema oscuro se invierta solo en vez de desaparecer contra
+  el fondo.
+- Los cargos son siglas parejas, CTO y COO. Antes decía «Customer excellence»,
+  que además de ser el único texto en inglés dejaba fuera a contabilidad, que
+  también cuelga de Cheul.
