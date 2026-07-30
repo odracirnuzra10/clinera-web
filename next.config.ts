@@ -320,6 +320,14 @@ const nextConfig: NextConfig = {
         destination: '/hablar-con-ventas',
         permanent: true,
       },
+      // /organigrama es el nombre por el que la gente busca la presentacion de
+      // estructura operativa. Redirige en vez de servir el mismo HTML en dos
+      // rutas, asi la pagina indexable sigue siendo una sola.
+      {
+        source: '/organigrama',
+        destination: '/estructura',
+        permanent: true,
+      },
     ];
   },
 };
