@@ -388,7 +388,7 @@
       flex: 0 0 auto;
       border-radius: 50%;
       background: #009fe3;
-      box-shadow: 0 0 0 5px rgba(110, 231, 183, .16);
+      box-shadow: 0 0 0 5px rgba(0, 159, 227, .16);
     }
 
     .intelligence-layout {
@@ -397,6 +397,23 @@
       grid-template-columns: minmax(360px, 1.45fr) minmax(190px, .76fr) minmax(300px, 1.08fr);
       align-items: center;
       gap: clamp(20px, 2.4vw, 32px);
+    }
+
+    .intelligence-title {
+      grid-column: 1 / -1;
+      max-width: 900px;
+      margin: 0 auto -4px;
+      color: var(--navy);
+      font-size: clamp(28px, 2.8vw, 42px);
+      font-weight: 700;
+      letter-spacing: -.045em;
+      line-height: 1.06;
+      text-align: center;
+      text-wrap: balance;
+    }
+
+    .intelligence-title span {
+      color: var(--brand-violet);
     }
 
     .intelligence-panel-label {
@@ -1092,82 +1109,276 @@
       line-height: 1.45;
     }
 
-    .launch-head {
+    .migration-head {
       display: grid;
-      grid-template-columns: minmax(0, 1.06fr) minmax(320px, .94fr);
+      grid-template-columns: minmax(0, 1.2fr) minmax(330px, .8fr);
       align-items: end;
       gap: 48px;
-      margin-bottom: 38px;
+      margin-bottom: 28px;
     }
 
-    .launch-head .lead {
-      margin: 0 0 4px;
+    .migration-head .display {
+      max-width: 760px;
+      font-size: clamp(38px, 3.85vw, 58px);
     }
 
-    .steps {
+    .migration-head .lead {
+      max-width: 680px;
+      margin-top: 18px;
+    }
+
+    .engineer-card {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 48px 1fr;
+      align-items: center;
       gap: 16px;
-    }
-
-    .step {
-      min-height: 340px;
-      padding: clamp(22px, 2.4vw, 32px);
-      border: 1px solid var(--line);
+      min-height: 126px;
+      padding: 22px;
+      border: 1px solid #202737;
       border-radius: 16px;
-      background: var(--paper);
-    }
-
-    .step-number {
-      display: grid;
-      width: 38px;
-      height: 38px;
-      place-items: center;
-      margin-bottom: 30px;
-      border-radius: 9px;
       color: var(--paper);
       background: var(--navy);
-      font-family: var(--mono);
-      font-size: 12px;
     }
 
-    .step h3 {
-      min-height: 58px;
-      margin: 0 0 22px;
-      color: var(--navy);
-      font-size: clamp(20px, 1.65vw, 25px);
-      letter-spacing: -.03em;
-      line-height: 1.12;
+    .engineer-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border: 1px solid rgba(0, 159, 227, .34);
+      border-radius: 12px;
+      color: var(--brand-cyan);
+      background: rgba(0, 159, 227, .1);
     }
 
-    .step dl {
-      margin: 0;
+    .engineer-icon svg {
+      width: 25px;
+      height: 25px;
     }
 
-    .step dt {
-      margin: 18px 0 5px;
-      color: var(--mint-deep);
+    .engineer-card b,
+    .engineer-card span,
+    .engineer-card small {
+      display: block;
+    }
+
+    .engineer-card b {
+      margin-bottom: 3px;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -.02em;
+    }
+
+    .engineer-card span {
+      color: #d8e1ec;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .engineer-card small {
+      margin-top: 10px;
+      color: #85d8f5;
       font-family: var(--mono);
       font-size: 9px;
       font-weight: 500;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .migration-gantt {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+    }
+
+    .gantt-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .gantt-heading b {
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .gantt-heading span {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
       letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-    .step dd {
-      margin: 0;
-      color: var(--muted);
+    .migration-gantt-scroll {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+    }
+
+    .gantt-chart {
+      min-width: 780px;
+      padding: 16px 22px 20px;
+    }
+
+    .gantt-scale,
+    .gantt-row {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .gantt-scale {
+      margin-bottom: 10px;
+    }
+
+    .gantt-weeks {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      color: #7a8493;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .07em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .gantt-weeks span {
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .gantt-row + .gantt-row {
+      margin-top: 9px;
+    }
+
+    .gantt-label {
+      color: #536173;
+      font-size: 12px;
+      font-weight: 550;
+      line-height: 1.25;
+    }
+
+    .gantt-label small {
+      display: none;
+    }
+
+    .gantt-track {
+      display: grid;
+      grid-template-columns: repeat(30, minmax(0, 1fr));
+      min-height: 34px;
+      overflow: hidden;
+      border: 1px solid #e8edf3;
+      border-radius: 8px;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #fbfcfd 0,
+          #fbfcfd calc((100% / 30) - 1px),
+          #edf1f5 calc((100% / 30) - 1px),
+          #edf1f5 calc(100% / 30)
+        );
+    }
+
+    .gantt-bar {
+      z-index: 1;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      padding: 0 12px;
+      border-radius: 7px;
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .gantt-bar.old {
+      grid-column: 1 / 31;
+      color: #334155;
+      background: #e7ebf0;
+    }
+
+    .gantt-bar.configure {
+      grid-column: 1 / 24;
+      color: #006e9e;
+      background: #dff3fc;
+    }
+
+    .gantt-bar.live {
+      grid-column: 24 / 31;
+      justify-content: center;
+      color: var(--paper);
+      background: var(--brand-cyan);
+    }
+
+    .gantt-bar.overlap {
+      grid-column: 24 / 31;
+      justify-content: center;
+      color: var(--paper);
+      background: var(--navy);
+    }
+
+    .migration-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .migration-proof span {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: #526070;
+      background: rgba(255, 255, 255, .72);
       font-size: 13px;
-      line-height: 1.5;
+      font-weight: 500;
     }
 
-    .step:last-child {
-      background: var(--mint-soft);
-      border-color: #b9e8fa;
+    .migration-proof span::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--brand-cyan);
+      box-shadow: 0 0 0 4px rgba(0, 159, 227, .1);
     }
 
-    .step:last-child .step-number {
-      background: var(--mint-deep);
+    .slide.active .gantt-bar.configure,
+    .slide.active .gantt-bar.live,
+    .slide.active .gantt-bar.overlap {
+      transform-origin: left center;
+      animation: ganttGrow .72s var(--ease) both;
+    }
+
+    .slide.active .gantt-bar.live {
+      animation-delay: .28s;
+    }
+
+    .slide.active .gantt-bar.overlap {
+      animation-delay: .42s;
+    }
+
+    @keyframes ganttGrow {
+      from {
+        opacity: .25;
+        transform: scaleX(.04);
+      }
+      to {
+        opacity: 1;
+        transform: scaleX(1);
+      }
     }
 
     .closing {
@@ -1250,7 +1461,7 @@
       height: 68px;
       margin: 0 auto 28px;
       padding: 12px;
-      border: 1px solid rgba(110, 231, 183, .28);
+      border: 1px solid rgba(0, 159, 227, .28);
       border-radius: 18px;
       color: #009fe3;
       background: rgba(0, 159, 227, .08);
@@ -1374,7 +1585,7 @@
       .hero-grid,
       .intelligence-layout,
       .modules-head,
-      .launch-head {
+      .migration-head {
         grid-template-columns: 1fr;
       }
 
@@ -1402,6 +1613,10 @@
         gap: 32px;
       }
 
+      .intelligence-title {
+        order: -2;
+      }
+
       .intelligence-core {
         min-height: 300px;
         order: -1;
@@ -1416,25 +1631,17 @@
       }
 
       .modules-head,
-      .launch-head {
+      .migration-head {
         gap: 18px;
       }
 
       .modules-head .lead,
-      .launch-head .lead {
+      .migration-head .lead {
         margin: 0;
       }
 
-      .steps {
+      .migration-proof {
         grid-template-columns: 1fr;
-      }
-
-      .step {
-        min-height: 0;
-      }
-
-      .step h3 {
-        min-height: 0;
       }
     }
 
@@ -1494,6 +1701,12 @@
 
       .intelligence-layout {
         gap: 28px;
+      }
+
+      .intelligence-title {
+        margin-bottom: -6px;
+        font-size: clamp(29px, 8vw, 38px);
+        text-align: left;
       }
 
       .intelligence-core {
@@ -1583,16 +1796,88 @@
         align-items: start;
       }
 
-      .launch-head {
+      .migration-head {
         margin-bottom: 26px;
       }
 
-      .step {
-        padding: 22px;
+      .migration-head .display {
+        font-size: clamp(34px, 9.2vw, 45px);
       }
 
-      .step-number {
-        margin-bottom: 20px;
+      .engineer-card {
+        grid-template-columns: 42px 1fr;
+        min-height: 0;
+        padding: 18px;
+      }
+
+      .engineer-icon {
+        width: 42px;
+        height: 42px;
+      }
+
+      .gantt-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+        padding: 15px 18px;
+      }
+
+      .gantt-chart {
+        min-width: 0;
+        padding: 14px 18px 18px;
+      }
+
+      .gantt-scale,
+      .gantt-row {
+        grid-template-columns: 108px minmax(0, 1fr);
+        gap: 8px;
+      }
+
+      .gantt-label {
+        font-size: 10px;
+      }
+
+      .gantt-label small {
+        display: block;
+        margin-top: 3px;
+        color: var(--mint-deep);
+        font-family: var(--mono);
+        font-size: 7px;
+        font-weight: 500;
+        letter-spacing: .03em;
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .gantt-bar {
+        overflow: hidden;
+        padding-inline: 7px;
+        font-size: 8px;
+        text-overflow: clip;
+      }
+
+      .gantt-bar.live,
+      .gantt-bar.overlap {
+        padding-inline: 2px;
+        font-size: 7px;
+      }
+
+      .gantt-bar.overlap {
+        color: transparent;
+      }
+
+      .gantt-bar.overlap::after {
+        content: "7 días";
+        color: var(--paper);
+      }
+
+      .migration-proof {
+        gap: 7px;
+      }
+
+      .migration-proof span {
+        padding: 9px 12px;
+        font-size: 12px;
       }
 
       .progress {
@@ -1673,12 +1958,25 @@
         min-height: 340px;
       }
 
-      .step {
-        min-height: 310px;
+      .migration-head {
+        margin-bottom: 20px;
       }
 
-      .step-number {
-        margin-bottom: 22px;
+      .migration-head .display {
+        font-size: clamp(34px, 3.55vw, 52px);
+      }
+
+      .engineer-card {
+        min-height: 108px;
+        padding: 18px;
+      }
+
+      .gantt-heading {
+        padding-block: 13px;
+      }
+
+      .gantt-chart {
+        padding-block: 12px 16px;
       }
     }
 
@@ -1741,6 +2039,10 @@
         aria-hidden="true"
       >
         <div class="slide-inner intelligence-layout reveal">
+          <h2 class="intelligence-title">
+            <span>Clinera Intelligence:</span> el sistema operativo de tu clínica con IA
+          </h2>
+
           <div class="intelligence-source-panel">
             <h2 class="intelligence-panel-label">Toda tu operación la alimenta</h2>
             <div class="intelligence-source-grid">
@@ -1891,130 +2193,82 @@
 
       <section
         class="slide"
-        id="modulos"
-        data-name="Módulos integrados"
+        id="puesta-en-marcha"
+        data-name="Migración E2E"
         data-theme="light"
         aria-hidden="true"
       >
         <div class="slide-inner">
-          <div class="modules-head">
+          <div class="migration-head">
             <div>
-              <div class="eyebrow">Información clínica en un solo lugar</div>
-              <h2 class="display medium">Módulos clínicos integrados.</h2>
+              <div class="eyebrow">Migración E2E · 1 mes</div>
+              <h2 class="display medium">Un ingeniero E2E migra y configura tu cuenta en un mes.</h2>
+              <p class="lead">
+                Te acompaña desde tu software actual hasta Clinera, sin detener la operación.
+              </p>
             </div>
-            <p class="lead">
-              Una suite completa para gestionar la atención del paciente de forma fluida, organizando
-              historial, diagnósticos y tratamientos en un solo lugar.
-            </p>
+            <aside class="engineer-card reveal" aria-label="Ingeniero E2E asignado">
+              <span class="engineer-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="4"></circle>
+                  <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+                  <path d="m17.5 11.5 1.2 1.2 2.3-2.5"></path>
+                </svg>
+              </span>
+              <span>
+                <b>Ingeniero E2E asignado</b>
+                <span>Un responsable de principio a fin.</span>
+                <small>Migración · configuración · validación · salida en vivo</small>
+              </span>
+            </aside>
           </div>
 
-          <div class="reveal">
-            <div class="module-workspace" aria-label="Vista de una ficha médica general">
-              <aside class="module-sidebar" aria-hidden="true">
-                <div class="sidebar-title">Módulos clínicos</div>
-                <div class="sidebar-item active">Ficha general</div>
-                <div class="sidebar-item">Antecedentes</div>
-                <div class="sidebar-item">Diagnósticos</div>
-                <div class="sidebar-item">Tratamientos</div>
-                <div class="sidebar-item">Documentos</div>
-              </aside>
-              <div class="module-main">
-                <div class="module-toolbar">
-                  <div class="patient">
-                    <span class="patient-avatar" aria-hidden="true">CM</span>
-                    <span>
-                      <b>Ficha médica general</b>
-                      <small>Paciente · registro central</small>
-                    </span>
+          <div class="migration-gantt reveal">
+            <div class="gantt-heading">
+              <b>Plan de migración y continuidad operativa</b>
+              <span>30 días · sin corte de servicio</span>
+            </div>
+            <div class="migration-gantt-scroll">
+              <div class="gantt-chart" role="img" aria-label="Carta Gantt de 30 días. Durante los últimos 7 días, el software antiguo y Clinera permanecen activos en paralelo.">
+                <div class="gantt-scale" aria-hidden="true">
+                  <span></span>
+                  <div class="gantt-weeks">
+                    <span>Semana 1</span>
+                    <span>Semana 2</span>
+                    <span>Semana 3</span>
+                    <span>Semana 4</span>
                   </div>
-                  <span class="record-state">Actualizada</span>
                 </div>
-                <div class="record-grid">
-                  <div class="record-field">
-                    <span>Historial clínico</span>
-                    <b>Antecedentes, alergias y evolución del paciente.</b>
+                <div class="gantt-row">
+                  <div class="gantt-label">Software antiguo</div>
+                  <div class="gantt-track">
+                    <div class="gantt-bar old">Activo durante la migración</div>
                   </div>
-                  <div class="record-field">
-                    <span>Diagnósticos</span>
-                    <b>Registro ordenado por fecha y profesional.</b>
+                </div>
+                <div class="gantt-row">
+                  <div class="gantt-label">Clinera</div>
+                  <div class="gantt-track">
+                    <div class="gantt-bar configure">Migración y configuración</div>
+                    <div class="gantt-bar live">Activa</div>
                   </div>
-                  <div class="record-field wide">
-                    <span>Tratamientos</span>
-                    <b>Plan, indicaciones, controles y documentos asociados en una sola vista.</b>
+                </div>
+                <div class="gantt-row">
+                  <div class="gantt-label">
+                    Operación en paralelo
+                    <small>7 días · ambos activos</small>
+                  </div>
+                  <div class="gantt-track">
+                    <div class="gantt-bar overlap">7 días · ambos activos</div>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div class="security-note">
-              <span class="security-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-                  <rect x="5" y="10" width="14" height="10" rx="2"></rect>
-                  <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
-                  <path d="M12 14v2.5"></path>
-                </svg>
-              </span>
-              <span>
-                <b>100% seguro y regulado</b>
-                <span>
-                  Cumplimiento estricto de las leyes de derechos e información del paciente y estándares
-                  avanzados de ciberseguridad y encriptación de datos.
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="slide"
-        id="puesta-en-marcha"
-        data-name="Puesta en marcha"
-        data-theme="light"
-        aria-hidden="true"
-      >
-        <div class="slide-inner">
-          <div class="launch-head">
-            <div>
-              <div class="eyebrow">Implementación acompañada</div>
-              <h2 class="display medium">Puesta en marcha rápida, fluida y acompañada en todo momento.</h2>
-            </div>
-            <p class="lead">
-              Implementamos Clinera en tu centro médico en tres sencillos pasos, sin interrupciones en tu operación diaria.
-            </p>
           </div>
 
-          <div class="steps reveal">
-            <article class="step">
-              <div class="step-number">01</div>
-              <h3>Conexión: migración y configuración</h3>
-              <dl>
-                <dt>Traspaso seguro</dt>
-                <dd>Migramos la base de datos de tus pacientes e historial clínico sin pérdida de información.</dd>
-                <dt>A tu medida</dt>
-                <dd>Parametrizamos los módulos según los flujos específicos de tu clínica.</dd>
-              </dl>
-            </article>
-
-            <article class="step">
-              <div class="step-number">02</div>
-              <h3>Capacitación y entrega</h3>
-              <dl>
-                <dt>Entrenamiento práctico</dt>
-                <dd>Capacitamos a médicos, recepcionistas y personal administrativo en el uso del sistema y la IA Aura.</dd>
-                <dt>Entrega oficial</dt>
-                <dd>Te entregamos la plataforma 100% lista para operar desde el primer día.</dd>
-              </dl>
-            </article>
-
-            <article class="step">
-              <div class="step-number">03</div>
-              <h3>Acompañamiento continuo</h3>
-              <dl>
-                <dt>Soporte dedicado</dt>
-                <dd>No te dejamos solo: cuentas con asistencia técnica y acompañamiento constante después de la implementación.</dd>
-              </dl>
-            </article>
+          <div class="migration-proof reveal" aria-label="Compromisos de implementación">
+            <span>1 ingeniero E2E dedicado</span>
+            <span>30 días de implementación</span>
+            <span>7 días con ambos sistemas activos</span>
           </div>
         </div>
       </section>
@@ -2054,7 +2308,7 @@
     </main>
 
     <div class="progress" id="progress" aria-hidden="true">
-      <div class="progress-count"><span id="currentCount">01</span> / <span id="totalCount">05</span></div>
+      <div class="progress-count"><span id="currentCount">01</span> / <span id="totalCount">04</span></div>
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
