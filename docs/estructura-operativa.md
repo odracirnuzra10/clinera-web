@@ -1,10 +1,17 @@
 # Nueva estructura operativa — Clinera.io
 
-Presentación interna de 6 láminas para comunicar el organigrama y la regla de
-los dos canales de entrada. El deck vive en
-[`estructura-operativa.html`](./estructura-operativa.html): es un archivo
+Presentación de 6 láminas para comunicar el organigrama y la regla de los dos
+canales de entrada. El deck se publica en
+[`/estructura`](https://www.clinera.io/estructura) y el archivo vive en
+[`public/estructura/index.html`](../public/estructura/index.html): es
 autocontenido (las tipografías Outfit y JetBrains Mono van incrustadas en
 base64), así que se abre en cualquier navegador sin conexión ni dependencias.
+
+Ojo: la página es pública e indexable, a diferencia de las otras internas del
+repo (`/lopez`, `/rebeca`, `/capacitacion-interna`), que llevan
+`noindex,nofollow`. Fue una decisión explícita. Si en algún momento se quiere
+sacar de Google, basta agregar `<meta name="robots" content="noindex,nofollow">`
+al `<head>`.
 
 - Navegación: `←` `→`, barra espaciadora, `Inicio` / `Fin`, o swipe en táctil.
 - `N` abre y cierra las notas del orador.

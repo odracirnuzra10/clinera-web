@@ -222,6 +222,10 @@ const nextConfig: NextConfig = {
         source: '/rebeca',
         destination: '/rebeca/index.html',
       },
+      {
+        source: '/estructura',
+        destination: '/estructura/index.html',
+      },
     ];
   },
   async redirects() {
