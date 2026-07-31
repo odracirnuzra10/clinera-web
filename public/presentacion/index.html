@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Clinera — Gestión clínica centralizada con IA</title>
+  <title>Clinera — Presentación</title>
   <meta
     name="description"
-    content="Presentación de Clinera: gestión clínica centralizada, módulos integrados y Clinera Intelligence para reducir la carga administrativa."
+    content="Clinera centraliza la operación de tu clínica y suma inteligencia artificial a la gestión diaria."
   />
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="theme-color" content="#f8fafc" />
+  <meta name="theme-color" content="#fbfbfa" />
   <link rel="canonical" href="https://www.clinera.io/presentacion" />
-  <link rel="icon" href="/favicon.png" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23009FE3'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -20,26 +20,24 @@
   />
   <style>
     :root {
-      --canvas: #f8fafc;
+      --canvas: #fbfbfa;
       --paper: #ffffff;
-      --navy: #0f172a;
-      --ink: #111827;
-      --muted: #64748b;
-      --line: #dfe5ec;
-      --line-strong: #cbd5e1;
-      --mint: #009fe3;
-      --mint-soft: #e1f3fe;
-      --mint-deep: #0079ad;
-      --brand-cyan: #009fe3;
-      --brand-violet: #7c3aed;
-      --brand-magenta: #c850c0;
-      --brand-gradient: linear-gradient(135deg, var(--brand-cyan) 0%, var(--brand-violet) 52%, var(--brand-magenta) 100%);
+      --ink: #111318;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --line-strong: #cfd4dc;
+      --cyan: #009fe3;
+      --cyan-soft: #e1f3fe;
+      --violet: #7c3aed;
+      --violet-soft: #f1ecff;
       --display: "Outfit", sans-serif;
       --mono: "DM Mono", monospace;
       --ease: cubic-bezier(.22, .8, .25, 1);
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
@@ -77,140 +75,105 @@
       text-decoration: none;
     }
 
-    img,
     svg {
       display: block;
       max-width: 100%;
     }
 
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
     :focus-visible {
-      outline: 3px solid rgba(0, 159, 227, .38);
+      outline: 3px solid rgba(0, 159, 227, .28);
       outline-offset: 4px;
     }
 
     .deck {
       position: relative;
       width: 100vw;
-      height: 100vh;
-      height: 100dvh;
+      min-height: 100dvh;
       overflow: hidden;
       isolation: isolate;
     }
 
     .topbar {
       position: fixed;
-      z-index: 40;
+      z-index: 50;
       inset: 0 0 auto;
-      height: 74px;
+      height: 72px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 18px;
-      padding: 0 clamp(20px, 4vw, 58px);
-      color: var(--navy);
-      pointer-events: none;
-      transition: color .35s var(--ease);
-    }
-
-    .topbar.is-dark {
-      color: var(--paper);
+      gap: 24px;
+      padding: 0 clamp(22px, 4.2vw, 64px);
+      border-bottom: 1px solid rgba(229, 231, 235, .8);
+      color: var(--ink);
+      background: rgba(251, 251, 250, .82);
+      backdrop-filter: blur(16px);
     }
 
     .brand {
       justify-self: start;
       display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-weight: 700;
-      font-size: 18px;
-      letter-spacing: -.04em;
+      align-items: baseline;
+      font-size: 20px;
+      font-weight: 750;
+      letter-spacing: -.055em;
     }
 
     .brand-dot {
       width: 7px;
       height: 7px;
+      margin: 0 6px 2px;
       border-radius: 50%;
-      background: var(--mint);
-      box-shadow: 0 0 0 5px rgba(0, 159, 227, .13);
+      background: var(--cyan);
     }
 
-    .deck-label {
-      justify-self: center;
-      padding: 7px 10px;
-      border: 1px solid currentColor;
-      border-radius: 7px;
+    .deck-name,
+    .chapter {
       font-family: var(--mono);
       font-size: 9px;
-      letter-spacing: .12em;
-      line-height: 1;
+      font-weight: 500;
+      letter-spacing: .13em;
       text-transform: uppercase;
-      opacity: .65;
     }
 
-    .section-label {
+    .deck-name {
+      justify-self: center;
+      color: #8b929e;
+    }
+
+    .chapter {
       justify-self: end;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      opacity: .6;
+      color: var(--muted);
     }
 
     .slides {
       position: relative;
       width: 100%;
-      height: 100%;
+      min-height: 100dvh;
     }
 
     .slide {
+      --accent: var(--cyan);
       position: absolute;
       inset: 0;
       overflow-x: hidden;
       overflow-y: auto;
       display: grid;
       place-items: center;
-      padding: 92px clamp(28px, 5vw, 76px) 98px;
-      background:
-        linear-gradient(rgba(15, 23, 42, .028) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(15, 23, 42, .028) 1px, transparent 1px),
-        var(--canvas);
-      background-size: 54px 54px;
+      min-height: 100dvh;
+      padding: 108px clamp(28px, 5.4vw, 82px) 104px;
+      background: var(--canvas);
       opacity: 0;
       visibility: hidden;
-      transform: translate3d(0, 18px, 0);
+      transform: translate3d(0, 14px, 0);
       transition:
-        opacity .45s var(--ease),
-        transform .55s var(--ease),
-        visibility .45s;
+        opacity .42s var(--ease),
+        visibility .42s,
+        transform .52s var(--ease);
       pointer-events: none;
     }
 
-    .slide::after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      width: 46vw;
-      height: 46vw;
-      max-width: 740px;
-      max-height: 740px;
-      border-radius: 50%;
-      background: rgba(0, 159, 227, .055);
-      filter: blur(1px);
-      right: -18vw;
-      bottom: -24vw;
-      pointer-events: none;
+    .slide.ai {
+      --accent: var(--violet);
     }
 
     .slide.active {
@@ -221,1145 +184,411 @@
       pointer-events: auto;
     }
 
-    .slide.dark {
-      color: var(--paper);
-      background:
-        radial-gradient(circle at 80% 22%, rgba(0, 159, 227, .14), transparent 28%),
-        linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px),
-        var(--navy);
-      background-size: auto, 54px 54px, 54px 54px, auto;
-    }
-
-    .slide.dark::after {
-      display: none;
-    }
-
     .slide-inner {
-      width: min(1180px, 100%);
+      width: min(1220px, 100%);
       margin: auto;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      margin: 0 0 20px;
-      color: var(--mint-deep);
+      gap: 11px;
+      margin: 0 0 24px;
+      color: var(--accent);
       font-family: var(--mono);
       font-size: 10px;
       font-weight: 500;
       letter-spacing: .13em;
-      line-height: 1.45;
       text-transform: uppercase;
     }
 
     .eyebrow::before {
       content: "";
-      width: 22px;
+      width: 28px;
       height: 1px;
-      flex: 0 0 auto;
       background: currentColor;
-    }
-
-    .dark .eyebrow {
-      color: #009fe3;
     }
 
     .display {
       margin: 0;
-      max-width: 980px;
-      color: var(--navy);
-      font-size: clamp(46px, 5.2vw, 78px);
+      color: var(--ink);
+      font-size: clamp(52px, 6.3vw, 92px);
       font-weight: 700;
-      letter-spacing: -.055em;
-      line-height: .98;
+      letter-spacing: -.065em;
+      line-height: .94;
       text-wrap: balance;
     }
 
     .display.medium {
-      font-size: clamp(40px, 4.2vw, 64px);
-      line-height: 1.02;
-    }
-
-    .dark .display {
-      color: var(--paper);
+      font-size: clamp(44px, 4.8vw, 70px);
+      line-height: .98;
     }
 
     .lead {
-      max-width: 760px;
-      margin: 22px 0 0;
+      max-width: 680px;
+      margin: 28px 0 0;
       color: var(--muted);
-      font-size: clamp(17px, 1.45vw, 21px);
-      line-height: 1.55;
+      font-size: clamp(18px, 1.55vw, 22px);
+      line-height: 1.5;
       text-wrap: pretty;
     }
 
-    .dark .lead {
-      color: #cbd5e1;
-    }
-
-    .accent {
-      color: var(--mint-deep);
-    }
-
-    .dark .accent {
-      color: #009fe3;
-    }
-
-    .hero-grid {
+    .hero-layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.16fr) minmax(330px, .84fr);
+      grid-template-columns: minmax(0, 1.5fr) minmax(260px, .5fr);
       align-items: center;
-      gap: clamp(44px, 7vw, 104px);
+      gap: clamp(64px, 9vw, 140px);
     }
 
     .hero-copy {
-      padding-left: clamp(0px, 3vw, 44px);
+      max-width: 880px;
     }
 
-    .hero-copy .display {
-      max-width: 760px;
+    .hero-copy .display span {
+      color: var(--cyan);
     }
 
-    .hero-foot {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-top: 38px;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .hero-foot::before {
-      content: "";
-      width: 38px;
-      height: 1px;
-      background: var(--mint);
-    }
-
-    .doctor-frame {
-      position: relative;
-      justify-self: end;
-      width: min(100%, 430px);
-      height: min(68vh, 690px);
-      min-height: 480px;
-      margin: 0;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: var(--paper);
-    }
-
-    .doctor-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .doctor-frame::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0;
-      height: 34%;
-      background: linear-gradient(transparent, rgba(15, 23, 42, .42));
-      pointer-events: none;
-    }
-
-    .doctor-caption {
-      position: absolute;
-      z-index: 2;
-      inset: auto 22px 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--paper);
-      font-size: 13px;
-      font-weight: 500;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      flex: 0 0 auto;
-      border-radius: 50%;
-      background: #009fe3;
-      box-shadow: 0 0 0 5px rgba(0, 159, 227, .16);
-    }
-
-    .intelligence-layout {
+    .hero-symbol {
       position: relative;
       display: grid;
-      grid-template-columns: minmax(360px, 1.45fr) minmax(190px, .76fr) minmax(300px, 1.08fr);
-      align-items: center;
-      gap: clamp(20px, 2.4vw, 32px);
-    }
-
-    .intelligence-title {
-      grid-column: 1 / -1;
-      max-width: 900px;
-      margin: 0 auto -4px;
-      color: var(--navy);
-      font-size: clamp(28px, 2.8vw, 42px);
-      font-weight: 700;
-      letter-spacing: -.045em;
-      line-height: 1.06;
-      text-align: center;
-      text-wrap: balance;
-    }
-
-    .intelligence-title span {
-      color: var(--brand-violet);
-    }
-
-    .intelligence-panel-label {
-      margin: 0 0 14px;
-      color: #7a8291;
-      font-family: var(--mono);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: .13em;
-      text-transform: uppercase;
-    }
-
-    .intelligence-source-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .intelligence-source,
-    .intelligence-action {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      min-width: 0;
-      border-radius: 12px;
-    }
-
-    .intelligence-source {
-      min-height: 62px;
-      padding: 10px 12px;
-      border: 1px solid #eaeaea;
-      background: var(--paper);
-      box-shadow: 0 3px 12px rgba(15, 23, 42, .035);
-    }
-
-    .intelligence-icon {
-      display: grid;
-      width: 34px;
-      height: 34px;
-      flex: 0 0 auto;
-      place-items: center;
-      border: 1px solid #ede9fe;
-      border-radius: 9px;
-      color: var(--brand-violet);
-      background: #f6f5ff;
-    }
-
-    .intelligence-icon svg {
-      width: 17px;
-      height: 17px;
-    }
-
-    .intelligence-source b,
-    .intelligence-source small,
-    .intelligence-action b,
-    .intelligence-action small {
-      display: block;
-      min-width: 0;
-    }
-
-    .intelligence-source b {
-      color: #111318;
-      font-size: 13px;
-      font-weight: 650;
-      line-height: 1.2;
-    }
-
-    .intelligence-source small {
-      margin-top: 2px;
-      color: #717988;
-      font-size: 10.5px;
-      line-height: 1.25;
-    }
-
-    .intelligence-core {
-      position: relative;
-      min-height: 410px;
-      display: grid;
-      align-content: center;
-      place-items: center;
-      text-align: center;
-    }
-
-    .intelligence-flow {
-      position: absolute;
-      z-index: 0;
-      top: 45%;
-      left: -42px;
-      width: calc(100% + 84px);
-      height: 1px;
-      overflow: visible;
-      background: linear-gradient(90deg, transparent, rgba(124, 58, 237, .28) 18%, rgba(124, 58, 237, .28) 82%, transparent);
-    }
-
-    .intelligence-flow span {
-      position: absolute;
-      top: -3px;
-      left: 0;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--brand-violet);
-      box-shadow: 0 0 0 4px rgba(124, 58, 237, .1);
-      opacity: 0;
-    }
-
-    .intelligence-flow span:nth-child(2) {
-      animation-delay: 1.35s !important;
-    }
-
-    .intelligence-flow span:nth-child(3) {
-      animation-delay: 2.7s !important;
-    }
-
-    .intelligence-orbit {
-      position: absolute;
-      z-index: 1;
-      width: 194px;
-      height: 194px;
-      border: 1px solid rgba(124, 58, 237, .2);
-      border-radius: 50%;
-    }
-
-    .intelligence-orbit::before,
-    .intelligence-orbit::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-    }
-
-    .intelligence-orbit::before {
-      inset: 13px;
-      border: 1px dashed rgba(124, 58, 237, .25);
-    }
-
-    .intelligence-orbit::after {
-      top: 16px;
-      left: 50%;
-      width: 8px;
-      height: 8px;
-      background: var(--brand-cyan);
-      box-shadow: 0 0 0 5px rgba(59, 130, 246, .1);
-      transform: translateX(-50%);
-    }
-
-    .intelligence-mark {
-      position: relative;
-      z-index: 2;
-      display: grid;
-      width: 144px;
+      width: min(28vw, 330px);
       aspect-ratio: 1;
       place-items: center;
-      border: 6px solid rgba(255, 255, 255, .85);
-      border-radius: 50%;
-      color: var(--paper);
-      background: var(--brand-gradient);
-      box-shadow:
-        0 0 0 2px rgba(124, 58, 237, .28),
-        0 24px 52px -22px rgba(124, 58, 237, .68);
+      justify-self: end;
+      color: var(--cyan);
     }
 
-    .intelligence-mark svg {
-      width: 58px;
-      height: 58px;
-    }
-
-    .intelligence-mark::after {
+    .hero-symbol::before,
+    .hero-symbol::after {
       content: "";
       position: absolute;
-      inset: 15px;
-      border: 1px solid rgba(255, 255, 255, .24);
+      border: 1px solid var(--line);
       border-radius: 50%;
     }
 
-    .intelligence-name {
-      position: relative;
-      z-index: 2;
-      margin-top: 22px;
-      color: #111318;
-      font-size: 19px;
-      font-weight: 750;
-      letter-spacing: -.035em;
-    }
-
-    .intelligence-caption {
-      position: relative;
-      z-index: 2;
-      margin-top: 7px;
-      color: var(--brand-violet);
-      font-family: var(--mono);
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: .13em;
-      line-height: 1.45;
-      text-transform: uppercase;
-    }
-
-    .intelligence-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .intelligence-action {
-      min-height: 72px;
-      padding: 12px 14px;
-      border: 1px solid #272331;
-      color: var(--paper);
-      background: #111318;
-      box-shadow: 0 12px 28px -20px rgba(124, 58, 237, .6);
-    }
-
-    .intelligence-action .intelligence-icon {
-      border-color: rgba(124, 58, 237, .42);
-      color: #d8b4fe;
-      background: rgba(124, 58, 237, .18);
-    }
-
-    .intelligence-action b {
-      color: var(--paper);
-      font-size: 13.5px;
-      font-weight: 650;
-      line-height: 1.2;
-    }
-
-    .intelligence-action small {
-      margin-top: 3px;
-      color: rgba(255, 255, 255, .58);
-      font-size: 11px;
-      line-height: 1.3;
-    }
-
-    .slide.active .intelligence-source,
-    .slide.active .intelligence-action {
-      opacity: 0;
-      animation: intelligenceCardIn .52s var(--ease) forwards;
-      animation-delay: var(--delay);
-    }
-
-    .slide.active .intelligence-mark {
-      animation: intelligenceFloat 4s ease-in-out infinite;
-    }
-
-    .slide.active .intelligence-mark svg {
-      animation: intelligenceSpark 2.4s ease-in-out infinite;
-    }
-
-    .slide.active .intelligence-orbit {
-      animation: intelligenceOrbit 10s linear infinite;
-    }
-
-    .slide.active .intelligence-flow span {
-      animation: intelligenceData 4s linear infinite;
-    }
-
-    @keyframes intelligenceCardIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px) scale(.985);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes intelligenceFloat {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-8px) scale(1.025); }
-    }
-
-    @keyframes intelligenceSpark {
-      0%, 100% { transform: scale(.9) rotate(0deg); opacity: .9; }
-      50% { transform: scale(1.08) rotate(8deg); opacity: 1; }
-    }
-
-    @keyframes intelligenceOrbit {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes intelligenceData {
-      0% { left: 0; opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { left: calc(100% - 7px); opacity: 0; }
-    }
-
-    .intelligence-layout::before {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      top: 50%;
-      left: 48%;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: rgba(124, 58, 237, .045);
-      filter: blur(14px);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .intelligence-source-panel,
-    .intelligence-action-panel {
-      min-width: 0;
-    }
-
-    .intelligence-action-panel .intelligence-panel-label {
-      padding-left: 2px;
-    }
-
-    .intelligence-source > span:last-child,
-    .intelligence-action > span:last-child {
-      min-width: 0;
-    }
-
-    .intelligence-source small,
-    .intelligence-action small {
-      overflow-wrap: anywhere;
-    }
-
-    .intelligence-source:hover {
-      border-color: #ddd6fe;
-      background: #fdfcff;
-    }
-
-    .intelligence-action:hover {
-      border-color: rgba(124, 58, 237, .55);
-      background: #15131c;
-    }
-
-    .intelligence-source,
-    .intelligence-action {
-      transition:
-        border-color .24s ease,
-        background .24s ease,
-        transform .24s ease;
-    }
-
-    .intelligence-source:hover,
-    .intelligence-action:hover {
-      transform: translateY(-2px);
-    }
-
-    .intelligence-core[aria-label] {
-      outline: none;
-    }
-
-    .intelligence-flow,
-    .intelligence-orbit {
-      pointer-events: none;
-    }
-
-    .intelligence-mark,
-    .intelligence-name,
-    .intelligence-caption {
-      user-select: none;
-    }
-
-    .intelligence-mark {
-      will-change: transform;
-    }
-
-    .intelligence-orbit {
-      will-change: transform;
-    }
-
-    .intelligence-source,
-    .intelligence-action {
-      will-change: transform, opacity;
-    }
-
-    .intelligence-panel-label::before {
-      content: "";
-      display: inline-block;
-      width: 18px;
-      height: 1px;
-      margin-right: 9px;
-      vertical-align: middle;
-      background: currentColor;
-      opacity: .58;
-    }
-
-    .intelligence-action-panel .intelligence-panel-label {
-      color: var(--brand-violet);
-    }
-
-    .intelligence-source-panel .intelligence-panel-label {
-      color: #717988;
-    }
-
-    .intelligence-core {
-      isolation: isolate;
-    }
-
-    .intelligence-mark {
-      overflow: hidden;
-    }
-
-    .intelligence-mark::before {
-      content: "";
-      position: absolute;
-      width: 48%;
-      height: 180%;
-      top: -40%;
-      left: -70%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .28), transparent);
-      transform: rotate(22deg);
-    }
-
-    .slide.active .intelligence-mark::before {
-      animation: intelligenceSweep 3.8s ease-in-out infinite;
-    }
-
-    @keyframes intelligenceSweep {
-      0%, 18% { left: -70%; }
-      48%, 100% { left: 125%; }
-    }
-
-    .intelligence-source span,
-    .intelligence-action span {
-      position: relative;
-    }
-
-    .intelligence-source .intelligence-icon,
-    .intelligence-action .intelligence-icon {
-      overflow: hidden;
-    }
-
-    .intelligence-source .intelligence-icon::after,
-    .intelligence-action .intelligence-icon::after {
-      content: "";
-      position: absolute;
+    .hero-symbol::before {
       inset: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, .34), transparent 58%);
-      pointer-events: none;
     }
 
-    .intelligence-action .intelligence-icon::after {
-      background: linear-gradient(135deg, rgba(255, 255, 255, .1), transparent 58%);
+    .hero-symbol::after {
+      inset: 18%;
+      border-color: rgba(0, 159, 227, .28);
     }
 
-    .intelligence-source svg,
-    .intelligence-action svg {
+    .hero-symbol svg {
       position: relative;
       z-index: 1;
+      width: 88px;
+      height: 88px;
     }
 
-    .intelligence-flow::before,
-    .intelligence-flow::after {
-      content: "";
+    .hero-symbol-note {
       position: absolute;
-      top: -2px;
-      width: 5px;
-      height: 5px;
-      border-top: 1px solid rgba(124, 58, 237, .36);
-      border-right: 1px solid rgba(124, 58, 237, .36);
-      transform: rotate(45deg);
-    }
-
-    .intelligence-flow::before {
-      left: 20%;
-    }
-
-    .intelligence-flow::after {
-      right: 20%;
-    }
-
-    .intelligence-mark svg {
-      position: relative;
-      z-index: 2;
-    }
-
-    .intelligence-core-copy {
-      position: relative;
-      z-index: 2;
-    }
-
-    .intelligence-source,
-    .intelligence-action {
-      display: flex;
-    }
-
-    .modules-head {
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: end;
-      gap: 54px;
-      margin-bottom: 34px;
-    }
-
-    .modules-head .lead {
-      margin: 0 0 4px;
-    }
-
-    .module-workspace {
-      display: grid;
-      grid-template-columns: 180px minmax(0, 1fr);
-      min-height: 380px;
-      overflow: hidden;
+      right: 0;
+      bottom: 12%;
+      padding: 8px 10px;
       border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--paper);
-      box-shadow: 0 18px 44px rgba(15, 23, 42, .07);
-    }
-
-    .module-sidebar {
-      padding: 22px 16px;
-      border-right: 1px solid var(--line);
-      background: #f9fafb;
-    }
-
-    .sidebar-title {
-      margin: 0 0 18px 8px;
+      background: var(--canvas);
       color: var(--muted);
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .sidebar-item {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 6px;
-      padding: 10px 11px;
-      border-radius: 8px;
-      color: #475569;
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    .sidebar-item::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border: 1px solid var(--line-strong);
-      border-radius: 2px;
-    }
-
-    .sidebar-item.active {
-      color: var(--mint-deep);
-      background: var(--mint-soft);
-    }
-
-    .sidebar-item.active::before {
-      border-color: var(--mint);
-      background: var(--mint);
-    }
-
-    .module-main {
-      padding: 25px 28px 28px;
-    }
-
-    .module-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .patient {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .patient-avatar {
-      display: grid;
-      width: 38px;
-      height: 38px;
-      place-items: center;
-      border-radius: 10px;
-      color: var(--mint-deep);
-      background: var(--mint-soft);
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 500;
-    }
-
-    .patient b,
-    .patient small {
-      display: block;
-    }
-
-    .patient b {
-      color: var(--navy);
-      font-size: 14px;
-    }
-
-    .patient small {
-      margin-top: 2px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .record-state {
-      padding: 7px 9px;
-      border: 1px solid #b9e8fa;
-      border-radius: 7px;
-      color: var(--mint-deep);
-      background: #f0f9fd;
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-    }
-
-    .record-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .record-field {
-      min-height: 88px;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #fff;
-    }
-
-    .record-field.wide {
-      grid-column: 1 / -1;
-    }
-
-    .record-field span,
-    .record-field b {
-      display: block;
-    }
-
-    .record-field span {
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-
-    .record-field b {
-      margin-top: 9px;
-      color: var(--navy);
-      font-size: 13px;
-      font-weight: 500;
-      line-height: 1.35;
-    }
-
-    .security-note {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      align-items: center;
-      gap: 15px;
-      margin-top: 22px;
-      padding: 15px 17px;
-      border: 1px solid #b9e8fa;
-      border-radius: 12px;
-      background: var(--mint-soft);
-    }
-
-    .security-icon {
-      display: grid;
-      width: 42px;
-      height: 42px;
-      place-items: center;
-      border-radius: 10px;
-      color: var(--mint-deep);
-      background: var(--paper);
-    }
-
-    .security-icon svg {
-      width: 21px;
-      height: 21px;
-    }
-
-    .security-note b,
-    .security-note span {
-      display: block;
-    }
-
-    .security-note b {
-      margin-bottom: 3px;
-      color: var(--navy);
-      font-size: 13px;
-    }
-
-    .security-note span {
-      color: #45697a;
-      font-size: 11px;
-      line-height: 1.45;
-    }
-
-    .included-head {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
-      align-items: end;
-      gap: 48px;
-      margin-bottom: 42px;
-    }
-
-    .included-head .lead {
-      margin: 0 0 4px;
-    }
-
-    .included-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-block: 1px solid var(--line);
-    }
-
-    .included-column {
-      padding: 28px clamp(20px, 2.4vw, 34px) 32px;
-    }
-
-    .included-column + .included-column {
-      border-left: 1px solid var(--line);
-    }
-
-    .included-kicker {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 25px;
-      color: var(--mint-deep);
-      font-family: var(--mono);
-      font-size: 9px;
-      font-weight: 500;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .included-kicker svg {
-      width: 22px;
-      height: 22px;
-      padding: 4px;
-      border: 1px solid #b9e8fa;
-      border-radius: 6px;
-      background: var(--mint-soft);
-    }
-
-    .included-list {
-      display: grid;
-      gap: 0;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .included-list li {
-      position: relative;
-      min-height: 72px;
-      padding: 16px 0 16px 22px;
-      border-top: 1px solid #edf0f4;
-      color: var(--navy);
-      font-size: clamp(14px, 1.15vw, 17px);
-      font-weight: 550;
-      line-height: 1.3;
-    }
-
-    .included-list li::before {
-      content: "";
-      position: absolute;
-      top: 23px;
-      left: 0;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--brand-cyan);
-      box-shadow: 0 0 0 4px rgba(0, 159, 227, .09);
-    }
-
-    .migration-simple {
-      max-width: 1060px;
-    }
-
-    .migration-simple .display {
-      max-width: 880px;
-      font-size: clamp(42px, 4.7vw, 70px);
-    }
-
-    .migration-simple .lead {
-      margin-top: 18px;
-    }
-
-    .simple-gantt {
-      margin-top: 44px;
-      padding: 28px 30px 26px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--paper);
-    }
-
-    .simple-gantt-weeks,
-    .simple-gantt-row {
-      display: grid;
-      grid-template-columns: 150px repeat(4, minmax(0, 1fr));
-      align-items: center;
-      gap: 7px;
-    }
-
-    .simple-gantt-weeks {
-      margin-bottom: 11px;
-      color: #8a93a1;
       font-family: var(--mono);
       font-size: 8px;
       letter-spacing: .08em;
-      text-align: center;
       text-transform: uppercase;
     }
 
-    .simple-gantt-row + .simple-gantt-row {
-      margin-top: 9px;
+    .ai-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.16fr) minmax(320px, .84fr);
+      align-items: end;
+      gap: 80px;
+      margin-bottom: 62px;
     }
 
-    .simple-gantt-label {
-      color: #526070;
-      font-size: 12px;
-      font-weight: 550;
+    .ai-head .display span {
+      color: var(--violet);
     }
 
-    .simple-gantt-cell {
-      min-height: 40px;
-      border: 1px solid #e8edf3;
-      background: #f7f9fb;
+    .ai-head .lead {
+      margin: 0 0 4px;
     }
 
-    .simple-gantt-cell:first-of-type {
-      border-radius: 8px 0 0 8px;
+    .ai-flow {
+      display: grid;
+      grid-template-columns: 1fr .72fr 1fr;
+      border-block: 1px solid var(--line);
     }
 
-    .simple-gantt-cell:last-child {
-      border-radius: 0 8px 8px 0;
+    .ai-stage {
+      min-width: 0;
+      padding: 28px 34px 32px;
     }
 
-    .simple-gantt-cell.old {
-      background: #e7ebf0;
+    .ai-stage + .ai-stage {
+      border-left: 1px solid var(--line);
     }
 
-    .simple-gantt-cell.setup {
-      border-color: #c7eaf8;
-      background: var(--mint-soft);
+    .ai-stage-label {
+      display: block;
+      margin-bottom: 24px;
+      color: #878e9a;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
     }
 
-    .simple-gantt-cell.active {
+    .ai-stage strong {
+      display: block;
+      margin-bottom: 18px;
+      color: var(--ink);
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+    }
+
+    .ai-stage p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .ai-core {
       display: grid;
       place-items: center;
-      border-color: var(--brand-cyan);
-      color: var(--paper);
-      background: var(--brand-cyan);
-      font-size: 10px;
-      font-weight: 650;
-    }
-
-    .simple-overlap {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin: 18px 0 0 157px;
-      color: var(--navy);
-      font-size: 13px;
-      font-weight: 550;
-    }
-
-    .simple-overlap::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      flex: 0 0 auto;
-      border-radius: 50%;
-      background: var(--brand-cyan);
-      box-shadow: 0 0 0 5px rgba(0, 159, 227, .11);
-    }
-
-    .slide.active .simple-gantt-cell.setup,
-    .slide.active .simple-gantt-cell.active {
-      animation: simpleCellIn .5s var(--ease) both;
-    }
-
-    .slide.active .simple-gantt-cell:nth-child(3) {
-      animation-delay: .08s;
-    }
-
-    .slide.active .simple-gantt-cell:nth-child(4) {
-      animation-delay: .16s;
-    }
-
-    .slide.active .simple-gantt-cell:nth-child(5) {
-      animation-delay: .24s;
-    }
-
-    @keyframes simpleCellIn {
-      from {
-        opacity: .2;
-        transform: translateY(5px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .closing {
+      align-content: center;
+      min-height: 210px;
       text-align: center;
     }
 
-    .closing .display {
-      max-width: 960px;
-      margin: 0 auto;
+    .ai-mark {
+      display: grid;
+      width: 76px;
+      height: 76px;
+      place-items: center;
+      margin-bottom: 18px;
+      border: 1px solid rgba(124, 58, 237, .35);
+      border-radius: 18px;
+      color: var(--violet);
+      background: var(--violet-soft);
     }
 
-    .closing .lead {
-      max-width: 720px;
-      margin: 26px auto 0;
+    .ai-mark svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .features-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, .64fr) minmax(0, 1.36fr);
+      align-items: start;
+      gap: clamp(56px, 8vw, 120px);
+    }
+
+    .features-intro {
+      position: sticky;
+      top: 108px;
+    }
+
+    .features-intro .lead {
+      max-width: 390px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 42px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: feature;
+    }
+
+    .feature-list li {
+      counter-increment: feature;
+      position: relative;
+      min-height: 112px;
+      padding: 22px 0 22px 44px;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+      font-size: clamp(15px, 1.25vw, 18px);
+      font-weight: 550;
+      line-height: 1.35;
+    }
+
+    .feature-list li::before {
+      content: counter(feature, decimal-leading-zero);
+      position: absolute;
+      top: 25px;
+      left: 0;
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .05em;
+    }
+
+    .migration {
+      max-width: 1120px;
+    }
+
+    .migration-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, .9fr);
+      align-items: end;
+      gap: 64px;
+    }
+
+    .migration-head .lead {
+      margin: 0 0 5px;
+    }
+
+    .handover {
+      margin-top: 76px;
+    }
+
+    .handover-days {
+      display: grid;
+      grid-template-columns: 1fr 220px 1fr;
+      align-items: end;
+      margin-bottom: 14px;
+      color: #9198a3;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .handover-days span:nth-child(2) {
+      text-align: center;
+    }
+
+    .handover-days span:last-child {
+      text-align: right;
+    }
+
+    .handover-line {
+      display: grid;
+      grid-template-columns: 1fr 220px 1fr;
+      align-items: center;
+    }
+
+    .handover-system {
+      position: relative;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      color: var(--ink);
+      font-size: clamp(17px, 1.6vw, 22px);
+      font-weight: 650;
+      letter-spacing: -.025em;
+    }
+
+    .handover-system::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--ink);
+    }
+
+    .handover-system.old::after {
+      background: #b8bec8;
+    }
+
+    .handover-system.new {
+      justify-content: flex-end;
+      color: var(--cyan);
+    }
+
+    .handover-system.new::after {
+      background: var(--cyan);
+    }
+
+    .handover-overlap {
+      position: relative;
+      z-index: 1;
+      min-height: 100px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      padding: 16px 22px;
+      border: 1px solid var(--cyan);
+      color: var(--ink);
+      background: var(--canvas);
+      text-align: center;
+    }
+
+    .handover-overlap b,
+    .handover-overlap small {
+      display: block;
+    }
+
+    .handover-overlap b {
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .handover-overlap small {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .handover-summary {
+      margin: 28px 0 0;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .handover-summary strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .closing {
+      max-width: 1000px;
+    }
+
+    .closing .display {
+      max-width: 940px;
     }
 
     .closing-actions {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 38px;
+      gap: 18px;
+      margin-top: 42px;
     }
 
     .primary-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 13px;
-      min-height: 52px;
+      gap: 14px;
+      min-height: 54px;
       padding: 0 20px;
-      border-radius: 9px;
-      color: var(--navy);
-      background: #009fe3;
+      border-radius: 8px;
+      color: var(--paper);
+      background: var(--ink);
       font-size: 14px;
       font-weight: 600;
-      transition:
-        transform .15s ease,
-        background .2s ease;
+      transition: transform .15s ease, background .2s ease;
     }
 
     .primary-cta:hover {
-      background: #b9e8fa;
+      background: #20232a;
     }
 
     .primary-cta:active {
@@ -1372,145 +601,125 @@
     }
 
     .site-link {
-      display: inline-flex;
-      min-height: 52px;
-      align-items: center;
-      justify-content: center;
-      padding: 0 18px;
-      border: 1px solid rgba(255, 255, 255, .18);
-      border-radius: 9px;
-      color: #e2e8f0;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .04em;
-      transition:
-        color .2s ease,
-        border-color .2s ease;
-    }
-
-    .site-link:hover {
-      color: var(--paper);
-      border-color: rgba(255, 255, 255, .42);
-    }
-
-    .close-mark {
-      width: 68px;
-      height: 68px;
-      margin: 0 auto 28px;
-      padding: 12px;
-      border: 1px solid rgba(0, 159, 227, .28);
-      border-radius: 18px;
-      color: #009fe3;
-      background: rgba(0, 159, 227, .08);
-    }
-
-    .controls {
-      position: fixed;
-      z-index: 50;
-      right: clamp(18px, 3vw, 42px);
-      bottom: max(20px, env(safe-area-inset-bottom));
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .control-button {
-      display: grid;
-      width: 42px;
-      height: 42px;
-      place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      color: var(--navy);
-      background: rgba(255, 255, 255, .92);
-      cursor: pointer;
-      transition:
-        transform .15s ease,
-        border-color .2s ease,
-        opacity .2s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .control-button:hover:not(:disabled) {
-      border-color: var(--line-strong);
-    }
-
-    .control-button:active:not(:disabled) {
-      transform: scale(.96);
-    }
-
-    .control-button:disabled {
-      opacity: .35;
-      cursor: default;
-    }
-
-    .control-button svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .progress {
-      position: fixed;
-      z-index: 45;
-      left: clamp(20px, 4vw, 58px);
-      right: 150px;
-      bottom: max(30px, calc(env(safe-area-inset-bottom) + 10px));
-      display: grid;
-      grid-template-columns: auto minmax(120px, 260px);
-      align-items: center;
-      gap: 18px;
-      color: var(--navy);
-      pointer-events: none;
-      transition: color .35s var(--ease);
-    }
-
-    .progress.is-dark {
-      color: var(--paper);
-    }
-
-    .progress-count {
+      padding: 12px 2px;
+      border-bottom: 1px solid var(--line-strong);
+      color: var(--muted);
       font-family: var(--mono);
       font-size: 10px;
+      letter-spacing: .05em;
+    }
+
+    .deck-footer {
+      position: fixed;
+      z-index: 50;
+      right: clamp(22px, 4.2vw, 64px);
+      bottom: max(22px, env(safe-area-inset-bottom));
+      left: clamp(22px, 4.2vw, 64px);
+      display: grid;
+      grid-template-columns: auto minmax(120px, 260px) 1fr auto;
+      align-items: center;
+      gap: 18px;
+      pointer-events: none;
+    }
+
+    .counter {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 9px;
       letter-spacing: .1em;
     }
 
-    .progress-track {
-      height: 2px;
+    .progress {
+      height: 1px;
       overflow: hidden;
-      background: color-mix(in srgb, currentColor 18%, transparent);
+      background: var(--line-strong);
     }
 
     .progress-fill {
       width: 20%;
       height: 100%;
-      background: var(--mint);
+      background: var(--cyan);
       transform-origin: left center;
       transition: width .42s var(--ease);
+    }
+
+    .footer-note {
+      color: #9ba1ab;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .control {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .86);
+      cursor: pointer;
+      transition: border-color .2s ease, transform .15s ease, opacity .2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .control:hover:not(:disabled) {
+      border-color: var(--line-strong);
+    }
+
+    .control:active:not(:disabled) {
+      transform: scale(.96);
+    }
+
+    .control:disabled {
+      opacity: .34;
+      cursor: default;
+    }
+
+    .control svg {
+      width: 17px;
+      height: 17px;
     }
 
     .slide.active .eyebrow,
     .slide.active .display,
     .slide.active .lead,
     .slide.active .reveal {
-      animation: enter .7s var(--ease) both;
+      animation: enter .64s var(--ease) both;
     }
 
     .slide.active .display {
-      animation-delay: .06s;
+      animation-delay: .05s;
     }
 
     .slide.active .lead {
-      animation-delay: .12s;
+      animation-delay: .1s;
     }
 
     .slide.active .reveal {
-      animation-delay: .18s;
+      animation-delay: .16s;
+    }
+
+    .slide.active .hero-symbol {
+      animation: symbolFloat 5s ease-in-out infinite;
+    }
+
+    .slide.active .ai-mark svg {
+      animation: spark 2.8s ease-in-out infinite;
     }
 
     @keyframes enter {
       from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(14px);
       }
       to {
         opacity: 1;
@@ -1518,72 +727,62 @@
       }
     }
 
+    @keyframes symbolFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes spark {
+      0%, 100% {
+        transform: scale(.9) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.08) rotate(7deg);
+      }
+    }
+
     @media (max-width: 980px) {
-      .hero-grid,
-      .intelligence-layout,
-      .modules-head,
-      .included-head {
+      .hero-layout,
+      .ai-head,
+      .features-layout,
+      .migration-head {
         grid-template-columns: 1fr;
       }
 
-      .hero-grid {
-        align-items: stretch;
-        gap: 34px;
+      .hero-layout,
+      .features-layout {
+        gap: 48px;
       }
 
-      .hero-copy {
-        padding-left: 0;
+      .hero-symbol {
+        justify-self: start;
+        width: 260px;
       }
 
-      .doctor-frame {
-        justify-self: stretch;
-        width: 100%;
-        height: 320px;
-        min-height: 0;
+      .ai-head {
+        gap: 24px;
+        margin-bottom: 42px;
       }
 
-      .doctor-frame img {
-        object-position: center 30%;
-      }
-
-      .intelligence-layout {
-        gap: 32px;
-      }
-
-      .intelligence-title {
-        order: -2;
-      }
-
-      .intelligence-core {
-        min-height: 300px;
-        order: -1;
-      }
-
-      .intelligence-flow {
-        display: none;
-      }
-
-      .intelligence-source-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .modules-head,
-      .included-head {
-        gap: 18px;
-      }
-
-      .modules-head .lead,
-      .included-head .lead {
+      .ai-head .lead,
+      .migration-head .lead {
         margin: 0;
       }
 
-      .included-grid {
-        grid-template-columns: 1fr;
+      .features-intro {
+        position: static;
       }
 
-      .included-column + .included-column {
-        border-top: 1px solid var(--line);
-        border-left: 0;
+      .feature-list {
+        column-gap: 28px;
+      }
+
+      .migration-head {
+        gap: 24px;
       }
     }
 
@@ -1591,309 +790,226 @@
       .topbar {
         height: 64px;
         grid-template-columns: 1fr auto;
-        padding: 0 18px;
+        padding-inline: 18px;
       }
 
-      .deck-label {
+      .deck-name {
         display: none;
       }
 
-      .section-label {
+      .chapter {
         font-size: 8px;
       }
 
       .slide {
         display: block;
-        padding: 82px 18px 94px;
+        padding: 94px 18px 96px;
       }
 
       .slide-inner {
-        min-height: calc(100dvh - 176px);
+        min-height: calc(100dvh - 190px);
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
 
       .display {
-        font-size: clamp(39px, 11vw, 52px);
+        font-size: clamp(47px, 13vw, 60px);
       }
 
       .display.medium {
-        font-size: clamp(36px, 9.7vw, 47px);
+        font-size: clamp(40px, 10.6vw, 50px);
       }
 
       .lead {
+        margin-top: 20px;
         font-size: 16px;
       }
 
-      .hero-grid {
-        gap: 28px;
+      .hero-layout {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 46px;
       }
 
-      .hero-foot {
-        margin-top: 22px;
+      .hero-symbol {
+        width: min(62vw, 230px);
       }
 
-      .doctor-frame {
-        height: 38vh;
-        min-height: 260px;
-        max-height: 360px;
-        border-radius: 16px;
+      .hero-symbol svg {
+        width: 64px;
+        height: 64px;
       }
 
-      .intelligence-layout {
-        gap: 28px;
+      .ai-head {
+        margin-bottom: 32px;
       }
 
-      .intelligence-title {
-        margin-bottom: -6px;
-        font-size: clamp(29px, 8vw, 38px);
+      .ai-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .ai-stage {
+        padding: 22px 0;
+      }
+
+      .ai-stage + .ai-stage {
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .ai-stage-label {
+        margin-bottom: 14px;
+      }
+
+      .ai-core {
+        min-height: 0;
+        justify-items: start;
         text-align: left;
       }
 
-      .intelligence-core {
-        min-height: 248px;
+      .ai-mark {
+        width: 62px;
+        height: 62px;
       }
 
-      .intelligence-orbit {
-        width: 168px;
-        height: 168px;
-      }
-
-      .intelligence-mark {
-        width: 122px;
-      }
-
-      .intelligence-mark svg {
-        width: 48px;
-        height: 48px;
-      }
-
-      .intelligence-name {
-        margin-top: 18px;
-        font-size: 18px;
-      }
-
-      .intelligence-panel-label {
-        margin-bottom: 11px;
-        font-size: 9px;
-      }
-
-      .intelligence-source-grid,
-      .intelligence-actions {
-        gap: 8px;
-      }
-
-      .intelligence-source {
-        min-height: 58px;
-        padding: 9px 10px;
-      }
-
-      .intelligence-action {
-        min-height: 66px;
-        padding: 11px 12px;
-      }
-
-      .intelligence-icon {
-        width: 32px;
-        height: 32px;
-      }
-
-      .intelligence-source b,
-      .intelligence-action b {
-        font-size: 12px;
-      }
-
-      .intelligence-source small,
-      .intelligence-action small {
-        font-size: 10px;
-      }
-
-      .modules-head {
-        margin-bottom: 26px;
-      }
-
-      .module-workspace {
+      .feature-list {
         grid-template-columns: 1fr;
-        min-height: 0;
       }
 
-      .module-sidebar {
+      .feature-list li {
+        min-height: 0;
+        padding-block: 18px;
+        font-size: 16px;
+      }
+
+      .feature-list li::before {
+        top: 21px;
+      }
+
+      .handover {
+        margin-top: 44px;
+      }
+
+      .handover-days {
         display: none;
       }
 
-      .module-main {
-        padding: 18px;
-      }
-
-      .record-grid {
+      .handover-line {
         grid-template-columns: 1fr;
       }
 
-      .record-field.wide {
-        grid-column: auto;
+      .handover-system {
+        min-height: 66px;
       }
 
-      .security-note {
-        align-items: start;
+      .handover-system::after {
+        right: auto;
+        width: 2px;
+        height: 100%;
+        background: #b8bec8;
       }
 
-      .included-head {
-        margin-bottom: 26px;
+      .handover-system.old {
+        padding-left: 28px;
       }
 
-      .included-column {
-        padding: 22px 0 18px;
+      .handover-system.old::after {
+        left: 0;
       }
 
-      .included-kicker {
-        margin-bottom: 12px;
+      .handover-system.new {
+        justify-content: flex-start;
+        padding-left: 28px;
       }
 
-      .included-list li {
-        min-height: 0;
-        padding-block: 14px;
-        font-size: 15px;
+      .handover-system.new::after {
+        top: 0;
+        bottom: auto;
+        left: 0;
       }
 
-      .included-list li::before {
-        top: 20px;
+      .handover-overlap {
+        min-height: 86px;
+        place-items: start;
+        align-content: center;
+        padding: 16px 20px 16px 28px;
+        text-align: left;
       }
 
-      .migration-simple .display {
-        font-size: clamp(38px, 10.2vw, 48px);
-      }
-
-      .simple-gantt {
-        margin-top: 30px;
-        padding: 18px 16px;
-      }
-
-      .simple-gantt-weeks,
-      .simple-gantt-row {
-        grid-template-columns: 78px repeat(4, minmax(0, 1fr));
-        gap: 4px;
-      }
-
-      .simple-gantt-weeks {
-        font-size: 7px;
-      }
-
-      .simple-gantt-label {
-        font-size: 9px;
-      }
-
-      .simple-gantt-cell {
-        min-height: 32px;
-      }
-
-      .simple-gantt-cell.active {
-        font-size: 7px;
-      }
-
-      .simple-overlap {
-        margin: 15px 0 0 85px;
-        font-size: 11px;
-      }
-
-      .progress {
-        left: 18px;
-        right: 122px;
-        grid-template-columns: auto minmax(74px, 1fr);
-        gap: 12px;
-      }
-
-      .controls {
-        right: 18px;
-      }
-
-      .control-button {
-        width: 40px;
-        height: 40px;
+      .handover-summary {
+        margin-top: 24px;
+        font-size: 14px;
       }
 
       .closing-actions {
         align-items: stretch;
         flex-direction: column;
+        margin-top: 34px;
       }
 
       .primary-cta,
       .site-link {
         width: 100%;
       }
+
+      .site-link {
+        text-align: center;
+      }
+
+      .deck-footer {
+        right: 18px;
+        bottom: max(18px, env(safe-area-inset-bottom));
+        left: 18px;
+        grid-template-columns: auto minmax(64px, 1fr) auto;
+        gap: 11px;
+      }
+
+      .footer-note {
+        display: none;
+      }
+
+      .control {
+        width: 40px;
+        height: 40px;
+      }
     }
 
     @media (max-height: 720px) and (min-width: 981px) {
       .slide {
-        padding-top: 78px;
-        padding-bottom: 76px;
+        padding-top: 90px;
+        padding-bottom: 86px;
       }
 
       .display {
-        font-size: clamp(40px, 4.5vw, 66px);
+        font-size: clamp(48px, 5.5vw, 78px);
       }
 
       .display.medium {
-        font-size: clamp(36px, 3.7vw, 55px);
+        font-size: clamp(40px, 4.2vw, 62px);
       }
 
-      .doctor-frame {
-        min-height: 430px;
-        height: 62vh;
+      .ai-head {
+        margin-bottom: 36px;
       }
 
-      .intelligence-core {
-        min-height: 340px;
-      }
-
-      .intelligence-source-grid,
-      .intelligence-actions {
-        gap: 8px;
-      }
-
-      .intelligence-source {
-        min-height: 54px;
-        padding: 8px 10px;
-      }
-
-      .intelligence-action {
-        min-height: 64px;
-        padding: 10px 12px;
-      }
-
-      .intelligence-mark {
-        width: 124px;
-      }
-
-      .intelligence-orbit {
-        width: 170px;
-        height: 170px;
-      }
-
-      .module-workspace {
-        min-height: 340px;
-      }
-
-      .included-head {
-        margin-bottom: 24px;
-      }
-
-      .included-column {
-        padding-block: 20px 22px;
-      }
-
-      .included-list li {
-        min-height: 58px;
-        padding-block: 12px;
-      }
-
-      .included-list li::before {
-        top: 18px;
-      }
-
-      .simple-gantt {
-        margin-top: 30px;
+      .ai-stage {
         padding-block: 22px;
+      }
+
+      .feature-list li {
+        min-height: 88px;
+        padding-block: 16px;
+      }
+
+      .feature-list li::before {
+        top: 19px;
+      }
+
+      .handover {
+        margin-top: 44px;
       }
     }
 
@@ -1901,7 +1017,6 @@
       *,
       *::before,
       *::after {
-        scroll-behavior: auto !important;
         animation: none !important;
         transition-duration: .001ms !important;
       }
@@ -1910,200 +1025,83 @@
 </head>
 <body>
   <div class="deck">
-    <header class="topbar" id="topbar">
-      <div class="brand">clinera<span class="brand-dot" aria-hidden="true"></span>io</div>
-      <div class="deck-label">Presentación</div>
-      <div class="section-label" id="sectionLabel">Control clínico</div>
+    <header class="topbar">
+      <div class="brand" aria-label="Clinera.io">clinera<span class="brand-dot" aria-hidden="true"></span>io</div>
+      <div class="deck-name">Presentación</div>
+      <div class="chapter" id="chapter">Clinera</div>
     </header>
 
     <main class="slides" id="slides">
       <section
         class="slide active"
-        id="control-clinico"
-        data-name="Control clínico"
-        data-theme="light"
+        id="clinera"
+        data-name="Clinera"
         aria-hidden="false"
       >
-        <div class="slide-inner hero-grid">
+        <div class="slide-inner hero-layout">
           <div class="hero-copy">
-            <div class="eyebrow">Clinera · gestión clínica con IA</div>
-            <h1 class="display">
-              El control médico en tus manos.
-              <span class="accent">La carga administrativa en las de la IA.</span>
-            </h1>
-            <div class="hero-foot reveal">Más tiempo para atender</div>
+            <div class="eyebrow">Sistema operativo para clínicas</div>
+            <h1 class="display">Toda tu clínica.<br /><span>Un solo sistema.</span></h1>
+            <p class="lead">
+              Clinera centraliza tu operación y suma inteligencia artificial a la gestión diaria.
+            </p>
           </div>
-          <figure class="doctor-frame reveal">
-            <img
-              src="/images/testimonials/katherine-meza.png"
-              alt="Profesional médica atendiendo a un paciente"
-              loading="eager"
-              decoding="async"
-            />
-            <figcaption class="doctor-caption">
-              <span class="status-dot" aria-hidden="true"></span>
-              La atención primero
-            </figcaption>
-          </figure>
+
+          <div class="hero-symbol reveal" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none">
+              <path
+                d="M32 6c2.9 14.3 11.7 23.1 26 26-14.3 2.9-23.1 11.7-26 26C29.1 43.7 20.3 34.9 6 32 20.3 29.1 29.1 20.3 32 6Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+            <span class="hero-symbol-note">Operación + IA</span>
+          </div>
         </div>
       </section>
 
       <section
-        class="slide"
-        id="aura"
+        class="slide ai"
+        id="intelligence"
         data-name="Clinera Intelligence"
-        data-theme="light"
         aria-hidden="true"
       >
-        <div class="slide-inner intelligence-layout reveal">
-          <h2 class="intelligence-title">
-            <span>Clinera Intelligence:</span> el sistema operativo de tu clínica con IA
-          </h2>
-
-          <div class="intelligence-source-panel">
-            <h2 class="intelligence-panel-label">Toda tu operación la alimenta</h2>
-            <div class="intelligence-source-grid">
-              <article class="intelligence-source" style="--delay:.20s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="17" rx="2"></rect>
-                    <path d="M3 9h18M8 2v4M16 2v4"></path>
-                  </svg>
-                </span>
-                <span><b>Agenda</b><small>Horas y bloqueos</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.26s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 21h18M5 21V8l7-5 7 5v13M10 21v-5h4v5"></path>
-                  </svg>
-                </span>
-                <span><b>Sedes</b><small>Toda tu operación</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.32s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 13h6M9 17h6"></path>
-                  </svg>
-                </span>
-                <span><b>Fichas</b><small>Historial de cada paciente</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.38s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m12 3 1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6z"></path>
-                  </svg>
-                </span>
-                <span><b>Tratamientos</b><small>Precios y protocolos</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.44s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 3v18h18M7 15l3-4 3 2 5-6"></path>
-                  </svg>
-                </span>
-                <span><b>Ventas</b><small>Qué se vende y cuánto</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.50s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-                    <path d="M2 10h20"></path>
-                  </svg>
-                </span>
-                <span><b>Pagos</b><small>Cobros y conciliación</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.56s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m3 11 16-5v13L3 14zM11 15.5A3 3 0 0 1 5.5 14"></path>
-                  </svg>
-                </span>
-                <span><b>Marketing</b><small>Campañas y difusiones</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.62s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"></path>
-                  </svg>
-                </span>
-                <span><b>WhatsApp</b><small>Toda la conversación</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.68s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                    <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 15l1.5 1.5L14 13"></path>
-                  </svg>
-                </span>
-                <span><b>Consentimientos</b><small>Firmados y archivados</small></span>
-              </article>
-              <article class="intelligence-source" style="--delay:.74s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                  </svg>
-                </span>
-                <span><b>Exámenes</b><small>Resultados y controles</small></span>
-              </article>
+        <div class="slide-inner">
+          <div class="ai-head">
+            <div>
+              <div class="eyebrow">Inteligencia aplicada</div>
+              <h2 class="display medium">
+                <span>Clinera Intelligence</span>, el sistema operativo de tu clínica con IA.
+              </h2>
             </div>
+            <p class="lead">
+              Entiende lo que ocurre en tu operación y actúa sobre la información.
+            </p>
           </div>
 
-          <div class="intelligence-core" aria-label="Logo animado de Clinera Intelligence">
-            <div class="intelligence-flow" aria-hidden="true"><span></span><span></span><span></span></div>
-            <div class="intelligence-orbit" aria-hidden="true"></div>
-            <div class="intelligence-mark" aria-hidden="true">
-              <svg viewBox="0 0 64 64" fill="none">
-                <path
-                  d="M32 6c2.9 14.3 11.7 23.1 26 26-14.3 2.9-23.1 11.7-26 26C29.1 43.7 20.3 34.9 6 32 20.3 29.1 29.1 20.3 32 6Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            </div>
-            <div class="intelligence-core-copy">
-              <div class="intelligence-name">Clinera Intelligence</div>
-              <div class="intelligence-caption">Contexto · decisiones · acción</div>
-            </div>
-          </div>
+          <div class="ai-flow reveal">
+            <article class="ai-stage">
+              <span class="ai-stage-label">01 · Contexto</span>
+              <strong>Toda tu operación la alimenta.</strong>
+              <p>Agenda, fichas, pagos, ventas y conversaciones.</p>
+            </article>
 
-          <div class="intelligence-action-panel">
-            <h2 class="intelligence-panel-label">Clinera Intelligence actúa</h2>
-            <div class="intelligence-actions">
-              <article class="intelligence-action" style="--delay:.36s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="17" rx="2"></rect>
-                    <path d="M3 9h18M8 2v4M16 2v4M9 15l2 2 4-4"></path>
-                  </svg>
-                </span>
-                <span><b>Agenda y reagenda</b><small>Reserva y mueve horas sola</small></span>
-              </article>
-              <article class="intelligence-action" style="--delay:.46s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12z"></path>
-                  </svg>
-                </span>
-                <span><b>Responde 24/7</b><small>Por WhatsApp, sin descanso</small></span>
-              </article>
-              <article class="intelligence-action" style="--delay:.56s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                  </svg>
-                </span>
-                <span><b>Cobra y recupera</b><small>Confirma pagos, reactiva pacientes</small></span>
-              </article>
-              <article class="intelligence-action" style="--delay:.66s">
-                <span class="intelligence-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m13 2-10 12h8l-1 8 10-12h-8z"></path>
-                  </svg>
-                </span>
-                <span><b>Automatiza</b><small>Flujos que se disparan solos</small></span>
-              </article>
-            </div>
+            <article class="ai-stage ai-core">
+              <div class="ai-mark" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none">
+                  <path
+                    d="M32 6c2.9 14.3 11.7 23.1 26 26-14.3 2.9-23.1 11.7-26 26C29.1 43.7 20.3 34.9 6 32 20.3 29.1 29.1 20.3 32 6Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <strong>Comprende y decide.</strong>
+            </article>
+
+            <article class="ai-stage">
+              <span class="ai-stage-label">02 · Acción</span>
+              <strong>Clinera Intelligence actúa.</strong>
+              <p>Agenda, responde, cobra y automatiza procesos.</p>
+            </article>
           </div>
         </div>
       </section>
@@ -2112,290 +1110,212 @@
         class="slide"
         id="incluye"
         data-name="Qué incluye"
-        data-theme="light"
         aria-hidden="true"
       >
-        <div class="slide-inner">
-          <div class="included-head">
-            <div>
-              <div class="eyebrow">Una sola plataforma</div>
-              <h2 class="display medium">Todo lo que incluye Clinera.</h2>
-            </div>
-            <p class="lead">
-              Atención clínica, pacientes y gestión conectados en un mismo sistema.
-            </p>
+        <div class="slide-inner features-layout">
+          <div class="features-intro">
+            <div class="eyebrow">Una plataforma</div>
+            <h2 class="display medium">Incluye todo esto.</h2>
+            <p class="lead">Sin sumar sistemas separados a tu operación.</p>
           </div>
 
-          <div class="included-grid reveal">
-            <article class="included-column">
-              <div class="included-kicker">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M12 3 19 6v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z"></path>
-                  <path d="M9 12h6M12 9v6"></path>
-                </svg>
-                Atención clínica
-              </div>
-              <ul class="included-list">
-                <li>Fichas clínicas cifradas de extremo a extremo</li>
-                <li>Registro de exámenes, recetas e imágenes</li>
-                <li>Consentimientos informados con firma digital</li>
-              </ul>
-            </article>
+          <ol class="feature-list reveal">
+            <li>Fichas clínicas cifradas de extremo a extremo</li>
+            <li>Registro de exámenes, recetas e imágenes</li>
+            <li>Consentimientos informados con firma digital</li>
+            <li>Agente IA que responde y agenda pacientes por WhatsApp</li>
+            <li>Clinera Intelligence, agente IA interno que te ayuda con la gestión</li>
+            <li>Módulo de ventas con atribución</li>
+            <li>Cobro de morosos con IA</li>
+            <li>Automatizaciones y recordatorios</li>
+            <li>Agenda multi-profesional y online</li>
+          </ol>
+        </div>
+      </section>
 
-            <article class="included-column">
-              <div class="included-kicker">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12Z"></path>
-                  <path d="M9 12h6"></path>
-                </svg>
-                Pacientes y agenda
-              </div>
-              <ul class="included-list">
-                <li>Agente IA que responde y agenda pacientes por WhatsApp</li>
-                <li>Agenda multiprofesional y online</li>
-                <li>Automatizaciones y recordatorios</li>
-              </ul>
-            </article>
+      <section
+        class="slide"
+        id="migracion"
+        data-name="Migración E2E"
+        aria-hidden="true"
+      >
+        <div class="slide-inner migration">
+          <div class="migration-head">
+            <div>
+              <div class="eyebrow">Migración E2E · 1 mes</div>
+              <h2 class="display medium">Tu operación cambia sin detenerse.</h2>
+            </div>
+            <p class="lead">Un ingeniero E2E migra y configura tu cuenta.</p>
+          </div>
 
-            <article class="included-column">
-              <div class="included-kicker">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path>
-                  <path d="m16 7 1.2 2.8L20 11l-2.8 1.2L16 15l-1.2-2.8L12 11l2.8-1.2Z"></path>
-                </svg>
-                Gestión e ingresos
+          <div
+            class="handover reveal"
+            role="img"
+            aria-label="Software antiguo, luego siete días de solapamiento con ambos sistemas activos y finalmente Clinera."
+          >
+            <div class="handover-days" aria-hidden="true">
+              <span>Día 1</span>
+              <span>Días 24–30</span>
+              <span>Día 30+</span>
+            </div>
+            <div class="handover-line" aria-hidden="true">
+              <div class="handover-system old">Software antiguo</div>
+              <div class="handover-overlap">
+                <b>Solapamiento · 7 días</b>
+                <small>Ambos sistemas activos</small>
               </div>
-              <ul class="included-list">
-                <li>Clinera Intelligence, agente IA interno que te ayuda con la gestión</li>
-                <li>Módulo de ventas con atribución</li>
-                <li>Cobro de morosos con IA</li>
-              </ul>
-            </article>
+              <div class="handover-system new">Clinera</div>
+            </div>
+            <p class="handover-summary">
+              <strong>Durante 7 días operas con ambos sistemas.</strong>
+              Después, Clinera queda como plataforma principal.
+            </p>
           </div>
         </div>
       </section>
 
       <section
         class="slide"
-        id="puesta-en-marcha"
-        data-name="Migración E2E"
-        data-theme="light"
-        aria-hidden="true"
-      >
-        <div class="slide-inner migration-simple">
-          <div>
-            <div class="eyebrow">Migración E2E</div>
-            <h2 class="display medium">En 30 días, tu clínica queda operando en Clinera.</h2>
-            <p class="lead">Un ingeniero E2E migra y configura tu cuenta.</p>
-          </div>
-
-          <div
-            class="simple-gantt reveal"
-            role="img"
-            aria-label="Carta Gantt simple de cuatro semanas. El software actual y Clinera permanecen activos en paralelo durante los últimos siete días."
-          >
-            <div class="simple-gantt-weeks" aria-hidden="true">
-              <span></span>
-              <span>Semana 1</span>
-              <span>Semana 2</span>
-              <span>Semana 3</span>
-              <span>Semana 4</span>
-            </div>
-            <div class="simple-gantt-row" aria-hidden="true">
-              <span class="simple-gantt-label">Software actual</span>
-              <span class="simple-gantt-cell old"></span>
-              <span class="simple-gantt-cell old"></span>
-              <span class="simple-gantt-cell old"></span>
-              <span class="simple-gantt-cell old"></span>
-            </div>
-            <div class="simple-gantt-row" aria-hidden="true">
-              <span class="simple-gantt-label">Clinera</span>
-              <span class="simple-gantt-cell setup"></span>
-              <span class="simple-gantt-cell setup"></span>
-              <span class="simple-gantt-cell setup"></span>
-              <span class="simple-gantt-cell active">Activa</span>
-            </div>
-            <p class="simple-overlap">Últimos 7 días: ambos sistemas activos.</p>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="slide dark"
         id="demostracion"
         data-name="Demostración"
-        data-theme="dark"
         aria-hidden="true"
       >
         <div class="slide-inner closing">
-          <div class="close-mark reveal" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45">
-              <path d="M12 3 19 6v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z"></path>
-              <path d="m9 12 2 2 4-4"></path>
-            </svg>
-          </div>
           <div class="eyebrow">El siguiente paso</div>
-          <h2 class="display">¿Listo para transformar la gestión de tu clínica?</h2>
+          <h2 class="display">Conoce Clinera en tu propia operación.</h2>
           <p class="lead">
-            Suma a tu equipo la potencia de Clinera y la asistencia inteligente de la IA Aura.
-            <span class="accent">Más tiempo para tus pacientes, menos carga administrativa.</span>
+            Te mostramos cómo centralizar tu clínica y dónde la IA puede reducir carga administrativa.
           </p>
           <div class="closing-actions reveal">
             <a class="primary-cta" href="https://www.clinera.io/hablar-con-ventas">
-              Agendar una demostración personalizada
+              Agendar una demostración
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
                 <path d="M5 12h14"></path>
                 <path d="m14 7 5 5-5 5"></path>
               </svg>
             </a>
-            <a class="site-link" href="https://www.clinera.io">www.clinera.io</a>
+            <a class="site-link" href="https://www.clinera.io">clinera.io</a>
           </div>
         </div>
       </section>
     </main>
 
-    <div class="progress" id="progress" aria-hidden="true">
-      <div class="progress-count"><span id="currentCount">01</span> / <span id="totalCount">05</span></div>
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    </div>
-
-    <nav class="controls" aria-label="Navegación de la presentación">
-      <button class="control-button" id="previousButton" type="button" aria-label="Diapositiva anterior" disabled>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path d="m15 18-6-6 6-6"></path>
-        </svg>
-      </button>
-      <button class="control-button" id="nextButton" type="button" aria-label="Siguiente diapositiva">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path d="m9 18 6-6-6-6"></path>
-        </svg>
-      </button>
-    </nav>
-
-    <div class="sr-only" id="slideAnnouncement" aria-live="polite"></div>
+    <footer class="deck-footer" aria-label="Navegación de la presentación">
+      <div class="counter" aria-live="polite">
+        <span id="currentCount">01</span> / <span id="totalCount">05</span>
+      </div>
+      <div class="progress" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="footer-note">Flechas para navegar</div>
+      <div class="controls">
+        <button class="control" id="previousButton" type="button" aria-label="Diapositiva anterior" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+        </button>
+        <button class="control" id="nextButton" type="button" aria-label="Siguiente diapositiva">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </button>
+      </div>
+    </footer>
   </div>
 
   <script>
-    (function () {
+    (() => {
       const slides = Array.from(document.querySelectorAll(".slide"));
-      const topbar = document.getElementById("topbar");
-      const progress = document.getElementById("progress");
-      const progressFill = document.getElementById("progressFill");
+      const chapter = document.getElementById("chapter");
       const currentCount = document.getElementById("currentCount");
       const totalCount = document.getElementById("totalCount");
-      const sectionLabel = document.getElementById("sectionLabel");
+      const progressFill = document.getElementById("progressFill");
       const previousButton = document.getElementById("previousButton");
       const nextButton = document.getElementById("nextButton");
-      const announcement = document.getElementById("slideAnnouncement");
-      let activeIndex = 0;
+      const hashIndex = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
+      let current = hashIndex >= 0 ? hashIndex : 0;
       let touchStartX = 0;
       let touchStartY = 0;
 
       totalCount.textContent = String(slides.length).padStart(2, "0");
 
-      function showSlide(nextIndex, updateHistory) {
-        const boundedIndex = Math.max(0, Math.min(nextIndex, slides.length - 1));
-        if (boundedIndex === activeIndex && slides[boundedIndex].classList.contains("active")) {
-          return;
-        }
+      const render = (next, updateHash = true) => {
+        current = Math.max(0, Math.min(next, slides.length - 1));
 
-        slides.forEach(function (slide, index) {
-          const isActive = index === boundedIndex;
-          slide.classList.toggle("active", isActive);
-          slide.setAttribute("aria-hidden", String(!isActive));
-          if (isActive) {
-            slide.scrollTop = 0;
-          }
+        slides.forEach((slide, index) => {
+          const active = index === current;
+          slide.classList.toggle("active", active);
+          slide.setAttribute("aria-hidden", String(!active));
+          if (active) slide.scrollTop = 0;
         });
 
-        activeIndex = boundedIndex;
-        const activeSlide = slides[activeIndex];
-        const isDark = activeSlide.dataset.theme === "dark";
+        const activeSlide = slides[current];
+        chapter.textContent = activeSlide.dataset.name;
+        currentCount.textContent = String(current + 1).padStart(2, "0");
+        progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
+        previousButton.disabled = current === 0;
+        nextButton.disabled = current === slides.length - 1;
 
-        topbar.classList.toggle("is-dark", isDark);
-        progress.classList.toggle("is-dark", isDark);
-        sectionLabel.textContent = activeSlide.dataset.name;
-        currentCount.textContent = String(activeIndex + 1).padStart(2, "0");
-        progressFill.style.width = ((activeIndex + 1) / slides.length * 100) + "%";
-        previousButton.disabled = activeIndex === 0;
-        nextButton.disabled = activeIndex === slides.length - 1;
-        announcement.textContent = "Diapositiva " + (activeIndex + 1) + " de " + slides.length + ": " + activeSlide.dataset.name;
-
-        if (updateHistory !== false) {
-          history.replaceState(null, "", "#" + activeSlide.id);
+        if (updateHash) {
+          window.history.replaceState(null, "", `#${activeSlide.id}`);
         }
-      }
+      };
 
-      function next() {
-        if (activeIndex < slides.length - 1) {
-          showSlide(activeIndex + 1);
-        }
-      }
+      const goPrevious = () => render(current - 1);
+      const goNext = () => render(current + 1);
 
-      function previous() {
-        if (activeIndex > 0) {
-          showSlide(activeIndex - 1);
-        }
-      }
+      previousButton.addEventListener("click", goPrevious);
+      nextButton.addEventListener("click", goNext);
 
-      previousButton.addEventListener("click", previous);
-      nextButton.addEventListener("click", next);
-
-      document.addEventListener("keydown", function (event) {
-        const target = event.target;
-        const isInteractive = target instanceof HTMLElement &&
-          (target.matches("a, button, input, textarea, select") || target.isContentEditable);
-
-        if (isInteractive && event.key !== "Escape") {
-          return;
+      document.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+          event.preventDefault();
+          goNext();
         }
 
-        if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key)) {
+        if (["ArrowLeft", "PageUp"].includes(event.key)) {
           event.preventDefault();
-          next();
-        } else if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) {
+          goPrevious();
+        }
+
+        if (event.key === "Home") {
           event.preventDefault();
-          previous();
-        } else if (event.key === "Home") {
+          render(0);
+        }
+
+        if (event.key === "End") {
           event.preventDefault();
-          showSlide(0);
-        } else if (event.key === "End") {
-          event.preventDefault();
-          showSlide(slides.length - 1);
+          render(slides.length - 1);
         }
       });
 
-      document.addEventListener("touchstart", function (event) {
-        const touch = event.changedTouches[0];
-        touchStartX = touch.clientX;
-        touchStartY = touch.clientY;
-      }, { passive: true });
+      document.addEventListener(
+        "touchstart",
+        (event) => {
+          touchStartX = event.changedTouches[0].clientX;
+          touchStartY = event.changedTouches[0].clientY;
+        },
+        { passive: true }
+      );
 
-      document.addEventListener("touchend", function (event) {
-        const touch = event.changedTouches[0];
-        const deltaX = touch.clientX - touchStartX;
-        const deltaY = touch.clientY - touchStartY;
+      document.addEventListener(
+        "touchend",
+        (event) => {
+          const deltaX = event.changedTouches[0].clientX - touchStartX;
+          const deltaY = event.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(deltaX) < 54 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+          if (deltaX < 0) goNext();
+          if (deltaX > 0) goPrevious();
+        },
+        { passive: true }
+      );
 
-        if (Math.abs(deltaX) > 55 && Math.abs(deltaX) > Math.abs(deltaY) * 1.25) {
-          if (deltaX < 0) {
-            next();
-          } else {
-            previous();
-          }
-        }
-      }, { passive: true });
-
-      const initialHash = window.location.hash.slice(1);
-      const initialIndex = slides.findIndex(function (slide) {
-        return slide.id === initialHash;
+      window.addEventListener("hashchange", () => {
+        const index = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
+        if (index >= 0 && index !== current) render(index, false);
       });
 
-      if (initialIndex > 0) {
-        showSlide(initialIndex, false);
-      } else {
-        sectionLabel.textContent = slides[0].dataset.name;
-        progressFill.style.width = (1 / slides.length * 100) + "%";
-      }
+      render(current, hashIndex < 0);
     })();
   </script>
 </body>
