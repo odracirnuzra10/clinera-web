@@ -2044,6 +2044,10 @@
     .usecase-panel {
       grid-area: 1 / 1;
       align-self: center;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) clamp(150px, 13vw, 188px);
+      align-items: center;
+      gap: clamp(28px, 3.5vw, 48px);
       min-width: 0;
       opacity: 0;
       visibility: hidden;
@@ -2062,6 +2066,10 @@
       pointer-events: auto;
     }
 
+    .usecase-copy {
+      min-width: 0;
+    }
+
     .usecase-label {
       display: block;
       margin-bottom: 17px;
@@ -2077,14 +2085,14 @@
       max-width: 720px;
       margin: 0;
       color: var(--ink);
-      font-size: clamp(38px, 4vw, 57px);
+      font-size: clamp(36px, 3.45vw, 50px);
       font-weight: 650;
       letter-spacing: -.055em;
       line-height: .98;
       text-wrap: balance;
     }
 
-    .usecase-panel > p {
+    .usecase-copy > p {
       max-width: 720px;
       margin: 22px 0 0;
       color: var(--muted);
@@ -2155,6 +2163,64 @@
       line-height: 1.4;
     }
 
+    .usecase-portrait {
+      position: relative;
+      align-self: stretch;
+      min-height: 356px;
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #f4f4f1;
+    }
+
+    .usecase-portrait::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 48%, rgba(17, 19, 24, .88) 100%);
+      pointer-events: none;
+    }
+
+    .usecase-portrait img {
+      width: 100%;
+      height: 100%;
+      min-height: 356px;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(.88) contrast(.98);
+    }
+
+    .usecase-portrait img.portrait-left {
+      object-position: 14% top;
+    }
+
+    .usecase-portrait figcaption {
+      position: absolute;
+      z-index: 1;
+      inset: auto 18px 18px;
+      color: #ffffff;
+    }
+
+    .usecase-portrait figcaption span,
+    .usecase-portrait figcaption strong {
+      display: block;
+    }
+
+    .usecase-portrait figcaption span {
+      margin-bottom: 6px;
+      color: rgba(255, 255, 255, .68);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .usecase-portrait figcaption strong {
+      font-size: 13px;
+      font-weight: 550;
+      line-height: 1.25;
+    }
+
     @media (max-width: 980px) {
       .usecase-layout {
         grid-template-columns: 1fr;
@@ -2172,7 +2238,7 @@
       }
 
       .usecase-stage {
-        min-height: 500px;
+        min-height: 520px;
         padding: 34px 0 0;
         border-top: 1px solid var(--line);
         border-left: 0;
@@ -2190,15 +2256,32 @@
       }
 
       .usecase-stage {
-        min-height: 680px;
+        min-height: 980px;
+      }
+
+      .usecase-panel {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 28px;
       }
 
       .usecase-panel h3 {
         font-size: clamp(38px, 11vw, 50px);
       }
 
-      .usecase-panel > p {
+      .usecase-copy > p {
         font-size: 16px;
+      }
+
+      .usecase-portrait {
+        grid-row: 2;
+        min-height: 210px;
+        max-height: 210px;
+      }
+
+      .usecase-portrait img {
+        min-height: 210px;
+        object-position: center 24%;
       }
 
       .usecase-flow {
@@ -2454,138 +2537,183 @@
 
           <div class="usecase-stage reveal" id="usecaseStage">
             <article class="usecase-panel active" data-usecase="0" aria-hidden="false">
-              <span class="usecase-label">01 · Atención 24/7</span>
-              <h3>Responder con IA y contexto real de tu clínica.</h3>
-              <p>
-                Un paciente escribe a la 01:00. AURA responde con la información correcta y agenda
-                en tiempo real, directamente en tu calendario.
-              </p>
-              <div class="usecase-flow" aria-label="Paciente escribe, AURA responde y la cita queda agendada">
-                <div class="usecase-flow-step">
-                  <span>01:00</span>
-                  <strong>Paciente escribe</strong>
+              <div class="usecase-copy">
+                <span class="usecase-label">01 · Atención 24/7</span>
+                <h3>Responder con IA y contexto real de tu clínica.</h3>
+                <p>
+                  Un paciente escribe a la 01:00. AURA responde con la información correcta y agenda
+                  en tiempo real, directamente en tu calendario.
+                </p>
+                <div class="usecase-flow" aria-label="Paciente escribe, AURA responde y la cita queda agendada">
+                  <div class="usecase-flow-step">
+                    <span>01:00</span>
+                    <strong>Paciente escribe</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Contexto real</span>
+                    <strong>AURA responde</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>En tiempo real</span>
+                    <strong>Cita agendada</strong>
+                  </div>
                 </div>
-                <div class="usecase-flow-step">
-                  <span>Contexto real</span>
-                  <strong>AURA responde</strong>
-                </div>
-                <div class="usecase-flow-step">
-                  <span>En tiempo real</span>
-                  <strong>Cita agendada</strong>
+                <div class="usecase-result">
+                  <span>Resultado</span>
+                  <strong>La agenda trabaja incluso cuando el equipo está fuera de horario.</strong>
                 </div>
               </div>
-              <div class="usecase-result">
-                <span>Resultado</span>
-                <strong>La agenda trabaja incluso cuando el equipo está fuera de horario.</strong>
-              </div>
+              <figure class="usecase-portrait">
+                <img src="/images/home/katherine.png" alt="Katherine Meza, clienta de Clinera" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>Clientes Clinera</span>
+                  <strong>Katherine Meza</strong>
+                </figcaption>
+              </figure>
             </article>
 
             <article class="usecase-panel" data-usecase="1" aria-hidden="true">
-              <span class="usecase-label">02 · Confirmación de citas</span>
-              <h3>Recordar automáticamente una cita pendiente.</h3>
-              <p>
-                Si un paciente todavía no confirma, Clinera detecta la cita pendiente y activa el
-                recordatorio por WhatsApp sin que recepción tenga que perseguirlo.
-              </p>
-              <div class="usecase-flow" aria-label="Cita pendiente, recordatorio automático y confirmación">
-                <div class="usecase-flow-step">
-                  <span>Estado</span>
-                  <strong>Cita pendiente</strong>
+              <div class="usecase-copy">
+                <span class="usecase-label">02 · Confirmación de citas</span>
+                <h3>Recordar automáticamente una cita pendiente.</h3>
+                <p>
+                  Si un paciente todavía no confirma, Clinera detecta la cita pendiente y activa el
+                  recordatorio por WhatsApp sin que recepción tenga que perseguirlo.
+                </p>
+                <div class="usecase-flow" aria-label="Cita pendiente, recordatorio automático y confirmación">
+                  <div class="usecase-flow-step">
+                    <span>Estado</span>
+                    <strong>Cita pendiente</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Automatización</span>
+                    <strong>Envía recordatorio</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Actualización</span>
+                    <strong>Paciente confirma</strong>
+                  </div>
                 </div>
-                <div class="usecase-flow-step">
-                  <span>Automatización</span>
-                  <strong>Envía recordatorio</strong>
-                </div>
-                <div class="usecase-flow-step">
-                  <span>Actualización</span>
-                  <strong>Paciente confirma</strong>
+                <div class="usecase-result">
+                  <span>Resultado</span>
+                  <strong>Menos horas perdidas y menos seguimiento manual.</strong>
                 </div>
               </div>
-              <div class="usecase-result">
-                <span>Resultado</span>
-                <strong>Menos horas perdidas y menos seguimiento manual.</strong>
-              </div>
+              <figure class="usecase-portrait">
+                <img src="/images/home/yasna.jpg" alt="Dra. Yasna Vásquez, clienta de Clinera" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>Clientes Clinera</span>
+                  <strong>Dra. Yasna Vásquez</strong>
+                </figcaption>
+              </figure>
             </article>
 
             <article class="usecase-panel" data-usecase="2" aria-hidden="true">
-              <span class="usecase-label">03 · Recuperación de pagos</span>
-              <h3>Cobrar morosos con seguimiento coordinado por IA.</h3>
-              <p>
-                Clinera detecta la morosidad e inicia el proceso de cobro por WhatsApp, llamada y
-                correo, manteniendo el contexto de cada paciente.
-              </p>
-              <div class="usecase-flow" aria-label="Morosidad detectada, contacto multicanal y seguimiento">
-                <div class="usecase-flow-step">
-                  <span>Detección</span>
-                  <strong>Pago pendiente</strong>
+              <div class="usecase-copy">
+                <span class="usecase-label">03 · Recuperación de pagos</span>
+                <h3>Cobrar morosos con seguimiento coordinado por IA.</h3>
+                <p>
+                  Clinera detecta la morosidad e inicia el proceso de cobro por WhatsApp, llamada y
+                  correo, manteniendo el contexto de cada paciente.
+                </p>
+                <div class="usecase-flow" aria-label="Morosidad detectada, contacto multicanal y seguimiento">
+                  <div class="usecase-flow-step">
+                    <span>Detección</span>
+                    <strong>Pago pendiente</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Multicanal</span>
+                    <strong>WhatsApp, llamada y correo</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Control</span>
+                    <strong>Seguimiento registrado</strong>
+                  </div>
                 </div>
-                <div class="usecase-flow-step">
-                  <span>Multicanal</span>
-                  <strong>WhatsApp, llamada y correo</strong>
-                </div>
-                <div class="usecase-flow-step">
-                  <span>Control</span>
-                  <strong>Seguimiento registrado</strong>
+                <div class="usecase-result">
+                  <span>Resultado</span>
+                  <strong>La cobranza comienza a tiempo y queda trazable.</strong>
                 </div>
               </div>
-              <div class="usecase-result">
-                <span>Resultado</span>
-                <strong>La cobranza comienza a tiempo y queda trazable.</strong>
-              </div>
+              <figure class="usecase-portrait">
+                <img src="/images/home/stefani.webp" alt="Dra. Stefani Michailiszen, clienta de Clinera" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>Clientes Clinera</span>
+                  <strong>Dra. Stefani Michailiszen</strong>
+                </figcaption>
+              </figure>
             </article>
 
             <article class="usecase-panel" data-usecase="3" aria-hidden="true">
-              <span class="usecase-label">04 · Configuración clínica</span>
-              <h3>Crear una ficha clínica personalizada.</h3>
-              <p>
-                El doctor define la información que necesita y utiliza el creador de fichas de
-                Clinera para adaptar el registro a su especialidad y forma de atención.
-              </p>
-              <div class="usecase-flow" aria-label="Necesidad clínica, creación de campos y ficha lista">
-                <div class="usecase-flow-step">
-                  <span>Necesidad</span>
-                  <strong>Define su protocolo</strong>
+              <div class="usecase-copy">
+                <span class="usecase-label">04 · Configuración clínica</span>
+                <h3>Crear una ficha clínica personalizada.</h3>
+                <p>
+                  El doctor define la información que necesita y utiliza el creador de fichas de
+                  Clinera para adaptar el registro a su especialidad y forma de atención.
+                </p>
+                <div class="usecase-flow" aria-label="Necesidad clínica, creación de campos y ficha lista">
+                  <div class="usecase-flow-step">
+                    <span>Necesidad</span>
+                    <strong>Define su protocolo</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Herramienta</span>
+                    <strong>Creador de fichas</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Entrega</span>
+                    <strong>Ficha personalizada</strong>
+                  </div>
                 </div>
-                <div class="usecase-flow-step">
-                  <span>Herramienta</span>
-                  <strong>Creador de fichas</strong>
-                </div>
-                <div class="usecase-flow-step">
-                  <span>Entrega</span>
-                  <strong>Ficha personalizada</strong>
+                <div class="usecase-result">
+                  <span>Resultado</span>
+                  <strong>El software se adapta a la clínica, no al revés.</strong>
                 </div>
               </div>
-              <div class="usecase-result">
-                <span>Resultado</span>
-                <strong>El software se adapta a la clínica, no al revés.</strong>
-              </div>
+              <figure class="usecase-portrait">
+                <img src="/images/home/flavio.jpeg" alt="Dr. Flavio Rojas, cliente de Clinera" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>Clientes Clinera</span>
+                  <strong>Dr. Flavio Rojas</strong>
+                </figcaption>
+              </figure>
             </article>
 
             <article class="usecase-panel" data-usecase="4" aria-hidden="true">
-              <span class="usecase-label">05 · Control humano</span>
-              <h3>Tomar una conversación cuando el equipo lo necesita.</h3>
-              <p>
-                La recepcionista puede desactivar la IA, hablar directamente con el paciente y
-                volver a activarla al terminar, sin perder el historial.
-              </p>
-              <div class="usecase-flow" aria-label="IA activa, recepción toma el control y la IA se reactiva">
-                <div class="usecase-flow-step">
-                  <span>Inicio</span>
-                  <strong>IA atendiendo</strong>
+              <div class="usecase-copy">
+                <span class="usecase-label">05 · Control humano</span>
+                <h3>Tomar una conversación cuando el equipo lo necesita.</h3>
+                <p>
+                  La recepcionista puede desactivar la IA, hablar directamente con el paciente y
+                  volver a activarla al terminar, sin perder el historial.
+                </p>
+                <div class="usecase-flow" aria-label="IA activa, recepción toma el control y la IA se reactiva">
+                  <div class="usecase-flow-step">
+                    <span>Inicio</span>
+                    <strong>IA atendiendo</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Intervención</span>
+                    <strong>Recepción toma el control</strong>
+                  </div>
+                  <div class="usecase-flow-step">
+                    <span>Continuidad</span>
+                    <strong>IA reactivada</strong>
+                  </div>
                 </div>
-                <div class="usecase-flow-step">
-                  <span>Intervención</span>
-                  <strong>Recepción toma el control</strong>
-                </div>
-                <div class="usecase-flow-step">
-                  <span>Continuidad</span>
-                  <strong>IA reactivada</strong>
+                <div class="usecase-result">
+                  <span>Resultado</span>
+                  <strong>Automatización con control total del equipo.</strong>
                 </div>
               </div>
-              <div class="usecase-result">
-                <span>Resultado</span>
-                <strong>Automatización con control total del equipo.</strong>
-              </div>
+              <figure class="usecase-portrait">
+                <img class="portrait-left" src="/images/home/tamara.jpeg" alt="Tamara Oyarzún, clienta de Clinera" loading="lazy" decoding="async" />
+                <figcaption>
+                  <span>Clientes Clinera</span>
+                  <strong>Tamara Oyarzún</strong>
+                </figcaption>
+              </figure>
             </article>
           </div>
         </div>
