@@ -9,7 +9,7 @@
     content="Clinera centraliza la operación de tu clínica y suma inteligencia artificial a la gestión diaria."
   />
   <meta name="robots" content="noindex,nofollow" />
-  <meta name="theme-color" content="#efefec" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="canonical" href="https://www.clinera.io/presentacion" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%236941C6'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,7 +20,7 @@
   />
   <style>
     :root {
-      --canvas: #efefec;
+      --canvas: #ffffff;
       --paper: #ffffff;
       --ink: #111318;
       --muted: #656a76;
@@ -849,7 +849,7 @@
     }
 
     .progress-fill {
-      width: 16.666%;
+      width: 20%;
       height: 100%;
       background: var(--cyan);
       transform-origin: left center;
@@ -1288,6 +1288,511 @@
       }
     }
 
+    /* White presentation canvas */
+    .topbar {
+      background: rgba(255, 255, 255, .9);
+    }
+
+    .slide {
+      padding: 82px clamp(28px, 4.8vw, 74px) 76px;
+      background: #ffffff;
+    }
+
+    .slide-inner {
+      width: min(1320px, 100%);
+      min-height: min(720px, calc(100dvh - 158px));
+      padding: clamp(44px, 4.7vw, 70px) clamp(44px, 5.6vw, 82px);
+      border: 0;
+      background: #ffffff;
+      box-shadow: none;
+    }
+
+    .slide-inner::before,
+    .slide-inner::after {
+      display: none;
+    }
+
+    .handover-overlap,
+    .control {
+      background: #ffffff;
+    }
+
+    /* Clinera Intelligence — native HTML/CSS composition */
+    .intelligence-composition {
+      display: block;
+      width: min(1360px, 100%);
+      padding: 28px clamp(22px, 3.2vw, 48px) 54px;
+      overflow: visible;
+    }
+
+    .intelligence-heading {
+      max-width: 940px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .intelligence-heading .eyebrow {
+      margin-bottom: 13px;
+    }
+
+    .intelligence-heading .eyebrow::before {
+      display: none;
+    }
+
+    .intelligence-heading h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(34px, 3.25vw, 50px);
+      font-weight: 700;
+      letter-spacing: -.055em;
+      line-height: .98;
+      text-wrap: balance;
+    }
+
+    .intelligence-heading h2 span {
+      color: var(--violet);
+    }
+
+    .intelligence-heading p {
+      max-width: 720px;
+      margin: 15px auto 0;
+      color: var(--muted);
+      font-size: clamp(14px, 1.2vw, 17px);
+      line-height: 1.45;
+      text-wrap: balance;
+    }
+
+    .intelligence-system {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(380px, 1.25fr) minmax(190px, .62fr) minmax(300px, .96fr);
+      align-items: center;
+      gap: clamp(22px, 2.6vw, 38px);
+      margin-top: 28px;
+      padding-bottom: 30px;
+    }
+
+    .system-sources,
+    .system-actions,
+    .system-core {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+
+    .system-label {
+      display: block;
+      margin: 0 0 10px;
+      color: #7c8290;
+      font-family: var(--mono);
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .system-source-grid,
+    .system-action-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .system-source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .system-source-grid li,
+    .system-action-list li {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .system-source-grid li {
+      min-height: 47px;
+      padding: 7px 10px;
+      border: 1px solid #eaeaea;
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 1px 2px rgba(17, 17, 17, .035);
+    }
+
+    .system-source-grid li > span:last-child,
+    .system-action-list li > span:last-child {
+      min-width: 0;
+    }
+
+    .system-source-grid b,
+    .system-source-grid small,
+    .system-action-list b,
+    .system-action-list small {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .system-source-grid b {
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 650;
+      line-height: 1.2;
+    }
+
+    .system-source-grid small {
+      margin-top: 2px;
+      color: #808591;
+      font-size: 8px;
+      line-height: 1.2;
+    }
+
+    .system-icon,
+    .system-action-icon {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      color: var(--violet);
+    }
+
+    .system-icon {
+      width: 29px;
+      height: 29px;
+      border: 1px solid #e8e0fb;
+      border-radius: 8px;
+      background: #f7f4fd;
+    }
+
+    .system-icon svg,
+    .system-action-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .system-core {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .system-core::before,
+    .system-core::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 74px;
+      width: 58%;
+      height: 1px;
+      background: #ddd4f3;
+    }
+
+    .system-core::before {
+      right: 82%;
+    }
+
+    .system-core::after {
+      left: 82%;
+    }
+
+    .core-orbit {
+      display: grid;
+      width: 138px;
+      height: 138px;
+      place-items: center;
+      border: 1px solid rgba(105, 65, 198, .24);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 9px rgba(105, 65, 198, .045),
+        0 12px 30px rgba(105, 65, 198, .1);
+    }
+
+    .core-disc {
+      display: grid;
+      width: 112px;
+      height: 112px;
+      place-items: center;
+      border-radius: 50%;
+      color: #ffffff;
+      background: var(--violet);
+      animation: core-breathe 3.8s ease-in-out infinite;
+    }
+
+    .core-disc svg {
+      width: 48px;
+      height: 48px;
+      fill: currentColor;
+    }
+
+    .system-core strong {
+      margin-top: 13px;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -.035em;
+    }
+
+    .system-core small {
+      margin-top: 6px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .system-action-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .system-action-list li {
+      min-height: 56px;
+      padding: 9px 13px;
+      border: 1px solid #22252d;
+      border-radius: 10px;
+      color: #ffffff;
+      background: #111318;
+    }
+
+    .system-action-icon {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(156, 116, 238, .45);
+      border-radius: 8px;
+      color: #b894ff;
+      background: rgba(105, 65, 198, .2);
+    }
+
+    .system-action-list b {
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .system-action-list small {
+      margin-top: 2px;
+      color: #a7aab2;
+      font-size: 9px;
+      line-height: 1.2;
+    }
+
+    .stefani-float {
+      position: absolute;
+      z-index: 3;
+      bottom: -20px;
+      left: 50%;
+      width: min(390px, 42%);
+      min-height: 68px;
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      align-items: center;
+      column-gap: 12px;
+      padding: 10px 15px 10px 10px;
+      border: 1px solid #e4e4e1;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 10px 28px rgba(17, 19, 24, .1);
+      transform: translateX(-50%);
+      backdrop-filter: blur(12px);
+    }
+
+    .stefani-float img {
+      grid-row: 1 / 3;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 24%;
+    }
+
+    .stefani-float blockquote {
+      align-self: end;
+      margin: 0;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -.015em;
+      line-height: 1.2;
+    }
+
+    .stefani-float > span {
+      align-self: start;
+      margin-top: 3px;
+      color: #858a95;
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    @keyframes core-breathe {
+      0%,
+      100% {
+        transform: scale(.96);
+      }
+      50% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .intelligence-composition {
+        padding: 30px 42px 54px;
+      }
+
+      .intelligence-heading {
+        text-align: left;
+      }
+
+      .intelligence-heading .eyebrow::before {
+        display: block;
+      }
+
+      .intelligence-heading p {
+        margin-left: 0;
+      }
+
+      .intelligence-system {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-top: 36px;
+        padding-bottom: 0;
+      }
+
+      .system-core::before,
+      .system-core::after {
+        display: none;
+      }
+
+      .stefani-float {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        width: min(100%, 440px);
+        margin: 0 auto;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        background: rgba(255, 255, 255, .94);
+      }
+
+      .slide {
+        padding: 84px 18px 88px;
+      }
+
+      .slide-inner {
+        min-height: calc(100dvh - 172px);
+        padding: 34px 18px 38px;
+      }
+
+      .intelligence-composition {
+        display: block;
+        padding: 22px 0 42px;
+      }
+
+      .intelligence-heading h2 {
+        font-size: clamp(34px, 10.2vw, 44px);
+      }
+
+      .system-source-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .system-source-grid li {
+        min-height: 54px;
+      }
+
+      .system-source-grid b {
+        font-size: 13px;
+      }
+
+      .system-source-grid small {
+        font-size: 10px;
+      }
+
+      .system-action-list li {
+        min-height: 62px;
+      }
+
+      .system-action-list b {
+        font-size: 14px;
+      }
+
+      .system-action-list small {
+        font-size: 10px;
+      }
+
+      .stefani-float {
+        width: 100%;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 981px) {
+      .slide {
+        padding-top: 72px;
+        padding-bottom: 68px;
+      }
+
+      .slide-inner {
+        min-height: calc(100dvh - 140px);
+      }
+
+      .intelligence-composition {
+        padding-top: 16px;
+        padding-bottom: 40px;
+      }
+
+      .intelligence-heading h2 {
+        font-size: clamp(30px, 3vw, 42px);
+      }
+
+      .intelligence-heading p {
+        margin-top: 10px;
+      }
+
+      .intelligence-system {
+        margin-top: 20px;
+      }
+
+      .system-source-grid li {
+        min-height: 41px;
+        padding-block: 5px;
+      }
+
+      .system-action-list li {
+        min-height: 48px;
+        padding-block: 6px;
+      }
+
+      .core-orbit {
+        width: 116px;
+        height: 116px;
+      }
+
+      .core-disc {
+        width: 94px;
+        height: 94px;
+      }
+
+      .system-core::before,
+      .system-core::after {
+        top: 61px;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -1345,16 +1850,141 @@
         data-name="Clinera Intelligence"
         aria-hidden="true"
       >
-        <div class="slide-inner intelligence-sheet">
-          <h2 class="sr-only">Clinera Intelligence, el sistema operativo de tu clínica con IA</h2>
-          <figure class="intelligence-document reveal">
-            <img
-              src="/presentacion/assets/clinera-intelligence-operating-system.png"
-              alt="Clinera Intelligence conecta agenda, sedes, fichas, tratamientos, ventas, pagos, marketing, WhatsApp, consentimientos y exámenes para agendar, responder, cobrar y automatizar la operación de la clínica."
-              loading="eager"
-              decoding="async"
-            />
-          </figure>
+        <div class="slide-inner intelligence-composition">
+          <header class="intelligence-heading">
+            <div class="eyebrow">Clinera Intelligence · núcleo operativo</div>
+            <h2>
+              Clinera Intelligence, <span>el sistema operativo de tu clínica con IA.</span>
+            </h2>
+            <p>
+              Toda tu operación entrega contexto. Clinera Intelligence entiende, decide y actúa.
+            </p>
+          </header>
+
+          <div
+            class="intelligence-system reveal"
+            role="img"
+            aria-label="Los módulos de agenda, sedes, fichas, tratamientos, ventas, pagos, marketing, WhatsApp, consentimientos y exámenes alimentan Clinera Intelligence para agendar, responder, cobrar y automatizar."
+          >
+            <section class="system-sources" aria-label="Módulos que alimentan Clinera Intelligence">
+              <span class="system-label">Toda tu operación la alimenta</span>
+              <ul class="system-source-grid">
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg>
+                  </span>
+                  <span><b>Agenda</b><small>Horas y bloqueos</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m4 10 8-6 8 6v10H4V10ZM9 20v-6h6v6"/></svg>
+                  </span>
+                  <span><b>Sedes</b><small>Toda tu operación</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3Zm7 0v5h5M10 12h5M10 16h5"/></svg>
+                  </span>
+                  <span><b>Fichas</b><small>Historial de pacientes</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3c.8 4.9 3.1 7.2 8 8-4.9.8-7.2 3.1-8 8-.8-4.9-3.1-7.2-8-8 4.9-.8 7.2-3.1 8-8Z"/></svg>
+                  </span>
+                  <span><b>Tratamientos</b><small>Precios y protocolos</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5 20V5M5 20h15M8 16l4-5 3 2 4-6"/></svg>
+                  </span>
+                  <span><b>Ventas</b><small>Qué se vende y cuánto</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M3 7h18v12H3V7Zm0 4h18"/></svg>
+                  </span>
+                  <span><b>Pagos</b><small>Cobros y conciliación</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m4 11 15-6v14L4 13v-2Zm4 3v5"/></svg>
+                  </span>
+                  <span><b>Marketing</b><small>Campañas y difusión</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
+                  </span>
+                  <span><b>WhatsApp</b><small>Toda la conversación</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M7 3h10v18H7V3Zm3 11 2 2 4-5"/></svg>
+                  </span>
+                  <span><b>Consentimientos</b><small>Firmados y archivados</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M3 13h4l2-7 4 13 2-7h6"/></svg>
+                  </span>
+                  <span><b>Exámenes</b><small>Resultados y controles</small></span>
+                </li>
+              </ul>
+            </section>
+
+            <section class="system-core" aria-label="Clinera Intelligence">
+              <div class="core-orbit" aria-hidden="true">
+                <div class="core-disc">
+                  <svg viewBox="0 0 64 64">
+                    <path d="M32 7c2.8 13.8 11.2 22.2 25 25-13.8 2.8-22.2 11.2-25 25C29.2 43.2 20.8 34.8 7 32 20.8 29.2 29.2 20.8 32 7Z"/>
+                  </svg>
+                </div>
+              </div>
+              <strong>Clinera Intelligence</strong>
+              <small>Contexto · decisiones · acción</small>
+            </section>
+
+            <section class="system-actions" aria-label="Acciones de Clinera Intelligence">
+              <span class="system-label">Clinera Intelligence actúa</span>
+              <ul class="system-action-list">
+                <li>
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Zm4 9 2 2 4-4"/></svg>
+                  </span>
+                  <span><b>Agenda y reagenda</b><small>Reserva y mueve horas sola</small></span>
+                </li>
+                <li>
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 1-11.7 7L4 20l1.5-4A8 8 0 1 1 20 11Z"/></svg>
+                  </span>
+                  <span><b>Responde 24/7</b><small>Por WhatsApp, sin descanso</small></span>
+                </li>
+                <li>
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c-1-1-2.4-1.5-4-1.5-2.2 0-4 1.1-4 3s1.8 3 4 3 4 1.1 4 3-1.8 3-4 3c-1.6 0-3-.5-4-1.5"/></svg>
+                  </span>
+                  <span><b>Cobra y recupera</b><small>Confirma pagos y reactiva</small></span>
+                </li>
+                <li>
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m13 2-8 12h6l-1 8 9-13h-6V2Z"/></svg>
+                  </span>
+                  <span><b>Automatiza</b><small>Flujos que se disparan solos</small></span>
+                </li>
+              </ul>
+            </section>
+
+            <aside class="stefani-float" aria-label="Testimonio de la Dra. Stefani">
+              <img
+                src="/images/testimonials/stefani-michailiszen.webp"
+                alt="Dra. Stefani, clienta de Clinera"
+                loading="lazy"
+                decoding="async"
+              />
+              <blockquote>“Clinera es el corazón de mi clínica.”</blockquote>
+              <span>Dra. Stefani</span>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -1428,35 +2058,6 @@
 
       <section
         class="slide"
-        id="testimonio"
-        data-name="Testimonio"
-        aria-hidden="true"
-      >
-        <div class="slide-inner testimonial-layout">
-          <figure class="testimonial-photo reveal">
-            <img
-              src="/images/testimonials/stefani-michailiszen.webp"
-              alt="Dra. Stefani, clienta de Clinera"
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
-
-          <div class="testimonial-copy">
-            <div class="eyebrow">Experiencia de cliente</div>
-            <blockquote>“Clinera es el corazón de mi clínica.”</blockquote>
-            <div class="testimonial-author reveal">
-              <div>
-                <strong>Dra. Stefani</strong>
-                <span>Clienta Clinera</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="slide"
         id="demostracion"
         data-name="Demostración"
         aria-hidden="true"
@@ -1484,7 +2085,7 @@
 
     <footer class="deck-footer" aria-label="Navegación de la presentación">
       <div class="counter" aria-live="polite">
-        <span id="currentCount">01</span> / <span id="totalCount">06</span>
+        <span id="currentCount">01</span> / <span id="totalCount">05</span>
       </div>
       <div class="progress" aria-hidden="true">
         <div class="progress-fill" id="progressFill"></div>
