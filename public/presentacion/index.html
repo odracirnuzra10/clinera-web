@@ -1966,6 +1966,265 @@
       }
     }
 
+    /* Use-case carousel */
+    .usecase-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, .58fr) minmax(0, 1.42fr);
+      align-items: center;
+      gap: clamp(68px, 8vw, 118px);
+      max-width: 1240px;
+    }
+
+    .usecase-intro .display {
+      max-width: 360px;
+    }
+
+    .usecase-intro .lead {
+      max-width: 390px;
+    }
+
+    .usecase-navigation {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 46px;
+    }
+
+    .usecase-count {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+    }
+
+    .usecase-count span:nth-child(2),
+    .usecase-count span:last-child {
+      color: #a1a5ad;
+    }
+
+    .usecase-rail {
+      display: grid;
+      grid-template-columns: repeat(5, 28px);
+      gap: 5px;
+    }
+
+    .usecase-rail span {
+      height: 2px;
+      background: var(--line);
+      transition: background .28s ease, transform .28s ease;
+      transform-origin: left center;
+    }
+
+    .usecase-rail span.active {
+      background: var(--violet);
+      transform: scaleY(1.5);
+    }
+
+    .usecase-hint {
+      margin: 14px 0 0;
+      color: #9a9ea7;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .usecase-stage {
+      position: relative;
+      display: grid;
+      min-width: 0;
+      min-height: 490px;
+      padding-left: clamp(44px, 5vw, 72px);
+      border-left: 1px solid var(--line);
+    }
+
+    .usecase-panel {
+      grid-area: 1 / 1;
+      align-self: center;
+      min-width: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(22px);
+      transition:
+        opacity .34s var(--ease),
+        visibility .34s,
+        transform .46s var(--ease);
+      pointer-events: none;
+    }
+
+    .usecase-panel.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .usecase-label {
+      display: block;
+      margin-bottom: 17px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .usecase-panel h3 {
+      max-width: 720px;
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(38px, 4vw, 57px);
+      font-weight: 650;
+      letter-spacing: -.055em;
+      line-height: .98;
+      text-wrap: balance;
+    }
+
+    .usecase-panel > p {
+      max-width: 720px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.35vw, 20px);
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .usecase-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 32px;
+      border-block: 1px solid var(--line);
+    }
+
+    .usecase-flow-step {
+      position: relative;
+      min-width: 0;
+      padding: 18px 24px 18px 0;
+    }
+
+    .usecase-flow-step + .usecase-flow-step {
+      padding-left: 24px;
+      border-left: 1px solid var(--line);
+    }
+
+    .usecase-flow-step span,
+    .usecase-flow-step strong {
+      display: block;
+    }
+
+    .usecase-flow-step span {
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .usecase-flow-step strong {
+      margin-top: 7px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .usecase-result {
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+      margin-top: 23px;
+    }
+
+    .usecase-result span {
+      color: #969ba5;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .usecase-result strong {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 550;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 980px) {
+      .usecase-layout {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 54px;
+      }
+
+      .usecase-intro .display,
+      .usecase-intro .lead {
+        max-width: 680px;
+      }
+
+      .usecase-navigation {
+        margin-top: 28px;
+      }
+
+      .usecase-stage {
+        min-height: 500px;
+        padding: 34px 0 0;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .usecase-layout {
+        gap: 42px;
+      }
+
+      .usecase-rail {
+        grid-template-columns: repeat(5, minmax(20px, 1fr));
+        width: min(100%, 220px);
+      }
+
+      .usecase-stage {
+        min-height: 680px;
+      }
+
+      .usecase-panel h3 {
+        font-size: clamp(38px, 11vw, 50px);
+      }
+
+      .usecase-panel > p {
+        font-size: 16px;
+      }
+
+      .usecase-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .usecase-flow-step {
+        padding: 15px 0;
+      }
+
+      .usecase-flow-step + .usecase-flow-step {
+        padding-left: 0;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .usecase-flow-step strong {
+        font-size: 14px;
+      }
+
+      .usecase-result {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *,
       *::before,
@@ -2164,27 +2423,171 @@
       <section
         class="slide"
         id="incluye"
-        data-name="Qué incluye"
+        data-name="Ejemplos de uso"
         aria-hidden="true"
       >
-        <div class="slide-inner features-layout">
-          <div class="features-intro">
-            <div class="eyebrow">Una plataforma</div>
-            <h2 class="display medium">Incluye todo esto.</h2>
-            <p class="lead">Sin sumar sistemas separados a tu operación.</p>
+        <div class="slide-inner usecase-layout">
+          <div class="usecase-intro">
+            <div class="eyebrow">En la operación real</div>
+            <h2 class="display medium">Ejemplos de uso.</h2>
+            <p class="lead">
+              Cinco momentos cotidianos donde Clinera conecta al equipo, los pacientes y la IA.
+            </p>
+
+            <div class="usecase-navigation" aria-label="Progreso de ejemplos de uso">
+              <div class="usecase-count" aria-live="polite">
+                <span id="usecaseCurrent">01</span>
+                <span>/</span>
+                <span id="usecaseTotal">05</span>
+              </div>
+              <div class="usecase-rail" id="usecaseRail" aria-hidden="true">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <p class="usecase-hint">Usa las flechas para recorrer los casos.</p>
           </div>
 
-          <ol class="feature-list reveal">
-            <li>Fichas clínicas cifradas de extremo a extremo</li>
-            <li>Registro de exámenes, recetas e imágenes</li>
-            <li>Consentimientos informados con firma digital</li>
-            <li>Agente IA que responde y agenda pacientes por WhatsApp</li>
-            <li>Clinera Intelligence, agente IA interno que te ayuda con la gestión</li>
-            <li>Módulo de ventas con atribución</li>
-            <li>Cobro de morosos con IA</li>
-            <li>Automatizaciones y recordatorios</li>
-            <li>Agenda multi-profesional y online</li>
-          </ol>
+          <div class="usecase-stage reveal" id="usecaseStage">
+            <article class="usecase-panel active" data-usecase="0" aria-hidden="false">
+              <span class="usecase-label">01 · Atención 24/7</span>
+              <h3>Responder con IA y contexto real de tu clínica.</h3>
+              <p>
+                Un paciente escribe a la 01:00. AURA responde con la información correcta y agenda
+                en tiempo real, directamente en tu calendario.
+              </p>
+              <div class="usecase-flow" aria-label="Paciente escribe, AURA responde y la cita queda agendada">
+                <div class="usecase-flow-step">
+                  <span>01:00</span>
+                  <strong>Paciente escribe</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Contexto real</span>
+                  <strong>AURA responde</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>En tiempo real</span>
+                  <strong>Cita agendada</strong>
+                </div>
+              </div>
+              <div class="usecase-result">
+                <span>Resultado</span>
+                <strong>La agenda trabaja incluso cuando el equipo está fuera de horario.</strong>
+              </div>
+            </article>
+
+            <article class="usecase-panel" data-usecase="1" aria-hidden="true">
+              <span class="usecase-label">02 · Confirmación de citas</span>
+              <h3>Recordar automáticamente una cita pendiente.</h3>
+              <p>
+                Si un paciente todavía no confirma, Clinera detecta la cita pendiente y activa el
+                recordatorio por WhatsApp sin que recepción tenga que perseguirlo.
+              </p>
+              <div class="usecase-flow" aria-label="Cita pendiente, recordatorio automático y confirmación">
+                <div class="usecase-flow-step">
+                  <span>Estado</span>
+                  <strong>Cita pendiente</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Automatización</span>
+                  <strong>Envía recordatorio</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Actualización</span>
+                  <strong>Paciente confirma</strong>
+                </div>
+              </div>
+              <div class="usecase-result">
+                <span>Resultado</span>
+                <strong>Menos horas perdidas y menos seguimiento manual.</strong>
+              </div>
+            </article>
+
+            <article class="usecase-panel" data-usecase="2" aria-hidden="true">
+              <span class="usecase-label">03 · Recuperación de pagos</span>
+              <h3>Cobrar morosos con seguimiento coordinado por IA.</h3>
+              <p>
+                Clinera detecta la morosidad e inicia el proceso de cobro por WhatsApp, llamada y
+                correo, manteniendo el contexto de cada paciente.
+              </p>
+              <div class="usecase-flow" aria-label="Morosidad detectada, contacto multicanal y seguimiento">
+                <div class="usecase-flow-step">
+                  <span>Detección</span>
+                  <strong>Pago pendiente</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Multicanal</span>
+                  <strong>WhatsApp, llamada y correo</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Control</span>
+                  <strong>Seguimiento registrado</strong>
+                </div>
+              </div>
+              <div class="usecase-result">
+                <span>Resultado</span>
+                <strong>La cobranza comienza a tiempo y queda trazable.</strong>
+              </div>
+            </article>
+
+            <article class="usecase-panel" data-usecase="3" aria-hidden="true">
+              <span class="usecase-label">04 · Configuración clínica</span>
+              <h3>Crear una ficha clínica personalizada.</h3>
+              <p>
+                El doctor define la información que necesita y utiliza el creador de fichas de
+                Clinera para adaptar el registro a su especialidad y forma de atención.
+              </p>
+              <div class="usecase-flow" aria-label="Necesidad clínica, creación de campos y ficha lista">
+                <div class="usecase-flow-step">
+                  <span>Necesidad</span>
+                  <strong>Define su protocolo</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Herramienta</span>
+                  <strong>Creador de fichas</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Entrega</span>
+                  <strong>Ficha personalizada</strong>
+                </div>
+              </div>
+              <div class="usecase-result">
+                <span>Resultado</span>
+                <strong>El software se adapta a la clínica, no al revés.</strong>
+              </div>
+            </article>
+
+            <article class="usecase-panel" data-usecase="4" aria-hidden="true">
+              <span class="usecase-label">05 · Control humano</span>
+              <h3>Tomar una conversación cuando el equipo lo necesita.</h3>
+              <p>
+                La recepcionista puede desactivar la IA, hablar directamente con el paciente y
+                volver a activarla al terminar, sin perder el historial.
+              </p>
+              <div class="usecase-flow" aria-label="IA activa, recepción toma el control y la IA se reactiva">
+                <div class="usecase-flow-step">
+                  <span>Inicio</span>
+                  <strong>IA atendiendo</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Intervención</span>
+                  <strong>Recepción toma el control</strong>
+                </div>
+                <div class="usecase-flow-step">
+                  <span>Continuidad</span>
+                  <strong>IA reactivada</strong>
+                </div>
+              </div>
+              <div class="usecase-result">
+                <span>Resultado</span>
+                <strong>Automatización con control total del equipo.</strong>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -2304,12 +2707,59 @@
       const progressFill = document.getElementById("progressFill");
       const previousButton = document.getElementById("previousButton");
       const nextButton = document.getElementById("nextButton");
+      const usecaseSlideIndex = slides.findIndex((slide) => slide.id === "incluye");
+      const usecasePanels = Array.from(document.querySelectorAll(".usecase-panel"));
+      const usecaseCurrent = document.getElementById("usecaseCurrent");
+      const usecaseTotal = document.getElementById("usecaseTotal");
+      const usecaseRailItems = Array.from(document.querySelectorAll("#usecaseRail span"));
       const hashIndex = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
       let current = hashIndex >= 0 ? hashIndex : 0;
+      let currentUsecase = 0;
       let touchStartX = 0;
       let touchStartY = 0;
 
       totalCount.textContent = String(slides.length).padStart(2, "0");
+      usecaseTotal.textContent = String(usecasePanels.length).padStart(2, "0");
+
+      const updateControlState = () => {
+        previousButton.disabled = current === 0;
+        nextButton.disabled = current === slides.length - 1;
+
+        const hasPreviousUsecase = current === usecaseSlideIndex && currentUsecase > 0;
+        const hasNextUsecase =
+          current === usecaseSlideIndex && currentUsecase < usecasePanels.length - 1;
+
+        previousButton.setAttribute(
+          "aria-label",
+          hasPreviousUsecase ? "Ejemplo de uso anterior" : "Diapositiva anterior"
+        );
+        nextButton.setAttribute(
+          "aria-label",
+          hasNextUsecase ? "Siguiente ejemplo de uso" : "Siguiente diapositiva"
+        );
+      };
+
+      const renderUsecase = (next) => {
+        currentUsecase = Math.max(0, Math.min(next, usecasePanels.length - 1));
+
+        usecasePanels.forEach((panel, index) => {
+          const active = index === currentUsecase;
+          panel.classList.toggle("active", active);
+          panel.setAttribute("aria-hidden", String(!active));
+        });
+
+        usecaseRailItems.forEach((item, index) => {
+          item.classList.toggle("active", index === currentUsecase);
+        });
+
+        usecaseCurrent.textContent = String(currentUsecase + 1).padStart(2, "0");
+
+        if (current === usecaseSlideIndex) {
+          chapter.textContent = `Ejemplos de uso · ${String(currentUsecase + 1).padStart(2, "0")}`;
+        }
+
+        updateControlState();
+      };
 
       const render = (next, updateHash = true) => {
         current = Math.max(0, Math.min(next, slides.length - 1));
@@ -2322,19 +2772,44 @@
         });
 
         const activeSlide = slides[current];
-        chapter.textContent = activeSlide.dataset.name;
+        chapter.textContent =
+          current === usecaseSlideIndex
+            ? `Ejemplos de uso · ${String(currentUsecase + 1).padStart(2, "0")}`
+            : activeSlide.dataset.name;
         currentCount.textContent = String(current + 1).padStart(2, "0");
         progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
-        previousButton.disabled = current === 0;
-        nextButton.disabled = current === slides.length - 1;
+        updateControlState();
 
         if (updateHash) {
           window.history.replaceState(null, "", `#${activeSlide.id}`);
         }
       };
 
-      const goPrevious = () => render(current - 1);
-      const goNext = () => render(current + 1);
+      const goPrevious = () => {
+        if (current === usecaseSlideIndex && currentUsecase > 0) {
+          renderUsecase(currentUsecase - 1);
+          return;
+        }
+
+        if (current - 1 === usecaseSlideIndex) {
+          renderUsecase(usecasePanels.length - 1);
+        }
+
+        render(current - 1);
+      };
+
+      const goNext = () => {
+        if (current === usecaseSlideIndex && currentUsecase < usecasePanels.length - 1) {
+          renderUsecase(currentUsecase + 1);
+          return;
+        }
+
+        if (current + 1 === usecaseSlideIndex) {
+          renderUsecase(0);
+        }
+
+        render(current + 1);
+      };
 
       previousButton.addEventListener("click", goPrevious);
       nextButton.addEventListener("click", goNext);
@@ -2352,6 +2827,7 @@
 
         if (event.key === "Home") {
           event.preventDefault();
+          renderUsecase(0);
           render(0);
         }
 
@@ -2384,9 +2860,13 @@
 
       window.addEventListener("hashchange", () => {
         const index = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
-        if (index >= 0 && index !== current) render(index, false);
+        if (index >= 0 && index !== current) {
+          if (index === usecaseSlideIndex) renderUsecase(0);
+          render(index, false);
+        }
       });
 
+      renderUsecase(0);
       render(current, hashIndex < 0);
     })();
   </script>
