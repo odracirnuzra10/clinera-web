@@ -161,6 +161,17 @@ export default function TerminosPage() {
               </p>
               <p style={p}>
                 <strong>
+                  El plazo estimado para completar el proceso de Onboarding e
+                  implementación es de 30 días corridos,
+                </strong>{" "}
+                contados desde el inicio del proceso. Dicho plazo está sujeto al
+                cumplimiento oportuno de las obligaciones del Cliente descritas
+                en esta sección y podrá extenderse cuando el Cliente no entregue
+                la información, documentación o materiales requeridos en los
+                tiempos solicitados.
+              </p>
+              <p style={p}>
+                <strong>
                   Es obligación del Cliente presentarse a cada sesión de
                   Onboarding con toda la información, documentación y materiales
                   requeridos,
