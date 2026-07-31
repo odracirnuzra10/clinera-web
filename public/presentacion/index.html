@@ -1109,275 +1109,212 @@
       line-height: 1.45;
     }
 
-    .migration-head {
+    .included-head {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(330px, .8fr);
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
       align-items: end;
       gap: 48px;
-      margin-bottom: 28px;
+      margin-bottom: 42px;
     }
 
-    .migration-head .display {
-      max-width: 760px;
-      font-size: clamp(38px, 3.85vw, 58px);
+    .included-head .lead {
+      margin: 0 0 4px;
     }
 
-    .migration-head .lead {
-      max-width: 680px;
-      margin-top: 18px;
-    }
-
-    .engineer-card {
+    .included-grid {
       display: grid;
-      grid-template-columns: 48px 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-block: 1px solid var(--line);
+    }
+
+    .included-column {
+      padding: 28px clamp(20px, 2.4vw, 34px) 32px;
+    }
+
+    .included-column + .included-column {
+      border-left: 1px solid var(--line);
+    }
+
+    .included-kicker {
+      display: flex;
       align-items: center;
-      gap: 16px;
-      min-height: 126px;
-      padding: 22px;
-      border: 1px solid #202737;
-      border-radius: 16px;
-      color: var(--paper);
-      background: var(--navy);
-    }
-
-    .engineer-icon {
-      display: grid;
-      width: 48px;
-      height: 48px;
-      place-items: center;
-      border: 1px solid rgba(0, 159, 227, .34);
-      border-radius: 12px;
-      color: var(--brand-cyan);
-      background: rgba(0, 159, 227, .1);
-    }
-
-    .engineer-icon svg {
-      width: 25px;
-      height: 25px;
-    }
-
-    .engineer-card b,
-    .engineer-card span,
-    .engineer-card small {
-      display: block;
-    }
-
-    .engineer-card b {
-      margin-bottom: 3px;
-      font-size: 18px;
-      font-weight: 650;
-      letter-spacing: -.02em;
-    }
-
-    .engineer-card span {
-      color: #d8e1ec;
-      font-size: 13px;
-      line-height: 1.35;
-    }
-
-    .engineer-card small {
-      margin-top: 10px;
-      color: #85d8f5;
+      gap: 10px;
+      margin-bottom: 25px;
+      color: var(--mint-deep);
       font-family: var(--mono);
       font-size: 9px;
       font-weight: 500;
-      letter-spacing: .07em;
+      letter-spacing: .1em;
       text-transform: uppercase;
     }
 
-    .migration-gantt {
-      overflow: hidden;
+    .included-kicker svg {
+      width: 22px;
+      height: 22px;
+      padding: 4px;
+      border: 1px solid #b9e8fa;
+      border-radius: 6px;
+      background: var(--mint-soft);
+    }
+
+    .included-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .included-list li {
+      position: relative;
+      min-height: 72px;
+      padding: 16px 0 16px 22px;
+      border-top: 1px solid #edf0f4;
+      color: var(--navy);
+      font-size: clamp(14px, 1.15vw, 17px);
+      font-weight: 550;
+      line-height: 1.3;
+    }
+
+    .included-list li::before {
+      content: "";
+      position: absolute;
+      top: 23px;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brand-cyan);
+      box-shadow: 0 0 0 4px rgba(0, 159, 227, .09);
+    }
+
+    .migration-simple {
+      max-width: 1060px;
+    }
+
+    .migration-simple .display {
+      max-width: 880px;
+      font-size: clamp(42px, 4.7vw, 70px);
+    }
+
+    .migration-simple .lead {
+      margin-top: 18px;
+    }
+
+    .simple-gantt {
+      margin-top: 44px;
+      padding: 28px 30px 26px;
       border: 1px solid var(--line);
       border-radius: 18px;
       background: var(--paper);
     }
 
-    .gantt-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 18px 22px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .gantt-heading b {
-      color: var(--navy);
-      font-size: 15px;
-      font-weight: 650;
-    }
-
-    .gantt-heading span {
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .migration-gantt-scroll {
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-    }
-
-    .gantt-chart {
-      min-width: 780px;
-      padding: 16px 22px 20px;
-    }
-
-    .gantt-scale,
-    .gantt-row {
+    .simple-gantt-weeks,
+    .simple-gantt-row {
       display: grid;
-      grid-template-columns: 180px minmax(0, 1fr);
-      gap: 14px;
+      grid-template-columns: 150px repeat(4, minmax(0, 1fr));
       align-items: center;
+      gap: 7px;
     }
 
-    .gantt-scale {
-      margin-bottom: 10px;
-    }
-
-    .gantt-weeks {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      color: #7a8493;
+    .simple-gantt-weeks {
+      margin-bottom: 11px;
+      color: #8a93a1;
       font-family: var(--mono);
       font-size: 8px;
-      letter-spacing: .07em;
+      letter-spacing: .08em;
       text-align: center;
       text-transform: uppercase;
     }
 
-    .gantt-weeks span {
-      padding-bottom: 7px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .gantt-row + .gantt-row {
+    .simple-gantt-row + .simple-gantt-row {
       margin-top: 9px;
     }
 
-    .gantt-label {
-      color: #536173;
+    .simple-gantt-label {
+      color: #526070;
       font-size: 12px;
       font-weight: 550;
-      line-height: 1.25;
     }
 
-    .gantt-label small {
-      display: none;
-    }
-
-    .gantt-track {
-      display: grid;
-      grid-template-columns: repeat(30, minmax(0, 1fr));
-      min-height: 34px;
-      overflow: hidden;
+    .simple-gantt-cell {
+      min-height: 40px;
       border: 1px solid #e8edf3;
-      border-radius: 8px;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          #fbfcfd 0,
-          #fbfcfd calc((100% / 30) - 1px),
-          #edf1f5 calc((100% / 30) - 1px),
-          #edf1f5 calc(100% / 30)
-        );
+      background: #f7f9fb;
     }
 
-    .gantt-bar {
-      z-index: 1;
-      align-self: stretch;
-      display: flex;
-      align-items: center;
-      min-width: 0;
-      padding: 0 12px;
-      border-radius: 7px;
-      font-size: 10px;
-      font-weight: 600;
-      line-height: 1;
-      white-space: nowrap;
+    .simple-gantt-cell:first-of-type {
+      border-radius: 8px 0 0 8px;
     }
 
-    .gantt-bar.old {
-      grid-column: 1 / 31;
-      color: #334155;
+    .simple-gantt-cell:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .simple-gantt-cell.old {
       background: #e7ebf0;
     }
 
-    .gantt-bar.configure {
-      grid-column: 1 / 24;
-      color: #006e9e;
-      background: #dff3fc;
+    .simple-gantt-cell.setup {
+      border-color: #c7eaf8;
+      background: var(--mint-soft);
     }
 
-    .gantt-bar.live {
-      grid-column: 24 / 31;
-      justify-content: center;
+    .simple-gantt-cell.active {
+      display: grid;
+      place-items: center;
+      border-color: var(--brand-cyan);
       color: var(--paper);
       background: var(--brand-cyan);
+      font-size: 10px;
+      font-weight: 650;
     }
 
-    .gantt-bar.overlap {
-      grid-column: 24 / 31;
-      justify-content: center;
-      color: var(--paper);
-      background: var(--navy);
-    }
-
-    .migration-proof {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .migration-proof span {
+    .simple-overlap {
       display: flex;
       align-items: center;
       gap: 9px;
-      padding: 10px 13px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      color: #526070;
-      background: rgba(255, 255, 255, .72);
+      margin: 18px 0 0 157px;
+      color: var(--navy);
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 550;
     }
 
-    .migration-proof span::before {
+    .simple-overlap::before {
       content: "";
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       flex: 0 0 auto;
       border-radius: 50%;
       background: var(--brand-cyan);
-      box-shadow: 0 0 0 4px rgba(0, 159, 227, .1);
+      box-shadow: 0 0 0 5px rgba(0, 159, 227, .11);
     }
 
-    .slide.active .gantt-bar.configure,
-    .slide.active .gantt-bar.live,
-    .slide.active .gantt-bar.overlap {
-      transform-origin: left center;
-      animation: ganttGrow .72s var(--ease) both;
+    .slide.active .simple-gantt-cell.setup,
+    .slide.active .simple-gantt-cell.active {
+      animation: simpleCellIn .5s var(--ease) both;
     }
 
-    .slide.active .gantt-bar.live {
-      animation-delay: .28s;
+    .slide.active .simple-gantt-cell:nth-child(3) {
+      animation-delay: .08s;
     }
 
-    .slide.active .gantt-bar.overlap {
-      animation-delay: .42s;
+    .slide.active .simple-gantt-cell:nth-child(4) {
+      animation-delay: .16s;
     }
 
-    @keyframes ganttGrow {
+    .slide.active .simple-gantt-cell:nth-child(5) {
+      animation-delay: .24s;
+    }
+
+    @keyframes simpleCellIn {
       from {
-        opacity: .25;
-        transform: scaleX(.04);
+        opacity: .2;
+        transform: translateY(5px);
       }
       to {
         opacity: 1;
-        transform: scaleX(1);
+        transform: translateY(0);
       }
     }
 
@@ -1585,7 +1522,7 @@
       .hero-grid,
       .intelligence-layout,
       .modules-head,
-      .migration-head {
+      .included-head {
         grid-template-columns: 1fr;
       }
 
@@ -1631,17 +1568,22 @@
       }
 
       .modules-head,
-      .migration-head {
+      .included-head {
         gap: 18px;
       }
 
       .modules-head .lead,
-      .migration-head .lead {
+      .included-head .lead {
         margin: 0;
       }
 
-      .migration-proof {
+      .included-grid {
         grid-template-columns: 1fr;
+      }
+
+      .included-column + .included-column {
+        border-top: 1px solid var(--line);
+        border-left: 0;
       }
     }
 
@@ -1796,88 +1738,62 @@
         align-items: start;
       }
 
-      .migration-head {
+      .included-head {
         margin-bottom: 26px;
       }
 
-      .migration-head .display {
-        font-size: clamp(34px, 9.2vw, 45px);
+      .included-column {
+        padding: 22px 0 18px;
       }
 
-      .engineer-card {
-        grid-template-columns: 42px 1fr;
+      .included-kicker {
+        margin-bottom: 12px;
+      }
+
+      .included-list li {
         min-height: 0;
-        padding: 18px;
+        padding-block: 14px;
+        font-size: 15px;
       }
 
-      .engineer-icon {
-        width: 42px;
-        height: 42px;
+      .included-list li::before {
+        top: 20px;
       }
 
-      .gantt-heading {
-        align-items: flex-start;
-        flex-direction: column;
+      .migration-simple .display {
+        font-size: clamp(38px, 10.2vw, 48px);
+      }
+
+      .simple-gantt {
+        margin-top: 30px;
+        padding: 18px 16px;
+      }
+
+      .simple-gantt-weeks,
+      .simple-gantt-row {
+        grid-template-columns: 78px repeat(4, minmax(0, 1fr));
         gap: 4px;
-        padding: 15px 18px;
       }
 
-      .gantt-chart {
-        min-width: 0;
-        padding: 14px 18px 18px;
-      }
-
-      .gantt-scale,
-      .gantt-row {
-        grid-template-columns: 108px minmax(0, 1fr);
-        gap: 8px;
-      }
-
-      .gantt-label {
-        font-size: 10px;
-      }
-
-      .gantt-label small {
-        display: block;
-        margin-top: 3px;
-        color: var(--mint-deep);
-        font-family: var(--mono);
-        font-size: 7px;
-        font-weight: 500;
-        letter-spacing: .03em;
-        line-height: 1.35;
-        text-transform: uppercase;
-      }
-
-      .gantt-bar {
-        overflow: hidden;
-        padding-inline: 7px;
-        font-size: 8px;
-        text-overflow: clip;
-      }
-
-      .gantt-bar.live,
-      .gantt-bar.overlap {
-        padding-inline: 2px;
+      .simple-gantt-weeks {
         font-size: 7px;
       }
 
-      .gantt-bar.overlap {
-        color: transparent;
+      .simple-gantt-label {
+        font-size: 9px;
       }
 
-      .gantt-bar.overlap::after {
-        content: "7 días";
-        color: var(--paper);
+      .simple-gantt-cell {
+        min-height: 32px;
       }
 
-      .migration-proof {
-        gap: 7px;
+      .simple-gantt-cell.active {
+        font-size: 7px;
       }
 
-      .migration-proof span {
-        padding: 9px 12px;
-        font-size: 12px;
+      .simple-overlap {
+        margin: 15px 0 0 85px;
+        font-size: 11px;
       }
 
       .progress {
@@ -1958,25 +1874,26 @@
         min-height: 340px;
       }
 
-      .migration-head {
-        margin-bottom: 20px;
+      .included-head {
+        margin-bottom: 24px;
       }
 
-      .migration-head .display {
-        font-size: clamp(34px, 3.55vw, 52px);
+      .included-column {
+        padding-block: 20px 22px;
       }
 
-      .engineer-card {
-        min-height: 108px;
-        padding: 18px;
+      .included-list li {
+        min-height: 58px;
+        padding-block: 12px;
       }
 
-      .gantt-heading {
-        padding-block: 13px;
+      .included-list li::before {
+        top: 18px;
       }
 
-      .gantt-chart {
-        padding-block: 12px 16px;
+      .simple-gantt {
+        margin-top: 30px;
+        padding-block: 22px;
       }
     }
 
@@ -2193,82 +2110,112 @@
 
       <section
         class="slide"
+        id="incluye"
+        data-name="Qué incluye"
+        data-theme="light"
+        aria-hidden="true"
+      >
+        <div class="slide-inner">
+          <div class="included-head">
+            <div>
+              <div class="eyebrow">Una sola plataforma</div>
+              <h2 class="display medium">Todo lo que incluye Clinera.</h2>
+            </div>
+            <p class="lead">
+              Atención clínica, pacientes y gestión conectados en un mismo sistema.
+            </p>
+          </div>
+
+          <div class="included-grid reveal">
+            <article class="included-column">
+              <div class="included-kicker">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3 19 6v5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6l7-3Z"></path>
+                  <path d="M9 12h6M12 9v6"></path>
+                </svg>
+                Atención clínica
+              </div>
+              <ul class="included-list">
+                <li>Fichas clínicas cifradas de extremo a extremo</li>
+                <li>Registro de exámenes, recetas e imágenes</li>
+                <li>Consentimientos informados con firma digital</li>
+              </ul>
+            </article>
+
+            <article class="included-column">
+              <div class="included-kicker">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12Z"></path>
+                  <path d="M9 12h6"></path>
+                </svg>
+                Pacientes y agenda
+              </div>
+              <ul class="included-list">
+                <li>Agente IA que responde y agenda pacientes por WhatsApp</li>
+                <li>Agenda multiprofesional y online</li>
+                <li>Automatizaciones y recordatorios</li>
+              </ul>
+            </article>
+
+            <article class="included-column">
+              <div class="included-kicker">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path>
+                  <path d="m16 7 1.2 2.8L20 11l-2.8 1.2L16 15l-1.2-2.8L12 11l2.8-1.2Z"></path>
+                </svg>
+                Gestión e ingresos
+              </div>
+              <ul class="included-list">
+                <li>Clinera Intelligence, agente IA interno que te ayuda con la gestión</li>
+                <li>Módulo de ventas con atribución</li>
+                <li>Cobro de morosos con IA</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide"
         id="puesta-en-marcha"
         data-name="Migración E2E"
         data-theme="light"
         aria-hidden="true"
       >
-        <div class="slide-inner">
-          <div class="migration-head">
-            <div>
-              <div class="eyebrow">Migración E2E · 1 mes</div>
-              <h2 class="display medium">Un ingeniero E2E migra y configura tu cuenta en un mes.</h2>
-              <p class="lead">
-                Te acompaña desde tu software actual hasta Clinera, sin detener la operación.
-              </p>
-            </div>
-            <aside class="engineer-card reveal" aria-label="Ingeniero E2E asignado">
-              <span class="engineer-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="8" r="4"></circle>
-                  <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
-                  <path d="m17.5 11.5 1.2 1.2 2.3-2.5"></path>
-                </svg>
-              </span>
-              <span>
-                <b>Ingeniero E2E asignado</b>
-                <span>Un responsable de principio a fin.</span>
-                <small>Migración · configuración · validación · salida en vivo</small>
-              </span>
-            </aside>
+        <div class="slide-inner migration-simple">
+          <div>
+            <div class="eyebrow">Migración E2E</div>
+            <h2 class="display medium">En 30 días, tu clínica queda operando en Clinera.</h2>
+            <p class="lead">Un ingeniero E2E migra y configura tu cuenta.</p>
           </div>
 
-          <div class="migration-gantt reveal">
-            <div class="gantt-heading">
-              <b>Plan de migración y continuidad operativa</b>
-              <span>30 días · sin corte de servicio</span>
+          <div
+            class="simple-gantt reveal"
+            role="img"
+            aria-label="Carta Gantt simple de cuatro semanas. El software actual y Clinera permanecen activos en paralelo durante los últimos siete días."
+          >
+            <div class="simple-gantt-weeks" aria-hidden="true">
+              <span></span>
+              <span>Semana 1</span>
+              <span>Semana 2</span>
+              <span>Semana 3</span>
+              <span>Semana 4</span>
             </div>
-            <div class="migration-gantt-scroll">
-              <div class="gantt-chart" role="img" aria-label="Carta Gantt de 30 días. Durante los últimos 7 días, el software antiguo y Clinera permanecen activos en paralelo.">
-                <div class="gantt-scale" aria-hidden="true">
-                  <span></span>
-                  <div class="gantt-weeks">
-                    <span>Semana 1</span>
-                    <span>Semana 2</span>
-                    <span>Semana 3</span>
-                    <span>Semana 4</span>
-                  </div>
-                </div>
-                <div class="gantt-row">
-                  <div class="gantt-label">Software antiguo</div>
-                  <div class="gantt-track">
-                    <div class="gantt-bar old">Activo durante la migración</div>
-                  </div>
-                </div>
-                <div class="gantt-row">
-                  <div class="gantt-label">Clinera</div>
-                  <div class="gantt-track">
-                    <div class="gantt-bar configure">Migración y configuración</div>
-                    <div class="gantt-bar live">Activa</div>
-                  </div>
-                </div>
-                <div class="gantt-row">
-                  <div class="gantt-label">
-                    Operación en paralelo
-                    <small>7 días · ambos activos</small>
-                  </div>
-                  <div class="gantt-track">
-                    <div class="gantt-bar overlap">7 días · ambos activos</div>
-                  </div>
-                </div>
-              </div>
+            <div class="simple-gantt-row" aria-hidden="true">
+              <span class="simple-gantt-label">Software actual</span>
+              <span class="simple-gantt-cell old"></span>
+              <span class="simple-gantt-cell old"></span>
+              <span class="simple-gantt-cell old"></span>
+              <span class="simple-gantt-cell old"></span>
             </div>
-          </div>
-
-          <div class="migration-proof reveal" aria-label="Compromisos de implementación">
-            <span>1 ingeniero E2E dedicado</span>
-            <span>30 días de implementación</span>
-            <span>7 días con ambos sistemas activos</span>
+            <div class="simple-gantt-row" aria-hidden="true">
+              <span class="simple-gantt-label">Clinera</span>
+              <span class="simple-gantt-cell setup"></span>
+              <span class="simple-gantt-cell setup"></span>
+              <span class="simple-gantt-cell setup"></span>
+              <span class="simple-gantt-cell active">Activa</span>
+            </div>
+            <p class="simple-overlap">Últimos 7 días: ambos sistemas activos.</p>
           </div>
         </div>
       </section>
@@ -2308,7 +2255,7 @@
     </main>
 
     <div class="progress" id="progress" aria-hidden="true">
-      <div class="progress-count"><span id="currentCount">01</span> / <span id="totalCount">04</span></div>
+      <div class="progress-count"><span id="currentCount">01</span> / <span id="totalCount">05</span></div>
       <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
