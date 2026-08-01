@@ -15,6 +15,13 @@ import SignaturePad, { type SignaturePadHandle } from "../SignaturePad";
 import styles from "../firma.module.css";
 import type { SobrePublico } from "@/lib/firma/tipos";
 
+const formatoUsdCentavos = (centavos: number) =>
+  new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(centavos / 100);
+
 const formatoFechaLarga = (iso: string) =>
   new Intl.DateTimeFormat("es-CL", {
     timeZone: "America/Santiago",
@@ -31,6 +38,7 @@ export default function FirmaCliente({ id }: { id: string }) {
   const [fase, setFase] = useState<Fase>("cargando");
   const [sobre, setSobre] = useState<SobrePublico | null>(null);
   const [recienFirmado, setRecienFirmado] = useState(false);
+  const [avisoPago, setAvisoPago] = useState<string | null>(null);
 
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
@@ -68,6 +76,14 @@ export default function FirmaCliente({ id }: { id: string }) {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void cargar();
   }, [cargar]);
+
+  useEffect(() => {
+    // Stripe vuelve con ?pago=<código> (ok, sin-config, error…): solo se lee
+    // en el cliente, por eso va en un efecto.
+    const codigo = new URLSearchParams(window.location.search).get("pago");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (codigo) setAvisoPago(codigo);
+  }, []);
 
   const firmar = async (evento: React.FormEvent) => {
     evento.preventDefault();
@@ -290,8 +306,54 @@ export default function FirmaCliente({ id }: { id: string }) {
               tu copia con la hoja de firmas incluida y guárdala como respaldo.
             </p>
 
+            {avisoPago === "ok" && (
+              <p className={styles.avisoPagoOk} role="status">
+                Recibimos tu pago. El equipo de Clinera activará tu suscripción y te
+                contactará para coordinar la puesta en marcha.
+              </p>
+            )}
+            {avisoPago && avisoPago !== "ok" && (
+              <p className={styles.error} role="alert">
+                {avisoPago === "sin-config"
+                  ? "El pago en línea aún no está habilitado. Tu ejecutivo te enviará las instrucciones de pago."
+                  : avisoPago === "firma-pendiente"
+                    ? "Primero firma el documento; el pago se habilita justo después."
+                    : "No pudimos abrir la página de pago. Inténtalo de nuevo o avísale a tu ejecutivo."}
+              </p>
+            )}
+
+            {sobre.pago && avisoPago !== "ok" && (
+              <div className={styles.pagoResumen}>
+                <div>
+                  <span>Suscripción {sobre.pago.periodo}</span>
+                  <strong>
+                    {formatoUsdCentavos(sobre.pago.totalPeriodo)} / {sobre.pago.periodo === "semestral" ? "semestre" : "mes"}
+                  </strong>
+                  {sobre.pago.descuentoPeriodo > 0 && (
+                    <small>
+                      Incluye {formatoUsdCentavos(sobre.pago.descuentoPeriodo)} de descuento{" "}
+                      {sobre.pago.duracionDescuento.tipo === "siempre"
+                        ? "permanente"
+                        : sobre.pago.duracionDescuento.tipo === "meses"
+                          ? `por ${sobre.pago.duracionDescuento.meses} meses`
+                          : "en tu primer pago"}
+                    </small>
+                  )}
+                  {sobre.pago.setupUnico > 0 && (
+                    <small>
+                      + {formatoUsdCentavos(sobre.pago.setupUnico)} de configuración inicial (una
+                      sola vez)
+                    </small>
+                  )}
+                </div>
+                <a className={styles.botonPrimario} href={`/api/firma/${id}/pago`}>
+                  Continuar al pago
+                </a>
+              </div>
+            )}
+
             <a
-              className={styles.botonPrimario}
+              className={sobre.pago && avisoPago !== "ok" ? styles.botonSecundario : styles.botonPrimario}
               href={`${urlPdf}?version=firmado&descargar=1`}
             >
               Descargar documento firmado

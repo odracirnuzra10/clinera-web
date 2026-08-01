@@ -31,7 +31,8 @@ la parte contratante.
 | Variable | Qué es |
 | --- | --- |
 | `FIRMA_ACCESS_KEY` | Clave compartida del equipo comercial. Se pide al entrar a `/firma` y viaja en el header `x-firma-clave`; se valida siempre server-side. |
-| `BLOB_READ_WRITE_TOKEN` | La inyecta Vercel automáticamente al conectar un **Blob store** al proyecto (Storage → Create Database → Blob). |
+| `BLOB_READ_WRITE_TOKEN` | La inyecta Vercel automáticamente al conectar un **Blob store** al proyecto. Debe ser un store con `access: private`. |
+| `STRIPE_SECRET_KEY` | Habilita el pago post-firma. Usar una **clave restringida** (Dashboard → Developers → API keys → Create restricted key) con Write en: Checkout Sessions, Customers, Products, Prices y Coupons. Sin esta variable, la firma funciona igual y el botón de pago avisa que aún no está habilitado. |
 
 Sin cualquiera de las dos, los endpoints responden `503` con un mensaje
 claro (mismo criterio que `/api/triage`: error visible > herramienta rota
@@ -65,9 +66,32 @@ indexan (robots) y no se pueden adivinar.
 | `POST /api/firma/[id]` | enlace | Registra la firma del cliente y genera el PDF final. `409` si ya estaba firmado. |
 | `DELETE /api/firma/[id]` | clave | Anula un sobre **pendiente** (borra sus blobs). Los firmados no se eliminan: son el respaldo del acuerdo. |
 | `GET /api/firma/[id]/pdf` | enlace | Sirve el PDF (`?version=original\|firmado`, `&descargar=1`). Same-origin para pasar el CSP del visor. |
+| `GET /api/firma/[id]/pago` | enlace | Crea una Checkout Session de Stripe on-demand (expiran a las 24 h) y redirige. Solo sobres **firmados** con cotización asociada; los errores vuelven a `/firma/<id>?pago=<código>`. |
 
 Todos los endpoints públicos llevan rate limit en memoria por IP (mismo
 patrón que `/api/triage`) y `Cache-Control: no-store`.
+
+## Pago post-firma (Stripe)
+
+El botón **"Enviar a firma"** de `/cotizacion` traspasa la _configuración_
+de la cotización (plan, modalidad, extras, % de descuento) por
+sessionStorage; `/firma` la adjunta al crear el sobre y el servidor
+**recalcula todos los montos contra `src/content/pricing`**
+(`src/lib/firma/cotizacion.ts`) — nunca se confía en montos del navegador.
+
+Al firmar, la página de éxito muestra "Continuar al pago": una Checkout
+Session en modo suscripción con los ítems a precio de lista y un **cupón
+por el monto exacto del descuento por período**, con la duración que
+eligió el closer:
+
+- *Solo el primer pago* → cupón `once` (en semestral cubre el primer semestre).
+- *Por N meses* → cupón `repeating` (en semestral usar múltiplos de 6).
+- *Para siempre* → cupón `forever` (personalización perpetua).
+
+Así la personalización temporal expira sola y la suscripción vuelve a
+precio de lista sin intervención. La configuración inicial va como cobro
+único en el primer pago, ya con su descuento aplicado. El closer también
+puede copiar el link de pago desde su panel una vez firmado el sobre.
 
 ## Decisiones
 

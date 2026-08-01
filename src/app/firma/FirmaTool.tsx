@@ -17,6 +17,27 @@ import type { SobreResumen } from "@/lib/firma/tipos";
 
 const CLAVE_STORAGE = "clinera_firma_clave";
 const CLOSER_STORAGE = "clinera_firma_closer";
+const COTIZACION_STORAGE = "clinera_firma_cotizacion";
+
+/** Configuración que deja el botón "Enviar a firma" de /cotizacion. */
+type CotizacionEntrante = {
+  numero?: string;
+  clienteNombre?: string;
+  planId?: string;
+  billing?: string;
+  extraUsuarios?: number;
+  extraPacks?: number;
+  incluirSetup?: boolean;
+  descuentos?: Record<string, number>;
+  resumen?: { totalPeriodo?: number; periodo?: string };
+};
+
+const formatoUsd = (valor: number) =>
+  new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(valor);
 
 const formatoFecha = (iso: string) =>
   new Intl.DateTimeFormat("es-CL", {
@@ -77,6 +98,11 @@ export default function FirmaTool() {
   const [clienteClinica, setClienteClinica] = useState("");
   const [gestorNombre, setGestorNombre] = useState("");
   const [gestorEmail, setGestorEmail] = useState("");
+  const [cotizacion, setCotizacion] = useState<CotizacionEntrante | null>(null);
+  const [duracionTipo, setDuracionTipo] = useState<"primer_pago" | "meses" | "siempre">(
+    "primer_pago",
+  );
+  const [duracionMeses, setDuracionMeses] = useState(6);
   const [enviando, setEnviando] = useState(false);
   const [errorEnvio, setErrorEnvio] = useState("");
   const [resultado, setResultado] = useState<{ id: string; url: string } | null>(null);
@@ -107,8 +133,25 @@ export default function FirmaTool() {
     } catch {
       // localStorage corrupto: se ignora
     }
+    try {
+      const entrante = JSON.parse(
+        sessionStorage.getItem(COTIZACION_STORAGE) || "null",
+      ) as CotizacionEntrante | null;
+      if (entrante?.planId) {
+        setCotizacion(entrante);
+        if (entrante.numero) setTitulo(`Cotización ${entrante.numero}`);
+        if (entrante.clienteNombre) setClienteClinica(entrante.clienteNombre);
+      }
+    } catch {
+      // payload corrupto: se ignora
+    }
     setListo(true);
   }, []);
+
+  const descartarCotizacion = () => {
+    sessionStorage.removeItem(COTIZACION_STORAGE);
+    setCotizacion(null);
+  };
 
   const cargarSobres = useCallback(
     async (claveActiva: string) => {
@@ -216,6 +259,18 @@ export default function FirmaTool() {
     datos.set("clienteClinica", clienteClinica.trim());
     datos.set("gestorNombre", gestorNombre.trim());
     datos.set("gestorEmail", gestorEmail.trim());
+    if (cotizacion) {
+      datos.set(
+        "cotizacion",
+        JSON.stringify({
+          ...cotizacion,
+          duracionDescuento:
+            duracionTipo === "meses"
+              ? { tipo: "meses", meses: duracionMeses }
+              : { tipo: duracionTipo },
+        }),
+      );
+    }
 
     setEnviando(true);
     try {
@@ -244,6 +299,8 @@ export default function FirmaTool() {
       setClienteNombre("");
       setClienteEmail("");
       setClienteClinica("");
+      sessionStorage.removeItem(COTIZACION_STORAGE);
+      setCotizacion(null);
       if (inputArchivoRef.current) inputArchivoRef.current.value = "";
       void cargarSobres(clave);
     } catch {
@@ -507,6 +564,91 @@ export default function FirmaTool() {
             </div>
           </section>
 
+          {cotizacion && (
+            <section className={styles.seccion}>
+              <div className={styles.seccionTitulo}>
+                <span>04</span>
+                <div>
+                  <h2>Suscripción y pago</h2>
+                  <p>Al firmar, el cliente recibe el link de pago con estos valores.</p>
+                </div>
+              </div>
+
+              <div className={styles.resumenPago}>
+                <div>
+                  <strong>
+                    Cotización {cotizacion.numero || "Clinera"} · Plan{" "}
+                    {cotizacion.planId
+                      ? cotizacion.planId.charAt(0).toUpperCase() + cotizacion.planId.slice(1)
+                      : ""}
+                  </strong>
+                  <small>
+                    {typeof cotizacion.resumen?.totalPeriodo === "number"
+                      ? `${formatoUsd(cotizacion.resumen.totalPeriodo)} por período ${
+                          cotizacion.resumen?.periodo ?? ""
+                        }`
+                      : "Los montos se calculan del catálogo al crear la solicitud."}
+                    {cotizacion.incluirSetup ? " · incluye configuración inicial" : ""}
+                  </small>
+                </div>
+                <button type="button" className={styles.botonFantasma} onClick={descartarCotizacion}>
+                  Quitar pago
+                </button>
+              </div>
+
+              <div className={styles.duracionDescuento}>
+                <span>Duración de los descuentos en la suscripción</span>
+                <div className={styles.duracionOpciones}>
+                  <label className={duracionTipo === "primer_pago" ? styles.duracionActiva : ""}>
+                    <input
+                      type="radio"
+                      name="duracion"
+                      checked={duracionTipo === "primer_pago"}
+                      onChange={() => setDuracionTipo("primer_pago")}
+                    />
+                    <strong>Solo el primer pago</strong>
+                    <small>Después vuelve a precio de lista</small>
+                  </label>
+                  <label className={duracionTipo === "meses" ? styles.duracionActiva : ""}>
+                    <input
+                      type="radio"
+                      name="duracion"
+                      checked={duracionTipo === "meses"}
+                      onChange={() => setDuracionTipo("meses")}
+                    />
+                    <strong>Por meses</strong>
+                    <small>
+                      <input
+                        type="number"
+                        min="1"
+                        max="60"
+                        value={duracionMeses}
+                        onClick={() => setDuracionTipo("meses")}
+                        onChange={(evento) =>
+                          setDuracionMeses(
+                            Math.min(60, Math.max(1, Number(evento.target.value) || 1)),
+                          )
+                        }
+                        aria-label="Meses de descuento"
+                      />{" "}
+                      meses{cotizacion.billing === "semester" ? " (múltiplo de 6)" : ""}
+                    </small>
+                  </label>
+                  <label className={duracionTipo === "siempre" ? styles.duracionActiva : ""}>
+                    <input
+                      type="radio"
+                      name="duracion"
+                      checked={duracionTipo === "siempre"}
+                      onChange={() => setDuracionTipo("siempre")}
+                    />
+                    <strong>Para siempre</strong>
+                    <small>Personalización perpetua</small>
+                  </label>
+                </div>
+              </div>
+            </section>
+          )}
+
           {errorEnvio && (
             <p className={styles.error} role="alert">
               {errorEnvio}
@@ -604,12 +746,30 @@ export default function FirmaTool() {
                     )}
                     <div className={styles.sobreAcciones}>
                       {sobre.estado === "firmado" ? (
-                        <a
-                          className={styles.botonSecundario}
-                          href={`/api/firma/${sobre.id}/pdf?version=firmado&descargar=1`}
-                        >
-                          Descargar firmado
-                        </a>
+                        <>
+                          <a
+                            className={styles.botonSecundario}
+                            href={`/api/firma/${sobre.id}/pdf?version=firmado&descargar=1`}
+                          >
+                            Descargar firmado
+                          </a>
+                          {sobre.pago && (
+                            <button
+                              type="button"
+                              className={styles.botonSecundario}
+                              onClick={() =>
+                                copiarEnlace(
+                                  `${window.location.origin}/api/firma/${sobre.id}/pago`,
+                                  `${sobre.id}:pago`,
+                                )
+                              }
+                            >
+                              {copiadoSobre === `${sobre.id}:pago`
+                                ? "Copiado"
+                                : "Link de pago"}
+                            </button>
+                          )}
+                        </>
                       ) : (
                         <>
                           <button

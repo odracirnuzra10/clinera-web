@@ -303,6 +303,28 @@ export default function QuoteBuilder({
     setCopyState("idle");
   };
 
+  // Traspasa la CONFIGURACIÓN de la cotización a /firma vía sessionStorage
+  // (mismo origen). El servidor recalcula los montos contra el catálogo; los
+  // campos de resumen van solo para mostrar en el panel de firma.
+  const enviarAFirma = () => {
+    const payload = {
+      numero: quoteNumber,
+      clienteNombre: clientName,
+      planId: selectedPlanId,
+      billing,
+      extraUsuarios: extraUsers,
+      extraPacks: extraCreditPacks,
+      incluirSetup: includeSetup,
+      descuentos: discounts,
+      resumen: {
+        totalPeriodo: total,
+        periodo: periodLabel.toLowerCase(),
+      },
+    };
+    sessionStorage.setItem("clinera_firma_cotizacion", JSON.stringify(payload));
+    window.location.href = "/firma";
+  };
+
   const copySummary = async () => {
     const summary = [
       `Cotización ${quoteNumber || "Clinera"}`,
@@ -355,6 +377,13 @@ export default function QuoteBuilder({
               <path d="M11.75 7.75h.01" />
             </svg>
             Imprimir / guardar PDF
+          </button>
+          <button type="button" className={styles.primaryButton} onClick={enviarAFirma}>
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="m9.75 3.5 2.75 2.75L5.75 13H3v-2.75Z" />
+              <path d="M8.5 4.75l2.75 2.75M2.75 14.75h10.5" />
+            </svg>
+            Enviar a firma
           </button>
         </div>
       </header>
