@@ -6,6 +6,8 @@
 // completo está en meta.json (no hay base de datos).
 // ============================================================================
 
+import type { CotizacionSnapshot, DescuentoDuracion } from "./cotizacion";
+
 export type SobreEstado = "pendiente" | "firmado";
 
 /** Evidencia mínima de una firma electrónica simple (Ley 19.799). */
@@ -52,6 +54,12 @@ export type SobreMeta = {
     nombre: string;
     email: string;
   };
+  /**
+   * Snapshot de la cotización (config + montos recalculados del catálogo).
+   * Presente solo cuando el sobre se creó desde "Enviar a firma" en
+   * /cotizacion: habilita el checkout de Stripe tras la firma.
+   */
+  cotizacion?: CotizacionSnapshot;
   /** Presente solo cuando estado === "firmado". */
   firmaCliente?: Firmante;
   /** SHA-256 (hex) del PDF final con hoja de firmas. */
@@ -74,6 +82,15 @@ export type SobrePublico = {
   sha256: string;
   firmadoEn?: string;
   firmadoSha256?: string;
+  /** Presente si el sobre tiene cotización asociada (habilita el pago). */
+  pago?: {
+    totalPeriodo: number;
+    descuentoPeriodo: number;
+    setupUnico: number;
+    periodo: "mensual" | "semestral";
+    moneda: "USD";
+    duracionDescuento: DescuentoDuracion;
+  };
 };
 
 /** Resumen para la lista del closer. */
@@ -98,5 +115,17 @@ export function proyectarSobre(meta: SobreMeta): SobrePublico {
     sha256: meta.documento.sha256,
     ...(meta.firmaCliente ? { firmadoEn: meta.firmaCliente.firmadoEn } : {}),
     ...(meta.firmadoSha256 ? { firmadoSha256: meta.firmadoSha256 } : {}),
+    ...(meta.cotizacion
+      ? {
+          pago: {
+            totalPeriodo: meta.cotizacion.centavos.recurrenteFinal,
+            descuentoPeriodo: meta.cotizacion.centavos.descuentoRecurrente,
+            setupUnico: meta.cotizacion.centavos.setupFinal,
+            periodo: meta.cotizacion.periodoMeses === 6 ? ("semestral" as const) : ("mensual" as const),
+            moneda: "USD" as const,
+            duracionDescuento: meta.cotizacion.duracionDescuento,
+          },
+        }
+      : {}),
   };
 }

@@ -18,6 +18,7 @@ import { headers } from "next/headers";
 import { claveConfigurada, claveValida, ipDelRequest, superaRateLimit } from "@/lib/firma/auth";
 import { inspeccionarPdf } from "@/lib/firma/certificado";
 import { CEO_CLINERA, FIRMA_CEO_PNG } from "@/lib/firma/firma-ceo";
+import { construirCotizacion } from "@/lib/firma/cotizacion";
 import {
   blobConfigurado,
   guardarMeta,
@@ -83,6 +84,7 @@ export async function POST(request: Request) {
   const clienteClinica = textoCorto(form.get("clienteClinica"));
   const gestorNombre = textoCorto(form.get("gestorNombre"));
   const gestorEmail = textoCorto(form.get("gestorEmail")).toLowerCase();
+  const cotizacionCruda = form.get("cotizacion");
 
   if (!(archivo instanceof File)) return error("Falta el archivo PDF de la cotización.", 400);
   if (archivo.size === 0) return error("El PDF llegó vacío.", 400);
@@ -94,6 +96,25 @@ export async function POST(request: Request) {
   if (!EMAIL_RE.test(clienteEmail)) return error("El email del cliente no es válido.", 400);
   if (!gestorNombre) return error("Falta tu nombre (gestor de la solicitud).", 400);
   if (!EMAIL_RE.test(gestorEmail)) return error("Tu email no es válido.", 400);
+
+  // La cotización es opcional (habilita el pago). Si viene pero no se puede
+  // interpretar, avisamos en vez de crear un sobre sin link de pago a
+  // espaldas del closer.
+  let cotizacion = undefined;
+  if (typeof cotizacionCruda === "string" && cotizacionCruda.length > 0) {
+    if (cotizacionCruda.length > 4000) return error("La cotización adjunta no es válida.", 400);
+    try {
+      cotizacion = construirCotizacion(JSON.parse(cotizacionCruda)) ?? undefined;
+    } catch {
+      cotizacion = undefined;
+    }
+    if (!cotizacion) {
+      return error(
+        "No pudimos interpretar los datos de la cotización. Vuelve a /cotizacion y usa \"Enviar a firma\" de nuevo.",
+        400,
+      );
+    }
+  }
 
   const bytes = Buffer.from(await archivo.arrayBuffer());
   if (bytes.subarray(0, 5).toString("latin1") !== "%PDF-") {
@@ -143,6 +164,7 @@ export async function POST(request: Request) {
       nombre: gestorNombre,
       email: gestorEmail,
     },
+    ...(cotizacion ? { cotizacion } : {}),
   };
 
   try {
