@@ -56,6 +56,7 @@ export async function GET(request: NextRequest, ctx: RouteContext<"/api/firma/[i
 
   const meta = await leerMeta(id);
   if (!meta) return error("Documento no encontrado.", 404);
+  if (!meta.documento) return error("El contrato todavía no ha sido adjuntado.", 404);
 
   const version = request.nextUrl.searchParams.get("version") === "firmado" ? "firmado" : "original";
   if (version === "firmado" && meta.estado !== "firmado") {

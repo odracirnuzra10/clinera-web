@@ -192,6 +192,22 @@ export default function QuoteBuilder({
   const [notes, setNotes] = useState(DEFAULT_NOTES);
   const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
 
+  // ── Link de pago en línea ─────────────────────────────────────────────────
+  // El link se imprime dentro de la cotización: el cliente paga desde el PDF
+  // y la firma del contrato se gestiona después, como paso secundario.
+  const [linkPago, setLinkPago] = useState<{ id: string; url: string; config: string } | null>(
+    null,
+  );
+  const [generandoLink, setGenerandoLink] = useState(false);
+  const [errorLink, setErrorLink] = useState("");
+  const [pedirClave, setPedirClave] = useState(false);
+  const [claveFirma, setClaveFirma] = useState("");
+  const [copiadoLink, setCopiadoLink] = useState(false);
+  const [duracionTipo, setDuracionTipo] = useState<"primer_pago" | "meses" | "siempre">(
+    "primer_pago",
+  );
+  const [duracionMeses, setDuracionMeses] = useState(6);
+
   const selectedPlan =
     CLINERA_PLANS.find((plan) => plan.id === selectedPlanId) ?? CLINERA_PLANS[0];
   const periodMonths = billing === "semester" ? SEMESTER_MONTHS : 1;
@@ -301,28 +317,76 @@ export default function QuoteBuilder({
     setDiscounts({ plan: 0, users: 0, credits: 0, setup: 0, global: 0 });
     setNotes(DEFAULT_NOTES);
     setCopyState("idle");
+    setLinkPago(null);
+    setErrorLink("");
+    setPedirClave(false);
+    setDuracionTipo("primer_pago");
+    setDuracionMeses(6);
   };
 
-  // Traspasa la CONFIGURACIÓN de la cotización a /firma vía sessionStorage
-  // (mismo origen). El servidor recalcula los montos contra el catálogo; los
-  // campos de resumen van solo para mostrar en el panel de firma.
-  const enviarAFirma = () => {
-    const payload = {
-      numero: quoteNumber,
-      clienteNombre: clientName,
-      planId: selectedPlanId,
-      billing,
-      extraUsuarios: extraUsers,
-      extraPacks: extraCreditPacks,
-      incluirSetup: includeSetup,
-      descuentos: discounts,
-      resumen: {
-        totalPeriodo: total,
-        periodo: periodLabel.toLowerCase(),
-      },
-    };
-    sessionStorage.setItem("clinera_firma_cotizacion", JSON.stringify(payload));
-    window.location.href = "/firma";
+  // Huella de la configuración que afecta el precio: si cambia después de
+  // generar el link, el link queda obsoleto y hay que regenerarlo.
+  const configPago = JSON.stringify({
+    numero: quoteNumber,
+    planId: selectedPlanId,
+    billing,
+    extraUsuarios: extraUsers,
+    extraPacks: extraCreditPacks,
+    incluirSetup: includeSetup,
+    descuentos: discounts,
+    duracionDescuento:
+      duracionTipo === "meses" ? { tipo: "meses", meses: duracionMeses } : { tipo: duracionTipo },
+  });
+  const linkVigente = linkPago && linkPago.config === configPago ? linkPago : null;
+
+  const generarLinkPago = async () => {
+    if (generandoLink) return;
+    setErrorLink("");
+    setGenerandoLink(true);
+    try {
+      const clave = claveFirma.trim() || sessionStorage.getItem("clinera_firma_clave") || "";
+      const datos = new FormData();
+      datos.set("sinDocumento", "1");
+      datos.set("titulo", `Cotización ${quoteNumber || "Clinera"} — ${clientName || "Cliente"}`.slice(0, 140));
+      datos.set("clienteNombre", clientName.trim() || "Cliente");
+      datos.set("gestorNombre", quoteOwner.trim());
+      datos.set("gestorEmail", ownerEmail.trim());
+      datos.set("cotizacion", configPago);
+      const respuesta = await fetch("/api/firma", {
+        method: "POST",
+        headers: clave ? { "x-firma-clave": clave } : {},
+        body: datos,
+      });
+      const json = (await respuesta.json()) as {
+        ok: boolean;
+        id?: string;
+        url?: string;
+        error?: string;
+      };
+      if (respuesta.status === 401) {
+        setPedirClave(true);
+        setErrorLink(clave ? "Clave incorrecta." : "Ingresa la clave del equipo para generar el link.");
+        return;
+      }
+      if (!respuesta.ok || !json.ok || !json.id || !json.url) {
+        setErrorLink(json.error || "No pudimos generar el link de pago. Inténtalo de nuevo.");
+        return;
+      }
+      if (claveFirma.trim()) sessionStorage.setItem("clinera_firma_clave", claveFirma.trim());
+      setPedirClave(false);
+      setLinkPago({ id: json.id, url: json.url, config: configPago });
+    } catch {
+      setErrorLink("Sin conexión con el servidor. Reintenta en un momento.");
+    } finally {
+      setGenerandoLink(false);
+    }
+  };
+
+  const copiarLinkPago = async () => {
+    if (!linkVigente) return;
+    await navigator.clipboard.writeText(linkVigente.url);
+    setCopiadoLink(true);
+    window.setTimeout(() => setCopiadoLink(false), 1800);
   };
 
   const copySummary = async () => {
@@ -377,13 +441,6 @@ export default function QuoteBuilder({
               <path d="M11.75 7.75h.01" />
             </svg>
             Imprimir / guardar PDF
-          </button>
-          <button type="button" className={styles.primaryButton} onClick={enviarAFirma}>
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="m9.75 3.5 2.75 2.75L5.75 13H3v-2.75Z" />
-              <path d="M8.5 4.75l2.75 2.75M2.75 14.75h10.5" />
-            </svg>
-            Enviar a firma
           </button>
         </div>
       </header>
@@ -642,6 +699,86 @@ export default function QuoteBuilder({
               <textarea value={notes} onChange={(event) => setNotes(event.target.value)} />
             </label>
           </section>
+
+          <section className={styles.formSection}>
+            <div className={styles.sectionHeading}>
+              <span>06</span>
+              <div>
+                <h2>Pago en línea</h2>
+                <p>
+                  El link queda impreso en la cotización: el cliente paga desde el PDF y
+                  después se gestiona la firma del contrato.
+                </p>
+              </div>
+            </div>
+
+            {itemDiscountSavings + globalDiscountAmount > 0 && (
+              <div className={styles.linkPagoDuracion}>
+                <label className={styles.field}>
+                  <span>Duración del descuento en la suscripción</span>
+                  <select
+                    value={duracionTipo}
+                    onChange={(event) =>
+                      setDuracionTipo(event.target.value as typeof duracionTipo)
+                    }
+                  >
+                    <option value="primer_pago">Solo el primer pago</option>
+                    <option value="meses">Por una cantidad de meses</option>
+                    <option value="siempre">Para siempre</option>
+                  </select>
+                </label>
+                {duracionTipo === "meses" && (
+                  <label className={styles.field}>
+                    <span>Meses{billing === "semester" ? " (múltiplo de 6)" : ""}</span>
+                    <input
+                      type="number"
+                      min="1"
+                      max="60"
+                      value={duracionMeses}
+                      onChange={(event) =>
+                        setDuracionMeses(
+                          Math.min(60, Math.max(1, Number(event.target.value) || 1)),
+                        )
+                      }
+                    />
+                  </label>
+                )}
+              </div>
+            )}
+
+            {pedirClave && (
+              <label className={styles.field}>
+                <span>Clave del equipo (solo la primera vez)</span>
+                <input
+                  type="password"
+                  value={claveFirma}
+                  onChange={(event) => setClaveFirma(event.target.value)}
+                  autoComplete="current-password"
+                />
+              </label>
+            )}
+
+            {errorLink && <p className={styles.linkPagoError}>{errorLink}</p>}
+
+            {linkVigente ? (
+              <div className={styles.linkPagoListo}>
+                <strong>Link incluido en la cotización. Ahora descarga el PDF.</strong>
+                <code>{linkVigente.url}</code>
+                <button type="button" className={styles.secondaryButton} onClick={copiarLinkPago}>
+                  {copiadoLink ? "Link copiado" : "Copiar link"}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className={styles.secondaryButton}
+                onClick={generarLinkPago}
+                disabled={generandoLink}
+              >
+                {generandoLink ? "Generando…" : "Generar link de pago"}
+              </button>
+            )}
+          </section>
         </form>
 
         <section className={styles.previewColumn} aria-label="Vista previa de la cotización">
@@ -788,6 +925,22 @@ export default function QuoteBuilder({
                   </div>
                 </dl>
               </section>
+
+              {linkVigente && (
+                <section className={styles.payBox}>
+                  <div>
+                    <span>Acepta y paga en línea</span>
+                    <p>
+                      Suscripción {periodLabel.toLowerCase()} por {formatUsd(total)}. Tras el
+                      pago, recibirás el contrato para firma electrónica en el mismo enlace.
+                    </p>
+                  </div>
+                  <a href={linkVigente.url}>
+                    <strong>PAGAR AHORA</strong>
+                    <small>{linkVigente.url.replace("https://", "")}</small>
+                  </a>
+                </section>
+              )}
 
               <footer className={styles.quoteFooter}>
                 <div>
