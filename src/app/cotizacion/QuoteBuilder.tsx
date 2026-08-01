@@ -731,35 +731,58 @@ export default function QuoteBuilder({
 
             {itemDiscountSavings + globalDiscountAmount > 0 && (
               <div className={styles.linkPagoDuracion}>
-                <label className={styles.field}>
-                  <span>Duración del descuento en la suscripción</span>
-                  <select
-                    value={duracionTipo}
-                    onChange={(event) =>
-                      setDuracionTipo(event.target.value as typeof duracionTipo)
-                    }
+                <span className={styles.duracionEtiqueta}>
+                  Duración del descuento en la suscripción
+                </span>
+                <div className={styles.duracionSegmento}>
+                  <label
+                    className={duracionTipo === "primer_pago" ? styles.duracionSeleccionada : ""}
                   >
-                    <option value="primer_pago">Solo el primer pago</option>
-                    <option value="meses">Por una cantidad de meses</option>
-                    <option value="siempre">Para siempre</option>
-                  </select>
-                </label>
-                {duracionTipo === "meses" && (
-                  <label className={styles.field}>
-                    <span>Meses{billing === "semester" ? " (múltiplo de 6)" : ""}</span>
                     <input
-                      type="number"
-                      min="1"
-                      max="60"
-                      value={duracionMeses}
-                      onChange={(event) =>
-                        setDuracionMeses(
-                          Math.min(60, Math.max(1, Number(event.target.value) || 1)),
-                        )
-                      }
+                      type="radio"
+                      name="duracion-descuento"
+                      checked={duracionTipo === "primer_pago"}
+                      onChange={() => setDuracionTipo("primer_pago")}
                     />
+                    <strong>Solo el primer pago</strong>
+                    <small>Luego, precio de lista</small>
                   </label>
-                )}
+                  <label className={duracionTipo === "meses" ? styles.duracionSeleccionada : ""}>
+                    <input
+                      type="radio"
+                      name="duracion-descuento"
+                      checked={duracionTipo === "meses"}
+                      onChange={() => setDuracionTipo("meses")}
+                    />
+                    <strong>Por meses</strong>
+                    <small className={styles.duracionMesesLinea}>
+                      <input
+                        type="number"
+                        min="1"
+                        max="60"
+                        value={duracionMeses}
+                        onClick={() => setDuracionTipo("meses")}
+                        onChange={(event) =>
+                          setDuracionMeses(
+                            Math.min(60, Math.max(1, Number(event.target.value) || 1)),
+                          )
+                        }
+                        aria-label="Meses de descuento"
+                      />
+                      meses{billing === "semester" ? " · múltiplo de 6" : ""}
+                    </small>
+                  </label>
+                  <label className={duracionTipo === "siempre" ? styles.duracionSeleccionada : ""}>
+                    <input
+                      type="radio"
+                      name="duracion-descuento"
+                      checked={duracionTipo === "siempre"}
+                      onChange={() => setDuracionTipo("siempre")}
+                    />
+                    <strong>Para siempre</strong>
+                    <small>Personalización perpetua</small>
+                  </label>
+                </div>
               </div>
             )}
 
