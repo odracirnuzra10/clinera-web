@@ -133,3 +133,19 @@ export async function crearSesionPago(
   if (!sesion.url) throw new Error("Stripe no devolvió URL de checkout.");
   return sesion.url;
 }
+
+/**
+ * Verifica contra Stripe que una checkout session esté pagada y pertenezca al
+ * folio indicado (el ?pago=ok de la URL jamás se toma como prueba de pago).
+ */
+export async function sesionPagada(
+  sessionId: string,
+  folio: string,
+): Promise<boolean> {
+  if (!/^cs_[a-zA-Z0-9_]+$/.test(sessionId)) return false;
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+  const sesion = await stripe.checkout.sessions.retrieve(sessionId);
+  return (
+    sesion.payment_status === "paid" && sesion.metadata?.folio_firma === folio
+  );
+}

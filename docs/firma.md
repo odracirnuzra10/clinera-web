@@ -80,10 +80,15 @@ sessionStorage; `/firma` la adjunta al crear el sobre y el servidor
 **recalcula todos los montos contra `src/content/pricing`**
 (`src/lib/firma/cotizacion.ts`) — nunca se confía en montos del navegador.
 
-Al firmar, la página de éxito muestra "Continuar al pago": una Checkout
-Session en modo suscripción con los ítems a precio de lista y un **cupón
-por el monto exacto del descuento por período**, con la duración que
-eligió el closer:
+El orden del flujo es **pagar → firmar**: cuando el sobre trae cotización,
+el cliente ve primero "Paso 1 · Paga tu suscripción"; su firma se habilita
+solo con el pago verificado (el retorno de Stripe pasa por
+`/api/firma/[id]/pago/exito`, que consulta la checkout session directo a
+Stripe — un `?pago=ok` escrito a mano no habilita nada — y el POST de
+firma responde 402 sin pago). Un sobre con pago registrado no se puede
+anular. La Checkout Session es en modo suscripción con los ítems a precio
+de lista y un **cupón por el monto exacto del descuento por período**, con
+la duración que eligió el closer:
 
 - *Solo el primer pago* → cupón `once` (en semestral cubre el primer semestre).
 - *Por N meses* → cupón `repeating` (en semestral usar múltiplos de 6).

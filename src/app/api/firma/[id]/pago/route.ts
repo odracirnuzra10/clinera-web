@@ -1,17 +1,17 @@
 // ============================================================================
-// /api/firma/[id]/pago — checkout de Stripe para el sobre firmado
+// /api/firma/[id]/pago — checkout de Stripe para el sobre
 // ----------------------------------------------------------------------------
-// El botón "Continuar al pago" navega acá. Se crea una Checkout Session
-// on-demand (expiran a las 24 h, no tiene sentido guardarlas) y se redirige
-// al cliente a Stripe. Reglas:
+// El flujo comercial es PAGAR → FIRMAR: el cliente revisa el documento, paga
+// la suscripción y recién ahí se habilita su firma (el POST de firma exige
+// pago verificado cuando hay cotización).
 //
-//   - Solo sobres con cotización asociada.
-//   - Solo DESPUÉS de que el cliente firmó: primero contrato, después cobro.
-//   - Sin STRIPE_SECRET_KEY el endpoint avisa con un redirect (?pago=sin-config)
-//     en vez de romper: el resto del sistema de firmas funciona igual.
+// La Checkout Session se crea on-demand (expiran a las 24 h). Al pagar,
+// Stripe vuelve a /api/firma/[id]/pago/exito, donde se VERIFICA el pago
+// contra Stripe antes de marcar el sobre como pagado.
 //
-// Los errores redirigen a /firma/<id>?pago=<código> para que la página los
-// muestre en contexto.
+// Reglas:
+//   - Solo sobres con cotización asociada y aún sin pago registrado.
+//   - Sin STRIPE_SECRET_KEY el endpoint avisa con ?pago=sin-config.
 // ============================================================================
 
 import { NextResponse } from "next/server";
@@ -42,11 +42,13 @@ export async function GET(_req: Request, ctx: RouteContext<"/api/firma/[id]/pago
 
   const meta = await leerMeta(id);
   if (!meta || !meta.cotizacion) return volverCon("no-disponible");
-  if (meta.estado !== "firmado") return volverCon("firma-pendiente");
+  if (meta.pagoRealizado) return volverCon("ya-pagado");
 
   try {
     const url = await crearSesionPago(meta, {
-      exito: `${base}?pago=ok`,
+      // {CHECKOUT_SESSION_ID} lo reemplaza Stripe: /exito verifica el pago
+      // server-side antes de habilitar la firma.
+      exito: `${protocolo}://${host}/api/firma/${id}/pago/exito?sesion={CHECKOUT_SESSION_ID}`,
       cancelado: base,
     });
     return NextResponse.redirect(url, { status: 303 });

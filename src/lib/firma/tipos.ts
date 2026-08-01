@@ -57,9 +57,18 @@ export type SobreMeta = {
   /**
    * Snapshot de la cotización (config + montos recalculados del catálogo).
    * Presente solo cuando el sobre se creó desde "Enviar a firma" en
-   * /cotizacion: habilita el checkout de Stripe tras la firma.
+   * /cotizacion: habilita el checkout de Stripe, que es requisito previo a
+   * la firma del cliente.
    */
   cotizacion?: CotizacionSnapshot;
+  /**
+   * Pago verificado contra Stripe (checkout session con payment_status paid).
+   * Cuando hay cotización, el cliente debe pagar ANTES de poder firmar.
+   */
+  pagoRealizado?: {
+    checkoutSessionId: string;
+    pagadoEn: string;
+  };
   /** Presente solo cuando estado === "firmado". */
   firmaCliente?: Firmante;
   /** SHA-256 (hex) del PDF final con hoja de firmas. */
@@ -91,6 +100,8 @@ export type SobrePublico = {
     moneda: "USD";
     duracionDescuento: DescuentoDuracion;
   };
+  /** Presente cuando el pago ya fue verificado contra Stripe. */
+  pagado?: { en: string };
 };
 
 /** Resumen para la lista del closer. */
@@ -127,5 +138,6 @@ export function proyectarSobre(meta: SobreMeta): SobrePublico {
           },
         }
       : {}),
+    ...(meta.pagoRealizado ? { pagado: { en: meta.pagoRealizado.pagadoEn } } : {}),
   };
 }

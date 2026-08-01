@@ -650,7 +650,7 @@ export default function FirmaTool() {
                 <span>04</span>
                 <div>
                   <h2>Suscripción y pago</h2>
-                  <p>Al firmar, el cliente recibe el link de pago con estos valores.</p>
+                  <p>El cliente paga con estos valores y después firma el documento.</p>
                 </div>
               </div>
 
@@ -822,6 +822,14 @@ export default function FirmaTool() {
                     {sobre.estado === "firmado" && sobre.firmadoEn && (
                       <small className={styles.sobreFirmadoEn}>
                         Firmado el {formatoFecha(sobre.firmadoEn)}
+                        {sobre.pagado ? " · pagado" : sobre.pago ? " · pago pendiente" : ""}
+                      </small>
+                    )}
+                    {sobre.estado === "pendiente" && sobre.pago && (
+                      <small className={styles.sobreCliente}>
+                        {sobre.pagado
+                          ? "Suscripción pagada · falta la firma"
+                          : "Incluye pago de suscripción (paga antes de firmar)"}
                       </small>
                     )}
                     <div className={styles.sobreAcciones}>
@@ -833,7 +841,7 @@ export default function FirmaTool() {
                           >
                             Descargar firmado
                           </a>
-                          {sobre.pago && (
+                          {sobre.pago && !sobre.pagado && (
                             <button
                               type="button"
                               className={styles.botonSecundario}
