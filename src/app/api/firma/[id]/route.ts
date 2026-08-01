@@ -13,7 +13,7 @@
 import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { claveValida, ipDelRequest, superaRateLimit } from "@/lib/firma/auth";
+import { accesoCloser, ipDelRequest, superaRateLimit } from "@/lib/firma/auth";
 import { generarPdfFirmado } from "@/lib/firma/certificado";
 import {
   blobConfigurado,
@@ -158,8 +158,7 @@ export async function DELETE(request: Request, ctx: RouteContext<"/api/firma/[id
   const { id } = await ctx.params;
   if (!blobConfigurado()) return error("El sistema de firmas no está configurado.", 503);
 
-  const h = await headers();
-  if (!claveValida(h.get("x-firma-clave"))) {
+  if (!(await accesoCloser())) {
     return error("Clave de acceso incorrecta.", 401);
   }
   if (!esIdValido(id)) return error("Solicitud de firma no encontrada.", 404);

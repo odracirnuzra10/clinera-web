@@ -167,6 +167,58 @@
   background: #fadfe1;
 }
 
+.topbarUsuario {
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  color: var(--firma-muted);
+  margin-right: 4px;
+}
+
+.botonGoogle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 42px;
+  border: 1px solid #dcdcd7;
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--firma-ink);
+  text-decoration: none;
+  transition: background 200ms ease, transform 150ms ease;
+}
+
+.botonGoogle:hover {
+  background: var(--firma-soft);
+}
+
+.botonGoogle:active {
+  transform: scale(0.98);
+}
+
+.gateDivisor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 2px 0;
+}
+
+.gateDivisor::before,
+.gateDivisor::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--firma-border);
+}
+
+.gateDivisor span {
+  font-size: 11.5px;
+  color: var(--firma-muted);
+}
+
 /* ── Puerta de acceso ───────────────────────────────────────────────────── */
 
 .gate {

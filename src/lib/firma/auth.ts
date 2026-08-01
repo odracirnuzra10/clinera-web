@@ -10,6 +10,8 @@
 // ============================================================================
 
 import { timingSafeEqual } from "node:crypto";
+import { cookies, headers } from "next/headers";
+import { COOKIE_SESION, sesionValida, type SesionSso } from "./sso";
 
 export function claveConfigurada(): boolean {
   return Boolean(process.env.FIRMA_ACCESS_KEY);
@@ -22,6 +24,18 @@ export function claveValida(candidata: string | null): boolean {
   const b = Buffer.from(esperada);
   if (a.length !== b.length) return false;
   return timingSafeEqual(a, b);
+}
+
+/**
+ * Acceso del lado closer: clave compartida en el header x-firma-clave O una
+ * sesión SSO de Google (@oacg.cl) en cookie. Devuelve la sesión si el acceso
+ * vino por SSO (para prefills), true si vino por clave, false si no hay acceso.
+ */
+export async function accesoCloser(): Promise<SesionSso | boolean> {
+  const h = await headers();
+  if (claveValida(h.get("x-firma-clave"))) return true;
+  const sesion = sesionValida((await cookies()).get(COOKIE_SESION)?.value);
+  return sesion ?? false;
 }
 
 // ── Rate limit en memoria (mismo patrón que /api/triage) ────────────────────

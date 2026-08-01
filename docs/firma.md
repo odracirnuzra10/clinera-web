@@ -33,6 +33,7 @@ la parte contratante.
 | `FIRMA_ACCESS_KEY` | Clave compartida del equipo comercial. Se pide al entrar a `/firma` y viaja en el header `x-firma-clave`; se valida siempre server-side. |
 | `BLOB_READ_WRITE_TOKEN` | La inyecta Vercel automáticamente al conectar un **Blob store** al proyecto. Debe ser un store con `access: private`. |
 | `STRIPE_SECRET_KEY` | Habilita el pago post-firma. Usar una **clave restringida** (Dashboard → Developers → API keys → Create restricted key) con Write en: Checkout Sessions, Customers, Products, Prices y Coupons. Sin esta variable, la firma funciona igual y el botón de pago avisa que aún no está habilitado. |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Habilitan "Continuar con Google" en `/firma`, restringido a cuentas `@oacg.cl` (el dominio se valida server-side; la sesión es una cookie httpOnly firmada con HMAC usando `FIRMA_ACCESS_KEY`, 12 h). Crear en Google Cloud Console → APIs & Services → Credentials → OAuth client ID (Web) con redirect URI `https://www.clinera.io/api/firma/auth/google/callback`. Sin estas variables, el login con clave sigue funcionando igual. |
 
 Sin cualquiera de las dos, los endpoints responden `503` con un mensaje
 claro (mismo criterio que `/api/triage`: error visible > herramienta rota
