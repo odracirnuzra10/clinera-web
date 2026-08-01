@@ -389,6 +389,35 @@ export default function QuoteBuilder({
     window.setTimeout(() => setCopiadoLink(false), 1800);
   };
 
+  // ── Envío de la cotización (habilitado solo con link de pago creado) ──────
+  const textoEnvio = () =>
+    [
+      "Hola,",
+      "",
+      `Te comparto la cotización ${quoteNumber || "de Clinera"}: Plan ${selectedPlan.name} (${periodLabel.toLowerCase()}) por ${formatUsd(total)}.`,
+      "",
+      `Puedes revisarla y pagar en línea aquí: ${linkVigente?.url ?? ""}`,
+      "",
+      "Saludos,",
+      quoteOwner,
+    ].join("\n");
+
+  const enviarPorCorreo = () => {
+    if (!linkVigente) return;
+    const asunto = `Cotización ${quoteNumber || ""} — Clinera`.trim();
+    window.location.href = `mailto:?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(textoEnvio())}`;
+  };
+
+  const enviarPorWhatsApp = () => {
+    if (!linkVigente) return;
+    window.open(`https://wa.me/?text=${encodeURIComponent(textoEnvio())}`, "_blank", "noopener");
+  };
+
+  const descargarPdf = () => {
+    if (!linkVigente) return;
+    window.print();
+  };
+
   const copySummary = async () => {
     const summary = [
       `Cotización ${quoteNumber || "Clinera"}`,
@@ -429,18 +458,6 @@ export default function QuoteBuilder({
               <path d="M10.75 5V3.75a1.5 1.5 0 0 0-1.5-1.5h-5.5a1.5 1.5 0 0 0-1.5 1.5v5.5a1.5 1.5 0 0 0 1.5 1.5H5" />
             </svg>
             {copyState === "copied" ? "Resumen copiado" : "Copiar resumen"}
-          </button>
-          <button
-            type="button"
-            className={styles.primaryButton}
-            onClick={() => window.print()}
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M4.25 5V2.25h7.5V5M4.25 11v2.75h7.5V11" />
-              <path d="M3 5.25h10A1.75 1.75 0 0 1 14.75 7v3H1.25V7A1.75 1.75 0 0 1 3 5.25Z" />
-              <path d="M11.75 7.75h.01" />
-            </svg>
-            Imprimir / guardar PDF
           </button>
         </div>
       </header>
@@ -704,45 +721,68 @@ export default function QuoteBuilder({
             <div className={styles.sectionHeading}>
               <span>06</span>
               <div>
-                <h2>Pago en línea</h2>
+                <h2>Cerrar y enviar</h2>
                 <p>
-                  El link queda impreso en la cotización: el cliente paga desde el PDF y
-                  después se gestiona la firma del contrato.
+                  Primero crea el link de pago — queda impreso en la cotización — y luego
+                  envíala al cliente. La firma del contrato se gestiona tras el pago.
                 </p>
               </div>
             </div>
 
             {itemDiscountSavings + globalDiscountAmount > 0 && (
               <div className={styles.linkPagoDuracion}>
-                <label className={styles.field}>
-                  <span>Duración del descuento en la suscripción</span>
-                  <select
-                    value={duracionTipo}
-                    onChange={(event) =>
-                      setDuracionTipo(event.target.value as typeof duracionTipo)
-                    }
+                <span className={styles.duracionEtiqueta}>
+                  Duración del descuento en la suscripción
+                </span>
+                <div className={styles.duracionSegmento}>
+                  <label
+                    className={duracionTipo === "primer_pago" ? styles.duracionSeleccionada : ""}
                   >
-                    <option value="primer_pago">Solo el primer pago</option>
-                    <option value="meses">Por una cantidad de meses</option>
-                    <option value="siempre">Para siempre</option>
-                  </select>
-                </label>
-                {duracionTipo === "meses" && (
-                  <label className={styles.field}>
-                    <span>Meses{billing === "semester" ? " (múltiplo de 6)" : ""}</span>
                     <input
-                      type="number"
-                      min="1"
-                      max="60"
-                      value={duracionMeses}
-                      onChange={(event) =>
-                        setDuracionMeses(
-                          Math.min(60, Math.max(1, Number(event.target.value) || 1)),
-                        )
-                      }
+                      type="radio"
+                      name="duracion-descuento"
+                      checked={duracionTipo === "primer_pago"}
+                      onChange={() => setDuracionTipo("primer_pago")}
                     />
+                    <strong>Solo el primer pago</strong>
+                    <small>Luego, precio de lista</small>
                   </label>
-                )}
+                  <label className={duracionTipo === "meses" ? styles.duracionSeleccionada : ""}>
+                    <input
+                      type="radio"
+                      name="duracion-descuento"
+                      checked={duracionTipo === "meses"}
+                      onChange={() => setDuracionTipo("meses")}
+                    />
+                    <strong>Por meses</strong>
+                    <small className={styles.duracionMesesLinea}>
+                      <input
+                        type="number"
+                        min="1"
+                        max="60"
+                        value={duracionMeses}
+                        onClick={() => setDuracionTipo("meses")}
+                        onChange={(event) =>
+                          setDuracionMeses(
+                            Math.min(60, Math.max(1, Number(event.target.value) || 1)),
+                          )
+                        }
+                        aria-label="Meses de descuento"
+                      />
+                      meses{billing === "semester" ? " · múltiplo de 6" : ""}
+                    </small>
+                  </label>
+                  <label className={duracionTipo === "siempre" ? styles.duracionSeleccionada : ""}>
+                    <input
+                      type="radio"
+                      name="duracion-descuento"
+                      checked={duracionTipo === "siempre"}
+                      onChange={() => setDuracionTipo("siempre")}
+                    />
+                    <strong>Para siempre</strong>
+                    <small>Personalización perpetua</small>
+                  </label>
+                </div>
               </div>
             )}
 
@@ -762,22 +802,78 @@ export default function QuoteBuilder({
 
             {linkVigente ? (
               <div className={styles.linkPagoListo}>
-                <strong>Link incluido en la cotización. Ahora descarga el PDF.</strong>
+                <strong>
+                  <svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true">
+                    <circle cx="7.5" cy="7.5" r="6.75" />
+                    <path d="m4.75 7.75 2 2 3.75-4" />
+                  </svg>
+                  Link de pago creado e incluido en la cotización
+                </strong>
                 <code>{linkVigente.url}</code>
-                <button type="button" className={styles.secondaryButton} onClick={copiarLinkPago}>
+                <button type="button" className={styles.btnCopiarLink} onClick={copiarLinkPago}>
                   {copiadoLink ? "Link copiado" : "Copiar link"}
                 </button>
               </div>
             ) : (
               <button
                 type="button"
-                className={styles.secondaryButton}
+                className={styles.btnCrearLink}
                 onClick={generarLinkPago}
                 disabled={generandoLink}
               >
-                {generandoLink ? "Generando…" : "Generar link de pago"}
+                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M6.5 9.5 9.5 6.5M7.25 4.5l1-1a2.65 2.65 0 0 1 3.75 3.75l-1 1M8.75 11.5l-1 1A2.65 2.65 0 0 1 4 8.75l1-1" />
+                </svg>
+                {generandoLink ? "Creando link…" : "Crear link de pago"}
               </button>
             )}
+
+            <div className={styles.envio}>
+              <span className={styles.envioTitulo}>Enviar cotización</span>
+              <div className={styles.envioAcciones}>
+                <button
+                  type="button"
+                  className={styles.btnEnvio}
+                  disabled={!linkVigente}
+                  onClick={enviarPorCorreo}
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                    <rect x="1.75" y="3.25" width="12.5" height="9.5" rx="1.5" />
+                    <path d="m2.5 4.5 5.5 4.25L13.5 4.5" />
+                  </svg>
+                  Correo
+                </button>
+                <button
+                  type="button"
+                  className={styles.btnEnvio}
+                  disabled={!linkVigente}
+                  onClick={enviarPorWhatsApp}
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M8 1.9a6.1 6.1 0 0 0-5.2 9.3L2 14l2.9-.76A6.1 6.1 0 1 0 8 1.9Z" />
+                    <path d="M5.9 5.7c.9 2 2.1 3.2 4.3 4.1l.85-.85 1.35.7c-.3 1.1-1.3 1.4-2.4 1-2.3-.8-4-2.5-4.8-4.8-.4-1.1-.1-2.1 1-2.4l.7 1.35Z" />
+                  </svg>
+                  WhatsApp
+                </button>
+                <button
+                  type="button"
+                  className={styles.btnEnvio}
+                  disabled={!linkVigente}
+                  onClick={descargarPdf}
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M8 2.25v8M4.75 7 8 10.25 11.25 7" />
+                    <path d="M2.75 11v1.5a1.25 1.25 0 0 0 1.25 1.25h8a1.25 1.25 0 0 0 1.25-1.25V11" />
+                  </svg>
+                  Descargar PDF
+                </button>
+              </div>
+              <small>
+                {linkVigente
+                  ? "El PDF sale con el botón de pago impreso. En correo o WhatsApp, adjunta también el PDF descargado."
+                  : "Crea el link de pago para habilitar el envío."}
+              </small>
+            </div>
           </section>
         </form>
 
@@ -935,10 +1031,11 @@ export default function QuoteBuilder({
                       pago, recibirás el contrato para firma electrónica en el mismo enlace.
                     </p>
                   </div>
-                  <a href={linkVigente.url}>
-                    <strong>PAGAR AHORA</strong>
-                    <small>{linkVigente.url.replace("https://", "")}</small>
-                  </a>
+                  <div className={styles.payBoxAccion}>
+                    <a href={linkVigente.url}>Pagar ahora</a>
+                    <small>Pago seguro con Stripe</small>
+                    <code>{linkVigente.url.replace("https://", "")}</code>
+                  </div>
                 </section>
               )}
 

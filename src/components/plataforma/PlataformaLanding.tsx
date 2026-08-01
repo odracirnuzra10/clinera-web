@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CnnLogo } from "@/components/brand-v3/Brand";
+import { IntelligencePlataformaSection } from "@/components/IntelligenceSection";
 import AuraNetwork from "./AuraNetwork";
 import PlatformPricing from "./PlatformPricing";
 import styles from "./PlataformaLanding.module.css";
@@ -368,6 +369,7 @@ export default function PlataformaLanding() {
       <Hero />
       <ClientProof />
       <AuraNetwork />
+      <IntelligencePlataformaSection />
       <CustomerResult />
       <PressCNN />
       <Migration />
