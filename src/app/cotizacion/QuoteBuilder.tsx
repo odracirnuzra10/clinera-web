@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   CLINERA_PLANS,
   EXTRA_CREDIT_PACK_CREDITS,
@@ -207,6 +207,8 @@ export default function QuoteBuilder({
     "primer_pago",
   );
   const [duracionMeses, setDuracionMeses] = useState(6);
+
+  const seccionCierreRef = useRef<HTMLElement>(null);
 
   const selectedPlan =
     CLINERA_PLANS.find((plan) => plan.id === selectedPlanId) ?? CLINERA_PLANS[0];
@@ -418,6 +420,13 @@ export default function QuoteBuilder({
     window.print();
   };
 
+  // CTA principal del topbar: dispara el cierre completo — crea el link de
+  // pago (si aún no existe o quedó obsoleto) y lleva al paso de envío.
+  const crearCotizacion = async () => {
+    seccionCierreRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!linkVigente && !generandoLink) await generarLinkPago();
+  };
+
   const copySummary = async () => {
     const summary = [
       `Cotización ${quoteNumber || "Clinera"}`,
@@ -458,6 +467,21 @@ export default function QuoteBuilder({
               <path d="M10.75 5V3.75a1.5 1.5 0 0 0-1.5-1.5h-5.5a1.5 1.5 0 0 0-1.5 1.5v5.5a1.5 1.5 0 0 0 1.5 1.5H5" />
             </svg>
             {copyState === "copied" ? "Resumen copiado" : "Copiar resumen"}
+          </button>
+          <button
+            type="button"
+            className={styles.primaryButton}
+            onClick={crearCotizacion}
+            disabled={generandoLink}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M6.5 9.5 9.5 6.5M7.25 4.5l1-1a2.65 2.65 0 0 1 3.75 3.75l-1 1M8.75 11.5l-1 1A2.65 2.65 0 0 1 4 8.75l1-1" />
+            </svg>
+            {generandoLink
+              ? "Creando cotización…"
+              : linkVigente
+                ? "Enviar cotización"
+                : "Crear cotización"}
           </button>
         </div>
       </header>
@@ -717,7 +741,7 @@ export default function QuoteBuilder({
             </label>
           </section>
 
-          <section className={styles.formSection}>
+          <section className={styles.formSection} ref={seccionCierreRef}>
             <div className={styles.sectionHeading}>
               <span>06</span>
               <div>
