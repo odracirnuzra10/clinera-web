@@ -19,6 +19,7 @@ import { accesoCloser, claveConfigurada, ipDelRequest, superaRateLimit } from "@
 import { inspeccionarPdf } from "@/lib/firma/certificado";
 import { CEO_CLINERA, FIRMA_CEO_PNG } from "@/lib/firma/firma-ceo";
 import { construirCotizacion } from "@/lib/firma/cotizacion";
+import { generarPdfCotizacion } from "@/lib/firma/pdf-cotizacion";
 import {
   blobConfigurado,
   guardarMeta,
@@ -149,6 +150,32 @@ export async function POST(request: Request) {
   const h = await headers();
   const id = randomBytes(16).toString("hex");
   const ahora = new Date().toISOString();
+  const host = h.get("host") ?? "www.clinera.io";
+  const protocolo = host.startsWith("localhost") ? "http" : "https";
+
+  // Modo link de pago: el servidor genera el PDF de la cotización (con el
+  // botón "Pagar suscripción" embebido como anotación de link) y lo deja como
+  // documento del sobre. Es el archivo canónico: se previsualiza en el enlace
+  // y, tras el pago, es lo que firma el cliente salvo que el closer lo
+  // reemplace por un contrato formal.
+  if (sinDocumento && cotizacion) {
+    try {
+      const pdfCotizacion = await generarPdfCotizacion(cotizacion, {
+        pago: `${protocolo}://${host}/api/firma/${id}/pago`,
+        enLinea: `${protocolo}://${host}/firma/${id}`,
+      });
+      bytes = Buffer.from(pdfCotizacion);
+      documento = {
+        nombreArchivo: `Cotizacion-${(cotizacion.numero || "clinera").replace(/[^a-zA-Z0-9-]/g, "")}.pdf`,
+        titulo,
+        paginas: 1,
+        bytes: bytes.length,
+        sha256: createHash("sha256").update(bytes).digest("hex"),
+      };
+    } catch {
+      return error("No pudimos generar el PDF de la cotización. Inténtalo de nuevo.", 502);
+    }
+  }
 
   const meta: SobreMeta = {
     version: 1,
@@ -186,9 +213,6 @@ export async function POST(request: Request) {
   } catch {
     return error("No pudimos guardar el documento. Inténtalo de nuevo en un momento.", 502);
   }
-
-  const host = h.get("host") ?? "www.clinera.io";
-  const protocolo = host.startsWith("localhost") ? "http" : "https";
 
   return NextResponse.json(
     { ok: true, id, url: `${protocolo}://${host}/firma/${id}` },
