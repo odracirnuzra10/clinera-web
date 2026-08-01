@@ -136,7 +136,7 @@ export default function NavV3({
               fontWeight: 700,
             }}
           >
-            Clinera Intelligence
+            Clinera O.S.
           </Link>
           <Link href="/funciones" style={{ color: "#0A0A0A", textDecoration: "none" }}>
             Funciones
@@ -189,7 +189,7 @@ export default function NavV3({
       {mobileOpen && (
         <div className="nav-v3-mobile">
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <Link href="/#clinera-intelligence" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link" style={{ color: "#7C3AED" }}>Clinera Intelligence</Link>
+            <Link href="/#clinera-intelligence" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link" style={{ color: "#7C3AED" }}>Clinera O.S.</Link>
             <Link href="/funciones" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link">Funciones</Link>
             <Link href="/planes" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link">Planes</Link>
             <Link href="/prensa" onClick={() => setMobileOpen(false)} className="nav-v3-mobile-link">Prensa</Link>

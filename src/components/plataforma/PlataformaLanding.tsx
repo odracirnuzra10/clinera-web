@@ -125,14 +125,16 @@ function Hero() {
         <div className={styles.heroCopy}>
           <span className={styles.eyebrow}>Para clínicas con equipo, alto volumen o varias sedes</span>
           <h1>
-            Centraliza tu clínica.
-            <span> Escala sin perder el control.</span>
+            Clinera O.S.
+            <span> El sistema operativo de tu clínica con IA.</span>
           </h1>
           <strong className={styles.enterpriseThesis}>
-            La solución enterprise de IA que usan las clínicas grandes, al alcance de la tuya.
+            Mucho más que un chatbot: el sistema por el que opera tu clínica, con la potencia
+            enterprise de las clínicas grandes al alcance de la tuya.
           </strong>
           <p>
-            Clinera reúne agenda, WhatsApp, fichas, cobros y seguimiento en una sola plataforma con IA.
+            Agenda, tratamientos, pacientes, fichas clínicas, consentimientos, automatizaciones,
+            ventas, marketing y comunicación con IA por voz y texto — en una sola plataforma.
             Migramos tus datos, configuramos la operación y capacitamos a tu equipo.
           </p>
           <div className={styles.heroActions}>

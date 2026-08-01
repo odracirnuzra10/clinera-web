@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 import PlataformaLanding from "@/components/plataforma/PlataformaLanding";
 
 export const metadata: Metadata = {
-  title: "IA enterprise para todas tus sedes",
+  title: "Clinera O.S. — El sistema operativo de tu clínica con IA",
   description:
-    "Todas tus sedes en una sola IA. Clinera centraliza la operación y AURA atiende por WhatsApp y llamadas de voz, con implementación gestionada.",
+    "Clinera O.S.: agenda, tratamientos, pacientes, fichas clínicas, consentimientos, automatizaciones, ventas, marketing y comunicación con IA por voz y texto — con implementación gestionada.",
   alternates: { canonical: "https://www.clinera.io/plataforma" },
   openGraph: {
     url: "https://www.clinera.io/plataforma",
-    title: "Todas tus sedes, en una sola IA — Clinera.io",
+    title: "Clinera O.S. — El sistema operativo de tu clínica con IA",
     description:
-      "La solución enterprise de IA que usan las clínicas grandes, al alcance de la tuya. WhatsApp, llamadas de voz y control central.",
+      "Mucho más que un chatbot: el sistema por el que opera tu clínica, con la potencia enterprise de las clínicas grandes al alcance de la tuya.",
   },
 };
 

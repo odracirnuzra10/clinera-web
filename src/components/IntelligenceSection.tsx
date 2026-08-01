@@ -68,15 +68,15 @@ export function IntelligenceHomeSection() {
       <div className={styles.homeInner}>
         <div className={`${styles.homeCopy} reveal`}>
           <span className={styles.kicker}>
-            <SparkIcon /> Nuevo · Clinera Intelligence
+            <SparkIcon /> Clinera Intelligence · Tu agente interno IA
           </span>
           <h2 className={styles.homeTitle}>
             Pregúntale a tu clínica. <span>Te responde con tus números.</span>
           </h2>
           <p className={styles.homeLead}>
-            Clinera Intelligence es un chat con IA dentro de Clinera para conversar con toda tu
-            operación: escribe la pregunta en lenguaje natural y recibe cifras reales de tu clínica,
-            con gráficos generados al momento.
+            Clinera Intelligence es el agente interno de IA que te asiste dentro de Clinera O.S.:
+            escribe la pregunta en lenguaje natural y recibe cifras reales de tu clínica, con
+            gráficos generados al momento.
           </p>
           <ul className={styles.homeBullets}>
             {HOME_BULLETS.map((b) => (
@@ -138,15 +138,15 @@ export function IntelligencePlataformaSection() {
       <div className={styles.platInner}>
         <div className={styles.platIntro}>
           <span className={styles.kicker}>
-            <SparkIcon /> Nuevo · Clinera Intelligence
+            <SparkIcon /> Clinera Intelligence · Tu agente interno IA
           </span>
           <h2>
             Conversa con <span>toda tu operación</span>.
           </h2>
           <p>
-            Clinera Intelligence es el chat interno con IA de la plataforma: pregunta en lenguaje
-            natural y responde con los datos reales de tu clínica — sin reportes manuales ni
-            planillas.
+            Clinera Intelligence es el agente interno con IA que te asiste dentro de Clinera O.S.:
+            pregunta en lenguaje natural y responde con los datos reales de tu clínica — sin
+            reportes manuales ni planillas.
           </p>
         </div>
         <div className={styles.platGrid}>

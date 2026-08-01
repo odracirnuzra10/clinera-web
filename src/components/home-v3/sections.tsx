@@ -104,7 +104,7 @@ export function Hero() {
               >
                 ✦
               </span>
-              CLINERA INTELLIGENCE · OPERACIÓN CLÍNICA
+              CLINERA O.S. · EL SISTEMA OPERATIVO DE TU CLÍNICA
               <span style={{ color: "#9CA3AF" }}>·</span>
               <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>
                 en vivo en Chile y México
@@ -150,7 +150,7 @@ export function Hero() {
                 maxWidth: 580,
               }}
             >
-              <b style={{ color: "#0A0A0A" }}>Clinera Intelligence</b> pone agentes de IA a trabajar sobre la agenda de <b style={{ color: "#0A0A0A" }}>todo tu equipo y todas tus sedes</b> por WhatsApp: agendan, reagendan, confirman, cobran y recuperan pacientes 24/7 — sin que se te escape un lead ni quede una hora-box vacía. Toda tu operación bajo control, con visibilidad central.
+              <b style={{ color: "#0A0A0A" }}>Clinera O.S.</b> es el sistema operativo con IA por el que opera tu clínica — agenda, pacientes, fichas, tratamientos, cobros y marketing — y pone agentes a trabajar sobre <b style={{ color: "#0A0A0A" }}>todo tu equipo y todas tus sedes</b> por WhatsApp: agendan, reagendan, confirman, cobran y recuperan pacientes 24/7. Toda tu operación bajo control, con visibilidad central.
             </p>
 
             <div style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
@@ -2799,13 +2799,13 @@ export function EcosistemaIA() {
     <section id="clinera-intelligence" style={{ position: "relative", padding: "112px 80px", borderTop: "1px solid #F0F0F0", background: "#FAFAFA", overflow: "hidden", scrollMarginTop: 96 }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
         <div className="reveal" style={{ textAlign: "center", maxWidth: 760, margin: "0 auto 52px" }}>
-          <Eyebrow>Clinera Intelligence · núcleo operativo</Eyebrow>
+          <Eyebrow>Clinera O.S. · El sistema operativo de tu clínica</Eyebrow>
           <h2 className="home-h2-big" style={{ fontFamily: "Inter", fontSize: 44, fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.05, margin: "14px 0 16px", color: "#0A0A0A" }}>
-            Clinera Intelligence:{" "}
-            <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>toda tu clínica pensando y actuando como una</span>.
+            Clinera O.S.:{" "}
+            <span style={{ background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>el sistema con IA por el que opera toda tu clínica</span>.
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", lineHeight: 1.55, margin: 0 }}>
-            Agenda, fichas, tratamientos, pagos, marketing y WhatsApp alimentan Clinera Intelligence. La capa que entiende el contexto completo, coordina agentes y actúa —en una o en veinte sedes— con visibilidad y control central.
+            Mucho más que un chatbot: agenda, pacientes, fichas clínicas, tratamientos, consentimientos, ventas, pagos, marketing y comunicación con IA por voz y texto viven en un solo sistema. Clinera O.S. entiende el contexto completo, coordina agentes y actúa —en una o en veinte sedes— con visibilidad y control central.
           </p>
         </div>
 
@@ -2822,12 +2822,12 @@ export function EcosistemaIA() {
               <span style={{ color: "#fff", fontSize: 46, fontWeight: 700, lineHeight: 1 }}>✦</span>
             </div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontFamily: "Inter", fontSize: 18, fontWeight: 750, color: "#0A0A0A", letterSpacing: "-0.025em" }}>Clinera Intelligence</div>
+              <div style={{ fontFamily: "Inter", fontSize: 18, fontWeight: 750, color: "#0A0A0A", letterSpacing: "-0.025em" }}>Clinera O.S.</div>
               <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7C3AED", marginTop: 5 }}>Contexto · decisiones · acción</div>
             </div>
           </div>
           <div>
-            <div style={{ marginBottom: 14 }}><Mono>Clinera Intelligence actúa</Mono></div>
+            <div style={{ marginBottom: 14 }}><Mono>Clinera O.S. actúa</Mono></div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {actions.map(actTile)}
             </div>
