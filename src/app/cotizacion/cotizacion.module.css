@@ -131,6 +131,11 @@
   background: #282b33;
 }
 
+.primaryButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .workspace {
   width: min(1510px, 100%);
   margin: 0 auto;
