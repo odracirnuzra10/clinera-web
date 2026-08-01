@@ -166,8 +166,8 @@ export default function FirmaCliente({ id }: { id: string }) {
               <span className={styles.clienteKicker}>Te invitaron a firmar</span>
               <h1>{sobre.titulo}</h1>
               <p>
-                {sobre.closer.nombre} de Clinera te envió este documento de{" "}
-                {sobre.paginas} página{sobre.paginas === 1 ? "" : "s"} para firma
+                {(sobre.gestor ?? sobre.closer).nombre} de Clinera te envió este documento
+                de {sobre.paginas} página{sobre.paginas === 1 ? "" : "s"} para firma
                 electrónica simple. Revísalo completo y firma al final.
               </p>
             </section>
