@@ -440,13 +440,6 @@ export default function QuoteBuilder({
     if (!linkVigente && !generandoLink) await generarLinkPago();
   };
 
-  // CTA principal del topbar: dispara el cierre completo — crea el link de
-  // pago (si aún no existe o quedó obsoleto) y lleva al paso de envío.
-  const crearCotizacion = async () => {
-    seccionCierreRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    if (!linkVigente && !generandoLink) await generarLinkPago();
-  };
-
   const copySummary = async () => {
     const summary = [
       `Cotización ${quoteNumber || "Clinera"}`,
