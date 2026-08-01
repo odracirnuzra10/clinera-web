@@ -15,7 +15,8 @@
 // ============================================================================
 
 import { PDFDocument, PDFFont, PDFPage, StandardFonts, rgb } from "pdf-lib";
-import type { Firmante, SobreMeta } from "./tipos";
+import { ENTIDAD_LEGAL } from "./firma-ceo";
+import type { SobreMeta } from "./tipos";
 
 const A4: [number, number] = [595.28, 841.89];
 const MARGEN = 48;
@@ -81,11 +82,12 @@ function dibujarBloqueFirmante(
   opciones: {
     y: number;
     rol: string;
-    firmante: Firmante;
+    filas: Array<[string, string]>;
+    notaFirma: string;
     firmaImagen: Awaited<ReturnType<PDFDocument["embedPng"]>> | null;
   },
 ): number {
-  const { y, rol, firmante, firmaImagen } = opciones;
+  const { y, rol, filas, notaFirma, firmaImagen } = opciones;
   const ancho = A4[0] - MARGEN * 2;
   const alto = 128;
 
@@ -115,16 +117,6 @@ function dibujarBloqueFirmante(
   });
 
   // Columna izquierda: datos del firmante.
-  const filas: Array<[string, string]> = [
-    ["Nombre", firmante.nombre],
-    ["Email", firmante.email],
-    ...(firmante.rut ? ([["RUT", firmante.rut]] as Array<[string, string]>) : []),
-    ["Fecha y hora", fechaSantiago(firmante.firmadoEn)],
-    ["IP", firmante.ip],
-    // 60 chars caben antes de la caja de firma de la derecha.
-    ["Dispositivo", firmante.userAgent.slice(0, 60)],
-  ];
-
   let yFila = y - 38;
   for (const [etiqueta, valor] of filas) {
     pagina.drawText(latin1(etiqueta), {
@@ -134,7 +126,8 @@ function dibujarBloqueFirmante(
       font: fuentes.regular,
       color: GRIS,
     });
-    pagina.drawText(latin1(valor).slice(0, 88), {
+    // 60 chars caben antes de la caja de firma de la derecha.
+    pagina.drawText(latin1(valor).slice(0, 60), {
       x: MARGEN + 76,
       y: yFila,
       size: 7.5,
@@ -174,7 +167,7 @@ function dibujarBloqueFirmante(
     });
   }
 
-  pagina.drawText("Firma manuscrita capturada digitalmente", {
+  pagina.drawText(latin1(notaFirma), {
     x: cajaX,
     y: cajaY - 11,
     size: 6.2,
@@ -322,8 +315,19 @@ export async function generarPdfFirmado(
 
   y = dibujarBloqueFirmante(hoja, fuentes, {
     y,
-    rol: "Parte 1 · Clinera — Ejecutivo comercial",
-    firmante: meta.closer,
+    rol: "Parte 1 · Clinera — OACG INC",
+    filas: [
+      ["Nombre", meta.closer.nombre],
+      ["Cargo", meta.closer.cargo ?? "Representante legal"],
+      ["Email", meta.closer.email],
+      ["Fecha y hora", fechaSantiago(meta.closer.firmadoEn)],
+      ...(meta.gestor
+        ? ([["Gestionado por", `${meta.gestor.nombre} · ${meta.gestor.email}`]] as Array<
+            [string, string]
+          >)
+        : []),
+    ],
+    notaFirma: "Firma del representante legal de Clinera",
     firmaImagen: firmaCloserImg,
   });
 
@@ -333,7 +337,17 @@ export async function generarPdfFirmado(
   y = dibujarBloqueFirmante(hoja, fuentes, {
     y,
     rol: rolCliente,
-    firmante: meta.firmaCliente,
+    filas: [
+      ["Nombre", meta.firmaCliente.nombre],
+      ["Email", meta.firmaCliente.email],
+      ...(meta.firmaCliente.rut
+        ? ([["RUT", meta.firmaCliente.rut]] as Array<[string, string]>)
+        : []),
+      ["Fecha y hora", fechaSantiago(meta.firmaCliente.firmadoEn)],
+      ["IP", meta.firmaCliente.ip],
+      ["Dispositivo", meta.firmaCliente.userAgent],
+    ],
+    notaFirma: "Firma manuscrita capturada digitalmente",
     firmaImagen: firmaClienteImg,
   });
 
@@ -385,16 +399,20 @@ export async function generarPdfFirmado(
       color: GRIS,
     },
   );
-  hoja.drawText(
-    latin1("Documento generado automáticamente por el sistema de firmas de clinera.io"),
-    {
-      x: MARGEN,
-      y: piePagina - 4,
-      size: 6.4,
-      font: fuentes.regular,
-      color: GRIS,
-    },
-  );
+  hoja.drawText(latin1(ENTIDAD_LEGAL.linea1), {
+    x: MARGEN,
+    y: piePagina - 5,
+    size: 6.4,
+    font: fuentes.regular,
+    color: GRIS,
+  });
+  hoja.drawText(latin1(ENTIDAD_LEGAL.linea2), {
+    x: MARGEN,
+    y: piePagina - 15,
+    size: 6.4,
+    font: fuentes.regular,
+    color: GRIS,
+  });
 
   pdf.setTitle(latin1(`${meta.documento.titulo} — firmado`), { showInWindowTitleBar: true });
   pdf.setSubject(latin1(`Firma electrónica simple · Folio ${meta.id}`));

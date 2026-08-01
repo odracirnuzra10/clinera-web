@@ -1,9 +1,9 @@
 // ============================================================================
 // /api/firma — lado closer del sistema de firmas
 // ----------------------------------------------------------------------------
-//   POST  crea un sobre: recibe el PDF de la cotización (multipart) + datos de
-//         las partes + la firma manuscrita del closer. Devuelve el enlace que
-//         se comparte con el cliente.
+//   POST  crea un sobre: recibe el PDF de la cotización (multipart) + datos del
+//         cliente y del gestor. La firma por Clinera se estampa server-side con
+//         la firma registrada del CEO. Devuelve el enlace para el cliente.
 //   GET   lista los sobres más recientes para el panel de /firma.
 //
 // Ambos exigen el header x-firma-clave == FIRMA_ACCESS_KEY (ver lib/firma/auth).
@@ -17,6 +17,7 @@ import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { claveConfigurada, claveValida, ipDelRequest, superaRateLimit } from "@/lib/firma/auth";
 import { inspeccionarPdf } from "@/lib/firma/certificado";
+import { CEO_CLINERA, FIRMA_CEO_PNG } from "@/lib/firma/firma-ceo";
 import {
   blobConfigurado,
   guardarMeta,
@@ -31,7 +32,6 @@ export const dynamic = "force-dynamic";
 
 // Vercel corta los bodies serverless en 4.5 MB: dejamos margen.
 const MAX_PDF_BYTES = 4 * 1024 * 1024;
-const MAX_FIRMA_PNG = 300 * 1024;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -61,14 +61,6 @@ function textoCorto(valor: FormDataEntryValue | null, max = 120): string {
   return typeof valor === "string" ? valor.trim().slice(0, max) : "";
 }
 
-function esFirmaPngValida(dataUrl: string): boolean {
-  return (
-    dataUrl.startsWith("data:image/png;base64,") &&
-    dataUrl.length > 200 &&
-    dataUrl.length <= MAX_FIRMA_PNG
-  );
-}
-
 export async function POST(request: Request) {
   const sinConfig = faltaConfig();
   if (sinConfig) return sinConfig;
@@ -89,9 +81,8 @@ export async function POST(request: Request) {
   const clienteNombre = textoCorto(form.get("clienteNombre"));
   const clienteEmail = textoCorto(form.get("clienteEmail")).toLowerCase();
   const clienteClinica = textoCorto(form.get("clienteClinica"));
-  const closerNombre = textoCorto(form.get("closerNombre"));
-  const closerEmail = textoCorto(form.get("closerEmail")).toLowerCase();
-  const firmaPng = typeof form.get("firmaPng") === "string" ? (form.get("firmaPng") as string) : "";
+  const gestorNombre = textoCorto(form.get("gestorNombre"));
+  const gestorEmail = textoCorto(form.get("gestorEmail")).toLowerCase();
 
   if (!(archivo instanceof File)) return error("Falta el archivo PDF de la cotización.", 400);
   if (archivo.size === 0) return error("El PDF llegó vacío.", 400);
@@ -101,9 +92,8 @@ export async function POST(request: Request) {
   if (!titulo) return error("Falta el título del documento.", 400);
   if (!clienteNombre) return error("Falta el nombre de quien firma por el cliente.", 400);
   if (!EMAIL_RE.test(clienteEmail)) return error("El email del cliente no es válido.", 400);
-  if (!closerNombre) return error("Falta el nombre del closer.", 400);
-  if (!EMAIL_RE.test(closerEmail)) return error("El email del closer no es válido.", 400);
-  if (!esFirmaPngValida(firmaPng)) return error("Falta tu firma manuscrita (dibújala en el recuadro).", 400);
+  if (!gestorNombre) return error("Falta tu nombre (gestor de la solicitud).", 400);
+  if (!EMAIL_RE.test(gestorEmail)) return error("Tu email no es válido.", 400);
 
   const bytes = Buffer.from(await archivo.arrayBuffer());
   if (bytes.subarray(0, 5).toString("latin1") !== "%PDF-") {
@@ -138,13 +128,20 @@ export async function POST(request: Request) {
       email: clienteEmail,
       ...(clienteClinica ? { clinica: clienteClinica } : {}),
     },
+    // Clinera firma siempre a través de su representante legal, con la firma
+    // registrada del CEO. El closer queda como gestor de la solicitud.
     closer: {
-      nombre: closerNombre,
-      email: closerEmail,
+      nombre: CEO_CLINERA.nombre,
+      cargo: CEO_CLINERA.cargo,
+      email: CEO_CLINERA.email,
       firmadoEn: ahora,
       ip: await ipDelRequest(h),
       userAgent: (h.get("user-agent") ?? "desconocido").slice(0, 300),
-      firmaPng,
+      firmaPng: FIRMA_CEO_PNG,
+    },
+    gestor: {
+      nombre: gestorNombre,
+      email: gestorEmail,
     },
   };
 

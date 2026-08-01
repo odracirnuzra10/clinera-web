@@ -41,8 +41,17 @@ export type SobreMeta = {
     email: string;
     clinica?: string;
   };
-  /** El closer firma al crear el sobre. */
-  closer: Firmante;
+  /**
+   * Parte Clinera: siempre el representante legal (CEO) con su firma
+   * registrada. La evidencia (ip/userAgent) corresponde a la creación del
+   * sobre por parte del gestor.
+   */
+  closer: Firmante & { cargo?: string };
+  /** Closer que gestiona la solicitud (no firma: la firma es del CEO). */
+  gestor?: {
+    nombre: string;
+    email: string;
+  };
   /** Presente solo cuando estado === "firmado". */
   firmaCliente?: Firmante;
   /** SHA-256 (hex) del PDF final con hoja de firmas. */
@@ -61,6 +70,7 @@ export type SobrePublico = {
   creadoEn: string;
   cliente: { nombre: string; email: string; clinica?: string };
   closer: { nombre: string; email: string };
+  gestor?: { nombre: string; email: string };
   sha256: string;
   firmadoEn?: string;
   firmadoSha256?: string;
@@ -84,6 +94,7 @@ export function proyectarSobre(meta: SobreMeta): SobrePublico {
       ...(meta.cliente.clinica ? { clinica: meta.cliente.clinica } : {}),
     },
     closer: { nombre: meta.closer.nombre, email: meta.closer.email },
+    ...(meta.gestor ? { gestor: { nombre: meta.gestor.nombre, email: meta.gestor.email } } : {}),
     sha256: meta.documento.sha256,
     ...(meta.firmaCliente ? { firmadoEn: meta.firmaCliente.firmadoEn } : {}),
     ...(meta.firmadoSha256 ? { firmadoSha256: meta.firmadoSha256 } : {}),

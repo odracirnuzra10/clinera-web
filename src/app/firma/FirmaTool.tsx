@@ -4,15 +4,14 @@
 // /firma — panel del closer
 // ----------------------------------------------------------------------------
 // Flujo: el closer entra con la clave del equipo, sube el PDF exportado desde
-// /cotizacion, completa los datos del cliente, firma en el pad y obtiene el
-// enlace /firma/<id> para enviárselo al cliente (copiar o WhatsApp).
-// La lista de la derecha muestra el estado de cada solicitud.
+// /cotizacion y completa los datos del cliente. La firma por Clinera es SIEMPRE
+// la del CEO (representante legal) y se estampa server-side: el closer queda
+// como gestor de la solicitud y comparte el enlace /firma/<id> con el cliente.
 // ============================================================================
 
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import SignaturePad, { type SignaturePadHandle } from "./SignaturePad";
 import styles from "./firma.module.css";
 import type { SobreResumen } from "@/lib/firma/tipos";
 
@@ -76,16 +75,14 @@ export default function FirmaTool() {
   const [clienteNombre, setClienteNombre] = useState("");
   const [clienteEmail, setClienteEmail] = useState("");
   const [clienteClinica, setClienteClinica] = useState("");
-  const [closerNombre, setCloserNombre] = useState("");
-  const [closerEmail, setCloserEmail] = useState("");
-  const [tieneFirma, setTieneFirma] = useState(false);
+  const [gestorNombre, setGestorNombre] = useState("");
+  const [gestorEmail, setGestorEmail] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [errorEnvio, setErrorEnvio] = useState("");
   const [resultado, setResultado] = useState<{ id: string; url: string } | null>(null);
   const [copiado, setCopiado] = useState(false);
   const [arrastrando, setArrastrando] = useState(false);
 
-  const padRef = useRef<SignaturePadHandle>(null);
   const inputArchivoRef = useRef<HTMLInputElement>(null);
 
   // ── Lista de sobres ───────────────────────────────────────────────────────
@@ -101,12 +98,12 @@ export default function FirmaTool() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (guardada) setClave(guardada);
     try {
-      const closer = JSON.parse(localStorage.getItem(CLOSER_STORAGE) || "null") as {
+      const gestor = JSON.parse(localStorage.getItem(CLOSER_STORAGE) || "null") as {
         nombre?: string;
         email?: string;
       } | null;
-      if (closer?.nombre) setCloserNombre(closer.nombre);
-      if (closer?.email) setCloserEmail(closer.email);
+      if (gestor?.nombre) setGestorNombre(gestor.nombre);
+      if (gestor?.email) setGestorEmail(gestor.email);
     } catch {
       // localStorage corrupto: se ignora
     }
@@ -206,13 +203,8 @@ export default function FirmaTool() {
     if (!clave || enviando) return;
     setErrorEnvio("");
 
-    const firmaPng = padRef.current?.obtenerPng() ?? null;
     if (!archivo) {
       setErrorEnvio("Sube el PDF de la cotización.");
-      return;
-    }
-    if (!firmaPng) {
-      setErrorEnvio("Dibuja tu firma en el recuadro antes de crear la solicitud.");
       return;
     }
 
@@ -222,9 +214,8 @@ export default function FirmaTool() {
     datos.set("clienteNombre", clienteNombre.trim());
     datos.set("clienteEmail", clienteEmail.trim());
     datos.set("clienteClinica", clienteClinica.trim());
-    datos.set("closerNombre", closerNombre.trim());
-    datos.set("closerEmail", closerEmail.trim());
-    datos.set("firmaPng", firmaPng);
+    datos.set("gestorNombre", gestorNombre.trim());
+    datos.set("gestorEmail", gestorEmail.trim());
 
     setEnviando(true);
     try {
@@ -245,7 +236,7 @@ export default function FirmaTool() {
       }
       localStorage.setItem(
         CLOSER_STORAGE,
-        JSON.stringify({ nombre: closerNombre.trim(), email: closerEmail.trim() }),
+        JSON.stringify({ nombre: gestorNombre.trim(), email: gestorEmail.trim() }),
       );
       setResultado({ id: json.id, url: json.url });
       setArchivo(null);
@@ -253,7 +244,6 @@ export default function FirmaTool() {
       setClienteNombre("");
       setClienteEmail("");
       setClienteClinica("");
-      padRef.current?.limpiar();
       if (inputArchivoRef.current) inputArchivoRef.current.value = "";
       void cargarSobres(clave);
     } catch {
@@ -486,43 +476,34 @@ export default function FirmaTool() {
             <div className={styles.seccionTitulo}>
               <span>03</span>
               <div>
-                <h2>Tu firma como Clinera</h2>
-                <p>Queda estampada en la hoja de firmas del documento final.</p>
+                <h2>Gestión de la solicitud</h2>
+                <p>Quedas registrado como gestor y contacto comercial del documento.</p>
               </div>
             </div>
             <div className={styles.gridCampos}>
               <Campo
                 label="Tu nombre"
-                value={closerNombre}
-                onChange={setCloserNombre}
+                value={gestorNombre}
+                onChange={setGestorNombre}
                 placeholder="Nombre y apellido"
                 requerido
               />
               <Campo
                 label="Tu email"
                 type="email"
-                value={closerEmail}
-                onChange={setCloserEmail}
+                value={gestorEmail}
+                onChange={setGestorEmail}
                 placeholder="nombre@oacg.cl"
                 requerido
               />
             </div>
 
-            <div className={styles.padContenedor}>
-              <div className={styles.padCabecera}>
-                <span>Dibuja tu firma</span>
-                <button
-                  type="button"
-                  className={styles.botonFantasma}
-                  onClick={() => padRef.current?.limpiar()}
-                >
-                  Limpiar
-                </button>
-              </div>
-              <div className={styles.pad}>
-                <SignaturePad ref={padRef} onCambio={setTieneFirma} etiqueta="Firma del closer" />
-                {!tieneFirma && <span className={styles.padGuia}>Firma aquí</span>}
-              </div>
+            <div className={styles.notaCeo}>
+              <strong>Firma por Clinera: Ricardo Oyarzún, CEO</strong>
+              <p>
+                El documento se firma automáticamente con la firma registrada del
+                representante legal de Clinera. No necesitas dibujar nada.
+              </p>
             </div>
           </section>
 
@@ -533,7 +514,7 @@ export default function FirmaTool() {
           )}
 
           <button type="submit" className={styles.botonPrimario} disabled={enviando}>
-            {enviando ? "Creando solicitud…" : "Firmar y generar enlace"}
+            {enviando ? "Creando solicitud…" : "Firmar por Clinera y generar enlace"}
           </button>
 
           {resultado && (

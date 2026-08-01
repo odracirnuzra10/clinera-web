@@ -5,8 +5,10 @@ firma las cotizaciones generadas en `/cotizacion`. El flujo completo:
 
 1. El closer descarga la cotización como PDF desde `/cotizacion`
    ("Imprimir / guardar PDF").
-2. Entra a `/firma` con la clave del equipo, sube ese PDF, completa los
-   datos del cliente, **firma en el pad** y genera el enlace.
+2. Entra a `/firma` con la clave del equipo, sube ese PDF y completa los
+   datos del cliente. **La firma por Clinera es siempre la del CEO
+   (Ricardo Oyarzún, representante legal)** y se estampa server-side desde
+   `src/lib/firma/firma-ceo.ts`; el closer queda registrado como gestor.
 3. Comparte el enlace `/firma/<id>` con el cliente (copiar o WhatsApp).
 4. El cliente abre el enlace, revisa el documento, confirma sus datos,
    dibuja su firma y acepta la declaración de firma electrónica simple.
@@ -19,6 +21,10 @@ firma las cotizaciones generadas en `/cotizacion`. El flujo completo:
 
 Es **firma electrónica simple** (Ley N.º 19.799): la validez viene del
 consentimiento + la evidencia registrada, no de un certificado avanzado.
+
+La hoja de firmas identifica a la entidad legal al pie: **OACG INC**,
+sociedad de Delaware (EE. UU.), EIN 37-2195696 — es quien opera Clinera y
+la parte contratante.
 
 ## Configuración (variables de entorno)
 
