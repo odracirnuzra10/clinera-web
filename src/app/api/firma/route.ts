@@ -20,6 +20,7 @@ import { inspeccionarPdf } from "@/lib/firma/certificado";
 import { CEO_CLINERA, FIRMA_CEO_PNG } from "@/lib/firma/firma-ceo";
 import { construirCotizacion } from "@/lib/firma/cotizacion";
 import { generarPdfCotizacion } from "@/lib/firma/pdf-cotizacion";
+import { correoConfigurado, enviarCotizacionAlLead } from "@/lib/firma/correo";
 import {
   blobConfigurado,
   guardarMeta,
@@ -214,8 +215,27 @@ export async function POST(request: Request) {
     return error("No pudimos guardar el documento. Inténtalo de nuevo en un momento.", 502);
   }
 
+  // Envío automático de la cotización al lead (PDF adjunto + botón de pago).
+  // Un fallo de correo NO invalida el sobre: se informa al closer para que
+  // envíe manual desde la fila "Enviar cotización".
+  let correo: "enviado" | "sin-config" | "sin-email" | "error" = "sin-email";
+  if (sinDocumento && meta.cliente.email && bytes) {
+    if (!correoConfigurado()) {
+      correo = "sin-config";
+    } else {
+      try {
+        await enviarCotizacionAlLead(meta, bytes, {
+          enLinea: `${protocolo}://${host}/firma/${id}`,
+        });
+        correo = "enviado";
+      } catch {
+        correo = "error";
+      }
+    }
+  }
+
   return NextResponse.json(
-    { ok: true, id, url: `${protocolo}://${host}/firma/${id}` },
+    { ok: true, id, url: `${protocolo}://${host}/firma/${id}`, correo },
     { headers: { "Cache-Control": "no-store" } },
   );
 }
