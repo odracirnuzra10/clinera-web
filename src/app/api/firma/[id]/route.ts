@@ -106,6 +106,11 @@ export async function POST(request: Request, ctx: RouteContext<"/api/firma/[id]"
   if (meta.estado === "firmado") {
     return error("Este documento ya fue firmado.", 409);
   }
+  // Flujo comercial: pagar → firmar. Con cotización asociada, la firma solo
+  // se habilita con el pago verificado contra Stripe.
+  if (meta.cotizacion && !meta.pagoRealizado) {
+    return error("Completa el pago de tu suscripción antes de firmar.", 402);
+  }
 
   const original = await leerPdf(rutaOriginal(id));
   if (!original) return error("No pudimos recuperar el documento original.", 502);
@@ -167,6 +172,9 @@ export async function DELETE(request: Request, ctx: RouteContext<"/api/firma/[id
   if (!meta) return error("Solicitud de firma no encontrada.", 404);
   if (meta.estado === "firmado") {
     return error("Un documento firmado no se puede eliminar: es el respaldo del acuerdo.", 409);
+  }
+  if (meta.pagoRealizado) {
+    return error("Este sobre tiene un pago registrado: no se puede anular.", 409);
   }
 
   try {

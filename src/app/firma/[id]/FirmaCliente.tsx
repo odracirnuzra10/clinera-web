@@ -184,7 +184,10 @@ export default function FirmaCliente({ id }: { id: string }) {
               <p>
                 {(sobre.gestor ?? sobre.closer).nombre} de Clinera te envió este documento
                 de {sobre.paginas} página{sobre.paginas === 1 ? "" : "s"} para firma
-                electrónica simple. Revísalo completo y firma al final.
+                electrónica simple.{" "}
+                {sobre.pago && !sobre.pagado
+                  ? "Revísalo completo, paga tu suscripción y firma al final."
+                  : "Revísalo completo y firma al final."}
               </p>
             </section>
 
@@ -201,8 +204,60 @@ export default function FirmaCliente({ id }: { id: string }) {
               <iframe src={`${urlPdf}#toolbar=0`} title={`Documento: ${sobre.titulo}`} />
             </section>
 
+            {avisoPago && avisoPago !== "ok" && (
+              <p className={styles.error} role="alert">
+                {avisoPago === "sin-config"
+                  ? "El pago en línea aún no está habilitado. Tu ejecutivo te enviará las instrucciones."
+                  : avisoPago === "ya-pagado"
+                    ? "Tu pago ya estaba registrado. Continúa con la firma."
+                    : "No pudimos completar el pago. Inténtalo de nuevo o avísale a tu ejecutivo."}
+              </p>
+            )}
+
+            {sobre.pago && !sobre.pagado ? (
+              <section className={styles.clienteCard}>
+                <h2>Paso 1 · Paga tu suscripción</h2>
+                <div className={styles.pagoResumen}>
+                  <div>
+                    <span>Suscripción {sobre.pago.periodo}</span>
+                    <strong>
+                      {formatoUsdCentavos(sobre.pago.totalPeriodo)} /{" "}
+                      {sobre.pago.periodo === "semestral" ? "semestre" : "mes"}
+                    </strong>
+                    {sobre.pago.descuentoPeriodo > 0 && (
+                      <small>
+                        Incluye {formatoUsdCentavos(sobre.pago.descuentoPeriodo)} de descuento{" "}
+                        {sobre.pago.duracionDescuento.tipo === "siempre"
+                          ? "permanente"
+                          : sobre.pago.duracionDescuento.tipo === "meses"
+                            ? `por ${sobre.pago.duracionDescuento.meses} meses`
+                            : "en tu primer pago"}
+                      </small>
+                    )}
+                    {sobre.pago.setupUnico > 0 && (
+                      <small>
+                        + {formatoUsdCentavos(sobre.pago.setupUnico)} de configuración inicial
+                        (una sola vez)
+                      </small>
+                    )}
+                  </div>
+                  <a className={styles.botonPrimario} href={`/api/firma/${id}/pago`}>
+                    Pagar suscripción
+                  </a>
+                </div>
+                <p className={styles.clienteParrafo}>
+                  El pago se procesa de forma segura en Stripe. Al completarlo volverás a
+                  esta página para el <b>Paso 2: firmar el documento</b>.
+                </p>
+              </section>
+            ) : (
             <form className={styles.clienteCard} onSubmit={firmar}>
-              <h2>Tus datos de firma</h2>
+              {sobre.pago && sobre.pagado && (
+                <p className={styles.avisoPagoOk} role="status">
+                  Pago recibido. Ahora completa la firma para dejar el acuerdo suscrito.
+                </p>
+              )}
+              <h2>{sobre.pago ? "Paso 2 · Tus datos de firma" : "Tus datos de firma"}</h2>
               <div className={styles.gridCampos}>
                 <label className={styles.campo}>
                   <span>
@@ -287,6 +342,7 @@ export default function FirmaCliente({ id }: { id: string }) {
                 {fase === "enviando" ? "Registrando tu firma…" : "Firmar documento"}
               </button>
             </form>
+            )}
           </>
         )}
 
@@ -306,23 +362,23 @@ export default function FirmaCliente({ id }: { id: string }) {
               tu copia con la hoja de firmas incluida y guárdala como respaldo.
             </p>
 
-            {avisoPago === "ok" && (
+            {sobre.pagado ? (
               <p className={styles.avisoPagoOk} role="status">
-                Recibimos tu pago. El equipo de Clinera activará tu suscripción y te
-                contactará para coordinar la puesta en marcha.
+                Suscripción pagada el {formatoFechaLarga(sobre.pagado.en)}. El equipo de
+                Clinera te contactará para coordinar la puesta en marcha.
               </p>
-            )}
-            {avisoPago && avisoPago !== "ok" && (
-              <p className={styles.error} role="alert">
-                {avisoPago === "sin-config"
-                  ? "El pago en línea aún no está habilitado. Tu ejecutivo te enviará las instrucciones de pago."
-                  : avisoPago === "firma-pendiente"
-                    ? "Primero firma el documento; el pago se habilita justo después."
+            ) : (
+              avisoPago &&
+              avisoPago !== "ok" && (
+                <p className={styles.error} role="alert">
+                  {avisoPago === "sin-config"
+                    ? "El pago en línea aún no está habilitado. Tu ejecutivo te enviará las instrucciones de pago."
                     : "No pudimos abrir la página de pago. Inténtalo de nuevo o avísale a tu ejecutivo."}
-              </p>
+                </p>
+              )
             )}
 
-            {sobre.pago && avisoPago !== "ok" && (
+            {sobre.pago && !sobre.pagado && (
               <div className={styles.pagoResumen}>
                 <div>
                   <span>Suscripción {sobre.pago.periodo}</span>
@@ -353,7 +409,7 @@ export default function FirmaCliente({ id }: { id: string }) {
             )}
 
             <a
-              className={sobre.pago && avisoPago !== "ok" ? styles.botonSecundario : styles.botonPrimario}
+              className={sobre.pago && !sobre.pagado ? styles.botonSecundario : styles.botonPrimario}
               href={`${urlPdf}?version=firmado&descargar=1`}
             >
               Descargar documento firmado

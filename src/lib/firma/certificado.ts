@@ -262,6 +262,11 @@ export async function generarPdfFirmado(
       `${meta.documento.paginas} página${meta.documento.paginas === 1 ? "" : "s"} · ${Math.max(1, Math.round(meta.documento.bytes / 1024))} KB`,
     ],
     ["Creado", fechaSantiago(meta.creadoEn)],
+    ...(meta.pagoRealizado
+      ? ([["Pago", `Suscripción pagada el ${fechaSantiago(meta.pagoRealizado.pagadoEn)}`]] as Array<
+          [string, string]
+        >)
+      : []),
   ];
   const altoDoc = 30 + infoDoc.length * 15 + 26;
   hoja.drawRectangle({
