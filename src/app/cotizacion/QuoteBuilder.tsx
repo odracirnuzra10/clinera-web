@@ -1008,10 +1008,11 @@ export default function QuoteBuilder({
                       pago, recibirás el contrato para firma electrónica en el mismo enlace.
                     </p>
                   </div>
-                  <a href={linkVigente.url}>
-                    <strong>PAGAR AHORA</strong>
-                    <small>{linkVigente.url.replace("https://", "")}</small>
-                  </a>
+                  <div className={styles.payBoxAccion}>
+                    <a href={linkVigente.url}>Pagar ahora</a>
+                    <small>Pago seguro con Stripe</small>
+                    <code>{linkVigente.url.replace("https://", "")}</code>
+                  </div>
                 </section>
               )}
 
