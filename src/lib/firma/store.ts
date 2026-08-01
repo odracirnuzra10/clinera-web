@@ -69,7 +69,11 @@ export async function leerMeta(id: string): Promise<SobreMeta | null> {
   try {
     const crudo = (await streamABuffer(resultado.stream)).toString("utf8");
     const meta = JSON.parse(crudo) as SobreMeta;
-    return meta?.version === 1 && meta.id === id ? meta : null;
+    if (meta?.version !== 1 || meta.id !== id) return null;
+    // Sobres creados antes de que `titulo` viviera a nivel de sobre.
+    if (!meta.titulo && meta.documento) meta.titulo = meta.documento.titulo;
+    if (meta.documento === undefined) meta.documento = null;
+    return meta;
   } catch {
     return null;
   }

@@ -111,6 +111,10 @@ export async function POST(request: Request, ctx: RouteContext<"/api/firma/[id]"
   if (meta.cotizacion && !meta.pagoRealizado) {
     return error("Completa el pago de tu suscripción antes de firmar.", 402);
   }
+  // En el flujo "link de pago" el contrato se adjunta después del pago.
+  if (!meta.documento) {
+    return error("El contrato todavía no está disponible para firma. Tu ejecutivo te avisará.", 409);
+  }
 
   const original = await leerPdf(rutaOriginal(id));
   if (!original) return error("No pudimos recuperar el documento original.", 502);

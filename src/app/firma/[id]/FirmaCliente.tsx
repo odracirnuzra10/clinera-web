@@ -63,7 +63,7 @@ export default function FirmaCliente({ id }: { id: string }) {
       }
       setSobre(json.sobre);
       setNombre((actual) => actual || json.sobre!.cliente.nombre);
-      setEmail((actual) => actual || json.sobre!.cliente.email);
+      setEmail((actual) => actual || json.sobre!.cliente.email || "");
       setFase(json.sobre.estado === "firmado" ? "firmado" : "pendiente");
     } catch {
       setFase("no-encontrado");
@@ -182,27 +182,29 @@ export default function FirmaCliente({ id }: { id: string }) {
               <span className={styles.clienteKicker}>Te invitaron a firmar</span>
               <h1>{sobre.titulo}</h1>
               <p>
-                {(sobre.gestor ?? sobre.closer).nombre} de Clinera te envió este documento
-                de {sobre.paginas} página{sobre.paginas === 1 ? "" : "s"} para firma
-                electrónica simple.{" "}
+                {(sobre.gestor ?? sobre.closer).nombre} de Clinera te envió esta propuesta.{" "}
                 {sobre.pago && !sobre.pagado
-                  ? "Revísalo completo, paga tu suscripción y firma al final."
-                  : "Revísalo completo y firma al final."}
+                  ? "Acepta pagando tu suscripción; luego recibirás el contrato para firma electrónica en este mismo enlace."
+                  : sobre.tieneDocumento
+                    ? "Revisa el documento completo y firma al final."
+                    : "Tu contrato está en preparación."}
               </p>
             </section>
 
-            <section className={styles.visor} aria-label="Documento a firmar">
-              <div className={styles.visorCabecera}>
-                <span>{sobre.nombreArchivo}</span>
-                <div>
-                  <a href={urlPdf} target="_blank" rel="noopener noreferrer">
-                    Abrir en pestaña nueva
-                  </a>
-                  <a href={`${urlPdf}?descargar=1`}>Descargar</a>
+            {sobre.tieneDocumento && (
+              <section className={styles.visor} aria-label="Documento a firmar">
+                <div className={styles.visorCabecera}>
+                  <span>{sobre.nombreArchivo}</span>
+                  <div>
+                    <a href={urlPdf} target="_blank" rel="noopener noreferrer">
+                      Abrir en pestaña nueva
+                    </a>
+                    <a href={`${urlPdf}?descargar=1`}>Descargar</a>
+                  </div>
                 </div>
-              </div>
-              <iframe src={`${urlPdf}#toolbar=0`} title={`Documento: ${sobre.titulo}`} />
-            </section>
+                <iframe src={`${urlPdf}#toolbar=0`} title={`Documento: ${sobre.titulo}`} />
+              </section>
+            )}
 
             {avisoPago && avisoPago !== "ok" && (
               <p className={styles.error} role="alert">
@@ -246,8 +248,23 @@ export default function FirmaCliente({ id }: { id: string }) {
                   </a>
                 </div>
                 <p className={styles.clienteParrafo}>
-                  El pago se procesa de forma segura en Stripe. Al completarlo volverás a
-                  esta página para el <b>Paso 2: firmar el documento</b>.
+                  El pago se procesa de forma segura en Stripe. Tras el pago, el equipo de
+                  Clinera preparará tu contrato y podrás firmarlo en este mismo enlace.
+                </p>
+              </section>
+            ) : !sobre.tieneDocumento ? (
+              <section className={styles.clienteCard}>
+                {sobre.pagado && (
+                  <p className={styles.avisoPagoOk} role="status">
+                    Pago recibido{avisoPago === "ok" ? "" : " anteriormente"}. Gracias por
+                    confiar en Clinera.
+                  </p>
+                )}
+                <h2>Tu contrato está en preparación</h2>
+                <p className={styles.clienteParrafo}>
+                  El equipo de Clinera está preparando el contrato de servicio. Cuando esté
+                  listo, {(sobre.gestor ?? sobre.closer).nombre} te avisará y podrás
+                  firmarlo electrónicamente en este mismo enlace.
                 </p>
               </section>
             ) : (

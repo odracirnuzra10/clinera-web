@@ -190,6 +190,10 @@ export async function generarPdfFirmado(
   if (!meta.firmaCliente) {
     throw new Error("El sobre no tiene la firma del cliente.");
   }
+  const documento = meta.documento;
+  if (!documento) {
+    throw new Error("El sobre no tiene contrato adjunto.");
+  }
 
   const pdf = await PDFDocument.load(originalBytes);
   const fuentes: Fuentes = {
@@ -255,11 +259,11 @@ export async function generarPdfFirmado(
 
   // Bloque documento.
   const infoDoc: Array<[string, string]> = [
-    ["Documento", meta.documento.titulo],
-    ["Archivo", meta.documento.nombreArchivo],
+    ["Documento", meta.titulo],
+    ["Archivo", documento.nombreArchivo],
     [
       "Contenido",
-      `${meta.documento.paginas} página${meta.documento.paginas === 1 ? "" : "s"} · ${Math.max(1, Math.round(meta.documento.bytes / 1024))} KB`,
+      `${documento.paginas} página${documento.paginas === 1 ? "" : "s"} · ${Math.max(1, Math.round(documento.bytes / 1024))} KB`,
     ],
     ["Creado", fechaSantiago(meta.creadoEn)],
     ...(meta.pagoRealizado
@@ -301,7 +305,7 @@ export async function generarPdfFirmado(
     font: fuentes.regular,
     color: GRIS,
   });
-  hoja.drawText(meta.documento.sha256, {
+  hoja.drawText(documento.sha256, {
     x: MARGEN + 76,
     y: yDoc,
     size: 6.8,
@@ -419,7 +423,7 @@ export async function generarPdfFirmado(
     color: GRIS,
   });
 
-  pdf.setTitle(latin1(`${meta.documento.titulo} — firmado`), { showInWindowTitleBar: true });
+  pdf.setTitle(latin1(`${meta.titulo} — firmado`), { showInWindowTitleBar: true });
   pdf.setSubject(latin1(`Firma electrónica simple · Folio ${meta.id}`));
   pdf.setProducer("clinera.io/firma");
   pdf.setModificationDate(new Date());
