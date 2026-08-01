@@ -40,6 +40,16 @@ export type CotizacionSnapshot = {
   };
   duracionDescuento: DescuentoDuracion;
   moneda: "USD";
+  /** Datos de presentación del documento (solo para renderizar el PDF). */
+  presentacion?: {
+    clienteNombre: string;
+    cotizante: string;
+    cotizanteEmail: string;
+    cotizanteTelefono: string;
+    fecha: string;
+    validaHasta: string;
+    notas: string;
+  };
   /** Montos en centavos de USD, recalculados del catálogo. */
   centavos: {
     /** Precio de lista del plan por período. */
@@ -130,7 +140,22 @@ export function construirCotizacion(cruda: unknown): CotizacionSnapshot | null {
   const recurrenteLista = aCentavos(recurrenteListaUsd);
   const recurrenteFinal = aCentavos(recurrenteFinalUsd);
 
+  const p = (typeof c.presentacion === "object" && c.presentacion !== null
+    ? c.presentacion
+    : {}) as Record<string, unknown>;
+  const campo = (v: unknown, max = 120) => String(v ?? "").trim().slice(0, max);
+  const presentacion = {
+    clienteNombre: campo(p.clienteNombre),
+    cotizante: campo(p.cotizante),
+    cotizanteEmail: campo(p.cotizanteEmail),
+    cotizanteTelefono: campo(p.cotizanteTelefono, 30),
+    fecha: campo(p.fecha, 10),
+    validaHasta: campo(p.validaHasta, 10),
+    notas: campo(p.notas, 400),
+  };
+
   return {
+    presentacion,
     numero: String(c.numero ?? "").trim().slice(0, 40) || "Clinera",
     planId: plan.id,
     planNombre: plan.name,

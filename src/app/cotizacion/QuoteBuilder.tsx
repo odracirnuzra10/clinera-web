@@ -338,6 +338,17 @@ export default function QuoteBuilder({
     descuentos: discounts,
     duracionDescuento:
       duracionTipo === "meses" ? { tipo: "meses", meses: duracionMeses } : { tipo: duracionTipo },
+    // Datos de presentación: van al PDF que genera el servidor. También forman
+    // parte de la huella: si cambian, el link (y su PDF) se regeneran.
+    presentacion: {
+      clienteNombre: clientName,
+      cotizante: quoteOwner,
+      cotizanteEmail: ownerEmail,
+      cotizanteTelefono: ownerPhone,
+      fecha: quoteDate,
+      validaHasta: validUntil,
+      notas: notes,
+    },
   });
   const linkVigente = linkPago && linkPago.config === configPago ? linkPago : null;
 
@@ -415,9 +426,11 @@ export default function QuoteBuilder({
     window.open(`https://wa.me/?text=${encodeURIComponent(textoEnvio())}`, "_blank", "noopener");
   };
 
+  // Descarga el PDF canónico generado por el servidor: es el mismo que
+  // previsualiza el cliente y trae el botón "Pagar suscripción" embebido.
   const descargarPdf = () => {
     if (!linkVigente) return;
-    window.print();
+    window.open(`/api/firma/${linkVigente.id}/pdf?descargar=1`, "_blank", "noopener");
   };
 
   // CTA principal del topbar: dispara el cierre completo — crea el link de

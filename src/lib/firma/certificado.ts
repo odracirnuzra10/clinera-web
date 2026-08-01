@@ -28,7 +28,7 @@ const VIOLETA = rgb(0.412, 0.255, 0.776); // #6941c6
 const PAPEL_SUAVE = rgb(0.973, 0.973, 0.965); // #f8f8f6
 
 /** WinAnsi no cubre todo Unicode: translitera lo común y reemplaza el resto. */
-function latin1(texto: string): string {
+export function latin1(texto: string): string {
   return texto
     .replace(/[\r\n\t]+/g, " ")
     .replace(/[—–‒]/g, "-")
