@@ -6,11 +6,36 @@
 // ============================================================================
 
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { claveConfigurada, claveValida, ipDelRequest, superaRateLimit } from "@/lib/firma/auth";
+import { COOKIE_SESION, sesionValida, ssoConfigurado } from "@/lib/firma/sso";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const SIN_CACHE = { "Cache-Control": "no-store" };
+
+/** Estado de sesión: usado por /firma al cargar para saber si hay SSO activo. */
+export async function GET() {
+  const sesion = sesionValida((await cookies()).get(COOKIE_SESION)?.value);
+  if (!sesion) {
+    return NextResponse.json(
+      { ok: false, sso: ssoConfigurado() },
+      { status: 401, headers: SIN_CACHE },
+    );
+  }
+  return NextResponse.json(
+    { ok: true, email: sesion.email, nombre: sesion.nombre, sso: ssoConfigurado() },
+    { headers: SIN_CACHE },
+  );
+}
+
+/** Cierra la sesión SSO (borra la cookie). */
+export async function DELETE() {
+  const respuesta = NextResponse.json({ ok: true }, { headers: SIN_CACHE });
+  respuesta.cookies.set(COOKIE_SESION, "", { maxAge: 0, path: "/" });
+  return respuesta;
+}
 
 export async function POST(request: Request) {
   if (!claveConfigurada()) {

@@ -15,7 +15,7 @@
 import { randomBytes, createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { claveConfigurada, claveValida, ipDelRequest, superaRateLimit } from "@/lib/firma/auth";
+import { accesoCloser, claveConfigurada, ipDelRequest, superaRateLimit } from "@/lib/firma/auth";
 import { inspeccionarPdf } from "@/lib/firma/certificado";
 import { CEO_CLINERA, FIRMA_CEO_PNG } from "@/lib/firma/firma-ceo";
 import { construirCotizacion } from "@/lib/firma/cotizacion";
@@ -53,11 +53,6 @@ function faltaConfig(): NextResponse | null {
   return null;
 }
 
-async function claveDelRequest(): Promise<string | null> {
-  const h = await headers();
-  return h.get("x-firma-clave");
-}
-
 function textoCorto(valor: FormDataEntryValue | null, max = 120): string {
   return typeof valor === "string" ? valor.trim().slice(0, max) : "";
 }
@@ -66,7 +61,7 @@ export async function POST(request: Request) {
   const sinConfig = faltaConfig();
   if (sinConfig) return sinConfig;
 
-  if (!claveValida(await claveDelRequest())) {
+  if (!(await accesoCloser())) {
     return error("Clave de acceso incorrecta.", 401);
   }
 
@@ -187,7 +182,7 @@ export async function GET() {
   const sinConfig = faltaConfig();
   if (sinConfig) return sinConfig;
 
-  if (!claveValida(await claveDelRequest())) {
+  if (!(await accesoCloser())) {
     return error("Clave de acceso incorrecta.", 401);
   }
 

@@ -85,10 +85,15 @@ function Campo({
 export default function FirmaTool() {
   // ── Acceso ────────────────────────────────────────────────────────────────
   const [clave, setClave] = useState<string | null>(null);
+  const [sso, setSso] = useState<{ email: string; nombre: string } | null>(null);
+  const [ssoDisponible, setSsoDisponible] = useState(false);
+  const [avisoSso, setAvisoSso] = useState("");
   const [claveInput, setClaveInput] = useState("");
   const [verificando, setVerificando] = useState(false);
   const [errorAcceso, setErrorAcceso] = useState("");
   const [listo, setListo] = useState(false);
+
+  const autenticado = Boolean(clave || sso);
 
   // ── Formulario nueva solicitud ────────────────────────────────────────────
   const [archivo, setArchivo] = useState<File | null>(null);
@@ -145,7 +150,23 @@ export default function FirmaTool() {
     } catch {
       // payload corrupto: se ignora
     }
-    setListo(true);
+
+    // Resultado del intento de SSO (viene como ?sso=<código> desde el callback).
+    const codigoSso = new URLSearchParams(window.location.search).get("sso");
+    if (codigoSso) {
+      setAvisoSso(codigoSso);
+      window.history.replaceState(null, "", "/firma");
+    }
+
+    // ¿Hay sesión SSO activa? (la cookie es httpOnly: se consulta al server)
+    void fetch("/api/firma/auth")
+      .then((r) => r.json())
+      .then((json: { ok?: boolean; email?: string; nombre?: string; sso?: boolean }) => {
+        setSsoDisponible(json.sso === true);
+        if (json.ok && json.email) setSso({ email: json.email, nombre: json.nombre ?? "" });
+      })
+      .catch(() => undefined)
+      .finally(() => setListo(true));
   }, []);
 
   const descartarCotizacion = () => {
@@ -154,12 +175,12 @@ export default function FirmaTool() {
   };
 
   const cargarSobres = useCallback(
-    async (claveActiva: string) => {
+    async (claveActiva: string | null) => {
       setCargandoLista(true);
       setErrorLista("");
       try {
         const respuesta = await fetch("/api/firma", {
-          headers: { "x-firma-clave": claveActiva },
+          headers: claveActiva ? { "x-firma-clave": claveActiva } : {},
         });
         const json = (await respuesta.json()) as {
           ok: boolean;
@@ -170,6 +191,7 @@ export default function FirmaTool() {
           if (respuesta.status === 401) {
             sessionStorage.removeItem(CLAVE_STORAGE);
             setClave(null);
+            setSso(null);
           }
           setErrorLista(json.error || "No pudimos cargar las solicitudes.");
           return;
@@ -188,8 +210,16 @@ export default function FirmaTool() {
     // El fetch es asíncrono: los setState corren al resolver, no en el cuerpo
     // del efecto.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (clave) void cargarSobres(clave);
-  }, [clave, cargarSobres]);
+    if (clave || sso) void cargarSobres(clave);
+  }, [clave, sso, cargarSobres]);
+
+  useEffect(() => {
+    // Con SSO, prellenar los datos del gestor si están vacíos.
+    if (!sso) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setGestorEmail((actual) => actual || sso.email);
+    setGestorNombre((actual) => actual || sso.nombre);
+  }, [sso]);
 
   const entrar = async (evento: React.FormEvent) => {
     evento.preventDefault();
@@ -219,7 +249,9 @@ export default function FirmaTool() {
 
   const salir = () => {
     sessionStorage.removeItem(CLAVE_STORAGE);
+    if (sso) void fetch("/api/firma/auth", { method: "DELETE" });
     setClave(null);
+    setSso(null);
     setSobres([]);
   };
 
@@ -243,7 +275,7 @@ export default function FirmaTool() {
 
   const crearSolicitud = async (evento: React.FormEvent) => {
     evento.preventDefault();
-    if (!clave || enviando) return;
+    if (!autenticado || enviando) return;
     setErrorEnvio("");
 
     if (!archivo) {
@@ -276,7 +308,7 @@ export default function FirmaTool() {
     try {
       const respuesta = await fetch("/api/firma", {
         method: "POST",
-        headers: { "x-firma-clave": clave },
+        headers: clave ? { "x-firma-clave": clave } : {},
         body: datos,
       });
       const json = (await respuesta.json()) as {
@@ -326,7 +358,7 @@ export default function FirmaTool() {
   };
 
   const anularSobre = async (id: string) => {
-    if (!clave) return;
+    if (!autenticado) return;
     const seguro = window.confirm(
       "¿Anular esta solicitud pendiente? El enlace dejará de funcionar y el documento se eliminará.",
     );
@@ -334,7 +366,7 @@ export default function FirmaTool() {
     try {
       const respuesta = await fetch(`/api/firma/${id}`, {
         method: "DELETE",
-        headers: { "x-firma-clave": clave },
+        headers: clave ? { "x-firma-clave": clave } : {},
       });
       const json = (await respuesta.json()) as { ok: boolean; error?: string };
       if (!respuesta.ok || !json.ok) {
@@ -350,7 +382,7 @@ export default function FirmaTool() {
   if (!listo) return <main className={styles.page} />;
 
   // ── Puerta de acceso ──────────────────────────────────────────────────────
-  if (!clave) {
+  if (!autenticado) {
     return (
       <main id="contenido" className={styles.page}>
         <div className={styles.gate}>
@@ -368,9 +400,57 @@ export default function FirmaTool() {
             </div>
             <h1>Acceso del equipo comercial</h1>
             <p>
-              Ingresa la clave compartida del equipo para enviar cotizaciones a firma
-              electrónica.
+              {ssoDisponible
+                ? "Entra con tu cuenta @oacg.cl para enviar cotizaciones a firma electrónica."
+                : "Ingresa la clave compartida del equipo para enviar cotizaciones a firma electrónica."}
             </p>
+
+            {avisoSso && (
+              <p className={styles.error} role="alert">
+                {avisoSso === "dominio"
+                  ? "Debes usar tu cuenta Google @oacg.cl."
+                  : avisoSso === "sin-config"
+                    ? "El acceso con Google aún no está configurado. Usa la clave del equipo."
+                    : "No pudimos completar el acceso con Google. Inténtalo de nuevo."}
+              </p>
+            )}
+
+            {ssoDisponible && (
+              <>
+                <button
+                  type="button"
+                  className={styles.botonGoogle}
+                  onClick={() => {
+                    // Navegación completa: es un redirect OAuth, no una página Next.
+                    window.location.href = "/api/firma/auth/google";
+                  }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+                    <path
+                      fill="#EA4335"
+                      d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+                    />
+                    <path
+                      fill="#4285F4"
+                      d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+                    />
+                    <path
+                      fill="#FBBC05"
+                      d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+                    />
+                    <path
+                      fill="#34A853"
+                      d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+                    />
+                  </svg>
+                  Continuar con Google
+                </button>
+                <div className={styles.gateDivisor}>
+                  <span>o con la clave del equipo</span>
+                </div>
+              </>
+            )}
+
             <label className={styles.campo}>
               <span>Clave de acceso</span>
               <input
@@ -378,7 +458,6 @@ export default function FirmaTool() {
                 value={claveInput}
                 onChange={(evento) => setClaveInput(evento.target.value)}
                 autoComplete="current-password"
-                autoFocus
               />
             </label>
             {errorAcceso && (
@@ -412,6 +491,7 @@ export default function FirmaTool() {
           <strong>Firmas</strong>
         </div>
         <div className={styles.topbarActions}>
+          {sso && <span className={styles.topbarUsuario}>{sso.email}</span>}
           <Link href="/cotizacion" className={styles.botonFantasma}>
             Ir al cotizador
           </Link>
