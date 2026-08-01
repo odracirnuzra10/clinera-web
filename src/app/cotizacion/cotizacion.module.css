@@ -1600,6 +1600,12 @@
   }
 }
 
+.correoAviso {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--quote-muted);
+}
+
 .linkPagoListo code {
   font-family: "DM Mono", monospace;
   font-size: 11.5px;

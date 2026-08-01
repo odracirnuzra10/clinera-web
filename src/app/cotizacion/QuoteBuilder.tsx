@@ -170,6 +170,7 @@ export default function QuoteBuilder({
   initialQuoteNumber,
 }: QuoteBuilderProps) {
   const [clientName, setClientName] = useState("Clínica Estética Aurora");
+  const [clientEmail, setClientEmail] = useState("");
   const [quoteOwner, setQuoteOwner] = useState("Catalina Fuentes");
   const [ownerEmail, setOwnerEmail] = useState("catalina.fuentes@oacg.cl");
   const [ownerPhone, setOwnerPhone] = useState("+56 9 7882 4985");
@@ -195,7 +196,7 @@ export default function QuoteBuilder({
   // ── Link de pago en línea ─────────────────────────────────────────────────
   // El link se imprime dentro de la cotización: el cliente paga desde el PDF
   // y la firma del contrato se gestiona después, como paso secundario.
-  const [linkPago, setLinkPago] = useState<{ id: string; url: string; config: string } | null>(
+  const [linkPago, setLinkPago] = useState<{ id: string; url: string; config: string; correo?: string } | null>(
     null,
   );
   const [generandoLink, setGenerandoLink] = useState(false);
@@ -305,6 +306,7 @@ export default function QuoteBuilder({
 
   const reset = () => {
     setClientName("Clínica Estética Aurora");
+    setClientEmail("");
     setQuoteOwner("Catalina Fuentes");
     setOwnerEmail("catalina.fuentes@oacg.cl");
     setOwnerPhone("+56 9 7882 4985");
@@ -330,6 +332,7 @@ export default function QuoteBuilder({
   // generar el link, el link queda obsoleto y hay que regenerarlo.
   const configPago = JSON.stringify({
     numero: quoteNumber,
+    clienteEmail: clientEmail.trim(),
     planId: selectedPlanId,
     billing,
     extraUsuarios: extraUsers,
@@ -362,6 +365,7 @@ export default function QuoteBuilder({
       datos.set("sinDocumento", "1");
       datos.set("titulo", `Cotización ${quoteNumber || "Clinera"} — ${clientName || "Cliente"}`.slice(0, 140));
       datos.set("clienteNombre", clientName.trim() || "Cliente");
+      datos.set("clienteEmail", clientEmail.trim());
       datos.set("gestorNombre", quoteOwner.trim());
       datos.set("gestorEmail", ownerEmail.trim());
       datos.set("cotizacion", configPago);
@@ -374,6 +378,7 @@ export default function QuoteBuilder({
         ok: boolean;
         id?: string;
         url?: string;
+        correo?: string;
         error?: string;
       };
       if (respuesta.status === 401) {
@@ -387,7 +392,7 @@ export default function QuoteBuilder({
       }
       if (claveFirma.trim()) sessionStorage.setItem("clinera_firma_clave", claveFirma.trim());
       setPedirClave(false);
-      setLinkPago({ id: json.id, url: json.url, config: configPago });
+      setLinkPago({ id: json.id, url: json.url, config: configPago, correo: json.correo });
     } catch {
       setErrorLink("Sin conexión con el servidor. Reintenta en un momento.");
     } finally {
@@ -522,6 +527,13 @@ export default function QuoteBuilder({
                 onChange={setClientName}
                 placeholder="Clínica o empresa"
                 required
+              />
+              <Field
+                label="Email del cliente"
+                type="email"
+                value={clientEmail}
+                onChange={setClientEmail}
+                placeholder="contacto@clinica.cl"
               />
               <Field
                 label="Nombre del cotizante"
@@ -844,8 +856,28 @@ export default function QuoteBuilder({
                     <circle cx="7.5" cy="7.5" r="6.75" />
                     <path d="m4.75 7.75 2 2 3.75-4" />
                   </svg>
-                  Link de pago creado e incluido en la cotización
+                  {linkVigente.correo === "enviado"
+                    ? `Cotización enviada por correo a ${clientEmail.trim()}`
+                    : "Link de pago creado e incluido en la cotización"}
                 </strong>
+                {linkVigente.correo === "error" && (
+                  <small className={styles.correoAviso}>
+                    No pudimos enviar el correo automático: envíala manual desde la fila de
+                    abajo.
+                  </small>
+                )}
+                {linkVigente.correo === "sin-config" && (
+                  <small className={styles.correoAviso}>
+                    El envío automático por correo aún no está configurado (SMTP): envíala
+                    manual desde la fila de abajo.
+                  </small>
+                )}
+                {linkVigente.correo === "sin-email" && (
+                  <small className={styles.correoAviso}>
+                    Agrega el email del cliente (sección 01) para que la cotización se envíe
+                    sola al crear el link.
+                  </small>
+                )}
                 <code>{linkVigente.url}</code>
                 <button type="button" className={styles.btnCopiarLink} onClick={copiarLinkPago}>
                   {copiadoLink ? "Link copiado" : "Copiar link"}
