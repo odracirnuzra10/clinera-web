@@ -5,15 +5,15 @@ import HomeV3 from "@/components/home-v3/HomeV3";
 import { HOME_FAQ } from "@/content/home-faq";
 
 export const metadata: Metadata = {
-  title: "Clinera Intelligence | Opera y estandariza tus clínicas con IA",
+  title: "Clinera O.S. | El sistema operativo de tu clínica con IA",
   description:
-    "Clinera Intelligence conecta agenda, pacientes, ventas y agentes de IA para operar todas tus sedes: agenda, confirma, cobra y recupera pacientes 24/7.",
+    "Clinera O.S. es el sistema con IA por el que opera tu clínica: agenda, pacientes, fichas, tratamientos, ventas y marketing, con agentes que agendan, confirman, cobran y recuperan pacientes 24/7.",
   alternates: { canonical: "https://www.clinera.io/" },
   openGraph: {
     url: "https://www.clinera.io/",
-    title: "Clinera Intelligence — Toda tu clínica pensando y actuando como una",
+    title: "Clinera O.S. — El sistema operativo de tu clínica con IA",
     description:
-      "La capa de inteligencia de Clinera conecta agenda, pacientes, ventas y agentes de IA para operar todas tus sedes con visibilidad y control central.",
+      "Mucho más que un chatbot: agenda, pacientes, fichas, tratamientos, ventas y marketing en un solo sistema con IA, y Clinera Intelligence, el agente interno que te asiste.",
   },
 };
 
