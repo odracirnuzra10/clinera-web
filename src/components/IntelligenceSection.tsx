@@ -140,7 +140,9 @@ export function IntelligencePlataformaSection() {
           <span className={styles.kicker}>
             <SparkIcon /> Nuevo · Clinera Intelligence
           </span>
-          <h2>Conversa con toda tu operación.</h2>
+          <h2>
+            Conversa con <span>toda tu operación</span>.
+          </h2>
           <p>
             Clinera Intelligence es el chat interno con IA de la plataforma: pregunta en lenguaje
             natural y responde con los datos reales de tu clínica — sin reportes manuales ni
