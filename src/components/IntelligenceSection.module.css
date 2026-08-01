@@ -578,6 +578,185 @@
 }
 
 /* ------------------------------------------------------------
+   Animación del chat (IntelligenceChat.tsx)
+   La copia estática invisible (.chatSizer) fija la altura de la
+   ventana; la conversación animada se dibuja encima (.chatCapa),
+   así el loop no mueve el resto de la página.
+   ------------------------------------------------------------ */
+.chatBodyVivo {
+  position: relative;
+}
+
+.chatSizer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  visibility: hidden;
+}
+
+.chatCapa {
+  position: absolute;
+  inset: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 3px;
+  vertical-align: -0.12em;
+  background: currentColor;
+  animation: parpadeo 900ms steps(2, start) infinite;
+}
+
+.userEntra {
+  animation: msgEntra 300ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+.pensando {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid #eaeaea;
+  border-radius: 12px 12px 12px 4px;
+  background: #fff;
+  padding: 14px 15px;
+  animation: msgEntra 300ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+.pensando i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a78bfa;
+  animation: botePunto 1.1s ease-in-out infinite;
+}
+
+.pensando i:nth-child(2) { animation-delay: 0.15s; }
+.pensando i:nth-child(3) { animation-delay: 0.3s; }
+
+.aiEntra {
+  animation: msgEntra 420ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+/* Cascada dentro de la respuesta: texto → desglose → gráficos.
+   Los retrasos por elemento van inline (animation-delay). */
+.anima .aiText {
+  animation: aparece 380ms 140ms both;
+}
+
+.anima .aiStats li {
+  animation-name: aparece;
+  animation-duration: 380ms;
+  animation-fill-mode: both;
+}
+
+.anima .chartRow,
+.anima .chartFull {
+  animation: aparece 420ms 460ms both;
+}
+
+.anima .donutArco {
+  animation: arcoCrece 950ms 560ms cubic-bezier(0.25, 0.7, 0.3, 1) both;
+}
+
+.anima .donutPct {
+  animation: aparece 420ms 980ms both;
+}
+
+.anima .hBars b i {
+  transform-origin: left center;
+  animation: creceX 850ms 680ms cubic-bezier(0.2, 0.7, 0.25, 1) both;
+}
+
+.anima .barra {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation-name: creceY;
+  animation-duration: 750ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.25, 1);
+  animation-fill-mode: both;
+}
+
+.anima .barraDato {
+  animation-name: aparece;
+  animation-duration: 360ms;
+  animation-fill-mode: both;
+}
+
+@keyframes msgEntra {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes aparece {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes parpadeo {
+  50% { opacity: 0; }
+}
+
+@keyframes botePunto {
+  0%, 70%, 100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  35% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+@keyframes arcoCrece {
+  from { stroke-dasharray: 0 226.2; }
+}
+
+@keyframes creceX {
+  from { transform: scaleX(0); }
+}
+
+@keyframes creceY {
+  from { transform: scaleY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret,
+  .userEntra,
+  .pensando,
+  .pensando i,
+  .aiEntra,
+  .anima .aiText,
+  .anima .aiStats li,
+  .anima .chartRow,
+  .anima .chartFull,
+  .anima .donutArco,
+  .anima .donutPct,
+  .anima .hBars b i,
+  .anima .barra,
+  .anima .barraDato {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------
    Responsive
    ------------------------------------------------------------ */
 @media (max-width: 1080px) {
@@ -656,6 +835,10 @@
 
   .chatBody {
     padding: 16px 12px;
+  }
+
+  .chatCapa {
+    inset: 16px 12px;
   }
 
   .chartRow {
