@@ -2596,8 +2596,28 @@
       max-width: 1240px;
     }
 
+    /* Jerarquía de la intro: titular > frase de remate > bajada de apoyo. */
+    .rz-punch {
+      max-width: 430px;
+      margin: 18px 0 0;
+      color: var(--ink);
+      font-size: clamp(19px, 1.5vw, 22px);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.35;
+      text-wrap: pretty;
+    }
+
     .rz-intro .blk-lead {
       max-width: 420px;
+      margin-top: 14px;
+      color: var(--ink-muted);
+      font-size: 17px;
+    }
+
+    .slide.active .rz-punch {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .08s;
     }
 
     .rz-list {
@@ -2620,10 +2640,10 @@
 
     .rz-toggle {
       display: grid;
-      grid-template-columns: 44px minmax(0, 1fr);
+      grid-template-columns: 44px minmax(0, 1fr) 26px;
       align-items: baseline;
       width: 100%;
-      padding: 17px 0;
+      padding: 18px 0;
       border: 0;
       background: none;
       text-align: left;
@@ -2631,21 +2651,43 @@
     }
 
     .rz-num {
-      color: var(--ink-muted);
+      color: var(--ink-light);
       font-family: var(--blk-mono);
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 700;
       transition: color .28s ease;
     }
 
     .rz-name {
       color: var(--ink-soft);
       font-family: var(--blk-sans);
-      font-size: 19px;
+      font-size: clamp(19px, 1.55vw, 23px);
       font-weight: 600;
-      letter-spacing: -.015em;
+      letter-spacing: -.02em;
       line-height: 1.3;
       transition: color .28s ease;
+    }
+
+    /* Marca que la lista es navegable: sin esto los títulos no se leen
+       como algo en lo que se puede hacer clic. */
+    .rz-chev {
+      display: grid;
+      place-items: center;
+      align-self: center;
+      width: 26px;
+      height: 26px;
+      color: var(--ink-light);
+      transition: transform .34s var(--ease), color .28s ease;
+    }
+
+    .rz-chev svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .rz-toggle:hover .rz-name,
@@ -2653,8 +2695,18 @@
       color: var(--ink);
     }
 
+    .rz-toggle:hover .rz-num,
+    .rz-toggle:hover .rz-chev {
+      color: var(--ink-muted);
+    }
+
     .rz-item.open .rz-num {
       color: var(--brand-violet);
+    }
+
+    .rz-item.open .rz-chev {
+      color: var(--brand-violet);
+      transform: rotate(90deg);
     }
 
     .rz-body {
@@ -2686,8 +2738,8 @@
       margin: 0 0 13px;
       padding-left: 44px;
       color: var(--ink-soft);
-      font-size: 17px;
-      line-height: 1.55;
+      font-size: 16px;
+      line-height: 1.6;
       text-wrap: pretty;
     }
 
@@ -2932,6 +2984,18 @@
         max-width: 640px;
       }
 
+      .rz-punch {
+        max-width: 640px;
+      }
+
+      .rz-layout {
+        gap: 34px;
+      }
+
+      .rz-toggle {
+        padding: 15px 0;
+      }
+
       .cn-cards {
         max-width: 640px;
       }
@@ -2949,11 +3013,21 @@
       }
 
       .rz-toggle {
-        grid-template-columns: 34px minmax(0, 1fr);
+        grid-template-columns: 32px minmax(0, 1fr) 22px;
       }
 
       .rz-name {
-        font-size: 17px;
+        font-size: 19px;
+      }
+
+      .rz-chev {
+        width: 22px;
+        height: 22px;
+      }
+
+      .rz-chev svg {
+        width: 16px;
+        height: 16px;
       }
 
       .rz-body-inner > p {
@@ -2975,6 +3049,68 @@
 
       .cn-card {
         padding: 20px 22px;
+      }
+    }
+
+    /* Las cinco razones son la sección más alta del deck. En pantallas de
+       laptop se compacta para que el ítem abierto entre completo.
+       Va al final de la hoja a propósito: las definiciones base de .rz-*
+       están más arriba y, a igual especificidad, gana la última. */
+    @media (max-height: 820px) and (min-width: 961px) {
+      .rz-punch {
+        margin-top: 14px;
+        font-size: 19px;
+      }
+
+      .rz-intro .blk-lead {
+        margin-top: 11px;
+        font-size: 16px;
+      }
+
+      .rz-toggle {
+        padding: 13px 0;
+      }
+
+      .rz-name {
+        font-size: clamp(17px, 1.4vw, 20px);
+      }
+
+      .rz-body-inner > p {
+        margin-bottom: 10px;
+        font-size: 15px;
+      }
+
+      .rz-card {
+        margin: 14px 0 16px 44px;
+        padding: 14px 17px;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 961px) {
+      .rz-punch {
+        font-size: 18px;
+      }
+
+      .rz-toggle {
+        padding: 10px 0;
+      }
+
+      .rz-name {
+        font-size: clamp(16px, 1.3vw, 18px);
+      }
+
+      .rz-body-inner > p {
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .rz-card {
+        margin: 12px 0 14px 44px;
+        padding: 12px 15px;
+      }
+
+      .rz-card p {
+        font-size: 14px;
       }
     }
   </style>
@@ -3299,13 +3435,14 @@
       <section
         class="slide blk"
         id="razones"
-        data-name="Cinco razones"
+        data-name="5 razones"
         aria-hidden="true"
       >
         <div class="slide-inner rz-layout">
           <div class="rz-intro">
-            <div class="blk-eyebrow">POR QUÉ CONTRATAR CLINERA</div>
-            <h2 class="blk-h2">Cinco razones. Todas son la misma: <span class="blk-grad-text">crecer sin romperte</span>.</h2>
+            <div class="blk-eyebrow">POR QUÉ MIGRARTE</div>
+            <h2 class="blk-h2">5 razones para migrarte a <span class="blk-grad-text">Clinera O.S.</span></h2>
+            <p class="rz-punch">Todas son la misma: crecer sin romperte.</p>
             <p class="blk-lead">Una clínica que crece suma pacientes más rápido de lo que suma manos. Ahí es donde se pierde la plata: no en la venta, en todo lo que pasa después de la venta.</p>
           </div>
 
@@ -3314,7 +3451,10 @@
               <h3 class="rz-heading">
                 <button class="rz-toggle" type="button" id="razonTab1" aria-expanded="true" aria-controls="razonBody1">
                   <span class="rz-num" aria-hidden="true">01</span>
-                  <span class="rz-name">Creces sin contratar más recepción</span>
+                  <span class="rz-name">Creces sin sumar recepción</span>
+                  <span class="rz-chev" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                  </span>
                 </button>
               </h3>
               <div class="rz-body" id="razonBody1" role="region" aria-labelledby="razonTab1">
@@ -3335,7 +3475,10 @@
               <h3 class="rz-heading">
                 <button class="rz-toggle" type="button" id="razonTab2" aria-expanded="false" aria-controls="razonBody2">
                   <span class="rz-num" aria-hidden="true">02</span>
-                  <span class="rz-name">Dejas de perder al paciente que ya llegó</span>
+                  <span class="rz-name">No pierdes al paciente que ya ganaste</span>
+                  <span class="rz-chev" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                  </span>
                 </button>
               </h3>
               <div class="rz-body" id="razonBody2" role="region" aria-labelledby="razonTab2">
@@ -3356,7 +3499,10 @@
               <h3 class="rz-heading">
                 <button class="rz-toggle" type="button" id="razonTab3" aria-expanded="false" aria-controls="razonBody3">
                   <span class="rz-num" aria-hidden="true">03</span>
-                  <span class="rz-name">Cobras lo que ya vendiste y llenas lo que está vacío</span>
+                  <span class="rz-name">Cobras lo pendiente y llenas lo vacío</span>
+                  <span class="rz-chev" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                  </span>
                 </button>
               </h3>
               <div class="rz-body" id="razonBody3" role="region" aria-labelledby="razonTab3">
@@ -3377,7 +3523,10 @@
               <h3 class="rz-heading">
                 <button class="rz-toggle" type="button" id="razonTab4" aria-expanded="false" aria-controls="razonBody4">
                   <span class="rz-num" aria-hidden="true">04</span>
-                  <span class="rz-name">Toda la clínica opera igual</span>
+                  <span class="rz-name">Operas igual en todas tus sedes</span>
+                  <span class="rz-chev" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                  </span>
                 </button>
               </h3>
               <div class="rz-body" id="razonBody4" role="region" aria-labelledby="razonTab4">
@@ -3398,7 +3547,10 @@
               <h3 class="rz-heading">
                 <button class="rz-toggle" type="button" id="razonTab5" aria-expanded="false" aria-controls="razonBody5">
                   <span class="rz-num" aria-hidden="true">05</span>
-                  <span class="rz-name">Decides con tus números, no con tu intuición</span>
+                  <span class="rz-name">Decides con datos, no con intuición</span>
+                  <span class="rz-chev" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                  </span>
                 </button>
               </h3>
               <div class="rz-body" id="razonBody5" role="region" aria-labelledby="razonTab5">
@@ -3555,7 +3707,7 @@
       };
 
       const razonChapterLabel = () =>
-        `Cinco razones · ${String(currentRazon + 1).padStart(2, "0")}`;
+        `5 razones · ${String(currentRazon + 1).padStart(2, "0")}`;
 
       const renderRazon = (next) => {
         currentRazon = Math.max(0, Math.min(next, razonItems.length - 1));
