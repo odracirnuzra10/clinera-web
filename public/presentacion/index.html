@@ -6,7 +6,7 @@
   <title>Clinera — Presentación</title>
   <meta
     name="description"
-    content="Clinera centraliza la operación de tu clínica y suma inteligencia artificial a la gestión diaria."
+    content="Clinera O.S. — el sistema operativo de tu clínica con IA — y Clinera Intelligence, el agente interno que te asiste."
   />
   <meta name="robots" content="noindex,nofollow" />
   <meta name="theme-color" content="#ffffff" />
@@ -2320,6 +2320,261 @@
         transition-duration: .001ms !important;
       }
     }
+    /* ------------------------------------------------------------
+       Clinera Intelligence — el agente interno IA (slide propio)
+       ------------------------------------------------------------ */
+    .agent-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(320px, .96fr);
+      align-items: center;
+      gap: clamp(48px, 6vw, 90px);
+    }
+
+    .agent-copy .display span {
+      color: var(--violet);
+    }
+
+    .agent-points {
+      display: grid;
+      gap: 12px;
+      margin: 30px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--ink);
+      font-size: clamp(15px, 1.25vw, 17px);
+      line-height: 1.45;
+    }
+
+    .agent-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .agent-points li::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 7px;
+      height: 7px;
+      margin-top: 7px;
+      background: var(--violet);
+    }
+
+    .agent-chat {
+      justify-self: end;
+      width: min(100%, 500px);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      box-shadow: 0 18px 55px rgba(17, 19, 24, .07);
+    }
+
+    .agent-chat-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 40px;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      background: #f7f7f5;
+    }
+
+    .agent-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .agent-dots i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .agent-dots i:nth-child(1) { background: #ff5f57; }
+    .agent-dots i:nth-child(2) { background: #febc2e; }
+    .agent-dots i:nth-child(3) { background: #28c840; }
+
+    .agent-chat-title {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .agent-chat-body {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      padding: 20px 16px;
+      background: #fafaf8;
+    }
+
+    .agent-user-msg {
+      align-self: flex-end;
+      max-width: 86%;
+      padding: 10px 14px;
+      border-radius: 12px 12px 4px 12px;
+      background: var(--violet);
+      color: #ffffff;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .agent-ai-msg {
+      align-self: flex-start;
+      width: 100%;
+      padding: 14px 16px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px 12px 12px 4px;
+      background: #ffffff;
+    }
+
+    .agent-ai-msg > p {
+      margin: 9px 0 0;
+      color: var(--ink);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .agent-ai-head {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .agent-ai-head svg {
+      width: 11px;
+      height: 11px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.3;
+      stroke-linejoin: round;
+    }
+
+    .agent-stats {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .agent-stats li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .agent-stats b,
+    .agent-ai-msg p b {
+      color: var(--ink);
+      font-weight: 650;
+    }
+
+    .agent-stats i {
+      flex: 0 0 auto;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    .agent-stats i.violet { background: var(--violet); }
+    .agent-stats i.gray { background: #d1d5db; }
+
+    .agent-bars {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .agent-bars > div {
+      display: grid;
+      grid-template-columns: 68px minmax(0, 1fr) 54px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .agent-bars span {
+      color: var(--muted);
+      font-size: 11.5px;
+    }
+
+    .agent-bars b {
+      display: block;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #efefec;
+    }
+
+    .agent-bars b i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--violet);
+    }
+
+    .agent-bars b i.gray { background: #d1d5db; }
+
+    .agent-bars small {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 10px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .agent-chat-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .agent-chat-input span {
+      color: #9a9fa8;
+      font-size: 13px;
+    }
+
+    .agent-chat-input i {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--violet);
+      color: #ffffff;
+    }
+
+    .agent-chat-input i svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .agent-layout {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .agent-chat {
+        justify-self: start;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2327,25 +2582,26 @@
     <header class="topbar">
       <div class="brand" aria-label="Clinera.io">clinera<span class="brand-dot" aria-hidden="true"></span>io</div>
       <div class="deck-name">Presentación</div>
-      <div class="chapter" id="chapter">Clinera</div>
+      <div class="chapter" id="chapter">Clinera O.S.</div>
     </header>
 
     <main class="slides" id="slides">
       <section
         class="slide active"
         id="clinera"
-        data-name="Clinera"
+        data-name="Clinera O.S."
         aria-hidden="false"
       >
         <div class="slide-inner hero-layout">
           <div class="hero-copy">
-            <div class="eyebrow">Gestión clínica centralizada con IA</div>
+            <div class="eyebrow">Clinera O.S. · El sistema operativo de tu clínica</div>
             <h1 class="display">
-              Clinera: toda tu clínica centralizada en una sola plataforma <span>con IA.</span>
+              Clinera O.S.: el sistema operativo de tu clínica <span>con IA.</span>
             </h1>
             <p class="lead">
-              Agenda, fichas clínicas, pagos, ventas y WhatsApp conectados para que tu equipo opere
-              desde un solo lugar.
+              Mucho más que un chatbot: agenda, tratamientos, pacientes, fichas clínicas,
+              consentimientos, automatizaciones, ventas, marketing y comunicación con IA por voz y
+              texto — en un solo sistema.
             </p>
           </div>
 
@@ -2366,26 +2622,26 @@
       <section
         class="slide ai"
         id="intelligence"
-        data-name="Clinera Intelligence"
+        data-name="Clinera O.S."
         aria-hidden="true"
       >
         <div class="slide-inner intelligence-composition">
           <header class="intelligence-heading">
-            <div class="eyebrow">Clinera Intelligence · núcleo operativo</div>
+            <div class="eyebrow">Clinera O.S. · núcleo operativo</div>
             <h2>
-              Clinera Intelligence, <span>el sistema operativo de tu clínica con IA.</span>
+              Clinera O.S., <span>el sistema con IA por el que opera tu clínica.</span>
             </h2>
             <p>
-              Toda tu operación entrega contexto. Clinera Intelligence entiende, decide y actúa.
+              Toda tu operación entrega contexto. Clinera O.S. entiende, decide y actúa.
             </p>
           </header>
 
           <div
             class="intelligence-system reveal"
             role="img"
-            aria-label="Los módulos de agenda, sedes, fichas, tratamientos, ventas, pagos, marketing, WhatsApp, consentimientos y exámenes alimentan Clinera Intelligence para agendar, responder, llamar con su call center IA para cobros y recordatorios con CAMILA, cobrar y automatizar."
+            aria-label="Los módulos de agenda, sedes, fichas, tratamientos, ventas, pagos, marketing, WhatsApp, consentimientos y exámenes alimentan Clinera O.S. para agendar, responder, llamar con su call center IA para cobros y recordatorios con CAMILA, cobrar y automatizar."
           >
-            <section class="system-sources" aria-label="Módulos que alimentan Clinera Intelligence">
+            <section class="system-sources" aria-label="Módulos que alimentan Clinera O.S.">
               <span class="system-label">Toda tu operación la alimenta</span>
               <ul class="system-source-grid">
                 <li>
@@ -2451,7 +2707,7 @@
               </ul>
             </section>
 
-            <section class="system-core" aria-label="Clinera Intelligence">
+            <section class="system-core" aria-label="Clinera O.S.">
               <div class="core-orbit" aria-hidden="true">
                 <div class="core-disc">
                   <svg viewBox="0 0 64 64">
@@ -2459,12 +2715,12 @@
                   </svg>
                 </div>
               </div>
-              <strong>Clinera Intelligence</strong>
+              <strong>Clinera O.S.</strong>
               <small>Contexto · decisiones · acción</small>
             </section>
 
-            <section class="system-actions" aria-label="Acciones de Clinera Intelligence">
-              <span class="system-label">Clinera Intelligence actúa</span>
+            <section class="system-actions" aria-label="Acciones de Clinera O.S.">
+              <span class="system-label">Clinera O.S. actúa</span>
               <ul class="system-action-list">
                 <li>
                   <span class="system-action-icon" aria-hidden="true">
@@ -2510,6 +2766,62 @@
               <span>Dra. Stefani</span>
             </aside>
           </div>
+        </div>
+      </section>
+
+      <section
+        class="slide ai"
+        id="agente"
+        data-name="Clinera Intelligence"
+        aria-hidden="true"
+      >
+        <div class="slide-inner agent-layout">
+          <div class="agent-copy">
+            <div class="eyebrow">Clinera Intelligence · Tu agente interno IA</div>
+            <h2 class="display medium">
+              Pregúntale a tu clínica. <span>Te responde con tus números.</span>
+            </h2>
+            <p class="lead">
+              Clinera Intelligence es el agente interno de IA que te asiste dentro de Clinera O.S.:
+              pregunta en lenguaje natural y responde con los datos reales de tu operación.
+            </p>
+            <ul class="agent-points">
+              <li>Ventas, cobros, citas, asistencia y tratamientos en un solo chat</li>
+              <li>Respuestas en segundos, con gráficos generados al momento</li>
+              <li>Cero reportes manuales, cero planillas</li>
+            </ul>
+          </div>
+
+          <aside class="agent-chat reveal" aria-label="Vista del chat Clinera Intelligence">
+            <div class="agent-chat-bar">
+              <span class="agent-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="agent-chat-title">Clinera Intelligence</span>
+            </div>
+            <div class="agent-chat-body">
+              <div class="agent-user-msg">¿Cuánto vendí el mes pasado?</div>
+              <div class="agent-ai-msg">
+                <span class="agent-ai-head">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                  Clinera Intelligence
+                </span>
+                <p>En julio vendiste <b>$101.293.919</b> en 63 ventas.</p>
+                <ul class="agent-stats">
+                  <li><i class="violet"></i>Cobrado: <b>$92.505.165</b> · 54 pagadas</li>
+                  <li><i class="gray"></i>Pendiente: <b>$8.788.754</b> · 9 parciales</li>
+                </ul>
+                <div class="agent-bars" aria-hidden="true">
+                  <div><span>Cobrado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>
+                  <div><span>Pendiente</span><b><i class="gray" style="width: 9%"></i></b><small>$8,8 M</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="agent-chat-input">
+              <span>Pregúntale a tu clínica…</span>
+              <i aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="M8 13V3M3.8 7.2 8 3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </i>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -2815,7 +3127,7 @@
 
     <footer class="deck-footer" aria-label="Navegación de la presentación">
       <div class="counter" aria-live="polite">
-        <span id="currentCount">01</span> / <span id="totalCount">05</span>
+        <span id="currentCount">01</span> / <span id="totalCount">06</span>
       </div>
       <div class="progress" aria-hidden="true">
         <div class="progress-fill" id="progressFill"></div>
