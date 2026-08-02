@@ -262,59 +262,69 @@
       text-wrap: pretty;
     }
 
-    .hero-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.18fr) minmax(320px, .82fr);
-      align-items: center;
-      gap: clamp(54px, 7vw, 100px);
+    .hero-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(30px, 4vh, 50px);
     }
 
     .hero-copy {
-      max-width: 820px;
+      max-width: 1000px;
     }
 
     .hero-copy .display {
-      font-size: clamp(48px, 5.2vw, 76px);
+      font-size: clamp(40px, 4.7vw, 68px);
     }
 
     .hero-copy .display span {
       color: var(--cyan);
     }
 
-    .hero-visual {
-      width: min(100%, 390px);
-      margin: 0;
-      justify-self: end;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .hero-visual img {
-      width: 100%;
-      aspect-ratio: .82;
-      object-fit: cover;
-      object-position: center 28%;
-      border: 1px solid var(--line);
-      filter: saturate(.88);
-    }
-
-    .hero-visual figcaption {
-      display: flex;
+    /* Prueba social del slide de apertura: los mismos logos de clientes
+       que muestra /plataforma, en gris para que no compitan con el titular. */
+    .hero-clients {
+      display: grid;
+      grid-template-columns: 172px minmax(0, 1fr);
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 12px 0;
+      gap: clamp(22px, 2.8vw, 38px);
+      padding-top: clamp(22px, 2.8vh, 32px);
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-clients-label {
       color: var(--muted);
       font-family: var(--mono);
-      font-size: 8px;
-      letter-spacing: .08em;
+      font-size: 9px;
+      letter-spacing: .1em;
+      line-height: 1.5;
       text-transform: uppercase;
     }
 
-    .hero-visual figcaption::after {
-      content: "";
-      width: 34px;
-      height: 1px;
-      background: var(--cyan);
+    .hero-client-logos {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .hero-client-logo {
+      display: grid;
+      place-items: center;
+      height: 60px;
+      padding: 8px 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .hero-client-logo img {
+      width: auto;
+      max-width: 100%;
+      max-height: 36px;
+      object-fit: contain;
+      filter: grayscale(1) contrast(1.1);
+      opacity: .8;
     }
 
     .ai-head {
@@ -819,20 +829,23 @@
     }
 
     @media (max-width: 980px) {
-      .hero-layout,
       .ai-head,
       .features-layout {
         grid-template-columns: 1fr;
       }
 
-      .hero-layout,
       .features-layout {
         gap: 48px;
       }
 
-      .hero-visual {
-        justify-self: start;
-        width: min(100%, 380px);
+      .hero-slide {
+        gap: 30px;
+      }
+
+      .hero-clients {
+        grid-template-columns: 1fr;
+        gap: 13px;
+        padding-top: 22px;
       }
 
       .ai-head {
@@ -876,6 +889,12 @@
 
       .testimonial-copy blockquote {
         font-size: clamp(40px, 6vw, 58px);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero-client-logos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
 
@@ -931,25 +950,25 @@
         font-size: 16px;
       }
 
-      .hero-layout {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        gap: 46px;
-      }
-
       .hero-copy .display {
-        font-size: clamp(41px, 11.2vw, 52px);
+        font-size: clamp(33px, 8.7vw, 44px);
       }
 
-      .hero-visual {
-        width: 100%;
+      .hero-slide {
+        gap: 30px;
       }
 
-      .hero-visual img {
-        max-height: 350px;
-        aspect-ratio: 1.05;
+      .hero-client-logos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .hero-client-logo {
+        height: 56px;
+      }
+
+      .hero-client-logo img {
+        max-height: 32px;
       }
 
       .ai-head {
@@ -1551,6 +1570,26 @@
       }
     }
 
+    /* Laptops de 768px de alto: el slide de apertura ahora carga titular,
+       retrato y franja de logos, así que se compacta para no pedir scroll. */
+    @media (max-height: 820px) and (min-width: 981px) {
+      .hero-slide {
+        gap: 28px;
+      }
+
+      .hero-copy .display {
+        font-size: clamp(36px, 3.6vw, 52px);
+      }
+
+      .hero-client-logo {
+        height: 54px;
+      }
+
+      .hero-client-logo img {
+        max-height: 31px;
+      }
+    }
+
     @media (max-height: 720px) and (min-width: 981px) {
       .slide {
         padding-top: 72px;
@@ -1559,6 +1598,22 @@
 
       .slide-inner {
         min-height: calc(100dvh - 140px);
+      }
+
+      .hero-slide {
+        gap: 26px;
+      }
+
+      .hero-copy .display {
+        font-size: clamp(36px, 3.5vw, 50px);
+      }
+
+      .hero-client-logo {
+        height: 52px;
+      }
+
+      .hero-client-logo img {
+        max-height: 30px;
       }
 
       .intelligence-composition {
@@ -2939,11 +2994,12 @@
         data-name="Clinera O.S."
         aria-hidden="false"
       >
-        <div class="slide-inner hero-layout">
+        <div class="slide-inner hero-slide">
           <div class="hero-copy">
-            <div class="eyebrow">Clinera O.S. · El sistema operativo de tu clínica</div>
+            <div class="eyebrow">Clinera O.S.</div>
             <h1 class="display">
-              Clinera O.S.: el sistema operativo de tu clínica <span>con IA.</span>
+              Clinera O.S.: el sistema operativo <span>con IA</span> que usan medianas y grandes
+              redes de clínicas.
             </h1>
             <p class="lead">
               Mucho más que un chatbot: agenda, tratamientos, pacientes, fichas clínicas,
@@ -2952,17 +3008,29 @@
             </p>
           </div>
 
-          <figure class="hero-visual reveal">
-            <img
-              src="/images/testimonials/katherine-meza.png"
-              alt="Profesional de una clínica usuaria de Clinera"
-              loading="eager"
-              decoding="async"
-            />
-            <figcaption>
-              <span>La atención primero</span>
-            </figcaption>
-          </figure>
+          <aside class="hero-clients reveal" aria-label="Clínicas que ya operan con Clinera">
+            <span class="hero-clients-label">Clínicas que ya operan con Clinera</span>
+            <div class="hero-client-logos">
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/andes.png" alt="Andes Salud" loading="lazy" decoding="async" />
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/everest.png" alt="Everest Clínicas Dentales" loading="lazy" decoding="async" />
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/sanatorio.png" alt="Sanatorio Alemán" loading="lazy" decoding="async" />
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/sonrie.png" alt="Sonríe" loading="lazy" decoding="async" />
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/lumina.png" alt="Lumina Clínica Facial" loading="lazy" decoding="async" />
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/hebe.png" alt="Método Hebe" loading="lazy" decoding="async" />
+              </span>
+            </div>
+          </aside>
         </div>
       </section>
 
