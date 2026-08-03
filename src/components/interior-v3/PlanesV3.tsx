@@ -90,7 +90,7 @@ function Addons() {
       price: `$${EXTRA_CREDIT_PACK_USD}`,
       unit: "recarga",
       label: `${EXTRA_CREDIT_PACK_CREDITS.toLocaleString("es-CL")} créditos extras`,
-      sub: "≈500 conversaciones de emergencia cuando agotas la bolsa del mes.",
+      sub: "≈166 conversaciones o ~25 agendamientos de emergencia cuando agotas la bolsa del mes.",
     },
     {
       price: `$${EXTRA_USER_USD}`,

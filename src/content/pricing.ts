@@ -20,7 +20,7 @@ export const SETUP_FEE_COPY =
 export const SEMESTER_MONTHS = 6;
 export const SEMESTER_DISCOUNT_PERCENT = 20;
 
-export const EXTRA_CREDIT_PACK_USD = 20;
+export const EXTRA_CREDIT_PACK_USD = 15;
 export const EXTRA_CREDIT_PACK_CREDITS = 5_000;
 export const EXTRA_USER_USD = 9;
 
@@ -41,7 +41,7 @@ export const CLINERA_PLANS = [
     users: 10,
     branches: "1 sucursal",
     channel: "Texto",
-    consumptionReference: "~2.800 conversaciones o ~143 agendamientos automáticos",
+    consumptionReference: "~933 conversaciones o ~143 agendamientos automáticos",
     description:
       "Para clínicas con equipo de recepción y varios profesionales que empiezan a ordenar su operación.",
     headline: "Incluye",
@@ -61,7 +61,7 @@ export const CLINERA_PLANS = [
     branches: "2 sucursales",
     channel: "Texto + voz",
     consumptionReference:
-      "~3.700 conversaciones o ~190 agendamientos · ~320 min de voz (pronto)",
+      "~1.233 conversaciones o ~190 agendamientos · ~320 min de voz (pronto)",
     description:
       "Para clínicas con alto volumen o 2+ sedes que necesitan estandarizar la atención.",
     headline: "Todo de Vortex, más",
@@ -84,7 +84,7 @@ export const CLINERA_PLANS = [
     branches: "Sucursales ilimitadas",
     channel: "Texto + voz + API",
     consumptionReference:
-      "~4.600 conversaciones o ~236 agendamientos · ~440 min de voz (pronto)",
+      "~1.533 conversaciones o ~236 agendamientos · ~440 min de voz (pronto)",
     description:
       "Para grupos clínicos y clínicas de alto volumen —una o varias sedes— que necesitan control central de toda la operación.",
     headline: "Todo de Atlas, más",

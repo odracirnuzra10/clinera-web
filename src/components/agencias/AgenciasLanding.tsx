@@ -817,7 +817,7 @@ function ModosCompact() {
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Eyebrow style={{ color: CYAN }}>Modos de IA · Una bolsa de créditos</Eyebrow>
+        <Eyebrow style={{ color: CYAN }}>Modo Agentic · Una bolsa de créditos</Eyebrow>
         <h2
           style={{
             fontFamily: "Inter",
@@ -830,7 +830,7 @@ function ModosCompact() {
             maxWidth: 720,
           }}
         >
-          Una IA. Tres modos. Una sola bolsa de créditos.
+          Una IA. Un solo modo. Una sola bolsa de créditos.
         </h2>
         <p
           style={{
@@ -842,9 +842,9 @@ function ModosCompact() {
             maxWidth: 660,
           }}
         >
-          Tu cliente elige el modo según su volumen y la velocidad que necesita. La
-          unidad atómica es el crédito: una sola bolsa mensual para conversaciones,
-          agendamientos y voz.
+          Clinera opera en modo Agentic: la IA agenda sola, dentro del chat, sin
+          links ni sistemas externos. La unidad atómica es el crédito: una sola
+          bolsa mensual para conversaciones, agendamientos y voz.
         </p>
 
         <div
@@ -857,22 +857,16 @@ function ModosCompact() {
         >
           <ModoMini
             num="01"
-            name="Eficiente"
-            credits="~4"
-            desc="IA conversa, paciente confirma vía link. Menor consumo de créditos. Desde Plan Vortex."
+            name="Conversación"
+            credits="~30"
+            desc="La IA informa, cotiza, confirma o recuerda una cita ya existente. No crea ni mueve horas. En todos los planes."
           />
           <ModoMini
             featured
             num="02"
-            name="Agentic"
-            credits="~17"
-            desc="IA agenda sola con tool calls. La mejor relación capacidad/créditos. Desde Plan Vortex."
-          />
-          <ModoMini
-            num="03"
-            name="Agentic Pro"
-            credits="~36"
-            desc="Agentic con respuesta inmediata a 289 tokens/s. Solo Plan Summit."
+            name="Agendamiento"
+            credits="~195"
+            desc="La IA agenda, reagenda o cancela sola con tool calls contra tu agenda real. En todos los planes."
           />
         </div>
 
@@ -1038,7 +1032,7 @@ function ModoMini({
           marginBottom: 14,
         }}
       >
-        · {num} · Modo
+        · {num} · Consumo
       </div>
       <h3
         style={{

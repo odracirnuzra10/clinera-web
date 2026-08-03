@@ -356,8 +356,8 @@ function WhatYoullLearn() {
       desc: "Webhook de tu campaña → automatización en Clinera → AURA responde al lead antes de que se enfríe.",
     },
     {
-      title: "Cuál de los 3 modos de IA elegir",
-      desc: "Eficiente, Agentic o Agentic Pro. Cada uno cuesta distinto por conversación. Te mostramos cuál conviene según tu volumen.",
+      title: "Cuánto consume tu clínica en modo Agentic",
+      desc: "Conversar cuesta distinto que agendar. Te mostramos cómo se calcula el consumo y qué plan conviene según tu volumen.",
     },
     {
       title: "Casos reales de clínicas operando 24/7",

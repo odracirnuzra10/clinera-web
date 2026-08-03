@@ -83,20 +83,21 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
           Clinera factura por <strong>créditos</strong>, no por conversación. Cada plan trae una
           bolsa mensual de créditos y cada respuesta de tu agente consume según el esfuerzo real
           que tomó resolverla. ¿Por qué? Porque <strong>no todas las conversaciones son iguales</strong>:
-          confirmar una hora no es lo mismo que cotizar un tratamiento y cerrar la venta. El modo de
-          IA marca la diferencia.
+          confirmar una hora no es lo mismo que cotizar un tratamiento y cerrar la venta. Clinera
+          opera en un único modo —<strong>Agentic</strong>— y lo que mueve la aguja es si la
+          conversación termina o no en una cita creada.
         </p>
 
         <div className="reveal" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 20, marginTop: 30 }}>
-          <ModeCompare tag="Modo Eficiente" cr="~10" color={GREEN} titulo="El día a día de la clínica" ejemplos={["Confirmar o recordar una cita", "Responder preguntas frecuentes", "Enviar info de la clínica", "Pasar un link para que el paciente se agende"]} />
-          <ModeCompare tag="Modo Agentic" cr="~195" color={ACCENT} big titulo="Cuando la IA agenda y razona" ejemplos={["Agendar o reprogramar la hora sola", "Cotizar un tratamiento a medida", "Resolver objeciones y dudas complejas", "Cerrar una venta multi-paso"]} />
+          <ModeCompare tag="Conversación" cr="~30" color={GREEN} titulo="El día a día de la clínica" ejemplos={["Confirmar o recordar una cita", "Responder preguntas frecuentes", "Enviar info de la clínica", "Cotizar un tratamiento"]} />
+          <ModeCompare tag="Agendamiento" cr="~195" color={ACCENT} big titulo="Cuando la IA agenda y razona" ejemplos={["Agendar o reprogramar la hora sola", "Consultar disponibilidad real de tu agenda", "Cancelar y liberar el cupo", "Cerrar una venta multi-paso"]} />
         </div>
 
         <div style={callout}>
-          <strong>El contraste es real: Agentic cuesta casi 20× más que Eficiente.</strong> No es un
-          castigo, es que la IA piensa, consulta el sistema y ejecuta varios pasos. La mayoría de tu
-          operación es Eficiente; Agentic entra solo cuando de verdad aporta. Esa mezcla es la que
-          define cuánto te rinde el mes.
+          <strong>El contraste es real: cerrar una cita cuesta ~6× más que conversar.</strong> No es un
+          castigo, es que la IA piensa, consulta tu agenda y ejecuta varios pasos. La mayoría de tu
+          operación son conversaciones; el agendamiento entra cuando el paciente de verdad reserva.
+          Esa mezcla es la que define cuánto te rinde el mes.
         </div>
 
         <h3 style={subh}>Qué consume créditos (y qué no)</h3>
@@ -107,8 +108,8 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
         </p>
         <div className="reveal" style={{ display: "grid", gap: 0, marginTop: 6, maxWidth: 640 }}>
           {[
-            ["Texto (AURA)", "~10 créditos por conversación simple"],
-            ["Agendamiento automático (Agentic)", "~195 créditos · la IA agenda sola: razona + tool calls"],
+            ["Texto (AURA)", "~30 créditos por conversación que no agenda"],
+            ["Agendamiento automático", "~195 créditos · la IA agenda sola: razona + tool calls"],
             ["Minuto de voz (CAMILA)", "25 créditos por minuto"],
             ["LIA fiscaliza", "0 créditos"],
             ["Informes de LIA", "≈4.000 créditos / mes"],
@@ -127,9 +128,9 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
         </p>
         <div className="reveal" style={{ display: "grid", gap: 12, marginTop: 18 }}>
           {[
-            { plan: "Vortex", cr: 28000, ef: 2800, ag: 143 },
-            { plan: "Atlas", cr: 37000, ef: 3700, ag: 190 },
-            { plan: "Summit", cr: 46000, ef: 4600, ag: 236 },
+            { plan: "Vortex", cr: 28000, ef: 933, ag: 143 },
+            { plan: "Atlas", cr: 37000, ef: 1233, ag: 190 },
+            { plan: "Summit", cr: 46000, ef: 1533, ag: 236 },
           ].map((row) => (
             <div key={row.plan} style={{ border: `1px solid ${BORDER}`, borderRadius: 18, padding: "20px 22px", background: "#fff", boxShadow: "0 4px 24px rgba(0,0,0,.03)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: 8 }}>
@@ -137,16 +138,16 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
                 <span style={{ fontFamily: MONO, fontSize: 14, color: MUTED }}>{fmt(row.cr)} créditos / mes</span>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 14 }}>
-                <Gauge label="Eficiente" big={`~${fmt(row.ef)}`} unit="conversaciones" pct={Math.round((row.ef / 4600) * 100)} color={GREEN} />
-                <Gauge label="Agentic" big={`~${fmt(row.ag)}`} unit="conversaciones" pct={Math.round((row.ag / 236) * 100)} color={ACCENT} />
+                <Gauge label="Conversaciones" big={`~${fmt(row.ef)}`} unit="sin agendar" pct={Math.round((row.ef / 1533) * 100)} color={GREEN} />
+                <Gauge label="Agendamientos" big={`~${fmt(row.ag)}`} unit="citas creadas" pct={Math.round((row.ag / 236) * 100)} color={ACCENT} />
               </div>
             </div>
           ))}
         </div>
         <p style={footnote}>
-          Eficiente = conversaciones simples (créditos ÷ ~10). Agentic = conversaciones de
-          razonamiento multi-paso, como un agendamiento automático (créditos ÷ ~195). Son
-          referencias orientativas: usa la calculadora para tu mezcla real.
+          Conversaciones = intercambios que no crean cita (créditos ÷ ~30). Agendamientos =
+          conversaciones que terminan con la hora agendada, reagendada o cancelada
+          (créditos ÷ ~195). Son referencias orientativas: usa la calculadora para tu mezcla real.
         </p>
       </Section>
 
@@ -173,7 +174,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
       <Section eyebrow="Extras" title="Add-ons y extras">
         <p style={para}>Suma capacidad o funciones puntuales sin cambiar de plan.</p>
         <div className="reveal" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 20, marginTop: 26 }}>
-          <AddonCard titulo="Recarga de créditos" precio="USD 55" unidad="= 5.000 créditos" desc="Cuando tu volumen supera la bolsa del mes. Equivale a ~500 conversaciones Eficientes extra." />
+          <AddonCard titulo="Recarga de créditos" precio="USD 15" unidad="= 5.000 créditos" desc="Cuando tu volumen supera la bolsa del mes. Equivale a ~166 conversaciones o ~25 agendamientos extra." />
           <AddonCard titulo="Usuario / profesional extra" precio="USD 9" unidad="/ mes" desc="Suma una persona más de tu equipo al acceso de la plataforma, por encima de los incluidos en tu plan." />
           <AddonCard titulo="Sucursal extra" precio="USD 39" unidad="/ mes" desc="Suma una sucursal adicional a tu operación." nota="Disponible solo en Atlas." />
         </div>

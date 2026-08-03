@@ -1,0 +1,154 @@
+---
+title: "El modo Agentic de Clinera: cómo la IA agenda sola y cuánto consume"
+description: "Clinera opera en un único modo de agendamiento: Agentic, sobre Kimi K2.6. Qué significa que un modelo sea agéntico, qué tool calls ejecuta contra tu agenda, cuántos créditos consume conversar (~30) frente a agendar (~195) y por qué ya no existen links de agendamiento."
+slug: modo-agentic-agendamiento-ia-clinicas
+publishedAt: "2026-05-20"
+updatedAt: "2026-08-03"
+category: "Tecnología"
+tags: ["ia", "agendamiento", "modelos", "aura", "kimi"]
+heroImage: "/images/blog/modo-agentic-agendamiento-ia-clinicas.png"
+author: "Equipo Clinera"
+wordsApprox: 1500
+faq:
+  - q: "¿Qué significa que un modelo sea agéntico?"
+    a: "Un modelo agéntico no solo responde texto: ejecuta acciones reales contra tu sistema. Crear una cita, reagendarla, consultar el historial clínico de un paciente, revisar pagos pendientes o cancelar una sesión son tool calls. El modo Agentic de Clinera hace todo eso solo, dentro de la conversación de WhatsApp, sin que el paciente tenga que abrir nada."
+  - q: "¿Cuántos modos de agendamiento tiene Clinera?"
+    a: "Uno solo: Agentic, sobre Kimi K2.6, disponible desde el Plan Vortex (USD 279/mes) y en todos los planes superiores. No hay modos que elegir ni configurar: toda cuenta opera con la IA agendando de forma autónoma."
+  - q: "¿Cuántos créditos consume el modo Agentic?"
+    a: "Depende de si la conversación termina o no en una cita. Una conversación que solo informa —precios, horarios, profesionales, confirmar o recordar una hora ya existente— consume ~30 créditos. Una que crea, reagenda o cancela una cita consume ~195 créditos, porque la IA consulta la disponibilidad real de tu agenda y encadena varios tool calls."
+  - q: "¿Por qué Clinera ya no manda links de agendamiento?"
+    a: "Porque el link es fricción y fricción es conversión perdida: entre 8% y 15% de los pacientes que reciben un link no lo completan, según la vertical. Clinera opera sobre su propia agenda y no depende de sistemas externos, así que la IA puede cerrar la cita dentro del chat sin derivar al paciente a otra página."
+  - q: "¿Qué pasa con el software de agenda que ya uso?"
+    a: "Clinera no se conecta a agendas de terceros: opera con su propia agenda, sus fichas clínicas y su módulo de pagos. En el onboarding migramos tus pacientes, tratamientos y datos históricos desde tu sistema actual para que partas con todo cargado desde el primer día."
+---
+
+## TL;DR
+
+- Clinera tiene **un solo modo de agendamiento: Agentic**, sobre **Kimi K2.6**, activo en todos los planes desde Vortex.
+- Agéntico significa que la IA **ejecuta acciones reales** contra tu agenda —crear, reagendar, cancelar, cobrar, recordar— y no solo escribe texto.
+- **No hay links de agendamiento.** La cita se cierra dentro de la conversación de WhatsApp.
+- Consumo: **~30 créditos** una conversación que solo informa; **~195 créditos** una que termina en cita creada, reagendada o cancelada.
+
+---
+
+## Qué significa "agéntico" (y por qué importa acá)
+
+La mayoría de los chatbots que venden como "IA para clínicas" son modelos conversacionales: leen tu mensaje, generan una respuesta y ahí termina su trabajo. Si el paciente quiere una hora, el bot le pasa un link, un teléfono o un "en un momento te contacta una asesora".
+
+Un modelo agéntico hace algo distinto: **decide llamar funciones**. Cuando el paciente dice "quiero hora el jueves en la tarde", la IA no responde con una frase amable — consulta tu agenda, evalúa qué profesional atiende ese tratamiento, cuánto dura, qué sala requiere, y devuelve horarios que existen de verdad. Después crea la cita.
+
+Cada una de esas operaciones es un **tool call**: una llamada estructurada a una función definida por Clinera contra tu base de datos. La diferencia práctica es simple. Un modelo conversacional te ahorra escribir. Un modelo agéntico te ahorra el trabajo.
+
+---
+
+## Qué hace el modo Agentic
+
+Todo dentro del mismo chat, sin que el paciente salga de WhatsApp:
+
+- **Crear una cita** validando disponibilidad real del profesional, la sala y la duración del tratamiento.
+- **Reagendar** detectando conflictos y proponiendo horarios alternativos.
+- **Cancelar** y liberar el cupo automáticamente (con lo cual se activa la lista de espera si la tienes configurada).
+- **Revisar historial de pagos** del paciente para ofrecer recordatorios suaves o aplicar tu política de penalización si corresponde.
+- **Consultar sesiones previas**: qué tratamientos hizo, con qué profesional, hace cuánto — y hacer recomendaciones contextuales sobre eso.
+- **Disparar workflows** internos: enviar el consentimiento, agendar el control post-tratamiento, marcar el cupo como prepagado, generar el cobro.
+- **Derivar a una persona** cuando el caso se sale del protocolo, sin pelearle a la conversación.
+
+---
+
+## Por qué Kimi K2.6
+
+Kimi K2.6, de Moonshot AI, está construido específicamente como modelo orquestador. No es un LLM conversacional al que se le agregaron tools encima: es un modelo entrenado desde el inicio para **decidir cuándo llamar qué función, con qué argumentos y en qué orden**.
+
+Las características que nos hicieron estandarizar sobre él:
+
+- **Tool calling robusto**: rara vez alucina nombres de funciones o argumentos. Esto importa mucho cuando una llamada mal armada significa una cita mal agendada en producción, con un paciente real esperando.
+- **Razonamiento multi-paso**: encadena varias tools en una sola conversación sin perder contexto. Consultar disponibilidad → consultar historial → calcular precio con descuento por recurrencia → crear la cita → enviar confirmación → programar el recordatorio.
+- **Eficiencia en tokens**: genera respuestas compactas y aprovecha bien la ventana de contexto. Es lo que permite que un agendamiento completo cueste ~195 créditos y no el doble.
+- **Estabilidad bajo carga**: en pruebas internas sobre 2.400 conversaciones reales mantuvo consistencia de comportamiento entre las 9am y las 11pm, sin degradación notable.
+
+---
+
+## Por qué no hay links (ni integraciones externas)
+
+Durante un tiempo tuvimos modos más livianos donde la IA conversaba y le pasaba al paciente un link para que eligiera su hora, ya fuera en la agenda de Clinera o en un sistema externo. Los sacamos por dos razones.
+
+**La primera es de conversión.** El link es un salto de contexto: el paciente tiene que salir de WhatsApp, abrir una página, entender un calendario, elegir, confirmar. Entre **8% y 15%** de los pacientes que reciben un link no completan ese flujo, según la vertical. Son citas que ya estaban prácticamente cerradas y se caen en el último paso.
+
+**La segunda es de arquitectura.** Clinera opera sobre su propia agenda, sus propias fichas clínicas y su propio módulo de pagos. No se conecta a agendas de terceros. Eso significa que la IA tiene acceso directo, en tiempo real, a la disponibilidad verdadera de tu clínica — y puede escribir sobre ella. Cuando dependes de un sistema externo, la IA lee un estado que puede estar desactualizado y no siempre puede escribir. Ahí es donde nacen las dobles reservas.
+
+Si hoy usas otro software, la migración se hace en el onboarding: traemos tus pacientes, tratamientos y datos históricos para que partas con todo cargado.
+
+---
+
+## Cuánto consume: 30 vs 195 créditos
+
+Clinera factura por **créditos**, no por conversación. Cada plan trae una bolsa mensual y cada respuesta de la IA descuenta según el esfuerzo real que tomó resolverla.
+
+Como el modo es uno solo, lo que mueve la aguja no es qué modelo respondió, sino **si la conversación terminó o no en una cita**:
+
+<div style={{ overflowX: "auto", margin: "20px 0", border: "1px solid #EEECEA", borderRadius: 12 }}>
+  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 15, lineHeight: 1.5 }}>
+    <thead>
+      <tr style={{ background: "#FAFAFA", borderBottom: "1px solid #EEECEA" }}>
+        <th style={{ textAlign: "left", padding: "14px 16px", fontWeight: 600, color: "#111827", fontSize: 13, letterSpacing: "0.02em" }}>Tipo de conversación</th>
+        <th style={{ textAlign: "left", padding: "14px 16px", fontWeight: 600, color: "#111827", fontSize: 13, letterSpacing: "0.02em" }}>Qué hace la IA</th>
+        <th style={{ textAlign: "right", padding: "14px 16px", fontWeight: 600, color: "#111827", fontSize: 13, letterSpacing: "0.02em" }}>Créditos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style={{ borderBottom: "1px solid #F3F2F0" }}>
+        <td style={{ padding: "14px 16px", fontWeight: 600, color: "#0A0A0A" }}>Sin agendamiento</td>
+        <td style={{ padding: "14px 16px", color: "#374151" }}>Informa precios y horarios, cotiza, confirma o recuerda una cita existente</td>
+        <td style={{ padding: "14px 16px", textAlign: "right", color: "#374151", fontVariantNumeric: "tabular-nums" }}>~30</td>
+      </tr>
+      <tr style={{ background: "#FBFAFF" }}>
+        <td style={{ padding: "14px 16px", fontWeight: 600, color: "#0A0A0A" }}>Con agendamiento</td>
+        <td style={{ padding: "14px 16px", color: "#374151" }}>Consulta disponibilidad real y crea, reagenda o cancela la cita</td>
+        <td style={{ padding: "14px 16px", textAlign: "right", color: "#374151", fontVariantNumeric: "tabular-nums" }}>~195</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+Los números incluyen un margen conservador sobre el consumo promedio observado en clínicas activas: preferimos prometer poco y que tu mes rinda más.
+
+Para referencia, sobre la bolsa de cada plan:
+
+- **Vortex** (28.000 cr): ~933 conversaciones o ~143 agendamientos al mes.
+- **Atlas** (37.000 cr): ~1.233 conversaciones o ~190 agendamientos.
+- **Summit** (46.000 cr): ~1.533 conversaciones o ~236 agendamientos.
+
+En la práctica nunca operas con un solo tipo: es una mezcla. La [calculadora de consumo](/calculadora-de-consumo) la estima con tus propios números.
+
+---
+
+## Sobre los tokens y por qué importan
+
+Un detalle que conviene tener claro porque define la economía de cualquier despliegue de IA: **los tokens son a la IA lo que los minutos a la telefonía**.
+
+Cada palabra (más o menos) que la IA lee o escribe consume tokens. Cada tool call consume tokens para describir la función, sus argumentos y el resultado. Una conversación de agendamiento típica gasta entre 800 y 4.000 tokens en total, dependiendo de qué tan complicada sea.
+
+Cuando ves "~195 créditos por agendamiento", ese número ya incluye:
+
+- Tokens de entrada (mensajes del paciente + contexto previo + system prompt + descripción de tools).
+- Tokens de salida (respuestas de la IA + argumentos de los tool calls).
+- El costo del modelo en particular.
+- El margen operativo de Clinera.
+
+Los créditos son la unidad simple para que no tengas que entender el modelo de pricing de cada vendor. Pero por debajo, lo que pagas son tokens.
+
+---
+
+## Cómo se configura
+
+No hay modo que elegir: toda cuenta opera en Agentic desde el día uno. Lo que sí configuras durante el onboarding —y puedes cambiar después desde el panel— son las reglas de tu clínica:
+
+- Qué tratamientos ofreces, con qué duración y con qué profesionales.
+- Qué disponibilidad se publica y cuál se reserva para casos internos.
+- Si la IA cobra la reserva y con qué medio de pago.
+- En qué casos deriva a una persona.
+- El tono y la voz con la que responde.
+
+La IA mantiene su comportamiento entre cambios. Lo que ajustas es el protocolo, no el motor.
+
+[Ver planes desde USD 279/mes](/planes) · [Calcular mi consumo](/calculadora-de-consumo) · [Hablar con ventas](/hablar-con-ventas)

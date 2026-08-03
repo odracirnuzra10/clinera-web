@@ -11,16 +11,16 @@ const PLANS = [
     name: "Vortex",
     slug: "vortex",
     price: "279",
-    tagline: "AURA por WhatsApp 24/7 con agendamiento automático. Modo Eficiente + Agentic.",
+    tagline: "AURA por WhatsApp 24/7 con agendamiento automático. Modo Agentic.",
     features: [
       "28.000 créditos / mes (bolsa única)",
       "AURA por texto — WhatsApp 24/7",
       "Agendamiento automático (la IA agenda sola)",
       "10 usuarios / profesionales",
       "1 sucursal",
-      "Modos Eficiente + Agentic",
+      "Modo Agentic",
     ],
-    models: ["Gemini 3.0 Flash", "Kimi K2.6"],
+    models: ["Kimi K2.6"],
     agents: [{ id: "aura", name: "AURA" }] as DemoAgent[],
     stripeUrl: "https://buy.stripe.com/4gM7sN7cZ4Yq9wT5RV1441u",
   },
@@ -28,7 +28,7 @@ const PLANS = [
     name: "Atlas",
     slug: "atlas",
     price: "379",
-    tagline: "AURA por texto + CAMILA por voz. Más equipo, más sucursales, Agentic Pro.",
+    tagline: "AURA por texto + CAMILA por voz. Más equipo, más sucursales.",
     popular: true,
     features: [
       "37.000 créditos / mes (bolsa única)",
@@ -36,10 +36,9 @@ const PLANS = [
       "Agendamiento automático (la IA agenda sola)",
       "15 usuarios / profesionales",
       "2 sucursales",
-      "+ Agentic Pro",
       "Webhooks + API pública",
     ],
-    models: ["Gemini 3.0 Flash", "Kimi K2.6", "Gemini 3.5 Flash"],
+    models: ["Kimi K2.6"],
     agents: [
       { id: "aura", name: "AURA" },
       { id: "camila", name: "CAMILA" },
@@ -59,7 +58,7 @@ const PLANS = [
       "Sucursales ilimitadas",
       "Webhooks + API pública",
     ],
-    models: ["Gemini 3.0 Flash", "Kimi K2.6", "Gemini 3.5 Flash"],
+    models: ["Kimi K2.6"],
     agents: [
       { id: "aura", name: "AURA" },
       { id: "camila", name: "CAMILA" },
@@ -806,7 +805,7 @@ function PlansSection() {
           style={{ marginTop: 48, display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20, maxWidth: 660, margin: "48px auto 0" }}
         >
           {[
-            { price: "$100", unit: "única vez", label: "Recarga de créditos", sub: "~3.000 créditos extra para tu bolsa (texto o voz)" },
+            { price: "$15", unit: "única vez", label: "Recarga de créditos", sub: "5.000 créditos extra para tu bolsa (texto o voz)" },
             { price: "$9", unit: "/mes", label: "Profesional o usuario extra", sub: "" },
           ].map((it) => (
             <div

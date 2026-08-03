@@ -1,37 +1,37 @@
 import React from "react";
 import SlideHeader from "./SlideHeader";
 
-interface Mode {
+interface Bloque {
   name: string;
-  model: string;
+  chip: string;
   desc: string;
   traits: string[];
   accent: string;
   glow: string;
 }
 
-const modes: Mode[] = [
+const bloques: Bloque[] = [
   {
-    name: "Eficiente",
-    model: "Gemini 3.0 Flash",
-    desc: "El modo más económico. Responde y agenda en flujos guiados, pero no ejecuta acciones por sí solo: no incluye capacidades agénticas.",
-    traits: ["Sin funciones agénticas", "Costo más bajo"],
-    accent: "var(--cyan)",
-    glow: "rgba(0,212,255,0.16)",
-  },
-  {
-    name: "Agentic",
-    model: "Kimi K2.6",
-    desc: "El punto de equilibrio entre capacidades y costo. Agente resolutivo que agenda, re-agenda y coordina de forma autónoma con un consumo intermedio.",
-    traits: ["Equilibrio función / costo", "Autonomía completa"],
+    name: "Qué hace",
+    chip: "Agentic",
+    desc: "Agente resolutivo: agenda, re-agenda, cancela y coordina de forma autónoma dentro del chat. No manda links ni depende de sistemas externos — opera contra la agenda de Clinera.",
+    traits: ["Autonomía completa", "Sin integraciones externas"],
     accent: "var(--violet)",
     glow: "rgba(184,71,255,0.16)",
   },
   {
-    name: "Agentic Pro",
-    model: "Claude Sonnet 4.6",
-    desc: "El más rápido y potente. Acciones autónomas con la mejor velocidad de respuesta. Máxima capacidad y, también, el costo más alto.",
-    traits: ["Máxima velocidad", "Costo más alto"],
+    name: "Con qué modelo",
+    chip: "Kimi K2.6",
+    desc: "Modelo orquestador de tool calling. Decide cuándo llamar qué función, con qué argumentos y en qué orden. Es el único modelo en producción desde la migración.",
+    traits: ["Tool calling robusto", "Razonamiento multi-paso"],
+    accent: "var(--cyan)",
+    glow: "rgba(0,212,255,0.16)",
+  },
+  {
+    name: "Cuánto consume",
+    chip: "30 / 195 cr",
+    desc: "Una conversación que solo informa consume ~30 créditos. Una que termina en cita creada, re-agendada o cancelada consume ~195. Esa mezcla define el consumo real de cada cuenta.",
+    traits: ["~30 cr conversar", "~195 cr agendar"],
     accent: "var(--magenta)",
     glow: "rgba(255,71,217,0.16)",
   },
@@ -45,47 +45,47 @@ export default function SchedulingModes() {
         eyebrow="Operación · desde el 1 de junio"
         title={
           <>
-            Los <span className="gradient-text">3 modos</span> de agendamiento
+            Un <span className="gradient-text">solo modo</span> de agendamiento
           </>
         }
-        lead="Desde el 1 de junio, cada clínica opera en uno de tres modos. Cada modo está respaldado por un modelo de IA distinto y define el equilibrio entre costo, velocidad y autonomía del agente."
+        lead="Desde el 1 de junio todas las clínicas operan en modo Agentic sobre Kimi K2.6. Se elimina la elección de modo: la IA siempre razona y siempre puede ejecutar acciones. Lo que varía es si la conversación termina o no en una cita."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {modes.map((m, i) => (
-          <div key={m.name} className="card card-hover p-8 flex flex-col relative overflow-hidden">
+        {bloques.map((b, i) => (
+          <div key={b.name} className="card card-hover p-8 flex flex-col relative overflow-hidden">
             {/* glow superior */}
             <div
               className="pointer-events-none absolute -top-16 -right-10 h-40 w-40 rounded-full"
-              style={{ background: `radial-gradient(circle, ${m.glow} 0%, transparent 70%)` }}
+              style={{ background: `radial-gradient(circle, ${b.glow} 0%, transparent 70%)` }}
             />
 
             <div className="flex items-center justify-between mb-7">
-              <span className="stat-value text-2xl" style={{ color: m.accent }}>
+              <span className="stat-value text-2xl" style={{ color: b.accent }}>
                 0{i + 1}
               </span>
               <span
                 className="chip"
                 style={{
-                  borderColor: m.accent,
-                  color: m.accent,
-                  background: m.glow,
+                  borderColor: b.accent,
+                  color: b.accent,
+                  background: b.glow,
                 }}
               >
-                {m.model}
+                {b.chip}
               </span>
             </div>
 
             <h3 className="text-xl font-bold mb-4" style={{ color: "var(--ink)" }}>
-              {m.name}
+              {b.name}
             </h3>
 
             <p className="text-[0.95rem] leading-[1.8] mb-8" style={{ color: "var(--ink-soft)" }}>
-              {m.desc}
+              {b.desc}
             </p>
 
             <div className="flex flex-wrap gap-2.5 mt-auto pt-6" style={{ borderTop: "1px solid var(--border)" }}>
-              {m.traits.map((t) => (
+              {b.traits.map((t) => (
                 <span key={t} className="chip chip-muted">
                   {t}
                 </span>
@@ -96,8 +96,9 @@ export default function SchedulingModes() {
       </div>
 
       <p className="text-sm mt-8 leading-[1.8]" style={{ color: "var(--ink-faint)" }}>
-        El modo asignado determina el costo por token y, por lo tanto, el límite de consumo que
-        aplica a cada cuenta (ver <a href="#limites" style={{ color: "var(--cyan)" }}>Política de límites</a>).
+        Al operar todas las cuentas sobre el mismo modelo, el costo por token es uniforme y el
+        límite de consumo depende solo del volumen de cada cuenta (ver{" "}
+        <a href="#limites" style={{ color: "var(--cyan)" }}>Política de límites</a>).
       </p>
     </section>
   );

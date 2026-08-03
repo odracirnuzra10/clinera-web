@@ -4610,7 +4610,7 @@ export function Pricing({
             color: "#6B7280",
           }}
         >
-          $20 USD = 5.000 créditos ≈ 500 conversaciones simples o ~25 agendamientos automáticos
+          $15 USD = 5.000 créditos ≈ 166 conversaciones o ~25 agendamientos automáticos
         </div>
 
         <div

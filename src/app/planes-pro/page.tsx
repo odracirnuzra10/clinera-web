@@ -10,7 +10,7 @@ const URL = "https://www.clinera.io/planes-pro";
 export const metadata: Metadata = {
   title: "Planes Pro · precios y créditos explicados al detalle — Clinera.io",
   description:
-    "La vista a fondo de los planes de Clinera: qué es un crédito, por qué una conversación no siempre cuesta lo mismo (Eficiente ~10 vs Agentic ~195) y cuánto rinde cada plan. Vortex 28.000 cr, Atlas 37.000 cr, Summit 46.000 cr. Calculadora de consumo incluida. Permanencia mínima de 6 meses · semestral con 20% OFF · + USD 750 de configuración inicial.",
+    "La vista a fondo de los planes de Clinera: qué es un crédito, por qué una conversación no siempre cuesta lo mismo (conversar ~30 vs agendar ~195) y cuánto rinde cada plan. Vortex 28.000 cr, Atlas 37.000 cr, Summit 46.000 cr. Calculadora de consumo incluida. Permanencia mínima de 6 meses · semestral con 20% OFF · + USD 750 de configuración inicial.",
   alternates: { canonical: URL },
   openGraph: {
     type: "website",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "Clinera.io",
     title: "Planes Pro · precios y créditos explicados al detalle",
     description:
-      "Transparencia total: créditos visibles, modos de IA explicados y una calculadora para estimar tu plan ideal.",
+      "Transparencia total: créditos visibles, el modo Agentic explicado y una calculadora para estimar tu plan ideal.",
     images: ["/images/og-banner.png"],
   },
   twitter: {
@@ -37,15 +37,15 @@ const FAQS: { q: string; a: string; confirmar?: boolean }[] = [
   },
   {
     q: "¿Por qué una conversación no siempre cuesta lo mismo?",
-    a: "Depende del modo en que responde tu agente. En modo Eficiente (respuestas directas: confirmar, recordar, responder dudas frecuentes o pasar un link de agenda) una conversación gasta ~10 créditos. En modo Agentic (razonamiento multi-paso: agendar la hora sola, cotizar tratamientos, resolver objeciones) gasta ~195: casi 20× más, porque la IA piensa, consulta tu agenda y ejecuta varios pasos. La mayoría de la operación diaria es Eficiente; el modo Agentic entra cuando la IA agenda sola y en los casos que de verdad lo ameritan.",
+    a: "Depende de cuánto trabajo tomó resolverla. Clinera opera en un único modo, Agentic: la IA siempre razona y siempre puede ejecutar acciones. Una conversación que solo informa (precios, horarios, confirmar o recordar una cita) gasta ~30 créditos. Una que termina en agendamiento —crear, reagendar o cancelar la hora— gasta ~195: unas 6× más, porque la IA consulta la disponibilidad real de tu agenda y ejecuta varios pasos. La mayoría de la operación diaria son conversaciones; el agendamiento entra cuando el paciente de verdad reserva.",
   },
   {
-    q: "¿Cómo sé en qué modo responde mi agente?",
-    a: "Tú lo configuras. Defines qué situaciones se resuelven en modo Eficiente y cuáles escalan a Agentic, según el tipo de clínica y de consulta. La mezcla real entre ambos modos es lo que determina cuánto rinde tu bolsa de créditos cada mes.",
+    q: "¿Puedo elegir cómo responde mi agente?",
+    a: "El modo es uno solo —Agentic— y viene activo en todos los planes: la IA agenda sola, dentro del chat, sin mandar links ni depender de sistemas externos. Lo que sí configuras son las reglas de tu clínica: qué tratamientos ofrece, con qué profesionales, qué disponibilidad publica y en qué casos deriva a una persona.",
   },
   {
     q: "¿Qué pasa si se me acaban los créditos del mes?",
-    a: "No se corta el servicio de golpe ni hay cobros sorpresa. Puedes sumar una recarga de créditos (USD 55 = 5.000 créditos) cuando lo necesites, o subir de plan. La calculadora de esta página te muestra de antemano cuántas recargas harían falta a tu volumen para que no te tome por sorpresa.",
+    a: "No se corta el servicio de golpe ni hay cobros sorpresa. Puedes sumar una recarga de créditos (USD 15 = 5.000 créditos) cuando lo necesites, o subir de plan. La calculadora de esta página te muestra de antemano cuántas recargas harían falta a tu volumen para que no te tome por sorpresa.",
   },
   {
     q: "¿Los créditos no usados se acumulan o vencen?",
@@ -54,7 +54,7 @@ const FAQS: { q: string; a: string; confirmar?: boolean }[] = [
   },
   {
     q: "¿Las llamadas de voz (CAMILA) consumen créditos?",
-    a: "Sí. CAMILA atiende por voz y consume de la misma bolsa: cada minuto de voz gasta 25 créditos, aparte de las conversaciones de texto de AURA. Si esa llamada termina en un agendamiento automático (modo Agentic), ese cierre consume como una conversación Agentic (~195 créditos).",
+    a: "Sí. CAMILA atiende por voz y consume de la misma bolsa: cada minuto de voz gasta 25 créditos, aparte de las conversaciones de texto de AURA. Si esa llamada termina en un agendamiento automático, ese cierre consume como cualquier agendamiento (~195 créditos).",
   },
   {
     q: "¿Puedo cambiar de plan cuando quiera?",
