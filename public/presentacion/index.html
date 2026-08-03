@@ -2586,192 +2586,194 @@
       text-wrap: pretty;
     }
 
-    /* --- Cinco razones (#razones) --- */
-    .rz-layout {
+    /* --- Las cinco razones, una por diapositiva (#razon-1 … #razon-5) --- */
+    .rzs-layout {
       display: grid;
-      grid-template-columns: minmax(300px, .74fr) minmax(0, 1.26fr);
+      grid-template-columns: minmax(0, 1fr) minmax(330px, .96fr);
       align-items: center;
       align-content: center;
-      gap: clamp(56px, 6.5vw, 104px);
+      gap: clamp(40px, 5vw, 82px);
       max-width: 1240px;
     }
 
-    /* Jerarquía de la intro: titular > frase de remate > bajada de apoyo. */
-    .rz-punch {
-      max-width: 430px;
-      margin: 18px 0 0;
-      color: var(--ink);
-      font-size: clamp(19px, 1.5vw, 22px);
-      font-weight: 600;
-      letter-spacing: -.02em;
-      line-height: 1.35;
-      text-wrap: pretty;
+    .rzs-copy .blk-h2 {
+      max-width: 560px;
     }
 
-    .rz-intro .blk-lead {
-      max-width: 420px;
-      margin-top: 14px;
-      color: var(--ink-muted);
-      font-size: 17px;
+    .rzs-copy .blk-lead {
+      max-width: 490px;
     }
 
-    .slide.active .rz-punch {
-      animation: enter .64s var(--ease) both;
-      animation-delay: .08s;
-    }
-
-    .rz-list {
-      margin: 0;
+    .rzs-points {
+      display: grid;
+      gap: 10px;
+      margin: 24px 0 0;
       padding: 0;
       list-style: none;
-      border-top: 1px solid var(--border-sterile);
-    }
-
-    .rz-item {
-      border-bottom: 1px solid var(--border-sterile);
-    }
-
-    .rz-heading {
-      margin: 0;
-      font-size: inherit;
-      font-weight: inherit;
-      line-height: inherit;
-    }
-
-    .rz-toggle {
-      display: grid;
-      grid-template-columns: 44px minmax(0, 1fr) 26px;
-      align-items: baseline;
-      width: 100%;
-      padding: 18px 0;
-      border: 0;
-      background: none;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .rz-num {
-      color: var(--ink-light);
-      font-family: var(--blk-mono);
-      font-size: 13px;
-      font-weight: 700;
-      transition: color .28s ease;
-    }
-
-    .rz-name {
-      color: var(--ink-soft);
-      font-family: var(--blk-sans);
-      font-size: clamp(19px, 1.55vw, 23px);
-      font-weight: 600;
-      letter-spacing: -.02em;
-      line-height: 1.3;
-      transition: color .28s ease;
-    }
-
-    /* Marca que la lista es navegable: sin esto los títulos no se leen
-       como algo en lo que se puede hacer clic. */
-    .rz-chev {
-      display: grid;
-      place-items: center;
-      align-self: center;
-      width: 26px;
-      height: 26px;
-      color: var(--ink-light);
-      transition: transform .34s var(--ease), color .28s ease;
-    }
-
-    .rz-chev svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .rz-toggle:hover .rz-name,
-    .rz-item.open .rz-name {
-      color: var(--ink);
-    }
-
-    .rz-toggle:hover .rz-num,
-    .rz-toggle:hover .rz-chev {
-      color: var(--ink-muted);
-    }
-
-    .rz-item.open .rz-num {
-      color: var(--brand-violet);
-    }
-
-    .rz-item.open .rz-chev {
-      color: var(--brand-violet);
-      transform: rotate(90deg);
-    }
-
-    .rz-body {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows .45s var(--ease);
-    }
-
-    .rz-body-inner {
-      min-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity .28s ease, transform .34s var(--ease);
-    }
-
-    .rz-item.open .rz-body {
-      grid-template-rows: 1fr;
-    }
-
-    .rz-item.open .rz-body-inner {
-      opacity: 1;
-      transform: none;
-      transition-delay: .1s;
-    }
-
-    .rz-body-inner > p {
-      max-width: 620px;
-      margin: 0 0 13px;
-      padding-left: 44px;
       color: var(--ink-soft);
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.5;
+    }
+
+    .rzs-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
       text-wrap: pretty;
     }
 
-    .rz-body-inner > p:first-child {
-      margin-top: 3px;
+    .rzs-points li::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      margin-top: 8px;
+      border-radius: 2px;
+      background: var(--brand-violet);
     }
 
-    .rz-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      max-width: 620px;
-      margin: 18px 0 24px 44px;
-      padding: 18px 20px;
+    .slide.active .rzs-points {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .14s;
+    }
+
+    /* ---- Ventana de producto compartida por los cinco mockups ---- */
+    .mock {
+      justify-self: end;
+      width: min(100%, 500px);
+      overflow: hidden;
       border: 1px solid var(--border-sterile);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .mock-bar {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 38px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border-sterile);
+      background: var(--bg-cloud);
+    }
+
+    .mock-dots {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 5px;
+    }
+
+    .mock-dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .mock-dots i:nth-child(1) { background: #ff5f57; }
+    .mock-dots i:nth-child(2) { background: #febc2e; }
+    .mock-dots i:nth-child(3) { background: #28c840; }
+
+    .mock-title {
+      overflow: hidden;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .mock-body {
+      display: grid;
+      gap: 9px;
+      padding: 15px 14px;
       background: var(--bg-ice);
     }
 
-    .rz-card-icon {
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      width: 22px;
-      height: 22px;
-      margin-top: 2px;
-      color: var(--brand-violet);
+    /* Las piezas entran en secuencia. El selector exige .slide.active, así
+       la animación sólo corre en la diapositiva visible y se reinicia cada
+       vez que se vuelve a ella. */
+    .slide.active .mock-step {
+      animation: mockIn .5s var(--ease) both;
     }
 
-    .rz-card-icon svg {
-      width: 20px;
-      height: 20px;
+    @keyframes mockIn {
+      from { opacity: 0; transform: translateY(9px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ---- Burbujas de chat (razones 1, 4 y 5) ---- */
+    .mock-msg {
+      max-width: 90%;
+      padding: 9px 13px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    .mock-msg.in {
+      justify-self: start;
+      border: 1px solid var(--border-sterile);
+      border-bottom-left-radius: 4px;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .mock-msg.out {
+      justify-self: end;
+      border-bottom-right-radius: 4px;
+      color: #ffffff;
+      background: var(--brand-violet);
+    }
+
+    .mock-msg span {
+      display: block;
+      margin-bottom: 5px;
+      font-family: var(--blk-mono);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .mock-msg.out span {
+      color: #ffffffb8;
+    }
+
+    .mock-msg.in span {
+      color: var(--ink-muted);
+    }
+
+    /* ---- Tarjeta de llamada con onda (razón 1) ---- */
+    .mock-call {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 13px;
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+    }
+
+    .mock-icon {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid #7c3aed26;
+      border-radius: var(--radius-md);
+      color: var(--brand-violet);
+      background: #7c3aed0f;
+    }
+
+    .mock-icon svg {
+      width: 17px;
+      height: 17px;
       fill: none;
       stroke: currentColor;
       stroke-width: 1.7;
@@ -2779,17 +2781,392 @@
       stroke-linejoin: round;
     }
 
-    .rz-card p {
-      margin: 0;
+    .mock-call b,
+    .mock-call small {
+      display: block;
+    }
+
+    .mock-call b {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .mock-call small {
+      margin-top: 2px;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 8.5px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .mock-wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 18px;
+      margin-left: auto;
+    }
+
+    .mock-wave i {
+      width: 3px;
+      height: 5px;
+      border-radius: 2px;
+      background: var(--brand-violet);
+    }
+
+    .slide.active .mock-wave i {
+      animation: mockWave 1s ease-in-out infinite;
+    }
+
+    .slide.active .mock-wave i:nth-child(2) { animation-delay: .12s; }
+    .slide.active .mock-wave i:nth-child(3) { animation-delay: .24s; }
+    .slide.active .mock-wave i:nth-child(4) { animation-delay: .36s; }
+    .slide.active .mock-wave i:nth-child(5) { animation-delay: .48s; }
+
+    @keyframes mockWave {
+      0%, 100% { height: 5px; }
+      50% { height: 17px; }
+    }
+
+    /* ---- Flujo automático (razón 2) ---- */
+    .mock-flow {
+      display: grid;
+    }
+
+    .mock-flow-step {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 2px;
+    }
+
+    .mock-flow-step + .mock-flow-step {
+      border-top: 1px solid var(--border-sterile);
+    }
+
+    .mock-flow-step b,
+    .mock-flow-step small {
+      display: block;
+    }
+
+    .mock-flow-step b {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.25;
+    }
+
+    .mock-flow-step small {
+      margin-top: 2px;
+      color: var(--ink-muted);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .mock-check {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      margin-left: auto;
+      color: var(--brand-mint);
+    }
+
+    .mock-check svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .slide.active .mock-check {
+      animation: mockPop .42s var(--ease) both;
+    }
+
+    @keyframes mockPop {
+      from { opacity: 0; transform: scale(.55); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ---- Filas de morosos (razón 3) ---- */
+    .mock-row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 9px 11px;
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+    }
+
+    .mock-avatar {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
       color: var(--ink-soft);
-      font-size: 15px;
-      line-height: 1.6;
+      background: var(--bg-steel);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .mock-row b,
+    .mock-row small {
+      display: block;
+    }
+
+    .mock-row b {
+      color: var(--ink);
+      font-size: 12.5px;
+      font-weight: 650;
+      line-height: 1.2;
+    }
+
+    .mock-row small {
+      margin-top: 2px;
+      color: var(--ink-muted);
+      font-size: 10.5px;
+    }
+
+    .mock-chip {
+      flex: 0 0 auto;
+      margin-left: auto;
+      padding: 4px 9px;
+      border-radius: var(--radius-sm);
+      font-family: var(--blk-mono);
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .mock-chip.act {
+      color: var(--brand-violet);
+      background: #7c3aed14;
+    }
+
+    .mock-chip.done {
+      color: var(--brand-mint);
+      background: #10b98114;
+    }
+
+    .mock-total {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 3px;
+      padding-top: 11px;
+      border-top: 1px solid var(--border-sterile);
+    }
+
+    .mock-total span {
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .mock-total b {
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    /* ---- Mensajes por sede (razón 4) ---- */
+    .mock-sede {
+      display: flex;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .mock-sede-av {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      color: #ffffff;
+      font-family: var(--blk-mono);
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .mock-sede-av.c1 { background: var(--brand-cyan); }
+    .mock-sede-av.c2 { background: var(--brand-violet); }
+    .mock-sede-av.c3 { background: var(--brand-magenta); }
+
+    .mock-sede-body {
+      min-width: 0;
+    }
+
+    .mock-sede-body span {
+      display: block;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .mock-sede-body p {
+      margin: 4px 0 0;
+      padding: 8px 11px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 10px;
+      border-top-left-radius: 3px;
+      color: var(--ink);
+      background: #ffffff;
+      font-size: 13px;
+      line-height: 1.45;
       text-wrap: pretty;
     }
 
-    .rz-card b {
+    /* ---- Respuesta con gráfico (razón 5) ---- */
+    .mock-answer {
+      padding: 12px 13px 13px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 12px 12px 12px 4px;
+      background: #ffffff;
+    }
+
+    .mock-ai-head {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--brand-violet);
+      font-family: var(--blk-mono);
+      font-size: 8.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .mock-ai-head svg {
+      width: 11px;
+      height: 11px;
+      fill: currentColor;
+    }
+
+    .mock-answer > p {
+      margin: 9px 0 0;
       color: var(--ink);
+      font-size: 13px;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .mock-answer b {
       font-weight: 700;
+    }
+
+    .mock-bars {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 11px;
+      border-top: 1px solid var(--border-sterile);
+    }
+
+    .mock-bars > div {
+      display: grid;
+      grid-template-columns: 62px minmax(0, 1fr) 44px;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .mock-bars span {
+      color: var(--ink-muted);
+      font-size: 11px;
+    }
+
+    .mock-bars b {
+      display: block;
+      height: 7px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: var(--bg-steel);
+    }
+
+    .mock-bars b i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--brand-violet);
+      transform-origin: left center;
+    }
+
+    .mock-bars b i.soft {
+      background: var(--ink-light);
+    }
+
+    .slide.active .mock-bars b i {
+      animation: mockGrow .85s .5s var(--ease) both;
+    }
+
+    @keyframes mockGrow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    .mock-bars small {
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .mock-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 13px;
+      border-top: 1px solid var(--border-sterile);
+      background: #ffffff;
+    }
+
+    .mock-input span {
+      color: var(--ink-muted);
+      font-size: 12.5px;
+    }
+
+    .mock-input i {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: var(--radius-md);
+      color: #ffffff;
+      background: var(--brand-violet);
+    }
+
+    .mock-input i svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     /* --- La condición (#migracion) — la única sección oscura --- */
@@ -2972,28 +3349,22 @@
     /* Responsive del bloque nuevo */
     @media (max-width: 960px) {
       .pq-layout,
-      .rz-layout,
+      .rzs-layout,
       .cn-layout {
         grid-template-columns: 1fr;
         align-items: start;
-        gap: 46px;
+        gap: 40px;
       }
 
       .pq-copy .blk-lead,
-      .rz-intro .blk-lead {
+      .rzs-copy .blk-lead,
+      .rzs-copy .blk-h2 {
         max-width: 640px;
       }
 
-      .rz-punch {
-        max-width: 640px;
-      }
-
-      .rz-layout {
-        gap: 34px;
-      }
-
-      .rz-toggle {
-        padding: 15px 0;
+      .mock {
+        justify-self: start;
+        width: min(100%, 520px);
       }
 
       .cn-cards {
@@ -3002,41 +3373,22 @@
     }
 
     @media (max-width: 620px) {
-      .pq-layout,
-      .rz-layout,
-      .cn-layout {
-        gap: 40px;
-      }
-
       .blk-lead {
         font-size: 17px;
       }
 
-      .rz-toggle {
-        grid-template-columns: 32px minmax(0, 1fr) 22px;
+      .rzs-points {
+        margin-top: 20px;
+        font-size: 15px;
       }
 
-      .rz-name {
-        font-size: 19px;
+      .mock {
+        width: 100%;
       }
 
-      .rz-chev {
-        width: 22px;
-        height: 22px;
-      }
-
-      .rz-chev svg {
-        width: 16px;
-        height: 16px;
-      }
-
-      .rz-body-inner > p {
-        padding-left: 0;
-        font-size: 16px;
-      }
-
-      .rz-card {
-        margin-left: 0;
+      .mock-msg {
+        max-width: 94%;
+        font-size: 13px;
       }
 
       .cn-body {
@@ -3052,65 +3404,164 @@
       }
     }
 
-    /* Las cinco razones son la sección más alta del deck. En pantallas de
-       laptop se compacta para que el ítem abierto entre completo.
-       Va al final de la hoja a propósito: las definiciones base de .rz-*
-       están más arriba y, a igual especificidad, gana la última. */
+
+
+    /* ------------------------------------------------------------
+       Pantallas chicas: laptops de 1024x640 y tablet en vertical.
+       Todo este bloque va al final por la misma razón que el anterior:
+       a igual especificidad gana la última regla.
+       ------------------------------------------------------------ */
+
+    /* El diagrama de Clinera O.S. tiene anchos mínimos de columna que
+       suman más que el ancho disponible bajo ~1180px, y como un ítem de
+       grid no baja de su min-content, el slide terminaba con scroll
+       horizontal. Se estrechan los mínimos en vez de apilar las columnas,
+       que en pantallas bajas dispararía el alto. */
+    @media (min-width: 961px) and (max-width: 1180px) {
+      .intelligence-system {
+        grid-template-columns: minmax(300px, 1.25fr) minmax(160px, .62fr) minmax(250px, .96fr);
+        gap: 18px;
+      }
+    }
+
     @media (max-height: 820px) and (min-width: 961px) {
-      .rz-punch {
-        margin-top: 14px;
-        font-size: 19px;
+      /* En #agente la columna alta es el texto, no el chat: se compacta
+         solo esa, así no hay que tocar el mockup animado (su capa lleva
+         un inset fijo que debe calzar con el padding del cuerpo). */
+      .agent-copy .display.medium {
+        font-size: clamp(36px, 3.6vw, 50px);
       }
 
-      .rz-intro .blk-lead {
-        margin-top: 11px;
-        font-size: 16px;
+      .agent-points {
+        margin-top: 22px;
+        gap: 9px;
       }
 
-      .rz-toggle {
-        padding: 13px 0;
+      .pq-list {
+        gap: 22px;
       }
 
-      .rz-name {
-        font-size: clamp(17px, 1.4vw, 20px);
+      .pq-item-title {
+        font-size: 18px;
       }
 
-      .rz-body-inner > p {
-        margin-bottom: 10px;
+      .pq-item-text {
+        margin-top: 6px;
         font-size: 15px;
       }
 
-      .rz-card {
-        margin: 14px 0 16px 44px;
-        padding: 14px 17px;
+      .pq-floor {
+        margin-top: 24px;
+        padding-top: 20px;
+      }
+
+      .pq-floor-figure {
+        margin-top: 9px;
+        font-size: clamp(26px, 2.5vw, 36px);
+      }
+
+      .pq-floor-note {
+        margin-top: 9px;
+        font-size: 14px;
+      }
+
+      .cn-highlight {
+        margin-top: 20px;
+        font-size: clamp(19px, 1.7vw, 23px);
+      }
+
+      .cn-body {
+        margin-top: 14px;
+        font-size: 16px;
+      }
+
+      .cn-seal {
+        margin-top: 24px;
+        padding: 11px 15px;
+      }
+
+      .cn-cards {
+        gap: 11px;
+      }
+
+      .cn-card {
+        padding: 17px 19px;
+      }
+
+      .cn-card p {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.5;
       }
     }
 
     @media (max-height: 720px) and (min-width: 961px) {
-      .rz-punch {
-        font-size: 18px;
+      .pq-list {
+        gap: 18px;
       }
 
-      .rz-toggle {
-        padding: 10px 0;
-      }
-
-      .rz-name {
-        font-size: clamp(16px, 1.3vw, 18px);
-      }
-
-      .rz-body-inner > p {
-        margin-bottom: 8px;
+      .pq-item-text {
         font-size: 14px;
       }
 
-      .rz-card {
-        margin: 12px 0 14px 44px;
-        padding: 12px 15px;
+      .pq-floor {
+        margin-top: 20px;
+        padding-top: 16px;
       }
 
-      .rz-card p {
+
+
+
+
+
+
+
+      .cn-body {
+        margin-top: 12px;
+        font-size: 15px;
+      }
+
+      .cn-seal {
+        margin-top: 20px;
+      }
+
+      .cn-cards {
+        gap: 9px;
+      }
+
+      .cn-card {
+        padding: 13px 16px;
+      }
+
+      .cn-card p {
+        margin-top: 6px;
+        font-size: 13px;
+      }
+    }
+
+    /* Tablet en vertical: una columna, pero con alto de sobra sólo en
+       apariencia — "La condición" apila copy y tres tarjetas. */
+    @media (min-width: 621px) and (max-width: 960px) {
+      .cn-layout {
+        gap: 32px;
+      }
+
+      .cn-cards {
+        gap: 11px;
+      }
+
+      .cn-card {
+        padding: 18px 20px;
+      }
+
+      .cn-card p {
+        margin-top: 8px;
         font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .cn-seal {
+        margin-top: 24px;
       }
     }
 
@@ -3617,139 +4068,279 @@
 
       <section
         class="slide blk"
-        id="razones"
-        data-name="5 razones"
+        id="razon-1"
+        data-name="Razón 01"
         aria-hidden="true"
       >
-        <div class="slide-inner rz-layout">
-          <div class="rz-intro">
-            <div class="blk-eyebrow">POR QUÉ MIGRARTE</div>
-            <h2 class="blk-h2">5 razones para migrarte a <span class="blk-grad-text">Clinera O.S.</span></h2>
-            <p class="rz-punch">Todas son la misma: crecer sin romperte.</p>
-            <p class="blk-lead">Una clínica que crece suma pacientes más rápido de lo que suma manos. Ahí es donde se pierde la plata: no en la venta, en todo lo que pasa después de la venta.</p>
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="blk-eyebrow">RAZÓN 01 · AURA</div>
+            <h2 class="blk-h2">Crece <span class="blk-grad-text">sin subir costos</span>.</h2>
+            <p class="blk-lead">AURA responde, agenda, confirma y reagenda por ti las 24 horas, por WhatsApp y por llamada. El volumen sube y la planilla de sueldos no tiene por qué seguirlo.</p>
+            <ul class="rzs-points">
+              <li>Atiende de noche, fines de semana y feriados</li>
+              <li>Cuando la conversación se pone delicada, tu equipo toma el control</li>
+              <li>Sin perder una línea del historial</li>
+            </ul>
           </div>
 
-          <ul class="rz-list reveal" id="razonesList">
-            <li class="rz-item open">
-              <h3 class="rz-heading">
-                <button class="rz-toggle" type="button" id="razonTab1" aria-expanded="true" aria-controls="razonBody1">
-                  <span class="rz-num" aria-hidden="true">01</span>
-                  <span class="rz-name">Creces sin sumar recepción</span>
-                  <span class="rz-chev" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
-                  </span>
-                </button>
-              </h3>
-              <div class="rz-body" id="razonBody1" role="region" aria-labelledby="razonTab1">
-                <div class="rz-body-inner">
-                  <p>Hoy cada paciente nuevo cuesta un poco más de tiempo humano. Ese es el techo real de tu clínica y no aparece en ningún reporte hasta que ya te pasó por encima.</p>
-                  <p>El volumen sube y la planilla de sueldos no tiene por qué seguirlo.</p>
-                  <div class="rz-card">
-                    <span class="rz-card-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
-                    </span>
-                    <p><b>AURA</b> — La IA que responde, agenda, confirma y reagenda por ti. Las 24 horas, por WhatsApp. Cuando la conversación se pone delicada, tu equipo toma el control sin perder una línea del historial.</p>
-                  </div>
-                </div>
+          <aside class="mock reveal" aria-label="AURA respondiendo por WhatsApp y llamando por teléfono">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">AURA · WhatsApp</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-msg in mock-step" style="animation-delay: .2s">
+                <span>Paciente · 23:47</span>
+                Hola, ¿tienen hora para limpieza esta semana?
               </div>
-            </li>
+              <div class="mock-msg out mock-step" style="animation-delay: 1s">
+                <span>AURA</span>
+                Sí. Tengo jueves 15:30 o viernes 11:00. ¿Cuál te acomoda?
+              </div>
+              <div class="mock-msg in mock-step" style="animation-delay: 1.9s">
+                <span>Paciente</span>
+                Jueves 15:30
+              </div>
+              <div class="mock-msg out mock-step" style="animation-delay: 2.6s">
+                <span>AURA</span>
+                Listo, quedaste agendada para el jueves a las 15:30.
+              </div>
+              <div class="mock-call mock-step" style="animation-delay: 3.4s">
+                <span class="mock-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0M4 13h3v5H4v-5ZM17 13h3v5h-3v-5Zm3 5a4 4 0 0 1-4 3h-3"/></svg>
+                </span>
+                <span>
+                  <b>Llamando a Marcela P.</b>
+                  <small>CAMILA · confirmación de hora</small>
+                </span>
+                <span class="mock-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
 
-            <li class="rz-item">
-              <h3 class="rz-heading">
-                <button class="rz-toggle" type="button" id="razonTab2" aria-expanded="false" aria-controls="razonBody2">
-                  <span class="rz-num" aria-hidden="true">02</span>
-                  <span class="rz-name">No pierdes al paciente que ya ganaste</span>
-                  <span class="rz-chev" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
-                  </span>
-                </button>
-              </h3>
-              <div class="rz-body" id="razonBody2" role="region" aria-labelledby="razonTab2">
-                <div class="rz-body-inner">
-                  <p>Conseguir un paciente te costó plata. Perderlo por una hora no confirmada, un mensaje sin responder o un control que nadie recordó es la fuga más cara y la más invisible de todas.</p>
-                  <p>Tu recepción deja de perseguir gente y vuelve a atender.</p>
-                  <div class="rz-card">
-                    <span class="rz-card-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="m13 2-8 12h6l-1 8 9-13h-6V2Z"/></svg>
-                    </span>
-                    <p><b>Automatizaciones a medida</b> — Nuestro equipo de ingenieros construye las automatizaciones ajustadas a tu proceso de ventas. No es una plantilla genérica: es tu flujo, funcionando solo.</p>
-                  </div>
-                </div>
-              </div>
-            </li>
+      <section
+        class="slide blk"
+        id="razon-2"
+        data-name="Razón 02"
+        aria-hidden="true"
+      >
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="blk-eyebrow">RAZÓN 02 · AUTOMATIZACIONES</div>
+            <h2 class="blk-h2">Automatización inteligente de <span class="blk-grad-text">recordatorios</span>.</h2>
+            <p class="blk-lead">Con las automatizaciones no perderás pacientes que ya te agendaron. La hora se confirma sola, sin que recepción tenga que perseguir a nadie.</p>
+            <ul class="rzs-points">
+              <li>Cita agendada, recordatorio enviado, paciente confirmado</li>
+              <li>Nuestro equipo ajusta el flujo a tu proceso: no es una plantilla genérica</li>
+              <li>Tu recepción deja de perseguir gente y vuelve a atender</li>
+            </ul>
+          </div>
 
-            <li class="rz-item">
-              <h3 class="rz-heading">
-                <button class="rz-toggle" type="button" id="razonTab3" aria-expanded="false" aria-controls="razonBody3">
-                  <span class="rz-num" aria-hidden="true">03</span>
-                  <span class="rz-name">Cobras lo pendiente y llenas lo vacío</span>
-                  <span class="rz-chev" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+          <aside class="mock reveal" aria-label="Flujo automático: cita agendada, recordatorio enviado y paciente confirmado">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">Automatización · Recordatorios</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-flow">
+                <div class="mock-flow-step mock-step" style="animation-delay: .2s">
+                  <span class="mock-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg>
                   </span>
-                </button>
-              </h3>
-              <div class="rz-body" id="razonBody3" role="region" aria-labelledby="razonTab3">
-                <div class="rz-body-inner">
-                  <p>Hay dos fugas que nadie alcanza a mirar: la plata que quedó pendiente y las horas de agenda que no producen. Las dos están a la vista todos los días y las dos necesitan que alguien tenga tiempo, y ese alguien nunca lo tiene.</p>
-                  <p>Cada gestión queda registrada: quién, cuándo y qué respondió.</p>
-                  <div class="rz-card">
-                    <span class="rz-card-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0M4 13h3v5H4v-5ZM17 13h3v5h-3v-5Zm3 5a4 4 0 0 1-4 3h-3"/></svg>
-                    </span>
-                    <p><b>LIA</b> — El agente de IA que fiscaliza tu operación: detecta morosos y horas muertas, y actúa por llamada y por WhatsApp para cobrar lo pendiente y llenar los espacios vacíos.</p>
-                  </div>
+                  <span>
+                    <b>Cita agendada</b>
+                    <small>Jueves 15:30 · Dra. Rivas</small>
+                  </span>
+                  <span class="mock-check" style="animation-delay: .6s" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                  </span>
+                </div>
+                <div class="mock-flow-step mock-step" style="animation-delay: 1.2s">
+                  <span class="mock-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
+                  </span>
+                  <span>
+                    <b>Recordatorio enviado</b>
+                    <small>24 horas antes, por WhatsApp</small>
+                  </span>
+                  <span class="mock-check" style="animation-delay: 1.7s" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                  </span>
+                </div>
+                <div class="mock-flow-step mock-step" style="animation-delay: 2.3s">
+                  <span class="mock-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.5 1.5 2 2 4-4"/></svg>
+                  </span>
+                  <span>
+                    <b>Paciente confirma</b>
+                    <small>La hora deja de estar en riesgo</small>
+                  </span>
+                  <span class="mock-check" style="animation-delay: 2.8s" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+                  </span>
                 </div>
               </div>
-            </li>
+            </div>
+          </aside>
+        </div>
+      </section>
 
-            <li class="rz-item">
-              <h3 class="rz-heading">
-                <button class="rz-toggle" type="button" id="razonTab4" aria-expanded="false" aria-controls="razonBody4">
-                  <span class="rz-num" aria-hidden="true">04</span>
-                  <span class="rz-name">Operas igual en todas tus sedes</span>
-                  <span class="rz-chev" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
-                  </span>
-                </button>
-              </h3>
-              <div class="rz-body" id="razonBody4" role="region" aria-labelledby="razonTab4">
-                <div class="rz-body-inner">
-                  <p>Cuando abres la segunda sede descubres que cada una inventó su propia forma de trabajar. Distintas fichas, distintos precios, distinto criterio para exactamente lo mismo.</p>
-                  <p>Crecer deja de significar multiplicar el desorden.</p>
-                  <div class="rz-card">
-                    <span class="rz-card-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M12 3c.8 4.9 3.1 7.2 8 8-4.9.8-7.2 3.1-8 8-.8-4.9-3.1-7.2-8-8 4.9-.8 7.2-3.1 8-8Z"/></svg>
-                    </span>
-                    <p><b>Clinera O.S.</b> — Toda la operación unificada en el sistema operativo de tu clínica con IA. Fichas, tratamientos, consentimientos, agenda, pagos y automatizaciones se configuran una vez y rigen para todas las sedes.</p>
-                  </div>
-                </div>
-              </div>
-            </li>
+      <section
+        class="slide blk"
+        id="razon-3"
+        data-name="Razón 03"
+        aria-hidden="true"
+      >
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="blk-eyebrow">RAZÓN 03 · LIA</div>
+            <h2 class="blk-h2">Reduce la morosidad a <span class="blk-grad-text">$0</span>.</h2>
+            <p class="blk-lead">Recupera tus cuentas por cobrar con LIA, tu agente de recaudación con IA. Detecta lo pendiente y sale a cobrarlo sin que nadie se lo pida.</p>
+            <ul class="rzs-points">
+              <li>Monitorea la morosidad todos los días, no una vez al mes</li>
+              <li>Contacta por llamada y por WhatsApp hasta cerrar el pago</li>
+              <li>Cada gestión queda registrada: quién, cuándo y qué respondió</li>
+            </ul>
+          </div>
 
-            <li class="rz-item">
-              <h3 class="rz-heading">
-                <button class="rz-toggle" type="button" id="razonTab5" aria-expanded="false" aria-controls="razonBody5">
-                  <span class="rz-num" aria-hidden="true">05</span>
-                  <span class="rz-name">Decides con datos, no con intuición</span>
-                  <span class="rz-chev" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
-                  </span>
-                </button>
-              </h3>
-              <div class="rz-body" id="razonBody5" role="region" aria-labelledby="razonTab5">
-                <div class="rz-body-inner">
-                  <p>Mientras la clínica era chica, tu cabeza bastaba. Con más sedes, más profesionales y más tratamientos, la intuición empieza a fallar justo cuando las decisiones valen más.</p>
-                  <p>Sin exportar nada, sin planillas y sin esperar el reporte de fin de mes que llega cuando ya no sirve.</p>
-                  <div class="rz-card">
-                    <span class="rz-card-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M5 20V5M5 20h15M8 16l4-5 3 2 4-6"/></svg>
-                    </span>
-                    <p><b>Clinera Intelligence</b> — Tu asistente con IA. Le preguntas a tu clínica en español y te responde con lo que realmente pasó: ventas, cobros, citas, asistencia y tratamientos en un solo chat.</p>
-                  </div>
+          <aside class="mock reveal" aria-label="LIA detecta pacientes morosos y los contacta por llamada y WhatsApp hasta recuperar el pago">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">LIA · Recaudación</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-row mock-step" style="animation-delay: .2s">
+                <span class="mock-avatar" aria-hidden="true">MP</span>
+                <span>
+                  <b>Marcela Pérez</b>
+                  <small>$185.000 · 34 días de mora</small>
+                </span>
+                <span class="mock-chip act">Llamando</span>
+              </div>
+              <div class="mock-row mock-step" style="animation-delay: 1s">
+                <span class="mock-avatar" aria-hidden="true">JR</span>
+                <span>
+                  <b>Javier Rojas</b>
+                  <small>$92.400 · 12 días de mora</small>
+                </span>
+                <span class="mock-chip act">WhatsApp</span>
+              </div>
+              <div class="mock-row mock-step" style="animation-delay: 1.8s">
+                <span class="mock-avatar" aria-hidden="true">CS</span>
+                <span>
+                  <b>Camila Soto</b>
+                  <small>$248.900 · pagó hace 3 min</small>
+                </span>
+                <span class="mock-chip done">Pagado</span>
+              </div>
+              <div class="mock-total mock-step" style="animation-delay: 2.6s">
+                <span>Recuperado este mes</span>
+                <b>$4.126.300</b>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="razon-4"
+        data-name="Razón 04"
+        aria-hidden="true"
+      >
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="blk-eyebrow">RAZÓN 04 · CLINERA O.S.</div>
+            <h2 class="blk-h2">Unifica todas tus <span class="blk-grad-text">sucursales</span>.</h2>
+            <p class="blk-lead">Con Clinera todas las sucursales trabajan unificadas en un mismo canal de comunicación. Una sola operación, aunque sean cinco direcciones distintas.</p>
+            <ul class="rzs-points">
+              <li>Fichas, tratamientos, precios y agenda se configuran una vez</li>
+              <li>El mismo criterio rige para todas las sedes</li>
+              <li>Crecer deja de significar multiplicar el desorden</li>
+            </ul>
+          </div>
+
+          <aside class="mock reveal" aria-label="Canal interno con mensajes de las sucursales Vitacura, Concón y Los Ángeles">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">Canal interno · Todas las sedes</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-sede mock-step" style="animation-delay: .2s">
+                <span class="mock-sede-av c1" aria-hidden="true">VI</span>
+                <span class="mock-sede-body">
+                  <span>Sucursal Vitacura</span>
+                  <p>Se liberó el box 3 a las 16:00, por si alguien necesita derivar.</p>
+                </span>
+              </div>
+              <div class="mock-sede mock-step" style="animation-delay: 1.2s">
+                <span class="mock-sede-av c2" aria-hidden="true">CO</span>
+                <span class="mock-sede-body">
+                  <span>Sucursal Concón</span>
+                  <p>Perfecto, mando a una paciente de control para allá.</p>
+                </span>
+              </div>
+              <div class="mock-sede mock-step" style="animation-delay: 2.2s">
+                <span class="mock-sede-av c3" aria-hidden="true">LA</span>
+                <span class="mock-sede-body">
+                  <span>Sucursal Los Ángeles</span>
+                  <p>Nosotros ya cargamos el protocolo nuevo. Queda igual en las tres.</p>
+                </span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="razon-5"
+        data-name="Razón 05"
+        aria-hidden="true"
+      >
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="blk-eyebrow">RAZÓN 05 · CLINERA INTELLIGENCE</div>
+            <h2 class="blk-h2">Consulta datos y <span class="blk-grad-text">toma decisiones</span>.</h2>
+            <p class="blk-lead">Con Clinera Intelligence podrás consultar en tiempo real tus operaciones. Le preguntas a tu clínica en español y te responde con lo que realmente pasó.</p>
+            <ul class="rzs-points">
+              <li>Ventas, cobros, citas, asistencia y tratamientos en un solo chat</li>
+              <li>Respuestas en segundos, con gráficos generados al momento</li>
+              <li>Sin exportar nada y sin esperar el reporte de fin de mes</li>
+            </ul>
+          </div>
+
+          <aside class="mock reveal" aria-label="Chat de Clinera Intelligence respondiendo cuántos pacientes llegaron este mes">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">Clinera Intelligence</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-msg out mock-step" style="animation-delay: .2s">
+                ¿Cuántos pacientes llegaron este mes?
+              </div>
+              <div class="mock-answer mock-step" style="animation-delay: 1s">
+                <span class="mock-ai-head">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                  Clinera Intelligence
+                </span>
+                <p>Se agendaron <b>2.046 citas</b> y llegaron <b>1.176 pacientes</b>: 57% de asistencia.</p>
+                <div class="mock-bars" aria-hidden="true">
+                  <div><span>Asistieron</span><b><i style="width: 57%"></i></b><small>1.176</small></div>
+                  <div><span>No llegaron</span><b><i class="soft" style="width: 43%"></i></b><small>870</small></div>
                 </div>
               </div>
-            </li>
-          </ul>
+            </div>
+            <div class="mock-input">
+              <span>Pregúntale a tu clínica…</span>
+              <i aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="M8 13V3M3.8 7.2 8 3l4.2 4.2"/></svg>
+              </i>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -3831,7 +4422,7 @@
 
     <footer class="deck-footer" aria-label="Navegación de la presentación">
       <div class="counter" aria-live="polite">
-        <span id="currentCount">01</span> / <span id="totalCount">07</span>
+        <span id="currentCount">01</span> / <span id="totalCount">11</span>
       </div>
       <div class="progress" aria-hidden="true">
         <div class="progress-fill" id="progressFill"></div>
@@ -3861,11 +4452,8 @@
       const progressFill = document.getElementById("progressFill");
       const previousButton = document.getElementById("previousButton");
       const nextButton = document.getElementById("nextButton");
-      const razonesSlideIndex = slides.findIndex((slide) => slide.id === "razones");
-      const razonItems = Array.from(document.querySelectorAll(".rz-item"));
       const hashIndex = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
       let current = hashIndex >= 0 ? hashIndex : 0;
-      let currentRazon = 0;
       let touchStartX = 0;
       let touchStartY = 0;
 
@@ -3874,39 +4462,6 @@
       const updateControlState = () => {
         previousButton.disabled = current === 0;
         nextButton.disabled = current === slides.length - 1;
-
-        const hasPreviousRazon = current === razonesSlideIndex && currentRazon > 0;
-        const hasNextRazon =
-          current === razonesSlideIndex && currentRazon < razonItems.length - 1;
-
-        previousButton.setAttribute(
-          "aria-label",
-          hasPreviousRazon ? "Razón anterior" : "Diapositiva anterior"
-        );
-        nextButton.setAttribute(
-          "aria-label",
-          hasNextRazon ? "Siguiente razón" : "Siguiente diapositiva"
-        );
-      };
-
-      const razonChapterLabel = () =>
-        `5 razones · ${String(currentRazon + 1).padStart(2, "0")}`;
-
-      const renderRazon = (next) => {
-        currentRazon = Math.max(0, Math.min(next, razonItems.length - 1));
-
-        razonItems.forEach((item, index) => {
-          const open = index === currentRazon;
-          item.classList.toggle("open", open);
-          const toggle = item.querySelector(".rz-toggle");
-          if (toggle) toggle.setAttribute("aria-expanded", String(open));
-        });
-
-        if (current === razonesSlideIndex) {
-          chapter.textContent = razonChapterLabel();
-        }
-
-        updateControlState();
       };
 
       const render = (next, updateHash = true) => {
@@ -3921,8 +4476,7 @@
 
         const activeSlide = slides[current];
         document.body.classList.toggle("deck-dark", activeSlide.dataset.theme === "dark");
-        chapter.textContent =
-          current === razonesSlideIndex ? razonChapterLabel() : activeSlide.dataset.name;
+        chapter.textContent = activeSlide.dataset.name;
         currentCount.textContent = String(current + 1).padStart(2, "0");
         progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
         updateControlState();
@@ -3932,36 +4486,8 @@
         }
       };
 
-      const goPrevious = () => {
-        if (current === razonesSlideIndex && currentRazon > 0) {
-          renderRazon(currentRazon - 1);
-          return;
-        }
-
-        if (current - 1 === razonesSlideIndex) {
-          renderRazon(razonItems.length - 1);
-        }
-
-        render(current - 1);
-      };
-
-      const goNext = () => {
-        if (current === razonesSlideIndex && currentRazon < razonItems.length - 1) {
-          renderRazon(currentRazon + 1);
-          return;
-        }
-
-        if (current + 1 === razonesSlideIndex) {
-          renderRazon(0);
-        }
-
-        render(current + 1);
-      };
-
-      razonItems.forEach((item, index) => {
-        const toggle = item.querySelector(".rz-toggle");
-        if (toggle) toggle.addEventListener("click", () => renderRazon(index));
-      });
+      const goPrevious = () => render(current - 1);
+      const goNext = () => render(current + 1);
 
       previousButton.addEventListener("click", goPrevious);
       nextButton.addEventListener("click", goNext);
@@ -3980,7 +4506,6 @@
 
         if (event.key === "Home") {
           event.preventDefault();
-          renderRazon(0);
           render(0);
         }
 
@@ -4014,12 +4539,10 @@
       window.addEventListener("hashchange", () => {
         const index = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
         if (index >= 0 && index !== current) {
-          if (index === razonesSlideIndex) renderRazon(0);
           render(index, false);
         }
       });
 
-      renderRazon(0);
       render(current, hashIndex < 0);
     })();
   </script>
