@@ -3113,6 +3113,189 @@
         font-size: 14px;
       }
     }
+
+    /* ------------------------------------------------------------
+       Pantallas chicas: laptops de 1024x640 y tablet en vertical.
+       Todo este bloque va al final por la misma razón que el anterior:
+       a igual especificidad gana la última regla.
+       ------------------------------------------------------------ */
+
+    /* El diagrama de Clinera O.S. tiene anchos mínimos de columna que
+       suman más que el ancho disponible bajo ~1180px, y como un ítem de
+       grid no baja de su min-content, el slide terminaba con scroll
+       horizontal. Se estrechan los mínimos en vez de apilar las columnas,
+       que en pantallas bajas dispararía el alto. */
+    @media (min-width: 961px) and (max-width: 1180px) {
+      .intelligence-system {
+        grid-template-columns: minmax(300px, 1.25fr) minmax(160px, .62fr) minmax(250px, .96fr);
+        gap: 18px;
+      }
+    }
+
+    @media (max-height: 820px) and (min-width: 961px) {
+      /* En #agente la columna alta es el texto, no el chat: se compacta
+         solo esa, así no hay que tocar el mockup animado (su capa lleva
+         un inset fijo que debe calzar con el padding del cuerpo). */
+      .agent-copy .display.medium {
+        font-size: clamp(36px, 3.6vw, 50px);
+      }
+
+      .agent-points {
+        margin-top: 22px;
+        gap: 9px;
+      }
+
+      .pq-list {
+        gap: 22px;
+      }
+
+      .pq-item-title {
+        font-size: 18px;
+      }
+
+      .pq-item-text {
+        margin-top: 6px;
+        font-size: 15px;
+      }
+
+      .pq-floor {
+        margin-top: 24px;
+        padding-top: 20px;
+      }
+
+      .pq-floor-figure {
+        margin-top: 9px;
+        font-size: clamp(26px, 2.5vw, 36px);
+      }
+
+      .pq-floor-note {
+        margin-top: 9px;
+        font-size: 14px;
+      }
+
+      .cn-highlight {
+        margin-top: 20px;
+        font-size: clamp(19px, 1.7vw, 23px);
+      }
+
+      .cn-body {
+        margin-top: 14px;
+        font-size: 16px;
+      }
+
+      .cn-seal {
+        margin-top: 24px;
+        padding: 11px 15px;
+      }
+
+      .cn-cards {
+        gap: 11px;
+      }
+
+      .cn-card {
+        padding: 17px 19px;
+      }
+
+      .cn-card p {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 961px) {
+      .pq-list {
+        gap: 18px;
+      }
+
+      .pq-item-text {
+        font-size: 14px;
+      }
+
+      .pq-floor {
+        margin-top: 20px;
+        padding-top: 16px;
+      }
+
+      .rz-punch {
+        margin-top: 12px;
+        font-size: 17px;
+      }
+
+      .rz-intro .blk-lead {
+        font-size: 15px;
+      }
+
+      .rz-toggle {
+        padding: 6px 0;
+      }
+
+      .rz-name {
+        font-size: clamp(15px, 1.25vw, 17px);
+      }
+
+      .rz-body-inner > p {
+        margin-bottom: 7px;
+        font-size: 13.5px;
+      }
+
+      .rz-card {
+        margin: 10px 0 12px 44px;
+        padding: 11px 14px;
+      }
+
+      .rz-card p {
+        font-size: 13px;
+      }
+
+      .cn-body {
+        margin-top: 12px;
+        font-size: 15px;
+      }
+
+      .cn-seal {
+        margin-top: 20px;
+      }
+
+      .cn-cards {
+        gap: 9px;
+      }
+
+      .cn-card {
+        padding: 13px 16px;
+      }
+
+      .cn-card p {
+        margin-top: 6px;
+        font-size: 13px;
+      }
+    }
+
+    /* Tablet en vertical: una columna, pero con alto de sobra sólo en
+       apariencia — "La condición" apila copy y tres tarjetas. */
+    @media (min-width: 621px) and (max-width: 960px) {
+      .cn-layout {
+        gap: 32px;
+      }
+
+      .cn-cards {
+        gap: 11px;
+      }
+
+      .cn-card {
+        padding: 18px 20px;
+      }
+
+      .cn-card p {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .cn-seal {
+        margin-top: 24px;
+      }
+    }
   </style>
 </head>
 <body>
