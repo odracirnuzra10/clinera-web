@@ -2497,17 +2497,10 @@
     .pq-item-title {
       display: block;
       color: var(--ink);
-      font-size: clamp(18px, 1.5vw, 21px);
+      font-size: clamp(20px, 1.75vw, 26px);
       font-weight: 600;
-      letter-spacing: -.015em;
-      line-height: 1.3;
-    }
-
-    .pq-item-text {
-      margin: 8px 0 0;
-      color: var(--ink-muted);
-      font-size: 16px;
-      line-height: 1.55;
+      letter-spacing: -.02em;
+      line-height: 1.35;
       text-wrap: pretty;
     }
 
@@ -2532,19 +2525,11 @@
       margin-top: 12px;
       color: var(--ink);
       font-family: var(--blk-mono);
-      font-size: clamp(30px, 2.9vw, 44px);
+      font-size: clamp(26px, 2.3vw, 36px);
+      white-space: nowrap;
       font-weight: 700;
       letter-spacing: -.02em;
       line-height: 1.1;
-    }
-
-    .pq-floor-note {
-      max-width: 460px;
-      margin: 12px 0 0;
-      color: var(--ink-muted);
-      font-size: 15px;
-      line-height: 1.55;
-      text-wrap: pretty;
     }
 
     /* --- Las cinco razones, una por diapositiva (#razon-1 … #razon-5) --- */
@@ -3391,12 +3376,7 @@
       }
 
       .pq-item-title {
-        font-size: 18px;
-      }
-
-      .pq-item-text {
-        margin-top: 6px;
-        font-size: 15px;
+        font-size: clamp(18px, 1.5vw, 22px);
       }
 
       .pq-floor {
@@ -3406,12 +3386,7 @@
 
       .pq-floor-figure {
         margin-top: 9px;
-        font-size: clamp(26px, 2.5vw, 36px);
-      }
-
-      .pq-floor-note {
-        margin-top: 9px;
-        font-size: 14px;
+        font-size: clamp(24px, 2.1vw, 32px);
       }
 
       .cn-highlight {
@@ -3447,10 +3422,6 @@
     @media (max-height: 720px) and (min-width: 961px) {
       .pq-list {
         gap: 18px;
-      }
-
-      .pq-item-text {
-        font-size: 14px;
       }
 
       .pq-floor {
@@ -3732,8 +3703,7 @@
         <div class="slide-inner pq-layout">
           <div class="pq-copy">
             <div class="blk-eyebrow">ANTES DE SEGUIR</div>
-            <h1 class="blk-h1">Clinera es para ti si...</h1>
-            <p class="blk-lead">Es un sistema operativo completo, no un chatbot que se enchufa encima de lo que ya tienes. Funciona muy bien en clínicas con volumen y equipo. Preferimos decirte desde ahora para quién está hecho.</p>
+            <h1 class="blk-h1">Clinera es para ti si:</h1>
           </div>
 
           <div class="pq-panel reveal">
@@ -3742,35 +3712,25 @@
                 <span class="pq-check" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
                 </span>
-                <div>
-                  <strong class="pq-item-title">Ya vendes y chocas con tu propia operación.</strong>
-                  <p class="pq-item-text">Tienes demanda. Lo que se rompe al crecer es la agenda, el seguimiento y el cobro.</p>
-                </div>
+                <strong class="pq-item-title">Tienes muchos pacientes sin poder gestionar bien</strong>
               </li>
               <li class="pq-item">
                 <span class="pq-check" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
                 </span>
-                <div>
-                  <strong class="pq-item-title">Atiendes 500 pacientes al mes o más.</strong>
-                  <p class="pq-item-text">Una sede con volumen real o varias sedes. Un equipo que ya no cabe en un cuaderno ni en tres planillas sueltas.</p>
-                </div>
+                <strong class="pq-item-title">Necesitas organizar y centralizar toda tu operación en un mismo lugar</strong>
               </li>
               <li class="pq-item">
                 <span class="pq-check" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
                 </span>
-                <div>
-                  <strong class="pq-item-title">Hay alguien adentro que se hace cargo.</strong>
-                  <p class="pq-item-text">Una persona con nombre que lidera la puesta en marcha. Sin eso, ningún sistema prende.</p>
-                </div>
+                <strong class="pq-item-title">Cuentas con equipos comerciales y de marketing, pero aun así no logras crecer como esperarías</strong>
               </li>
             </ul>
 
             <div class="pq-floor">
               <span class="pq-floor-label">EL PISO</span>
               <span class="pq-floor-figure"><span class="blk-grad-text">500 pacientes</span> / mes</span>
-              <p class="pq-floor-note">Bajo ese volumen, el sistema te queda grande y no alcanzas a usar lo que pagas.</p>
             </div>
           </div>
         </div>
