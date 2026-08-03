@@ -482,7 +482,7 @@ export default function CalculadoraDeConsumoPage() {
                   marginBottom: 12,
                 }}
               >
-                USD $50 / recarga
+                USD $15 / recarga
               </div>
               <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.55)", margin: 0 }}>
                 Equivale a ~166 conversaciones, ~25 agendamientos o 200 minutos

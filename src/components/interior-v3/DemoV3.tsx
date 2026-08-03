@@ -805,7 +805,7 @@ function PlansSection() {
           style={{ marginTop: 48, display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 20, maxWidth: 660, margin: "48px auto 0" }}
         >
           {[
-            { price: "$100", unit: "única vez", label: "Recarga de créditos", sub: "~3.000 créditos extra para tu bolsa (texto o voz)" },
+            { price: "$15", unit: "única vez", label: "Recarga de créditos", sub: "5.000 créditos extra para tu bolsa (texto o voz)" },
             { price: "$9", unit: "/mes", label: "Profesional o usuario extra", sub: "" },
           ].map((it) => (
             <div

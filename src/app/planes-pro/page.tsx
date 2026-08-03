@@ -45,7 +45,7 @@ const FAQS: { q: string; a: string; confirmar?: boolean }[] = [
   },
   {
     q: "¿Qué pasa si se me acaban los créditos del mes?",
-    a: "No se corta el servicio de golpe ni hay cobros sorpresa. Puedes sumar una recarga de créditos (USD 55 = 5.000 créditos) cuando lo necesites, o subir de plan. La calculadora de esta página te muestra de antemano cuántas recargas harían falta a tu volumen para que no te tome por sorpresa.",
+    a: "No se corta el servicio de golpe ni hay cobros sorpresa. Puedes sumar una recarga de créditos (USD 15 = 5.000 créditos) cuando lo necesites, o subir de plan. La calculadora de esta página te muestra de antemano cuántas recargas harían falta a tu volumen para que no te tome por sorpresa.",
   },
   {
     q: "¿Los créditos no usados se acumulan o vencen?",

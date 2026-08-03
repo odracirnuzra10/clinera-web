@@ -174,7 +174,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
       <Section eyebrow="Extras" title="Add-ons y extras">
         <p style={para}>Suma capacidad o funciones puntuales sin cambiar de plan.</p>
         <div className="reveal" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: 20, marginTop: 26 }}>
-          <AddonCard titulo="Recarga de créditos" precio="USD 55" unidad="= 5.000 créditos" desc="Cuando tu volumen supera la bolsa del mes. Equivale a ~166 conversaciones o ~25 agendamientos extra." />
+          <AddonCard titulo="Recarga de créditos" precio="USD 15" unidad="= 5.000 créditos" desc="Cuando tu volumen supera la bolsa del mes. Equivale a ~166 conversaciones o ~25 agendamientos extra." />
           <AddonCard titulo="Usuario / profesional extra" precio="USD 9" unidad="/ mes" desc="Suma una persona más de tu equipo al acceso de la plataforma, por encima de los incluidos en tu plan." />
           <AddonCard titulo="Sucursal extra" precio="USD 39" unidad="/ mes" desc="Suma una sucursal adicional a tu operación." nota="Disponible solo en Atlas." />
         </div>
