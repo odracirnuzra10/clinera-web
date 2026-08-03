@@ -230,6 +230,14 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // El modo Eficiente y el modo Agentic Pro dejaron de existir: Clinera
+      // opera solo en modo Agentic. El post de los 3 modos se reescribio con
+      // slug nuevo, este redirect preserva el link equity del anterior.
+      {
+        source: '/blog/modos-agendamiento-ia-eficiente-agentic-agentic-flash',
+        destination: '/blog/modo-agentic-agendamiento-ia-clinicas',
+        permanent: true,
+      },
       {
         source: '/cdk',
         destination: '/ckd',

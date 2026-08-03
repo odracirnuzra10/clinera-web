@@ -81,12 +81,13 @@ sitio (https://www.clinera.io/ventas y /efectividad). Cifras a abril 2026:
 
 Todos los planes en USD, sin permanencia, activación vía Stripe. La
 costo de configuración es un pago único de USD 750 (ver más abajo). El modelo es una
-sola bolsa de créditos por mes: el agendamiento no consume créditos, solo pagas
-la conversación.
+sola bolsa de créditos por mes. Clinera opera en un único modo de agendamiento:
+Agentic (modelo Kimi K2.6), en todos los planes — la IA agenda sola dentro del
+chat, sin links ni sistemas externos.
 
 Tarifario de créditos (todos los planes):
-- Conversación de texto (AURA): 10 créditos.
-- Agendamiento: 0 créditos (incluido, nunca consume la bolsa).
+- Conversación de texto (AURA) que no termina en cita: 30 créditos.
+- Conversación que agenda, reagenda o cancela: 195 créditos.
 - Minuto de voz (CAMILA): 25 créditos.
 - Fiscalización de LIA: 0 créditos.
 - Informes de LIA: ≈ 4.000 créditos/mes.
@@ -94,11 +95,11 @@ Tarifario de créditos (todos los planes):
 - **VORTEX — USD 279/mes** — 28.000 créditos/mes, agente AURA (texto) por
   WhatsApp 24/7 con memoria contextual (LangChain), agenda médica, fichas
   clínicas, consentimientos, panel de ventas, trazabilidad campaña → cita →
-  venta, derivación humana. 10 usuarios, 1 sucursal, modos Eficiente + Agentic.
+  venta, derivación humana. 10 usuarios, 1 sucursal, modo Agentic.
   Sin API.
 - **ATLAS — USD 379/mes (el más elegido)** — todo lo de Vortex + CAMILA, el
   agente de voz activo (llamadas), 37.000 créditos/mes, 15 usuarios,
-  2 sucursales, modo Agentic Pro, Webhooks + API.
+  2 sucursales, Webhooks + API.
 - **SUMMIT — USD 479/mes** — todo lo de Atlas + LIA, el agente que fiscaliza
   (audita las conversaciones, reporta y recomienda mejoras), 46.000
   créditos/mes, AURA + CAMILA + LIA, 25 usuarios, sucursales ilimitadas,

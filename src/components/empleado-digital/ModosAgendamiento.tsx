@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "@/app/empleado-digital/empleado-digital.module.css";
 
-type Modo = {
+type Paso = {
   idx: string;
   title: string;
   desc: string;
@@ -10,27 +10,26 @@ type Modo = {
   innerEyebrow?: string;
 };
 
-const MODOS: Modo[] = [
+const PASOS: Paso[] = [
   {
     idx: "01",
-    title: "Eficiente",
-    desc: "Tu IA conversa. Tu paciente confirma con un link a tu calendario propio o al de Clinera. La opción más liviana en créditos.",
+    title: "Conversa y califica",
+    desc: "Tu IA responde por WhatsApp 24/7: precios, horarios, profesionales, qué incluye cada tratamiento. Entiende el contexto del paciente antes de proponer una hora.",
     innerEyebrow: "Desde Plan Vortex",
   },
   {
     idx: "02",
-    title: "Agentic",
-    desc: "Tu IA agenda sola, sin links, sin fricción. La mejor relación capacidad agéntica / simplicidad. Lo que usa la mayoría de las clínicas.",
-    tag: "RECOMENDADO",
+    title: "Agenda sola",
+    desc: "Sin links, sin fricción, sin salir del chat. Consulta la disponibilidad real de tu agenda, valida profesional, sala y duración, y deja la cita creada.",
+    tag: "EL NÚCLEO",
     featured: true,
     innerEyebrow: "Desde Plan Vortex",
   },
   {
     idx: "03",
-    title: "Agentic Pro",
-    desc: "Mismo nivel agéntico que Agentic, respuesta inmediata (289 tokens/s). Para clínicas que no toleran latencia.",
-    tag: "VELOCIDAD MÁX",
-    innerEyebrow: "Desde Plan Atlas",
+    title: "Reagenda, cancela y confirma",
+    desc: "Detecta conflictos y propone alternativas, libera el cupo al cancelar, cobra la reserva y manda el recordatorio. Todo dentro de la misma conversación.",
+    innerEyebrow: "Desde Plan Vortex",
   },
 ];
 
@@ -39,29 +38,30 @@ export default function ModosAgendamiento() {
     <section className={styles.modosSection} aria-labelledby="modos-h2">
       <div className={styles.modosInner}>
         <div className={styles.modosHead}>
-          <p className={styles.duoEyebrow}>3 modos de agendamiento</p>
+          <p className={styles.duoEyebrow}>Modo Agentic</p>
           <h2 id="modos-h2" className={styles.duoH2}>
-            Una sola IA. Tres formas de cerrar la cita.
+            Tu IA no manda links. Agenda sola.
           </h2>
           <p className={styles.modoSubtitle} style={{ marginTop: 14, fontSize: 16, color: "#4B5563", lineHeight: 1.55, maxWidth: 660 }}>
-            Elige según tu volumen y velocidad de respuesta. Subes de plan, subes de modo.
+            Un solo modo de agendamiento, agéntico de principio a fin: la IA razona, consulta tu
+            agenda y ejecuta la acción. Disponible en todos los planes.
           </p>
         </div>
 
         <div className={styles.modosGrid}>
-          {MODOS.map((m) => (
+          {PASOS.map((p) => (
             <article
-              key={m.idx}
-              className={`${styles.modoCard} ${m.featured ? styles.modoCardFeatured : ""}`}
+              key={p.idx}
+              className={`${styles.modoCard} ${p.featured ? styles.modoCardFeatured : ""}`}
             >
-              <div className={styles.modoIndex}>{m.idx}</div>
+              <div className={styles.modoIndex}>{p.idx}</div>
               <h3 className={styles.modoTitle}>
-                {m.title}
-                {m.tag && <span className={styles.modoBetaTag}>{m.tag}</span>}
+                {p.title}
+                {p.tag && <span className={styles.modoBetaTag}>{p.tag}</span>}
               </h3>
-              <p className={styles.modoDesc}>{m.desc}</p>
-              {m.innerEyebrow && (
-                <p className={styles.modoInnerEyebrow}>{m.innerEyebrow}</p>
+              <p className={styles.modoDesc}>{p.desc}</p>
+              {p.innerEyebrow && (
+                <p className={styles.modoInnerEyebrow}>{p.innerEyebrow}</p>
               )}
             </article>
           ))}
@@ -76,9 +76,9 @@ export default function ModosAgendamiento() {
             lineHeight: 1.5,
           }}
         >
-          ¿Quieres entender qué modelo está detrás de cada modo?{" "}
+          ¿Quieres entender qué modelo está detrás y cuántos créditos consume?{" "}
           <Link
-            href="/blog/modos-agendamiento-ia-eficiente-agentic-agentic-flash"
+            href="/blog/modo-agentic-agendamiento-ia-clinicas"
             style={{
               color: "#7C3AED",
               textDecoration: "underline",

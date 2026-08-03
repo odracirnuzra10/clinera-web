@@ -165,8 +165,9 @@ export default function CalculadoraDeConsumoPage() {
           <p style={paragraphStyle}>
             Una <strong>conversación</strong> es un intercambio con un paciente
             (responder dudas, confirmar); un <strong>agendamiento</strong> además
-            crea o mueve la cita. Lo que consume depende del <em>modo de IA</em>{" "}
-            activo en tu cuenta y de la complejidad real de la conversación.
+            crea o mueve la cita. Lo que consume depende de la complejidad real de
+            la conversación: cuánto razonó la IA y cuántas <em>tools</em> ejecutó
+            para resolverla.
           </p>
 
           <blockquote
@@ -186,10 +187,14 @@ export default function CalculadoraDeConsumoPage() {
           </blockquote>
         </NumberedSection>
 
-        {/* ─────────────────────── 02 · MODOS ─────────────────────── */}
-        <NumberedSection num="02" title="Modos de agendamiento">
+        {/* ─────────────────────── 02 · MODO AGENTIC ─────────────────────── */}
+        <NumberedSection num="02" title="Modo de agendamiento">
           <p style={paragraphStyle}>
-            Clinera ofrece dos modos de agendamiento, Manual y Automático.
+            Clinera opera en un <strong>único modo: Agentic</strong>. La IA agenda
+            directamente sobre la agenda de Clinera —sin links, sin pasar por
+            sistemas externos y sin que el paciente salga del chat—. Lo que cambia
+            el consumo no es el modo, sino si la conversación termina o no en una
+            cita creada.
           </p>
 
           <div
@@ -201,18 +206,18 @@ export default function CalculadoraDeConsumoPage() {
             }}
           >
             <ModeCard
-              name="Eficiente"
-              consumption="~10"
-              model="Gemini 3.0 Flash"
+              name="Conversación"
+              consumption="~30"
+              model="Kimi K2.6"
               available="VORTEX"
-              description="En modo manual o eficiente, la IA responde, hace preguntas y entrega un link de agendamiento para que el mismo usuario se agende."
+              description="La IA responde dudas, informa precios y horarios, confirma o recuerda una cita ya existente. Razona, pero no crea ni mueve citas."
             />
             <ModeCard
-              name="Agentic"
+              name="Agendamiento"
               consumption="~195"
               model="Kimi K2.6"
               available="VORTEX"
-              description="En modo automático o agéntico, la IA hace todo sola: te hace preguntas, te ofrece disponibilidad real del sistema y te agenda la hora directamente."
+              description="La IA hace todo sola: pregunta, consulta la disponibilidad real de tu agenda y deja la hora agendada, reagendada o cancelada."
               recommended
             />
           </div>
@@ -223,7 +228,7 @@ export default function CalculadoraDeConsumoPage() {
           <p style={paragraphStyle}>
             Costo <b>por acción de la IA</b> (una sola respuesta), no por
             conversación completa. El consumo varía según número de{" "}
-            <em>tool calls</em>, longitud del contexto y modo activo.
+            <em>tool calls</em> y longitud del contexto.
           </p>
 
           <ul
@@ -236,11 +241,11 @@ export default function CalculadoraDeConsumoPage() {
             }}
           >
             {[
-              { task: "Responder FAQ simple", meta: "sin tools · cualquier modo", cred: "~1 cr" },
-              { task: "Confirmar cita existente", meta: "1 tool call · Eficiente", cred: "~4 cr" },
-              { task: "Agendar cita nueva por WhatsApp", meta: "3 tool calls · Agentic", cred: "~45 cr" },
-              { task: "Reagendar + confirmar", meta: "4 tool calls · Agentic", cred: "~50 cr" },
-              { task: "Agendar + cobrar + email", meta: "5+ tool calls · Agentic Pro", cred: "~70 cr" },
+              { task: "Responder FAQ simple", meta: "sin tools", cred: "~1 cr" },
+              { task: "Confirmar cita existente", meta: "1 tool call", cred: "~4 cr" },
+              { task: "Agendar cita nueva por WhatsApp", meta: "3 tool calls", cred: "~45 cr" },
+              { task: "Reagendar + confirmar", meta: "4 tool calls", cred: "~50 cr" },
+              { task: "Agendar + cobrar + email", meta: "5+ tool calls", cred: "~70 cr" },
             ].map((row) => (
               <li
                 key={row.task}
@@ -284,11 +289,10 @@ export default function CalculadoraDeConsumoPage() {
           </ul>
 
           <p style={{ ...paragraphStyle, marginTop: 20 }}>
-            Una <b>conversación completa de agendamiento automático</b> (Agentic,
-            ~6 turnos) puede costar <b>~195 cr</b>. La mayoría de conversaciones son
-            más livianas (FAQ, info, confirmaciones), por eso el{" "}
-            <b>promedio por conversación queda en ~30 cr</b> en Agentic (~10 cr en
-            Eficiente).
+            Una <b>conversación completa de agendamiento automático</b> (~6 turnos)
+            puede costar <b>~195 cr</b>. La mayoría de conversaciones son más
+            livianas (FAQ, info, confirmaciones), por eso el{" "}
+            <b>promedio de una conversación que no agenda queda en ~30 cr</b>.
           </p>
 
           <h3
@@ -304,8 +308,9 @@ export default function CalculadoraDeConsumoPage() {
             Una conversación completa, turno por turno
           </h3>
           <p style={{ ...paragraphStyle, marginTop: 0 }}>
-            Dos conversaciones reales con el costo en créditos de cada respuesta de
-            la IA. La que agenda gasta más (por las tool calls), aunque sea más corta.
+            Dos conversaciones reales, ambas en modo Agentic, con el costo en
+            créditos de cada respuesta de la IA. La que agenda gasta más (por las
+            tool calls), aunque tenga los mismos turnos.
           </p>
           <div
             style={{
@@ -316,25 +321,25 @@ export default function CalculadoraDeConsumoPage() {
             }}
           >
             <ConvoExample
-              title="Modo Eficiente"
-              meta="Gemini 3.0 Flash · solo texto, sin agendar"
-              total={10}
+              title="Conversación sin agendamiento"
+              meta="Kimi K2.6 · solo texto, no crea cita"
+              total={30}
               accent="#009FE3"
               turns={[
                 { who: "p", text: "Hola, ¿hacen limpieza facial?" },
-                { who: "a", text: "¡Hola! Sí, limpieza facial profunda, dura 50 min.", cr: 2 },
+                { who: "a", text: "¡Hola! Sí, limpieza facial profunda, dura 50 min.", cr: 6 },
                 { who: "p", text: "¿Cuánto cuesta?" },
-                { who: "a", text: "$35.000. Incluye extracción e hidratación.", cr: 2 },
-                { who: "p", text: "¿Tienen hora esta semana?" },
-                { who: "a", text: "Sí. Te dejo el link para que elijas tu hora.", cr: 2 },
-                { who: "p", text: "Listo, ya reservé" },
-                { who: "a", text: "¡Perfecto! Te llega la confirmación por WhatsApp.", cr: 2 },
+                { who: "a", text: "$35.000. Incluye extracción e hidratación.", cr: 6 },
+                { who: "p", text: "¿Y con qué profesional?" },
+                { who: "a", text: "Con la Dra. Meza o con Javiera, según el día.", cr: 6 },
+                { who: "p", text: "Ok, lo converso en la casa y te aviso" },
+                { who: "a", text: "¡Perfecto! Cuando quieras te reservo la hora aquí mismo.", cr: 6 },
                 { who: "p", text: "Gracias" },
-                { who: "a", text: "¡A ti! Cualquier cosa, escríbeme por aquí.", cr: 2 },
+                { who: "a", text: "¡A ti! Cualquier cosa, escríbeme por aquí.", cr: 6 },
               ]}
             />
             <ConvoExample
-              title="Modo Agentic"
+              title="Conversación con agendamiento"
               meta="Kimi K2.6 · agenda y cobra, con tool calls"
               total={195}
               accent="#7C3AED"
@@ -363,10 +368,11 @@ export default function CalculadoraDeConsumoPage() {
         </NumberedSection>
 
         {/* ─────────────────────── 04 · EQUIVALENCIAS ─────────────────────── */}
-        <NumberedSection num="04" title="Equivalencias: planes × modos">
+        <NumberedSection num="04" title="Equivalencias: planes × consumo">
           <p style={paragraphStyle}>
-            Cuántas conversaciones puedes cubrir al mes con la bolsa de créditos
-            de cada plan, según el modo que actives.
+            Cuánto cubre al mes la bolsa de créditos de cada plan, si toda tu
+            operación fuera de un solo tipo. En la práctica es una mezcla de
+            ambas columnas.
           </p>
 
           <div style={{ overflowX: "auto", marginTop: 28 }}>
@@ -382,30 +388,30 @@ export default function CalculadoraDeConsumoPage() {
               <thead>
                 <tr>
                   <th style={thStyle}>Plan</th>
-                  <th style={thStyle}>Eficiente</th>
-                  <th style={thStyle}>Agentic</th>
+                  <th style={thStyle}>Conversaciones · 30 cr</th>
+                  <th style={thStyle}>Agendamientos · 195 cr</th>
                 </tr>
               </thead>
               <tbody>
                 <PlanRow
                   plan="VORTEX · 28.000 cr"
                   cells={[
-                    { text: "~2.800 atenciones" },
-                    { text: "~143 atenciones", isDefault: true },
+                    { text: "~933 conversaciones" },
+                    { text: "~143 agendamientos" },
                   ]}
                 />
                 <PlanRow
                   plan="ATLAS · 37.000 cr"
                   cells={[
-                    { text: "~3.700 atenciones" },
-                    { text: "~190 atenciones", isDefault: true },
+                    { text: "~1.233 conversaciones" },
+                    { text: "~190 agendamientos" },
                   ]}
                 />
                 <PlanRow
                   plan="SUMMIT · 46.000 cr"
                   cells={[
-                    { text: "~4.600 atenciones" },
-                    { text: "~236 atenciones", isDefault: true },
+                    { text: "~1.533 conversaciones" },
+                    { text: "~236 agendamientos" },
                   ]}
                 />
               </tbody>
@@ -479,7 +485,7 @@ export default function CalculadoraDeConsumoPage() {
                 USD $50 / recarga
               </div>
               <p style={{ fontSize: 13.5, color: "rgba(255,255,255,0.55)", margin: 0 }}>
-                Equivale a 500 conversaciones, 80 agendamientos o 50 llamadas
+                Equivale a ~166 conversaciones, ~25 agendamientos o 200 minutos
                 de voz (CAMILA).
               </p>
             </div>
@@ -690,7 +696,7 @@ function ModeCard({
             borderRadius: 999,
           }}
         >
-          Recomendado
+          Mayor consumo
         </span>
       )}
       <h3
@@ -756,7 +762,7 @@ function PlanRow({
   cells,
 }: {
   plan: string;
-  cells: { text: string; isDefault?: boolean }[];
+  cells: { text: string }[];
 }) {
   return (
     <tr>
@@ -778,7 +784,6 @@ function PlanRow({
             style={{
               padding: "16px 14px",
               borderBottom: "1px solid #EEECEA",
-              background: c.isDefault ? "rgba(0,159,227,0.10)" : "transparent",
               color: isUnavailable ? "#9CA3AF" : "#0A0A0A",
               fontFamily: FONT_MONO,
               fontSize: 14,
@@ -786,25 +791,6 @@ function PlanRow({
             }}
           >
             <span>{c.text}</span>
-            {c.isDefault && (
-              <span
-                style={{
-                  marginLeft: 8,
-                  fontFamily: FONT_MONO,
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  background: "#009FE3",
-                  color: "#fff",
-                  padding: "2px 7px",
-                  borderRadius: 999,
-                  verticalAlign: "middle",
-                }}
-              >
-                default
-              </span>
-            )}
           </td>
         );
       })}

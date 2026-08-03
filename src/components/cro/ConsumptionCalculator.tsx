@@ -4,8 +4,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { track } from "@/lib/tracking";
 
 // ── Tarifario de créditos ──
-const CR_TEXTO = 10; // por conversación de texto simple (Eficiente)
-const CR_AGENDA = 195; // por agendamiento automático (Agentic)
+// Clinera opera en un único modo: Agentic. Toda conversación pasa por el
+// modelo agéntico, por eso la conversación simple ya no vale 10 cr.
+const CR_TEXTO = 30; // por conversación de texto sin agendamiento (promedio Agentic)
+const CR_AGENDA = 195; // por conversación que termina en agendamiento
 const CR_VOZ = 25; // por minuto de voz (CAMILA)
 const CR_LIA = 4000; // fiscalización + informes (LIA), por mes
 
@@ -176,7 +178,7 @@ export default function ConsumptionCalculator() {
             }}
           >
             {[
-              { k: "Texto", v: "10 cr" },
+              { k: "Texto", v: "30 cr" },
               { k: "Agendamiento", v: "195 cr" },
               { k: "Min. voz", v: "25 cr" },
               { k: "LIA · informes", v: "≈4.000 cr/mes" },
@@ -212,13 +214,13 @@ export default function ConsumptionCalculator() {
             <input
               type="number"
               min={0}
-              max={5000}
+              max={25000}
               step={50}
               value={conversaciones}
               onChange={(e) => {
                 const v = Number(e.target.value);
                 if (!Number.isFinite(v)) return;
-                setConversaciones(Math.max(0, Math.min(5000, Math.round(v))));
+                setConversaciones(Math.max(0, Math.min(25000, Math.round(v))));
               }}
               aria-label="Conversaciones de texto por mes"
               style={{
@@ -235,13 +237,13 @@ export default function ConsumptionCalculator() {
                 background: "#fff",
               }}
             />
-            <span style={{ fontSize: 14, color: "#6B7280" }}>conversaciones / mes · 10 cr c/u</span>
+            <span style={{ fontSize: 14, color: "#6B7280" }}>conversaciones / mes · 30 cr c/u</span>
           </div>
 
           <input
             type="range"
             min={0}
-            max={5000}
+            max={25000}
             step={50}
             value={conversaciones}
             onChange={(e) => setConversaciones(Number(e.target.value))}
@@ -263,7 +265,7 @@ export default function ConsumptionCalculator() {
             }}
           >
             <span>0</span>
-            <span>5.000</span>
+            <span>25.000</span>
           </div>
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
@@ -299,11 +301,11 @@ export default function ConsumptionCalculator() {
               margin: "2px 0 28px",
             }}
           >
-            Conversaciones simples de AURA (~10 cr c/u).
+            Conversaciones de AURA que no terminan en agendamiento (~30 cr c/u).
           </p>
 
-          {/* Step 02 — Agendamientos automáticos (Agentic) */}
-          <StepLabel num="02" text="¿Cuántos agendamientos automáticos al mes? (Agentic)" />
+          {/* Step 02 — Agendamientos automáticos */}
+          <StepLabel num="02" text="¿Cuántos agendamientos automáticos al mes?" />
           <div
             style={{
               display: "flex",
@@ -316,13 +318,13 @@ export default function ConsumptionCalculator() {
             <input
               type="number"
               min={0}
-              max={2000}
+              max={25000}
               step={10}
               value={agendamientos}
               onChange={(e) => {
                 const v = Number(e.target.value);
                 if (!Number.isFinite(v)) return;
-                setAgendamientos(Math.max(0, Math.min(2000, Math.round(v))));
+                setAgendamientos(Math.max(0, Math.min(25000, Math.round(v))));
               }}
               aria-label="Agendamientos automáticos por mes"
               style={{
@@ -345,7 +347,7 @@ export default function ConsumptionCalculator() {
           <input
             type="range"
             min={0}
-            max={2000}
+            max={25000}
             step={10}
             value={agendamientos}
             onChange={(e) => setAgendamientos(Number(e.target.value))}
@@ -367,7 +369,7 @@ export default function ConsumptionCalculator() {
             }}
           >
             <span>0</span>
-            <span>2.000</span>
+            <span>25.000</span>
           </div>
           <p
             style={{
@@ -377,7 +379,7 @@ export default function ConsumptionCalculator() {
               margin: "2px 0 28px",
             }}
           >
-            Cuando la IA agenda sola (modo Agentic): razona, consulta tu agenda y ejecuta varios pasos.
+            Cuando la IA agenda sola: razona, consulta tu agenda y ejecuta varios pasos.
           </p>
 
           {/* Step 03 — Minutos de voz */}
@@ -854,7 +856,7 @@ export default function ConsumptionCalculator() {
               marginTop: 18,
             }}
           >
-            Un agendamiento automático (Agentic) consume ~195 cr; una conversación simple ~10 cr. Todos los planes suman USD ${fmt(IMPL)} de implementación (pago único).
+            Clinera opera en modo Agentic: un agendamiento automático consume ~195 cr y una conversación que no agenda ~30 cr. Todos los planes suman USD ${fmt(IMPL)} de implementación (pago único).
             Sobre 46.000 créditos → Plan Corporativo (desde USD ${fmt(CORP_FROM)}/mes).
           </p>
         </div>

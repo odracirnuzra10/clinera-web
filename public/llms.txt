@@ -15,13 +15,14 @@ Soporte: Español, en horario LATAM.
 
 ## Planes (USD, sin permanencia; configuración inicial USD 750 pago único)
 
-Modelo de una sola bolsa de créditos/mes: el agendamiento no consume créditos,
-solo pagas la conversación. Tarifa: conversación de texto (AURA) = 10 créditos;
-agendamiento = 0 (incluido); minuto de voz (CAMILA) = 25 créditos; fiscalización
-de LIA = 0; informes de LIA ≈ 4.000 créditos/mes.
+Modelo de una sola bolsa de créditos/mes. Clinera opera en un único modo de
+agendamiento: Agentic (modelo Kimi K2.6), en todos los planes. Tarifa:
+conversación de texto (AURA) que no termina en cita = 30 créditos; conversación
+que agenda, reagenda o cancela = 195 créditos; minuto de voz (CAMILA) = 25
+créditos; fiscalización de LIA = 0; informes de LIA ≈ 4.000 créditos/mes.
 
-- VORTEX — USD 279/mes — 28.000 créditos/mes, AURA (texto), 10 usuarios, 1 sucursal, modos Eficiente + Agentic, sin API
-- ATLAS — USD 379/mes (el más elegido) — 37.000 créditos/mes, AURA + CAMILA (voz), 15 usuarios, 2 sucursales, + Agentic Pro, Webhooks + API
+- VORTEX — USD 279/mes — 28.000 créditos/mes, AURA (texto), 10 usuarios, 1 sucursal, modo Agentic, sin API
+- ATLAS — USD 379/mes (el más elegido) — 37.000 créditos/mes, AURA + CAMILA (voz), 15 usuarios, 2 sucursales, Webhooks + API
 - SUMMIT — USD 479/mes — 46.000 créditos/mes, AURA + CAMILA + LIA, 25 usuarios, sucursales ilimitadas, Webhooks + API
 - Corporativo — desde USD 1.900/mes — multi-sede sin límite de usuarios, SLA e integraciones a medida
 
