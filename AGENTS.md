@@ -46,14 +46,18 @@ arbitraria. La cadena completa es:
 tokens  ->  US$ (tarifa del modelo en OpenRouter)  ->  créditos (x 1.000)
 ```
 
+Dicho al revés, que es como se lee más rápido: **la bolsa de créditos de un plan
+es su presupuesto de gasto en OpenRouter, en milésimas de dólar.** Los 28.000
+créditos de Vortex son US$ 28 de consumo real; los 46.000 de Summit, US$ 46.
+
 > [!IMPORTANT]
-> Esta equivalencia está **pendiente de confirmación formal**. Se dedujo de que
-> es la única escala que hace cuadrar tres cosas a la vez: la política interna
-> de COGS 10–20%, los volúmenes de tokens medidos (16,1M tokens por clínica/mes)
-> y los precios de plan publicados. La alternativa que se evaluó
-> (1 crédito = US$ 1) da un COGS de 10.000% y es inviable.
-> Si se confirma otra escala, **hay que recalcular toda esta sección** y las dos
-> calculadoras.
+> Equivalencia **confirmada por Ricardo (agosto 2026)**. Es además la única
+> escala que hace cuadrar tres cosas a la vez: la política interna de COGS
+> 10–20%, los volúmenes de tokens medidos (16,1M tokens por clínica/mes) y los
+> precios de plan publicados. La alternativa de 1 crédito = US$ 1 daría un COGS
+> de 10.000% y es inviable — si alguien la propone, está mal.
+> Si algún día cambia la escala, **hay que recalcular toda esta sección** y las
+> dos calculadoras.
 
 ## Costo real del modelo (OpenRouter, verificado agosto 2026)
 
