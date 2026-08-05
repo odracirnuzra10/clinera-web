@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { track } from "@/lib/tracking";
+import { SETUP_FEE_USD } from "@/content/pricing";
 
 // ── Tarifario de créditos ──
 // Clinera opera en un único modo: Agentic. Toda conversación pasa por el
@@ -11,7 +12,7 @@ const CR_AGENDA = 195; // por conversación que termina en agendamiento
 const CR_VOZ = 25; // por minuto de voz (CAMILA)
 const CR_LIA = 4000; // fiscalización + informes (LIA), por mes
 
-const IMPL = 750; // implementación, pago único
+const IMPL = SETUP_FEE_USD; // implementación (mes 1), pago único
 const CORP_FROM = 1900; // Corporativo desde USD/mes
 
 type Plan = {

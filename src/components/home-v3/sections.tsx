@@ -4,13 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState, ReactNode } from "react";
 import { CtaPrimary, CtaSecondary, Eyebrow, Mono, GRAD, CnnLogo } from "@/components/brand-v3/Brand";
-import SetupFeeBand from "@/components/cro/SetupFeeBand";
 import { HOME_FAQ } from "@/content/home-faq";
 import {
   CLINERA_PLANS,
   SEMESTER_DISCOUNT_PERCENT,
   SEMESTER_MONTHS,
-  SETUP_FEE_INLINE,
+  SETUP_FEE_AMOUNT,
 } from "@/content/pricing";
 
 /* ============================================================
@@ -3972,7 +3971,31 @@ export function PrensaCNN() {
 /* ============================================================
    PRICING
    ============================================================ */
-type Agent = { id: "aura" | "lia" | "camila"; name: string; soon?: boolean };
+// Funciones base por card (formato compacto); el detalle completo vive en /planes-pro.
+function planFeatures(plan: (typeof CLINERA_PLANS)[number]): string[] {
+  switch (plan.id) {
+    case "vortex":
+      return [
+        "AURA · IA de texto por WhatsApp 24/7",
+        plan.consumptionReference,
+        "Agenda, fichas clínicas y pagos incluidos",
+      ];
+    case "atlas":
+      return [
+        "Todo lo de Vortex",
+        "CAMILA · IA de voz (pronto)",
+        plan.consumptionReference,
+        "Webhooks + API pública",
+      ];
+    case "summit":
+      return [
+        "Todo lo de Atlas",
+        "LIA · fiscalización + informes (pronto)",
+        plan.consumptionReference,
+        "Control central de toda la operación",
+      ];
+  }
+}
 
 export type Billing = "monthly" | "semester";
 
@@ -4073,16 +4096,10 @@ export function Pricing({
     })}`,
     semesterValue: plan.semesterTotal,
     credits: plan.credits.toLocaleString("es-CL"),
-    impl: SETUP_FEE_INLINE,
-    sub: plan.description,
-    tags: [{ t: plan.channel, ok: true }],
-    headline: plan.headline,
-    features: [
-      plan.consumptionReference,
-      `${plan.users} usuarios / profesionales`,
-      plan.branches,
-    ],
-    agents: plan.agents.map((agent) => ({ ...agent })) as Agent[],
+    users: plan.users,
+    branches: plan.branches,
+    channel: plan.channel,
+    features: planFeatures(plan),
     stripe: plan.stripe,
     stripeSemester: plan.stripeSemester,
     featured: plan.featured,
@@ -4170,9 +4187,6 @@ export function Pricing({
             : `Mensual seleccionado · facturación mes a mes · permanencia mínima de ${SEMESTER_MONTHS} meses`}
         </div>
 
-        {/* Configuración inicial — pago único, justo arriba de las tarjetas */}
-        <SetupFeeBand className="reveal" style={{ margin: "0 0 26px" }} />
-
         <div
           className="reveal home-pricing-grid"
           style={{
@@ -4239,285 +4253,110 @@ export function Pricing({
               )}
               <div
                 style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 10.5,
+                  fontWeight: 600,
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "#6B7280",
+                }}
+              >
+                Plan
+              </div>
+              <div
+                style={{
                   fontFamily: "Inter",
-                  fontSize: 22,
+                  fontSize: 26,
                   fontWeight: 700,
                   color: "#0A0A0A",
-                  letterSpacing: "-0.01em",
+                  letterSpacing: "-0.02em",
+                  margin: "4px 0 18px",
                 }}
               >
                 {p.name}
               </div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginTop: 10, marginBottom: 4 }}>
+
+              {/* Pago secuencial: mes 1 implementación, mes 2 en adelante el plan */}
+              <div
+                style={{
+                  background: p.featured ? "rgba(124,58,237,.05)" : "#F7F6F3",
+                  border: "1px solid " + (p.featured ? "rgba(124,58,237,.18)" : "#E5E7EB"),
+                  borderRadius: 14,
+                  padding: "16px 18px",
+                  marginBottom: 18,
+                }}
+              >
                 <div
                   style={{
-                    fontFamily: "Inter",
-                    fontSize: 48,
-                    fontWeight: 800,
-                    color: "#0A0A0A",
-                    letterSpacing: "-0.04em",
-                    lineHeight: 1,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "baseline",
+                    gap: 12,
+                    paddingBottom: 13,
+                    borderBottom: "1px solid " + (p.featured ? "rgba(124,58,237,.16)" : "#E7E5E2"),
                   }}
                 >
-                  {isSemester ? p.semesterMonthly : p.price}
-                </div>
-                <div style={{ fontFamily: "Inter", fontSize: 14, color: "#6B7280" }}>/mes</div>
-              </div>
-              <div
-                style={{
-                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                  fontSize: 10.5,
-                  color: isSemester ? "#7C3AED" : "#6B7280",
-                  fontWeight: 600,
-                  letterSpacing: ".03em",
-                  marginTop: 4,
-                }}
-              >
-                {isSemester
-                  ? `Total semestral: ${p.semesterTotal}`
-                  : `Permanencia mínima: ${SEMESTER_MONTHS} meses`}
-              </div>
-              <div
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 12.5,
-                  color: "#6B7280",
-                  fontWeight: 500,
-                  marginTop: 8,
-                  marginBottom: 16,
-                }}
-              >
-                {p.impl}
-              </div>
-              <div
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 14,
-                  color: "#4B5563",
-                  marginBottom: 18,
-                  lineHeight: 1.5,
-                  minHeight: 66,
-                }}
-              >
-                {p.sub}
-              </div>
-
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 22 }}>
-                {p.tags.map((t, i) => (
                   <span
-                    key={i}
                     style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                      fontFamily: "Inter",
-                      fontSize: 12.5,
-                      fontWeight: 500,
-                      color: t.ok ? "#065F46" : "#9CA3AF",
-                      background: t.ok ? "#ECFDF5" : "#F3F4F6",
-                      border: "1px solid " + (t.ok ? "#A7F3D0" : "#E5E7EB"),
-                      padding: "5px 10px",
-                      borderRadius: 999,
+                      fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                      fontSize: 10.5,
+                      fontWeight: 600,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      color: "#6B7280",
                     }}
                   >
-                    {t.ok ? (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12l5 5L20 7" />
-                      </svg>
-                    ) : (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M6 6l12 12M18 6L6 18" />
-                      </svg>
-                    )}
-                    {t.t}
+                    Mes 1 · Implementación
                   </span>
-                ))}
-              </div>
-
-              <div style={{ borderTop: "1px solid #F3F2F0", paddingTop: 18, marginBottom: 20, flex: 1, display: "flex", flexDirection: "column" }}>
-                <div
-                  style={{
-                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                    fontSize: 10.5,
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    color: "#6B7280",
-                    marginBottom: 12,
-                  }}
-                >
-                  {p.headline || "Incluye"}
+                  <span style={{ fontFamily: "Inter", fontSize: 17, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
+                    {SETUP_FEE_AMOUNT} <span style={{ fontSize: 11.5, fontWeight: 500, color: "#6B7280" }}>USD</span>
+                  </span>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
-                  {showCredits && p.credits && (
-                    <div
+                <div style={{ paddingTop: 13 }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", columnGap: 12, rowGap: 6 }}>
+                    <span
                       style={{
-                        display: "flex",
-                        alignItems: "baseline",
-                        gap: 8,
-                        padding: "11px 13px",
-                        marginBottom: 4,
-                        background: p.featured ? "rgba(124,58,237,.05)" : "#F7F6F3",
-                        border: "1px solid " + (p.featured ? "rgba(124,58,237,.18)" : "#E5E7EB"),
-                        borderRadius: 10,
+                        fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                        fontSize: 10.5,
+                        fontWeight: 600,
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "#6B7280",
+                        whiteSpace: "nowrap",
                       }}
                     >
-                      <span
-                        style={{
-                          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                          fontSize: 18,
-                          fontWeight: 700,
-                          color: "#0A0A0A",
-                          letterSpacing: "-0.01em",
-                        }}
-                      >
-                        {p.credits}
+                      Mes 2 en adelante
+                    </span>
+                    <span style={{ marginLeft: "auto", textAlign: "right", whiteSpace: "nowrap" }}>
+                      <span style={{ fontFamily: "Inter", fontSize: 34, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.04em", lineHeight: 1 }}>
+                        {isSemester ? p.semesterMonthly : p.price}
                       </span>
-                      <span
-                        style={{
-                          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                          fontSize: 10.5,
-                          fontWeight: 500,
-                          letterSpacing: "0.1em",
-                          textTransform: "uppercase",
-                          color: "#6B7280",
-                        }}
-                      >
-                        créditos / mes
-                      </span>
+                      <span style={{ fontFamily: "Inter", fontSize: 12, fontWeight: 500, color: "#6B7280", marginLeft: 4 }}>USD/mes</span>
+                    </span>
+                  </div>
+                  {showCredits && (
+                    <div style={{ fontFamily: "Inter", fontSize: 12.5, color: "#6B7280", marginTop: 8 }}>
+                      {p.credits} créditos / mes incluidos
                     </div>
                   )}
-                  {p.features.map((f, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: 10,
-                        fontFamily: "Inter",
-                        fontSize: 14,
-                        color: "#0A0A0A",
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      <span
-                        style={{
-                          flex: "0 0 16px",
-                          width: 16,
-                          height: 16,
-                          borderRadius: 999,
-                          background: "#ECFDF5",
-                          border: "1px solid #A7F3D0",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginTop: 2,
-                        }}
-                      >
-                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12l5 5L20 7" />
-                        </svg>
-                      </span>
-                      {f}
-                    </div>
-                  ))}
-                </div>
-
-                {p.agents && p.agents.length > 0 && (
-                  <div
-                    style={{
-                      marginTop: "auto",
-                      padding: "18px 18px",
-                      background: p.featured ? "rgba(124,58,237,.04)" : "#FAFAFA",
-                      border: p.featured ? "1px solid rgba(124,58,237,.18)" : "1px solid #E5E7EB",
-                      borderRadius: 12,
-                      boxSizing: "border-box",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
+                  {isSemester && (
                     <div
                       style={{
                         fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                        fontSize: 9.5,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                        color: "#9CA3AF",
-                        marginBottom: 12,
+                        fontSize: 10.5,
+                        color: "#7C3AED",
+                        fontWeight: 600,
+                        letterSpacing: ".03em",
+                        marginTop: 5,
                       }}
                     >
-                      {p.agents.length === 1 ? "Agente de IA incluido" : "Agentes de IA incluidos"}
+                      Total semestral: {p.semesterTotal} · {SEMESTER_DISCOUNT_PERCENT}% OFF
                     </div>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                      {p.agents.map((a) => {
-                        const gradMap: Record<Agent["id"], string> = {
-                          aura: "linear-gradient(135deg,#3B82F6,#7C3AED)",
-                          lia: "linear-gradient(135deg,#7C3AED,#C850C0)",
-                          camila: "linear-gradient(135deg,#C850C0,#F59E0B)",
-                        };
-                        return (
-                          <span
-                            key={a.id}
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: 6,
-                              padding: "4px 10px 4px 4px",
-                              background: "#fff",
-                              border: "1px solid #E5E7EB",
-                              borderRadius: 999,
-                              fontFamily: "Inter, sans-serif",
-                              fontSize: 11.5,
-                              fontWeight: 600,
-                              color: "#0A0A0A",
-                              whiteSpace: "nowrap",
-                            }}
-                          >
-                            <span
-                              style={{
-                                width: 18,
-                                height: 18,
-                                borderRadius: "50%",
-                                background: gradMap[a.id],
-                                color: "#fff",
-                                display: "inline-flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                fontSize: 9.5,
-                                fontWeight: 700,
-                                letterSpacing: 0,
-                              }}
-                            >
-                              {a.name.charAt(0)}
-                            </span>
-                            {a.name}
-                            {a.soon && (
-                              <span
-                                style={{
-                                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                                  fontSize: 8.5,
-                                  fontWeight: 700,
-                                  letterSpacing: "0.08em",
-                                  textTransform: "uppercase",
-                                  color: "#7C3AED",
-                                  background: "rgba(124,58,237,.10)",
-                                  border: "1px solid rgba(124,58,237,.22)",
-                                  borderRadius: 4,
-                                  padding: "1px 5px",
-                                  marginLeft: 2,
-                                }}
-                              >
-                                pronto
-                              </span>
-                            )}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 18 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 }}>
                 <Link
                   href="/hablar-con-ventas"
                   style={{
@@ -4561,6 +4400,77 @@ export function Pricing({
                 >
                   Contratar {p.name} {isSemester ? "semestral" : "mensual"}
                 </a>
+              </div>
+
+              <div style={{ borderTop: "1px solid #F3F2F0", paddingTop: 18, flex: 1, display: "flex", flexDirection: "column" }}>
+                <div
+                  style={{
+                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                    fontSize: 10.5,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "#6B7280",
+                    marginBottom: 12,
+                  }}
+                >
+                  Funciones base
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+                  {p.features.map((f, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 10,
+                        fontFamily: "Inter",
+                        fontSize: 14,
+                        color: "#0A0A0A",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      <span
+                        style={{
+                          flex: "0 0 16px",
+                          width: 16,
+                          height: 16,
+                          borderRadius: 999,
+                          background: "#ECFDF5",
+                          border: "1px solid #A7F3D0",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginTop: 2,
+                        }}
+                      >
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M5 12l5 5L20 7" />
+                        </svg>
+                      </span>
+                      {f}
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ marginTop: "auto", display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {[`${p.users} usuarios`, p.branches, p.channel].map((c) => (
+                    <span
+                      key={c}
+                      style={{
+                        fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                        fontSize: 11,
+                        fontWeight: 600,
+                        color: "#374151",
+                        background: p.featured ? "rgba(124,58,237,.04)" : "#FAFAFA",
+                        border: p.featured ? "1px solid rgba(124,58,237,.18)" : "1px solid #E5E7EB",
+                        borderRadius: 999,
+                        padding: "6px 12px",
+                      }}
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
               </div>
             </article>
           ))}

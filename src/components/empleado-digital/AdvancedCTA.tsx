@@ -63,7 +63,7 @@ export default function AdvancedCTA() {
         </a>
 
         <p className={styles.ctaTrust}>
-          Configuración inicial USD 750 (onboarding asistido) · Pago seguro vía Stripe
+          Configuración inicial USD 450 (onboarding asistido) · Pago seguro vía Stripe
         </p>
 
         <Link href="/demo" className={styles.ctaDemoLink}>

@@ -347,7 +347,7 @@ function PlansSection() {
             Elige tu plan y activa hoy.
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", margin: 0 }}>
-            Sin permanencia · configuración inicial USD 750 pago único · precios en USD.
+            Sin permanencia · configuración inicial USD 450 pago único · precios en USD.
           </p>
         </div>
         <div

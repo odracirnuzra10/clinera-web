@@ -404,14 +404,14 @@ export default function CalculadoraDeConsumoPage() {
                   plan="ATLAS · 37.000 cr"
                   cells={[
                     { text: "~1.233 conversaciones" },
-                    { text: "~190 agendamientos" },
+                    { text: "~189 agendamientos" },
                   ]}
                 />
                 <PlanRow
                   plan="SUMMIT · 46.000 cr"
                   cells={[
                     { text: "~1.533 conversaciones" },
-                    { text: "~236 agendamientos" },
+                    { text: "~235 agendamientos" },
                   ]}
                 />
               </tbody>
