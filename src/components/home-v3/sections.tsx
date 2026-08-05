@@ -3973,27 +3973,15 @@ export function PrensaCNN() {
    ============================================================ */
 // Funciones base por card (formato compacto); el detalle completo vive en /planes-pro.
 function planFeatures(plan: (typeof CLINERA_PLANS)[number]): string[] {
+  // Solo la equivalencia de texto, sin minutos de voz ni "automáticos".
+  const consumo = plan.consumptionReference.split(" · ")[0].replace(" automáticos", "");
   switch (plan.id) {
     case "vortex":
-      return [
-        "AURA · IA de texto por WhatsApp 24/7",
-        plan.consumptionReference,
-        "Agenda, fichas clínicas y pagos incluidos",
-      ];
+      return ["AURA · IA por WhatsApp 24/7", consumo, "Agenda, fichas y pagos"];
     case "atlas":
-      return [
-        "Todo lo de Vortex",
-        "CAMILA · IA de voz (pronto)",
-        plan.consumptionReference,
-        "Webhooks + API pública",
-      ];
+      return ["Todo lo de Vortex", "CAMILA · IA de voz (pronto)", consumo];
     case "summit":
-      return [
-        "Todo lo de Atlas",
-        "LIA · fiscalización + informes (pronto)",
-        plan.consumptionReference,
-        "Control central de toda la operación",
-      ];
+      return ["Todo lo de Atlas", "LIA · fiscalización (pronto)", consumo];
   }
 }
 
@@ -4475,7 +4463,7 @@ export function Pricing({
                       </div>
                       {showCredits && (
                         <div style={{ fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.45, color: th.sub, marginTop: 6 }}>
-                          {p.credits} créditos / mes incluidos
+                          {p.credits} créditos/mes
                         </div>
                       )}
                     </div>
@@ -4498,7 +4486,7 @@ export function Pricing({
                         marginTop: 10,
                       }}
                     >
-                      Total semestral: {p.semesterTotal} · {SEMESTER_DISCOUNT_PERCENT}% OFF
+                      Semestre: {p.semesterTotal} · {SEMESTER_DISCOUNT_PERCENT}% OFF
                     </div>
                   )}
                 </div>
@@ -4545,7 +4533,7 @@ export function Pricing({
                     data-plan-value={isSemester ? p.semesterValue : p.monthlyValue}
                     data-plan-name={`${p.name} pay ${billing}`}
                   >
-                    Contratar {p.name} {isSemester ? "semestral" : "mensual"}
+                    Contratar {p.name}
                   </a>
                 </div>
 
