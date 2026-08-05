@@ -32,11 +32,12 @@ const softwareLd = {
   description:
     "Plataforma enterprise con IA que unifica agenda, WhatsApp, llamadas de voz, ficha clínica, cobros y control central de todas las sedes.",
   url: "https://www.clinera.io/plataforma",
-  // Coherente con los modos mensual y semestral visibles en esta landing.
+  // Coherente con las tarjetas canónicas de planes (Vortex/Atlas/Summit,
+  // modos mensual y semestral; Summit semestral: USD 2.299,20).
   offers: {
     "@type": "AggregateOffer",
-    lowPrice: "379",
-    highPrice: "9120",
+    lowPrice: "279",
+    highPrice: "2299.20",
     priceCurrency: "USD",
     offerCount: "6",
     description:

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CnnLogo } from "@/components/brand-v3/Brand";
 import { IntelligencePlataformaSection } from "@/components/IntelligenceSection";
 import AuraNetwork from "./AuraNetwork";
-import PlatformPricing from "./PlatformPricing";
+import PlanesSection from "./PlanesSection";
 import styles from "./PlataformaLanding.module.css";
 
 const CLIENTS = [
@@ -350,7 +350,7 @@ function FinalCta() {
         <p>En 30 minutos te mostramos cómo se verían tus sedes, tu equipo y tus procesos dentro de Clinera.</p>
         <Link className={styles.finalButton} href="/ventas">Ver Clinera con mi operación <Arrow /></Link>
         <div className={styles.finalMeta}>
-          <span>Desde USD 379/mes</span>
+          <span>Desde USD 279/mes</span>
           <i />
           <span>Semestral: 20% OFF</span>
           <i />
@@ -375,7 +375,7 @@ export default function PlataformaLanding() {
       <CustomerResult />
       <PressCNN />
       <Migration />
-      <PlatformPricing />
+      <PlanesSection />
       <Trust />
       <FrequentlyAsked />
       <FinalCta />
