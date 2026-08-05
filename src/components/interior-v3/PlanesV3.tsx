@@ -27,7 +27,7 @@ export default function PlanesV3() {
         }
       `}</style>
       <PlanesHero />
-      <Pricing intro="comparison" />
+      <Pricing intro="none" />
       <Addons />
       <PlanesFaq />
       <FinalCTA />
@@ -39,7 +39,7 @@ function PlanesHero() {
   return (
     <section
       style={{
-        padding: "56px 80px 24px",
+        padding: "64px 80px 10px",
         background: "linear-gradient(180deg,#FFFFFF 0%,#FAFAFA 100%)",
       }}
     >
@@ -48,11 +48,11 @@ function PlanesHero() {
         <h1
           style={{
             fontFamily: "Inter",
-            fontSize: 56,
-            fontWeight: 700,
-            letterSpacing: "-0.035em",
-            lineHeight: 1.04,
-            margin: "14px 0 12px",
+            fontSize: 64,
+            fontWeight: 800,
+            letterSpacing: "-0.04em",
+            lineHeight: 1.03,
+            margin: "16px 0 14px",
             color: "#0A0A0A",
           }}
           className="planes-hero-title"
@@ -65,11 +65,11 @@ function PlanesHero() {
         <p
           style={{
             fontFamily: "Inter",
-            fontSize: 17,
+            fontSize: 18,
             color: "#4B5563",
             lineHeight: 1.55,
             margin: "0 auto 22px",
-            maxWidth: 600,
+            maxWidth: 620,
           }}
         >
           Del equipo de recepción a varias sedes. Precios en USD, permanencia mínima de 6 meses y 20% OFF al pagar el semestre.
