@@ -4629,114 +4629,153 @@
       <h2 class="h-display">Activa Clinera <span class="em">hoy</span>.</h2>
       <p class="lead">Tres planes. Permanencia mínima de 6 meses.</p>
 
-      <div class="setup-fee">
-        <div class="setup-fee-head">
-          <span class="setup-fee-label">Costo de configuración · pago único</span>
-          <span class="setup-fee-amount">USD 450</span>
+      <style>
+        .vp-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:18px; }
+        @media (max-width:900px){ .vp-grid{ grid-template-columns:1fr; } }
+        .vp-card{ border-radius:24px; padding:26px 24px; display:flex; flex-direction:column; position:relative; font-family:var(--sans); }
+        .vp-card.vx{ background:#E4F4FD; box-shadow:0 4px 24px rgba(2,132,199,.08); }
+        .vp-card.at{ background:#D8C9F9; box-shadow:0 10px 32px rgba(109,40,217,.16); }
+        .vp-card.sm{ background:linear-gradient(160deg,#5B21B6 0%,#7C3AED 46%,#BC29CE 100%); color:#fff; box-shadow:0 24px 60px -18px rgba(124,58,237,.45); }
+        .vp-badge{ position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#fff; color:#7C3AED; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:500; padding:6px 14px; border-radius:999px; box-shadow:0 10px 24px -6px rgba(91,33,182,.45); white-space:nowrap; }
+        .vp-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:14px; }
+        .vp-plan{ font-size:12.5px; font-weight:500; }
+        .vx .vp-plan{ color:#0C4A6E; } .at .vp-plan{ color:#3B1E7E; } .sm .vp-plan{ color:rgba(255,255,255,.72); }
+        .vp-name{ font-size:26px; font-weight:800; letter-spacing:-.03em; margin-top:2px; }
+        .vx .vp-name{ color:#0284C7; } .at .vp-name{ color:#5B21B6; } .sm .vp-name{ color:#fff; }
+        .vp-ic{ width:38px; height:38px; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; }
+        .vx .vp-ic{ background:rgba(2,132,199,.13); color:#0284C7; } .at .vp-ic{ background:rgba(109,40,217,.15); color:#6D28D9; } .sm .vp-ic{ background:rgba(255,255,255,.18); color:#fff; }
+        .vp-panel{ border-radius:14px; padding:14px 16px; margin-bottom:14px; }
+        .vx .vp-panel{ background:rgba(255,255,255,.62); border:1px solid rgba(2,132,199,.10); } .at .vp-panel{ background:rgba(255,255,255,.60); border:1px solid rgba(109,40,217,.12); } .sm .vp-panel{ background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.20); }
+        .vp-row{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+        .vp-row2{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+        .vp-lab{ font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; }
+        .vx .vp-lab, .vx .vp-cred, .vx .vp-unit{ color:#48677A; } .at .vp-lab, .at .vp-cred, .at .vp-unit{ color:#4A3B7C; } .sm .vp-lab, .sm .vp-cred, .sm .vp-unit{ color:rgba(255,255,255,.75); }
+        .vp-div{ height:1px; margin:11px 0; }
+        .vx .vp-div{ background:rgba(2,132,199,.16); } .at .vp-div{ background:rgba(109,40,217,.18); } .sm .vp-div{ background:rgba(255,255,255,.24); }
+        .vp-amt-sm{ font-size:15px; font-weight:800; letter-spacing:-.02em; white-space:nowrap; }
+        .vp-amt-sm small{ font-size:10px; font-weight:600; }
+        .vp-amt{ font-size:30px; font-weight:800; letter-spacing:-.045em; line-height:1; }
+        .vx .vp-amt-sm, .vx .vp-amt, .vx .vp-feat{ color:#0A0A0A; } .at .vp-amt-sm, .at .vp-amt, .at .vp-feat{ color:#150B33; } .sm .vp-amt-sm, .sm .vp-amt, .sm .vp-feat{ color:#fff; }
+        .vp-unit{ font-size:10.5px; font-weight:600; margin-top:3px; text-align:right; }
+        .vp-cred{ font-size:11.5px; margin-top:5px; }
+        .vp-cta{ display:block; text-align:center; border-radius:11px; padding:11px 16px; font-weight:700; font-size:13.5px; text-decoration:none; margin-bottom:14px; }
+        .vx .vp-cta, .at .vp-cta{ background:#0A0A0A; color:#fff; }
+        .sm .vp-cta{ background:#fff; color:#6D28D9; box-shadow:0 10px 24px -8px rgba(17,6,48,.45); }
+        .vp-funcs{ border-top:1px solid; padding-top:13px; flex:1; display:flex; flex-direction:column; }
+        .vx .vp-funcs{ border-color:rgba(2,132,199,.16); } .at .vp-funcs{ border-color:rgba(109,40,217,.18); } .sm .vp-funcs{ border-color:rgba(255,255,255,.24); }
+        .vp-flabel{ font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px; }
+        .vx .vp-flabel{ color:#0C4A6E; } .at .vp-flabel{ color:#3B1E7E; } .sm .vp-flabel{ color:rgba(255,255,255,.72); }
+        .vp-feat{ display:flex; align-items:flex-start; gap:8px; font-size:12.5px; line-height:1.45; margin-bottom:8px; }
+        .vp-check{ flex:0 0 14px; width:14px; height:14px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; margin-top:2px; }
+        .vx .vp-check{ background:rgba(2,132,199,.13); color:#0284C7; } .at .vp-check{ background:rgba(109,40,217,.15); color:#6D28D9; } .sm .vp-check{ background:rgba(255,255,255,.22); color:#fff; }
+        .vp-chips{ margin-top:auto; display:flex; flex-wrap:wrap; gap:6px; padding-top:10px; }
+        .vp-chip{ display:inline-flex; flex-direction:column; align-items:center; gap:1px; border-radius:10px; padding:5px 11px; }
+        .vp-chip.line{ flex-direction:row; align-items:center; }
+        .vx .vp-chip{ background:rgba(255,255,255,.66); border:1px solid rgba(2,132,199,.14); } .at .vp-chip{ background:rgba(255,255,255,.62); border:1px solid rgba(109,40,217,.16); } .sm .vp-chip{ background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.24); }
+        .vp-chip b{ font-size:13px; font-weight:800; line-height:1.2; }
+        .vx .vp-chip b, .vx .vp-chip.line{ color:#0A0A0A; } .at .vp-chip b, .at .vp-chip.line{ color:#150B33; } .sm .vp-chip b, .sm .vp-chip.line{ color:#fff; }
+        .vp-chip span{ font-size:9px; font-weight:500; }
+        .vx .vp-chip span{ color:#48677A; } .at .vp-chip span{ color:#4A3B7C; } .sm .vp-chip span{ color:rgba(255,255,255,.75); }
+        .vp-chip.line{ font-family:var(--mono); font-size:10px; }
+        .vp-foot{ font-family:var(--mono); font-size:11px; color:var(--muted); line-height:1.6; margin-bottom:26px; }
+      </style>
+
+      <div class="vp-grid">
+
+        <div class="vp-card vx">
+          <div class="vp-head">
+            <div>
+              <div class="vp-plan">Plan</div>
+              <div class="vp-name">Vortex</div>
+            </div>
+            <span class="vp-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M16.5 12A4.5 4.5 0 1 1 12 7.5"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+          </div>
+          <div class="vp-panel">
+            <div class="vp-row"><span class="vp-lab">Mes 1 · Implementación</span><span class="vp-amt-sm">$450 <small>USD</small></span></div>
+            <div class="vp-div"></div>
+            <div class="vp-row2">
+              <div><div class="vp-lab">Mes 2 en adelante</div><div class="vp-cred">28.000 créditos/mes</div></div>
+              <div><div class="vp-amt">$279</div><div class="vp-unit">USD/mes</div></div>
+            </div>
+          </div>
+          <a class="vp-cta" href="https://www.clinera.io/planes" target="_self">Activar Vortex</a>
+          <div class="vp-funcs">
+            <div class="vp-flabel">Funciones base</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>AURA · IA por WhatsApp 24/7</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>~933 conversaciones o ~143 agendamientos</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Agenda, fichas y pagos</div>
+            <div class="vp-chips">
+              <span class="vp-chip"><b>10</b><span>Usuarios</span></span>
+              <span class="vp-chip"><b>1</b><span>Sucursal</span></span>
+              <span class="vp-chip line">Texto</span>
+            </div>
+          </div>
         </div>
-        <p class="setup-fee-copy">Se paga una sola vez, al inicio, sobre cualquier plan. Incluye migración de fichas clínicas, datos históricos, pacientes y tratamientos, configuración y entrenamiento de los agentes de IA, y capacitación del equipo.</p>
+
+        <div class="vp-card at">
+          <div class="vp-head">
+            <div>
+              <div class="vp-plan">Plan</div>
+              <div class="vp-name">Atlas</div>
+            </div>
+            <span class="vp-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.7 2.4 2.7 14.6 0 17"/><path d="M12 3.5c-2.7 2.4-2.7 14.6 0 17"/></svg></span>
+          </div>
+          <div class="vp-panel">
+            <div class="vp-row"><span class="vp-lab">Mes 1 · Implementación</span><span class="vp-amt-sm">$450 <small>USD</small></span></div>
+            <div class="vp-div"></div>
+            <div class="vp-row2">
+              <div><div class="vp-lab">Mes 2 en adelante</div><div class="vp-cred">37.000 créditos/mes</div></div>
+              <div><div class="vp-amt">$379</div><div class="vp-unit">USD/mes</div></div>
+            </div>
+          </div>
+          <a class="vp-cta" href="https://www.clinera.io/planes" target="_self">Activar Atlas</a>
+          <div class="vp-funcs">
+            <div class="vp-flabel">Funciones base</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Todo lo de Vortex</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>CAMILA · IA de voz (pronto)</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>~1.233 conversaciones o ~189 agendamientos</div>
+            <div class="vp-chips">
+              <span class="vp-chip"><b>15</b><span>Usuarios</span></span>
+              <span class="vp-chip"><b>2</b><span>Sucursales</span></span>
+              <span class="vp-chip line">Texto + voz</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vp-card sm">
+          <span class="vp-badge">★ El más elegido</span>
+          <div class="vp-head">
+            <div>
+              <div class="vp-plan">Plan</div>
+              <div class="vp-name">Summit</div>
+            </div>
+            <span class="vp-ic" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19h18"/><path d="M5 19l6-11 3.4 6.2L17 10.5 21 19"/></svg></span>
+          </div>
+          <div class="vp-panel">
+            <div class="vp-row"><span class="vp-lab">Mes 1 · Implementación</span><span class="vp-amt-sm">$450 <small>USD</small></span></div>
+            <div class="vp-div"></div>
+            <div class="vp-row2">
+              <div><div class="vp-lab">Mes 2 en adelante</div><div class="vp-cred">46.000 créditos/mes</div></div>
+              <div><div class="vp-amt">$479</div><div class="vp-unit">USD/mes</div></div>
+            </div>
+          </div>
+          <a class="vp-cta" href="https://www.clinera.io/planes" target="_self">Activar Summit</a>
+          <div class="vp-funcs">
+            <div class="vp-flabel">Funciones base</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Todo lo de Atlas</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>LIA · fiscalización (pronto)</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>~1.533 conversaciones o ~235 agendamientos</div>
+            <div class="vp-chips">
+              <span class="vp-chip"><b>25</b><span>Usuarios</span></span>
+              <span class="vp-chip"><b>∞</b><span>Sucursales</span></span>
+              <span class="vp-chip line">Texto + voz + API</span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="pricing-grid">
-
-        <div class="price-card">
-          <h3 class="plan-name">Vortex</h3>
-          <div class="plan-price"><span class="amt">$279</span><span class="per">/mes</span></div>
-          <p class="plan-desc">AURA por WhatsApp 24/7 + módulo clínico.</p>
-          <hr class="price-divider" />
-          <ul class="price-features">
-            <li><b>28.000 créditos / mes</b> (≈933 conversaciones · ~143 agendamientos)</li>
-            <li>El agendamiento consume ~195 créditos</li>
-            <li>3 usuarios</li>
-          </ul>
-          <div class="plan-models">
-            <span class="pm-label">Modo de agendamiento</span>
-            <div class="pm-pills">
-              <span class="pm-pill">Agentic</span>
-            </div>
-          </div>
-          <div class="price-agents">
-            <span class="pa-label">Empleados digitales incluidos</span>
-            <span class="pa-pill aura"><span class="pa-dot"></span>AURA</span>
-          </div>
-          <div class="cost-per-agend">
-            <span class="cpa-label">Bolsa de<br/>créditos</span>
-            <span class="cpa-value">28.000/mes</span>
-          </div>
-          <div class="price-actions">
-            <a class="price-btn" href="https://www.clinera.io/planes" target="_self">Hablar con ventas</a>
-            <a class="price-btn secondary" href="https://www.clinera.io/planes" target="_self">Activar plan</a>
-          </div>
-        </div>
-
-        <div class="price-card">
-          <h3 class="plan-name">Atlas</h3>
-          <div class="plan-price"><span class="amt">$379</span><span class="per">/mes</span></div>
-          <p class="plan-desc">Más capacidad + CAMILA por voz + API.</p>
-          <hr class="price-divider" />
-          <ul class="price-features">
-            <li><b>37.000 créditos / mes</b> (≈1.233 conversaciones · ~189 agendamientos · ~105 llamadas de voz)</li>
-            <li>El agendamiento consume ~195 créditos</li>
-            <li>5 usuarios · Multisucursal</li>
-            <li>Webhooks + API pública</li>
-          </ul>
-          <div class="plan-models">
-            <span class="pm-label">Modo de agendamiento</span>
-            <div class="pm-pills">
-              <span class="pm-pill">Agentic</span>
-            </div>
-          </div>
-          <div class="price-agents">
-            <span class="pa-label">Empleados digitales incluidos</span>
-            <span class="pa-pill aura"><span class="pa-dot"></span>AURA</span>
-            <span class="pa-pill camila"><span class="pa-dot"></span>CAMILA</span>
-          </div>
-          <div class="cost-per-agend">
-            <span class="cpa-label">Bolsa de<br/>créditos</span>
-            <span class="cpa-value">37.000/mes</span>
-          </div>
-          <div class="price-actions">
-            <a class="price-btn" href="https://www.clinera.io/planes" target="_self">Hablar con ventas</a>
-            <a class="price-btn secondary" href="https://www.clinera.io/planes" target="_self">Activar plan</a>
-          </div>
-        </div>
-
-        <div class="price-card popular">
-          <span class="popular-tag">Recomendado · equipo completo</span>
-          <h3 class="plan-name">Summit</h3>
-          <div class="plan-price"><span class="amt">$479</span><span class="per">/mes</span></div>
-          <p class="plan-desc">AURA + CAMILA + LIA fiscalizando.</p>
-          <hr class="price-divider" />
-          <ul class="price-features">
-            <li><b>46.000 créditos / mes</b> (≈1.533 conversaciones · ~235 agendamientos · ~145 llamadas de voz)</li>
-            <li><b>LIA fiscaliza el 100% + informes diarios/semanales</b></li>
-            <li>El agendamiento consume ~195 créditos</li>
-            <li>Multisucursal · Webhooks + API pública</li>
-            <li>15 usuarios</li>
-          </ul>
-          <div class="plan-models">
-            <span class="pm-label">Modo de agendamiento</span>
-            <div class="pm-pills">
-              <span class="pm-pill">Agentic</span>
-            </div>
-          </div>
-          <div class="price-agents">
-            <span class="pa-label">Empleados digitales incluidos</span>
-            <span class="pa-pill aura"><span class="pa-dot"></span>AURA</span>
-            <span class="pa-pill camila"><span class="pa-dot"></span>CAMILA</span>
-            <span class="pa-pill lia"><span class="pa-dot"></span>LIA</span>
-          </div>
-          <div class="cost-per-agend featured">
-            <span class="cpa-label">Bolsa de<br/>créditos</span>
-            <span class="cpa-value">46.000/mes</span>
-          </div>
-          <div class="price-actions">
-            <a class="price-btn primary" href="https://www.clinera.io/planes" target="_self">Hablar con ventas</a>
-            <a class="price-btn secondary" href="https://www.clinera.io/planes" target="_self">Activar plan</a>
-          </div>
-        </div>
-
-      </div>
+      <p class="vp-foot">Mes 1: implementación USD 450 (pago único) — incluye migración de fichas clínicas, pacientes y tratamientos, configuración de agentes y capacitación · Desde el mes 2: el plan contratado · Semestre anticipado: 20% OFF · Permanencia mínima 6 meses</p>
 
       <div class="enterprise-card">
         <div class="ent-left">
