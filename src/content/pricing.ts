@@ -1,6 +1,6 @@
 // Fuente única del costo de configuración inicial (pago único).
-// Lo consumen <SetupFeeBand />, las tarjetas de planes de home-v3/planes/planes-pro,
-// PlatformPricing (/plataforma) y las calculadoras de consumo.
+// Lo consumen <SetupFeeBand />, las tarjetas de planes de home-v3
+// (home, /planes, /planes-pro y /plataforma) y las calculadoras de consumo.
 export const SETUP_FEE_USD = 450;
 
 /** Monto formateado en es-CL, sin símbolo ni moneda: "450". */
