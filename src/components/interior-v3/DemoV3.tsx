@@ -347,7 +347,7 @@ function PlansSection() {
             Elige tu plan y activa hoy.
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", margin: 0 }}>
-            Sin permanencia · configuración inicial USD 450 pago único · precios en USD.
+            Permanencia mínima de 6 meses · mes 1: implementación USD 450 pago único · precios en USD.
           </p>
         </div>
         <div
@@ -439,7 +439,7 @@ function PlansSection() {
                   </div>
                   <div style={{ minHeight: 20, marginBottom: 20, display: "flex", alignItems: "center" }}>
                     <span style={{ fontFamily: "Inter", fontSize: 12.5, color: popular ? "rgba(255,255,255,.7)" : "#6B7280" }}>
-                      Bolsa única de créditos · sin permanencia
+                      Bolsa única de créditos · pago mensual o semestral
                     </span>
                   </div>
                   <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
@@ -656,7 +656,7 @@ function PlansSection() {
                       margin: "10px 0 0",
                     }}
                   >
-                    Onboarding asistido · sin permanencia
+                    Onboarding asistido · operando el mismo día
                   </p>
                 </div>
               </div>

@@ -140,7 +140,7 @@ function mejorSoftwareTemplate(r: Recurso): RecursoContent {
           "No es marketplace de pacientes (no genera demanda nueva por sí solo).",
           "Odontograma dental básico — para clínicas 100% odontológicas conviene combinar con Dentalink.",
         ],
-        precioMensual: "USD 279/mes (Vortex, 10 usuarios incluidos) — sin permanencia.",
+        precioMensual: "USD 279/mes (Vortex, 10 usuarios incluidos) — permanencia mínima de 6 meses.",
         idealPara: `Clínicas en ${ciudad} que reciben WhatsApps fuera de horario o pierden pacientes por no contestar a tiempo. Clínicas con inversión en publicidad digital que necesitan saber qué anuncio trae pacientes reales.`,
         ctaPrimaryHref: "/planes",
         ctaPrimaryLabel: "Ver planes desde USD 279/mes",
@@ -230,7 +230,7 @@ function mejorSoftwareTemplate(r: Recurso): RecursoContent {
     comparativaSlug.charAt(0).toUpperCase() + comparativaSlug.slice(1);
   const cta = {
     title: `¿Tu clínica en ${ciudad} ya pierde pacientes por no contestar WhatsApp?`,
-    body: `Activa Clinera con un costo de configuración de USD 450 (pago único) y sin permanencia. Onboarding asistido por un humano y AURA empieza a contestar tu WhatsApp Business el mismo día.`,
+    body: `Activa Clinera con un costo de configuración de USD 450 (pago único) y permanencia mínima de 6 meses. Onboarding asistido por un humano y AURA empieza a contestar tu WhatsApp Business el mismo día.`,
     primaryHref: "/planes",
     primaryLabel: "Ver planes desde USD 279/mes",
     secondaryHref: `/comparativas/${comparativaSlug}`,
@@ -600,7 +600,7 @@ function getFaqs(
       },
       {
         q: `¿Hay versión gratuita?`,
-        a: `Doctocliq tiene plan gratis permanente. Clinera no tiene plan gratis; el costo de configuración es un pago único de USD 450 (onboarding asistido por un humano, operando el mismo día) y no hay permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
+        a: `Doctocliq tiene plan gratis permanente. Clinera no tiene plan gratis; el costo de configuración es un pago único de USD 450 (onboarding asistido por un humano, operando el mismo día) y la permanencia mínima es de 6 meses: pagas el plan mensual desde USD 279/mes o anticipas el semestre con 20% de descuento.`,
       },
       {
         q: `¿Migrar de un software a otro pierde datos?`,
@@ -628,7 +628,7 @@ function getFaqs(
       },
       {
         q: `¿Hay versión gratuita?`,
-        a: `Ninguno de los softwares colombianos del listado ofrece plan gratuito permanente. Clinera tiene un costo de configuración de pago único USD 450 (onboarding asistido por un humano, operando el mismo día) y sin permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
+        a: `Ninguno de los softwares colombianos del listado ofrece plan gratuito permanente. Clinera tiene un costo de configuración de pago único USD 450 (onboarding asistido por un humano, operando el mismo día) y permanencia mínima de 6 meses: pagas el plan mensual desde USD 279/mes o anticipas el semestre con 20% de descuento.`,
       },
       {
         q: `¿Migrar de un software a otro pierde datos?`,
@@ -652,7 +652,7 @@ function getFaqs(
     },
     {
       q: `¿Hay versión gratuita?`,
-      a: `Ninguno de los softwares de esta lista ofrece plan gratuito permanente. Clinera tiene un costo de configuración de pago único USD 450 (onboarding asistido por un humano) y sin permanencia: pagas el plan mensual desde USD 279/mes y puedes cancelar cuando quieras.`,
+      a: `Ninguno de los softwares de esta lista ofrece plan gratuito permanente. Clinera tiene un costo de configuración de pago único USD 450 (onboarding asistido por un humano) y permanencia mínima de 6 meses: pagas el plan mensual desde USD 279/mes o anticipas el semestre con 20% de descuento.`,
     },
     {
       q: `¿Migrar de un software a otro pierde datos?`,

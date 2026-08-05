@@ -134,7 +134,7 @@ function Hero() {
           >
             ⇄
           </span>
-          Migración asistida · sin permanencia
+          Migración asistida · operando el mismo día
         </span>
 
         <h1
@@ -679,7 +679,7 @@ function ReasonsSection() {
       title: "Pagas una sola herramienta, no dos.",
       body: "Agenda médica con API USD 260 + Vambe.ai USD 550 = USD 800+/mes. Clinera Vortex incluye agente IA por USD 279. Un solo proveedor, un solo cobro.",
       bullets: [
-        "Sin permanencia · un solo cobro mensual",
+        "Un solo cobro mensual · permanencia mínima de 6 meses",
         "Cancelas cuando quieras",
         "Ahorro mínimo USD 500 / mes",
       ],
@@ -1273,7 +1273,7 @@ function Faq() {
     },
     {
       q: "¿Hay permanencia o costo de configuración?",
-      a: "Sin permanencia: cancelas cuando quieras. El costo de configuración es un pago único de USD 450 — onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo. Quedas operando el mismo día.",
+      a: "La permanencia mínima es de 6 meses (pago mensual o semestral con 20% OFF). El costo de configuración es un pago único de USD 450 — onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo. Quedas operando el mismo día.",
     },
     {
       q: "¿Cuánto tiempo toma la migración completa?",

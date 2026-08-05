@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import SetupFeeBand from "@/components/cro/SetupFeeBand";
 import { SETUP_FEE_NUMBER } from "@/content/pricing";
 import styles from "./PlatformPricing.module.css";
 
@@ -72,9 +71,9 @@ export default function PlatformPricing() {
           <span>Planes para operaciones con volumen</span>
           <h2 id="platform-pricing-title">Elige cómo pagar tus primeros 6 meses.</h2>
           <p>
-            El semestral es la primera opción: anticipas 6 meses con 20% de descuento. También puedes
-            pagar mensualmente, con permanencia mínima de 6 meses. A eso se suma un único costo de
-            configuración inicial.
+            El mes 1 pagas solo la implementación (USD {SETUP_FEE_NUMBER}, pago único) y desde el
+            mes 2, tu plan. El semestral es la primera opción: anticipas 6 meses con 20% de
+            descuento. También puedes pagar mensualmente, con permanencia mínima de 6 meses.
           </p>
         </div>
 
@@ -109,8 +108,6 @@ export default function PlatformPricing() {
           <small>Permanencia mínima: 6 meses</small>
         </div>
 
-        <SetupFeeBand style={{ marginTop: 18 }} />
-
         <div className={styles.planGrid} aria-live="polite">
           {PLANS.map((plan) => (
             <article
@@ -135,7 +132,7 @@ export default function PlatformPricing() {
                 </>
               ) : (
                 <>
-                  <div className={styles.monthlyLabel}>Pago mensual</div>
+                  <div className={styles.monthlyLabel}>Mes 2 en adelante</div>
                   <div className={styles.price}>
                     <strong>USD {plan.monthlyPrice}</strong>
                     <small>/ mes</small>
@@ -145,9 +142,9 @@ export default function PlatformPricing() {
               )}
 
               <div className={styles.implementationFee}>
-                <strong>{plan.quotedSetup ? "A cotizar" : `+ USD ${SETUP_FEE_NUMBER}`}</strong>
-                <span>de configuración inicial</span>
-                <small>Pago único adicional</small>
+                <strong>{plan.quotedSetup ? "A cotizar" : `USD ${SETUP_FEE_NUMBER}`}</strong>
+                <span>mes 1 · implementación</span>
+                <small>Pago único · el plan se paga desde el mes 2</small>
               </div>
 
               <p>{plan.audience}</p>

@@ -146,7 +146,7 @@ const competitors: Record<Slug, Competitor> = {
       "Atribución de ventas a campañas (Meta/Google → conversación → cita → venta).",
       "IA integrable con tu agenda actual vía API y MCP (no obliga a migrar).",
       "Derivación automática a humano cuando la conversación lo requiere.",
-      "Precios públicos desde USD 279/mes, sin permanencia.",
+      "Precios públicos desde USD 279/mes.",
       "Setup en menos de 1 hora, sin programador.",
       "Reducción típica de no-shows del 30% al 5-10% en el primer mes.",
     ],
@@ -204,7 +204,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y planes",
         body:
-          "Clinera publica sus precios: VORTEX USD 279/mes, ATLAS USD 379/mes, SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), sin permanencia. Reservo no publica precios — atiende por formulario o teléfono con un plan único ajustado al tamaño del centro. Si valoras saber cuánto pagas antes de llamar, Clinera tiene la transparencia.",
+          "Clinera publica sus precios: VORTEX USD 279/mes, ATLAS USD 379/mes, SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), con permanencia mínima de 6 meses. Reservo no publica precios — atiende por formulario o teléfono con un plan único ajustado al tamaño del centro. Si valoras saber cuánto pagas antes de llamar, Clinera tiene la transparencia.",
       },
       {
         title: "Soporte y onboarding",
@@ -227,7 +227,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Cuánto cuesta Reservo vs Clinera?",
-        a: "Reservo no publica precios (cotización por tamaño de clínica). Clinera publica USD 279/379/479 por mes, sin permanencia.",
+        a: "Reservo no publica precios (cotización por tamaño de clínica). Clinera publica USD 279/379/479 por mes (permanencia mínima de 6 meses).",
       },
       {
         q: "¿Reservo cubre dental?",
@@ -314,7 +314,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y planes",
         body:
-          "AgendaPro arranca en USD 19/usuario/mes (plus add-ons de pagos y recepcionista). Clinera publica VORTEX USD 279/mes, ATLAS USD 379/mes y SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), sin permanencia. AgendaPro cobra por usuario y escala con el tamaño del equipo; Clinera es precio plano con IA conversacional incluida — la comparación depende de cuántos profesionales tengas y de cuánto valoras tener la IA en el mismo panel.",
+          "AgendaPro arranca en USD 19/usuario/mes (plus add-ons de pagos y recepcionista). Clinera publica VORTEX USD 279/mes, ATLAS USD 379/mes y SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), con permanencia mínima de 6 meses. AgendaPro cobra por usuario y escala con el tamaño del equipo; Clinera es precio plano con IA conversacional incluida — la comparación depende de cuántos profesionales tengas y de cuánto valoras tener la IA en el mismo panel.",
       },
       {
         title: "Soporte y onboarding",
@@ -425,7 +425,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y planes",
         body:
-          "Medilink no publica precios (cotización por clínica). Clinera publica VORTEX USD 279, ATLAS USD 379, SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), sin permanencia. Si valoras transparencia total y precio predecible, Clinera tiene ventaja clara.",
+          "Medilink no publica precios (cotización por clínica). Clinera publica VORTEX USD 279, ATLAS USD 379, SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), con permanencia mínima de 6 meses. Si valoras transparencia total y precio predecible, Clinera tiene ventaja clara.",
       },
       {
         title: "Soporte y onboarding",
@@ -448,7 +448,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Cuánto cuesta Medilink vs Clinera?",
-        a: "Medilink no publica precios — cotización telefónica. Clinera publica USD 279/379/479 por mes, sin permanencia.",
+        a: "Medilink no publica precios — cotización telefónica. Clinera publica USD 279/379/479 por mes (permanencia mínima de 6 meses).",
       },
       {
         q: "¿Clinera tiene telemedicina?",
@@ -585,7 +585,7 @@ const competitors: Record<Slug, Competitor> = {
       "Atribución real de ventas a campañas Meta y Google Ads — Dentalink no tiene panel de marketing.",
       "Memoria contextual entre conversaciones (LangChain).",
       "Difusiones masivas de WhatsApp marketing desde el panel.",
-      "Precios públicos desde USD 279/mes, sin permanencia.",
+      "Precios públicos desde USD 279/mes.",
       "Setup en menos de 1 hora.",
     ],
     themWins: [
@@ -643,7 +643,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y transparencia",
         body:
-          "Dentalink no publica precios — atiende por demo o cotización. Clinera publica VORTEX USD 279/mes, ATLAS USD 379/mes, SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), sin permanencia; configuración inicial USD 450 (pago único) con onboarding asistido — operando el mismo día.",
+          "Dentalink no publica precios — atiende por demo o cotización. Clinera publica VORTEX USD 279/mes, ATLAS USD 379/mes, SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), permanencia mínima de 6 meses; mes 1: implementación USD 450 (pago único) con onboarding asistido — operando el mismo día.",
       },
     ],
     faqs: [
@@ -661,7 +661,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Cuál es más caro?",
-        a: "Dentalink no publica precios, así que es difícil comparar — la cotización depende del tamaño de la clínica y los módulos contratados. Clinera publica VORTEX desde USD 279/mes, sin permanencia. Para una clínica dental pequeña-mediana, Dentalink suele cotizarse en el rango USD 100-250/mes.",
+        a: "Dentalink no publica precios, así que es difícil comparar — la cotización depende del tamaño de la clínica y los módulos contratados. Clinera publica VORTEX desde USD 279/mes. Para una clínica dental pequeña-mediana, Dentalink suele cotizarse en el rango USD 100-250/mes.",
       },
       {
         q: "¿Migrar de Dentalink a Clinera tiene sentido?",
@@ -788,7 +788,7 @@ const competitors: Record<Slug, Competitor> = {
       "Coexistencia con WhatsApp Business — opera en el mismo número que ya usa la clínica.",
       "Atribución end-to-end campaña Meta/Google → conversación → cita → venta.",
       "Setup en menos de 1 hora, sin programador.",
-      "Precios públicos en USD, sin permanencia; migración ágil asistida por ingeniero (PMA).",
+      "Precios públicos en USD; migración ágil asistida por ingeniero (PMA).",
       "Memoria contextual LangChain entre conversaciones.",
       "Integración MCP + API: puede operar sobre Medifolios sin obligar a migrar.",
     ],
@@ -826,7 +826,7 @@ const competitors: Record<Slug, Competitor> = {
       {
         title: "Precio y modelo comercial",
         body:
-          "Medifolios publica precios en COP con modelo anual decreciente: año 1 más caro (incluye onboarding), año 2+ baja considerablemente. Consultorio: $1.670.000 año 1 / $840.000 año 2+ (~USD 35/USD 17/mes). Clinera publica precios en USD con modelo mensual sin permanencia: VORTEX USD 279/mes, ATLAS USD 379/mes y SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000). Configuración inicial USD 450 (pago único) con onboarding asistido — operando el mismo día. Para clínicas que recién arrancan en digital, Medifolios año 1 es más caro upfront pero año 2+ se vuelve más barato. Clinera es predecible mes a mes sin compromiso.",
+          "Medifolios publica precios en COP con modelo anual decreciente: año 1 más caro (incluye onboarding), año 2+ baja considerablemente. Consultorio: $1.670.000 año 1 / $840.000 año 2+ (~USD 35/USD 17/mes). Clinera publica precios en USD con modelo mensual con permanencia mínima de 6 meses: VORTEX USD 279/mes, ATLAS USD 379/mes y SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000). Configuración inicial USD 450 (pago único) con onboarding asistido — operando el mismo día. Para clínicas que recién arrancan en digital, Medifolios año 1 es más caro upfront pero año 2+ se vuelve más barato. Clinera es predecible mes a mes sin compromiso.",
       },
       {
         title: "Combinar ambos: Medifolios + Clinera",
@@ -870,7 +870,7 @@ const competitors: Record<Slug, Competitor> = {
       "Coexistencia con WhatsApp Business — mismo número que ya usa la clínica.",
       "Atribución end-to-end campaña Meta/Google → conversación → cita → venta.",
       "Memoria contextual LangChain entre conversaciones.",
-      "Precios públicos en USD, sin permanencia; migración ágil asistida por ingeniero (PMA).",
+      "Precios públicos en USD; migración ágil asistida por ingeniero (PMA).",
       "Setup en menos de 1 hora, sin programador.",
     ],
     themWins: [
@@ -1913,7 +1913,7 @@ export default async function ComparativaPage({
                 <span className="gt-neon">hoy</span>
               </h2>
               <p className="cta-final-dark__sub">
-                Sin permanencia. Cancela cuando quieras. Simple.
+                Onboarding asistido. Operando el mismo día. Simple.
               </p>
               <div className="cta-final-dark__actions">
                 <Link href="/hablar-con-ventas" className="cta-final-dark__primary">
