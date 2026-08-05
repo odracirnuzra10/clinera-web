@@ -4229,11 +4229,13 @@ export function Pricing({
   intro = "default",
 }: {
   showCredits?: boolean;
-  intro?: "default" | "comparison";
+  intro?: "default" | "comparison" | "none";
 } = {}) {
   const [billing, setBilling] = useState<Billing>("semester");
   const isSemester = billing === "semester";
   const isComparisonIntro = intro === "comparison";
+  // "none": la página ya trae su propio hero (p. ej. /planes) — sin header duplicado.
+  const hideHeader = intro === "none";
   const IA_MODELS = ["Gemini 3.0 Flash", "Gemini 2.5 Flash", "Sonnet 5", "Opus 4.8", "Kimi K2.6", "GLM 5.2", "MiniMax M3"];
   const plans = CLINERA_PLANS.map((plan) => ({
     id: plan.id,
@@ -4262,9 +4264,9 @@ export function Pricing({
     <section
       id="precios"
       style={{
-        padding: isComparisonIntro ? "80px 80px 112px" : "112px 80px",
+        padding: hideHeader ? "12px 80px 112px" : isComparisonIntro ? "80px 80px 112px" : "112px 80px",
         background: "#FAFAFA",
-        borderTop: "1px solid #F0F0F0",
+        borderTop: hideHeader ? "none" : "1px solid #F0F0F0",
         position: "relative",
         overflow: "hidden",
       }}
@@ -4281,6 +4283,7 @@ export function Pricing({
         }}
       />
       <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
+        {!hideHeader && (
         <div className="reveal" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 26px" }}>
           <Eyebrow>{isComparisonIntro ? "Comparación" : "Planes"}</Eyebrow>
           <h2
@@ -4318,6 +4321,7 @@ export function Pricing({
             )}
           </p>
         </div>
+        )}
 
         <div className="reveal home-billing-toggle" style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
           <BillingToggle billing={billing} onChange={setBilling} />

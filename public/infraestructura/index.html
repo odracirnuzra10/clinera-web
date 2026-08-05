@@ -2939,94 +2939,124 @@
 
       <!-- PLANS GRID -->
       
-      <div class="plans-grid">
+      <style>
+        .vp-grid{ display:grid; gap:18px; margin-bottom:18px; }
+        .vp-grid.cols4{ grid-template-columns:repeat(4,1fr); }
+        .vp-grid.cols2{ grid-template-columns:repeat(2,1fr); max-width:860px; margin-left:auto; margin-right:auto; }
+        @media (max-width:1100px){ .vp-grid.cols4{ grid-template-columns:repeat(2,1fr); } }
+        @media (max-width:680px){ .vp-grid.cols4, .vp-grid.cols2{ grid-template-columns:1fr; } }
+        .vp-card{ border-radius:24px; padding:24px 20px; display:flex; flex-direction:column; position:relative; font-family:var(--sans); text-align:left; }
+        .vp-card.vx{ background:#E4F4FD; box-shadow:0 4px 24px rgba(2,132,199,.08); }
+        .vp-card.at{ background:#D8C9F9; box-shadow:0 10px 32px rgba(109,40,217,.16); }
+        .vp-card.ad{ background:#FAE7F8; box-shadow:0 6px 26px rgba(162,28,175,.10); }
+        .vp-card.sm{ background:linear-gradient(160deg,#5B21B6 0%,#7C3AED 46%,#BC29CE 100%); color:#fff; box-shadow:0 24px 60px -18px rgba(124,58,237,.45); }
+        .vp-badge{ position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#fff; color:#7C3AED; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; font-weight:500; padding:6px 13px; border-radius:999px; box-shadow:0 10px 24px -6px rgba(91,33,182,.45); white-space:nowrap; }
+        .vp-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:13px; }
+        .vp-plan{ font-size:12px; font-weight:500; }
+        .vx .vp-plan{ color:#0C4A6E; } .at .vp-plan{ color:#3B1E7E; } .ad .vp-plan{ color:#831843; } .sm .vp-plan{ color:rgba(255,255,255,.72); }
+        .vp-name{ font-size:24px; font-weight:800; letter-spacing:-.03em; margin-top:2px; }
+        .vx .vp-name{ color:#0284C7; } .at .vp-name{ color:#5B21B6; } .ad .vp-name{ color:#A21CAF; } .sm .vp-name{ color:#fff; }
+        .vp-ic{ width:36px; height:36px; border-radius:11px; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; }
+        .vx .vp-ic{ background:rgba(2,132,199,.13); color:#0284C7; } .at .vp-ic{ background:rgba(109,40,217,.15); color:#6D28D9; } .ad .vp-ic{ background:rgba(162,28,175,.13); color:#A21CAF; } .sm .vp-ic{ background:rgba(255,255,255,.18); color:#fff; }
+        .vp-panel{ border-radius:14px; padding:13px 14px; margin-bottom:13px; }
+        .vx .vp-panel{ background:rgba(255,255,255,.62); border:1px solid rgba(2,132,199,.10); } .at .vp-panel{ background:rgba(255,255,255,.60); border:1px solid rgba(109,40,217,.12); } .ad .vp-panel{ background:rgba(255,255,255,.62); border:1px solid rgba(162,28,175,.10); } .sm .vp-panel{ background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.20); }
+        .vp-row{ display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+        .vp-row2{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+        .vp-lab{ font-family:var(--mono); font-size:9px; letter-spacing:.07em; text-transform:uppercase; white-space:nowrap; }
+        .vx .vp-lab, .vx .vp-cred, .vx .vp-unit{ color:#48677A; } .at .vp-lab, .at .vp-cred, .at .vp-unit{ color:#4A3B7C; } .ad .vp-lab, .ad .vp-cred, .ad .vp-unit{ color:#7E4B76; } .sm .vp-lab, .sm .vp-cred, .sm .vp-unit{ color:rgba(255,255,255,.75); }
+        .vp-div{ height:1px; margin:10px 0; }
+        .vx .vp-div{ background:rgba(2,132,199,.16); } .at .vp-div{ background:rgba(109,40,217,.18); } .ad .vp-div{ background:rgba(162,28,175,.16); } .sm .vp-div{ background:rgba(255,255,255,.24); }
+        .vp-amt-sm{ font-size:14px; font-weight:800; letter-spacing:-.02em; white-space:nowrap; }
+        .vp-amt-sm small{ font-size:9.5px; font-weight:600; }
+        .vp-amt{ font-size:27px; font-weight:800; letter-spacing:-.045em; line-height:1; }
+        .vx .vp-amt-sm, .vx .vp-amt, .vx .vp-feat{ color:#0A0A0A; } .at .vp-amt-sm, .at .vp-amt, .at .vp-feat{ color:#150B33; } .ad .vp-amt-sm, .ad .vp-amt, .ad .vp-feat{ color:#2A0E26; } .sm .vp-amt-sm, .sm .vp-amt, .sm .vp-feat{ color:#fff; }
+        .vp-unit{ font-size:10px; font-weight:600; margin-top:3px; text-align:right; }
+        .vp-cred{ font-size:11px; margin-top:5px; line-height:1.4; }
+        .vp-cta{ display:block; text-align:center; border-radius:11px; padding:11px 14px; font-weight:700; font-size:13px; text-decoration:none; margin-bottom:13px; font-family:var(--sans); }
+        .vx .vp-cta, .at .vp-cta, .ad .vp-cta{ background:#0A0A0A; color:#fff; }
+        .sm .vp-cta{ background:#fff; color:#6D28D9; box-shadow:0 10px 24px -8px rgba(17,6,48,.45); }
+        .vp-funcs{ border-top:1px solid; padding-top:12px; flex:1; display:flex; flex-direction:column; }
+        .vx .vp-funcs{ border-color:rgba(2,132,199,.16); } .at .vp-funcs{ border-color:rgba(109,40,217,.18); } .ad .vp-funcs{ border-color:rgba(162,28,175,.16); } .sm .vp-funcs{ border-color:rgba(255,255,255,.24); }
+        .vp-flabel{ font-family:var(--mono); font-size:9px; letter-spacing:.13em; text-transform:uppercase; margin-bottom:9px; }
+        .vx .vp-flabel{ color:#0C4A6E; } .at .vp-flabel{ color:#3B1E7E; } .ad .vp-flabel{ color:#831843; } .sm .vp-flabel{ color:rgba(255,255,255,.72); }
+        .vp-feat{ display:flex; align-items:flex-start; gap:7px; font-size:12px; line-height:1.45; margin-bottom:7px; }
+        .vp-check{ flex:0 0 13px; width:13px; height:13px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; margin-top:2px; }
+        .vx .vp-check{ background:rgba(2,132,199,.13); color:#0284C7; } .at .vp-check{ background:rgba(109,40,217,.15); color:#6D28D9; } .ad .vp-check{ background:rgba(162,28,175,.14); color:#A21CAF; } .sm .vp-check{ background:rgba(255,255,255,.22); color:#fff; }
+        .vp-chips{ margin-top:auto; display:flex; flex-wrap:wrap; gap:5px; padding-top:9px; }
+        .vp-chip{ display:inline-flex; flex-direction:column; align-items:center; gap:1px; border-radius:10px; padding:5px 10px; }
+        .vp-chip.line{ flex-direction:row; align-items:center; font-family:var(--mono); font-size:9.5px; }
+        .vx .vp-chip{ background:rgba(255,255,255,.66); border:1px solid rgba(2,132,199,.14); } .at .vp-chip{ background:rgba(255,255,255,.62); border:1px solid rgba(109,40,217,.16); } .ad .vp-chip{ background:rgba(255,255,255,.64); border:1px solid rgba(162,28,175,.14); } .sm .vp-chip{ background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.24); }
+        .vp-chip b{ font-size:12px; font-weight:800; line-height:1.2; }
+        .vx .vp-chip b, .vx .vp-chip.line{ color:#0A0A0A; } .at .vp-chip b, .at .vp-chip.line{ color:#150B33; } .ad .vp-chip b, .ad .vp-chip.line{ color:#2A0E26; } .sm .vp-chip b, .sm .vp-chip.line{ color:#fff; }
+        .vp-chip span{ font-size:8.5px; font-weight:500; }
+        .vx .vp-chip span{ color:#48677A; } .at .vp-chip span{ color:#4A3B7C; } .ad .vp-chip span{ color:#7E4B76; } .sm .vp-chip span{ color:rgba(255,255,255,.75); }
+        .vp-foot{ font-family:var(--mono); font-size:10.5px; color:var(--ink-m); line-height:1.6; text-align:center; margin:0 0 26px; }
+      </style>
+      <div class="vp-grid cols2">
 
-        <!-- Vortex $279 -->
-        <div class="plan-card" style="border-radius: 20px; padding: 40px 32px; background: #fff; border: 1px solid var(--border-h);">
-          <div class="plan-name" style="font-size: 24px; margin-bottom: 12px; font-weight: 700;">Vortex</div>
-          <div class="plan-tagline" style="font-size: 13px; color: var(--ink-s); min-height: auto; margin-bottom: 24px;">Para clínicas que ya tienen software de agenda</div>
-
-          <div class="price-container" style="margin-bottom: 20px;">
-              <div class="plan-price">
-                  <span class="dollar">$</span><span class="amount">279</span> <span class="period">USD/mes</span>
-              </div>
-              <div class="promo-tag" style="color: #10B981; font-weight: 700; font-size: 13px; margin-top: 8px;">Configuración inicial USD 450 · pago único</div>
+        <div class="vp-card vx">
+          <div class="vp-head">
+            <div>
+              <div class="vp-plan">Plan</div>
+              <div class="vp-name">Vortex</div>
+            </div>
+            <span class="vp-ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-9-9"/><path d="M16.5 12A4.5 4.5 0 1 1 12 7.5"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></svg></span>
           </div>
-
-          <div class="plan-modules" style="margin-bottom: 30px; display: flex; flex-direction: column; gap: 8px;">
-              <div class="pill included" style="background: #E6F7F1; color: #10B981; border: none; padding: 10px 16px; font-size: 13px; width: fit-content; display: flex; align-items: center; gap: 8px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;"><polyline points="20 6 9 17 4 12" /></svg> Mensajería con IA
-              </div>
-              <div class="pill excluded" style="background: #F8F9FA; color: var(--ink-l); border: none; padding: 10px 16px; font-size: 13px; width: fit-content; display: flex; align-items: center; gap: 8px; opacity: 1;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg> <span style="text-decoration: line-through;">Módulo Clínico</span>
-              </div>
+          <div class="vp-panel">
+            <div class="vp-row"><span class="vp-lab">Mes 1 · Implementación</span><span class="vp-amt-sm">$450 <small>USD</small></span></div>
+            <div class="vp-div"></div>
+            <div class="vp-row2">
+              <div><div class="vp-lab">Mes 2 en adelante</div><div class="vp-cred">28.000 créditos/mes</div></div>
+              <div><div class="vp-amt">$279</div><div class="vp-unit">USD/mes</div></div>
+            </div>
           </div>
+          <a class="vp-cta" href="https://app.clinera.io/auth/register?lang=es" target="_blank" onclick="trackPurchase('vortex');">Activar Vortex →</a>
+          <div class="vp-funcs">
+            <div class="vp-flabel">Funciones base</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>AURA · IA por WhatsApp 24/7</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>~933 conversaciones o ~143 agendamientos</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Agenda, fichas y pagos</div>
+            <div class="vp-chips">
+              <span class="vp-chip"><b>10</b><span>Usuarios</span></span>
+              <span class="vp-chip"><b>1</b><span>Sucursal</span></span>
+              <span class="vp-chip line">Texto</span>
+            </div>
+          </div>
+        </div>
 
-          <div class="plan-feat-label" style="color: var(--ink-m); font-size: 11px; margin-bottom: 12px; font-weight: 700;">INCLUYE</div>
-          <ul class="plan-features" style="margin-bottom: 40px; list-style: none; padding: 0;">
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> 500 conversaciones con IA/mes</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> WhatsApp API</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Memoria contextual vía LangChain</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Derivación automática a humano</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Integración vía API y MCP</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> 10 usuarios incluidos</li>
-          </ul>
-
-          <div class="plan-ctas" style="margin-top: auto; display: flex; flex-direction: column;">
-            <a href="https://app.clinera.io/auth/register?lang=es" class="plan-cta" style="background: #fff; border: 1px solid var(--ink-l); color: var(--ink); font-size: 18px; font-weight: 700; padding: 16px; border-radius: 12px; text-decoration: none; text-align: center;" onclick="trackPurchase('vortex');">Activar Vortex →</a>
-            <p style="text-align: center; color: var(--ink-m); font-size: 11px; margin-top: 16px;">Permanencia mínima de 6 meses - Onboarding asistido - Operando el mismo día</p>
+        <div class="vp-card at">
+          <span class="vp-badge">Recomendado</span>
+          <div class="vp-head">
+            <div>
+              <div class="vp-plan">Plan</div>
+              <div class="vp-name">Atlas</div>
+            </div>
+            <span class="vp-ic" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.7 2.4 2.7 14.6 0 17"/><path d="M12 3.5c-2.7 2.4-2.7 14.6 0 17"/></svg></span>
+          </div>
+          <div class="vp-panel">
+            <div class="vp-row"><span class="vp-lab">Mes 1 · Implementación</span><span class="vp-amt-sm">$450 <small>USD</small></span></div>
+            <div class="vp-div"></div>
+            <div class="vp-row2">
+              <div><div class="vp-lab">Mes 2 en adelante</div><div class="vp-cred">37.000 créditos/mes</div></div>
+              <div><div class="vp-amt">$379</div><div class="vp-unit">USD/mes</div></div>
+            </div>
+          </div>
+          <a class="vp-cta" href="https://app.clinera.io/auth/register?lang=es" target="_blank" onclick="trackPurchase('atlas');">Activar Atlas →</a>
+          <div class="vp-funcs">
+            <div class="vp-flabel">Funciones base</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>Todo lo de Vortex</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>CAMILA · IA de voz (pronto)</div>
+            <div class="vp-feat"><span class="vp-check"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>~1.233 conversaciones o ~189 agendamientos</div>
+            <div class="vp-chips">
+              <span class="vp-chip"><b>15</b><span>Usuarios</span></span>
+              <span class="vp-chip"><b>2</b><span>Sucursales</span></span>
+              <span class="vp-chip line">Texto + voz</span>
+            </div>
           </div>
         </div>
 
-        <!-- Atlas $379 -->
-        <div class="plan-card popular" style="border: 2px solid #7C3AED; border-radius: 20px; padding: 40px 32px; background: #fff; position: relative;">
-          <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, #3B82F6, #A855F7); color: #fff; font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 4px 20px; border-radius: 100px; white-space: nowrap; z-index: 2;">RECOMENDADO</div>
-          <div class="plan-name" style="font-size: 24px; margin-bottom: 12px; font-weight: 700;">Atlas</div>
-          <div class="plan-tagline" style="font-size: 13px; color: var(--ink-s); min-height: auto; margin-bottom: 24px;">Mensajería + voz (CAMILA) + clínica completa sin otro software</div>
-
-          <div class="price-container" style="margin-bottom: 20px;">
-              <div class="plan-price">
-                  <span class="dollar">$</span><span class="amount">379</span> <span class="period">USD/mes</span>
-              </div>
-              <div class="promo-tag" style="color: #10B981; font-weight: 700; font-size: 13px; margin-top: 8px;">Configuración inicial USD 450 · pago único</div>
-          </div>
-
-          <div class="plan-modules" style="margin-bottom: 30px; display: flex; flex-direction: column; gap: 8px;">
-              <div class="pill included" style="background: #E6F7F1; color: #10B981; border: none; padding: 10px 16px; font-size: 13px; width: fit-content; display: flex; align-items: center; gap: 8px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;"><polyline points="20 6 9 17 4 12" /></svg> Mensajería con IA
-              </div>
-              <div class="pill included" style="background: #E6F7F1; color: #10B981; border: none; padding: 10px 16px; font-size: 13px; width: fit-content; display: flex; align-items: center; gap: 8px;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;"><polyline points="20 6 9 17 4 12" /></svg> Módulo Clínico
-              </div>
-          </div>
-
-          <div class="plan-feat-label" style="color: var(--ink-m); font-size: 11px; margin-bottom: 12px; font-weight: 700;">MENSAJERÍA CON IA</div>
-          <ul class="plan-features" style="margin-bottom: 24px; list-style: none; padding: 0;">
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> 500 conversaciones con IA/mes</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> WhatsApp API</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Memoria contextual vía LangChain</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Derivación automática a humano</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Integración vía API y MCP</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> 15 usuarios/profesionales</li>
-          </ul>
-
-          <div class="plan-feat-label" style="color: var(--ink-m); font-size: 11px; margin-bottom: 12px; margin-top: 24px; font-weight: 700;">MÓDULO CLÍNICO</div>
-          <ul class="plan-features" style="margin-bottom: 40px; list-style: none; padding: 0;">
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Agenda médica con automatizaciones</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Fichas clínicas personalizables</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Consentimientos informados</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Clinera Vault — respaldo legal</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Panel centralizado de ventas</li>
-              <li style="font-size: 13px; margin-bottom: 8px; color: var(--ink); font-weight: 500; display: flex; align-items: center; gap: 8px;"><span style="color: #009FE3;">•</span> Trazabilidad campaña → cita → venta</li>
-          </ul>
-
-          <div class="plan-ctas" style="margin-top: auto; display: flex; flex-direction: column;">
-            <a href="https://app.clinera.io/auth/register?lang=es" class="plan-cta" style="background: linear-gradient(90deg, #3B82F6, #A855F7); border: none; color: #fff; font-size: 18px; font-weight: 700; padding: 16px; border-radius: 12px; text-decoration: none; text-align: center;" onclick="trackPurchase('atlas');">Activar Atlas →</a>
-            <p style="text-align: center; color: var(--ink-m); font-size: 11px; margin-top: 16px;">Permanencia mínima de 6 meses - Onboarding asistido - Operando el mismo día</p>
-          </div>
-        </div>
       </div>
-
+      <p class="vp-foot">Mes 1: implementación USD 450 (pago único) · Desde el mes 2: el plan contratado · Semestre anticipado: 20% OFF · Permanencia mínima 6 meses</p>
 
       <!-- Garantía -->
       <div class="warranty-card">
