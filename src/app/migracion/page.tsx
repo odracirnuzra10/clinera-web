@@ -101,7 +101,7 @@ const jsonLd = {
           acceptedAnswer: {
             "@type": "Answer",
             text:
-              "Sin permanencia: cancelas cuando quieras. El costo de configuración es un pago único de USD 450 (onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo). Quedas operando el mismo día.",
+              "La permanencia mínima es de 6 meses (pago mensual o semestral con 20% OFF). El costo de configuración es un pago único de USD 450 (onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo). Quedas operando el mismo día.",
           },
         },
         {

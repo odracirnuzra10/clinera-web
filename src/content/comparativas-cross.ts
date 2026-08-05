@@ -83,7 +83,6 @@ export const cruzadas: Record<string, Cruzada> = {
       { feature: "Pagos online integrados", A: "yes", B: "yes", clinera: "yes" },
       { feature: "App móvil nativa", A: "yes", B: "no", clinera: "yes" },
       { feature: "Precios públicos en web", A: "yes", B: "no", clinera: "yes" },
-      { feature: "Sin permanencia", A: "no", B: "partial", clinera: "yes" },
       { feature: "Plan inicial USD/mes", A: "$19/usuario", B: "consultar", clinera: "$279 (VORTEX)" },
     ],
     dimensions: [
@@ -110,7 +109,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Precio y transparencia",
         body:
-          "AgendaPro publica USD 19/usuario/mes (te puede subir rápido si tienes 5+ profesionales). Reservo no publica precios — atiende por formulario o teléfono. Clinera tiene VORTEX USD 279/mes, ATLAS USD 379/mes y SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), todos sin permanencia.",
+          "AgendaPro publica USD 19/usuario/mes (te puede subir rápido si tienes 5+ profesionales). Reservo no publica precios — atiende por formulario o teléfono. Clinera tiene VORTEX USD 279/mes, ATLAS USD 379/mes y SUMMIT USD 479/mes (bolsa de créditos: 28.000/37.000/46.000), todos con permanencia mínima de 6 meses.",
       },
     ],
     faqs: [
@@ -196,7 +195,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Precio y transparencia",
         body:
-          "AgendaPro publica USD 19/usuario/mes. Medilink no publica precios — atiende por demo/cotización. Clinera publica VORTEX USD 279/mes, ATLAS USD 379 y SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), sin permanencia; configuración inicial USD 450 (pago único) con onboarding asistido — operando el mismo día.",
+          "AgendaPro publica USD 19/usuario/mes. Medilink no publica precios — atiende por demo/cotización. Clinera publica VORTEX USD 279/mes, ATLAS USD 379 y SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), permanencia mínima de 6 meses; mes 1: implementación USD 450 (pago único) con onboarding asistido — operando el mismo día.",
       },
     ],
     faqs: [
@@ -287,7 +286,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Precio",
         body:
-          "Ni Reservo ni Medilink publican precios — atienden por cotización. Clinera tiene VORTEX USD 279/mes, ATLAS USD 379 y SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), todos sin permanencia.",
+          "Ni Reservo ni Medilink publican precios — atienden por cotización. Clinera tiene VORTEX USD 279/mes, ATLAS USD 379 y SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), todos con permanencia mínima de 6 meses.",
       },
     ],
     faqs: [
@@ -351,7 +350,6 @@ export const cruzadas: Record<string, Cruzada> = {
       { feature: "Difusiones masivas WhatsApp", A: "partial", B: "no", clinera: "yes" },
       { feature: "Precios públicos en web", A: "yes", B: "yes", clinera: "yes" },
       { feature: "Cobertura LATAM", A: "yes", B: "partial", clinera: "yes" },
-      { feature: "Sin permanencia", A: "no", B: "partial", clinera: "yes" },
       { feature: "Plan inicial USD/mes", A: "$19/usuario", B: "$25/profesional", clinera: "$279 (VORTEX)" },
     ],
     dimensions: [
@@ -378,7 +376,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Precio",
         body:
-          "AgendaPro USD 19/usuario/mes (escala con el equipo). Doctocliq desde USD 25/profesional/mes. Clinera VORTEX USD 279/mes, ATLAS USD 379, SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000) — todos sin permanencia.",
+          "AgendaPro USD 19/usuario/mes (escala con el equipo). Doctocliq desde USD 25/profesional/mes. Clinera VORTEX USD 279/mes, ATLAS USD 379, SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000) — todos con permanencia mínima de 6 meses.",
       },
     ],
     faqs: [
@@ -442,7 +440,6 @@ export const cruzadas: Record<string, Cruzada> = {
       { feature: "Difusiones masivas WhatsApp", A: "partial", B: "no", clinera: "yes" },
       { feature: "App móvil nativa", A: "no", B: "yes", clinera: "yes" },
       { feature: "Precios públicos en web", A: "no", B: "yes", clinera: "yes" },
-      { feature: "Sin permanencia", A: "partial", B: "partial", clinera: "yes" },
       { feature: "Plan inicial USD/mes", A: "consultar", B: "$25/profesional", clinera: "$279 (VORTEX)" },
     ],
     dimensions: [
@@ -469,7 +466,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Precio y transparencia",
         body:
-          "Reservo no publica precios — atiende por cotización. Doctocliq publica desde USD 25/profesional. Clinera publica VORTEX USD 279/mes, ATLAS USD 379, SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), sin permanencia.",
+          "Reservo no publica precios — atiende por cotización. Doctocliq publica desde USD 25/profesional. Clinera publica VORTEX USD 279/mes, ATLAS USD 379, SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), con permanencia mínima de 6 meses.",
       },
     ],
     faqs: [
@@ -533,7 +530,6 @@ export const cruzadas: Record<string, Cruzada> = {
       { feature: "Difusiones masivas WhatsApp", A: "partial", B: "no", clinera: "yes" },
       { feature: "App móvil nativa", A: "partial", B: "yes", clinera: "yes" },
       { feature: "Precios públicos en web", A: "no", B: "yes", clinera: "yes" },
-      { feature: "Sin permanencia", A: "no", B: "partial", clinera: "yes" },
       { feature: "Plan inicial USD/mes", A: "consultar", B: "$25/profesional", clinera: "$279 (VORTEX)" },
     ],
     dimensions: [
@@ -560,7 +556,7 @@ export const cruzadas: Record<string, Cruzada> = {
       {
         title: "Precio y transparencia",
         body:
-          "Medilink no publica precios. Doctocliq desde USD 25/profesional. Clinera VORTEX USD 279/mes, ATLAS USD 379, SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), todos sin permanencia.",
+          "Medilink no publica precios. Doctocliq desde USD 25/profesional. Clinera VORTEX USD 279/mes, ATLAS USD 379, SUMMIT USD 479 (bolsa de créditos 28.000/37.000/46.000), todos con permanencia mínima de 6 meses.",
       },
     ],
     faqs: [
@@ -651,7 +647,7 @@ cruzadas["dentalink-vs-reservo"] = {
     {
       title: "Precio y transparencia",
       body:
-        "Ni Dentalink ni Reservo publican precios — atienden por demo o cotización. Clinera publica VORTEX USD 279/mes, sin permanencia; configuración inicial USD 450 (pago único) con onboarding asistido — operando el mismo día.",
+        "Ni Dentalink ni Reservo publican precios — atienden por demo o cotización. Clinera publica VORTEX USD 279/mes, permanencia mínima de 6 meses; mes 1: implementación USD 450 (pago único) con onboarding asistido — operando el mismo día.",
     },
   ],
   faqs: [
