@@ -3997,6 +3997,171 @@ function planFeatures(plan: (typeof CLINERA_PLANS)[number]): string[] {
   }
 }
 
+// Tema visual por card, estilo Vambe: el tinte escala con el tier recorriendo
+// el espectro de marca (cyan → violeta → magenta); Summit va saturado con
+// texto blanco.
+type PlanTheme = {
+  cardBg: string;
+  cardShadow: string;
+  label: string;
+  name: string;
+  ink: string;
+  sub: string;
+  panelBg: string;
+  panelBorder: string;
+  divider: string;
+  accent: string;
+  ctaPrimaryBg: string;
+  ctaPrimaryColor: string;
+  ctaPrimaryShadow: string;
+  ctaSecondaryBg: string;
+  ctaSecondaryColor: string;
+  ctaSecondaryBorder: string;
+  checkBg: string;
+  checkStroke: string;
+  chipBg: string;
+  chipBorder: string;
+  iconBg: string;
+  iconColor: string;
+};
+
+const PLAN_THEMES: Record<(typeof CLINERA_PLANS)[number]["id"], PlanTheme> = {
+  vortex: {
+    cardBg: "#E4F4FD",
+    cardShadow: "0 4px 24px rgba(2,132,199,.08)",
+    label: "#0C4A6E",
+    name: "#0284C7",
+    ink: "#0A0A0A",
+    sub: "#48677A",
+    panelBg: "rgba(255,255,255,.62)",
+    panelBorder: "rgba(2,132,199,.10)",
+    divider: "rgba(2,132,199,.16)",
+    accent: "#0284C7",
+    ctaPrimaryBg: "#0A0A0A",
+    ctaPrimaryColor: "#fff",
+    ctaPrimaryShadow: "none",
+    ctaSecondaryBg: "rgba(255,255,255,.72)",
+    ctaSecondaryColor: "#0A0A0A",
+    ctaSecondaryBorder: "rgba(2,132,199,.22)",
+    checkBg: "rgba(2,132,199,.13)",
+    checkStroke: "#0284C7",
+    chipBg: "rgba(255,255,255,.66)",
+    chipBorder: "rgba(2,132,199,.14)",
+    iconBg: "rgba(2,132,199,.13)",
+    iconColor: "#0284C7",
+  },
+  atlas: {
+    cardBg: "#D8C9F9",
+    cardShadow: "0 10px 32px rgba(109,40,217,.16)",
+    label: "#3B1E7E",
+    name: "#5B21B6",
+    ink: "#150B33",
+    sub: "#4A3B7C",
+    panelBg: "rgba(255,255,255,.60)",
+    panelBorder: "rgba(109,40,217,.12)",
+    divider: "rgba(109,40,217,.18)",
+    accent: "#6D28D9",
+    ctaPrimaryBg: "#0A0A0A",
+    ctaPrimaryColor: "#fff",
+    ctaPrimaryShadow: "none",
+    ctaSecondaryBg: "rgba(255,255,255,.66)",
+    ctaSecondaryColor: "#150B33",
+    ctaSecondaryBorder: "rgba(109,40,217,.24)",
+    checkBg: "rgba(109,40,217,.15)",
+    checkStroke: "#6D28D9",
+    chipBg: "rgba(255,255,255,.62)",
+    chipBorder: "rgba(109,40,217,.16)",
+    iconBg: "rgba(109,40,217,.15)",
+    iconColor: "#6D28D9",
+  },
+  summit: {
+    cardBg: "linear-gradient(160deg,#5B21B6 0%,#7C3AED 46%,#BC29CE 100%)",
+    cardShadow: "0 36px 80px -16px rgba(124,58,237,.45), 0 12px 28px rgba(200,80,192,.18)",
+    label: "rgba(255,255,255,.72)",
+    name: "#fff",
+    ink: "#fff",
+    sub: "rgba(255,255,255,.75)",
+    panelBg: "rgba(255,255,255,.13)",
+    panelBorder: "rgba(255,255,255,.20)",
+    divider: "rgba(255,255,255,.24)",
+    accent: "#fff",
+    ctaPrimaryBg: "#fff",
+    ctaPrimaryColor: "#6D28D9",
+    ctaPrimaryShadow: "0 10px 24px -8px rgba(17,6,48,.45)",
+    ctaSecondaryBg: "rgba(255,255,255,.16)",
+    ctaSecondaryColor: "#fff",
+    ctaSecondaryBorder: "rgba(255,255,255,.30)",
+    checkBg: "rgba(255,255,255,.22)",
+    checkStroke: "#fff",
+    chipBg: "rgba(255,255,255,.14)",
+    chipBorder: "rgba(255,255,255,.24)",
+    iconBg: "rgba(255,255,255,.18)",
+    iconColor: "#fff",
+  },
+};
+
+// Íconos de plan (trazo propio, 20px): remolino, globo y cumbre.
+const PLAN_ICONS: Record<(typeof CLINERA_PLANS)[number]["id"], ReactNode> = {
+  vortex: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
+      <path d="M21 12a9 9 0 1 1-9-9" />
+      <path d="M16.5 12A4.5 4.5 0 1 1 12 7.5" />
+      <circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  ),
+  atlas: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M3.5 12h17" />
+      <path d="M12 3.5c2.7 2.4 2.7 14.6 0 17" />
+      <path d="M12 3.5c-2.7 2.4-2.7 14.6 0 17" />
+    </svg>
+  ),
+  summit: (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 19h18" />
+      <path d="M5 19l6-11 3.4 6.2L17 10.5 21 19" />
+    </svg>
+  ),
+};
+
+// Chips inferiores con número grande (usuarios / sucursales), estilo Vambe.
+function planChipData(plan: (typeof CLINERA_PLANS)[number]): { num: string; label: string }[] {
+  const branchNum = /^\d+/.exec(plan.branches)?.[0] ?? "∞";
+  const rawLabel = branchNum === "∞" ? "sucursales" : plan.branches.replace(/^\d+\s*/, "");
+  const branchLabel = rawLabel.charAt(0).toUpperCase() + rawLabel.slice(1);
+  return [
+    { num: String(plan.users), label: "Usuarios" },
+    { num: branchNum, label: branchLabel },
+  ];
+}
+
+// Canales del plan como fila de íconos (texto / voz / API), estilo Vambe.
+function ChannelIcons({ channel, color }: { channel: string; color: string }) {
+  const hasVoz = channel.includes("voz");
+  const hasApi = channel.includes("API");
+  return (
+    <span role="img" aria-label={channel} title={channel} style={{ display: "inline-flex", alignItems: "center", gap: 9, color }}>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinejoin="round">
+        <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z" />
+      </svg>
+      {hasVoz && (
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">
+          <rect x="9" y="3" width="6" height="11" rx="3" />
+          <path d="M5.5 11.5a6.5 6.5 0 0 0 13 0" />
+          <path d="M12 18v3" />
+        </svg>
+      )}
+      {hasApi && (
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M8.5 7 4 12l4.5 5" />
+          <path d="M15.5 7 20 12l-4.5 5" />
+        </svg>
+      )}
+    </span>
+  );
+}
+
 export type Billing = "monthly" | "semester";
 
 export function BillingToggle({ billing, onChange }: { billing: Billing; onChange: (b: Billing) => void }) {
@@ -4083,6 +4248,7 @@ export function Pricing({
   const isComparisonIntro = intro === "comparison";
   const IA_MODELS = ["Gemini 3.0 Flash", "Gemini 2.5 Flash", "Sonnet 5", "Opus 4.8", "Kimi K2.6", "GLM 5.2", "MiniMax M3"];
   const plans = CLINERA_PLANS.map((plan) => ({
+    id: plan.id,
     name: plan.name,
     price: `$${plan.monthlyPrice}`,
     monthlyValue: plan.monthlyPrice,
@@ -4096,9 +4262,8 @@ export function Pricing({
     })}`,
     semesterValue: plan.semesterTotal,
     credits: plan.credits.toLocaleString("es-CL"),
-    users: plan.users,
-    branches: plan.branches,
     channel: plan.channel,
+    chips: planChipData(plan),
     features: planFeatures(plan),
     stripe: plan.stripe,
     stripeSemester: plan.stripeSemester,
@@ -4196,284 +4361,281 @@ export function Pricing({
             alignItems: "stretch",
           }}
         >
-          {plans.map((p) => (
-            <article
-              key={p.name}
-              className={p.featured ? "home-plan-card home-plan-card-featured" : "home-plan-card"}
-              style={{
-                background: "#fff",
-                borderRadius: 20,
-                padding: "34px 30px",
-                border: p.featured ? "2px solid #7C3AED" : "1px solid #E5E7EB",
-                boxShadow: p.featured
-                  ? "0 36px 80px -16px rgba(124,58,237,.30), 0 12px 28px rgba(217,70,239,.12)"
-                  : "0 4px 24px rgba(0,0,0,.03)",
-                position: "relative",
-                display: "flex",
-                flexDirection: "column",
-                transform: "none",
-              }}
-            >
-              {p.featured && (
-                <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 4,
-                    background: GRAD,
-                    borderRadius: "20px 20px 0 0",
-                  }}
-                />
-              )}
-              {p.featured && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: -14,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: GRAD,
-                    color: "#fff",
-                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                    fontSize: 10.5,
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    padding: "7px 16px",
-                    borderRadius: 999,
-                    fontWeight: 600,
-                    boxShadow: "0 10px 24px -4px rgba(124,58,237,.45)",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  ★ El más elegido
-                </div>
-              )}
-              <div
+          {plans.map((p) => {
+            const th = PLAN_THEMES[p.id];
+            return (
+              <article
+                key={p.name}
+                className={p.featured ? "home-plan-card home-plan-card-featured" : "home-plan-card"}
                 style={{
-                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                  fontSize: 10.5,
-                  fontWeight: 600,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  color: "#6B7280",
+                  background: th.cardBg,
+                  borderRadius: 24,
+                  padding: "30px 28px",
+                  boxShadow: th.cardShadow,
+                  position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
+                  transform: "none",
                 }}
               >
-                Plan
-              </div>
-              <div
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 26,
-                  fontWeight: 700,
-                  color: "#0A0A0A",
-                  letterSpacing: "-0.02em",
-                  margin: "4px 0 18px",
-                }}
-              >
-                {p.name}
-              </div>
-
-              {/* Pago secuencial: mes 1 implementación, mes 2 en adelante el plan */}
-              <div
-                style={{
-                  background: p.featured ? "rgba(124,58,237,.05)" : "#F7F6F3",
-                  border: "1px solid " + (p.featured ? "rgba(124,58,237,.18)" : "#E5E7EB"),
-                  borderRadius: 14,
-                  padding: "16px 18px",
-                  marginBottom: 18,
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "baseline",
-                    gap: 12,
-                    paddingBottom: 13,
-                    borderBottom: "1px solid " + (p.featured ? "rgba(124,58,237,.16)" : "#E7E5E2"),
-                  }}
-                >
-                  <span
+                {p.featured && (
+                  <div
                     style={{
+                      position: "absolute",
+                      top: -14,
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      background: "#fff",
+                      color: "#7C3AED",
                       fontFamily: "'JetBrains Mono', ui-monospace, monospace",
                       fontSize: 10.5,
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
+                      letterSpacing: "0.14em",
                       textTransform: "uppercase",
-                      color: "#6B7280",
+                      padding: "7px 16px",
+                      borderRadius: 999,
+                      fontWeight: 700,
+                      boxShadow: "0 10px 24px -6px rgba(91,33,182,.45)",
+                      whiteSpace: "nowrap",
                     }}
                   >
-                    Mes 1 · Implementación
-                  </span>
-                  <span style={{ fontFamily: "Inter", fontSize: 17, fontWeight: 700, color: "#0A0A0A", letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
-                    {SETUP_FEE_AMOUNT} <span style={{ fontSize: 11.5, fontWeight: 500, color: "#6B7280" }}>USD</span>
+                    ★ El más elegido
+                  </div>
+                )}
+
+                {/* Encabezado: Plan + nombre, ícono del plan a la derecha */}
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, marginBottom: 18 }}>
+                  <div>
+                    <div style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 500, color: th.label }}>Plan</div>
+                    <div style={{ fontFamily: "Inter", fontSize: 29, fontWeight: 800, color: th.name, letterSpacing: "-0.03em", marginTop: 2 }}>
+                      {p.name}
+                    </div>
+                  </div>
+                  <span
+                    aria-hidden
+                    style={{
+                      width: 42,
+                      height: 42,
+                      borderRadius: 13,
+                      background: th.iconBg,
+                      color: th.iconColor,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flex: "0 0 auto",
+                    }}
+                  >
+                    {PLAN_ICONS[p.id]}
                   </span>
                 </div>
-                <div style={{ paddingTop: 13 }}>
-                  <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", columnGap: 12, rowGap: 6 }}>
+
+                {/* Pago secuencial: mes 1 implementación, mes 2 en adelante el plan */}
+                <div
+                  style={{
+                    background: th.panelBg,
+                    border: `1px solid ${th.panelBorder}`,
+                    borderRadius: 16,
+                    padding: "16px 18px",
+                    marginBottom: 18,
+                  }}
+                >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
                     <span
                       style={{
                         fontFamily: "'JetBrains Mono', ui-monospace, monospace",
                         fontSize: 10.5,
                         fontWeight: 600,
-                        letterSpacing: "0.1em",
+                        letterSpacing: "0.08em",
                         textTransform: "uppercase",
-                        color: "#6B7280",
+                        color: th.sub,
                         whiteSpace: "nowrap",
                       }}
                     >
-                      Mes 2 en adelante
+                      Mes 1 · Implementación
                     </span>
-                    <span style={{ marginLeft: "auto", textAlign: "right", whiteSpace: "nowrap" }}>
-                      <span style={{ fontFamily: "Inter", fontSize: 34, fontWeight: 800, color: "#0A0A0A", letterSpacing: "-0.04em", lineHeight: 1 }}>
-                        {isSemester ? p.semesterMonthly : p.price}
-                      </span>
-                      <span style={{ fontFamily: "Inter", fontSize: 12, fontWeight: 500, color: "#6B7280", marginLeft: 4 }}>USD/mes</span>
+                    <span style={{ fontFamily: "Inter", fontSize: 17, fontWeight: 800, color: th.ink, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
+                      {SETUP_FEE_AMOUNT} <span style={{ fontSize: 11, fontWeight: 600, color: th.sub }}>USD</span>
                     </span>
                   </div>
-                  {showCredits && (
-                    <div style={{ fontFamily: "Inter", fontSize: 12.5, color: "#6B7280", marginTop: 8 }}>
-                      {p.credits} créditos / mes incluidos
+
+                  <div aria-hidden style={{ height: 1, background: th.divider, margin: "13px 0" }} />
+
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                    <div style={{ minWidth: 0 }}>
+                      <div
+                        style={{
+                          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                          fontSize: 10.5,
+                          fontWeight: 600,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          color: th.sub,
+                        }}
+                      >
+                        Mes 2 en adelante
+                      </div>
+                      {showCredits && (
+                        <div style={{ fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.45, color: th.sub, marginTop: 6 }}>
+                          {p.credits} créditos / mes incluidos
+                        </div>
+                      )}
                     </div>
-                  )}
+                    <div style={{ textAlign: "right", flex: "0 0 auto" }}>
+                      <div style={{ fontFamily: "Inter", fontSize: 36, fontWeight: 800, color: th.ink, letterSpacing: "-0.045em", lineHeight: 1 }}>
+                        {isSemester ? p.semesterMonthly : p.price}
+                      </div>
+                      <div style={{ fontFamily: "Inter", fontSize: 11.5, fontWeight: 600, color: th.sub, marginTop: 4 }}>USD/mes</div>
+                    </div>
+                  </div>
+
                   {isSemester && (
                     <div
                       style={{
                         fontFamily: "'JetBrains Mono', ui-monospace, monospace",
                         fontSize: 10.5,
-                        color: "#7C3AED",
                         fontWeight: 600,
                         letterSpacing: ".03em",
-                        marginTop: 5,
+                        color: th.accent,
+                        marginTop: 10,
                       }}
                     >
                       Total semestral: {p.semesterTotal} · {SEMESTER_DISCOUNT_PERCENT}% OFF
                     </div>
                   )}
                 </div>
-              </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 }}>
-                <Link
-                  href="/hablar-con-ventas"
-                  style={{
-                    textDecoration: "none",
-                    textAlign: "center",
-                    background: p.featured ? GRAD : "#fff",
-                    color: p.featured ? "#fff" : "#0A0A0A",
-                    border: p.featured ? "0" : "1px solid #0A0A0A",
-                    padding: "13px 20px",
-                    borderRadius: 10,
-                    fontWeight: 600,
-                    fontSize: 14.5,
-                    fontFamily: "Inter",
-                    boxShadow: p.featured ? "0 10px 24px -8px rgba(124,58,237,.45)" : "none",
-                    boxSizing: "border-box",
-                  }}
-                >
-                  Agendar demo
-                </Link>
-                <a
-                  href={isSemester ? p.stripeSemester : p.stripe}
-                  target="_blank"
-                  rel="noopener"
-                  style={{
-                    textDecoration: "none",
-                    textAlign: "center",
-                    background: "#F3F4F6",
-                    color: "#0A0A0A",
-                    border: "1px solid #E5E7EB",
-                    padding: "13px 20px",
-                    borderRadius: 10,
-                    fontWeight: 600,
-                    fontSize: 14.5,
-                    fontFamily: "Inter",
-                    boxSizing: "border-box",
-                  }}
-                  data-plan={p.name.toLowerCase()}
-                  data-plan-billing={billing}
-                  data-plan-value={isSemester ? p.semesterValue : p.monthlyValue}
-                  data-plan-name={`${p.name} pay ${billing}`}
-                >
-                  Contratar {p.name} {isSemester ? "semestral" : "mensual"}
-                </a>
-              </div>
-
-              <div style={{ borderTop: "1px solid #F3F2F0", paddingTop: 18, flex: 1, display: "flex", flexDirection: "column" }}>
-                <div
-                  style={{
-                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                    fontSize: 10.5,
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    color: "#6B7280",
-                    marginBottom: 12,
-                  }}
-                >
-                  Funciones base
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 }}>
+                  <Link
+                    href="/hablar-con-ventas"
+                    style={{
+                      textDecoration: "none",
+                      textAlign: "center",
+                      background: th.ctaPrimaryBg,
+                      color: th.ctaPrimaryColor,
+                      border: 0,
+                      padding: "13px 20px",
+                      borderRadius: 12,
+                      fontWeight: 700,
+                      fontSize: 14.5,
+                      fontFamily: "Inter",
+                      boxShadow: th.ctaPrimaryShadow,
+                      boxSizing: "border-box",
+                    }}
+                  >
+                    Agendar demo
+                  </Link>
+                  <a
+                    href={isSemester ? p.stripeSemester : p.stripe}
+                    target="_blank"
+                    rel="noopener"
+                    style={{
+                      textDecoration: "none",
+                      textAlign: "center",
+                      background: th.ctaSecondaryBg,
+                      color: th.ctaSecondaryColor,
+                      border: `1px solid ${th.ctaSecondaryBorder}`,
+                      padding: "12px 20px",
+                      borderRadius: 12,
+                      fontWeight: 600,
+                      fontSize: 14.5,
+                      fontFamily: "Inter",
+                      boxSizing: "border-box",
+                    }}
+                    data-plan={p.name.toLowerCase()}
+                    data-plan-billing={billing}
+                    data-plan-value={isSemester ? p.semesterValue : p.monthlyValue}
+                    data-plan-name={`${p.name} pay ${billing}`}
+                  >
+                    Contratar {p.name} {isSemester ? "semestral" : "mensual"}
+                  </a>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
-                  {p.features.map((f, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: 10,
-                        fontFamily: "Inter",
-                        fontSize: 14,
-                        color: "#0A0A0A",
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      <span
+
+                <div style={{ borderTop: `1px solid ${th.divider}`, paddingTop: 18, flex: 1, display: "flex", flexDirection: "column" }}>
+                  <div
+                    style={{
+                      fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                      fontSize: 10.5,
+                      fontWeight: 600,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      color: th.label,
+                      marginBottom: 12,
+                    }}
+                  >
+                    Funciones base
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 }}>
+                    {p.features.map((f, i) => (
+                      <div
+                        key={i}
                         style={{
-                          flex: "0 0 16px",
-                          width: 16,
-                          height: 16,
-                          borderRadius: 999,
-                          background: "#ECFDF5",
-                          border: "1px solid #A7F3D0",
-                          display: "inline-flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginTop: 2,
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 10,
+                          fontFamily: "Inter",
+                          fontSize: 14,
+                          color: th.ink,
+                          lineHeight: 1.5,
                         }}
                       >
-                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12l5 5L20 7" />
-                        </svg>
-                      </span>
-                      {f}
-                    </div>
-                  ))}
-                </div>
+                        <span
+                          style={{
+                            flex: "0 0 16px",
+                            width: 16,
+                            height: 16,
+                            borderRadius: 999,
+                            background: th.checkBg,
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            marginTop: 2,
+                          }}
+                        >
+                          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke={th.checkStroke} strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M5 12l5 5L20 7" />
+                          </svg>
+                        </span>
+                        {f}
+                      </div>
+                    ))}
+                  </div>
 
-                <div style={{ marginTop: "auto", display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {[`${p.users} usuarios`, p.branches, p.channel].map((c) => (
+                  {/* Chips inferiores: usuarios / sucursales / canales */}
+                  <div style={{ marginTop: "auto", display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    {p.chips.map((c) => (
+                      <span
+                        key={c.label}
+                        style={{
+                          display: "inline-flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          gap: 1,
+                          background: th.chipBg,
+                          border: `1px solid ${th.chipBorder}`,
+                          borderRadius: 12,
+                          padding: "7px 13px",
+                        }}
+                      >
+                        <span style={{ fontFamily: "Inter", fontSize: 15, fontWeight: 800, color: th.ink, lineHeight: 1.2 }}>{c.num}</span>
+                        <span style={{ fontFamily: "Inter", fontSize: 10.5, fontWeight: 500, color: th.sub }}>{c.label}</span>
+                      </span>
+                    ))}
                     <span
-                      key={c}
                       style={{
-                        fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                        fontSize: 11,
-                        fontWeight: 600,
-                        color: "#374151",
-                        background: p.featured ? "rgba(124,58,237,.04)" : "#FAFAFA",
-                        border: p.featured ? "1px solid rgba(124,58,237,.18)" : "1px solid #E5E7EB",
-                        borderRadius: 999,
-                        padding: "6px 12px",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        background: th.chipBg,
+                        border: `1px solid ${th.chipBorder}`,
+                        borderRadius: 12,
+                        padding: "7px 14px",
                       }}
                     >
-                      {c}
+                      <ChannelIcons channel={p.channel} color={th.iconColor} />
                     </span>
-                  ))}
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
 
         {/* Info compartida de los 3 planes de autoservicio */}
