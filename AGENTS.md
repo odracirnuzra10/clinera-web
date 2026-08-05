@@ -103,17 +103,22 @@ modo Eficiente y quedó obsoleto al pasar todo por el modelo agéntico. **Si ves
 | Summit | 46.000 | US$ 479 | 0,01041 | US$ 46,00 | 9,6% | 90,4% | 10,41x |
 | Recarga | 5.000 | US$ 15 | 0,00300 | US$ 5,00 | **33,3%** | 66,7% | **3,00x** |
 
-Equivalencias de consumo por plan (créditos ÷ tarifa), que deben mantenerse
-sincronizadas en `pricing.ts`, las calculadoras, `planes-faq.ts`, `/planes-pro`
-y `public/llms*.txt`:
+Equivalencias de consumo por plan (créditos ÷ tarifa, **siempre redondeando
+hacia abajo**), que deben mantenerse sincronizadas en `pricing.ts`, las
+calculadoras, `planes-faq.ts`, `/planes-pro` y `public/llms*.txt`:
 
 | Plan | Conversaciones | Agendamientos |
 |---|---|---|
 | Vortex | ~933 | ~143 |
-| Atlas | ~1.233 | ~190 |
-| Summit | ~1.533 | ~236 |
+| Atlas | ~1.233 | ~189 |
+| Summit | ~1.533 | ~235 |
 
 La recarga rinde ~166 conversaciones o ~25 agendamientos.
+
+El piso es obligatorio porque las calculadoras recomiendan plan con la regla
+`bolsa ≥ créditos necesarios`: un número redondeado hacia arriba (p. ej. los
+~190/~236 que se publicaron hasta agosto 2026) no cabe en la bolsa y hace que
+la calculadora recomiende el plan siguiente al valor exacto prometido.
 
 ## Política de COGS
 
@@ -128,9 +133,16 @@ tendría que costar entre US$ 25 y US$ 50. Es una decisión comercial pendiente,
 no un bug — pero si alguien pregunta por qué la recarga tiene mal margen, la
 respuesta es esta.
 
-## Inconsistencia abierta
+## Implementación y estructura de pago
 
-`SETUP_FEE_USD = 450` en `pricing.ts` (el valor que va a los contratos firmados)
-contra **US$ 750** publicado en `/planes-pro`, `public/llms.txt` y
-`public/llms-full.txt`. Sin resolver — confirmar con Ricardo antes de tocar
-cualquiera de los dos lados.
+**Resuelto por Ricardo (agosto 2026): la implementación vale US$ 450** — el
+valor de `SETUP_FEE_USD` en `pricing.ts`, el mismo que va a los contratos
+firmados. El US$ 750 que existió en `/planes-pro`, FAQ, calculadoras y
+`public/llms*.txt` era residuo y ya se corrigió; si reaparece, es un error.
+
+La estructura de pago se comunica en secuencia (estilo Vambe), y así la
+renderizan las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
+
+- **Mes 1:** implementación, US$ 450, pago único.
+- **Mes 2 en adelante:** el plan contratado (Vortex US$ 279 / Atlas US$ 379 /
+  Summit US$ 479 al mes).

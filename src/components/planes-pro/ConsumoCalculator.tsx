@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { track } from "@/lib/tracking";
+import { SETUP_FEE_USD } from "@/content/pricing";
 
 // ── Tokens del sitio (clinera.io / /planes) ──
 const FONT = "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
@@ -23,7 +24,7 @@ const CR_TEXTO = 30; // por conversación de texto sin agendamiento (promedio Ag
 const CR_AGENDA = 195; // por conversación que termina en agendamiento
 const CR_VOZ = 25; // por minuto de voz (CAMILA)
 const CR_LIA = 4000; // fiscalización + informes (LIA), por mes
-const IMPL = 750; // implementación, pago único
+const IMPL = SETUP_FEE_USD; // implementación (mes 1), pago único
 const CORP_FROM = 1900; // Corporativo desde USD/mes
 
 type Plan = { id: string; name: string; price: number; credits: number; tier: 1 | 2 | 3; includes: string };
