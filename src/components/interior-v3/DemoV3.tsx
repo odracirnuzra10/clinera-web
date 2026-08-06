@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { useReveal } from "@/components/home-v3/sections";
+import { stripeLink } from "@/content/pricing";
 
 type DemoAgent = { id: "aura" | "lia" | "camila"; name: string };
 
@@ -22,7 +23,7 @@ const PLANS = [
     ],
     models: ["Kimi K2.6"],
     agents: [{ id: "aura", name: "AURA" }] as DemoAgent[],
-    stripeUrl: "https://buy.stripe.com/4gM7sN7cZ4Yq9wT5RV1441u",
+    stripeUrl: stripeLink("vortex"),
   },
   {
     name: "Atlas",
@@ -43,7 +44,7 @@ const PLANS = [
       { id: "aura", name: "AURA" },
       { id: "camila", name: "CAMILA" },
     ] as DemoAgent[],
-    stripeUrl: "https://buy.stripe.com/5kQ7sN40Nez08sP9471441v",
+    stripeUrl: stripeLink("atlas"),
   },
   {
     name: "Summit",
@@ -64,7 +65,7 @@ const PLANS = [
       { id: "camila", name: "CAMILA" },
       { id: "lia", name: "LIA" },
     ] as DemoAgent[],
-    stripeUrl: "https://buy.stripe.com/5kQ6oJbtf3UmdN94NR1441w",
+    stripeUrl: stripeLink("summit"),
   },
 ];
 

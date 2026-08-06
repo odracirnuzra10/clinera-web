@@ -1,7 +1,8 @@
 import Link from "next/link";
 import styles from "@/app/empleado-digital/empleado-digital.module.css";
+import { stripeLink } from "@/content/pricing";
 
-const STRIPE_SUMMIT = "https://buy.stripe.com/5kQ6oJbtf3UmdN94NR1441w";
+const STRIPE_SUMMIT = stripeLink("summit");
 
 const BULLETS = [
   "46.000 créditos / mes · bolsa mensual de IA",

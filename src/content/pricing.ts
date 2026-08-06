@@ -100,3 +100,18 @@ export const CLINERA_PLANS = [
 ] as const;
 
 export type ClineraPlan = (typeof CLINERA_PLANS)[number];
+
+/**
+ * Link de pago de Stripe de un plan. Úsalo SIEMPRE en vez de pegar la URL:
+ * los payment links viven acá y en ningún otro lado, igual que los precios.
+ * Una copia suelta en un componente es un link que nadie actualiza el día que
+ * el plan cambia de precio — y un link de pago viejo cobra el monto viejo.
+ */
+export function stripeLink(
+  id: ClineraPlan["id"],
+  periodo: "mensual" | "semestral" = "mensual",
+): string {
+  const plan = CLINERA_PLANS.find((p) => p.id === id);
+  if (!plan) throw new Error(`Plan desconocido en stripeLink(): ${id}`);
+  return periodo === "semestral" ? plan.stripeSemester : plan.stripe;
+}
