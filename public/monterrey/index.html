@@ -327,6 +327,89 @@
       opacity: .8;
     }
 
+    /* --- Personalización Monterrey: skyline al inicio + saludo --- */
+    .hero-skyline {
+      margin: 0 0 14px;
+    }
+
+    .hero-skyline svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .sky-line {
+      fill: none;
+      stroke: #b9b9b2;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sky-mtn {
+      stroke: #dcdcd6;
+    }
+
+    .sky-silla {
+      stroke: #c4c4bd;
+    }
+
+    .sky-ground {
+      stroke: var(--line-strong);
+    }
+
+    .sky-sun {
+      fill: var(--violet);
+      stroke: none;
+    }
+
+    .hero-saludo {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-size: clamp(20px, 1.9vw, 27px);
+      font-weight: 600;
+      letter-spacing: -.02em;
+    }
+
+    .hero-copy .eyebrow {
+      margin-bottom: 14px;
+    }
+
+    .slide.active .hero-skyline {
+      animation: enter .64s var(--ease) both;
+    }
+
+    .slide.active .hero-saludo {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .04s;
+    }
+
+    @media (min-width: 761px) and (max-height: 830px) {
+      .slide-inner.hero-slide {
+        padding-block: 46px;
+      }
+
+      .hero-slide {
+        gap: 26px;
+      }
+
+      .hero-copy .display {
+        font-size: clamp(34px, 3.6vw, 50px);
+      }
+
+      .hero-copy .lead {
+        margin-top: 16px;
+        font-size: 17px;
+      }
+
+      .hero-saludo {
+        font-size: 20px;
+      }
+
+      .hero-client-logo {
+        height: 46px;
+      }
+    }
+
     .ai-head {
       display: grid;
       grid-template-columns: minmax(0, 1.16fr) minmax(320px, .84fr);
@@ -3503,7 +3586,40 @@
       >
         <div class="slide-inner hero-slide">
           <div class="hero-copy">
+            <figure class="hero-skyline" role="img" aria-label="Skyline de Monterrey con el Cerro de la Silla">
+              <svg viewBox="0 0 1200 64" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+                <g class="sky-line sky-mtn">
+                  <path d="M600 58 L676 40 L734 53" />
+                </g>
+                <g class="sky-line sky-silla">
+                  <path d="M688 58 L786 10 L800 17 L826 25 L856 30 L884 30 L904 12 L926 19 L1020 46 L1084 40 L1148 50 L1200 47" />
+                </g>
+                <g class="sky-line">
+                  <rect x="40" y="44" width="30" height="14" />
+                  <rect x="84" y="32" width="20" height="26" />
+                  <rect x="118" y="14" width="24" height="44" />
+                  <rect x="124" y="8" width="12" height="6" />
+                  <path d="M130 8 V2" />
+                  <rect x="156" y="38" width="32" height="20" />
+                  <path d="M204 58 L207 10 L212 10 L215 58" />
+                  <rect x="236" y="34" width="15" height="24" />
+                  <path d="M236 34 a7.5 7 0 0 1 15 0" />
+                  <path d="M243.5 20 v6 M241 23 h5" />
+                  <rect x="268" y="46" width="36" height="12" />
+                  <path d="M322 58 V22 Q322 14 331 14 Q340 14 340 22 V58" />
+                  <rect x="354" y="30" width="22" height="28" />
+                  <rect x="390" y="22" width="18" height="36" />
+                  <rect x="420" y="42" width="38" height="16" />
+                  <rect x="472" y="28" width="20" height="30" />
+                  <rect x="506" y="46" width="30" height="12" />
+                  <rect x="550" y="34" width="16" height="24" />
+                </g>
+                <rect class="sky-sun" x="1128" y="7" width="9" height="9" rx="2" />
+                <line class="sky-line sky-ground" x1="24" y1="58" x2="1176" y2="58" />
+              </svg>
+            </figure>
             <div class="eyebrow">Para el Cluster de Salud y Turismo Médico de Nuevo León</div>
+            <p class="hero-saludo">¡Bienvenidos! Qué gusto recibirlos.</p>
             <h1 class="display">
               Clinera O.S.: el sistema operativo <span>con IA</span> que usan medianas y grandes
               redes de clínicas.
