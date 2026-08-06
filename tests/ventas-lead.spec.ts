@@ -26,6 +26,8 @@ type LeadPayload = {
   software_actual_label?: string;
   sucursales?: string;
   pacientes_mes?: string;
+  tamano_operacion?: string;
+  tamano_operacion_label?: string;
   operational_profile?: string;
   operational_profile_label?: string;
   locations_band?: string;
@@ -65,7 +67,7 @@ function recordWebhookHits(page: Page): LeadPayload[] {
 }
 
 test.describe("Ventas wizard — software + tamaño + payload n8n", () => {
-  test("flujo CALIFICA: AgendaPro + perfil 1 sede/≤500 manda lead completo a n8n", async ({ page }) => {
+  test("flujo CALIFICA: AgendaPro + tramo 200–500 manda lead completo a n8n", async ({ page }) => {
     const nonce = makeNonce();
     const hits = recordWebhookHits(page);
 
@@ -77,14 +79,14 @@ test.describe("Ventas wizard — software + tamaño + payload n8n", () => {
     // Elegir software avanza solo: no hay botón Continuar en el paso 1.
     await page.getByRole("button", { name: "AgendaPro", exact: true }).click();
 
-    // Paso 2 — Perfil operativo (1 sede · hasta 500 → prioridad standard)
+    // Paso 2 — Tamaño de operación (200–500 pacientes/mes → prioridad standard)
     await expect(page.getByRole("heading", { level: 2 })).toContainText(/inversión/i);
     await expect(page.getByText("USD 279 mensuales", { exact: true })).toBeVisible();
     await expect(page.getByText("USD 750", { exact: true })).toHaveCount(0);
-    await expect(page.getByText("¿Cuál describe mejor tu operación?")).toBeVisible();
+    await expect(page.getByText("¿De qué tamaño es tu operación mensual?")).toBeVisible();
     const ctaPaso2 = page.getByRole("button", { name: /Continuar con esta inversión/i });
-    await expect(ctaPaso2, "el CTA arranca deshabilitado sin perfil").toBeDisabled();
-    await page.getByRole("radio", { name: "1 sede · hasta 500 pacientes/mes" }).click();
+    await expect(ctaPaso2, "el CTA arranca deshabilitado sin tamaño").toBeDisabled();
+    await page.getByRole("radio", { name: "Entre 200 a 500 pacientes al mes" }).click();
     await expect(ctaPaso2).toBeEnabled();
     await ctaPaso2.click();
 
@@ -126,14 +128,18 @@ test.describe("Ventas wizard — software + tamaño + payload n8n", () => {
 
     expect(contactLead, "esperaba lead de contacto en el paso 3").toBeTruthy();
     expect(contactLead!.software_actual).toBe("agendapro");
-    // Perfil operativo (esquema nuevo)
-    expect(contactLead!.operational_profile).toBe("single_upto_500");
-    expect(contactLead!.operational_profile_label).toBe("1 sede · hasta 500 pacientes/mes");
-    expect(contactLead!.locations_band).toBe("1");
-    expect(contactLead!.patients_band).toBe("lte_500");
+    // Tamaño de operación — la clave que n8n mapea a la columna homónima
+    expect(contactLead!.tamano_operacion).toBe("vol_200_500");
+    expect(contactLead!.tamano_operacion_label).toBe("Entre 200 a 500 pacientes al mes");
+    // Mismo dato con las claves del esquema anterior
+    expect(contactLead!.operational_profile).toBe("vol_200_500");
+    expect(contactLead!.operational_profile_label).toBe("Entre 200 a 500 pacientes al mes");
+    expect(contactLead!.patients_band).toBe("200_500");
     expect(contactLead!.lead_priority).toBe("standard");
+    // El paso 2 ya no pregunta por sedes: sale vacío, nunca inventado.
+    expect(contactLead!.locations_band).toBe("");
+    expect(contactLead!.sucursales).toBe("");
     // Legacy derivado — n8n / Baserow 152 / Monday siguen recibiendo lo de siempre
-    expect(contactLead!.sucursales).toBe("1");
     expect(contactLead!.pacientes_mes).toBe("200_500");
     expect(contactLead!.califica).toBe(true);
     expect(contactLead!.prioridad_alta).toBe(false);
@@ -156,33 +162,35 @@ test.describe("Ventas wizard — software + tamaño + payload n8n", () => {
     console.log("=========================");
   });
 
-  test("perfil multisede: 4+ sedes → strategic y patients_band unknown", async ({ page }) => {
+  test("tramo alto: más de 1000 pacientes → strategic y prioridad alta", async ({ page }) => {
     const hits = recordWebhookHits(page);
     await page.goto("/ventas", { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(400);
 
     await page.getByRole("button", { name: "AgendaPro", exact: true }).click();
-    await page.getByRole("radio", { name: "4 o más sedes" }).click();
+    await page.getByRole("radio", { name: "Más de 1000 pacientes" }).click();
     await page.getByRole("button", { name: /Continuar con esta inversión/i }).click();
     await page.waitForTimeout(600);
 
     const sizeLead = hits.find((h) => h.lead_stage === "size_captured");
     expect(sizeLead, "esperaba lead de tamaño").toBeTruthy();
-    expect(sizeLead!.operational_profile).toBe("multi_4_plus");
-    expect(sizeLead!.locations_band).toBe("4_plus");
-    // No se inventa volumen de pacientes para multisede.
-    expect(sizeLead!.patients_band).toBe("unknown");
-    expect(sizeLead!.pacientes_mes).toBe("");
+    expect(sizeLead!.tamano_operacion).toBe("vol_1000_plus");
+    expect(sizeLead!.tamano_operacion_label).toBe("Más de 1000 pacientes");
+    expect(sizeLead!.operational_profile).toBe("vol_1000_plus");
+    expect(sizeLead!.patients_band).toBe("gt_1000");
+    expect(sizeLead!.pacientes_mes).toBe("1000_plus");
     expect(sizeLead!.lead_priority).toBe("strategic");
     expect(sizeLead!.prioridad_alta).toBe(true);
-    expect(sizeLead!.sucursales).toBe("3plus");
+    // Sin pregunta de sedes, no se inventa el dato.
+    expect(sizeLead!.locations_band).toBe("");
+    expect(sizeLead!.sucursales).toBe("");
   });
 
   test('"No es para mí" no bloquea el paso y lleva al cierre suave', async ({ page }) => {
     await page.goto("/ventas", { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(400);
     await page.getByRole("button", { name: "AgendaPro", exact: true }).click();
-    await expect(page.getByText("¿Cuál describe mejor tu operación?")).toBeVisible();
+    await expect(page.getByText("¿De qué tamaño es tu operación mensual?")).toBeVisible();
     // El enlace de salida existe pero no es una respuesta obligatoria.
     await page.getByRole("button", { name: "No es para mí" }).click();
     await expect(page.getByText("Sin problema.")).toBeVisible();

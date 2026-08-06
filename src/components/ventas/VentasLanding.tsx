@@ -64,73 +64,63 @@ const SOFTWARE_LABELS: Record<SoftwareId, string> = SOFTWARE_OPTIONS.reduce(
   {} as Record<SoftwareId, string>,
 );
 
-// ============== PASO 2 — PERFIL OPERATIVO ==============
-// Una sola pregunta reemplaza a las dos anteriores (sucursales + pacientes/mes).
-// Los campos legacy siguen saliendo en el payload, DERIVADOS de este perfil, para
-// no romper n8n → Baserow 152 / Monday / Meta. Donde el perfil no permite conocer
-// el dato (volumen de pacientes en multisede) se emite "" / "unknown": nunca se
-// fabrica un valor.
+// ============== PASO 2 — TAMAÑO DE OPERACIÓN ==============
+// UNA sola pregunta, sobre UN solo eje: el volumen mensual de pacientes.
+// Reemplaza al perfil mixto (sedes + pacientes) que estuvo hasta agosto 2026 y
+// que mezclaba dos ejes en la misma lista: dos de sus cuatro opciones hablaban
+// de sedes y dejaban el volumen en "unknown", que es justo el dato con el que el
+// equipo comercial prioriza y el que ahora viaja como columna propia
+// («Tamaño de operación») a Baserow 152 y a Twenty.
+//
+// Las CLAVES del payload se conservan (`operational_profile`, `patients_band`,
+// `sucursales`, `pacientes_mes`…) para no romper n8n → Baserow / Monday / Meta;
+// lo que cambia son sus VALORES. El número de sedes ya no se pregunta: sale
+// vacío en vez de inventado, igual que antes salía vacío el volumen en multisede.
 export type OperationalProfileId =
-  | "single_upto_500"
-  | "single_over_500"
-  | "multi_2_3"
-  | "multi_4_plus";
+  | "vol_200_500"
+  | "vol_500_1000"
+  | "vol_1000_plus";
 
 export type LeadPriority = "standard" | "high" | "strategic";
 
-/** Bandas normalizadas. `unknown` = el perfil no permite saberlo. */
-type LocationsBand = "1" | "2_3" | "4_plus";
-type PatientsBand = "lte_500" | "gt_500" | "unknown";
+/** Banda de volumen mensual de pacientes: el único eje del paso 2. */
+type PatientsBand = "200_500" | "500_1000" | "gt_1000";
 
 type OperationalProfile = {
   id: OperationalProfileId;
   label: string;
   priority: LeadPriority;
   prioridadAlta: boolean;
-  locationsBand: LocationsBand;
   patientsBand: PatientsBand;
   /** Equivalencias con el esquema anterior, para los consumidores legacy. */
-  legacy: { sucursales: string; sucursalesLabel: string; pacientesMes: string; pacientesMesLabel: string };
+  legacy: { pacientesMes: string; pacientesMesLabel: string };
 };
 
 // AJUSTA AQUÍ la prioridad comercial (único lugar del código).
 const OPERATIONAL_PROFILES: OperationalProfile[] = [
   {
-    id: "single_upto_500",
-    label: "1 sede · hasta 500 pacientes/mes",
+    id: "vol_200_500",
+    label: "Entre 200 a 500 pacientes al mes",
     priority: "standard",
     prioridadAlta: false,
-    locationsBand: "1",
-    patientsBand: "lte_500",
-    legacy: { sucursales: "1", sucursalesLabel: "1", pacientesMes: "200_500", pacientesMesLabel: "200–500" },
+    patientsBand: "200_500",
+    legacy: { pacientesMes: "200_500", pacientesMesLabel: "200–500" },
   },
   {
-    id: "single_over_500",
-    label: "1 sede · más de 500 pacientes/mes",
+    id: "vol_500_1000",
+    label: "Entre 500 y 1000 pacientes al mes",
     priority: "high",
     prioridadAlta: true,
-    locationsBand: "1",
-    patientsBand: "gt_500",
-    legacy: { sucursales: "1", sucursalesLabel: "1", pacientesMes: "500_1000", pacientesMesLabel: "500–1.000" },
+    patientsBand: "500_1000",
+    legacy: { pacientesMes: "500_1000", pacientesMesLabel: "500–1.000" },
   },
   {
-    id: "multi_2_3",
-    label: "2–3 sedes",
-    priority: "high",
-    prioridadAlta: true,
-    locationsBand: "2_3",
-    patientsBand: "unknown",
-    // El perfil no dice nada del volumen → los campos de pacientes van vacíos.
-    legacy: { sucursales: "2", sucursalesLabel: "2", pacientesMes: "", pacientesMesLabel: "" },
-  },
-  {
-    id: "multi_4_plus",
-    label: "4 o más sedes",
+    id: "vol_1000_plus",
+    label: "Más de 1000 pacientes",
     priority: "strategic",
     prioridadAlta: true,
-    locationsBand: "4_plus",
-    patientsBand: "unknown",
-    legacy: { sucursales: "3plus", sucursalesLabel: "más de 3", pacientesMes: "", pacientesMesLabel: "" },
+    patientsBand: "gt_1000",
+    legacy: { pacientesMes: "1000_plus", pacientesMesLabel: "más de 1.000" },
   },
 ];
 
@@ -225,18 +215,23 @@ function sizeAttributes(
   return {
     software_actual: software ?? "",
     software_actual_label: software ? SOFTWARE_LABELS[software] : "",
-    // Perfil operativo (esquema nuevo).
+    // Tamaño de operación — la clave que n8n mapea a la columna «Tamaño de
+    // operación» de Baserow 152 y al campo homónimo del negocio en Twenty.
+    tamano_operacion: p?.id ?? "",
+    tamano_operacion_label: p?.label ?? "",
+    // Mismo dato con las claves del esquema anterior (los consumidores ya
+    // armados sobre ellas siguen funcionando).
     operational_profile: p?.id ?? "",
     operational_profile_label: p?.label ?? "",
-    locations_band: p?.locationsBand ?? "",
+    // El paso 2 ya no pregunta por sedes: se emite vacío, nunca inventado.
+    locations_band: "",
     patients_band: p?.patientsBand ?? "unknown",
     lead_priority: qual?.priority ?? "standard",
     prioridad_alta: qual?.prioridadAlta ?? false,
     califica: qual?.califica ?? false,
     // Legacy DERIVADO del perfil — se mantiene para n8n → Baserow 152 / Monday.
-    // En multisede el volumen de pacientes es desconocido: va vacío, no inventado.
-    sucursales: p?.legacy.sucursales ?? "",
-    sucursales_label: p?.legacy.sucursalesLabel ?? "",
+    sucursales: "",
+    sucursales_label: "",
     pacientes_mes: p?.legacy.pacientesMes ?? "",
     pacientes_mes_label: p?.legacy.pacientesMesLabel ?? "",
   };
@@ -255,11 +250,11 @@ function qualCustomData(
   return {
     software_actual: software ?? "",
     operational_profile: p?.id ?? "",
-    locations_band: p?.locationsBand ?? "",
+    locations_band: "",
     patients_band: p?.patientsBand ?? "unknown",
     lead_priority: qual?.priority ?? "standard",
     // Legacy derivado: Meta ya tiene audiencias/columnas armadas sobre estos.
-    sucursales: p?.legacy.sucursales ?? "",
+    sucursales: "",
     pacientes_mes: p?.legacy.pacientesMes ?? "",
     prioridad_alta: qual?.prioridadAlta ?? false,
     pais,
@@ -270,10 +265,9 @@ function qualCustomData(
 // del esquema anterior: tamano_clinica, patient_volume, migration_intent, etc.).
 // Toda clínica que llega aquí ya tiene software → su intención es migrar.
 function backCompatFields(software: SoftwareId | null, size: SizeAnswers, qual: Qualification | null) {
-  // `patient_volume` solo se puede afirmar cuando el perfil trae banda de pacientes.
-  // En multisede queda "unknown" en vez de fabricar un tramo.
-  const band = size.profile?.patientsBand ?? "unknown";
-  const patientVolume = band === "unknown" ? "unknown" : "over_100";
+  // `patient_volume` solo se puede afirmar cuando ya hay banda elegida. Las tres
+  // bandas arrancan en 200 pacientes/mes, así que todas caen en "over_100".
+  const patientVolume = size.profile ? "over_100" : "unknown";
   return {
     tamano_clinica: sizeSummaryLabel(size),
     patient_volume: patientVolume,
@@ -1227,7 +1221,7 @@ function StepSoftware({
   );
 }
 
-// ============== STEP 2 — PERFIL OPERATIVO ==============
+// ============== STEP 2 — TAMAÑO DE OPERACIÓN ==============
 // Lista vertical (no chips): las etiquetas son largas y en móvil los chips
 // obligaban a truncar o a scroll horizontal.
 function ProfilePicker({
@@ -1249,9 +1243,9 @@ function ProfilePicker({
           marginBottom: 9,
         }}
       >
-        ¿Cuál describe mejor tu operación?
+        ¿De qué tamaño es tu operación mensual?
       </div>
-      <div role="radiogroup" aria-label="Perfil operativo" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <div role="radiogroup" aria-label="Tamaño de operación" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {OPERATIONAL_PROFILES.map((opt) => {
           const sel = selected?.id === opt.id;
           return (

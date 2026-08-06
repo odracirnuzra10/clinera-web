@@ -77,7 +77,7 @@ async function fbqNames(page: Page): Promise<FbqCall[]> {
 }
 
 // Recorre el paso 2: elige perfil operativo y acepta con el CTA principal.
-async function fillSizeStep(page: Page, profile = "1 sede · hasta 500 pacientes/mes") {
+async function fillSizeStep(page: Page, profile = "Entre 200 a 500 pacientes al mes") {
   await expect(page.getByRole("heading", { level: 2 })).toContainText(/inversión/i);
   await page.getByRole("radio", { name: profile }).click();
   await page.getByRole("button", { name: /Continuar con esta inversión/i }).click();
@@ -133,11 +133,12 @@ test.describe("Meta events — /ventas wizard", () => {
 
     // custom_data: atributos de calificación, SIN PII
     expect(mql.custom_data?.software_actual).toBe("agendapro");
-    expect(mql.custom_data?.sucursales).toBe("1");
     expect(mql.custom_data?.pacientes_mes).toBe("200_500");
-    expect(mql.custom_data?.operational_profile).toBe("single_upto_500");
-    expect(mql.custom_data?.locations_band).toBe("1");
-    expect(mql.custom_data?.patients_band).toBe("lte_500");
+    expect(mql.custom_data?.operational_profile).toBe("vol_200_500");
+    expect(mql.custom_data?.patients_band).toBe("200_500");
+    // El paso 2 ya no pregunta por sedes.
+    expect(mql.custom_data?.sucursales).toBe("");
+    expect(mql.custom_data?.locations_band).toBe("");
     expect(mql.custom_data?.lead_priority).toBe("standard");
     expect(mql.custom_data?.prioridad_alta).toBe(false);
     expect(mql.custom_data?.pais).toBe("Chile");
@@ -150,8 +151,8 @@ test.describe("Meta events — /ventas wizard", () => {
     expect(pixelMqls[0].opts?.eventID).toBe(mql.event_id);
   });
 
-  // --- Criterio 2: prioridad_alta la marca el perfil operativo multisede ----
-  test("2–3 sedes → prioridad_alta true y lead_priority high en el MQL", async ({ page }) => {
+  // --- Criterio 2: prioridad_alta la marca el tramo de volumen --------------
+  test("500–1000 pacientes → prioridad_alta true y lead_priority high en el MQL", async ({ page }) => {
     await installFbqRecorder(page);
     const capi = mockNetwork(page);
 
@@ -159,7 +160,7 @@ test.describe("Meta events — /ventas wizard", () => {
     await page.waitForTimeout(400);
 
     await page.getByRole("button", { name: "Medilink", exact: true }).click();
-    await fillSizeStep(page, "2–3 sedes");
+    await fillSizeStep(page, "Entre 500 y 1000 pacientes al mes");
 
     await expect(page.getByRole("heading", { level: 2 })).toContainText(/datos/i);
     await fillContactStep(page);
@@ -173,12 +174,13 @@ test.describe("Meta events — /ventas wizard", () => {
     await page.waitForTimeout(300);
 
     const mql = capi.filter((c) => c.event_name === "MQL")[0];
-    expect(mql.custom_data?.operational_profile).toBe("multi_2_3");
-    expect(mql.custom_data?.locations_band).toBe("2_3");
-    expect(mql.custom_data?.patients_band).toBe("unknown");
+    expect(mql.custom_data?.operational_profile).toBe("vol_500_1000");
+    expect(mql.custom_data?.patients_band).toBe("500_1000");
+    expect(mql.custom_data?.pacientes_mes).toBe("500_1000");
     expect(mql.custom_data?.lead_priority).toBe("high");
-    expect(mql.custom_data?.sucursales).toBe("2");
     expect(mql.custom_data?.prioridad_alta).toBe(true);
+    expect(mql.custom_data?.locations_band).toBe("");
+    expect(mql.custom_data?.sucursales).toBe("");
   });
 
   // --- Criterio 3: recarga tras submit NO genera un segundo MQL -------------
