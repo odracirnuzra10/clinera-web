@@ -410,6 +410,139 @@
       }
     }
 
+    /* --- Slide 2: bienvenida a los invitados del cluster --- */
+    .slide-inner.guests-layout {
+      display: grid;
+      align-content: center;
+      gap: clamp(24px, 3.2vh, 38px);
+    }
+
+    .guests-head .display {
+      font-size: clamp(34px, 3.4vw, 52px);
+    }
+
+    .guests-head .display span {
+      color: var(--violet);
+    }
+
+    .guests-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(28px, 3.4vw, 52px);
+      border-top: 1px solid var(--line);
+    }
+
+    .guest {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 0;
+      padding: 10px 0 9px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .guest::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: var(--violet);
+      transform: translateY(-1px);
+    }
+
+    .guest b {
+      color: var(--ink);
+      font-size: 14.5px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+
+    .guest small {
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 12.5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .guests-foot {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .guests-foot b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .slide.active .guests-grid {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .12s;
+    }
+
+    .slide.active .guests-foot {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .2s;
+    }
+
+    @media (min-width: 761px) and (max-height: 830px) {
+      .slide-inner.guests-layout {
+        gap: 18px;
+        padding-block: 30px;
+      }
+
+      .guests-head .display {
+        font-size: 30px;
+      }
+
+      .guest {
+        padding: 8px 0 7px;
+      }
+
+      .guest b {
+        font-size: 13.5px;
+      }
+
+      .guest small {
+        font-size: 12px;
+      }
+
+      .guests-foot {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .guests-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .guest {
+        display: grid;
+        grid-template-columns: 16px minmax(0, 1fr);
+        align-items: baseline;
+        row-gap: 1px;
+      }
+
+      .guest::before {
+        align-self: center;
+        transform: none;
+      }
+
+      .guest b,
+      .guest small {
+        grid-column: 2;
+      }
+
+      .guest small {
+        white-space: normal;
+      }
+    }
+
     .ai-head {
       display: grid;
       grid-template-columns: minmax(0, 1.16fr) minmax(320px, .84fr);
@@ -3657,6 +3790,43 @@
               </span>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide"
+        id="invitados"
+        data-name="Los invitados"
+        aria-hidden="true"
+      >
+        <div class="slide-inner guests-layout">
+          <div class="guests-head">
+            <div class="eyebrow">Los invitados de hoy</div>
+            <h2 class="display">
+              Hoy nos acompañan quienes hacen de Nuevo León <span>un destino de salud</span>.
+            </h2>
+          </div>
+
+          <div class="guests-grid" aria-label="Socios del ramo médico del cluster">
+            <div class="guest"><b>Swiss Hospital</b><small>Hospital · Mario Joel Echeverría y Francisco Álvarez</small></div>
+            <div class="guest"><b>Dr. Jamyl Habib Castillo</b><small>Oftalmología</small></div>
+            <div class="guest"><b>Medyca Bosques</b><small>Clínica ambulatoria · Ramiro Ramírez y Martha Morgado</small></div>
+            <div class="guest"><b>Dr. Jesús Vázquez Reséndiz</b><small>Ginecología y Oncología</small></div>
+            <div class="guest"><b>Centro de Trauma y Cirugía Especializada</b><small>Hospital · Rolando Ramírez</small></div>
+            <div class="guest"><b>Dr. Daniel Fernández Díaz de León</b><small>Periodoncia e implantes dentales</small></div>
+            <div class="guest"><b>Centro Oftalmológico Valle · COVA</b><small>Clínica ambulatoria · Carlos Romo</small></div>
+            <div class="guest"><b>Dr. Homero Lozano</b><small>Mastología</small></div>
+            <div class="guest"><b>TAEMM</b><small>Agencia de turismo médico · Haydeé Vázquez</small></div>
+            <div class="guest"><b>Dr. José María García</b><small>Neurocirugía</small></div>
+            <div class="guest"><b>MediCarmen</b><small>Clínica · Pablo Garza</small></div>
+            <div class="guest"><b>Lic. Angela Edith Leal Sánchez</b><small>Nutrición</small></div>
+            <div class="guest"><b>Dr. Rubén Sepúlveda Castañeda</b><small>Oftalmología</small></div>
+          </div>
+
+          <p class="guests-foot">
+            Hospitales, clínicas, especialistas y turismo médico.
+            <b>Gracias por recibirnos en su casa.</b>
+          </p>
         </div>
       </section>
 
