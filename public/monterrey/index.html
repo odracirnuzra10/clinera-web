@@ -1,0 +1,2284 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Clinera × Cluster de Salud y Turismo Médico de Nuevo León — Webinar</title>
+  <meta
+    name="description"
+    content="Bienvenida al Cluster de Salud y Turismo Médico del Estado de Nuevo León: cómo opera una clínica cuando la IA atiende, agenda y cobra — con demo en vivo y precios claros."
+  />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://www.clinera.io/monterrey" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.clinera.io/monterrey" />
+  <meta property="og:title" content="Clinera × Cluster de Salud y Turismo Médico de Nuevo León" />
+  <meta
+    property="og:description"
+    content="Webinar de bienvenida: la IA que atiende, agenda y cobra por tu clínica — con demo en vivo por WhatsApp y precios claros."
+  />
+  <meta property="og:locale" content="es_MX" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%236941C6'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Outfit:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --paper: #ffffff;
+      --ink: #111318;
+      --ink-soft: #3d4250;
+      --muted: #656a76;
+      --faint: #9ca3af;
+      --line: #e3e3df;
+      --line-strong: #c9c9c3;
+      --violet: #6941c6;
+      --violet-dark: #5231a6;
+      --violet-soft: #f1ecfb;
+      --live: #e5484d;
+      --display: "Outfit", sans-serif;
+      --mono: "DM Mono", monospace;
+      --ease: cubic-bezier(.22, .8, .25, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    html {
+      background: var(--canvas);
+    }
+
+    body {
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: var(--display);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    a {
+      color: inherit;
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(105, 65, 198, .24);
+      outline-offset: 4px;
+    }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      min-height: 100dvh;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* ---------- Barra superior ---------- */
+    .topbar {
+      position: fixed;
+      z-index: 50;
+      inset: 0 0 auto;
+      height: 64px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+      padding: 0 clamp(22px, 4.2vw, 64px);
+      border-bottom: 1px solid rgba(227, 227, 223, .86);
+      color: var(--ink);
+      background: rgba(239, 239, 236, .86);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      justify-self: start;
+      display: inline-flex;
+      align-items: baseline;
+      font-size: 20px;
+      font-weight: 750;
+      letter-spacing: -.055em;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      margin: 0 6px 1px;
+      border-radius: 3px;
+      background: var(--violet);
+    }
+
+    .deck-name,
+    .chapter {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .deck-name {
+      justify-self: center;
+      color: #8b929e;
+      text-align: center;
+    }
+
+    .chapter {
+      justify-self: end;
+      color: var(--muted);
+    }
+
+    /* ---------- Diapositivas ---------- */
+    .slides {
+      position: relative;
+      width: 100%;
+      min-height: 100dvh;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: grid;
+      place-items: center;
+      min-height: 100dvh;
+      padding: 92px clamp(24px, 4.2vw, 64px) 92px;
+      background: var(--canvas);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, 14px, 0);
+      transition:
+        opacity .42s var(--ease),
+        visibility .42s,
+        transform .52s var(--ease);
+      pointer-events: none;
+    }
+
+    .slide.active {
+      z-index: 2;
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(0, 0, 0);
+      pointer-events: auto;
+    }
+
+    .slide-inner {
+      position: relative;
+      width: min(1280px, 100%);
+      min-height: min(700px, calc(100dvh - 184px));
+      margin: auto;
+      display: grid;
+      align-content: center;
+      padding: clamp(46px, 5vw, 74px) clamp(50px, 6vw, 92px);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: 0 18px 55px rgba(17, 19, 24, .055);
+    }
+
+    .slide-inner::before {
+      content: "";
+      position: absolute;
+      top: 32px;
+      bottom: 32px;
+      left: 26px;
+      width: 2px;
+      background: var(--violet);
+    }
+
+    .slide-inner::after {
+      content: "CLINERA · MTY";
+      position: absolute;
+      right: 17px;
+      bottom: 31px;
+      color: #aaaab2;
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .18em;
+      writing-mode: vertical-rl;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 0 24px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .display {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(52px, 6.3vw, 92px);
+      font-weight: 700;
+      letter-spacing: -.065em;
+      line-height: .94;
+      text-wrap: balance;
+    }
+
+    .display span {
+      color: var(--violet);
+    }
+
+    .display.display-sub {
+      font-size: clamp(44px, 4.8vw, 70px);
+    }
+
+    .headline {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(30px, 3.2vw, 48px);
+      font-weight: 700;
+      letter-spacing: -.035em;
+      line-height: 1.04;
+      text-wrap: balance;
+    }
+
+    .headline span {
+      color: var(--violet);
+    }
+
+    .lead {
+      max-width: 640px;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: clamp(17px, 1.5vw, 21px);
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    /* ---------- Animaciones de entrada ---------- */
+    .slide.active .eyebrow,
+    .slide.active .display,
+    .slide.active .headline,
+    .slide.active .lead,
+    .slide.active .points,
+    .slide.active .reveal {
+      animation: enter .64s var(--ease) both;
+    }
+
+    .slide.active .display,
+    .slide.active .headline {
+      animation-delay: .05s;
+    }
+
+    .slide.active .lead {
+      animation-delay: .1s;
+    }
+
+    .slide.active .points {
+      animation-delay: .14s;
+    }
+
+    .slide.active .reveal {
+      animation-delay: .16s;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- 01 · Bienvenida ---------- */
+    .hero-layout {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(30px, 4vh, 48px);
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: fit-content;
+      padding: 7px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink-soft);
+      background: #ffffff;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .live-pill i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--live);
+      animation: livePulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .35; transform: scale(.78); }
+    }
+
+    .hero-copy .display {
+      font-size: clamp(56px, 7vw, 108px);
+    }
+
+    .hero-copy .lead {
+      max-width: 720px;
+    }
+
+    .hero-agenda {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(22px, 2.8vw, 38px);
+      padding-top: clamp(22px, 2.8vh, 30px);
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-agenda-label {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .hero-agenda-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-agenda-items span {
+      padding: 9px 15px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink-soft);
+      background: #ffffff;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .04em;
+    }
+
+    .hero-agenda-items b {
+      margin-right: 7px;
+      color: var(--violet);
+      font-weight: 500;
+    }
+
+    /* ---------- 02 · Invitados ---------- */
+    .guests-layout {
+      display: grid;
+      gap: clamp(26px, 3.4vh, 40px);
+    }
+
+    .guests-head {
+      max-width: 860px;
+    }
+
+    .guests-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: clamp(28px, 3.4vw, 52px);
+      border-top: 1px solid var(--line);
+    }
+
+    .guest {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 0;
+      padding: 10px 0 9px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .guest::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: var(--violet);
+      transform: translateY(-1px);
+    }
+
+    .guest b {
+      color: var(--ink);
+      font-size: 14.5px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+
+    .guest small {
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 12.5px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .guests-foot {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .guests-foot b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ---------- 03 · ¿Les suena? ---------- */
+    .scenes-layout {
+      display: grid;
+      gap: clamp(28px, 3.6vh, 44px);
+    }
+
+    .scenes-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .scene {
+      display: grid;
+      align-content: start;
+      gap: 12px;
+      padding: 22px 24px 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfbfa;
+    }
+
+    .scene time {
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .scene p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 15.5px;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .scene p b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .scenes-punch {
+      margin: 0;
+      max-width: 780px;
+      color: var(--ink);
+      font-size: clamp(20px, 2vw, 26px);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.3;
+      text-wrap: balance;
+    }
+
+    .scenes-punch span {
+      color: var(--violet);
+    }
+
+    /* ---------- 04 · Clinera O.S. ---------- */
+    .os-layout {
+      display: grid;
+      gap: clamp(26px, 3.2vh, 38px);
+    }
+
+    .os-head {
+      max-width: 900px;
+    }
+
+    .os-agents {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .os-agent {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+      padding: 22px 24px 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+    }
+
+    .os-agent-name {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .os-agent-name svg {
+      width: 15px;
+      height: 15px;
+      fill: currentColor;
+    }
+
+    .os-agent b {
+      color: var(--ink);
+      font-size: 17.5px;
+      font-weight: 650;
+      letter-spacing: -.015em;
+    }
+
+    .os-agent p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .os-modules {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .os-modules-label {
+      margin-right: 8px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .os-modules span:not(.os-modules-label) {
+      padding: 7px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink-soft);
+      background: #fbfbfa;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .os-clients {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(22px, 2.8vw, 38px);
+      padding-top: clamp(20px, 2.6vh, 28px);
+      border-top: 1px solid var(--line);
+    }
+
+    .os-clients-label {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .os-client-logos {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .os-client-logo {
+      display: grid;
+      place-items: center;
+      height: 54px;
+      padding: 8px 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .os-client-logo img {
+      width: auto;
+      max-width: 100%;
+      max-height: 32px;
+      object-fit: contain;
+      filter: grayscale(1) contrast(1.1);
+      opacity: .8;
+    }
+
+    /* ---------- Diapositivas divididas (AURA / CAMILA / turismo / QR) ---------- */
+    .split-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(330px, .92fr);
+      align-items: center;
+      align-content: center;
+      gap: clamp(40px, 5vw, 82px);
+    }
+
+    .split-copy .headline {
+      max-width: 560px;
+    }
+
+    .split-copy .lead {
+      max-width: 500px;
+      font-size: 18px;
+    }
+
+    .points {
+      display: grid;
+      gap: 10px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      text-wrap: pretty;
+    }
+
+    .points li::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      margin-top: 8px;
+      border-radius: 2px;
+      background: var(--violet);
+    }
+
+    /* ---------- Ventana de producto ---------- */
+    .mock {
+      justify-self: end;
+      width: min(100%, 470px);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: 0 20px 40px -8px rgba(17, 19, 24, .12);
+    }
+
+    .mock-bar {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 38px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--line);
+      background: #f4f5f7;
+    }
+
+    .mock-dots {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 5px;
+    }
+
+    .mock-dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .mock-dots i:nth-child(1) { background: #ff5f57; }
+    .mock-dots i:nth-child(2) { background: #febc2e; }
+    .mock-dots i:nth-child(3) { background: #28c840; }
+
+    .mock-title {
+      overflow: hidden;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .mock-body {
+      display: grid;
+      gap: 9px;
+      padding: 15px 14px;
+      background: #fafbfc;
+    }
+
+    .slide.active .mock-step {
+      animation: mockIn .5s var(--ease) both;
+    }
+
+    @keyframes mockIn {
+      from { opacity: 0; transform: translateY(9px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .mock-msg {
+      max-width: 90%;
+      padding: 9px 13px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    .mock-msg.in {
+      justify-self: start;
+      border: 1px solid var(--line);
+      border-bottom-left-radius: 4px;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .mock-msg.out {
+      justify-self: end;
+      border-bottom-right-radius: 4px;
+      color: #ffffff;
+      background: var(--violet);
+    }
+
+    .mock-msg span {
+      display: block;
+      margin-bottom: 5px;
+      font-family: var(--mono);
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .mock-msg.out span {
+      color: #ffffffb8;
+    }
+
+    .mock-msg.in span {
+      color: var(--faint);
+    }
+
+    .mock-check {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 3px;
+      padding: 10px 13px;
+      border: 1px solid #6941c626;
+      border-radius: 8px;
+      color: var(--violet-dark);
+      background: var(--violet-soft);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: .05em;
+    }
+
+    .mock-check svg {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .mock-call {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .mock-call-icon {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid #6941c626;
+      border-radius: 8px;
+      color: var(--violet);
+      background: var(--violet-soft);
+    }
+
+    .mock-call-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .mock-call-text {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .mock-call-text b {
+      color: var(--ink);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .mock-call-text small {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .mock-wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-left: auto;
+    }
+
+    .mock-wave i {
+      width: 3px;
+      height: 12px;
+      border-radius: 2px;
+      background: var(--violet);
+      opacity: .85;
+    }
+
+    .slide.active .mock-wave i {
+      animation: wave 1.1s ease-in-out infinite;
+    }
+
+    .mock-wave i:nth-child(2) { animation-delay: .12s; height: 17px; }
+    .mock-wave i:nth-child(3) { animation-delay: .24s; height: 9px; }
+    .mock-wave i:nth-child(4) { animation-delay: .36s; height: 15px; }
+    .mock-wave i:nth-child(5) { animation-delay: .48s; height: 11px; }
+
+    @keyframes wave {
+      0%, 100% { transform: scaleY(.55); }
+      50% { transform: scaleY(1); }
+    }
+
+    /* ---------- 08 · Demo QR ---------- */
+    .qr-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 26px;
+      color: var(--ink-soft);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .qr-note::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #28c840;
+    }
+
+    .qr-panel {
+      justify-self: end;
+      display: grid;
+      gap: 14px;
+      width: min(100%, 380px);
+    }
+
+    .qr-link {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      padding: 26px 26px 24px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 20px 40px -8px rgba(17, 19, 24, .1);
+      transition: border-color .2s ease, transform .2s var(--ease);
+    }
+
+    .qr-link:hover {
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+
+    .qr-kicker {
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .qr-frame {
+      position: relative;
+      padding: 14px;
+    }
+
+    .qr-frame::before,
+    .qr-frame::after {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--violet);
+    }
+
+    .qr-frame::before {
+      top: 0;
+      left: 0;
+      border-right: 0;
+      border-bottom: 0;
+    }
+
+    .qr-frame::after {
+      right: 0;
+      bottom: 0;
+      border-top: 0;
+      border-left: 0;
+    }
+
+    .qr-frame img {
+      display: block;
+      width: 192px;
+      height: 192px;
+    }
+
+    .qr-link strong {
+      color: var(--ink);
+      font-size: 16.5px;
+      font-weight: 650;
+      letter-spacing: -.015em;
+    }
+
+    .qr-link > span:last-child {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .04em;
+    }
+
+    .qr-panel > p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: center;
+      text-wrap: pretty;
+    }
+
+    /* ---------- 09 · Planes ---------- */
+    .plans-layout {
+      display: grid;
+      gap: clamp(16px, 2.2vh, 26px);
+      padding-block: clamp(34px, 4vh, 48px);
+    }
+
+    .plans-head {
+      max-width: 880px;
+    }
+
+    .plans-head .lead {
+      margin-top: 12px;
+      font-size: 17px;
+    }
+
+    .plans-head .eyebrow {
+      margin-bottom: 16px;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .plan {
+      position: relative;
+      display: grid;
+      align-content: start;
+      gap: 11px;
+      padding: 20px 22px 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #ffffff;
+    }
+
+    .plan.featured {
+      border-color: var(--violet);
+      box-shadow: 0 14px 34px -12px rgba(105, 65, 198, .28);
+    }
+
+    .plan-tag {
+      position: absolute;
+      top: -11px;
+      right: 18px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      color: #ffffff;
+      background: var(--violet);
+      font-family: var(--mono);
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .plan-name {
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+    }
+
+    .plan-price b {
+      color: var(--ink);
+      font-size: clamp(30px, 2.5vw, 38px);
+      font-weight: 700;
+      letter-spacing: -.045em;
+      line-height: 1;
+    }
+
+    .plan-price small {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .plan-credits {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink-soft);
+      background: #fbfbfa;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .plan-credits b {
+      display: block;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: .03em;
+    }
+
+    .plan-features {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--ink-soft);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+
+    .plan-features svg {
+      width: 14px;
+      height: 14px;
+      flex: 0 0 auto;
+      margin-top: 3px;
+      fill: none;
+      stroke: var(--violet);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .pay-seq {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfbfa;
+    }
+
+    .pay-step {
+      display: grid;
+      gap: 3px;
+    }
+
+    .pay-step small {
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .pay-step b {
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: -.015em;
+    }
+
+    .pay-step span {
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .pay-arrow {
+      color: var(--faint);
+    }
+
+    .pay-arrow svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .plans-foot {
+      margin: 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: .04em;
+      line-height: 1.65;
+    }
+
+    .plans-foot b {
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    /* ---------- 10 · Gracias ---------- */
+    .end-layout {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(28px, 3.8vh, 46px);
+    }
+
+    .end-copy .lead {
+      max-width: 700px;
+    }
+
+    .end-ctas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .end-cta {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 22px 24px 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+      transition: border-color .2s ease, transform .2s var(--ease);
+    }
+
+    .end-cta:hover {
+      border-color: var(--line-strong);
+      transform: translateY(-2px);
+    }
+
+    .end-cta.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+    }
+
+    .end-cta small {
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .end-cta.primary small {
+      color: #c9b8f2;
+    }
+
+    .end-cta b {
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -.015em;
+    }
+
+    .end-cta.primary b {
+      color: #ffffff;
+    }
+
+    .end-cta span {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .end-cta.primary span {
+      color: #b9bdc9;
+    }
+
+    .end-foot {
+      margin: 0;
+      padding-top: clamp(18px, 2.4vh, 26px);
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* ---------- Pie de navegación ---------- */
+    .deck-footer {
+      position: fixed;
+      z-index: 50;
+      right: clamp(22px, 4.2vw, 64px);
+      bottom: max(22px, env(safe-area-inset-bottom));
+      left: clamp(22px, 4.2vw, 64px);
+      display: grid;
+      grid-template-columns: auto minmax(120px, 260px) 1fr auto;
+      align-items: center;
+      gap: 18px;
+      pointer-events: none;
+    }
+
+    .counter {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+    }
+
+    .progress {
+      height: 1px;
+      overflow: hidden;
+      background: var(--line-strong);
+    }
+
+    .progress-fill {
+      width: 10%;
+      height: 100%;
+      background: var(--violet);
+      transform-origin: left center;
+      transition: width .42s var(--ease);
+    }
+
+    .footer-note {
+      color: #9ba1ab;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .control {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .86);
+      cursor: pointer;
+      transition: border-color .2s ease, transform .15s ease, opacity .2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .control:hover:not(:disabled) {
+      border-color: var(--line-strong);
+    }
+
+    .control:active:not(:disabled) {
+      transform: scale(.96);
+    }
+
+    .control:disabled {
+      opacity: .34;
+      cursor: default;
+    }
+
+    .control svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* Pantallas bajas (laptops 768p, proyectores): compactar las dos
+       diapositivas densas para que entren sin scroll. */
+    @media (min-width: 1081px) and (max-height: 830px) {
+      .plans-layout {
+        gap: 13px;
+        padding-block: 24px;
+      }
+
+      .plans-head .headline {
+        font-size: 30px;
+      }
+
+      .plans-head .lead {
+        margin-top: 7px;
+        font-size: 15px;
+      }
+
+      .plans-head .eyebrow {
+        margin-bottom: 12px;
+      }
+
+      .plan {
+        gap: 9px;
+        padding: 15px 18px 17px;
+      }
+
+      .plan-price b {
+        font-size: 28px;
+      }
+
+      .plan-credits {
+        font-size: 12px;
+      }
+
+      .plan-features {
+        font-size: 12.5px;
+      }
+
+      .pay-seq {
+        padding: 10px 16px;
+      }
+
+      .plans-foot {
+        font-size: 10px;
+      }
+
+      .os-layout {
+        gap: 18px;
+        padding-block: 30px;
+      }
+
+      .os-head .headline {
+        font-size: 32px;
+      }
+
+      .os-agent {
+        gap: 7px;
+        padding: 16px 18px 18px;
+      }
+
+      .os-client-logo {
+        height: 44px;
+      }
+
+      .os-clients {
+        padding-top: 14px;
+      }
+
+      .guests-layout {
+        gap: 18px;
+        padding-block: 28px;
+      }
+
+      .guests-head .headline {
+        font-size: 32px;
+      }
+
+      .guest {
+        padding: 8px 0 7px;
+      }
+
+      .guest b {
+        font-size: 13.5px;
+      }
+
+      .guest small {
+        font-size: 12px;
+      }
+
+      .guests-foot {
+        font-size: 14px;
+      }
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1080px) {
+      .split-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 34px;
+      }
+
+      .mock,
+      .qr-panel {
+        justify-self: start;
+      }
+
+      .os-agents,
+      .scenes-row,
+      .plans-grid,
+      .end-ctas {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .plan.featured {
+        order: -1;
+      }
+
+      .os-client-logos {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .pay-seq {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .pay-arrow {
+        display: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .deck-name {
+        display: none;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr auto;
+      }
+
+      /* En móvil el slide deja de centrar como grid: un track auto puede
+         crecer más que el viewport con titulares largos y desbordar. */
+      .slide {
+        display: block;
+        padding: 84px 16px 110px;
+      }
+
+      .slide-inner {
+        width: 100%;
+        min-height: 0;
+        padding: 34px 26px 44px;
+      }
+
+      .display,
+      .hero-copy .display {
+        font-size: clamp(38px, 11.5vw, 52px);
+      }
+
+      .display.display-sub {
+        font-size: clamp(36px, 10.5vw, 46px);
+      }
+
+      .headline {
+        font-size: clamp(26px, 7.6vw, 34px);
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      .split-copy .lead {
+        font-size: 16px;
+      }
+
+      .slide-inner::before {
+        top: 22px;
+        bottom: 22px;
+        left: 12px;
+      }
+
+      .slide-inner::after {
+        display: none;
+      }
+
+      .guests-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .guest {
+        display: grid;
+        grid-template-columns: 16px minmax(0, 1fr);
+        align-items: baseline;
+        row-gap: 1px;
+      }
+
+      .guest::before {
+        align-self: center;
+        transform: none;
+      }
+
+      .guest b,
+      .guest small {
+        grid-column: 2;
+      }
+
+      .guest small {
+        white-space: normal;
+      }
+
+      .hero-agenda,
+      .os-clients {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+      }
+
+      .footer-note {
+        display: none;
+      }
+
+      .deck-footer {
+        grid-template-columns: auto 1fr auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <header class="topbar">
+      <div class="brand" aria-label="Clinera.io">clinera<span class="brand-dot" aria-hidden="true"></span>io</div>
+      <div class="deck-name">Webinar · Cluster de Salud y Turismo Médico de Nuevo León</div>
+      <div class="chapter" id="chapter">Bienvenida</div>
+    </header>
+
+    <main class="slides" id="slides">
+      <!-- 01 · Bienvenida -->
+      <section
+        class="slide active"
+        id="hola"
+        data-name="Bienvenida"
+        aria-hidden="false"
+      >
+        <div class="slide-inner hero-layout">
+          <div class="live-pill"><i aria-hidden="true"></i>Webinar en vivo · 2026</div>
+
+          <div class="hero-copy">
+            <div class="eyebrow">Cluster de Salud y Turismo Médico de Nuevo León</div>
+            <h1 class="display">Hola, <span>Monterrey</span>.</h1>
+            <p class="lead">
+              Qué gusto tenerlos. Somos Clinera y en los próximos minutos les vamos a mostrar
+              —sin rodeos y sin tecnicismos— cómo atiende una clínica cuando la inteligencia
+              artificial trabaja en la recepción.
+            </p>
+          </div>
+
+          <div class="hero-agenda reveal" aria-label="Agenda del webinar">
+            <span class="hero-agenda-label">La ruta de hoy</span>
+            <div class="hero-agenda-items">
+              <span><b>01</b>Ustedes</span>
+              <span><b>02</b>La IA en acción</span>
+              <span><b>03</b>Una demo en su teléfono</span>
+              <span><b>04</b>Precios claros</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 · Invitados -->
+      <section
+        class="slide"
+        id="invitados"
+        data-name="Los invitados"
+        aria-hidden="true"
+      >
+        <div class="slide-inner guests-layout">
+          <div class="guests-head">
+            <div class="eyebrow">Pasen, están en su casa</div>
+            <h2 class="headline">
+              Hoy nos acompañan quienes hacen de Nuevo León <span>un destino de salud</span>.
+            </h2>
+          </div>
+
+          <div class="guests-grid reveal" aria-label="Socios del ramo médico del cluster">
+            <div class="guest"><b>Swiss Hospital</b><small>Hospital · Mario Joel Echeverría y Francisco Álvarez</small></div>
+            <div class="guest"><b>Dr. Jamyl Habib Castillo</b><small>Oftalmología</small></div>
+            <div class="guest"><b>Medyca Bosques</b><small>Clínica ambulatoria · Ramiro Ramírez y Martha Morgado</small></div>
+            <div class="guest"><b>Dr. Jesús Vázquez Reséndiz</b><small>Ginecología y Oncología</small></div>
+            <div class="guest"><b>Centro de Trauma y Cirugía Especializada</b><small>Hospital · Rolando Ramírez</small></div>
+            <div class="guest"><b>Dr. Daniel Fernández Díaz de León</b><small>Periodoncia e implantes dentales</small></div>
+            <div class="guest"><b>Centro Oftalmológico Valle · COVA</b><small>Clínica ambulatoria · Carlos Romo</small></div>
+            <div class="guest"><b>Dr. Homero Lozano</b><small>Mastología</small></div>
+            <div class="guest"><b>TAEMM</b><small>Agencia de turismo médico · Haydeé Vázquez</small></div>
+            <div class="guest"><b>Dr. José María García</b><small>Neurocirugía</small></div>
+            <div class="guest"><b>MediCarmen</b><small>Clínica · Pablo Garza</small></div>
+            <div class="guest"><b>Lic. Angela Edith Leal Sánchez</b><small>Nutrición</small></div>
+            <div class="guest"><b>Dr. Rubén Sepúlveda Castañeda</b><small>Oftalmología</small></div>
+          </div>
+
+          <p class="guests-foot">
+            Hospitales, clínicas, consultorios y turismo médico. Especialidades muy distintas,
+            <b>el mismo dolor de cabeza: la agenda.</b> De eso venimos a platicar.
+          </p>
+        </div>
+      </section>
+
+      <!-- 03 · ¿Les suena? -->
+      <section
+        class="slide"
+        id="les-suena"
+        data-name="¿Les suena?"
+        aria-hidden="true"
+      >
+        <div class="slide-inner scenes-layout">
+          <div>
+            <div class="eyebrow">Levanten la mano si les suena</div>
+            <h2 class="headline">Tres escenas de cualquier clínica.</h2>
+          </div>
+
+          <div class="scenes-row reveal">
+            <article class="scene">
+              <time datetime="22:47">Martes · 22:47</time>
+              <p>
+                <b>«¿Tienen cita para mañana?»</b> llega por WhatsApp. Nadie contesta hasta las
+                9:00. Para entonces, el paciente ya agendó con alguien más.
+              </p>
+            </article>
+            <article class="scene">
+              <time datetime="09:04">Lunes · 09:04</time>
+              <p>
+                Recepción: <b>tres llamadas en espera, cuarenta chats sin leer</b> y una fila en
+                el mostrador. Todo al mismo tiempo.
+              </p>
+            </article>
+            <article class="scene">
+              <time datetime="16:30">Viernes · 16:30</time>
+              <p>
+                <b>Dos pacientes no llegaron.</b> Nadie alcanzó a confirmarles. Esos huecos en la
+                agenda ya no los paga nadie.
+              </p>
+            </article>
+          </div>
+
+          <p class="scenes-punch">
+            El problema no es su equipo. Es que el WhatsApp no duerme, <span>y su equipo sí</span>.
+          </p>
+        </div>
+      </section>
+
+      <!-- 04 · Clinera O.S. -->
+      <section
+        class="slide"
+        id="clinera"
+        data-name="Clinera O.S."
+        aria-hidden="true"
+      >
+        <div class="slide-inner os-layout">
+          <div class="os-head">
+            <div class="eyebrow">Qué es Clinera</div>
+            <h2 class="headline">
+              Un solo sistema para toda la operación, <span>con tres agentes de IA</span> que
+              tienen nombre propio.
+            </h2>
+          </div>
+
+          <div class="os-agents reveal">
+            <article class="os-agent">
+              <span class="os-agent-name">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                Agente 01
+              </span>
+              <b>AURA atiende por texto</b>
+              <p>Responde WhatsApp 24/7, en español y en inglés, y deja la cita agendada.</p>
+            </article>
+            <article class="os-agent">
+              <span class="os-agent-name">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                Agente 02
+              </span>
+              <b>CAMILA habla por teléfono</b>
+              <p>Llama para confirmar, recordar y cobrar, con voz natural y acento local.</p>
+            </article>
+            <article class="os-agent">
+              <span class="os-agent-name">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                Agente 03
+              </span>
+              <b>LIA vigila la operación</b>
+              <p>Audita lo que pasó en el día y entrega informes sin que nadie los pida.</p>
+            </article>
+          </div>
+
+          <div class="os-modules reveal" aria-label="Módulos incluidos">
+            <span class="os-modules-label">Y abajo, el sistema completo</span>
+            <span>Agenda</span>
+            <span>Fichas clínicas</span>
+            <span>Pagos y cobros</span>
+            <span>WhatsApp</span>
+            <span>Marketing</span>
+            <span>Reportes</span>
+          </div>
+
+          <div class="os-clients reveal" aria-label="Clínicas que ya operan con Clinera">
+            <span class="os-clients-label">Clínicas que ya operan con Clinera</span>
+            <div class="os-client-logos">
+              <span class="os-client-logo"><img src="/presentacion/clientes/clc.png" alt="Clínica Las Condes" loading="lazy" decoding="async" /></span>
+              <span class="os-client-logo"><img src="/presentacion/clientes/andes.png" alt="Andes Salud" loading="lazy" decoding="async" /></span>
+              <span class="os-client-logo"><img src="/presentacion/clientes/sanatorio.png" alt="Sanatorio Alemán" loading="lazy" decoding="async" /></span>
+              <span class="os-client-logo"><img src="/presentacion/clientes/sonrie.png" alt="Sonríe" loading="lazy" decoding="async" /></span>
+              <span class="os-client-logo"><img src="/presentacion/clientes/lumina.png" alt="Lumina Clínica Facial" loading="lazy" decoding="async" /></span>
+              <span class="os-client-logo"><img src="/presentacion/clientes/hebe.png" alt="Método Hebe" loading="lazy" decoding="async" /></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · AURA -->
+      <section
+        class="slide"
+        id="aura"
+        data-name="AURA"
+        aria-hidden="true"
+      >
+        <div class="slide-inner split-layout">
+          <div class="split-copy">
+            <div class="eyebrow">Agente 01 · AURA</div>
+            <h2 class="headline">Contesta en segundos. A las 3 pm <span>y a las 3 am</span>.</h2>
+            <p class="lead">
+              AURA responde cada mensaje, ofrece horarios reales de su agenda y deja la cita
+              agendada. Sin plantillas, sin «marque 1», sin hacer esperar a nadie.
+            </p>
+            <ul class="points">
+              <li>Agenda, reagenda y confirma citas sola</li>
+              <li>Si la conversación se pone delicada, su equipo toma el control</li>
+              <li>Todo queda guardado en el historial del paciente</li>
+            </ul>
+          </div>
+
+          <aside class="mock reveal" aria-label="AURA agendando una cita por WhatsApp">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">AURA · WhatsApp</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-msg in mock-step" style="animation-delay: .2s">
+                <span>Paciente · 23:52</span>
+                Hola, ¿tienen cita con oftalmología esta semana?
+              </div>
+              <div class="mock-msg out mock-step" style="animation-delay: 1s">
+                <span>AURA</span>
+                ¡Claro! Tengo jueves 4:30 pm o viernes 11:00 am. ¿Cuál le acomoda?
+              </div>
+              <div class="mock-msg in mock-step" style="animation-delay: 1.8s">
+                <span>Paciente</span>
+                La del jueves
+              </div>
+              <div class="mock-msg out mock-step" style="animation-delay: 2.6s">
+                <span>AURA</span>
+                Listo, quedó agendada. Le llega la confirmación por aquí y un recordatorio un día antes.
+              </div>
+              <div class="mock-check mock-step" style="animation-delay: 3.4s">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
+                Cita creada en la agenda · 0 intervención humana
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 06 · CAMILA -->
+      <section
+        class="slide"
+        id="camila"
+        data-name="CAMILA"
+        aria-hidden="true"
+      >
+        <div class="slide-inner split-layout">
+          <div class="split-copy">
+            <div class="eyebrow">Agente 02 · CAMILA</div>
+            <h2 class="headline">La llamada que su equipo <span>nunca alcanza a hacer</span>.</h2>
+            <p class="lead">
+              CAMILA llama por teléfono para confirmar citas, recordar controles y cobrar
+              pendientes. Con voz natural y acento local: la gente le contesta «gracias, ahí
+              estaré».
+            </p>
+            <ul class="points">
+              <li>Confirmaciones y recordatorios que reducen los no-show</li>
+              <li>Cobranza cordial, sin poner a su equipo en el papel incómodo</li>
+              <li>Cada llamada queda registrada en la ficha del paciente</li>
+            </ul>
+          </div>
+
+          <aside class="mock reveal" aria-label="CAMILA confirmando una cita por teléfono">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">CAMILA · Llamada saliente</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-call mock-step" style="animation-delay: .2s">
+                <span class="mock-call-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+                </span>
+                <span class="mock-call-text">
+                  <b>Confirmación de cita</b>
+                  <small>En llamada · 00:41</small>
+                </span>
+                <span class="mock-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+              </div>
+              <div class="mock-msg out mock-step" style="animation-delay: 1s">
+                <span>CAMILA</span>
+                Buenas tardes, le llamo de la clínica para confirmar su cita de mañana a las
+                10:30. ¿La mantenemos?
+              </div>
+              <div class="mock-msg in mock-step" style="animation-delay: 1.9s">
+                <span>Paciente</span>
+                Sí, ahí estaré. Gracias por avisar.
+              </div>
+              <div class="mock-check mock-step" style="animation-delay: 2.7s">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
+                Cita confirmada · registrada en la ficha
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 07 · Turismo médico -->
+      <section
+        class="slide"
+        id="turismo"
+        data-name="Turismo médico"
+        aria-hidden="true"
+      >
+        <div class="slide-inner split-layout">
+          <div class="split-copy">
+            <div class="eyebrow">El tema de esta sala · turismo médico</div>
+            <h2 class="headline">Su próximo paciente escribe <span>desde otro huso horario</span>.</h2>
+            <p class="lead">
+              Houston, San Antonio, McAllen: el paciente internacional pregunta de noche y compara
+              rápido. AURA le contesta en su idioma y coordina la cita antes de que compre el
+              vuelo.
+            </p>
+            <ul class="points">
+              <li>Atención en inglés y español, las 24 horas</li>
+              <li>La cita queda coordinada con el viaje del paciente</li>
+              <li>Su equipo recibe el caso completo: datos, motivo e historial</li>
+            </ul>
+          </div>
+
+          <aside class="mock reveal" aria-label="AURA atendiendo a un paciente internacional en inglés">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">AURA · Paciente internacional</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-msg in mock-step" style="animation-delay: .2s">
+                <span>Patient · Houston · 21:04</span>
+                Hi! Do you take international patients? I'd be traveling from Houston.
+              </div>
+              <div class="mock-msg out mock-step" style="animation-delay: 1s">
+                <span>AURA</span>
+                We do. I can schedule your evaluation for Sept 12 at 10:30 am — does that fit
+                your trip?
+              </div>
+              <div class="mock-msg in mock-step" style="animation-delay: 1.9s">
+                <span>Patient</span>
+                Perfect, I land on the 11th.
+              </div>
+              <div class="mock-check mock-step" style="animation-delay: 2.7s">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
+                Cita coordinada · 12 sep · 10:30 · Monterrey
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 08 · Demo en vivo -->
+      <section
+        class="slide"
+        id="prueba"
+        data-name="Demo en vivo"
+        aria-hidden="true"
+      >
+        <div class="slide-inner split-layout">
+          <div class="split-copy">
+            <div class="eyebrow">El momento interactivo</div>
+            <h2 class="display display-sub">Saquen <span>el teléfono</span>.</h2>
+            <p class="lead">
+              Escaneen el código, manden el «hola» que ya va escrito y conversen con la misma IA
+              que acaban de ver. Pregúntenle lo que quieran: no se enoja.
+            </p>
+            <div class="qr-note">Disponible ahora · sin registro</div>
+          </div>
+
+          <aside class="qr-panel reveal" aria-label="Probar la IA de Clinera por WhatsApp">
+            <a
+              class="qr-link"
+              href="https://wa.me/56953230056?text=hola"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Abrir WhatsApp con el mensaje hola para probar la IA de Clinera"
+            >
+              <span class="qr-kicker">WhatsApp · experiencia en vivo</span>
+              <span class="qr-frame">
+                <img
+                  src="/presentacion/assets/clinera-ai-whatsapp-qr.svg"
+                  alt="Código QR para abrir WhatsApp al número más cincuenta y seis nueve cinco tres dos tres cero cero cinco seis con el mensaje hola"
+                  loading="eager"
+                  decoding="async"
+                />
+              </span>
+              <strong>Escanea y envía «hola»</strong>
+              <span>+56 9 5323 0056</span>
+            </a>
+            <p>También pueden tocar el QR desde el teléfono.</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- 09 · Planes -->
+      <section
+        class="slide"
+        id="planes"
+        data-name="Planes"
+        aria-hidden="true"
+      >
+        <div class="slide-inner plans-layout">
+          <div class="plans-head">
+            <div class="eyebrow">Precios claros</div>
+            <h2 class="headline">Lo que cuesta, <span>sin letra chica</span>.</h2>
+            <p class="lead">
+              Tres planes en dólares, con todo incluido; los créditos son el consumo de IA del mes.
+            </p>
+          </div>
+
+          <div class="plans-grid reveal">
+            <article class="plan">
+              <span class="plan-name">Vortex</span>
+              <div class="plan-price"><b>US$ 279</b><small>/ mes</small></div>
+              <div class="plan-credits">
+                <b>28.000 créditos</b>
+                ~933 conversaciones o ~143 agendamientos automáticos
+              </div>
+              <ul class="plan-features">
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>AURA · IA por texto</li>
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>1 sucursal · 10 usuarios</li>
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>Agenda, fichas, pagos y WhatsApp</li>
+              </ul>
+            </article>
+
+            <article class="plan">
+              <span class="plan-name">Atlas</span>
+              <div class="plan-price"><b>US$ 379</b><small>/ mes</small></div>
+              <div class="plan-credits">
+                <b>37.000 créditos</b>
+                ~1.233 conversaciones o ~189 agendamientos · ~320 min de voz (pronto)
+              </div>
+              <ul class="plan-features">
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>AURA + CAMILA · texto y voz</li>
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>2 sucursales · 15 usuarios</li>
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>Todo lo de Vortex</li>
+              </ul>
+            </article>
+
+            <article class="plan featured">
+              <span class="plan-tag">El favorito de los grupos</span>
+              <span class="plan-name">Summit</span>
+              <div class="plan-price"><b>US$ 479</b><small>/ mes</small></div>
+              <div class="plan-credits">
+                <b>46.000 créditos</b>
+                ~1.533 conversaciones o ~235 agendamientos · ~440 min de voz (pronto)
+              </div>
+              <ul class="plan-features">
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>AURA + CAMILA + LIA · texto, voz y API</li>
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>Sucursales ilimitadas · 25 usuarios</li>
+                <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4.5 12.5 5 5L19.5 7"/></svg>Todo lo de Atlas</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="pay-seq reveal" aria-label="Estructura de pago">
+            <div class="pay-step">
+              <small>Mes 1</small>
+              <b>Implementación · US$ 450</b>
+              <span>Pago único: migramos pacientes, fichas e historial, y configuramos la IA.</span>
+            </div>
+            <span class="pay-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </span>
+            <div class="pay-step">
+              <small>Mes 2 en adelante</small>
+              <b>Solo su plan</b>
+              <span>Vortex US$ 279 · Atlas US$ 379 · Summit US$ 479 al mes.</span>
+            </div>
+          </div>
+
+          <p class="plans-foot">
+            <b>Cómo se consumen los créditos:</b> conversación 30 · conversación que agenda 195 ·
+            minuto de voz 25. Pagando 6 meses por adelantado: 20% de descuento.
+          </p>
+        </div>
+      </section>
+
+      <!-- 10 · Gracias -->
+      <section
+        class="slide"
+        id="gracias"
+        data-name="Gracias"
+        aria-hidden="true"
+      >
+        <div class="slide-inner end-layout">
+          <div class="end-copy">
+            <div class="eyebrow">Siguiente paso</div>
+            <h2 class="display">Gracias, <span>Monterrey</span>.</h2>
+            <p class="lead">
+              Todo lo que vieron hoy se instala con migración de datos incluida: pacientes,
+              fichas e historial. Si quieren verlo funcionando con los números de su clínica,
+              platiquemos.
+            </p>
+          </div>
+
+          <div class="end-ctas reveal">
+            <a class="end-cta primary" href="https://www.clinera.io/hablar-con-ventas" target="_blank" rel="noopener noreferrer">
+              <small>Recomendado</small>
+              <b>Demo privada para su clínica</b>
+              <span>30 minutos, con su caso real y sus números sobre la mesa.</span>
+            </a>
+            <a class="end-cta" href="https://wa.me/56953230056?text=hola" target="_blank" rel="noopener noreferrer">
+              <small>Sigan probando</small>
+              <b>Conversen con la IA</b>
+              <span>El mismo WhatsApp del QR queda abierto para ustedes.</span>
+            </a>
+            <a class="end-cta" href="https://www.clinera.io" target="_blank" rel="noopener noreferrer">
+              <small>Para leer con calma</small>
+              <b>clinera.io</b>
+              <span>El sistema completo, módulo por módulo.</span>
+            </a>
+          </div>
+
+          <p class="end-foot">
+            Gracias al Cluster de Salud y Turismo Médico del Estado de Nuevo León por la
+            invitación y la bienvenida.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="deck-footer" aria-label="Navegación de la presentación">
+      <div class="counter" aria-live="polite">
+        <span id="currentCount">01</span> / <span id="totalCount">10</span>
+      </div>
+      <div class="progress" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="footer-note">Flechas o desliza para navegar</div>
+      <div class="controls">
+        <button class="control" id="previousButton" type="button" aria-label="Diapositiva anterior" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+        </button>
+        <button class="control" id="nextButton" type="button" aria-label="Siguiente diapositiva">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const chapter = document.getElementById("chapter");
+      const currentCount = document.getElementById("currentCount");
+      const totalCount = document.getElementById("totalCount");
+      const progressFill = document.getElementById("progressFill");
+      const previousButton = document.getElementById("previousButton");
+      const nextButton = document.getElementById("nextButton");
+      const hashIndex = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
+      let current = hashIndex >= 0 ? hashIndex : 0;
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      totalCount.textContent = String(slides.length).padStart(2, "0");
+
+      const updateControlState = () => {
+        previousButton.disabled = current === 0;
+        nextButton.disabled = current === slides.length - 1;
+      };
+
+      const render = (next, updateHash = true) => {
+        current = Math.max(0, Math.min(next, slides.length - 1));
+
+        slides.forEach((slide, index) => {
+          const active = index === current;
+          slide.classList.toggle("active", active);
+          slide.setAttribute("aria-hidden", String(!active));
+          if (active) slide.scrollTop = 0;
+        });
+
+        const activeSlide = slides[current];
+        chapter.textContent = activeSlide.dataset.name;
+        currentCount.textContent = String(current + 1).padStart(2, "0");
+        progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
+        updateControlState();
+
+        if (updateHash) {
+          window.history.replaceState(null, "", `#${activeSlide.id}`);
+        }
+      };
+
+      const goPrevious = () => render(current - 1);
+      const goNext = () => render(current + 1);
+
+      previousButton.addEventListener("click", goPrevious);
+      nextButton.addEventListener("click", goNext);
+
+      document.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+          if (event.key === " " && event.target.closest("button")) return;
+          event.preventDefault();
+          goNext();
+        }
+
+        if (["ArrowLeft", "PageUp"].includes(event.key)) {
+          event.preventDefault();
+          goPrevious();
+        }
+
+        if (event.key === "Home") {
+          event.preventDefault();
+          render(0);
+        }
+
+        if (event.key === "End") {
+          event.preventDefault();
+          render(slides.length - 1);
+        }
+      });
+
+      document.addEventListener(
+        "touchstart",
+        (event) => {
+          touchStartX = event.changedTouches[0].clientX;
+          touchStartY = event.changedTouches[0].clientY;
+        },
+        { passive: true }
+      );
+
+      document.addEventListener(
+        "touchend",
+        (event) => {
+          const deltaX = event.changedTouches[0].clientX - touchStartX;
+          const deltaY = event.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(deltaX) < 54 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+          if (deltaX < 0) goNext();
+          if (deltaX > 0) goPrevious();
+        },
+        { passive: true }
+      );
+
+      window.addEventListener("hashchange", () => {
+        const index = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
+        if (index >= 0 && index !== current) {
+          render(index, false);
+        }
+      });
+
+      render(current, hashIndex < 0);
+    })();
+  </script>
+</body>
+</html>
