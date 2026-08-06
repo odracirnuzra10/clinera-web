@@ -238,6 +238,21 @@ const nextConfig: NextConfig = {
         destination: '/blog/modo-agentic-agendamiento-ia-clinicas',
         permanent: true,
       },
+      // El constructor de cotizaciones se movio a cotizacion.oacg.cl, que ya
+      // cotiza las tres marcas (Clinera con su propio catalogo y checkout de
+      // Stripe, ademas de Hebe y Lumina). La ruta local queda solo como
+      // redirect: el codigo de src/app/cotizacion sigue en el repo pero ya no
+      // se sirve, porque este redirect gana sobre la pagina.
+      {
+        source: '/cotizacion',
+        destination: 'https://cotizacion.oacg.cl/',
+        permanent: true,
+      },
+      {
+        source: '/cotizacion/:path*',
+        destination: 'https://cotizacion.oacg.cl/',
+        permanent: true,
+      },
       {
         source: '/cdk',
         destination: '/ckd',
