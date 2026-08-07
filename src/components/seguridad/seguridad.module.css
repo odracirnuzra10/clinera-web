@@ -1,0 +1,746 @@
+/* ==========================================================================
+   /seguridad — documento público de seguridad y protección de datos.
+
+   Se lee como un documento serio, no como una landing: blanco puro, un solo
+   acento (violeta), separación por espacio en blanco y filetes de 1px, cero
+   sombras. Deliberadamente fuera del sistema de color del resto del sitio
+   (nada de gradiente cyan/violeta/magenta) porque acá el mensaje es
+   credibilidad, no marca.
+   ========================================================================== */
+
+.page {
+  --sg-bg: #ffffff;
+  --sg-bg-alt: #fbfbfa;
+  --sg-border: #eaeaea;
+  --sg-ink: #111111;
+  --sg-ink-2: #6b6b6b;
+  --sg-accent: #7c3aed;
+  --sg-green: #edf3ec;
+  --sg-yellow: #fbf3db;
+  --sg-yellow-ink: #6b5518;
+  --sg-yellow-border: #e8d9a8;
+  --sg-blue: #e1f3fe;
+
+  --sg-shell: 88px;
+  --sg-max: 1120px;
+  --sg-read: 680px;
+
+  background: var(--sg-bg);
+  color: var(--sg-ink);
+  font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+
+.page *::selection {
+  background: #ede9fe;
+  color: var(--sg-ink);
+}
+
+/* globals.css empuja 112px al primer hijo de <main> para dejar sitio a un
+   header fijo. NavV3 es sticky: ya ocupa su espacio en el flujo, así que ese
+   empujón se suma al respiro propio del hero y deja 200px muertos bajo la
+   barra. Se anula sólo acá — la regla global la comparten otras treinta
+   páginas — y el hero pone su propio espaciado. */
+main > .page:first-child {
+  padding-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Estructura
+   -------------------------------------------------------------------------- */
+
+.section {
+  padding: 96px var(--sg-shell);
+  border-top: 1px solid var(--sg-border);
+}
+
+.sectionAlt {
+  background: var(--sg-bg-alt);
+}
+
+.sectionFlush {
+  border-top: 0;
+}
+
+.inner {
+  max-width: var(--sg-max);
+  margin: 0 auto;
+}
+
+.read {
+  max-width: var(--sg-read);
+}
+
+/* --------------------------------------------------------------------------
+   Tipografía
+   -------------------------------------------------------------------------- */
+
+.mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--sg-ink-2);
+}
+
+.monoAccent {
+  composes: mono;
+  color: var(--sg-accent);
+}
+
+.sectionLabel {
+  composes: mono;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.h1 {
+  font-size: clamp(2rem, 3.9vw, 2.9rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  margin: 0 0 24px;
+}
+
+.h2 {
+  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -0.028em;
+  margin: 0 0 18px;
+  max-width: 22ch;
+}
+
+.h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin: 0 0 8px;
+}
+
+.lead {
+  font-size: 1.125rem;
+  line-height: 1.62;
+  color: var(--sg-ink-2);
+  margin: 0 0 32px;
+  max-width: 56ch;
+}
+
+.body {
+  font-size: 1rem;
+  line-height: 1.68;
+  color: var(--sg-ink-2);
+  margin: 0 0 16px;
+}
+
+.bodyTight {
+  composes: body;
+  margin-bottom: 0;
+}
+
+.strong {
+  color: var(--sg-ink);
+  font-weight: 600;
+}
+
+.link {
+  color: var(--sg-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Hero — split asimétrico 1.35fr / 1fr
+   -------------------------------------------------------------------------- */
+
+.hero {
+  padding: 88px var(--sg-shell) 96px;
+  border-top: 0;
+}
+
+.heroGrid {
+  max-width: var(--sg-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 72px;
+  align-items: end;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--sg-border);
+  border-radius: 6px;
+  padding: 5px 10px;
+  margin-bottom: 28px;
+}
+
+.heroDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sg-accent);
+  flex: none;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  padding: 13px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.ctaPrimary {
+  background: var(--sg-ink);
+  color: #ffffff;
+  border: 1px solid var(--sg-ink);
+}
+
+.ctaPrimary:hover {
+  background: #000000;
+}
+
+.ctaSecondary {
+  background: transparent;
+  color: var(--sg-ink);
+  border: 1px solid #d8d8d8;
+}
+
+.ctaSecondary:hover {
+  border-color: var(--sg-ink);
+}
+
+.ctaPrimary:active,
+.ctaSecondary:active {
+  transform: scale(0.98);
+}
+
+/* Contador */
+
+.counter {
+  border-left: 2px solid var(--sg-accent);
+  padding-left: 20px;
+}
+
+.counterNum {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--sg-ink);
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+
+.counterCaption {
+  composes: mono;
+  display: block;
+  margin-top: 12px;
+  line-height: 1.7;
+  letter-spacing: 0.09em;
+}
+
+/* --------------------------------------------------------------------------
+   Pendiente — el bloque amarillo. Feo a propósito.
+   -------------------------------------------------------------------------- */
+
+.pendiente {
+  background: var(--sg-yellow);
+  border: 1px solid var(--sg-yellow-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.pendienteLabel {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--sg-yellow-ink);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 7px;
+}
+
+.pendienteTexto {
+  font-size: 0.9375rem;
+  line-height: 1.58;
+  color: #4a3d12;
+  margin: 0;
+}
+
+.pendienteCompact {
+  composes: pendiente;
+  padding: 10px 12px;
+}
+
+.pendienteCompact .pendienteTexto {
+  font-size: 0.875rem;
+}
+
+/* --------------------------------------------------------------------------
+   Bento del resumen — asimétrico, jerarquía por tipografía
+   -------------------------------------------------------------------------- */
+
+.bento {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 1px;
+  background: var(--sg-border);
+  border: 1px solid var(--sg-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.bentoCard {
+  background: var(--sg-bg);
+  padding: 32px;
+}
+
+.bentoKicker {
+  composes: mono;
+  display: block;
+  margin-bottom: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Roles
+   -------------------------------------------------------------------------- */
+
+.rolesGrid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.rolesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--sg-border);
+}
+
+.rolesItem {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--sg-border);
+}
+
+.rolesRole {
+  composes: mono;
+  color: var(--sg-accent);
+  padding-top: 3px;
+}
+
+.diagram {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Tablas
+   -------------------------------------------------------------------------- */
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--sg-border);
+  border-radius: 12px;
+  background: var(--sg-bg);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  min-width: 720px;
+}
+
+.table caption {
+  text-align: left;
+  padding: 18px 24px 0;
+  font-size: 0.875rem;
+  color: var(--sg-ink-2);
+  line-height: 1.55;
+}
+
+.table thead th {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--sg-ink-2);
+  text-align: left;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--sg-border);
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+/* Encabezado de fila: es el nombre del control, no metadata de columna. Va en
+   la tipografía del cuerpo y alineado arriba, para que no quede descolgado
+   cuando la celda de al lado es un bloque de pendiente alto. */
+.table tbody th {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--sg-ink);
+  text-align: left;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--sg-border);
+  vertical-align: top;
+  line-height: 1.5;
+  width: 200px;
+}
+
+.table td {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--sg-border);
+  vertical-align: top;
+  color: var(--sg-ink-2);
+  line-height: 1.6;
+}
+
+.table tbody tr:last-child td,
+.table tbody tr:last-child th {
+  border-bottom: 0;
+}
+
+.tdEvidencia {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  color: var(--sg-ink-2);
+  width: 240px;
+  word-break: break-word;
+}
+
+.subTable {
+  composes: table;
+  min-width: 900px;
+}
+
+/* --------------------------------------------------------------------------
+   Timeline de retención
+   -------------------------------------------------------------------------- */
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--sg-border);
+  border: 1px solid var(--sg-border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.timelineStep {
+  background: var(--sg-bg);
+  padding: 28px 24px;
+  position: relative;
+}
+
+.timelineDia {
+  composes: mono;
+  color: var(--sg-accent);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.timelineRule {
+  height: 2px;
+  background: var(--sg-accent);
+  width: 26px;
+  margin-bottom: 16px;
+}
+
+/* Bloque destacado (los 15 años, la aclaración legal) */
+
+.callout {
+  border: 1px solid var(--sg-border);
+  border-left: 2px solid var(--sg-accent);
+  border-radius: 0 12px 12px 0;
+  padding: 28px 32px;
+  background: var(--sg-bg);
+}
+
+.calloutBlue {
+  composes: callout;
+  background: var(--sg-blue);
+  border-color: #bfe4fa;
+  border-left-color: var(--sg-accent);
+}
+
+.calloutGreen {
+  composes: callout;
+  background: var(--sg-green);
+  border-color: #d3e2d1;
+  border-left-color: #4a7c46;
+}
+
+/* --------------------------------------------------------------------------
+   Listas de derechos / definiciones
+   -------------------------------------------------------------------------- */
+
+.defList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--sg-border);
+}
+
+.defItem {
+  display: grid;
+  grid-template-columns: 172px 1fr;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--sg-border);
+  font-size: 0.9375rem;
+  color: var(--sg-ink-2);
+  line-height: 1.6;
+}
+
+.defTerm {
+  color: var(--sg-ink);
+  font-weight: 600;
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.stack {
+  display: grid;
+  gap: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   FAQ
+   -------------------------------------------------------------------------- */
+
+.faqList {
+  border-top: 1px solid var(--sg-border);
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--sg-border);
+}
+
+.faqButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: none;
+  border: 0;
+  padding: 24px 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--sg-ink);
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.faqButton:hover {
+  color: var(--sg-accent);
+}
+
+.faqIcon {
+  flex: none;
+  color: var(--sg-ink-2);
+  transition: color 0.2s ease, transform 0.3s ease;
+}
+
+.faqButton:hover .faqIcon,
+.faqButton[aria-expanded="true"] .faqIcon {
+  color: var(--sg-accent);
+}
+
+.faqPanel {
+  padding: 0 0 26px;
+  max-width: 62ch;
+}
+
+/* --------------------------------------------------------------------------
+   Cierre
+   -------------------------------------------------------------------------- */
+
+.cierreGrid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 64px;
+  align-items: end;
+}
+
+.metaBlock {
+  border-top: 1px solid var(--sg-border);
+  padding-top: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--sg-ink-2);
+}
+
+.metaValue {
+  color: var(--sg-ink);
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   Reveal on scroll. Sólo se oculta si el script marcó <html data-sg-anim>,
+   para que sin JavaScript la página se lea completa igual.
+   -------------------------------------------------------------------------- */
+
+:global(html[data-sg-anim]) .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--sg-delay, 0ms);
+}
+
+:global(html[data-sg-anim]) .reveal[data-revealed] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1040px) {
+  .page {
+    --sg-shell: 48px;
+  }
+
+  .heroGrid,
+  .rolesGrid,
+  .splitGrid,
+  .cierreGrid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .bento {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .page {
+    --sg-shell: 24px;
+  }
+
+  .section {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .hero {
+    padding-top: 56px;
+    padding-bottom: 72px;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .bentoCard {
+    padding: 26px 22px;
+  }
+
+  .rolesItem,
+  .defItem {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
+  .metaRow {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .metaValue {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-sg-anim]) .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .ctaPrimary,
+  .ctaSecondary,
+  .faqIcon {
+    transition: none;
+  }
+
+  .ctaPrimary:active,
+  .ctaSecondary:active {
+    transform: none;
+  }
+}

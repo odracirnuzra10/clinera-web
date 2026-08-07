@@ -41,6 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/comparativas/doctocliq`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
 
     // Trust / evidence (evergreen + companion article)
+    { url: `${baseUrl}/seguridad`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/prensa`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${baseUrl}/efectividad`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/blog/efectividad`, lastModified: new Date('2026-04-23'), changeFrequency: 'monthly', priority: 0.8 },
@@ -62,7 +63,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Future dedicated pages (stubs / planned)
     { url: `${baseUrl}/casos-de-exito`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/seguridad`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/ley20584`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
 
     // Legal
