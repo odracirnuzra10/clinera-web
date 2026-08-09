@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Cycle 3 · Semana del 10 al 14 de agosto — Clinera</title>
-<meta name="description" content="Guion visual de la reunión técnica del Cycle 3. Cuatro cosas. Todo lo demás espera." />
+<title>Costo de Google Cloud · Reunión técnica — Clinera</title>
+<meta name="description" content="Guion visual de la reunión técnica del lunes 10 de agosto: el costo de Google Cloud, dónde está la plata, qué podemos cortar y la meta de la semana." />
 <meta name="robots" content="noindex, nofollow" />
 <meta name="theme-color" content="#ffffff" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%237C3AED'/%3E%3C/svg%3E" />
@@ -25,8 +25,8 @@
   --ease:cubic-bezier(.22,.8,.25,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-snap-type:y mandatory;scroll-padding-top:0}
-@media (max-width:700px),(max-height:560px){html{scroll-snap-type:y proximity}}
+html{scroll-snap-type:y mandatory}
+@media (max-width:700px),(max-height:620px){html{scroll-snap-type:y proximity}}
 body{
   background:var(--canvas);color:var(--ink);font-family:var(--sans);
   line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
@@ -36,6 +36,9 @@ body{
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 strong{font-weight:700}
 .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.violet{color:var(--violet)}
+.sub{color:var(--sub)}
+.code{font-family:var(--mono);font-size:.9em;white-space:nowrap}
 
 /* ── Chrome fijo ─────────────────────────────────────────── */
 .topbar{
@@ -46,12 +49,9 @@ strong{font-weight:700}
 .brand{display:flex;align-items:center;gap:7px;font-weight:700;font-size:15px;letter-spacing:-.01em}
 .brand::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--violet)}
 .topmeta{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
-@media (max-width:560px){.topmeta{display:none}}
+@media (max-width:620px){.topmeta{display:none}}
 
-.dots{
-  position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:40;
-  display:flex;align-items:center;gap:2px;
-}
+.dots{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:2px}
 .dots button{width:22px;height:22px;display:grid;place-items:center;border-radius:99px}
 .dots button i{width:6px;height:6px;border-radius:99px;background:#D8D8D8;transition:all .35s var(--ease)}
 .dots button:hover i{background:var(--sub)}
@@ -61,144 +61,145 @@ strong{font-weight:700}
 .slide{
   min-height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;
   display:flex;flex-direction:column;justify-content:center;
-  padding:96px 0 88px;
+  padding:88px 0 84px;
 }
-.wrap{width:100%;max-width:1120px;margin-inline:auto;padding-inline:clamp(24px,5vw,64px)}
-.eyebrow{
-  font-family:var(--mono);font-weight:500;font-size:11.5px;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
-  margin-bottom:clamp(28px,5vh,52px);
+.wrap{width:100%;max-width:1160px;margin-inline:auto;padding-inline:clamp(24px,5vw,64px)}
+.step{
+  font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--faint);margin-bottom:14px;
 }
-.violet{color:var(--violet)}
-.sub{color:var(--sub)}
-.code{font-family:var(--mono);font-size:.9em;white-space:nowrap}
+h1{
+  font-size:clamp(1.75rem,4.4vw,3.35rem);font-weight:800;line-height:1.06;
+  letter-spacing:-.03em;max-width:19ch;
+}
+.foot{
+  margin-top:clamp(26px,4.5vh,44px);font-size:clamp(1rem,1.9vw,1.3rem);
+  color:var(--sub);max-width:62ch;line-height:1.55;
+}
+.foot strong{color:var(--ink);font-weight:600}
+.note{margin-top:14px;font-size:clamp(.86rem,1.4vw,1rem);color:var(--faint);max-width:62ch;line-height:1.55}
 
 /* Reveals */
-.js .rv{opacity:0;transform:translateY(14px);transition:opacity .65s var(--ease),transform .65s var(--ease);transition-delay:var(--d,0s)}
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease);transition-delay:var(--d,0s)}
 .js .slide.seen .rv{opacity:1;transform:none}
 
-/* ── S1 Portada ──────────────────────────────────────────── */
-.rule{width:30px;height:3px;background:var(--violet);margin-bottom:clamp(24px,4vh,40px)}
-.h-cycle{font-size:clamp(3.4rem,10.5vw,8rem);font-weight:800;line-height:.98;letter-spacing:-.035em}
-.h-week{margin-top:14px;font-size:clamp(1.15rem,2.6vw,1.7rem);font-weight:500;color:var(--sub);letter-spacing:-.01em}
-.h-sub{margin-top:clamp(34px,6vh,60px);font-size:clamp(1.35rem,3vw,2.05rem);font-weight:400;color:var(--sub);letter-spacing:-.015em}
-.h-sub strong{color:var(--ink);font-weight:700}
-.hint{margin-top:clamp(40px,8vh,84px);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:9px}
-.hint svg{width:15px;height:15px;stroke:var(--faint)}
-.on-touch{display:none}
-@media (pointer:coarse){.on-desk{display:none}.on-touch{display:inline}}
-
-/* ── S2 La foto ──────────────────────────────────────────── */
-.duo{display:flex;align-items:flex-end;gap:clamp(32px,6vw,88px);flex-wrap:wrap}
-.n-hero{font-family:var(--mono);font-weight:500;font-size:clamp(3.6rem,11vw,8.6rem);line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-.n-hero small{font-size:.42em;font-weight:400;color:var(--sub);letter-spacing:-.02em;margin-right:.18em}
-.n-cap{margin-top:16px;font-size:clamp(1.05rem,2vw,1.35rem);color:var(--sub);max-width:34ch}
-.n-side{font-family:var(--mono);font-weight:500;font-size:clamp(1.7rem,4.4vw,3.2rem);line-height:1;letter-spacing:-.04em;color:var(--sub)}
-.n-side small{font-size:.55em;font-weight:400;margin-right:.18em}
-.punch{
-  margin-top:clamp(40px,7vh,72px);padding-top:clamp(24px,4vh,40px);border-top:1px solid var(--line);
-  font-size:clamp(1.5rem,3.4vw,2.4rem);font-weight:600;letter-spacing:-.02em;line-height:1.3;
-}
-.punch .mono{font-weight:500}
-
-/* ── S3 Gráfico ──────────────────────────────────────────── */
-.chart-cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
-.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,2.6vw,36px);align-items:end;max-width:920px}
+/* ── 1 · Gráfico ─────────────────────────────────────────── */
+.chart-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;max-width:940px;margin-top:clamp(28px,5vh,48px)}
+.chart-cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,2.6vw,36px);align-items:end;max-width:940px;margin-top:14px}
 .col{display:flex;flex-direction:column;align-items:center;min-width:0}
-.col .val{font-family:var(--mono);font-weight:500;font-size:clamp(.85rem,1.9vw,1.3rem);letter-spacing:-.02em;margin-bottom:10px;font-variant-numeric:tabular-nums}
+.col .val{font-family:var(--mono);font-weight:500;font-size:clamp(.85rem,1.8vw,1.25rem);letter-spacing:-.02em;margin-bottom:9px;font-variant-numeric:tabular-nums}
 .col .bar{
   width:100%;max-width:104px;border-radius:5px 5px 0 0;background:var(--bar);
-  height:calc(var(--h) * clamp(215px,36vh,360px) / 100);
-  transform-origin:bottom;
+  height:calc(var(--h) * clamp(150px,26vh,270px) / 100);transform-origin:bottom;
 }
 .col.now .bar{background:var(--violet)}
-.js .bar{transform:scaleY(0);transition:transform .8s var(--ease);transition-delay:var(--d,0s)}
+.js .bar{transform:scaleY(0);transition:transform .75s var(--ease);transition-delay:var(--d,0s)}
 .js .seen .bar{transform:scaleY(1)}
-.baseline{height:1px;background:var(--line);max-width:920px;margin-top:0}
-.months{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,2.6vw,36px);max-width:920px;margin-top:12px}
-.months div{text-align:center;font-size:clamp(.78rem,1.5vw,1rem);color:var(--sub)}
+.baseline{height:1px;background:var(--line);max-width:940px}
+.months{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,2.6vw,36px);max-width:940px;margin-top:11px}
+.months div{text-align:center;font-size:clamp(.78rem,1.4vw,.98rem);color:var(--sub)}
 .months .now{color:var(--ink);font-weight:600}
 .months .tag{display:block;font-family:var(--mono);font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:400;margin-top:3px}
-.chart-punch{margin-top:clamp(34px,6vh,58px);font-size:clamp(1.3rem,2.9vw,2rem);font-weight:600;letter-spacing:-.02em;line-height:1.35;max-width:30ch}
-.chart-punch .sub{font-weight:400}
 
-/* ── S4 / S9 Statements ──────────────────────────────────── */
-.stmts{display:flex;flex-direction:column;gap:clamp(26px,5vh,46px)}
-.stmt{font-size:clamp(1.5rem,3.4vw,2.45rem);font-weight:400;letter-spacing:-.02em;line-height:1.32;color:var(--sub);max-width:21em}
-.stmt strong{color:var(--ink);font-weight:600}
-.stmt.big{font-weight:700;color:var(--ink)}
-.stmt.big.violet{color:var(--violet)}
-
-/* ── S5 Fugas ────────────────────────────────────────────── */
+/* ── 2 · Fugas ───────────────────────────────────────────── */
 .leaks{
-  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:clamp(26px,4.5vh,44px);
   background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;
 }
-.leak{background:var(--canvas);padding:clamp(22px,3.4vw,40px)}
-.leak .amt{font-family:var(--mono);font-weight:500;font-size:clamp(1.55rem,3.4vw,2.5rem);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.leak{background:var(--canvas);padding:clamp(20px,3vw,34px)}
+.leak .amt{font-family:var(--mono);font-weight:500;font-size:clamp(1.45rem,3vw,2.2rem);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
 .leak .amt .cur{font-size:.52em;font-weight:400;color:var(--sub);margin-right:.26em;letter-spacing:0}
-.leak .amt small{font-size:.5em;font-weight:400;color:var(--sub);margin-left:.28em;letter-spacing:0}
-.leak p{margin-top:12px;font-size:clamp(.88rem,1.6vw,1.02rem);color:var(--sub);line-height:1.55;max-width:38ch}
+.leak .amt small{font-size:.5em;font-weight:400;color:var(--sub);margin-left:.26em;letter-spacing:0}
+.leak p{margin-top:11px;font-size:clamp(.88rem,1.5vw,1rem);color:var(--sub);line-height:1.55;max-width:40ch}
 @media (max-width:640px){.leaks{grid-template-columns:1fr}}
-.leaks-foot{margin-top:clamp(24px,4vh,38px);font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:600;letter-spacing:-.015em}
-.leaks-foot .sub{font-weight:400}
-.leaks-foot .mono{font-weight:500}
 
-/* ── S6 Meta ─────────────────────────────────────────────── */
-.goal{display:flex;align-items:center;gap:clamp(22px,4.5vw,56px);flex-wrap:wrap}
-.goal .from,.goal .to{font-family:var(--mono);font-weight:500;font-size:clamp(2.6rem,8vw,6.4rem);line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+/* ── 3 · Opciones ────────────────────────────────────────── */
+.opts{margin-top:clamp(18px,3vh,30px);max-width:1000px}
+.opt{
+  display:grid;grid-template-columns:1fr auto;gap:clamp(16px,3vw,40px);align-items:baseline;
+  padding-block:clamp(10px,1.7vh,16px);border-top:1px solid var(--line);
+}
+.opt:last-of-type{border-bottom:1px solid var(--line)}
+.opt .what{font-size:clamp(.98rem,1.85vw,1.25rem);line-height:1.45;color:var(--sub)}
+.opt .what strong{color:var(--ink);font-weight:700}
+.opt .save{font-family:var(--mono);font-weight:500;font-size:clamp(.92rem,1.7vw,1.2rem);color:var(--violet);white-space:nowrap;font-variant-numeric:tabular-nums}
+.opt .save em{font-style:normal;color:var(--faint);font-size:.8em;margin-right:.4em}
+@media (max-width:560px){.opt{grid-template-columns:1fr;gap:5px}}
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:clamp(14px,2.2vh,22px);background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tot{background:var(--canvas);padding:clamp(12px,1.8vw,18px) clamp(16px,2.4vw,26px)}
+.tot .lab{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.tot .num{display:block;margin-top:8px;font-family:var(--mono);font-weight:500;font-size:clamp(1.2rem,2.6vw,1.85rem);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.tot .num em{font-style:normal;font-size:.48em;font-weight:400;color:var(--sub);margin-left:.28em;letter-spacing:0}
+.tot.hi{background:#FAF7FF}
+.tot.hi .num{color:var(--violet)}
+.tot.hi .num em{color:var(--violet);opacity:.7}
+@media (max-width:560px){.totals{grid-template-columns:1fr}}
+
+/* ── 4 · Tareas ──────────────────────────────────────────── */
+.who{margin-top:clamp(20px,3.4vh,34px);max-width:1080px}
+.row{
+  display:grid;grid-template-columns:clamp(96px,15%,150px) 1fr;gap:clamp(14px,2.5vw,32px);
+  padding-block:clamp(10px,1.7vh,15px);border-top:1px solid var(--line);align-items:baseline;
+}
+.row:last-of-type{border-bottom:1px solid var(--line)}
+.row .name{font-weight:700;font-size:clamp(.95rem,1.7vw,1.15rem);letter-spacing:-.01em}
+.row .tasks{color:var(--sub);font-size:clamp(.85rem,1.5vw,1rem);line-height:1.6}
+.row .tasks .sep{color:var(--violet);padding-inline:.4em;font-weight:600}
+@media (max-width:600px){.row{grid-template-columns:1fr;gap:4px}}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2.4vw,28px);margin-top:clamp(20px,3.4vh,34px);max-width:1080px}
+.four div{border-top:2px solid var(--violet);padding-top:11px;font-size:clamp(.85rem,1.5vw,1.02rem);font-weight:600;letter-spacing:-.01em;line-height:1.35}
+.four span{display:block;font-weight:400;color:var(--sub);font-size:.88em;margin-top:3px}
+@media (max-width:760px){.four{grid-template-columns:1fr 1fr}}
+@media (max-width:420px){.four{grid-template-columns:1fr;gap:10px}.four div{padding-top:8px}}
+
+/* ── 5 · Meta ────────────────────────────────────────────── */
+.goal{display:flex;align-items:center;gap:clamp(22px,4.5vw,56px);flex-wrap:wrap;margin-top:clamp(14px,2.5vh,26px)}
+.goal .from,.goal .to{font-family:var(--mono);font-weight:500;font-size:clamp(2.5rem,7.4vw,5.8rem);line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
 .goal .from small,.goal .to small{font-size:.4em;font-weight:400;letter-spacing:-.01em;margin-right:.2em;color:var(--sub)}
 .goal .to{color:var(--violet)}
 .goal .to small{color:var(--violet);opacity:.75}
 .goal svg{width:clamp(40px,6vw,72px);height:auto;stroke:#B9B9B9;flex:none}
-.goal-cap{margin-top:clamp(30px,5vh,48px);font-size:clamp(1.05rem,2.1vw,1.4rem);color:var(--sub);max-width:52ch}
-.goal-clp{margin-top:14px;font-size:clamp(.92rem,1.7vw,1.1rem);color:var(--sub)}
-.goal-clp .mono{color:var(--ink);font-weight:500;font-size:.95em}
-
-/* ── S7 Prioridades ──────────────────────────────────────── */
-.pris{max-width:980px}
-.pri{
-  display:grid;grid-template-columns:clamp(44px,6vw,76px) 1fr;align-items:baseline;
-  padding-block:clamp(17px,3vh,28px);border-top:1px solid var(--line);
-}
-.pri:last-of-type{border-bottom:1px solid var(--line)}
-.pri .n{font-family:var(--mono);font-weight:500;font-size:clamp(1.15rem,2.3vw,1.7rem);color:var(--violet)}
-.pri p{font-size:clamp(1.2rem,2.6vw,1.85rem);font-weight:700;letter-spacing:-.02em;line-height:1.3}
-.pri p span{font-weight:400;color:var(--sub);font-size:.82em;letter-spacing:-.01em}
-.pris-foot{margin-top:clamp(24px,4.5vh,40px);font-size:clamp(1rem,1.9vw,1.25rem);color:var(--sub);max-width:52ch}
-
-/* ── S8 Tabla ────────────────────────────────────────────── */
-.who{max-width:1020px}
-.row{
-  display:grid;grid-template-columns:clamp(112px,20%,200px) 1fr;gap:clamp(16px,3vw,40px);
-  padding-block:clamp(16px,2.8vh,26px);border-top:1px solid var(--line);align-items:baseline;
-}
-.row:last-of-type{border-bottom:1px solid var(--line)}
-.row .name{font-weight:700;font-size:clamp(1.05rem,2.1vw,1.4rem);letter-spacing:-.015em}
-.row .tasks{color:var(--sub);font-size:clamp(.9rem,1.7vw,1.08rem);line-height:1.7}
-.row .tasks .sep{color:var(--violet);padding-inline:.45em;font-weight:600}
-@media (max-width:600px){.row{grid-template-columns:1fr;gap:6px}}
-
-/* ── Compactado en pantallas chicas ──────────────────────── */
-@media (max-width:700px),(max-height:680px){
-  .slide{padding:76px 0 70px}
-  .eyebrow{margin-bottom:22px}
-  .stmts{gap:20px}
-  .leak{padding:18px 20px}
-  .leak .amt{font-size:1.45rem}
-  .leak p{margin-top:8px;font-size:.86rem;line-height:1.5}
-  .pri{padding-block:14px}
-  .row{padding-block:14px}
-  .row .tasks{line-height:1.6}
-  .hint{margin-top:34px}
-}
-/* La flecha de la meta apunta hacia abajo cuando los números se apilan */
 @media (max-width:620px){
   .goal{flex-direction:column;align-items:flex-start;gap:10px}
   .goal svg{width:34px;transform:rotate(90deg);margin-left:14px}
 }
+.close{margin-top:clamp(28px,5vh,52px);padding-top:clamp(22px,3.6vh,34px);border-top:1px solid var(--line);display:flex;flex-direction:column;gap:14px}
+.close p{font-size:clamp(1.15rem,2.4vw,1.75rem);letter-spacing:-.02em;line-height:1.3;color:var(--sub);max-width:26ch}
+.close p strong{color:var(--ink);font-weight:600}
+.close p.hit{color:var(--violet);font-weight:700}
 
-/* ── Motion off ──────────────────────────────────────────── */
+/* ── Compacta cuando falta altura (proyector) o ancho ────── */
+@media (max-height:820px),(max-width:760px){
+  .slide{padding:72px 0 68px}
+  h1{font-size:clamp(1.5rem,3.6vw,2.45rem)}
+  .foot{margin-top:clamp(16px,2.6vh,24px);font-size:clamp(.95rem,1.6vw,1.12rem)}
+  .note{margin-top:11px}
+  .chart-head{margin-top:clamp(18px,3vh,28px)}
+  .leaks{margin-top:clamp(16px,2.6vh,24px)}
+  .leak{padding:15px 18px}
+  .leak .amt{font-size:clamp(1.3rem,2.4vw,1.6rem)}
+  .leak p{margin-top:7px;font-size:clamp(.84rem,1.4vw,.94rem);line-height:1.5}
+  .opts{margin-top:clamp(14px,2.4vh,22px)}
+  .opt{padding-block:clamp(8px,1.3vh,12px)}
+  .opt .what{font-size:clamp(.92rem,1.6vw,1.08rem)}
+  .totals{margin-top:12px}
+  .tot{padding:11px 16px}
+  .tot .num{margin-top:6px;font-size:clamp(1.1rem,2.1vw,1.4rem)}
+  .who{margin-top:clamp(14px,2.4vh,22px)}
+  .row{padding-block:clamp(7px,1.2vh,11px)}
+  .four{margin-top:clamp(14px,2.4vh,22px)}
+  .goal .from,.goal .to{font-size:clamp(2.2rem,6.4vw,4.4rem)}
+  .close{margin-top:clamp(20px,3.4vh,32px);padding-top:clamp(16px,2.6vh,24px);gap:11px}
+  .close p{font-size:clamp(1.05rem,2vw,1.45rem)}
+}
+@media (max-width:700px),(max-height:620px){
+  .slide{padding:68px 0 64px}
+  .leak{padding:13px 16px}
+  .opt{padding-block:8px}
+  .row{padding-block:7px}
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .js .rv,.js .bar{opacity:1;transform:none;transition:none}
@@ -209,91 +210,49 @@ strong{font-weight:700}
 
 <header class="topbar" aria-hidden="true">
   <div class="brand">Clinera</div>
-  <div class="topmeta">Reunión técnica · 10.08.2026</div>
+  <div class="topmeta">Reunión técnica · Lunes 10.08.2026 · 15:00</div>
 </header>
 
 <main>
 
-<!-- 1 · Portada -->
-<section class="slide" id="s1" aria-label="Portada">
+<!-- 1 · El problema -->
+<section class="slide" id="s1" aria-label="El problema">
   <div class="wrap">
-    <div class="rule rv"></div>
-    <h1 class="rv" style="--d:.06s">
-      <span class="h-cycle">Cycle 3</span>
-      <span class="h-week" style="display:block">Semana del 10 al 14 de agosto</span>
-    </h1>
-    <p class="h-sub rv" style="--d:.14s"><strong>Cuatro cosas.</strong> Todo lo demás espera.</p>
-    <p class="hint rv" style="--d:.3s">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>
-      <span class="on-desk">Avanza con las flechas</span>
-      <span class="on-touch">Desliza para avanzar</span>
-    </p>
-  </div>
-</section>
+    <p class="step rv">01 · El problema</p>
+    <h1 class="rv" style="--d:.05s">Se sextuplicó el costo sin sextuplicar las clínicas</h1>
 
-<!-- 2 · La foto del problema -->
-<section class="slide" id="s2" aria-label="La foto del problema">
-  <div class="wrap">
-    <h2 class="eyebrow rv">02 · La foto del problema</h2>
-    <div class="duo">
-      <div class="rv" style="--d:.06s">
-        <p class="n-hero"><small>USD</small>3.900</p>
-        <p class="n-cap">es lo que va a costar Google Cloud este mes</p>
-      </div>
-      <div class="rv" style="--d:.16s">
-        <p class="n-side"><small>USD</small>6.000</p>
-        <p class="n-cap">el MRR de Clinera</p>
-      </div>
-    </div>
-    <p class="punch rv" style="--d:.28s">El <span class="mono violet">65%</span> de lo que entra se va en infraestructura.</p>
-  </div>
-</section>
-
-<!-- 3 · Cómo llegamos acá -->
-<section class="slide" id="s3" aria-label="Cómo llegamos acá">
-  <div class="wrap">
-    <h2 class="eyebrow rv">03 · Cómo llegamos acá</h2>
-    <p class="chart-cap rv">USD por mes</p>
+    <div class="chart-head rv" style="--d:.12s"><p class="chart-cap">Google Cloud · USD por mes</p></div>
     <div class="chart" role="img" aria-label="Costo mensual de Google Cloud: abril 203 dólares, mayo 435, junio 719, julio 2.353, agosto proyectado 3.900.">
-      <div class="col"><span class="val rv">203</span><i class="bar" style="--h:5.2;--d:0s"></i></div>
-      <div class="col"><span class="val rv" style="--d:.07s">435</span><i class="bar" style="--h:11.2;--d:.07s"></i></div>
-      <div class="col"><span class="val rv" style="--d:.14s">719</span><i class="bar" style="--h:18.4;--d:.14s"></i></div>
-      <div class="col"><span class="val rv" style="--d:.21s">2.353</span><i class="bar" style="--h:60.3;--d:.21s"></i></div>
-      <div class="col now"><span class="val rv" style="--d:.28s">3.900</span><i class="bar" style="--h:100;--d:.28s"></i></div>
+      <div class="col"><span class="val rv" style="--d:.14s">203</span><i class="bar" style="--h:5.2;--d:.14s"></i></div>
+      <div class="col"><span class="val rv" style="--d:.2s">435</span><i class="bar" style="--h:11.2;--d:.2s"></i></div>
+      <div class="col"><span class="val rv" style="--d:.26s">719</span><i class="bar" style="--h:18.4;--d:.26s"></i></div>
+      <div class="col"><span class="val rv" style="--d:.32s">2.353</span><i class="bar" style="--h:60.3;--d:.32s"></i></div>
+      <div class="col now"><span class="val rv" style="--d:.38s">3.900</span><i class="bar" style="--h:100;--d:.38s"></i></div>
     </div>
     <div class="baseline"></div>
     <div class="months" aria-hidden="true">
       <div>Abril</div><div>Mayo</div><div>Junio</div><div>Julio</div>
-      <div class="now">Agosto<span class="tag">proyectado</span></div>
+      <div class="now">Agosto<span class="tag">proyección</span></div>
     </div>
-    <p class="chart-punch rv" style="--d:.38s">Seis veces más caro en cinco meses. <span class="sub">Las clínicas no se multiplicaron por seis.</span></p>
+
+    <p class="foot rv" style="--d:.46s">Clinera factura <strong class="mono">USD 6.000</strong> al mes. El <strong class="mono violet">65%</strong> se va en infraestructura.</p>
   </div>
 </section>
 
-<!-- 4 · La buena noticia -->
-<section class="slide" id="s4" aria-label="La buena noticia">
+<!-- 2 · Dónde está la plata -->
+<section class="slide" id="s2" aria-label="Dónde está la plata">
   <div class="wrap">
-    <h2 class="eyebrow rv">04 · La buena noticia</h2>
-    <div class="stmts">
-      <p class="stmt rv" style="--d:.06s"><strong>No es el crecimiento. No es la IA</strong> — no hay un peso de Vertex ni de Gemini en la factura.</p>
-      <p class="stmt rv" style="--d:.18s">Son <strong>ambientes duplicados</strong>, <strong>instancias de prueba</strong> que quedaron prendidas y <strong>escalado</strong> que paga capacidad ociosa.</p>
-      <p class="stmt big violet rv" style="--d:.3s">Se corta sin que ninguna clínica lo note.</p>
-    </div>
-  </div>
-</section>
+    <p class="step rv">02 · Dónde está la plata</p>
+    <h1 class="rv" style="--d:.05s">El <span class="mono violet">43%</span> del gasto no factura un peso</h1>
 
-<!-- 5 · Dónde está la plata -->
-<section class="slide" id="s5" aria-label="Dónde está la plata">
-  <div class="wrap">
-    <h2 class="eyebrow rv">05 · Dónde está la plata</h2>
-    <div class="leaks rv" style="--d:.06s">
+    <div class="leaks rv" style="--d:.12s">
       <div class="leak">
         <p class="amt"><span class="cur">USD</span>330<small>/mes</small></p>
         <p>30 instancias de Cloud Run prendidas para 3,5 solicitudes por segundo</p>
       </div>
       <div class="leak">
         <p class="amt"><span class="cur">USD</span>280<small>/mes</small></p>
-        <p>dos bases de datos de simulación del 21 de julio que siguen corriendo en producción con alta disponibilidad</p>
+        <p>dos bases de datos de simulación del 21 de julio, todavía corriendo en producción</p>
       </div>
       <div class="leak">
         <p class="amt"><span class="cur">USD</span>260<small>/mes</small></p>
@@ -304,87 +263,110 @@ strong{font-weight:700}
         <p><span class="code">cron-transcription</span> no termina nunca, corre 1,4 instancias en continuo</p>
       </div>
     </div>
-    <p class="leaks-foot rv" style="--d:.2s"><span class="sub">Y seis más.</span> Total recuperable: <span class="mono violet">USD 1.700</span> al mes.</p>
+
+    <p class="foot rv" style="--d:.2s">No es el crecimiento y no es la IA. <strong>No hay un peso de Vertex ni Gemini en la factura.</strong> Es infraestructura ociosa.</p>
   </div>
 </section>
 
-<!-- 6 · La meta de la semana -->
-<section class="slide" id="s6" aria-label="La meta de la semana">
+<!-- 3 · Posibles soluciones -->
+<section class="slide" id="s3" aria-label="Posibles soluciones">
   <div class="wrap">
-    <h2 class="eyebrow rv">06 · La meta de la semana</h2>
-    <div class="goal">
-      <p class="from rv" style="--d:.06s"><small>USD</small>3.584</p>
-      <svg class="rv" style="--d:.16s" viewBox="0 0 64 28" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h54m0 0-10-9m10 9-10 9"/></svg>
-      <p class="to rv" style="--d:.24s"><small>USD</small>1.900</p>
-    </div>
-    <p class="goal-cap rv" style="--d:.34s">Los tres proyectos de Clinera. Medido el viernes 14 en la consola de facturación, como costo diario.</p>
-    <p class="goal-clp rv" style="--d:.42s">Hoy vamos en <span class="mono">CLP 83.150</span> por día. La meta es <span class="mono">CLP 61.500</span>.</p>
-  </div>
-</section>
+    <p class="step rv">03 · Posibles soluciones</p>
+    <h1 class="rv" style="--d:.05s">Qué podemos cortar</h1>
 
-<!-- 7 · Las cuatro prioridades -->
-<section class="slide" id="s7" aria-label="Las cuatro prioridades">
-  <div class="wrap">
-    <h2 class="eyebrow rv">07 · Las cuatro prioridades</h2>
-    <div class="pris">
-      <div class="pri rv" style="--d:.04s">
-        <span class="n">1</span>
-        <p>Optimización de GCP <span>— las diez fugas, con Lopez al mando</span></p>
+    <div class="opts">
+      <div class="opt rv" style="--d:.1s">
+        <p class="what"><strong>Eliminar los duplicados</strong> — las dos VMs viejas de staging, las dos Cloud SQL de simulación, el segundo Redis</p>
+        <p class="save">USD 600<em class="sub">/mes</em></p>
       </div>
-      <div class="pri rv" style="--d:.12s">
-        <span class="n">2</span>
-        <p>Instagram Direct y Facebook Messenger en producción <span>— compromiso viernes 14</span></p>
+      <div class="opt rv" style="--d:.16s">
+        <p class="what"><strong>Bajar las instancias mínimas</strong> de Cloud Run de 30 a 3 en producción, y a cero en el resto</p>
+        <p class="save">USD 330<em class="sub">/mes</em></p>
       </div>
-      <div class="pri rv" style="--d:.2s">
-        <span class="n">3</span>
-        <p>Bugs pendientes <span>— los 504 de messaging, los turnos que se agendan al paciente equivocado, y OACG-230</span></p>
+      <div class="opt rv" style="--d:.22s">
+        <p class="what"><strong>Arreglar el cron pegado</strong> — el mismo que ya habíamos identificado y sigue corriendo</p>
+        <p class="save">USD 200<em class="sub">/mes</em></p>
       </div>
-      <div class="pri rv" style="--d:.28s">
-        <span class="n">4</span>
-        <p>Comenzar el handoff de la épica de Jimmy <span>— arranca en Cycle 4</span></p>
+      <div class="opt rv" style="--d:.28s">
+        <p class="what"><strong>Eliminar o apagar staging</strong> — cuesta USD 744 al mes y no factura nada. A discutir: eliminarlo del todo, apagarlo fuera de horario, o achicarlo</p>
+        <p class="save"><em>hasta</em>USD 744<em class="sub">/mes</em></p>
+      </div>
+      <div class="opt rv" style="--d:.34s">
+        <p class="what"><strong>Apagar Development de noche</strong> — nadie lo usa el 76% de la semana</p>
+        <p class="save">USD 200<em class="sub">/mes</em></p>
       </div>
     </div>
-    <p class="pris-foot rv" style="--d:.38s">Todo lo que no está en esta lista se movió a Cycle 4. Incluido el proyecto de Ley 21.719.</p>
+
+    <div class="totals rv" style="--d:.4s">
+      <div class="tot">
+        <span class="lab">Si cortamos todo, staging incluido</span>
+        <span class="num">USD 2.074<em>/mes</em></span>
+      </div>
+      <div class="tot hi">
+        <span class="lab">Ahorro esperado tras el recorte</span>
+        <span class="num">USD 1.200 – 1.700<em>/mes</em></span>
+      </div>
+    </div>
+
+    <p class="note rv" style="--d:.48s">Eliminar staging completo es la más agresiva y la que hay que conversar. Es donde probamos antes de producción.</p>
   </div>
 </section>
 
-<!-- 8 · Quién tiene qué -->
-<section class="slide" id="s8" aria-label="Quién tiene qué">
+<!-- 4 · Cycle 3 · Tareas -->
+<section class="slide" id="s4" aria-label="Cycle 3, tareas">
   <div class="wrap">
-    <h2 class="eyebrow rv">08 · Quién tiene qué</h2>
+    <p class="step rv">04 · Cycle 3 · Tareas</p>
+    <h1 class="rv" style="--d:.05s">Esta semana, cuatro cosas</h1>
+
     <div class="who">
-      <div class="row rv" style="--d:.04s">
+      <div class="row rv" style="--d:.1s">
         <p class="name">Lopez</p>
         <p class="tasks">Presupuesto y alertas en GCP<span class="sep">·</span>VMs duplicadas de staging<span class="sep">·</span>Cloud SQL de simulación<span class="sep">·</span><span class="code">min-instances</span> de Cloud Run<span class="sep">·</span>Meta Login Config</p>
       </div>
-      <div class="row rv" style="--d:.1s">
-        <p class="name">Jorge Quispe</p>
+      <div class="row rv" style="--d:.15s">
+        <p class="name">Jorge</p>
         <p class="tasks"><span class="code">cron-transcription</span><span class="sep">·</span>Redis duplicado y caché de secretos<span class="sep">·</span>504 en messaging</p>
       </div>
-      <div class="row rv" style="--d:.16s">
+      <div class="row rv" style="--d:.2s">
         <p class="name">Daniel</p>
-        <p class="tasks">Instagram DM y Messenger (webhooks, envío, App Review)<span class="sep">·</span>facturación de Cloud Run<span class="sep">·</span>bugs de agendamiento</p>
+        <p class="tasks">Instagram DM y Messenger<span class="sep">·</span>facturación de Cloud Run<span class="sep">·</span>bugs de agendamiento</p>
       </div>
-      <div class="row rv" style="--d:.22s">
+      <div class="row rv" style="--d:.25s">
         <p class="name">David</p>
         <p class="tasks">Apagado automático de Development</p>
       </div>
-      <div class="row rv" style="--d:.28s">
+      <div class="row rv" style="--d:.3s">
         <p class="name">Diego</p>
-        <p class="tasks">Instagram Direct — cerrar el <span class="code">PR #798</span> y el sandbox</p>
+        <p class="tasks">Instagram Direct — cerrar el <span class="code">PR 798</span> y el sandbox</p>
       </div>
     </div>
+
+    <div class="four">
+      <div class="rv" style="--d:.36s">Optimización de GCP</div>
+      <div class="rv" style="--d:.4s">Instagram Direct y Messenger en producción<span>Compromiso viernes 14</span></div>
+      <div class="rv" style="--d:.44s">Bugs pendientes</div>
+      <div class="rv" style="--d:.48s">Comenzar el handoff de la épica de Jimmy</div>
+    </div>
+
+    <p class="note rv" style="--d:.54s">Todo lo demás se movió a Cycle 4. Todo está en Linear bajo <span class="code">OACG-374</span>.</p>
   </div>
 </section>
 
-<!-- 9 · Cierre -->
-<section class="slide" id="s9" aria-label="Cierre">
+<!-- 5 · La meta -->
+<section class="slide" id="s5" aria-label="La meta">
   <div class="wrap">
-    <h2 class="eyebrow rv">09 · Cierre</h2>
-    <div class="stmts">
-      <p class="stmt rv" style="--d:.06s">Nada de esto es culpa de nadie. Pasó porque <strong>no había una alerta de presupuesto</strong>.</p>
-      <p class="stmt big violet rv" style="--d:.18s">Lo primero que hacemos hoy es ponerla.</p>
-      <p class="stmt rv" style="--d:.3s">El viernes revisamos el número juntos.</p>
+    <p class="step rv">05 · La meta</p>
+    <div class="goal">
+      <p class="from rv" style="--d:.06s"><small>USD</small>3.584</p>
+      <svg class="rv" style="--d:.14s" viewBox="0 0 64 28" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h54m0 0-10-9m10 9-10 9"/></svg>
+      <p class="to rv" style="--d:.22s"><small>USD</small>1.900</p>
+    </div>
+
+    <p class="foot rv" style="--d:.3s">Los tres proyectos de Clinera. Se mide el viernes 14 en la consola de facturación, como costo diario. Hoy vamos en <strong class="mono">CLP 83.150</strong> por día. La meta es <strong class="mono">CLP 61.500</strong>.</p>
+
+    <div class="close">
+      <p class="rv" style="--d:.38s">Esto no pasó porque alguien se equivocara. Pasó porque <strong>no había una alerta de presupuesto</strong>.</p>
+      <p class="hit rv" style="--d:.46s">Lo primero que hacemos hoy es ponerla.</p>
     </div>
   </div>
 </section>
@@ -401,7 +383,6 @@ var dotsNav = document.querySelector('.dots');
 var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var current = 0;
 
-// Dots
 var dots = slides.map(function (s, i) {
   var b = document.createElement('button');
   b.setAttribute('aria-label', 'Ir al slide ' + (i + 1) + ': ' + s.getAttribute('aria-label'));
@@ -422,7 +403,6 @@ function goTo(i) {
   slides[i].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
 }
 
-// Slide activo (cruce del centro del viewport)
 var io = new IntersectionObserver(function (entries) {
   entries.forEach(function (e) {
     if (e.isIntersecting) setCurrent(slides.indexOf(e.target));
@@ -430,15 +410,13 @@ var io = new IntersectionObserver(function (entries) {
 }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
 slides.forEach(function (s) { io.observe(s); });
 
-// Reveals al entrar
 var seen = new IntersectionObserver(function (entries) {
   entries.forEach(function (e) {
     if (e.isIntersecting) { e.target.classList.add('seen'); seen.unobserve(e.target); }
   });
-}, { threshold: 0.35 });
+}, { threshold: 0.3 });
 slides.forEach(function (s) { seen.observe(s); });
 
-// Teclado
 window.addEventListener('keydown', function (e) {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   var k = e.key;
@@ -450,7 +428,7 @@ window.addEventListener('keydown', function (e) {
     e.preventDefault(); goTo(0);
   } else if (k === 'End') {
     e.preventDefault(); goTo(slides.length - 1);
-  } else if (/^[1-9]$/.test(k)) {
+  } else if (/^[1-5]$/.test(k)) {
     goTo(parseInt(k, 10) - 1);
   }
 });
