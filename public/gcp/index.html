@@ -1,272 +1,459 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CL">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Cycle 3 · Semana del 10 al 14 de agosto — Clinera</title>
+<meta name="description" content="Guion visual de la reunión técnica del Cycle 3. Cuatro cosas. Todo lo demás espera." />
 <meta name="robots" content="noindex, nofollow" />
-<title>Migración a Google Cloud — Clinera.io</title>
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%237C3AED'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --ink: #111111; --sub: #6B6B6B; --line: #EAEAEA; --warm: #F7F6F3;
-    --brand: #7C3AED; --canvas: #FFFFFF;
-    --sans: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --mono: 'JetBrains Mono', ui-monospace, monospace;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--canvas); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
-  .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-  .brand { color: var(--brand); } .ink { color: var(--ink); } .sub { color: var(--sub); }
-  .w600 { font-weight: 600; }
+:root{
+  --ink:#111111;
+  --sub:#6B6B6B;
+  --faint:#9A9A9A;
+  --line:#EAEAEA;
+  --bar:#DFDDE6;
+  --violet:#7C3AED;
+  --canvas:#FFFFFF;
+  --sans:'Outfit',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',monospace;
+  --ease:cubic-bezier(.22,.8,.25,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y mandatory;scroll-padding-top:0}
+@media (max-width:700px),(max-height:560px){html{scroll-snap-type:y proximity}}
+body{
+  background:var(--canvas);color:var(--ink);font-family:var(--sans);
+  line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+::selection{background:var(--ink);color:#fff}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px;border-radius:4px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+strong{font-weight:700}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
-  .nav { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(234,234,234,.8); background: rgba(255,255,255,.72); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
-  .nav-in { height: 64px; display: flex; align-items: center; justify-content: space-between; }
-  .logo { display: flex; align-items: center; gap: 10px; }
-  .logo-mark { height: 28px; width: 28px; border-radius: 999px; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 700; }
-  .logo-text { font-weight: 600; letter-spacing: -.01em; }
-  .nav-right { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--sub); }
-  .pill { border-radius: 999px; background: var(--warm); border: 1px solid var(--line); padding: 4px 10px; font-weight: 500; color: var(--ink); }
-  .dot { height: 4px; width: 4px; border-radius: 999px; background: var(--line); }
+/* ── Chrome fijo ─────────────────────────────────────────── */
+.topbar{
+  position:fixed;inset:0 0 auto;z-index:40;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,4vw,44px);pointer-events:none;
+}
+.brand{display:flex;align-items:center;gap:7px;font-weight:700;font-size:15px;letter-spacing:-.01em}
+.brand::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--violet)}
+.topmeta{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+@media (max-width:560px){.topmeta{display:none}}
 
-  .hero { position: relative; overflow: hidden; }
-  .grain { position: absolute; inset: 0; opacity: .55; background-image: radial-gradient(circle at 1px 1px, rgba(17,17,17,.05) 1px, transparent 0); background-size: 22px 22px; }
-  .hero-in { position: relative; padding: 72px 0 56px; }
-  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--brand); margin-bottom: 20px; }
-  h1 { font-size: clamp(2.1rem, 5.4vw, 3.6rem); font-weight: 800; line-height: 1.05; letter-spacing: -.02em; max-width: 760px; }
-  .uline { position: relative; white-space: nowrap; }
-  .uline svg { position: absolute; left: 0; bottom: -8px; width: 100%; }
-  .lede { margin-top: 22px; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--sub); max-width: 600px; }
+.dots{
+  position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:40;
+  display:flex;align-items:center;gap:2px;
+}
+.dots button{width:22px;height:22px;display:grid;place-items:center;border-radius:99px}
+.dots button i{width:6px;height:6px;border-radius:99px;background:#D8D8D8;transition:all .35s var(--ease)}
+.dots button:hover i{background:var(--sub)}
+.dots button[aria-current="true"] i{width:17px;background:var(--violet)}
 
-  .strip { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--line); }
-  .stat { background: #fff; padding: 24px; }
-  .stat .big { font-size: clamp(1.8rem, 3.2vw, 2.25rem); font-weight: 700; letter-spacing: -.02em; }
-  .stat .big small { font-size: 1rem; color: var(--sub); font-weight: 500; }
-  .stat .cap { margin-top: 6px; font-size: 14px; color: var(--sub); line-height: 1.45; }
+/* ── Slides ──────────────────────────────────────────────── */
+.slide{
+  min-height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:96px 0 88px;
+}
+.wrap{width:100%;max-width:1120px;margin-inline:auto;padding-inline:clamp(24px,5vw,64px)}
+.eyebrow{
+  font-family:var(--mono);font-weight:500;font-size:11.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--faint);
+  margin-bottom:clamp(28px,5vh,52px);
+}
+.violet{color:var(--violet)}
+.sub{color:var(--sub)}
+.code{font-family:var(--mono);font-size:.9em;white-space:nowrap}
 
-  .divider { display: flex; align-items: center; gap: 16px; margin: 4px 0; }
-  .divider .ln { height: 1px; flex: 1; background: var(--line); }
+/* Reveals */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .65s var(--ease),transform .65s var(--ease);transition-delay:var(--d,0s)}
+.js .slide.seen .rv{opacity:1;transform:none}
 
-  section.block { padding: 72px 0; }
-  .two-col { display: grid; grid-template-columns: 190px 1fr; gap: 44px; }
-  .step { font-family: var(--mono); font-size: 14px; letter-spacing: .04em; color: var(--brand); }
-  h2 { margin-top: 12px; font-size: clamp(1.45rem, 3vw, 1.9rem); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
-  .body-copy { color: var(--sub); font-size: 17px; line-height: 1.7; max-width: 620px; }
-  .badges { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 18px; }
-  .badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; font-size: 13px; font-weight: 500; padding: 4px 12px; }
-  .b-green { background: #EDF3EC; color: #2F6B3A; } .b-blue { background: #E1F3FE; color: #0B5C8A; } .b-amber { background: #FBF3DB; color: #8A6D1A; }
+/* ── S1 Portada ──────────────────────────────────────────── */
+.rule{width:30px;height:3px;background:var(--violet);margin-bottom:clamp(24px,4vh,40px)}
+.h-cycle{font-size:clamp(3.4rem,10.5vw,8rem);font-weight:800;line-height:.98;letter-spacing:-.035em}
+.h-week{margin-top:14px;font-size:clamp(1.15rem,2.6vw,1.7rem);font-weight:500;color:var(--sub);letter-spacing:-.01em}
+.h-sub{margin-top:clamp(34px,6vh,60px);font-size:clamp(1.35rem,3vw,2.05rem);font-weight:400;color:var(--sub);letter-spacing:-.015em}
+.h-sub strong{color:var(--ink);font-weight:700}
+.hint{margin-top:clamp(40px,8vh,84px);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);display:flex;align-items:center;gap:9px}
+.hint svg{width:15px;height:15px;stroke:var(--faint)}
+.on-touch{display:none}
+@media (pointer:coarse){.on-desk{display:none}.on-touch{display:inline}}
 
-  .warm-bg { background: var(--warm); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+/* ── S2 La foto ──────────────────────────────────────────── */
+.duo{display:flex;align-items:flex-end;gap:clamp(32px,6vw,88px);flex-wrap:wrap}
+.n-hero{font-family:var(--mono);font-weight:500;font-size:clamp(3.6rem,11vw,8.6rem);line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.n-hero small{font-size:.42em;font-weight:400;color:var(--sub);letter-spacing:-.02em;margin-right:.18em}
+.n-cap{margin-top:16px;font-size:clamp(1.05rem,2vw,1.35rem);color:var(--sub);max-width:34ch}
+.n-side{font-family:var(--mono);font-weight:500;font-size:clamp(1.7rem,4.4vw,3.2rem);line-height:1;letter-spacing:-.04em;color:var(--sub)}
+.n-side small{font-size:.55em;font-weight:400;margin-right:.18em}
+.punch{
+  margin-top:clamp(40px,7vh,72px);padding-top:clamp(24px,4vh,40px);border-top:1px solid var(--line);
+  font-size:clamp(1.5rem,3.4vw,2.4rem);font-weight:600;letter-spacing:-.02em;line-height:1.3;
+}
+.punch .mono{font-weight:500}
 
-  .card { border-radius: 18px; border: 1px solid var(--line); background: #fff; padding: 28px; }
-  .card .lead { font-size: 17px; line-height: 1.7; color: var(--ink); }
-  .card .lead.muted { color: var(--sub); margin-top: 14px; }
-  .reassure { margin-top: 18px; display: flex; gap: 12px; font-size: 15px; color: var(--sub); line-height: 1.6; }
-  .reassure svg { margin-top: 3px; flex-shrink: 0; }
+/* ── S3 Gráfico ──────────────────────────────────────────── */
+.chart-cap{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+.chart{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,2.6vw,36px);align-items:end;max-width:920px}
+.col{display:flex;flex-direction:column;align-items:center;min-width:0}
+.col .val{font-family:var(--mono);font-weight:500;font-size:clamp(.85rem,1.9vw,1.3rem);letter-spacing:-.02em;margin-bottom:10px;font-variant-numeric:tabular-nums}
+.col .bar{
+  width:100%;max-width:104px;border-radius:5px 5px 0 0;background:var(--bar);
+  height:calc(var(--h) * clamp(215px,36vh,360px) / 100);
+  transform-origin:bottom;
+}
+.col.now .bar{background:var(--violet)}
+.js .bar{transform:scaleY(0);transition:transform .8s var(--ease);transition-delay:var(--d,0s)}
+.js .seen .bar{transform:scaleY(1)}
+.baseline{height:1px;background:var(--line);max-width:920px;margin-top:0}
+.months{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,2.6vw,36px);max-width:920px;margin-top:12px}
+.months div{text-align:center;font-size:clamp(.78rem,1.5vw,1rem);color:var(--sub)}
+.months .now{color:var(--ink);font-weight:600}
+.months .tag{display:block;font-family:var(--mono);font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:400;margin-top:3px}
+.chart-punch{margin-top:clamp(34px,6vh,58px);font-size:clamp(1.3rem,2.9vw,2rem);font-weight:600;letter-spacing:-.02em;line-height:1.35;max-width:30ch}
+.chart-punch .sub{font-weight:400}
 
-  .grid2 { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); background: var(--line); }
-  .pillar { background: #fff; padding: 26px; display: flex; gap: 16px; align-items: flex-start; }
-  .picon { flex-shrink: 0; height: 38px; width: 38px; border-radius: 11px; background: var(--warm); border: 1px solid var(--line); display: grid; place-items: center; color: var(--brand); }
-  .pillar h3 { font-weight: 700; font-size: 17px; letter-spacing: -.01em; }
-  .pillar p { margin-top: 5px; font-size: 14px; color: var(--sub); line-height: 1.5; }
+/* ── S4 / S9 Statements ──────────────────────────────────── */
+.stmts{display:flex;flex-direction:column;gap:clamp(26px,5vh,46px)}
+.stmt{font-size:clamp(1.5rem,3.4vw,2.45rem);font-weight:400;letter-spacing:-.02em;line-height:1.32;color:var(--sub);max-width:21em}
+.stmt strong{color:var(--ink);font-weight:600}
+.stmt.big{font-weight:700;color:var(--ink)}
+.stmt.big.violet{color:var(--violet)}
 
-  .dark { border-radius: 24px; background: var(--ink); color: #fff; overflow: hidden; position: relative; }
-  .dark-in { position: relative; padding: 48px; }
-  .dark-spark { position: absolute; top: 28px; right: 28px; opacity: .18; }
-  .dark-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .dark .step-light { font-family: var(--mono); font-size: 14px; color: rgba(255,255,255,.5); }
-  .dark h2 { margin-top: 18px; font-size: clamp(1.55rem, 3.4vw, 2.3rem); font-weight: 800; line-height: 1.1; color: #fff; max-width: 680px; }
-  .dark-copy { margin-top: 24px; max-width: 680px; display: flex; flex-direction: column; gap: 18px; font-size: 17px; line-height: 1.7; color: rgba(255,255,255,.72); }
-  .dark-copy strong { color: #fff; font-weight: 600; }
-  .rule-box { border-radius: 14px; border: 1px solid rgba(255,255,255,.15); background: rgba(255,255,255,.05); padding: 22px; }
-  .rule-box .t { color: #fff; font-size: 17px; font-weight: 600; }
-  .rule-box .d { margin-top: 6px; color: rgba(255,255,255,.82); }
-  .calm { margin-top: 26px; max-width: 680px; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); padding: 22px 24px; }
-  .calm-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 700; color: #fff; }
-  .calm p { color: rgba(255,255,255,.72); font-size: 15px; line-height: 1.65; }
+/* ── S5 Fugas ────────────────────────────────────────────── */
+.leaks{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+}
+.leak{background:var(--canvas);padding:clamp(22px,3.4vw,40px)}
+.leak .amt{font-family:var(--mono);font-weight:500;font-size:clamp(1.55rem,3.4vw,2.5rem);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.leak .amt .cur{font-size:.52em;font-weight:400;color:var(--sub);margin-right:.26em;letter-spacing:0}
+.leak .amt small{font-size:.5em;font-weight:400;color:var(--sub);margin-left:.28em;letter-spacing:0}
+.leak p{margin-top:12px;font-size:clamp(.88rem,1.6vw,1.02rem);color:var(--sub);line-height:1.55;max-width:38ch}
+@media (max-width:640px){.leaks{grid-template-columns:1fr}}
+.leaks-foot{margin-top:clamp(24px,4vh,38px);font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:600;letter-spacing:-.015em}
+.leaks-foot .sub{font-weight:400}
+.leaks-foot .mono{font-weight:500}
 
-  /* TABLA COMPARATIVA */
-  .cmp-intro { max-width: 620px; }
-  .cmp-wrap { margin-top: 26px; overflow-x: auto; border-radius: 16px; border: 1px solid var(--line); }
-  table.cmp { width: 100%; min-width: 620px; border-collapse: collapse; background: #fff; }
-  table.cmp th, table.cmp td { padding: 16px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.45; }
-  table.cmp tr:last-child td { border-bottom: none; }
-  table.cmp thead th { background: var(--warm); }
-  table.cmp .aspect { color: var(--sub); font-weight: 500; width: 22%; background: #FBFBFA; border-right: 1px solid var(--line); }
-  table.cmp td.col { width: 39%; border-right: 1px solid var(--line); }
-  table.cmp td.col:last-child, table.cmp th:last-child { border-right: none; }
-  table.cmp td.col { border-right: 1px solid var(--line); }
-  .chip { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 5px 12px; font-size: 13px; font-weight: 600; white-space: nowrap; }
-  .chip-dark { background: var(--ink); color: #fff; }
-  .chip-violet { background: #F2ECFD; color: var(--brand); border: 1px solid #E5D8FB; }
-  .cell-bad { color: #991B1B; font-weight: 600; }
-  .cell-good { color: #2F6B3A; font-weight: 600; }
+/* ── S6 Meta ─────────────────────────────────────────────── */
+.goal{display:flex;align-items:center;gap:clamp(22px,4.5vw,56px);flex-wrap:wrap}
+.goal .from,.goal .to{font-family:var(--mono);font-weight:500;font-size:clamp(2.6rem,8vw,6.4rem);line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.goal .from small,.goal .to small{font-size:.4em;font-weight:400;letter-spacing:-.01em;margin-right:.2em;color:var(--sub)}
+.goal .to{color:var(--violet)}
+.goal .to small{color:var(--violet);opacity:.75}
+.goal svg{width:clamp(40px,6vw,72px);height:auto;stroke:#B9B9B9;flex:none}
+.goal-cap{margin-top:clamp(30px,5vh,48px);font-size:clamp(1.05rem,2.1vw,1.4rem);color:var(--sub);max-width:52ch}
+.goal-clp{margin-top:14px;font-size:clamp(.92rem,1.7vw,1.1rem);color:var(--sub)}
+.goal-clp .mono{color:var(--ink);font-weight:500;font-size:.95em}
 
-  .close-grid { display: grid; grid-template-columns: 190px 1fr; gap: 44px; align-items: start; }
-  .close-label { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 14px; color: var(--sub); text-transform: uppercase; letter-spacing: .04em; }
-  .close-lead { font-size: clamp(1.2rem, 2.2vw, 1.45rem); font-weight: 600; line-height: 1.35; letter-spacing: -.01em; }
-  .close-body { margin-top: 14px; font-size: 16px; color: var(--sub); line-height: 1.7; max-width: 620px; }
+/* ── S7 Prioridades ──────────────────────────────────────── */
+.pris{max-width:980px}
+.pri{
+  display:grid;grid-template-columns:clamp(44px,6vw,76px) 1fr;align-items:baseline;
+  padding-block:clamp(17px,3vh,28px);border-top:1px solid var(--line);
+}
+.pri:last-of-type{border-bottom:1px solid var(--line)}
+.pri .n{font-family:var(--mono);font-weight:500;font-size:clamp(1.15rem,2.3vw,1.7rem);color:var(--violet)}
+.pri p{font-size:clamp(1.2rem,2.6vw,1.85rem);font-weight:700;letter-spacing:-.02em;line-height:1.3}
+.pri p span{font-weight:400;color:var(--sub);font-size:.82em;letter-spacing:-.01em}
+.pris-foot{margin-top:clamp(24px,4.5vh,40px);font-size:clamp(1rem,1.9vw,1.25rem);color:var(--sub);max-width:52ch}
 
-  footer { background: #fff; border-top: 1px solid var(--line); }
-  .foot-in { padding: 36px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .foot-meta { font-size: 13px; color: var(--sub); font-family: var(--mono); }
+/* ── S8 Tabla ────────────────────────────────────────────── */
+.who{max-width:1020px}
+.row{
+  display:grid;grid-template-columns:clamp(112px,20%,200px) 1fr;gap:clamp(16px,3vw,40px);
+  padding-block:clamp(16px,2.8vh,26px);border-top:1px solid var(--line);align-items:baseline;
+}
+.row:last-of-type{border-bottom:1px solid var(--line)}
+.row .name{font-weight:700;font-size:clamp(1.05rem,2.1vw,1.4rem);letter-spacing:-.015em}
+.row .tasks{color:var(--sub);font-size:clamp(.9rem,1.7vw,1.08rem);line-height:1.7}
+.row .tasks .sep{color:var(--violet);padding-inline:.45em;font-weight:600}
+@media (max-width:600px){.row{grid-template-columns:1fr;gap:6px}}
 
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
-  .reveal.in { opacity: 1; transform: none; }
+/* ── Compactado en pantallas chicas ──────────────────────── */
+@media (max-width:700px),(max-height:680px){
+  .slide{padding:76px 0 70px}
+  .eyebrow{margin-bottom:22px}
+  .stmts{gap:20px}
+  .leak{padding:18px 20px}
+  .leak .amt{font-size:1.45rem}
+  .leak p{margin-top:8px;font-size:.86rem;line-height:1.5}
+  .pri{padding-block:14px}
+  .row{padding-block:14px}
+  .row .tasks{line-height:1.6}
+  .hint{margin-top:34px}
+}
+/* La flecha de la meta apunta hacia abajo cuando los números se apilan */
+@media (max-width:620px){
+  .goal{flex-direction:column;align-items:flex-start;gap:10px}
+  .goal svg{width:34px;transform:rotate(90deg);margin-left:14px}
+}
 
-  @media (max-width: 760px) {
-    .strip { grid-template-columns: 1fr; }
-    .two-col, .close-grid { grid-template-columns: 1fr; gap: 18px; }
-    .grid2 { grid-template-columns: 1fr; }
-    .dark-in { padding: 30px 24px; } .dark-spark { display: none; }
-    section.block { padding: 52px 0; }
-    .nav-right .mono { display: none; }
-  }
-  @media print { .nav { display: none; } .reveal { opacity: 1 !important; transform: none !important; } }
+/* ── Motion off ──────────────────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv,.js .bar{opacity:1;transform:none;transition:none}
+}
 </style>
 </head>
 <body>
 
-  <header class="nav">
-    <div class="wrap nav-in">
-      <div class="logo"><span class="logo-mark">c</span><span class="logo-text">clinera<span class="sub">.io</span></span></div>
-      <div class="nav-right"><span class="mono">Migración a Google Cloud</span><span class="dot"></span><span class="pill">Junio 2026</span></div>
-    </div>
-  </header>
+<header class="topbar" aria-hidden="true">
+  <div class="brand">Clinera</div>
+  <div class="topmeta">Reunión técnica · 10.08.2026</div>
+</header>
 
-  <section class="hero">
-    <div class="grain"></div>
-    <div class="wrap hero-in">
-      <p class="eyebrow reveal">Migración a Google Cloud</p>
-      <h1 class="reveal">Estamos mudando Clinera a una sola casa: <span class="uline">Google Cloud.<svg height="10" viewBox="0 0 300 10" fill="none" preserveAspectRatio="none"><path d="M2 7C70 3 230 2 298 6" stroke="#7C3AED" stroke-width="3" stroke-linecap="round"/></svg></span></h1>
-      <p class="lede reveal">Concentramos toda la tecnología en un solo lugar. En simple: qué pasó con el costo, qué lo causó y cómo sigue la mudanza.</p>
-      <div class="strip reveal">
-        <div class="stat"><div class="big">~US$745<small>/mes</small></div><div class="cap">Costo actual, todavía sin clientes en producción</div></div>
-        <div class="stat"><div class="big">~US$300<small>/mes</small></div><div class="cap">Costo del sistema anterior (tres proveedores)</div></div>
-        <div class="stat"><div class="big brand">+50%</div><div class="cap">venía de <span class="ink w600">un solo problema</span>, puntual y reversible</div></div>
+<main>
+
+<!-- 1 · Portada -->
+<section class="slide" id="s1" aria-label="Portada">
+  <div class="wrap">
+    <div class="rule rv"></div>
+    <h1 class="rv" style="--d:.06s">
+      <span class="h-cycle">Cycle 3</span>
+      <span class="h-week" style="display:block">Semana del 10 al 14 de agosto</span>
+    </h1>
+    <p class="h-sub rv" style="--d:.14s"><strong>Cuatro cosas.</strong> Todo lo demás espera.</p>
+    <p class="hint rv" style="--d:.3s">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></svg>
+      <span class="on-desk">Avanza con las flechas</span>
+      <span class="on-touch">Desliza para avanzar</span>
+    </p>
+  </div>
+</section>
+
+<!-- 2 · La foto del problema -->
+<section class="slide" id="s2" aria-label="La foto del problema">
+  <div class="wrap">
+    <h2 class="eyebrow rv">02 · La foto del problema</h2>
+    <div class="duo">
+      <div class="rv" style="--d:.06s">
+        <p class="n-hero"><small>USD</small>3.900</p>
+        <p class="n-cap">es lo que va a costar Google Cloud este mes</p>
+      </div>
+      <div class="rv" style="--d:.16s">
+        <p class="n-side"><small>USD</small>6.000</p>
+        <p class="n-cap">el MRR de Clinera</p>
       </div>
     </div>
-  </section>
+    <p class="punch rv" style="--d:.28s">El <span class="mono violet">65%</span> de lo que entra se va en infraestructura.</p>
+  </div>
+</section>
 
-  <div class="wrap"><div class="divider"><div class="ln"></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L13.8 10.2L22 12L13.8 13.8L12 22L10.2 13.8L2 12L10.2 10.2L12 2Z" fill="#7C3AED"/></svg><div class="ln"></div></div></div>
+<!-- 3 · Cómo llegamos acá -->
+<section class="slide" id="s3" aria-label="Cómo llegamos acá">
+  <div class="wrap">
+    <h2 class="eyebrow rv">03 · Cómo llegamos acá</h2>
+    <p class="chart-cap rv">USD por mes</p>
+    <div class="chart" role="img" aria-label="Costo mensual de Google Cloud: abril 203 dólares, mayo 435, junio 719, julio 2.353, agosto proyectado 3.900.">
+      <div class="col"><span class="val rv">203</span><i class="bar" style="--h:5.2;--d:0s"></i></div>
+      <div class="col"><span class="val rv" style="--d:.07s">435</span><i class="bar" style="--h:11.2;--d:.07s"></i></div>
+      <div class="col"><span class="val rv" style="--d:.14s">719</span><i class="bar" style="--h:18.4;--d:.14s"></i></div>
+      <div class="col"><span class="val rv" style="--d:.21s">2.353</span><i class="bar" style="--h:60.3;--d:.21s"></i></div>
+      <div class="col now"><span class="val rv" style="--d:.28s">3.900</span><i class="bar" style="--h:100;--d:.28s"></i></div>
+    </div>
+    <div class="baseline"></div>
+    <div class="months" aria-hidden="true">
+      <div>Abril</div><div>Mayo</div><div>Junio</div><div>Julio</div>
+      <div class="now">Agosto<span class="tag">proyectado</span></div>
+    </div>
+    <p class="chart-punch rv" style="--d:.38s">Seis veces más caro en cinco meses. <span class="sub">Las clínicas no se multiplicaron por seis.</span></p>
+  </div>
+</section>
 
-  <section class="block">
-    <div class="wrap two-col">
-      <div class="reveal"><span class="step">01 / 05</span><h2>El costo subió antes de tiempo</h2></div>
-      <div class="reveal body-copy">
-        <p>Aún sin llegar a producción, el gasto mensual saltó a unos <span class="ink w600">US$745</span> (antes, cerca de <span class="ink w600">US$300</span>). La buena noticia: <span class="ink w600">no es que Google Cloud sea caro.</span> Fue un problema puntual y completamente reversible.</p>
-        <div class="badges"><span class="badge b-green">Identificado</span><span class="badge b-green">Reversible</span><span class="badge b-blue">No afectó a clientes</span></div>
+<!-- 4 · La buena noticia -->
+<section class="slide" id="s4" aria-label="La buena noticia">
+  <div class="wrap">
+    <h2 class="eyebrow rv">04 · La buena noticia</h2>
+    <div class="stmts">
+      <p class="stmt rv" style="--d:.06s"><strong>No es el crecimiento. No es la IA</strong> — no hay un peso de Vertex ni de Gemini en la factura.</p>
+      <p class="stmt rv" style="--d:.18s">Son <strong>ambientes duplicados</strong>, <strong>instancias de prueba</strong> que quedaron prendidas y <strong>escalado</strong> que paga capacidad ociosa.</p>
+      <p class="stmt big violet rv" style="--d:.3s">Se corta sin que ninguna clínica lo note.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Dónde está la plata -->
+<section class="slide" id="s5" aria-label="Dónde está la plata">
+  <div class="wrap">
+    <h2 class="eyebrow rv">05 · Dónde está la plata</h2>
+    <div class="leaks rv" style="--d:.06s">
+      <div class="leak">
+        <p class="amt"><span class="cur">USD</span>330<small>/mes</small></p>
+        <p>30 instancias de Cloud Run prendidas para 3,5 solicitudes por segundo</p>
+      </div>
+      <div class="leak">
+        <p class="amt"><span class="cur">USD</span>280<small>/mes</small></p>
+        <p>dos bases de datos de simulación del 21 de julio que siguen corriendo en producción con alta disponibilidad</p>
+      </div>
+      <div class="leak">
+        <p class="amt"><span class="cur">USD</span>260<small>/mes</small></p>
+        <p>dos máquinas C3 nuevas en staging, y las dos viejas que reemplazan siguen prendidas</p>
+      </div>
+      <div class="leak">
+        <p class="amt"><span class="cur">USD</span>200<small>/mes</small></p>
+        <p><span class="code">cron-transcription</span> no termina nunca, corre 1,4 instancias en continuo</p>
       </div>
     </div>
-  </section>
+    <p class="leaks-foot rv" style="--d:.2s"><span class="sub">Y seis más.</span> Total recuperable: <span class="mono violet">USD 1.700</span> al mes.</p>
+  </div>
+</section>
 
-  <section class="warm-bg">
-    <div class="wrap two-col block">
-      <div class="reveal"><span class="step">02 / 05</span><h2>Qué pasó: una llave quedó abierta</h2></div>
-      <div>
-        <div class="card reveal">
-          <p class="lead">Un <span class="w600">proceso automático del ambiente de pruebas</span> se quedó pegado: en vez de hacer su tarea y apagarse, quedó corriendo sin parar, las 24 horas.</p>
-          <p class="lead muted">Como una llave que se abre cada minuto y nunca se cierra. Ese solo proceso explicaba <span class="ink w600">más de la mitad de la cuenta</span>.</p>
-        </div>
-        <div class="reassure reveal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#2F6B3A" stroke-width="1.6"/><path d="M8.5 12.3l2.3 2.2 4.5-4.8" stroke="#2F6B3A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Estaba en pruebas (ningún cliente afectado), es de otro producto que comparte la cuenta, y se apaga al instante.</span></div>
+<!-- 6 · La meta de la semana -->
+<section class="slide" id="s6" aria-label="La meta de la semana">
+  <div class="wrap">
+    <h2 class="eyebrow rv">06 · La meta de la semana</h2>
+    <div class="goal">
+      <p class="from rv" style="--d:.06s"><small>USD</small>3.584</p>
+      <svg class="rv" style="--d:.16s" viewBox="0 0 64 28" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14h54m0 0-10-9m10 9-10 9"/></svg>
+      <p class="to rv" style="--d:.24s"><small>USD</small>1.900</p>
+    </div>
+    <p class="goal-cap rv" style="--d:.34s">Los tres proyectos de Clinera. Medido el viernes 14 en la consola de facturación, como costo diario.</p>
+    <p class="goal-clp rv" style="--d:.42s">Hoy vamos en <span class="mono">CLP 83.150</span> por día. La meta es <span class="mono">CLP 61.500</span>.</p>
+  </div>
+</section>
+
+<!-- 7 · Las cuatro prioridades -->
+<section class="slide" id="s7" aria-label="Las cuatro prioridades">
+  <div class="wrap">
+    <h2 class="eyebrow rv">07 · Las cuatro prioridades</h2>
+    <div class="pris">
+      <div class="pri rv" style="--d:.04s">
+        <span class="n">1</span>
+        <p>Optimización de GCP <span>— las diez fugas, con Lopez al mando</span></p>
+      </div>
+      <div class="pri rv" style="--d:.12s">
+        <span class="n">2</span>
+        <p>Instagram Direct y Facebook Messenger en producción <span>— compromiso viernes 14</span></p>
+      </div>
+      <div class="pri rv" style="--d:.2s">
+        <span class="n">3</span>
+        <p>Bugs pendientes <span>— los 504 de messaging, los turnos que se agendan al paciente equivocado, y OACG-230</span></p>
+      </div>
+      <div class="pri rv" style="--d:.28s">
+        <span class="n">4</span>
+        <p>Comenzar el handoff de la épica de Jimmy <span>— arranca en Cycle 4</span></p>
       </div>
     </div>
-  </section>
+    <p class="pris-foot rv" style="--d:.38s">Todo lo que no está en esta lista se movió a Cycle 4. Incluido el proyecto de Ley 21.719.</p>
+  </div>
+</section>
 
-  <section class="block">
-    <div class="wrap">
-      <div class="reveal" style="max-width:620px"><span class="step">03 / 05</span><h2>Lo que necesita una mudanza bien hecha</h2><p class="body-copy" style="margin-top:14px">Sin tecnicismos, los ingredientes que evitan sustos:</p></div>
-      <div class="grid2">
-        <div class="pillar reveal"><span class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="1.5"/></svg></span><div><h3>Un mapa antes de mover</h3><p>Saber qué se mueve y a dónde, sin sorpresas a mitad de camino.</p></div></div>
-        <div class="pillar reveal"><span class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg></span><div><h3>Ambientes separados</h3><p>Las pruebas y los clientes reales nunca se mezclan.</p></div></div>
-        <div class="pillar reveal"><span class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 19h5v-5h5V9h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Paso a paso</h3><p>Mover de a una pieza, nunca todo el mismo día.</p></div></div>
-        <div class="pillar reveal"><span class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 109-9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3 4v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Red de seguridad</h3><p>Mantener el sistema viejo en paralelo para volver atrás al instante.</p></div></div>
-        <div class="pillar reveal"><span class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 19a2 2 0 004 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><div><h3>Alarmas de costo</h3><p>Avisos para que un gasto raro no pase días sin que nadie lo note.</p></div></div>
-        <div class="pillar reveal"><span class="picon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M8.5 12.3l2.3 2.2 4.5-4.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Probar de punta a punta</h3><p>Un mensaje real y un pago real antes de dar por terminado.</p></div></div>
+<!-- 8 · Quién tiene qué -->
+<section class="slide" id="s8" aria-label="Quién tiene qué">
+  <div class="wrap">
+    <h2 class="eyebrow rv">08 · Quién tiene qué</h2>
+    <div class="who">
+      <div class="row rv" style="--d:.04s">
+        <p class="name">Lopez</p>
+        <p class="tasks">Presupuesto y alertas en GCP<span class="sep">·</span>VMs duplicadas de staging<span class="sep">·</span>Cloud SQL de simulación<span class="sep">·</span><span class="code">min-instances</span> de Cloud Run<span class="sep">·</span>Meta Login Config</p>
+      </div>
+      <div class="row rv" style="--d:.1s">
+        <p class="name">Jorge Quispe</p>
+        <p class="tasks"><span class="code">cron-transcription</span><span class="sep">·</span>Redis duplicado y caché de secretos<span class="sep">·</span>504 en messaging</p>
+      </div>
+      <div class="row rv" style="--d:.16s">
+        <p class="name">Daniel</p>
+        <p class="tasks">Instagram DM y Messenger (webhooks, envío, App Review)<span class="sep">·</span>facturación de Cloud Run<span class="sep">·</span>bugs de agendamiento</p>
+      </div>
+      <div class="row rv" style="--d:.22s">
+        <p class="name">David</p>
+        <p class="tasks">Apagado automático de Development</p>
+      </div>
+      <div class="row rv" style="--d:.28s">
+        <p class="name">Diego</p>
+        <p class="tasks">Instagram Direct — cerrar el <span class="code">PR #798</span> y el sandbox</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-      <div class="dark reveal">
-        <div class="dark-in">
-          <div class="dark-spark"><svg width="120" height="120" viewBox="0 0 24 24" fill="none"><path d="M12 2L13.8 10.2L22 12L13.8 13.8L12 22L10.2 13.8L2 12L10.2 10.2L12 2Z" fill="#7C3AED"/></svg></div>
-          <div class="dark-head"><span class="step-light">04 / 05</span><span class="badge b-amber" style="text-transform:uppercase;letter-spacing:.04em;font-weight:600">Importante</span></div>
-          <h2>En pruebas, usar siempre una app de Meta <span class="brand">distinta</span>. Nunca la oficial.</h2>
-          <div class="dark-copy">
-            <p>Clinera conecta el WhatsApp de cada clínica con una <strong>app oficial de Meta</strong>. Esa app es <strong>una sola</strong> y guarda todas las conexiones reales de los clientes.</p>
-            <div class="rule-box"><p class="t">La regla, sin excepciones:</p><p class="d">En dev y staging, usar una <strong style="color:#fff">app de Meta de prueba, separada</strong>. Jamás la oficial de producción.</p></div>
-            <p><strong>¿Por qué?</strong> Esa app solo puede apuntar a un lugar a la vez. Si una prueba la toca, el WhatsApp de <strong>todos los clientes reales podría caerse</strong>.</p>
-          </div>
-          <div class="calm">
-            <div class="calm-head"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 4.5-3.2 7.3-8 9-4.8-1.7-8-4.5-8-9V7l8-4z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>La tranquilidad</span></div>
-            <p>El WhatsApp de los clientes vive en los servidores de Meta. Mover la tecnología, por sí solo, <strong style="color:#fff">no desconecta a nadie</strong> —mientras nadie toque la app oficial en pruebas y no se cree una app nueva para reemplazarla.</p>
-          </div>
-        </div>
-      </div>
+<!-- 9 · Cierre -->
+<section class="slide" id="s9" aria-label="Cierre">
+  <div class="wrap">
+    <h2 class="eyebrow rv">09 · Cierre</h2>
+    <div class="stmts">
+      <p class="stmt rv" style="--d:.06s">Nada de esto es culpa de nadie. Pasó porque <strong>no había una alerta de presupuesto</strong>.</p>
+      <p class="stmt big violet rv" style="--d:.18s">Lo primero que hacemos hoy es ponerla.</p>
+      <p class="stmt rv" style="--d:.3s">El viernes revisamos el número juntos.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="block" style="padding-top:0">
-    <div class="wrap">
-      <div class="reveal cmp-intro"><span class="step">05 / 05</span><h2>La diferencia, lado a lado</h2><p class="body-copy" style="margin-top:12px">La app oficial (producción) frente a la app de prueba (dev y staging):</p></div>
-      <div class="reveal cmp-wrap">
-        <table class="cmp">
-          <thead>
-            <tr>
-              <th></th>
-              <th><span class="chip chip-dark">Producción · app oficial</span></th>
-              <th><span class="chip chip-violet">Dev / Staging · app de prueba</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td class="aspect">Qué contiene</td><td class="col">El WhatsApp real de todas las clínicas</td><td class="col">Nada real: solo un número de prueba de Meta</td></tr>
-            <tr><td class="aspect">A dónde conecta</td><td class="col">Siempre al sistema en producción</td><td class="col">Solo al ambiente de pruebas</td></tr>
-            <tr><td class="aspect">Si algo falla ahí</td><td class="col"><span class="cell-bad">Se afectan clientes reales</span></td><td class="col"><span class="cell-good">No pasa nada: es un sandbox</span></td></tr>
-            <tr><td class="aspect">Quién la toca</td><td class="col">Nadie, hasta el cambio final</td><td class="col">El equipo, para probar libremente</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+</main>
 
-  <section class="warm-bg">
-    <div class="wrap block" style="padding:56px 0">
-      <div class="close-grid reveal">
-        <div class="close-label"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L13.8 10.2L22 12L13.8 13.8L12 22L10.2 13.8L2 12L10.2 10.2L12 2Z" fill="#7C3AED"/></svg><span>En resumen</span></div>
-        <div>
-          <p class="close-lead">El sobrecosto no significa que Google Cloud sea caro: fue un proceso de pruebas pegado, ya identificado y reversible.</p>
-          <p class="close-body">La mudanza sigue su curso —primero pruebas, luego clientes— con la app oficial de WhatsApp intocable hasta el cambio final.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<nav class="dots" aria-label="Posición en la presentación"></nav>
 
-  <footer>
-    <div class="wrap foot-in">
-      <div class="logo"><span class="logo-mark">c</span><span class="logo-text">clinera<span class="sub">.io</span></span></div>
-      <p class="foot-meta">Migración a Google Cloud · Junio 2026</p>
-    </div>
-  </footer>
+<script>
+document.documentElement.classList.add('js');
 
-  <script>
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const parent = entry.target.parentElement;
-          const group = parent ? Array.from(parent.querySelectorAll(':scope > .reveal')) : [];
-          const idx = group.indexOf(entry.target);
-          entry.target.style.transitionDelay = (idx > 0 ? Math.min(idx, 6) * 70 : 0) + 'ms';
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
-  </script>
+var slides = [].slice.call(document.querySelectorAll('.slide'));
+var dotsNav = document.querySelector('.dots');
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var current = 0;
+
+// Dots
+var dots = slides.map(function (s, i) {
+  var b = document.createElement('button');
+  b.setAttribute('aria-label', 'Ir al slide ' + (i + 1) + ': ' + s.getAttribute('aria-label'));
+  b.appendChild(document.createElement('i'));
+  b.addEventListener('click', function () { goTo(i); });
+  dotsNav.appendChild(b);
+  return b;
+});
+
+function setCurrent(i) {
+  current = i;
+  dots.forEach(function (d, j) { d.setAttribute('aria-current', j === i ? 'true' : 'false'); });
+}
+setCurrent(0);
+
+function goTo(i) {
+  i = Math.max(0, Math.min(slides.length - 1, i));
+  slides[i].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+}
+
+// Slide activo (cruce del centro del viewport)
+var io = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) setCurrent(slides.indexOf(e.target));
+  });
+}, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+slides.forEach(function (s) { io.observe(s); });
+
+// Reveals al entrar
+var seen = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) {
+    if (e.isIntersecting) { e.target.classList.add('seen'); seen.unobserve(e.target); }
+  });
+}, { threshold: 0.35 });
+slides.forEach(function (s) { seen.observe(s); });
+
+// Teclado
+window.addEventListener('keydown', function (e) {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  var k = e.key;
+  if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === ' ') {
+    e.preventDefault(); goTo(current + 1);
+  } else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp') {
+    e.preventDefault(); goTo(current - 1);
+  } else if (k === 'Home') {
+    e.preventDefault(); goTo(0);
+  } else if (k === 'End') {
+    e.preventDefault(); goTo(slides.length - 1);
+  } else if (/^[1-9]$/.test(k)) {
+    goTo(parseInt(k, 10) - 1);
+  }
+});
+</script>
 </body>
 </html>

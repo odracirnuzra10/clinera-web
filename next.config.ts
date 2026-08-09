@@ -230,6 +230,10 @@ const nextConfig: NextConfig = {
         source: '/estructura',
         destination: '/estructura/index.html',
       },
+      {
+        source: '/gcp',
+        destination: '/gcp/index.html',
+      },
     ];
   },
   async redirects() {
