@@ -2451,23 +2451,25 @@
       animation-delay: .1s;
     }
 
-    /* --- Para quién es (#para-quien) --- */
-    .pq-layout {
-      display: grid;
-      grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
-      align-items: center;
-      align-content: center;
-      gap: clamp(56px, 7vw, 108px);
-      max-width: 1180px;
+    /* --- Checks de calificación, dentro de #la-fuga --- */
+    .fg-detail-label {
+      display: block;
+      margin-bottom: clamp(14px, 1.8vh, 20px);
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
 
-    .pq-copy .blk-lead {
-      max-width: 520px;
+    .fg-copy > .fg-detail {
+      margin-top: clamp(22px, 3vh, 34px);
     }
 
     .pq-list {
       display: grid;
-      gap: clamp(30px, 3.6vh, 42px);
+      gap: clamp(11px, 1.5vh, 16px);
       margin: 0;
       padding: 0;
       list-style: none;
@@ -2475,23 +2477,23 @@
 
     .pq-item {
       display: grid;
-      grid-template-columns: 26px minmax(0, 1fr);
+      grid-template-columns: 20px minmax(0, 1fr);
       align-items: start;
-      gap: 18px;
+      gap: 13px;
     }
 
     .pq-check {
       display: grid;
       place-items: center;
-      width: 26px;
-      height: 26px;
-      margin-top: 1px;
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
       color: var(--brand-violet);
     }
 
     .pq-check svg {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       fill: none;
       stroke: currentColor;
       stroke-width: 2.2;
@@ -2502,39 +2504,16 @@
     .pq-item-title {
       display: block;
       color: var(--ink);
-      font-size: clamp(20px, 1.75vw, 26px);
+      font-size: clamp(15.5px, 1.25vw, 18px);
       font-weight: 600;
-      letter-spacing: -.02em;
-      line-height: 1.35;
+      letter-spacing: -.015em;
+      line-height: 1.4;
       text-wrap: pretty;
     }
 
-    .pq-floor {
-      margin-top: clamp(30px, 3.8vh, 44px);
-      padding-top: clamp(24px, 3vh, 32px);
-      border-top: 1px solid var(--border-sterile);
-    }
-
-    .pq-floor-label {
-      display: block;
-      color: var(--ink-muted);
-      font-family: var(--blk-mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    .pq-floor-figure {
-      display: block;
-      margin-top: 12px;
-      color: var(--ink);
-      font-family: var(--blk-mono);
-      font-size: clamp(26px, 2.3vw, 36px);
-      white-space: nowrap;
-      font-weight: 700;
-      letter-spacing: -.02em;
-      line-height: 1.1;
+    .slide.active .pq-list {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .16s;
     }
 
     /* --- La fuga (#la-fuga) --- */
@@ -2689,17 +2668,13 @@
       font-weight: 700;
     }
 
-
-
-
-
-    /* --- Lo que recuperas (#recuperacion) --- */
+    /* --- El dinero sobre la mesa (#recuperacion) --- */
     .rec-layout {
       display: grid;
-      grid-template-rows: auto minmax(0, 1fr) auto;
+      grid-template-rows: auto minmax(0, 1fr) auto auto;
       align-content: center;
-      gap: clamp(14px, 1.9vh, 22px);
-      max-width: 1120px;
+      gap: clamp(16px, 2.2vh, 26px);
+      max-width: 1080px;
     }
 
     .rec-head .blk-h2 {
@@ -2708,156 +2683,239 @@
 
     .rec-head .blk-lead {
       max-width: 720px;
-      margin-top: 16px;
-      font-size: 17px;
+      margin-top: 12px;
+      font-size: 16px;
     }
 
-    .rec-table {
+    /* ---- El cruce, dibujado ----
+       Geometría de la caja: x 0→100 = 0→150 leads calificados al mes;
+       y 0→100 = US$ 750→0. La recuperación es leads × 20% × US$ 25 = 5 US$
+       por lead, o sea exactamente la diagonal. El plan (US$ 279) es la
+       horizontal en y = 62,8 y por eso el cruce cae en (37,2 · 37,2): los
+       55,8 leads al mes que redondeamos a 56. */
+    .rec-chart {
+      display: grid;
+      margin: 0;
+    }
+
+    .rc-plot {
+      position: relative;
+      height: clamp(130px, 22vh, 208px);
+    }
+
+    .rc-svg {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      border-collapse: collapse;
-      text-align: left;
+      height: 100%;
     }
 
-    .rec-table thead th {
-      padding: 0 16px 12px 0;
-      border-bottom: 1px solid var(--ink-light);
-      color: var(--ink-muted);
+    .rc-loss {
+      fill: #dde0e6;
+    }
+
+    .rc-plan,
+    .rc-rec,
+    .rc-mark {
+      fill: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .rc-plan {
+      stroke: #9ca3af;
+      stroke-width: 1.5;
+      stroke-dasharray: 6 5;
+    }
+
+    .rc-rec {
+      stroke: var(--brand-violet);
+      stroke-width: 2.5;
+    }
+
+    .rc-mark {
+      stroke: var(--brand-violet);
+      stroke-width: 1.5;
+      stroke-dasharray: 3 4;
+      opacity: .45;
+    }
+
+    /* El barrido de izquierda a derecha es el propio eje: el gráfico se dibuja
+       a medida que suben los leads y el cruce aparece justo cuando toca. */
+    .slide.active .rc-svg {
+      animation: rcWipe 1.15s var(--ease) both;
+    }
+
+    @keyframes rcWipe {
+      from { clip-path: inset(0 100% 0 0); }
+      to { clip-path: inset(0 0 0 0); }
+    }
+
+    .rc-dot {
+      position: absolute;
+      left: 37.2%;
+      top: 62.8%;
+      width: 13px;
+      height: 13px;
+      margin: -6.5px 0 0 -6.5px;
+      border: 2.5px solid #ffffff;
+      border-radius: 50%;
+      background: var(--brand-violet);
+      box-shadow: 0 0 0 1.5px var(--brand-violet);
+    }
+
+    .slide.active .rc-dot {
+      animation: rcPop .42s var(--ease) .55s both;
+    }
+
+    @keyframes rcPop {
+      from { opacity: 0; transform: scale(.2); }
+      60% { transform: scale(1.25); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Las etiquetas se posicionan con left/top y su animación es sólo de
+       opacidad: si animaran transform perderían la posición al terminar. */
+    .rc-tag,
+    .rc-lab {
+      position: absolute;
       font-family: var(--blk-mono);
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: .12em;
+      letter-spacing: .07em;
+      line-height: 1.2;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
-    .rec-table .rec-r {
-      text-align: right;
+    .rc-tag {
+      font-size: clamp(10.5px, .92vw, 12.5px);
+      font-weight: 700;
     }
 
-    .rec-table thead th:last-child,
-    .rec-table tbody td:last-child {
-      padding-right: 0;
-    }
-
-    .rec-table tbody th,
-    .rec-table tbody td {
-      padding: clamp(10px, 1.45vh, 15px) 16px clamp(10px, 1.45vh, 15px) 0;
-      border-bottom: 1px solid var(--border-sterile);
+    .rc-lab {
       color: var(--ink-soft);
-      font-size: 17px;
-      line-height: 1.3;
-      vertical-align: baseline;
+      font-size: clamp(9.5px, .78vw, 11px);
+      font-weight: 600;
+    }
+
+    .rc-cross {
+      left: 37.2%;
+      top: 1%;
+      margin-left: -68px;
+      width: 136px;
+      padding: 5px 0;
+      border-radius: var(--radius-sm);
+      color: #ffffff;
+      text-align: center;
+      background: var(--grad-ia);
+    }
+
+    .rc-plan-lab {
+      left: 1.5%;
+      top: 51%;
+    }
+
+    .rc-rec-lab {
+      left: 63%;
+      top: 8%;
+      color: var(--brand-violet);
+    }
+
+    .rc-loss-tag {
+      left: 2.5%;
+      top: 72%;
+      color: #464c58;
+    }
+
+    .rc-gain-tag {
+      left: 58%;
+      top: 45%;
+      color: var(--brand-violet);
+    }
+
+    .slide.active .rc-tag,
+    .slide.active .rc-lab {
+      animation: rcFade .5s var(--ease) both;
+    }
+
+    @keyframes rcFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .slide.active .rc-plan-lab { animation-delay: .28s; }
+    .slide.active .rc-loss-tag { animation-delay: .46s; }
+    .slide.active .rc-cross { animation-delay: .66s; }
+    .slide.active .rc-rec-lab { animation-delay: .9s; }
+    .slide.active .rc-gain-tag { animation-delay: 1.05s; }
+
+    .rc-axis {
+      position: relative;
+      height: 13px;
+      margin-top: 9px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-sterile);
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .rc-axis span {
+      position: absolute;
+      top: 8px;
       white-space: nowrap;
     }
 
-    .rec-table tbody th {
-      color: var(--ink);
-      font-family: var(--blk-mono);
-      font-size: clamp(19px, 1.75vw, 25px);
-      font-weight: 700;
-      letter-spacing: -.025em;
+    .rc-t0 { left: 0; }
+    .rc-t50 { left: 33.33%; transform: translateX(-50%); }
+    .rc-t100 { left: 66.67%; transform: translateX(-50%); }
+    .rc-tend { right: 0; }
+    .rc-tend-short { display: none; }
+
+    /* ---- Los tres volúmenes de referencia ---- */
+    .rec-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(14px, 2vw, 26px);
     }
 
-    .rec-money {
-      color: var(--ink);
-      font-family: var(--blk-mono);
-      font-size: clamp(18px, 1.5vw, 22px);
-      font-weight: 700;
-      letter-spacing: -.02em;
+    .rec-stat {
+      padding-left: clamp(14px, 1.6vw, 20px);
+      border-left: 2px solid var(--brand-violet);
     }
 
-    .rec-x {
-      color: var(--ink);
-      font-family: var(--blk-mono);
-      font-size: clamp(18px, 1.5vw, 22px);
-      font-weight: 700;
-      letter-spacing: -.02em;
-    }
-
-    .rec-table tbody tr:last-child th,
-    .rec-table tbody tr:last-child td {
-      border-bottom: 0;
-    }
-
-    /* La clínica bajo la línea va en la tabla a propósito, apagada y sobre
-       fondo gris: es la mitad del argumento. */
-    .rec-under th,
-    .rec-under td {
-      color: var(--ink-muted);
-      background: var(--bg-cloud);
-    }
-
-    .rec-under th,
-    .rec-under .rec-money {
-      color: var(--ink-muted);
-    }
-
-    .rec-hand {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      color: var(--ink-muted);
+    .rec-stat-vol {
+      display: block;
+      color: var(--ink-soft);
       font-family: var(--blk-mono);
       font-size: 11px;
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
-      white-space: nowrap;
     }
 
-    .rec-hand::before {
-      content: "";
-      width: 12px;
-      height: 1.5px;
-      flex: 0 0 auto;
-      background: currentColor;
-    }
-
-    /* El umbral, dibujado como una fila más: es lo único que el cliente
-       tiene que recordar de la tabla. */
-    .rec-line td {
-      padding: 0;
-      border-bottom: 0;
-    }
-
-    .rec-line span {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: clamp(9px, 1.2vh, 13px) 0;
-      color: var(--brand-violet);
+    .rec-stat-money {
+      display: block;
+      margin-top: 7px;
+      color: var(--ink);
       font-family: var(--blk-mono);
-      font-size: clamp(11px, .95vw, 13px);
+      font-size: clamp(24px, 2.4vw, 34px);
       font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      white-space: nowrap;
+      letter-spacing: -.03em;
+      line-height: 1;
     }
 
-    .rec-line span::before,
-    .rec-line span::after {
-      content: "";
-      height: 2px;
-      background: var(--grad-ia);
+    .rec-stat-x {
+      display: block;
+      margin-top: 7px;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.3;
     }
 
-    .rec-line span::before {
-      width: 34px;
-      flex: 0 0 auto;
-    }
-
-    .rec-line span::after {
-      flex: 1 1 auto;
-      opacity: .35;
-    }
-
-    .rec-vol-unit {
-      display: none;
-    }
-
-    .slide.active .rec-table {
-      animation: enter .64s var(--ease) both;
-      animation-delay: .14s;
+    .slide.active .rec-stats {
+      animation: enter .64s var(--ease) 1.2s both;
     }
 
     .rec-foot {
@@ -2870,22 +2928,21 @@
     .rec-foot-main {
       margin: 0;
       color: var(--ink);
-      font-size: 17px;
+      font-size: 16px;
       line-height: 1.5;
       text-wrap: pretty;
     }
 
     .rec-foot-note {
-      margin: 8px 0 0;
-      color: var(--ink-muted);
-      font-size: 13px;
+      margin: 7px 0 0;
+      color: #6b7280;
+      font-size: 12.5px;
       line-height: 1.55;
       text-wrap: pretty;
     }
 
     .slide.active .rec-foot {
-      animation: enter .64s var(--ease) both;
-      animation-delay: .2s;
+      animation: enter .64s var(--ease) 1.35s both;
     }
 
     /* --- Las cinco razones, una por diapositiva (#razon-1 … #razon-5) --- */
@@ -3650,7 +3707,6 @@
 
     /* Responsive del bloque nuevo */
     @media (max-width: 960px) {
-      .pq-layout,
       .rzs-layout,
       .fg-layout,
       .cn-layout {
@@ -3659,7 +3715,6 @@
         gap: 40px;
       }
 
-      .pq-copy .blk-lead,
       .rzs-copy .blk-lead,
       .rzs-copy .blk-h2,
       .fg-copy .blk-lead,
@@ -3690,6 +3745,10 @@
         order: 3;
       }
 
+      .fg-copy > .fg-detail {
+        margin-top: 0;
+      }
+
       .cn-cards {
         max-width: 640px;
       }
@@ -3704,123 +3763,84 @@
        volumen: el volumen y la plata arriba, en grande y lado a lado, y los
        dos datos de apoyo debajo. El encabezado de cada columna se repite como
        etiqueta (data-label). La fila del umbral queda como separador. */
+    /* En teléfono el gráfico necesita más alto para que las etiquetas no se
+       pisen, el eje se queda con los dos extremos y las tres cifras pasan a
+       una columna. */
     @media (max-width: 760px) {
-      .rec-table,
-      .rec-table tbody,
-      .rec-table tr,
-      .rec-table th,
-      .rec-table td {
-        display: block;
+      .rc-plot {
+        height: clamp(168px, 27vh, 230px);
       }
 
-      .rec-table thead {
+      .rc-rec-lab {
         display: none;
       }
 
-      .rec-table tbody tr {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 13px 14px;
-        margin-bottom: 10px;
-        padding: 14px 16px;
-        border: 1px solid var(--border-sterile);
-        border-radius: var(--radius-lg);
+      .rc-plan-lab {
+        top: 38%;
       }
 
-      .rec-table tbody tr:last-child {
-        margin-bottom: 0;
+      .rc-gain-tag {
+        left: 54%;
+        top: 48%;
       }
 
-      .rec-table tbody th,
-      .rec-table tbody td {
-        padding: 0;
-        border-bottom: 0;
-        white-space: normal;
+      .rc-t50,
+      .rc-t100,
+      .rc-tend-long {
+        display: none;
       }
 
-      /* Volumen y plata en la primera fila; evaluaciones y múltiplo debajo. */
-      .rec-table tbody th {
-        grid-area: 1 / 1;
-        font-size: 23px;
-      }
-
-      .rec-table tbody td:nth-of-type(1) {
-        grid-area: 2 / 1;
-      }
-
-      .rec-table tbody td:nth-of-type(2) {
-        grid-area: 1 / 2;
-      }
-
-      .rec-table tbody td:nth-of-type(3) {
-        grid-area: 2 / 2;
-      }
-
-      .rec-vol-unit {
+      .rc-tend-short {
         display: block;
-        margin-top: 3px;
-        color: var(--ink-muted);
-        font-size: 9.5px;
-        font-weight: 600;
-        letter-spacing: .1em;
-        text-transform: uppercase;
       }
 
-      .rec-table tbody td {
+      .rec-stats {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .rec-stat {
         display: grid;
-        align-content: start;
-        gap: 3px;
-        font-size: 15px;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: baseline;
+        gap: 3px 14px;
       }
 
-      .rec-table tbody td::before {
-        content: attr(data-label);
-        color: var(--ink-muted);
-        font-family: var(--blk-mono);
-        font-size: 9.5px;
-        font-weight: 600;
-        letter-spacing: .1em;
-        text-transform: uppercase;
+      .rec-stat-vol {
+        grid-column: 1;
       }
 
-      .rec-money,
-      .rec-x {
-        font-size: 21px;
+      .rec-stat-money {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        margin-top: 0;
+        align-self: center;
+        font-size: 26px;
       }
 
-      .rec-table .rec-r {
-        text-align: left;
-      }
-
-      /* En tarjeta el gris va en la tarjeta entera, no celda por celda. */
-      .rec-table tbody tr.rec-under {
-        background: var(--bg-cloud);
-      }
-
-      .rec-table tbody tr.rec-under th,
-      .rec-table tbody tr.rec-under td {
-        background: transparent;
-      }
-
-      .rec-table tbody tr.rec-line {
-        display: block;
-        margin-bottom: 10px;
-        padding: 0;
-        border: 0;
-      }
-
-      .rec-table tbody tr.rec-line td::before {
-        content: none;
-      }
-
-      .rec-line span {
-        white-space: normal;
+      .rec-stat-x {
+        grid-column: 1;
+        margin-top: 0;
+        font-size: 13px;
       }
     }
 
     @media (max-width: 620px) {
       .blk-lead {
         font-size: 17px;
+      }
+
+      .rc-tag {
+        font-size: 10px;
+      }
+
+      .rc-lab {
+        font-size: 9.5px;
+      }
+
+      .rc-cross {
+        width: 118px;
+        margin-left: -59px;
       }
 
       .fg-cash {
@@ -3838,11 +3858,6 @@
 
       .rec-layout {
         gap: 16px;
-      }
-
-      .rec-table tbody tr {
-        gap: 11px 14px;
-        padding: 13px 15px;
       }
 
       .rzs-points {
@@ -3892,8 +3907,6 @@
       }
     }
 
-
-
     /* ------------------------------------------------------------
        Pantallas chicas: laptops de 1024x640 y tablet en vertical.
        Todo este bloque va al final por la misma razón que el anterior:
@@ -3919,16 +3932,6 @@
 
       .pq-item-title {
         font-size: clamp(18px, 1.5vw, 22px);
-      }
-
-      .pq-floor {
-        margin-top: 24px;
-        padding-top: 20px;
-      }
-
-      .pq-floor-figure {
-        margin-top: 9px;
-        font-size: clamp(24px, 2.1vw, 32px);
       }
 
       .cn-highlight {
@@ -4058,11 +4061,6 @@
         font-size: 11.5px;
       }
 
-      .pq-floor {
-        margin-top: 20px;
-        padding-top: 16px;
-      }
-
       .cn-body {
         margin-top: 12px;
         font-size: 15px;
@@ -4107,24 +4105,6 @@
         font-size: 12px;
       }
 
-      .rec-table thead th {
-        padding-bottom: 7px;
-      }
-
-      .rec-table tbody th,
-      .rec-table tbody td {
-        padding-top: 3.5px;
-        padding-bottom: 3.5px;
-      }
-
-      .rec-table tbody th {
-        font-size: clamp(13px, 1.05vw, 16px);
-      }
-
-      .rec-table tbody td {
-        font-size: 12px;
-      }
-
       .rec-foot {
         gap: 3px;
         padding: 8px 14px;
@@ -4136,6 +4116,47 @@
 
       .rec-foot-note {
         font-size: 11px;
+      }
+
+      .rc-plot {
+        height: 122px;
+      }
+
+      .rc-axis {
+        margin-top: 6px;
+        padding-top: 6px;
+      }
+
+      .rec-stat-money {
+        margin-top: 5px;
+        font-size: clamp(20px, 2vw, 26px);
+      }
+
+      .rec-stat-x {
+        margin-top: 5px;
+        font-size: 12.5px;
+      }
+
+      /* La fuga: la lista de checks y el panel de la cadena también aprietan. */
+      .fg-copy > .fg-detail {
+        margin-top: 16px;
+      }
+
+      .fg-detail-label {
+        margin-bottom: 10px;
+      }
+
+      .pq-list {
+        gap: 8px;
+      }
+
+      .pq-item-title {
+        font-size: 14.5px;
+      }
+
+      .fg-assumption {
+        margin-top: 12px;
+        padding-top: 10px;
       }
     }
 
@@ -4377,48 +4398,6 @@
 
       <section
         class="slide blk"
-        id="para-quien"
-        data-name="Para quién es"
-        aria-hidden="true"
-      >
-        <div class="slide-inner pq-layout">
-          <div class="pq-copy">
-            <div class="blk-eyebrow">ANTES DE SEGUIR</div>
-            <h1 class="blk-h1">Clinera es para ti si:</h1>
-          </div>
-
-          <div class="pq-panel reveal">
-            <ul class="pq-list">
-              <li class="pq-item">
-                <span class="pq-check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
-                </span>
-                <strong class="pq-item-title">Tienes muchos pacientes sin poder gestionar bien</strong>
-              </li>
-              <li class="pq-item">
-                <span class="pq-check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
-                </span>
-                <strong class="pq-item-title">Necesitas organizar y centralizar toda tu operación en un mismo lugar</strong>
-              </li>
-              <li class="pq-item">
-                <span class="pq-check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
-                </span>
-                <strong class="pq-item-title">Cuentas con equipos comerciales y de marketing, pero aun así no logras crecer como esperarías</strong>
-              </li>
-            </ul>
-
-            <div class="pq-floor">
-              <span class="pq-floor-label">EL PISO</span>
-              <span class="pq-floor-figure"><span class="blk-grad-text">500 pacientes</span> / mes</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        class="slide blk"
         id="la-fuga"
         data-name="La fuga"
         aria-hidden="true"
@@ -4426,17 +4405,33 @@
         <div class="slide-inner fg-layout">
           <div class="fg-copy">
             <div class="fg-head">
-              <div class="blk-eyebrow">POR QUÉ SE PIERDEN</div>
+              <div class="blk-eyebrow">ANTES DE SEGUIR</div>
               <h2 class="blk-h2">Tres escriben cuando ya cerraste. <span class="blk-grad-text">Dos no esperan</span>.</h2>
-              <p class="blk-lead">De cada 10 leads calificados, 3 llegan fuera del horario de atención. Sólo uno espera tu respuesta al día siguiente; los otros dos escriben a la clínica de al lado y agendan ahí.</p>
+              <p class="blk-lead">De cada 10 leads calificados, 3 llegan fuera del horario de atención. Uno espera al día siguiente; los otros dos escriben a la clínica de al lado y agendan ahí.</p>
             </div>
             <div class="fg-detail">
-              <ul class="rzs-points">
-                <li>Entran de noche, el fin de semana y después del último box</li>
-                <li>Es cuando el paciente por fin se sentó a decidir: son los más calientes</li>
-                <li>No es un mal mes: son dos que se caen todos los días</li>
+              <span class="fg-detail-label">Clinera es para ti si:</span>
+              <ul class="pq-list">
+                <li class="pq-item">
+                  <span class="pq-check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
+                  </span>
+                  <strong class="pq-item-title">Tienes más pacientes de los que alcanzas a gestionar</strong>
+                </li>
+                <li class="pq-item">
+                  <span class="pq-check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
+                  </span>
+                  <strong class="pq-item-title">Necesitas toda tu operación en un mismo lugar</strong>
+                </li>
+                <li class="pq-item">
+                  <span class="pq-check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
+                  </span>
+                  <strong class="pq-item-title">Tienes equipo comercial y de marketing, y aun así no creces</strong>
+                </li>
               </ul>
-              <span class="fg-assumption">Lead calificado: el que pregunta por un tratamiento concreto y tiene intención de agendar. Las consultas sueltas no entran en este cálculo.</span>
+              <span class="fg-assumption">Lead calificado: el que pregunta por un tratamiento concreto y tiene intención de agendar.</span>
             </div>
           </div>
 
@@ -4489,50 +4484,58 @@
             <p class="blk-lead">El 20% que hoy se cae, con la evaluación a US$ 25.</p>
           </header>
 
-          <div class="rec-table-wrap">
-            <table class="rec-table">
-              <thead>
-                <tr>
-                  <th scope="col">Leads calificados al mes</th>
-                  <th scope="col">Se te caen</th>
-                  <th scope="col" class="rec-r">Sobre la mesa, al mes</th>
-                  <th scope="col" class="rec-r">Veces lo que pagas</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="rec-under">
-                  <th scope="row">20<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Se te caen">4 evaluaciones</td>
-                  <td data-label="Sobre la mesa" class="rec-r"><span class="rec-money">US$ 100</span></td>
-                  <td data-label="Veces lo que pagas" class="rec-r"><span class="rec-hand">Atiende tú</span></td>
-                </tr>
-                <tr class="rec-line">
-                  <td colspan="4"><span>56 leads al mes · desde acá Clinera se paga sola</span></td>
-                </tr>
-                <tr>
-                  <th scope="row">300<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Se te caen">60 evaluaciones</td>
-                  <td data-label="Sobre la mesa" class="rec-r"><span class="rec-money">US$ 1.500</span></td>
-                  <td data-label="Veces lo que pagas" class="rec-r"><span class="rec-x">5×</span></td>
-                </tr>
-                <tr>
-                  <th scope="row">1.000<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Se te caen">200 evaluaciones</td>
-                  <td data-label="Sobre la mesa" class="rec-r"><span class="rec-money">US$ 5.000</span></td>
-                  <td data-label="Veces lo que pagas" class="rec-r"><span class="rec-x">18×</span></td>
-                </tr>
-                <tr>
-                  <th scope="row">3.000<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Se te caen">600 evaluaciones</td>
-                  <td data-label="Sobre la mesa" class="rec-r"><span class="rec-money">US$ 15.000</span></td>
-                  <td data-label="Veces lo que pagas" class="rec-r"><span class="rec-x">54×</span></td>
-                </tr>
-              </tbody>
-            </table>
+          <figure class="rec-chart" aria-label="Bajo 56 leads calificados al mes lo que Clinera recupera no alcanza a cubrir los US$ 279 del plan. Sobre esa cifra lo supera, y la diferencia crece con cada lead.">
+            <div class="rc-plot">
+              <svg class="rc-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <defs>
+                  <linearGradient id="rcGain" x1="0" y1="1" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#009fe3" stop-opacity=".13" />
+                    <stop offset="55%" stop-color="#7c3aed" stop-opacity=".2" />
+                    <stop offset="100%" stop-color="#c850c0" stop-opacity=".26" />
+                  </linearGradient>
+                </defs>
+                <polygon class="rc-loss" points="0,62.8 37.2,62.8 0,100" />
+                <polygon class="rc-gain" points="37.2,62.8 100,0 100,62.8" fill="url(#rcGain)" />
+                <line class="rc-plan" x1="0" y1="62.8" x2="100" y2="62.8" />
+                <line class="rc-mark" x1="37.2" y1="4" x2="37.2" y2="100" />
+                <polyline class="rc-rec" points="0,100 100,0" />
+              </svg>
+              <span class="rc-lab rc-plan-lab">El plan · US$ 279 al mes</span>
+              <span class="rc-lab rc-rec-lab">Lo que recuperas</span>
+              <span class="rc-tag rc-loss-tag">Acá pierdes plata</span>
+              <span class="rc-tag rc-gain-tag">Acá ganas plata</span>
+              <span class="rc-dot" aria-hidden="true"></span>
+              <span class="rc-tag rc-cross">56 leads al mes</span>
+            </div>
+            <div class="rc-axis" aria-hidden="true">
+              <span class="rc-t0">0</span>
+              <span class="rc-t50">50</span>
+              <span class="rc-t100">100</span>
+              <span class="rc-tend rc-tend-long">150 leads calificados al mes</span>
+              <span class="rc-tend rc-tend-short">150 leads/mes</span>
+            </div>
+          </figure>
+
+          <div class="rec-stats">
+            <div class="rec-stat">
+              <span class="rec-stat-vol">300 leads al mes</span>
+              <strong class="rec-stat-money">US$ 1.500</strong>
+              <span class="rec-stat-x">5× lo que pagas</span>
+            </div>
+            <div class="rec-stat">
+              <span class="rec-stat-vol">1.000 leads al mes</span>
+              <strong class="rec-stat-money">US$ 5.000</strong>
+              <span class="rec-stat-x">18× lo que pagas</span>
+            </div>
+            <div class="rec-stat">
+              <span class="rec-stat-vol">3.000 leads al mes</span>
+              <strong class="rec-stat-money">US$ 15.000</strong>
+              <span class="rec-stat-x">54× lo que pagas</span>
+            </div>
           </div>
 
           <div class="rec-foot">
-            <p class="rec-foot-main"><strong>No es un gasto: es plata que hoy se cae sola.</strong> Con 300 leads dejas US$ 1.500 al mes sobre la mesa y el plan cuesta US$ 279. Bajo 56 leads al mes la cuenta no da y conviene que atienda tu equipo.</p>
+            <p class="rec-foot-main"><strong>No es un gasto: es plata que hoy se cae sola.</strong> Bajo 56 leads calificados al mes lo que recuperas no cubre el plan y conviene que atienda tu equipo. Sobre esa línea, cada lead que entra juega a favor.</p>
             <p class="rec-foot-note">Leads calificados × 20% × US$ 25 la evaluación; no incluye el tratamiento que salga de ella. Plan de entrada Vortex US$ 279/mes — en volúmenes altos sube a Atlas o Summit, pero sube una vez.</p>
           </div>
         </div>
