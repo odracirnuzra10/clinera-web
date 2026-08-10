@@ -2649,340 +2649,6 @@
       font-weight: 700;
     }
 
-    /* --- El dinero sobre la mesa (#recuperacion) --- */
-    .rec-layout {
-      display: grid;
-      grid-template-rows: auto minmax(0, 1fr) auto auto auto;
-      align-content: center;
-      gap: clamp(17px, 2.4vh, 28px);
-      max-width: 1080px;
-    }
-
-    .rec-head .blk-h2 {
-      max-width: 900px;
-    }
-
-    /* ---- El cruce, dibujado ----
-       Geometría de la caja: x 0→100 = 0→150 leads calificados al mes;
-       y 0→100 = US$ 750→0. La recuperación es leads × 20% × US$ 25 = 5 US$
-       por lead, o sea exactamente la diagonal. El plan (US$ 279) es la
-       horizontal en y = 62,8 y por eso el cruce cae en (37,2 · 37,2): los
-       55,8 leads al mes que redondeamos a 56. */
-    .rec-chart {
-      display: grid;
-      margin: 0;
-    }
-
-    .rc-plot {
-      position: relative;
-      height: clamp(130px, 22vh, 208px);
-    }
-
-    .rc-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .rc-loss {
-      fill: #dde0e6;
-    }
-
-    .rc-plan,
-    .rc-rec,
-    .rc-mark {
-      fill: none;
-      vector-effect: non-scaling-stroke;
-    }
-
-    .rc-plan {
-      stroke: #9ca3af;
-      stroke-width: 1.5;
-      stroke-dasharray: 6 5;
-    }
-
-    .rc-rec {
-      stroke: var(--brand-violet);
-      stroke-width: 2.5;
-    }
-
-    .rc-mark {
-      stroke: var(--brand-violet);
-      stroke-width: 1.5;
-      stroke-dasharray: 3 4;
-      opacity: .45;
-    }
-
-    /* El barrido de izquierda a derecha es el propio eje: el gráfico se dibuja
-       a medida que suben los leads y el cruce aparece justo cuando toca. */
-    .slide.active .rc-svg {
-      animation: rcWipe 1.15s var(--ease) both;
-    }
-
-    @keyframes rcWipe {
-      from { clip-path: inset(0 100% 0 0); }
-      to { clip-path: inset(0 0 0 0); }
-    }
-
-    .rc-dot {
-      position: absolute;
-      left: 37.2%;
-      top: 62.8%;
-      width: 13px;
-      height: 13px;
-      margin: -6.5px 0 0 -6.5px;
-      border: 2.5px solid #ffffff;
-      border-radius: 50%;
-      background: var(--brand-violet);
-      box-shadow: 0 0 0 1.5px var(--brand-violet);
-    }
-
-    .slide.active .rc-dot {
-      animation: rcPop .42s var(--ease) .55s both;
-    }
-
-    @keyframes rcPop {
-      from { opacity: 0; transform: scale(.2); }
-      60% { transform: scale(1.25); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* Las etiquetas se posicionan con left/top y su animación es sólo de
-       opacidad: si animaran transform perderían la posición al terminar. */
-    .rc-tag,
-    .rc-lab {
-      position: absolute;
-      font-family: var(--blk-mono);
-      letter-spacing: .07em;
-      line-height: 1.2;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .rc-tag {
-      font-size: clamp(10.5px, .92vw, 12.5px);
-      font-weight: 700;
-    }
-
-    .rc-lab {
-      color: var(--ink-soft);
-      font-size: clamp(9.5px, .78vw, 11px);
-      font-weight: 600;
-    }
-
-    .rc-cross {
-      left: 37.2%;
-      top: 1%;
-      margin-left: -68px;
-      width: 136px;
-      padding: 5px 0;
-      border-radius: var(--radius-sm);
-      color: #ffffff;
-      text-align: center;
-      background: var(--grad-ia);
-    }
-
-    .rc-plan-lab {
-      left: 1.5%;
-      top: 51%;
-    }
-
-    .rc-rec-lab {
-      left: 63%;
-      top: 8%;
-      color: var(--brand-violet);
-    }
-
-    .rc-loss-tag {
-      left: 2.5%;
-      top: 72%;
-      color: #464c58;
-    }
-
-    .rc-gain-tag {
-      left: 58%;
-      top: 45%;
-      color: var(--brand-violet);
-    }
-
-    .slide.active .rc-tag,
-    .slide.active .rc-lab {
-      animation: rcFade .5s var(--ease) both;
-    }
-
-    @keyframes rcFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .slide.active .rc-plan-lab { animation-delay: .28s; }
-    .slide.active .rc-loss-tag { animation-delay: .46s; }
-    .slide.active .rc-cross { animation-delay: .66s; }
-    .slide.active .rc-rec-lab { animation-delay: .9s; }
-    .slide.active .rc-gain-tag { animation-delay: 1.05s; }
-
-    .rc-axis {
-      position: relative;
-      height: 13px;
-      margin-top: 9px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border-sterile);
-      color: var(--ink-muted);
-      font-family: var(--blk-mono);
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .rc-axis span {
-      position: absolute;
-      top: 8px;
-      white-space: nowrap;
-    }
-
-    .rc-t0 { left: 0; }
-    .rc-t50 { left: 33.33%; transform: translateX(-50%); }
-    .rc-t100 { left: 66.67%; transform: translateX(-50%); }
-    .rc-tend { right: 0; }
-    .rc-tend-short { display: none; }
-
-    /* ---- Los tres volúmenes de referencia ---- */
-    .rec-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(14px, 2vw, 26px);
-    }
-
-    .rec-stat {
-      padding-left: clamp(14px, 1.6vw, 20px);
-      border-left: 2px solid var(--brand-violet);
-    }
-
-    .rec-stat-vol {
-      display: block;
-      color: var(--ink-soft);
-      font-family: var(--blk-mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .rec-stat-money {
-      display: block;
-      margin-top: 7px;
-      color: var(--ink);
-      font-family: var(--blk-mono);
-      font-size: clamp(24px, 2.4vw, 34px);
-      font-weight: 700;
-      letter-spacing: -.03em;
-      line-height: 1;
-    }
-
-    .rec-stat-x {
-      display: block;
-      margin-top: 7px;
-      color: var(--ink-soft);
-      font-size: 14px;
-      line-height: 1.3;
-    }
-
-    .slide.active .rec-stats-block {
-      animation: enter .64s var(--ease) 1.35s both;
-    }
-
-    /* Las dos zonas del gráfico, explicadas. El grid se parte en 37,2/62,8
-       —el mismo punto del cruce— así que cada columna cae justo debajo de
-       la zona que describe. */
-    .rec-zones {
-      display: grid;
-      grid-template-columns: 37.2fr 62.8fr;
-      gap: clamp(16px, 2vw, 26px);
-    }
-
-    .rec-zone::before {
-      content: "";
-      display: block;
-      height: 3px;
-      margin-bottom: 11px;
-      border-radius: 2px;
-      background: #cbd0d8;
-    }
-
-    .rec-zone-win::before {
-      background: var(--grad-ia);
-    }
-
-    .rec-zone-range {
-      display: block;
-      color: var(--ink-muted);
-      font-family: var(--blk-mono);
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .rec-zone-win .rec-zone-range {
-      color: var(--brand-violet);
-    }
-
-    .rec-zone p {
-      margin: 7px 0 0;
-      color: var(--ink-soft);
-      font-size: 14.5px;
-      line-height: 1.4;
-      text-wrap: pretty;
-    }
-
-    .rec-zone-win p {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .slide.active .rec-zones {
-      animation: enter .6s var(--ease) 1.15s both;
-    }
-
-    .rec-stats-block {
-      display: grid;
-      gap: clamp(10px, 1.4vh, 15px);
-    }
-
-    .rec-stats-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      color: var(--brand-violet);
-      font-family: var(--blk-mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .rec-stats-label::before {
-      content: "";
-      width: 22px;
-      height: 2px;
-      flex: 0 0 auto;
-      background: var(--grad-ia);
-    }
-
-    .rec-fine {
-      margin: 0;
-      color: var(--ink-muted);
-      font-size: 12.5px;
-      line-height: 1.5;
-      text-wrap: pretty;
-    }
-
-    .slide.active .rec-fine {
-      animation: enter .6s var(--ease) 1.5s both;
-    }
-
     /* --- Las cinco razones, una por diapositiva (#razon-1 … #razon-5) --- */
     .rzs-layout {
       display: grid;
@@ -3501,11 +3167,6 @@
       .cn-cards {
         max-width: 640px;
       }
-
-      .rec-layout {
-        grid-template-rows: auto auto auto;
-        align-content: start;
-      }
     }
 
     /* Bajo ~760px la tabla deja de ser tabla y pasa a ser una tarjeta por
@@ -3516,32 +3177,6 @@
        pisen, el eje se queda con los dos extremos y las tres cifras pasan a
        una columna. */
     @media (max-width: 760px) {
-      .rc-plot {
-        height: clamp(168px, 27vh, 230px);
-      }
-
-      .rc-rec-lab {
-        display: none;
-      }
-
-      .rc-plan-lab {
-        top: 38%;
-      }
-
-      .rc-gain-tag {
-        left: 54%;
-        top: 48%;
-      }
-
-      .rc-t50,
-      .rc-t100,
-      .rc-tend-long {
-        display: none;
-      }
-
-      .rc-tend-short {
-        display: block;
-      }
 
       /* Nueve módulos en tres columnas no entran en un teléfono. */
       .hr-grid {
@@ -3557,59 +3192,11 @@
         margin-top: 4px;
         font-size: 12.5px;
       }
-
-      .rec-zones {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .rec-stats {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
-      .rec-stat {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: baseline;
-        gap: 3px 14px;
-      }
-
-      .rec-stat-vol {
-        grid-column: 1;
-      }
-
-      .rec-stat-money {
-        grid-column: 2;
-        grid-row: 1 / span 2;
-        margin-top: 0;
-        align-self: center;
-        font-size: 26px;
-      }
-
-      .rec-stat-x {
-        grid-column: 1;
-        margin-top: 0;
-        font-size: 13px;
-      }
     }
 
     @media (max-width: 620px) {
       .blk-lead {
         font-size: 17px;
-      }
-
-      .rc-tag {
-        font-size: 10px;
-      }
-
-      .rc-lab {
-        font-size: 9.5px;
-      }
-
-      .rc-cross {
-        width: 118px;
-        margin-left: -59px;
       }
 
       .fg-cash {
@@ -3619,14 +3206,6 @@
 
       .fg-result-figure {
         font-size: 30px;
-      }
-
-      .rec-head .blk-h2 {
-        font-size: 25px;
-      }
-
-      .rec-layout {
-        gap: 16px;
       }
 
       .rzs-points {
@@ -3722,10 +3301,6 @@
       .fg-panel {
         padding: 22px;
       }
-
-      .rec-head .blk-h2 {
-        font-size: clamp(23px, 2.3vw, 33px);
-      }
     }
 
     @media (max-height: 720px) and (min-width: 961px) {
@@ -3741,14 +3316,6 @@
 
       .fg-panel {
         padding: 18px;
-      }
-
-      .rec-layout {
-        gap: 16px;
-      }
-
-      .rec-head .blk-h2 {
-        font-size: clamp(21px, 2.1vw, 29px);
       }
 
       .cn-body {
@@ -3778,36 +3345,6 @@
        1366x640: acá se aprieta lo justo para que la tabla completa siga
        entrando en pantalla sin scroll. */
     @media (max-height: 680px) and (min-width: 961px) {
-      .rec-layout {
-        gap: 9px;
-      }
-
-      .rec-head .blk-eyebrow {
-        margin-bottom: 14px;
-      }
-
-      .rec-head .blk-h2 {
-        font-size: clamp(18px, 1.75vw, 23px);
-      }
-
-      .rc-plot {
-        height: 122px;
-      }
-
-      .rc-axis {
-        margin-top: 6px;
-        padding-top: 6px;
-      }
-
-      .rec-stat-money {
-        margin-top: 5px;
-        font-size: clamp(20px, 2vw, 26px);
-      }
-
-      .rec-stat-x {
-        margin-top: 5px;
-        font-size: 12.5px;
-      }
 
       /* La fuga: la lista de checks y el panel de la cadena también aprietan. */
       .fg-copy > .fg-detail {
@@ -4112,86 +3649,6 @@
             </div>
             <p class="fg-cash">Con 300 leads al mes son <b>60 evaluaciones que nunca ocurren</b>: <b>US$ 1.500 sobre la mesa</b>, todos los meses.</p>
           </aside>
-        </div>
-      </section>
-
-      <section
-        class="slide blk"
-        id="recuperacion"
-        data-name="Lo que recuperas"
-        aria-hidden="true"
-      >
-        <div class="slide-inner rec-layout">
-          <header class="rec-head">
-            <div class="blk-eyebrow">EL DINERO SOBRE LA MESA</div>
-            <h2 class="blk-h2">Esto dejas sobre la mesa cada mes. <span class="blk-grad-text">El plan cuesta US$ 279</span>.</h2>
-          </header>
-
-          <figure class="rec-chart" aria-label="Bajo 56 leads calificados al mes lo que Clinera recupera no alcanza a cubrir los US$ 279 del plan. Sobre esa cifra lo supera, y la diferencia crece con cada lead.">
-            <div class="rc-plot">
-              <svg class="rc-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                <defs>
-                  <linearGradient id="rcGain" x1="0" y1="1" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#009fe3" stop-opacity=".13" />
-                    <stop offset="55%" stop-color="#7c3aed" stop-opacity=".2" />
-                    <stop offset="100%" stop-color="#c850c0" stop-opacity=".26" />
-                  </linearGradient>
-                </defs>
-                <polygon class="rc-loss" points="0,62.8 37.2,62.8 0,100" />
-                <polygon class="rc-gain" points="37.2,62.8 100,0 100,62.8" fill="url(#rcGain)" />
-                <line class="rc-plan" x1="0" y1="62.8" x2="100" y2="62.8" />
-                <line class="rc-mark" x1="37.2" y1="4" x2="37.2" y2="100" />
-                <polyline class="rc-rec" points="0,100 100,0" />
-              </svg>
-              <span class="rc-lab rc-plan-lab">El plan · US$ 279 al mes</span>
-              <span class="rc-lab rc-rec-lab">Lo que recuperas</span>
-              <span class="rc-tag rc-loss-tag">Acá pierdes plata</span>
-              <span class="rc-tag rc-gain-tag">Acá ganas plata</span>
-              <span class="rc-dot" aria-hidden="true"></span>
-              <span class="rc-tag rc-cross">56 leads al mes</span>
-            </div>
-            <div class="rc-axis" aria-hidden="true">
-              <span class="rc-t0">0</span>
-              <span class="rc-t50">50</span>
-              <span class="rc-t100">100</span>
-              <span class="rc-tend rc-tend-long">150 leads calificados al mes</span>
-              <span class="rc-tend rc-tend-short">150 leads/mes</span>
-            </div>
-          </figure>
-
-          <div class="rec-zones">
-            <div class="rec-zone rec-zone-lose">
-              <span class="rec-zone-range">0 a 56 leads</span>
-              <p>El costo de la IA es mayor a lo que puedes recuperar.</p>
-            </div>
-            <div class="rec-zone rec-zone-win">
-              <span class="rec-zone-range">De 56 leads en adelante</span>
-              <p>Recuperas más de lo que cuesta el plan, y la diferencia crece con cada lead.</p>
-            </div>
-          </div>
-
-          <div class="rec-stats-block">
-            <span class="rec-stats-label">Acá sí tiene sentido contratar Clinera</span>
-            <div class="rec-stats">
-              <div class="rec-stat">
-                <span class="rec-stat-vol">300 leads al mes</span>
-                <strong class="rec-stat-money">US$ 1.500</strong>
-                <span class="rec-stat-x">5× lo que pagas</span>
-              </div>
-              <div class="rec-stat">
-                <span class="rec-stat-vol">1.000 leads al mes</span>
-                <strong class="rec-stat-money">US$ 5.000</strong>
-                <span class="rec-stat-x">18× lo que pagas</span>
-              </div>
-              <div class="rec-stat">
-                <span class="rec-stat-vol">3.000 leads al mes</span>
-                <strong class="rec-stat-money">US$ 15.000</strong>
-                <span class="rec-stat-x">54× lo que pagas</span>
-              </div>
-            </div>
-          </div>
-
-          <p class="rec-fine">Leads × 20% × US$ 25, sin contar el tratamiento. Plan de entrada Vortex, US$ 279/mes.</p>
         </div>
       </section>
 
