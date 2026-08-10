@@ -2700,6 +2700,61 @@
       animation-delay: .14s;
     }
 
+    /* --- El rostro de AURA (#aura) --- */
+    .aura-face {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: clamp(20px, 2.6vh, 30px);
+    }
+
+    .aura-face img {
+      width: clamp(72px, 8.2vh, 104px);
+      height: clamp(72px, 8.2vh, 104px);
+      flex: 0 0 auto;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 12%;
+      box-shadow: 0 0 0 1px var(--border-sterile), 0 12px 30px rgba(17, 19, 24, .14);
+    }
+
+    .aura-face-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 11px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 999px;
+      color: var(--brand-mint);
+      font-family: var(--blk-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .aura-face-tag i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .slide.active .aura-face-tag i {
+      animation: auraLatido 2.2s infinite;
+    }
+
+    @keyframes auraLatido {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, .45); }
+      70% { box-shadow: 0 0 0 9px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .slide.active .aura-face {
+      animation: enter .64s var(--ease) both;
+    }
+
     /* --- Tus herramientas (#herramientas) --- */
     .hr-layout {
       display: grid;
@@ -3345,6 +3400,15 @@
        1366x640: acá se aprieta lo justo para que la tabla completa siga
        entrando en pantalla sin scroll. */
     @media (max-height: 680px) and (min-width: 961px) {
+      .aura-face {
+        margin-bottom: 14px;
+      }
+
+      .aura-face img {
+        width: 62px;
+        height: 62px;
+        border-width: 2px;
+      }
 
       /* La fuga: la lista de checks y el panel de la cadena también aprietan. */
       .fg-copy > .fg-detail {
@@ -3660,6 +3724,15 @@
       >
         <div class="slide-inner rzs-layout">
           <div class="rzs-copy">
+            <div class="aura-face">
+              <img
+                src="/agents/aura.jpg"
+                alt="AURA, la agente de IA de Clinera"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="aura-face-tag"><i aria-hidden="true"></i>En vivo</span>
+            </div>
             <div class="blk-eyebrow">TU NUEVO SOFTWARE</div>
             <h2 class="blk-h2">Te presento a <span class="blk-grad-text">AURA</span>, tu empleado digital.</h2>
             <p class="blk-lead">Responde, agenda, confirma, reagenda y cobra. Por WhatsApp y por llamada, las 24 horas.</p>
@@ -3717,7 +3790,7 @@
         <div class="slide-inner rzs-layout">
           <div class="rzs-copy">
             <div class="blk-eyebrow">CLINERA INTELLIGENCE</div>
-            <h2 class="blk-h2">Tu <span class="blk-grad-text">agente interno</span> de inteligencia artificial.</h2>
+            <h2 class="blk-h2">Clinera Intelligence, tu <span class="blk-grad-text">agente interno con IA</span>.</h2>
             <p class="blk-lead">Le preguntas a tu clínica en español y te responde con lo que realmente pasó.</p>
             <ul class="rzs-points">
               <li>Ventas, cobros, citas y tratamientos en un chat</li>
@@ -4023,7 +4096,7 @@
     (() => {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-      const slide = document.getElementById("razon-5");
+      const slide = document.getElementById("inteligencia");
       const cuerpo = slide && slide.querySelector(".agent-chat-body");
       if (!cuerpo) return;
 
