@@ -2668,9 +2668,9 @@
     /* --- El dinero sobre la mesa (#recuperacion) --- */
     .rec-layout {
       display: grid;
-      grid-template-rows: auto minmax(0, 1fr) auto auto;
+      grid-template-rows: auto minmax(0, 1fr) auto auto auto;
       align-content: center;
-      gap: clamp(16px, 2.2vh, 26px);
+      gap: clamp(17px, 2.4vh, 28px);
       max-width: 1080px;
     }
 
@@ -2905,35 +2905,98 @@
       line-height: 1.3;
     }
 
-    .slide.active .rec-stats {
-      animation: enter .64s var(--ease) 1.2s both;
+    .slide.active .rec-stats-block {
+      animation: enter .64s var(--ease) 1.35s both;
     }
 
-    .rec-foot {
-      padding: clamp(13px, 1.7vh, 19px) clamp(20px, 2.4vw, 28px);
-      border: 1px solid var(--border-sterile);
-      border-radius: var(--radius-lg);
-      background: var(--grad-ia-soft);
+    /* Las dos zonas del gráfico, explicadas. El grid se parte en 37,2/62,8
+       —el mismo punto del cruce— así que cada columna cae justo debajo de
+       la zona que describe. */
+    .rec-zones {
+      display: grid;
+      grid-template-columns: 37.2fr 62.8fr;
+      gap: clamp(16px, 2vw, 26px);
     }
 
-    .rec-foot-main {
-      margin: 0;
+    .rec-zone::before {
+      content: "";
+      display: block;
+      height: 3px;
+      margin-bottom: 11px;
+      border-radius: 2px;
+      background: #cbd0d8;
+    }
+
+    .rec-zone-win::before {
+      background: var(--grad-ia);
+    }
+
+    .rec-zone-range {
+      display: block;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .rec-zone-win .rec-zone-range {
+      color: var(--brand-violet);
+    }
+
+    .rec-zone p {
+      margin: 7px 0 0;
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      line-height: 1.4;
+      text-wrap: pretty;
+    }
+
+    .rec-zone-win p {
       color: var(--ink);
-      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .slide.active .rec-zones {
+      animation: enter .6s var(--ease) 1.15s both;
+    }
+
+    .rec-stats-block {
+      display: grid;
+      gap: clamp(10px, 1.4vh, 15px);
+    }
+
+    .rec-stats-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--brand-violet);
+      font-family: var(--blk-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .rec-stats-label::before {
+      content: "";
+      width: 22px;
+      height: 2px;
+      flex: 0 0 auto;
+      background: var(--grad-ia);
+    }
+
+    .rec-fine {
+      margin: 0;
+      color: var(--ink-muted);
+      font-size: 12.5px;
       line-height: 1.5;
       text-wrap: pretty;
     }
 
-    .rec-foot-note {
-      margin: 7px 0 0;
-      color: #6b7280;
-      font-size: 12.5px;
-      line-height: 1.55;
-      text-wrap: pretty;
-    }
-
-    .slide.active .rec-foot {
-      animation: enter .64s var(--ease) 1.35s both;
+    .slide.active .rec-fine {
+      animation: enter .6s var(--ease) 1.5s both;
     }
 
     /* --- Las cinco razones, una por diapositiva (#razon-1 … #razon-5) --- */
@@ -3782,6 +3845,11 @@
         display: block;
       }
 
+      .rec-zones {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
       .rec-stats {
         grid-template-columns: 1fr;
         gap: 10px;
@@ -3877,18 +3945,6 @@
       .fg-dots i {
         height: 18px;
       }
-
-      .rec-foot {
-        padding: 16px 18px;
-      }
-
-      .rec-foot-main {
-        font-size: 15.5px;
-      }
-
-      .rec-foot-note {
-        font-size: 13px;
-      }
     }
 
     /* ------------------------------------------------------------
@@ -3970,14 +4026,6 @@
       .rec-head .blk-h2 {
         font-size: clamp(23px, 2.3vw, 33px);
       }
-
-      .rec-foot-main {
-        font-size: 14.5px;
-      }
-
-      .rec-foot-note {
-        font-size: 12px;
-      }
     }
 
     @media (max-height: 720px) and (min-width: 961px) {
@@ -4010,19 +4058,6 @@
 
       .rec-head .blk-h2 {
         font-size: clamp(21px, 2.1vw, 29px);
-      }
-
-      .rec-foot {
-        gap: 6px;
-        padding: 12px 16px;
-      }
-
-      .rec-foot-main {
-        font-size: 14px;
-      }
-
-      .rec-foot-note {
-        font-size: 11.5px;
       }
 
       .cn-body {
@@ -4062,19 +4097,6 @@
 
       .rec-head .blk-h2 {
         font-size: clamp(18px, 1.75vw, 23px);
-      }
-
-      .rec-foot {
-        gap: 3px;
-        padding: 8px 14px;
-      }
-
-      .rec-foot-main {
-        font-size: 13px;
-      }
-
-      .rec-foot-note {
-        font-size: 11px;
       }
 
       .rc-plot {
@@ -4363,7 +4385,7 @@
           <div class="fg-copy">
             <div class="fg-head">
               <div class="blk-eyebrow">ANTES DE SEGUIR</div>
-              <h2 class="blk-h2">Tres escriben cuando ya cerraste. <span class="blk-grad-text">Dos no esperan</span>.</h2>
+              <h2 class="blk-h2">¿Sabías que <span class="blk-grad-text">el 20% de tus pacientes se pierde</span> por no responder a tiempo?</h2>
             </div>
             <div class="fg-detail">
               <span class="fg-detail-label">Clinera es para ti si:</span>
@@ -4471,28 +4493,39 @@
             </div>
           </figure>
 
-          <div class="rec-stats">
-            <div class="rec-stat">
-              <span class="rec-stat-vol">300 leads al mes</span>
-              <strong class="rec-stat-money">US$ 1.500</strong>
-              <span class="rec-stat-x">5× lo que pagas</span>
+          <div class="rec-zones">
+            <div class="rec-zone rec-zone-lose">
+              <span class="rec-zone-range">0 a 56 leads</span>
+              <p>El costo de la IA es mayor a lo que puedes recuperar.</p>
             </div>
-            <div class="rec-stat">
-              <span class="rec-stat-vol">1.000 leads al mes</span>
-              <strong class="rec-stat-money">US$ 5.000</strong>
-              <span class="rec-stat-x">18× lo que pagas</span>
-            </div>
-            <div class="rec-stat">
-              <span class="rec-stat-vol">3.000 leads al mes</span>
-              <strong class="rec-stat-money">US$ 15.000</strong>
-              <span class="rec-stat-x">54× lo que pagas</span>
+            <div class="rec-zone rec-zone-win">
+              <span class="rec-zone-range">De 56 leads en adelante</span>
+              <p>Recuperas más de lo que cuesta el plan, y la diferencia crece con cada lead.</p>
             </div>
           </div>
 
-          <div class="rec-foot">
-            <p class="rec-foot-main"><strong>No es un gasto: es plata que hoy se cae sola.</strong> Bajo 56 leads al mes conviene que atienda tu equipo; sobre esa línea, cada lead juega a favor.</p>
-            <p class="rec-foot-note">Leads × 20% × US$ 25, sin contar el tratamiento. Plan de entrada Vortex, US$ 279/mes.</p>
+          <div class="rec-stats-block">
+            <span class="rec-stats-label">Acá sí tiene sentido contratar Clinera</span>
+            <div class="rec-stats">
+              <div class="rec-stat">
+                <span class="rec-stat-vol">300 leads al mes</span>
+                <strong class="rec-stat-money">US$ 1.500</strong>
+                <span class="rec-stat-x">5× lo que pagas</span>
+              </div>
+              <div class="rec-stat">
+                <span class="rec-stat-vol">1.000 leads al mes</span>
+                <strong class="rec-stat-money">US$ 5.000</strong>
+                <span class="rec-stat-x">18× lo que pagas</span>
+              </div>
+              <div class="rec-stat">
+                <span class="rec-stat-vol">3.000 leads al mes</span>
+                <strong class="rec-stat-money">US$ 15.000</strong>
+                <span class="rec-stat-x">54× lo que pagas</span>
+              </div>
+            </div>
           </div>
+
+          <p class="rec-fine">Leads × 20% × US$ 25, sin contar el tratamiento. Plan de entrada Vortex, US$ 279/mes.</p>
         </div>
       </section>
 
