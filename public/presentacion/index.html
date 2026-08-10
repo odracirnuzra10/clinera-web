@@ -2685,23 +2685,18 @@
       display: grid;
       grid-template-rows: auto minmax(0, 1fr) auto;
       align-content: center;
-      gap: clamp(14px, 1.7vh, 20px);
-      max-width: 1180px;
-    }
-
-    .rec-head .blk-eyebrow {
-      margin-bottom: 16px;
+      gap: clamp(16px, 2.2vh, 26px);
+      max-width: 1120px;
     }
 
     .rec-head .blk-h2 {
       max-width: 900px;
-      font-size: clamp(26px, 2.7vw, 38px);
     }
 
     .rec-head .blk-lead {
-      max-width: 780px;
-      margin-top: 12px;
-      font-size: 16px;
+      max-width: 720px;
+      margin-top: 16px;
+      font-size: 17px;
     }
 
     .rec-table {
@@ -2711,18 +2706,18 @@
     }
 
     .rec-table thead th {
-      padding: 0 16px 10px 0;
+      padding: 0 16px 12px 0;
       border-bottom: 1px solid var(--ink-light);
       color: var(--ink-muted);
       font-family: var(--blk-mono);
-      font-size: 10px;
+      font-size: 10.5px;
       font-weight: 600;
       letter-spacing: .12em;
       text-transform: uppercase;
       white-space: nowrap;
     }
 
-    .rec-table .rec-tk {
+    .rec-table .rec-r {
       text-align: right;
     }
 
@@ -2733,10 +2728,10 @@
 
     .rec-table tbody th,
     .rec-table tbody td {
-      padding: clamp(7px, .95vh, 10px) 16px clamp(7px, .95vh, 10px) 0;
+      padding: clamp(11px, 1.6vh, 17px) 16px clamp(11px, 1.6vh, 17px) 0;
       border-bottom: 1px solid var(--border-sterile);
       color: var(--ink-soft);
-      font-size: 16px;
+      font-size: 17px;
       line-height: 1.3;
       vertical-align: baseline;
       white-space: nowrap;
@@ -2745,33 +2740,25 @@
     .rec-table tbody th {
       color: var(--ink);
       font-family: var(--blk-mono);
-      font-size: clamp(16px, 1.3vw, 19px);
+      font-size: clamp(19px, 1.75vw, 25px);
+      font-weight: 700;
+      letter-spacing: -.025em;
+    }
+
+    .rec-money {
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: clamp(18px, 1.5vw, 22px);
       font-weight: 700;
       letter-spacing: -.02em;
     }
 
-    /* Las tres columnas de ticket dibujan la frontera de rentabilidad en
-       diagonal: bajo el precio del plan no se paga (rec-no), entre una y tres
-       veces apenas se paga (rec-edge), de ahí para arriba el cambio se
-       justifica (rec-yes). */
-    .rec-table tbody td.rec-no {
-      color: var(--ink-light);
-      background: var(--bg-cloud);
-      font-family: var(--blk-mono);
-      font-size: .95em;
-    }
-
-    .rec-table tbody td.rec-edge {
-      color: var(--ink-soft);
-      font-family: var(--blk-mono);
-      font-size: .95em;
-    }
-
-    .rec-table tbody td.rec-yes {
+    .rec-x {
       color: var(--ink);
       font-family: var(--blk-mono);
+      font-size: clamp(18px, 1.5vw, 22px);
       font-weight: 700;
-      letter-spacing: -.01em;
+      letter-spacing: -.02em;
     }
 
     .rec-table tbody tr:last-child th,
@@ -2779,49 +2766,79 @@
       border-bottom: 0;
     }
 
-    /* Las clínicas bajo el umbral se muestran a propósito, y apagadas. */
+    /* La clínica bajo la línea va en la tabla a propósito, apagada y sobre
+       fondo gris: es la mitad del argumento. */
     .rec-under th,
     .rec-under td {
       color: var(--ink-muted);
+      background: var(--bg-cloud);
+    }
+
+    .rec-under th {
+      color: var(--ink-muted);
+    }
+
+    .rec-hand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rec-hand::before {
+      content: "";
+      width: 12px;
+      height: 1.5px;
+      flex: 0 0 auto;
+      background: currentColor;
+    }
+
+    /* El umbral, dibujado como una fila más: es lo único que el cliente
+       tiene que recordar de la tabla. */
+    .rec-line td {
+      padding: 0;
+      border-bottom: 0;
+    }
+
+    .rec-line span {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: clamp(9px, 1.2vh, 13px) 0;
+      color: var(--brand-violet);
+      font-family: var(--blk-mono);
+      font-size: clamp(11px, .95vw, 13px);
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rec-line span::before,
+    .rec-line span::after {
+      content: "";
+      height: 2px;
+      background: var(--grad-ia);
+    }
+
+    .rec-line span::before {
+      width: 34px;
+      flex: 0 0 auto;
+    }
+
+    .rec-line span::after {
+      flex: 1 1 auto;
+      opacity: .35;
     }
 
     .rec-vol-unit {
       display: none;
-    }
-
-    .rec-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px 18px;
-      margin: -2px 0;
-    }
-
-    /* Cada ítem se pinta como se pintan las celdas que describe, así que la
-       leyenda es la muestra: no hay que traducir un cuadrito de color. */
-    .rec-legend span {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 8px;
-      border-radius: var(--radius-sm);
-      font-family: var(--blk-mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-
-    .rec-legend .lg-no {
-      color: var(--ink-light);
-      background: var(--bg-cloud);
-    }
-
-    .rec-legend .lg-edge {
-      color: var(--ink-soft);
-    }
-
-    .rec-legend .lg-yes {
-      color: var(--ink);
-      font-weight: 700;
     }
 
     .slide.active .rec-table {
@@ -2830,9 +2847,7 @@
     }
 
     .rec-foot {
-      display: grid;
-      gap: 6px;
-      padding: clamp(11px, 1.4vh, 16px) clamp(18px, 2.2vw, 26px);
+      padding: clamp(13px, 1.7vh, 19px) clamp(20px, 2.4vw, 28px);
       border: 1px solid var(--border-sterile);
       border-radius: var(--radius-lg);
       background: var(--grad-ia-soft);
@@ -2841,13 +2856,13 @@
     .rec-foot-main {
       margin: 0;
       color: var(--ink);
-      font-size: 16px;
+      font-size: 17px;
       line-height: 1.5;
       text-wrap: pretty;
     }
 
     .rec-foot-note {
-      margin: 0;
+      margin: 8px 0 0;
       color: var(--ink-muted);
       font-size: 13px;
       line-height: 1.55;
@@ -3658,9 +3673,9 @@
       }
     }
 
-    /* La tabla de recuperación tiene cinco columnas: bajo ~760px deja de ser
-       una tabla y pasa a ser una tarjeta por volumen, con el encabezado de
-       cada columna repetido como etiqueta (data-label). */
+    /* Bajo ~760px la tabla deja de ser tabla y pasa a ser una tarjeta por
+       volumen, con el encabezado de cada columna repetido como etiqueta
+       (data-label). La fila del umbral queda como separador entre tarjetas. */
     @media (max-width: 760px) {
       .rec-table,
       .rec-table tbody,
@@ -3678,7 +3693,7 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px 16px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         padding: 14px 16px;
         border: 1px solid var(--border-sterile);
         border-radius: var(--radius-lg);
@@ -3699,7 +3714,7 @@
         grid-column: 1 / -1;
         padding-bottom: 12px;
         border-bottom: 1px solid var(--border-sterile);
-        font-size: 23px;
+        font-size: 25px;
       }
 
       .rec-vol-unit {
@@ -3716,7 +3731,7 @@
         display: grid;
         align-content: start;
         gap: 3px;
-        font-size: 15px;
+        font-size: 16px;
       }
 
       .rec-table tbody td::before {
@@ -3729,8 +3744,33 @@
         text-transform: uppercase;
       }
 
-      .rec-table .rec-tk {
+      .rec-table .rec-r {
         text-align: left;
+      }
+
+      /* En tarjeta el gris va en la tarjeta entera, no celda por celda. */
+      .rec-table tbody tr.rec-under {
+        background: var(--bg-cloud);
+      }
+
+      .rec-table tbody tr.rec-under th,
+      .rec-table tbody tr.rec-under td {
+        background: transparent;
+      }
+
+      .rec-table tbody tr.rec-line {
+        display: block;
+        margin-bottom: 12px;
+        padding: 0;
+        border: 0;
+      }
+
+      .rec-table tbody tr.rec-line td::before {
+        content: none;
+      }
+
+      .rec-line span {
+        white-space: normal;
       }
     }
 
@@ -3888,25 +3928,6 @@
         font-size: 15px;
       }
 
-      .rec-table thead th {
-        padding-bottom: 8px;
-      }
-
-      .rec-table tbody th,
-      .rec-table tbody td {
-        padding-top: 6px;
-        padding-bottom: 6px;
-        font-size: 14px;
-      }
-
-      .rec-table tbody th {
-        font-size: clamp(15px, 1.2vw, 18px);
-      }
-
-      .rec-legend span {
-        font-size: 9.5px;
-      }
-
       .rec-foot-main {
         font-size: 14.5px;
       }
@@ -3956,20 +3977,6 @@
       .rec-head .blk-lead {
         margin-top: 9px;
         font-size: 14px;
-      }
-
-      .rec-table tbody th {
-        font-size: clamp(14px, 1.15vw, 17px);
-      }
-
-      .rec-table tbody th,
-      .rec-table tbody td {
-        padding-top: 5px;
-        padding-bottom: 5px;
-      }
-
-      .rec-table tbody td {
-        font-size: 13px;
       }
 
       .rec-foot {
@@ -4052,16 +4059,6 @@
         font-size: 12px;
       }
 
-      .rec-legend {
-        gap: 3px 14px;
-        margin: -3px 0;
-      }
-
-      .rec-legend span {
-        padding: 1px 7px;
-        font-size: 9px;
-      }
-
       .rec-foot {
         gap: 3px;
         padding: 8px 14px;
@@ -4126,9 +4123,9 @@
               redes de clínicas.
             </h1>
             <p class="lead">
-              Si tu clínica recibe 500 leads calificados al mes, hoy pierdes cerca de 100: escriben
-              cuando ya cerraste y no esperan hasta mañana. Clinera sale a buscarlos —
-              <strong>US$ 2.500 al mes sólo en evaluaciones</strong>, sin contar un solo tratamiento
+              Si tu clínica recibe 300 leads calificados al mes, hoy pierdes 60: escriben cuando ya
+              cerraste y no esperan hasta mañana. Clinera sale a buscarlos —
+              <strong>US$ 1.500 al mes sólo en evaluaciones</strong>, sin contar un solo tratamiento
               vendido.
             </p>
           </div>
@@ -4417,8 +4414,8 @@
         <div class="slide-inner rec-layout">
           <header class="rec-head">
             <div class="blk-eyebrow">LO QUE RECUPERAS</div>
-            <h2 class="blk-h2">Más grande la clínica y más caro el ticket, <span class="blk-grad-text">más te devuelve la IA</span>.</h2>
-            <p class="blk-lead">Lo que recupera al mes de esos 2 de cada 10, según tu volumen y tu ticket de evaluación.</p>
+            <h2 class="blk-h2">Bajo cierto volumen, atiende tu equipo. <span class="blk-grad-text">Sobre él, la IA se paga sola</span>.</h2>
+            <p class="blk-lead">Lo que Clinera recupera al mes de esos 2 de cada 10, con la evaluación a US$ 25.</p>
           </header>
 
           <div class="rec-table-wrap">
@@ -4427,80 +4424,45 @@
                 <tr>
                   <th scope="col">Leads calificados al mes</th>
                   <th scope="col">Recupera</th>
-                  <th scope="col" class="rec-tk">Evaluación US$ 25</th>
-                  <th scope="col" class="rec-tk">Evaluación US$ 50</th>
-                  <th scope="col" class="rec-tk">Evaluación US$ 100</th>
+                  <th scope="col" class="rec-r">Al mes</th>
+                  <th scope="col" class="rec-r">Frente al plan</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr class="rec-under">
                   <th scope="row">20<span class="rec-vol-unit">leads calificados</span></th>
                   <td data-label="Recupera">4 evaluaciones</td>
-                  <td data-label="Eval. US$ 25" class="rec-tk rec-no">US$ 100</td>
-                  <td data-label="Eval. US$ 50" class="rec-tk rec-no">US$ 200</td>
-                  <td data-label="Eval. US$ 100" class="rec-tk rec-edge">US$ 400</td>
+                  <td data-label="Al mes" class="rec-r">US$ 100</td>
+                  <td data-label="Frente al plan" class="rec-r"><span class="rec-hand">Atiende tú</span></td>
                 </tr>
-                <tr>
-                  <th scope="row">50<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Recupera">10 evaluaciones</td>
-                  <td data-label="Eval. US$ 25" class="rec-tk rec-no">US$ 250</td>
-                  <td data-label="Eval. US$ 50" class="rec-tk rec-edge">US$ 500</td>
-                  <td data-label="Eval. US$ 100" class="rec-tk rec-yes">US$ 1.000</td>
-                </tr>
-                <tr>
-                  <th scope="row">100<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Recupera">20 evaluaciones</td>
-                  <td data-label="Eval. US$ 25" class="rec-tk rec-edge">US$ 500</td>
-                  <td data-label="Eval. US$ 50" class="rec-tk rec-yes">US$ 1.000</td>
-                  <td data-label="Eval. US$ 100" class="rec-tk rec-yes">US$ 2.000</td>
+                <tr class="rec-line">
+                  <td colspan="4"><span>56 leads al mes · acá Clinera se paga sola</span></td>
                 </tr>
                 <tr>
                   <th scope="row">300<span class="rec-vol-unit">leads calificados</span></th>
                   <td data-label="Recupera">60 evaluaciones</td>
-                  <td data-label="Eval. US$ 25" class="rec-tk rec-yes">US$ 1.500</td>
-                  <td data-label="Eval. US$ 50" class="rec-tk rec-yes">US$ 3.000</td>
-                  <td data-label="Eval. US$ 100" class="rec-tk rec-yes">US$ 6.000</td>
-                </tr>
-                <tr>
-                  <th scope="row">500<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Recupera">100 evaluaciones</td>
-                  <td data-label="Eval. US$ 25" class="rec-tk rec-yes">US$ 2.500</td>
-                  <td data-label="Eval. US$ 50" class="rec-tk rec-yes">US$ 5.000</td>
-                  <td data-label="Eval. US$ 100" class="rec-tk rec-yes">US$ 10.000</td>
+                  <td data-label="Al mes" class="rec-r"><span class="rec-money">US$ 1.500</span></td>
+                  <td data-label="Frente al plan" class="rec-r"><span class="rec-x">5×</span></td>
                 </tr>
                 <tr>
                   <th scope="row">1.000<span class="rec-vol-unit">leads calificados</span></th>
                   <td data-label="Recupera">200 evaluaciones</td>
-                  <td data-label="Eval. US$ 25" class="rec-tk rec-yes">US$ 5.000</td>
-                  <td data-label="Eval. US$ 50" class="rec-tk rec-yes">US$ 10.000</td>
-                  <td data-label="Eval. US$ 100" class="rec-tk rec-yes">US$ 20.000</td>
+                  <td data-label="Al mes" class="rec-r"><span class="rec-money">US$ 5.000</span></td>
+                  <td data-label="Frente al plan" class="rec-r"><span class="rec-x">18×</span></td>
                 </tr>
                 <tr>
                   <th scope="row">3.000<span class="rec-vol-unit">leads calificados</span></th>
                   <td data-label="Recupera">600 evaluaciones</td>
-                  <td data-label="Eval. US$ 25" class="rec-tk rec-yes">US$ 15.000</td>
-                  <td data-label="Eval. US$ 50" class="rec-tk rec-yes">US$ 30.000</td>
-                  <td data-label="Eval. US$ 100" class="rec-tk rec-yes">US$ 60.000</td>
-                </tr>
-                <tr>
-                  <th scope="row">10.000<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Recupera">2.000 evaluaciones</td>
-                  <td data-label="Eval. US$ 25" class="rec-tk rec-yes">US$ 50.000</td>
-                  <td data-label="Eval. US$ 50" class="rec-tk rec-yes">US$ 100.000</td>
-                  <td data-label="Eval. US$ 100" class="rec-tk rec-yes">US$ 200.000</td>
+                  <td data-label="Al mes" class="rec-r"><span class="rec-money">US$ 15.000</span></td>
+                  <td data-label="Frente al plan" class="rec-r"><span class="rec-x">54×</span></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div class="rec-foot">
-            <div class="rec-legend">
-              <span class="lg-no">No alcanza a pagar el plan</span>
-              <span class="lg-edge">Se paga, sin más</span>
-              <span class="lg-yes">3× el plan o más · acá conviene</span>
-            </div>
-            <p class="rec-foot-main"><strong>Dónde está tu línea:</strong> con evaluación a US$ 25 necesitas 56 leads calificados al mes para que Clinera se pague sola; a US$ 50 bastan 28; a US$ 100, sólo 14. Bajo esa línea la IA no se financia y te conviene gestionar tú.</p>
-            <p class="rec-foot-note">Recuperación = leads calificados × 20% × ticket. No incluye el tratamiento que salga de la evaluación. Plan de entrada Vortex US$ 279/mes; en volúmenes altos sube a Atlas (US$ 379), Summit (US$ 479) o corporativo — sube una vez, la recuperación crece con cada lead.</p>
+            <p class="rec-foot-main"><strong>Bajo 56 leads calificados al mes, la IA no se paga:</strong> tu equipo atiende mejor a mano y no tienes por qué cambiar nada. Sobre esa línea la cuenta se da vuelta, y cada lead que sumas la abre más.</p>
+            <p class="rec-foot-note">Recuperación = leads calificados × 20% × US$ 25 la evaluación. No incluye el tratamiento que salga de ella. Plan de entrada Vortex, US$ 279/mes.</p>
           </div>
         </div>
       </section>
