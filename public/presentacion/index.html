@@ -2451,69 +2451,8 @@
       animation-delay: .1s;
     }
 
-    /* --- Checks de calificación, dentro de #la-fuga --- */
-    .fg-detail-label {
-      display: block;
-      margin-bottom: clamp(14px, 1.8vh, 20px);
-      color: var(--ink-muted);
-      font-family: var(--blk-mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
     .fg-copy > .fg-detail {
       margin-top: clamp(22px, 3vh, 34px);
-    }
-
-    .pq-list {
-      display: grid;
-      gap: clamp(11px, 1.5vh, 16px);
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .pq-item {
-      display: grid;
-      grid-template-columns: 20px minmax(0, 1fr);
-      align-items: start;
-      gap: 13px;
-    }
-
-    .pq-check {
-      display: grid;
-      place-items: center;
-      width: 20px;
-      height: 20px;
-      margin-top: 2px;
-      color: var(--brand-violet);
-    }
-
-    .pq-check svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .pq-item-title {
-      display: block;
-      color: var(--ink);
-      font-size: clamp(15.5px, 1.25vw, 18px);
-      font-weight: 600;
-      letter-spacing: -.015em;
-      line-height: 1.4;
-      text-wrap: pretty;
-    }
-
-    .slide.active .pq-list {
-      animation: enter .64s var(--ease) both;
-      animation-delay: .16s;
     }
 
     /* --- La fuga (#la-fuga) --- */
@@ -2524,20 +2463,65 @@
       align-content: center;
       gap: clamp(44px, 5.4vw, 88px);
       max-width: 1220px;
-    }.fg-copy .blk-h2 {
+    }
+
+    .fg-copy .blk-h2,
+    .fg-copy .blk-lead {
       max-width: 540px;
     }
 
-    .fg-assumption {
+    .fg-copy .blk-lead strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* Prueba: logo del cliente y la cifra que recuperó. */
+    .fg-proof {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(16px, 1.9vw, 24px);
+      margin: 0;
+      padding: clamp(14px, 1.8vh, 19px) clamp(18px, 2vw, 24px);
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-lg);
+      background: var(--grad-ia-soft);
+    }
+
+    /* El PNG del cliente trae el tagline "Somos tu clínica" debajo de la
+       marca, que a este tamaño no se lee. El aspect-ratio recorta a la parte
+       superior del archivo —icono y logotipo— sin tener que generar otro
+       asset: cover escala por ancho y object-position deja fuera el resto. */
+    .fg-proof-logo {
       display: block;
-      margin-top: clamp(24px, 3vh, 32px);
-      padding-top: clamp(18px, 2.2vh, 24px);
-      border-top: 1px solid var(--border-sterile);
-      color: var(--ink-muted);
-      font-size: 14px;
-      line-height: 1.6;
-      max-width: 520px;
+      width: clamp(100px, 8.4vw, 116px);
+      height: auto;
+      aspect-ratio: 573 / 145;
+      object-fit: cover;
+      object-position: left top;
+    }
+
+    .fg-proof-body strong {
+      display: block;
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: clamp(16px, 1.4vw, 20px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+    }
+
+    .fg-proof-body span {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink-soft);
+      font-size: 13.5px;
+      line-height: 1.4;
       text-wrap: pretty;
+    }
+
+    .slide.active .fg-proof {
+      animation: enter .64s var(--ease) .2s both;
     }
 
     .fg-panel {
@@ -3767,7 +3751,9 @@
         grid-template-columns: 1fr;
         align-items: start;
         gap: 40px;
-      }.rzs-copy .blk-lead,
+      }
+
+    .rzs-copy .blk-lead,
       .rzs-copy .blk-h2,
       .fg-copy .blk-h2 {
         max-width: 640px;
@@ -3966,13 +3952,6 @@
     }
 
     @media (max-height: 820px) and (min-width: 961px) {
-      .pq-list {
-        gap: 22px;
-      }
-
-      .pq-item-title {
-        font-size: clamp(18px, 1.5vw, 22px);
-      }
 
       .cn-highlight {
         margin-top: 20px;
@@ -4013,12 +3992,6 @@
         font-size: 15px;
       }
 
-      .fg-assumption {
-        margin-top: 18px;
-        padding-top: 14px;
-        font-size: 12.5px;
-      }
-
       .fg-panel {
         padding: 22px;
       }
@@ -4029,9 +4002,6 @@
     }
 
     @media (max-height: 720px) and (min-width: 961px) {
-      .pq-list {
-        gap: 18px;
-      }
 
       .fg-copy .blk-h2 {
         font-size: clamp(22px, 2.2vw, 31px);
@@ -4040,12 +4010,6 @@
       .fg-copy .rzs-points {
         margin-top: 14px;
         font-size: 14px;
-      }
-
-      .fg-assumption {
-        margin-top: 14px;
-        padding-top: 12px;
-        font-size: 12px;
       }
 
       .fg-panel {
@@ -4121,23 +4085,6 @@
       /* La fuga: la lista de checks y el panel de la cadena también aprietan. */
       .fg-copy > .fg-detail {
         margin-top: 16px;
-      }
-
-      .fg-detail-label {
-        margin-bottom: 10px;
-      }
-
-      .pq-list {
-        gap: 8px;
-      }
-
-      .pq-item-title {
-        font-size: 14.5px;
-      }
-
-      .fg-assumption {
-        margin-top: 12px;
-        padding-top: 10px;
       }
     }
 
@@ -4385,31 +4332,23 @@
           <div class="fg-copy">
             <div class="fg-head">
               <div class="blk-eyebrow">ANTES DE SEGUIR</div>
-              <h2 class="blk-h2">¿Sabías que <span class="blk-grad-text">el 20% de tus pacientes se pierde</span> por no responder a tiempo?</h2>
+              <h2 class="blk-h2">¿Sabías que <span class="blk-grad-text">hasta el 20% de tus pacientes</span> se pierden por no responder a tiempo?</h2>
+              <p class="blk-lead"><strong>Clinera es para ti si</strong> sientes que pierdes pacientes por desorden, falta de organización o porque estás sobrecolapsado.</p>
             </div>
             <div class="fg-detail">
-              <span class="fg-detail-label">Clinera es para ti si:</span>
-              <ul class="pq-list">
-                <li class="pq-item">
-                  <span class="pq-check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
-                  </span>
-                  <strong class="pq-item-title">Más pacientes de los que alcanzas a gestionar</strong>
-                </li>
-                <li class="pq-item">
-                  <span class="pq-check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
-                  </span>
-                  <strong class="pq-item-title">Toda tu operación en un mismo lugar</strong>
-                </li>
-                <li class="pq-item">
-                  <span class="pq-check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m4.5 12.5 5 5L19.5 7"/></svg>
-                  </span>
-                  <strong class="pq-item-title">Equipo comercial y de marketing, y aun así no creces</strong>
-                </li>
-              </ul>
-              <span class="fg-assumption">Lead calificado: pregunta por un tratamiento y quiere agendar.</span>
+              <figure class="fg-proof">
+                <img
+                  class="fg-proof-logo"
+                  src="/presentacion/clientes/sanatorio.png"
+                  alt="Sanatorio Alemán"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption class="fg-proof-body">
+                  <strong>Casi US$ 50.000 recuperados</strong>
+                  <span>Sanatorio Alemán · primer semestre 2026</span>
+                </figcaption>
+              </figure>
             </div>
           </div>
 
