@@ -262,6 +262,11 @@
       text-wrap: pretty;
     }
 
+    .lead strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
     .hero-slide {
       display: flex;
       flex-direction: column;
@@ -2532,6 +2537,279 @@
       line-height: 1.1;
     }
 
+    /* --- La fuga (#la-fuga) --- */
+    .fg-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(330px, .98fr);
+      align-items: center;
+      align-content: center;
+      gap: clamp(44px, 5.4vw, 88px);
+      max-width: 1220px;
+    }
+
+    .fg-copy .blk-h2,
+    .fg-copy .blk-lead {
+      max-width: 540px;
+    }
+
+    .fg-assumption {
+      display: block;
+      margin-top: clamp(24px, 3vh, 32px);
+      padding-top: clamp(18px, 2.2vh, 24px);
+      border-top: 1px solid var(--border-sterile);
+      color: var(--ink-muted);
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 520px;
+      text-wrap: pretty;
+    }
+
+    .fg-panel {
+      justify-self: end;
+      width: min(100%, 470px);
+      padding: clamp(22px, 2.6vw, 30px);
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .fg-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .fg-panel-tag {
+      color: var(--brand-violet);
+    }
+
+    /* Diez filas de diez. El alto del punto va en vh —y no un aspect-ratio
+       cuadrado— para que la grilla completa entre en laptops bajas sin dejar
+       media tarjeta vacía a lo ancho. */
+    .fg-dots {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: clamp(5px, .85vh, 9px);
+    }
+
+    .fg-dots i {
+      display: block;
+      height: clamp(13px, 2.9vh, 30px);
+      border-radius: 2px;
+      background: var(--bg-steel);
+    }
+
+    .fg-dots i.lost {
+      background: var(--grad-ia);
+    }
+
+    .slide.active .fg-dots i {
+      animation: enter .5s var(--ease) both;
+    }
+
+    .slide.active .fg-dots i.lost {
+      animation-delay: .34s;
+    }
+
+    .fg-money {
+      margin-top: clamp(22px, 2.6vh, 28px);
+      padding-top: clamp(18px, 2.2vh, 24px);
+      border-top: 1px solid var(--border-sterile);
+    }
+
+    .fg-money-label {
+      display: block;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .fg-money-figure {
+      display: block;
+      margin-top: 10px;
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: clamp(24px, 2.1vw, 32px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+    }
+
+    .fg-money-note {
+      display: block;
+      margin-top: 10px;
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+
+    /* --- Lo que recuperas (#recuperacion) --- */
+    .rec-layout {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      align-content: center;
+      gap: clamp(16px, 2.1vh, 24px);
+      max-width: 1180px;
+    }
+
+    .rec-head .blk-h2 {
+      max-width: 900px;
+    }
+
+    .rec-head .blk-lead {
+      max-width: 780px;
+      margin-top: 12px;
+      font-size: 16px;
+    }
+
+    .rec-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .rec-table thead th {
+      padding: 0 16px 10px 0;
+      border-bottom: 1px solid var(--ink-light);
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rec-table thead th:last-child,
+    .rec-table tbody td:last-child {
+      padding-right: 0;
+      text-align: right;
+    }
+
+    .rec-table tbody th,
+    .rec-table tbody td {
+      padding: clamp(8px, 1.1vh, 12px) 16px clamp(8px, 1.1vh, 12px) 0;
+      border-bottom: 1px solid var(--border-sterile);
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.3;
+      vertical-align: baseline;
+      white-space: nowrap;
+    }
+
+    .rec-table tbody th {
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: clamp(18px, 1.5vw, 22px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .rec-money {
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-weight: 600;
+    }
+
+    .rec-x {
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: clamp(17px, 1.4vw, 21px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .rec-table tbody tr:last-child th,
+    .rec-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    /* La clínica chica: se muestra a propósito, y se muestra apagada. */
+    .rec-under th,
+    .rec-under td {
+      color: var(--ink-muted);
+    }
+
+    .rec-under th {
+      color: var(--ink-muted);
+    }
+
+    .rec-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 11px;
+      border: 1px solid var(--ink-light);
+      border-radius: var(--radius-sm);
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .rec-flag::before {
+      content: "";
+      width: 10px;
+      height: 1.5px;
+      flex: 0 0 auto;
+      background: currentColor;
+    }
+
+    .rec-vol-unit {
+      display: none;
+    }
+
+    .slide.active .rec-table {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .14s;
+    }
+
+    .rec-foot {
+      display: grid;
+      gap: 8px;
+      padding: clamp(14px, 1.8vh, 20px) clamp(18px, 2.2vw, 26px);
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-lg);
+      background: var(--grad-ia-soft);
+    }
+
+    .rec-foot-main {
+      margin: 0;
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .rec-foot-note {
+      margin: 0;
+      color: var(--ink-muted);
+      font-size: 13px;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+
+    .slide.active .rec-foot {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .2s;
+    }
+
     /* --- Las cinco razones, una por diapositiva (#razon-1 … #razon-5) --- */
     .rzs-layout {
       display: grid;
@@ -3296,6 +3574,7 @@
     @media (max-width: 960px) {
       .pq-layout,
       .rzs-layout,
+      .fg-layout,
       .cn-layout {
         grid-template-columns: 1fr;
         align-items: start;
@@ -3304,7 +3583,9 @@
 
       .pq-copy .blk-lead,
       .rzs-copy .blk-lead,
-      .rzs-copy .blk-h2 {
+      .rzs-copy .blk-h2,
+      .fg-copy .blk-lead,
+      .fg-copy .blk-h2 {
         max-width: 640px;
       }
 
@@ -3313,8 +3594,95 @@
         width: min(100%, 520px);
       }
 
+      .fg-panel {
+        justify-self: start;
+        width: min(100%, 520px);
+      }
+
       .cn-cards {
         max-width: 640px;
+      }
+
+      .rec-layout {
+        grid-template-rows: auto auto auto;
+        align-content: start;
+      }
+    }
+
+    /* La tabla de recuperación tiene cinco columnas: bajo ~760px deja de ser
+       una tabla y pasa a ser una tarjeta por volumen, con el encabezado de
+       cada columna repetido como etiqueta (data-label). */
+    @media (max-width: 760px) {
+      .rec-table,
+      .rec-table tbody,
+      .rec-table tr,
+      .rec-table th,
+      .rec-table td {
+        display: block;
+      }
+
+      .rec-table thead {
+        display: none;
+      }
+
+      .rec-table tbody tr {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 16px;
+        margin-bottom: 10px;
+        padding: 14px 16px;
+        border: 1px solid var(--border-sterile);
+        border-radius: var(--radius-lg);
+      }
+
+      .rec-table tbody tr:last-child {
+        margin-bottom: 0;
+      }
+
+      .rec-table tbody th,
+      .rec-table tbody td {
+        padding: 0;
+        border-bottom: 0;
+        white-space: normal;
+      }
+
+      .rec-table tbody th {
+        grid-column: 1 / -1;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border-sterile);
+        font-size: 23px;
+      }
+
+      .rec-vol-unit {
+        display: inline;
+        margin-left: 8px;
+        color: var(--ink-muted);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+
+      .rec-table tbody td {
+        display: grid;
+        align-content: start;
+        gap: 3px;
+        font-size: 15px;
+      }
+
+      .rec-table tbody td::before {
+        content: attr(data-label);
+        color: var(--ink-muted);
+        font-family: var(--blk-mono);
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+      }
+
+      .rec-table thead th:last-child,
+      .rec-table tbody td:last-child {
+        text-align: left;
       }
     }
 
@@ -3347,6 +3715,30 @@
 
       .cn-card {
         padding: 20px 22px;
+      }
+
+      .fg-dots i {
+        height: 18px;
+      }
+
+      .fg-money-note {
+        font-size: 13.5px;
+      }
+
+      .rec-head .blk-lead {
+        font-size: 15px;
+      }
+
+      .rec-foot {
+        padding: 16px 18px;
+      }
+
+      .rec-foot-main {
+        font-size: 15.5px;
+      }
+
+      .rec-foot-note {
+        font-size: 13px;
       }
     }
 
@@ -3417,11 +3809,153 @@
         font-size: 14px;
         line-height: 1.5;
       }
+
+      .fg-copy .blk-h2 {
+        font-size: clamp(24px, 2.5vw, 36px);
+      }
+
+      .fg-copy .blk-lead {
+        margin-top: 16px;
+        font-size: 16.5px;
+      }
+
+      .fg-copy .rzs-points {
+        margin-top: 18px;
+        gap: 8px;
+        font-size: 15px;
+      }
+
+      .fg-assumption {
+        margin-top: 18px;
+        padding-top: 14px;
+        font-size: 12.5px;
+      }
+
+      .fg-panel {
+        padding: 22px;
+      }
+
+      .fg-money-figure {
+        font-size: clamp(21px, 1.8vw, 27px);
+      }
+
+      .fg-money-note {
+        font-size: 13.5px;
+      }
+
+      .rec-head .blk-h2 {
+        font-size: clamp(23px, 2.3vw, 33px);
+      }
+
+      .rec-head .blk-lead {
+        margin-top: 11px;
+        font-size: 15px;
+      }
+
+      .rec-table thead th {
+        padding-bottom: 9px;
+      }
+
+      .rec-table tbody th,
+      .rec-table tbody td {
+        font-size: 14.5px;
+      }
+
+      .rec-table tbody th {
+        font-size: clamp(16px, 1.35vw, 20px);
+      }
+
+      .rec-x {
+        font-size: clamp(15px, 1.25vw, 19px);
+      }
+
+      .rec-foot-main {
+        font-size: 15px;
+      }
+
+      .rec-foot-note {
+        font-size: 12.5px;
+      }
     }
 
     @media (max-height: 720px) and (min-width: 961px) {
       .pq-list {
         gap: 18px;
+      }
+
+      .fg-copy .blk-h2 {
+        font-size: clamp(22px, 2.2vw, 31px);
+      }
+
+      .fg-copy .blk-lead {
+        margin-top: 13px;
+        font-size: 15px;
+      }
+
+      .fg-copy .rzs-points {
+        margin-top: 14px;
+        font-size: 14px;
+      }
+
+      .fg-assumption {
+        margin-top: 14px;
+        padding-top: 12px;
+        font-size: 12px;
+      }
+
+      .fg-panel {
+        padding: 18px;
+      }
+
+      .fg-money {
+        margin-top: 16px;
+        padding-top: 14px;
+      }
+
+      .fg-money-figure {
+        font-size: clamp(19px, 1.6vw, 24px);
+      }
+
+      .fg-money-note {
+        font-size: 12.5px;
+      }
+
+      .rec-layout {
+        gap: 16px;
+      }
+
+      .rec-head .blk-h2 {
+        font-size: clamp(21px, 2.1vw, 29px);
+      }
+
+      .rec-head .blk-lead {
+        margin-top: 9px;
+        font-size: 14px;
+      }
+
+      .rec-table tbody th {
+        font-size: clamp(15px, 1.25vw, 18px);
+      }
+
+      .rec-table tbody td {
+        font-size: 13.5px;
+      }
+
+      .rec-x {
+        font-size: clamp(14px, 1.15vw, 17px);
+      }
+
+      .rec-foot {
+        gap: 6px;
+        padding: 12px 16px;
+      }
+
+      .rec-foot-main {
+        font-size: 14px;
+      }
+
+      .rec-foot-note {
+        font-size: 11.5px;
       }
 
       .pq-floor {
@@ -3456,6 +3990,68 @@
       .cn-card p {
         margin-top: 6px;
         font-size: 13px;
+      }
+    }
+
+    /* Seis filas de tabla más encabezado y cierre no caben en un portátil de
+       1366x640: acá se aprieta lo justo para que la tabla completa siga
+       entrando en pantalla sin scroll. */
+    @media (max-height: 680px) and (min-width: 961px) {
+      .rec-layout {
+        gap: 11px;
+      }
+
+      .rec-head .blk-eyebrow {
+        margin-bottom: 14px;
+      }
+
+      .rec-head .blk-h2 {
+        font-size: clamp(19px, 1.9vw, 25px);
+      }
+
+      .rec-head .blk-lead {
+        margin-top: 8px;
+        font-size: 12.5px;
+      }
+
+      .rec-table thead th {
+        padding-bottom: 7px;
+      }
+
+      .rec-table tbody th,
+      .rec-table tbody td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      .rec-table tbody th {
+        font-size: clamp(14px, 1.15vw, 17px);
+      }
+
+      .rec-table tbody td {
+        font-size: 12.5px;
+      }
+
+      .rec-x {
+        font-size: clamp(13px, 1.05vw, 16px);
+      }
+
+      .rec-flag {
+        padding: 4px 9px;
+        font-size: 9.5px;
+      }
+
+      .rec-foot {
+        gap: 4px;
+        padding: 9px 14px;
+      }
+
+      .rec-foot-main {
+        font-size: 13px;
+      }
+
+      .rec-foot-note {
+        font-size: 11px;
       }
     }
 
@@ -3509,9 +4105,10 @@
               redes de clínicas.
             </h1>
             <p class="lead">
-              Mucho más que un chatbot: agenda, tratamientos, pacientes, fichas clínicas,
-              consentimientos, automatizaciones, ventas, marketing y comunicación con IA por voz y
-              texto — en un solo sistema.
+              Si tu clínica recibe 500 leads al mes, hoy pierdes cerca de 100 antes de agendarlos:
+              nadie alcanzó a responder a tiempo. Clinera sale a buscarlos —
+              <strong>US$ 2.500 al mes sólo en evaluaciones</strong>, sin contar un solo tratamiento
+              vendido.
             </p>
           </div>
 
@@ -3732,6 +4329,129 @@
               <span class="pq-floor-label">EL PISO</span>
               <span class="pq-floor-figure"><span class="blk-grad-text">500 pacientes</span> / mes</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="la-fuga"
+        data-name="La fuga"
+        aria-hidden="true"
+      >
+        <div class="slide-inner fg-layout">
+          <div class="fg-copy">
+            <div class="blk-eyebrow">EL PROBLEMA, EN NÚMEROS</div>
+            <h2 class="blk-h2">De cada 10 leads, <span class="blk-grad-text">2 nunca llegan a agendarse</span>.</h2>
+            <p class="blk-lead">No se caen porque atiendas mal. Se caen por gestión: el mensaje entra a las 22:40 y al que dijo “lo pienso” no lo vuelve a llamar nadie.</p>
+            <ul class="rzs-points">
+              <li>Escriben de noche, el domingo y en pleno horario de box</li>
+              <li>Responder cuatro horas después ya es tarde: escribieron a tres clínicas</li>
+              <li>El seguimiento existe hasta que el día se pone intenso</li>
+            </ul>
+            <span class="fg-assumption">Usamos 20% de fuga como referencia para todo lo que viene. Si tu número es mejor, mueve la tabla hacia abajo.</span>
+          </div>
+
+          <aside class="fg-panel reveal" aria-label="De cada cien leads que entran, veinte se pierden por falta de gestión">
+            <div class="fg-panel-head">
+              <span>100 leads que entran</span>
+              <span class="fg-panel-tag">20 se pierden</span>
+            </div>
+            <div class="fg-dots" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="lost"></i><i class="lost"></i>
+            </div>
+            <div class="fg-money">
+              <span class="fg-money-label">Una clínica de 500 leads al mes</span>
+              <strong class="fg-money-figure">100 evaluaciones perdidas</strong>
+              <span class="fg-money-note">Son US$ 2.500 al mes que ya pagaste en marketing y nunca entraron a un box. Al año, US$ 30.000.</span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="recuperacion"
+        data-name="Lo que recuperas"
+        aria-hidden="true"
+      >
+        <div class="slide-inner rec-layout">
+          <header class="rec-head">
+            <div class="blk-eyebrow">LO QUE RECUPERAS</div>
+            <h2 class="blk-h2">Mientras más grande tu operación, <span class="blk-grad-text">más te devuelve la IA</span>.</h2>
+            <p class="blk-lead">Ese 20% recuperado, valorizado sólo como evaluación a US$ 25 (≈ $25.000). El tratamiento que salga después no está contado en ninguna de estas cifras.</p>
+          </header>
+
+          <div class="rec-table-wrap">
+            <table class="rec-table">
+              <thead>
+                <tr>
+                  <th scope="col">Leads al mes</th>
+                  <th scope="col">Se pierden hoy (20%)</th>
+                  <th scope="col">Recuperación al mes</th>
+                  <th scope="col">Al año</th>
+                  <th scope="col">Frente al plan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="rec-under">
+                  <th scope="row">10<span class="rec-vol-unit">leads al mes</span></th>
+                  <td data-label="Se pierden">2 evaluaciones</td>
+                  <td data-label="Al mes"><span class="rec-money">US$ 50</span></td>
+                  <td data-label="Al año">US$ 600</td>
+                  <td data-label="Frente al plan"><span class="rec-flag">No te conviene</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">300<span class="rec-vol-unit">leads al mes</span></th>
+                  <td data-label="Se pierden">60 evaluaciones</td>
+                  <td data-label="Al mes"><span class="rec-money">US$ 1.500</span></td>
+                  <td data-label="Al año">US$ 18.000</td>
+                  <td data-label="Frente al plan"><span class="rec-x">5×</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">500<span class="rec-vol-unit">leads al mes</span></th>
+                  <td data-label="Se pierden">100 evaluaciones</td>
+                  <td data-label="Al mes"><span class="rec-money">US$ 2.500</span></td>
+                  <td data-label="Al año">US$ 30.000</td>
+                  <td data-label="Frente al plan"><span class="rec-x">9×</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">1.000<span class="rec-vol-unit">leads al mes</span></th>
+                  <td data-label="Se pierden">200 evaluaciones</td>
+                  <td data-label="Al mes"><span class="rec-money">US$ 5.000</span></td>
+                  <td data-label="Al año">US$ 60.000</td>
+                  <td data-label="Frente al plan"><span class="rec-x">18×</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">3.000<span class="rec-vol-unit">leads al mes</span></th>
+                  <td data-label="Se pierden">600 evaluaciones</td>
+                  <td data-label="Al mes"><span class="rec-money">US$ 15.000</span></td>
+                  <td data-label="Al año">US$ 180.000</td>
+                  <td data-label="Frente al plan"><span class="rec-x">54×</span></td>
+                </tr>
+                <tr>
+                  <th scope="row">10.000<span class="rec-vol-unit">leads al mes</span></th>
+                  <td data-label="Se pierden">2.000 evaluaciones</td>
+                  <td data-label="Al mes"><span class="rec-money">US$ 50.000</span></td>
+                  <td data-label="Al año">US$ 600.000</td>
+                  <td data-label="Frente al plan"><span class="rec-x">179×</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="rec-foot">
+            <p class="rec-foot-main"><strong>El equilibrio matemático está en 60 leads al mes:</strong> 12 evaluaciones recuperadas, US$ 300, contra US$ 279 de plan. Bajo esa línea te conviene gestionar tú. Sobre ella, cada lead que entra juega a favor.</p>
+            <p class="rec-foot-note">“Frente al plan” compara la recuperación mensual contra Vortex, US$ 279/mes. En volúmenes altos el plan sube a Atlas (US$ 379), Summit (US$ 479) o corporativo: sube una vez, mientras la recuperación crece con cada lead.</p>
           </div>
         </div>
       </section>
