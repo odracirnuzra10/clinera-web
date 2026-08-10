@@ -2676,6 +2676,19 @@
       line-height: 1;
     }
 
+    .fg-cash {
+      margin: clamp(13px, 1.7vh, 18px) 0 0;
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .fg-cash b {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
 
 
 
@@ -2685,7 +2698,7 @@
       display: grid;
       grid-template-rows: auto minmax(0, 1fr) auto;
       align-content: center;
-      gap: clamp(16px, 2.2vh, 26px);
+      gap: clamp(14px, 1.9vh, 22px);
       max-width: 1120px;
     }
 
@@ -2728,7 +2741,7 @@
 
     .rec-table tbody th,
     .rec-table tbody td {
-      padding: clamp(11px, 1.6vh, 17px) 16px clamp(11px, 1.6vh, 17px) 0;
+      padding: clamp(10px, 1.45vh, 15px) 16px clamp(10px, 1.45vh, 15px) 0;
       border-bottom: 1px solid var(--border-sterile);
       color: var(--ink-soft);
       font-size: 17px;
@@ -2774,7 +2787,8 @@
       background: var(--bg-cloud);
     }
 
-    .rec-under th {
+    .rec-under th,
+    .rec-under .rec-money {
       color: var(--ink-muted);
     }
 
@@ -3661,6 +3675,19 @@
       .fg-panel {
         justify-self: start;
         width: min(100%, 520px);
+        order: 2;
+      }
+
+      .fg-copy {
+        display: contents;
+      }
+
+      .fg-head {
+        order: 1;
+      }
+
+      .fg-detail {
+        order: 3;
       }
 
       .cn-cards {
@@ -3674,8 +3701,9 @@
     }
 
     /* Bajo ~760px la tabla deja de ser tabla y pasa a ser una tarjeta por
-       volumen, con el encabezado de cada columna repetido como etiqueta
-       (data-label). La fila del umbral queda como separador entre tarjetas. */
+       volumen: el volumen y la plata arriba, en grande y lado a lado, y los
+       dos datos de apoyo debajo. El encabezado de cada columna se repite como
+       etiqueta (data-label). La fila del umbral queda como separador. */
     @media (max-width: 760px) {
       .rec-table,
       .rec-table tbody,
@@ -3692,8 +3720,8 @@
       .rec-table tbody tr {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px 16px;
-        margin-bottom: 12px;
+        gap: 13px 14px;
+        margin-bottom: 10px;
         padding: 14px 16px;
         border: 1px solid var(--border-sterile);
         border-radius: var(--radius-lg);
@@ -3710,18 +3738,29 @@
         white-space: normal;
       }
 
+      /* Volumen y plata en la primera fila; evaluaciones y múltiplo debajo. */
       .rec-table tbody th {
-        grid-column: 1 / -1;
-        padding-bottom: 12px;
-        border-bottom: 1px solid var(--border-sterile);
-        font-size: 25px;
+        grid-area: 1 / 1;
+        font-size: 23px;
+      }
+
+      .rec-table tbody td:nth-of-type(1) {
+        grid-area: 2 / 1;
+      }
+
+      .rec-table tbody td:nth-of-type(2) {
+        grid-area: 1 / 2;
+      }
+
+      .rec-table tbody td:nth-of-type(3) {
+        grid-area: 2 / 2;
       }
 
       .rec-vol-unit {
-        display: inline;
-        margin-left: 8px;
+        display: block;
+        margin-top: 3px;
         color: var(--ink-muted);
-        font-size: 11px;
+        font-size: 9.5px;
         font-weight: 600;
         letter-spacing: .1em;
         text-transform: uppercase;
@@ -3731,7 +3770,7 @@
         display: grid;
         align-content: start;
         gap: 3px;
-        font-size: 16px;
+        font-size: 15px;
       }
 
       .rec-table tbody td::before {
@@ -3742,6 +3781,11 @@
         font-weight: 600;
         letter-spacing: .1em;
         text-transform: uppercase;
+      }
+
+      .rec-money,
+      .rec-x {
+        font-size: 21px;
       }
 
       .rec-table .rec-r {
@@ -3760,7 +3804,7 @@
 
       .rec-table tbody tr.rec-line {
         display: block;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         padding: 0;
         border: 0;
       }
@@ -3777,6 +3821,28 @@
     @media (max-width: 620px) {
       .blk-lead {
         font-size: 17px;
+      }
+
+      .fg-cash {
+        margin-top: 14px;
+        font-size: 14px;
+      }
+
+      .fg-result-figure {
+        font-size: 30px;
+      }
+
+      .rec-head .blk-h2 {
+        font-size: 25px;
+      }
+
+      .rec-layout {
+        gap: 16px;
+      }
+
+      .rec-table tbody tr {
+        gap: 11px 14px;
+        padding: 13px 15px;
       }
 
       .rzs-points {
@@ -4359,15 +4425,19 @@
       >
         <div class="slide-inner fg-layout">
           <div class="fg-copy">
-            <div class="blk-eyebrow">EL PROBLEMA, EN NÚMEROS</div>
-            <h2 class="blk-h2">Tres escriben cuando ya cerraste. <span class="blk-grad-text">Dos no esperan</span>.</h2>
-            <p class="blk-lead">De cada 10 leads calificados, 3 llegan fuera del horario de atención. Sólo uno tiene la paciencia de esperar tu respuesta al día siguiente; los otros dos escriben a la clínica de al lado y agendan ahí.</p>
-            <ul class="rzs-points">
-              <li>Entran de noche, el fin de semana y después del último box</li>
-              <li>Es cuando el paciente por fin se sentó a decidir: son los más calientes</li>
-              <li>No es un mal mes: son dos que se caen todos los días</li>
-            </ul>
-            <span class="fg-assumption">Lead calificado: el que pregunta por un tratamiento concreto y tiene intención de agendar. Las consultas sueltas no entran en este cálculo.</span>
+            <div class="fg-head">
+              <div class="blk-eyebrow">POR QUÉ SE PIERDEN</div>
+              <h2 class="blk-h2">Tres escriben cuando ya cerraste. <span class="blk-grad-text">Dos no esperan</span>.</h2>
+              <p class="blk-lead">De cada 10 leads calificados, 3 llegan fuera del horario de atención. Sólo uno espera tu respuesta al día siguiente; los otros dos escriben a la clínica de al lado y agendan ahí.</p>
+            </div>
+            <div class="fg-detail">
+              <ul class="rzs-points">
+                <li>Entran de noche, el fin de semana y después del último box</li>
+                <li>Es cuando el paciente por fin se sentó a decidir: son los más calientes</li>
+                <li>No es un mal mes: son dos que se caen todos los días</li>
+              </ul>
+              <span class="fg-assumption">Lead calificado: el que pregunta por un tratamiento concreto y tiene intención de agendar. Las consultas sueltas no entran en este cálculo.</span>
+            </div>
           </div>
 
           <aside class="fg-panel reveal" aria-label="De diez leads calificados, tres llegan fuera de horario, uno espera al día siguiente y dos se pierden">
@@ -4398,9 +4468,10 @@
             </div>
 
             <div class="fg-result">
-              <span class="fg-result-text">La fuga por gestión tardía, sobre el total de leads calificados</span>
+              <span class="fg-result-text">Se pierden por gestión tardía</span>
               <strong class="fg-result-figure blk-grad-text">20%</strong>
             </div>
+            <p class="fg-cash">En una clínica de 300 leads calificados al mes son <b>60 evaluaciones que nunca ocurren</b>. A US$ 25 cada una, <b>US$ 1.500 sobre la mesa</b>. Todos los meses.</p>
           </aside>
         </div>
       </section>
@@ -4413,9 +4484,9 @@
       >
         <div class="slide-inner rec-layout">
           <header class="rec-head">
-            <div class="blk-eyebrow">LO QUE RECUPERAS</div>
-            <h2 class="blk-h2">Bajo cierto volumen, atiende tu equipo. <span class="blk-grad-text">Sobre él, la IA se paga sola</span>.</h2>
-            <p class="blk-lead">Lo que Clinera recupera al mes de esos 2 de cada 10, con la evaluación a US$ 25.</p>
+            <div class="blk-eyebrow">EL DINERO SOBRE LA MESA</div>
+            <h2 class="blk-h2">Esto dejas sobre la mesa cada mes. <span class="blk-grad-text">El plan cuesta US$ 279</span>.</h2>
+            <p class="blk-lead">El 20% que hoy se cae, con la evaluación a US$ 25.</p>
           </header>
 
           <div class="rec-table-wrap">
@@ -4423,46 +4494,46 @@
               <thead>
                 <tr>
                   <th scope="col">Leads calificados al mes</th>
-                  <th scope="col">Recupera</th>
-                  <th scope="col" class="rec-r">Al mes</th>
-                  <th scope="col" class="rec-r">Frente al plan</th>
+                  <th scope="col">Se te caen</th>
+                  <th scope="col" class="rec-r">Sobre la mesa, al mes</th>
+                  <th scope="col" class="rec-r">Veces lo que pagas</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="rec-under">
                   <th scope="row">20<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Recupera">4 evaluaciones</td>
-                  <td data-label="Al mes" class="rec-r">US$ 100</td>
-                  <td data-label="Frente al plan" class="rec-r"><span class="rec-hand">Atiende tú</span></td>
+                  <td data-label="Se te caen">4 evaluaciones</td>
+                  <td data-label="Sobre la mesa" class="rec-r"><span class="rec-money">US$ 100</span></td>
+                  <td data-label="Veces lo que pagas" class="rec-r"><span class="rec-hand">Atiende tú</span></td>
                 </tr>
                 <tr class="rec-line">
-                  <td colspan="4"><span>56 leads al mes · acá Clinera se paga sola</span></td>
+                  <td colspan="4"><span>56 leads al mes · desde acá Clinera se paga sola</span></td>
                 </tr>
                 <tr>
                   <th scope="row">300<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Recupera">60 evaluaciones</td>
-                  <td data-label="Al mes" class="rec-r"><span class="rec-money">US$ 1.500</span></td>
-                  <td data-label="Frente al plan" class="rec-r"><span class="rec-x">5×</span></td>
+                  <td data-label="Se te caen">60 evaluaciones</td>
+                  <td data-label="Sobre la mesa" class="rec-r"><span class="rec-money">US$ 1.500</span></td>
+                  <td data-label="Veces lo que pagas" class="rec-r"><span class="rec-x">5×</span></td>
                 </tr>
                 <tr>
                   <th scope="row">1.000<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Recupera">200 evaluaciones</td>
-                  <td data-label="Al mes" class="rec-r"><span class="rec-money">US$ 5.000</span></td>
-                  <td data-label="Frente al plan" class="rec-r"><span class="rec-x">18×</span></td>
+                  <td data-label="Se te caen">200 evaluaciones</td>
+                  <td data-label="Sobre la mesa" class="rec-r"><span class="rec-money">US$ 5.000</span></td>
+                  <td data-label="Veces lo que pagas" class="rec-r"><span class="rec-x">18×</span></td>
                 </tr>
                 <tr>
                   <th scope="row">3.000<span class="rec-vol-unit">leads calificados</span></th>
-                  <td data-label="Recupera">600 evaluaciones</td>
-                  <td data-label="Al mes" class="rec-r"><span class="rec-money">US$ 15.000</span></td>
-                  <td data-label="Frente al plan" class="rec-r"><span class="rec-x">54×</span></td>
+                  <td data-label="Se te caen">600 evaluaciones</td>
+                  <td data-label="Sobre la mesa" class="rec-r"><span class="rec-money">US$ 15.000</span></td>
+                  <td data-label="Veces lo que pagas" class="rec-r"><span class="rec-x">54×</span></td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div class="rec-foot">
-            <p class="rec-foot-main"><strong>Bajo 56 leads calificados al mes, la IA no se paga:</strong> tu equipo atiende mejor a mano y no tienes por qué cambiar nada. Sobre esa línea la cuenta se da vuelta, y cada lead que sumas la abre más.</p>
-            <p class="rec-foot-note">Recuperación = leads calificados × 20% × US$ 25 la evaluación. No incluye el tratamiento que salga de ella. Plan de entrada Vortex, US$ 279/mes.</p>
+            <p class="rec-foot-main"><strong>No es un gasto: es plata que hoy se cae sola.</strong> Con 300 leads dejas US$ 1.500 al mes sobre la mesa y el plan cuesta US$ 279. Bajo 56 leads al mes la cuenta no da y conviene que atienda tu equipo.</p>
+            <p class="rec-foot-note">Leads calificados × 20% × US$ 25 la evaluación; no incluye el tratamiento que salga de ella. Plan de entrada Vortex US$ 279/mes — en volúmenes altos sube a Atlas o Summit, pero sube una vez.</p>
           </div>
         </div>
       </section>
