@@ -2649,340 +2649,6 @@
       font-weight: 700;
     }
 
-    /* --- El dinero sobre la mesa (#recuperacion) --- */
-    .rec-layout {
-      display: grid;
-      grid-template-rows: auto minmax(0, 1fr) auto auto auto;
-      align-content: center;
-      gap: clamp(17px, 2.4vh, 28px);
-      max-width: 1080px;
-    }
-
-    .rec-head .blk-h2 {
-      max-width: 900px;
-    }
-
-    /* ---- El cruce, dibujado ----
-       Geometría de la caja: x 0→100 = 0→150 leads calificados al mes;
-       y 0→100 = US$ 750→0. La recuperación es leads × 20% × US$ 25 = 5 US$
-       por lead, o sea exactamente la diagonal. El plan (US$ 279) es la
-       horizontal en y = 62,8 y por eso el cruce cae en (37,2 · 37,2): los
-       55,8 leads al mes que redondeamos a 56. */
-    .rec-chart {
-      display: grid;
-      margin: 0;
-    }
-
-    .rc-plot {
-      position: relative;
-      height: clamp(130px, 22vh, 208px);
-    }
-
-    .rc-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .rc-loss {
-      fill: #dde0e6;
-    }
-
-    .rc-plan,
-    .rc-rec,
-    .rc-mark {
-      fill: none;
-      vector-effect: non-scaling-stroke;
-    }
-
-    .rc-plan {
-      stroke: #9ca3af;
-      stroke-width: 1.5;
-      stroke-dasharray: 6 5;
-    }
-
-    .rc-rec {
-      stroke: var(--brand-violet);
-      stroke-width: 2.5;
-    }
-
-    .rc-mark {
-      stroke: var(--brand-violet);
-      stroke-width: 1.5;
-      stroke-dasharray: 3 4;
-      opacity: .45;
-    }
-
-    /* El barrido de izquierda a derecha es el propio eje: el gráfico se dibuja
-       a medida que suben los leads y el cruce aparece justo cuando toca. */
-    .slide.active .rc-svg {
-      animation: rcWipe 1.15s var(--ease) both;
-    }
-
-    @keyframes rcWipe {
-      from { clip-path: inset(0 100% 0 0); }
-      to { clip-path: inset(0 0 0 0); }
-    }
-
-    .rc-dot {
-      position: absolute;
-      left: 37.2%;
-      top: 62.8%;
-      width: 13px;
-      height: 13px;
-      margin: -6.5px 0 0 -6.5px;
-      border: 2.5px solid #ffffff;
-      border-radius: 50%;
-      background: var(--brand-violet);
-      box-shadow: 0 0 0 1.5px var(--brand-violet);
-    }
-
-    .slide.active .rc-dot {
-      animation: rcPop .42s var(--ease) .55s both;
-    }
-
-    @keyframes rcPop {
-      from { opacity: 0; transform: scale(.2); }
-      60% { transform: scale(1.25); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* Las etiquetas se posicionan con left/top y su animación es sólo de
-       opacidad: si animaran transform perderían la posición al terminar. */
-    .rc-tag,
-    .rc-lab {
-      position: absolute;
-      font-family: var(--blk-mono);
-      letter-spacing: .07em;
-      line-height: 1.2;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .rc-tag {
-      font-size: clamp(10.5px, .92vw, 12.5px);
-      font-weight: 700;
-    }
-
-    .rc-lab {
-      color: var(--ink-soft);
-      font-size: clamp(9.5px, .78vw, 11px);
-      font-weight: 600;
-    }
-
-    .rc-cross {
-      left: 37.2%;
-      top: 1%;
-      margin-left: -68px;
-      width: 136px;
-      padding: 5px 0;
-      border-radius: var(--radius-sm);
-      color: #ffffff;
-      text-align: center;
-      background: var(--grad-ia);
-    }
-
-    .rc-plan-lab {
-      left: 1.5%;
-      top: 51%;
-    }
-
-    .rc-rec-lab {
-      left: 63%;
-      top: 8%;
-      color: var(--brand-violet);
-    }
-
-    .rc-loss-tag {
-      left: 2.5%;
-      top: 72%;
-      color: #464c58;
-    }
-
-    .rc-gain-tag {
-      left: 58%;
-      top: 45%;
-      color: var(--brand-violet);
-    }
-
-    .slide.active .rc-tag,
-    .slide.active .rc-lab {
-      animation: rcFade .5s var(--ease) both;
-    }
-
-    @keyframes rcFade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .slide.active .rc-plan-lab { animation-delay: .28s; }
-    .slide.active .rc-loss-tag { animation-delay: .46s; }
-    .slide.active .rc-cross { animation-delay: .66s; }
-    .slide.active .rc-rec-lab { animation-delay: .9s; }
-    .slide.active .rc-gain-tag { animation-delay: 1.05s; }
-
-    .rc-axis {
-      position: relative;
-      height: 13px;
-      margin-top: 9px;
-      padding-top: 8px;
-      border-top: 1px solid var(--border-sterile);
-      color: var(--ink-muted);
-      font-family: var(--blk-mono);
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .rc-axis span {
-      position: absolute;
-      top: 8px;
-      white-space: nowrap;
-    }
-
-    .rc-t0 { left: 0; }
-    .rc-t50 { left: 33.33%; transform: translateX(-50%); }
-    .rc-t100 { left: 66.67%; transform: translateX(-50%); }
-    .rc-tend { right: 0; }
-    .rc-tend-short { display: none; }
-
-    /* ---- Los tres volúmenes de referencia ---- */
-    .rec-stats {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(14px, 2vw, 26px);
-    }
-
-    .rec-stat {
-      padding-left: clamp(14px, 1.6vw, 20px);
-      border-left: 2px solid var(--brand-violet);
-    }
-
-    .rec-stat-vol {
-      display: block;
-      color: var(--ink-soft);
-      font-family: var(--blk-mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .rec-stat-money {
-      display: block;
-      margin-top: 7px;
-      color: var(--ink);
-      font-family: var(--blk-mono);
-      font-size: clamp(24px, 2.4vw, 34px);
-      font-weight: 700;
-      letter-spacing: -.03em;
-      line-height: 1;
-    }
-
-    .rec-stat-x {
-      display: block;
-      margin-top: 7px;
-      color: var(--ink-soft);
-      font-size: 14px;
-      line-height: 1.3;
-    }
-
-    .slide.active .rec-stats-block {
-      animation: enter .64s var(--ease) 1.35s both;
-    }
-
-    /* Las dos zonas del gráfico, explicadas. El grid se parte en 37,2/62,8
-       —el mismo punto del cruce— así que cada columna cae justo debajo de
-       la zona que describe. */
-    .rec-zones {
-      display: grid;
-      grid-template-columns: 37.2fr 62.8fr;
-      gap: clamp(16px, 2vw, 26px);
-    }
-
-    .rec-zone::before {
-      content: "";
-      display: block;
-      height: 3px;
-      margin-bottom: 11px;
-      border-radius: 2px;
-      background: #cbd0d8;
-    }
-
-    .rec-zone-win::before {
-      background: var(--grad-ia);
-    }
-
-    .rec-zone-range {
-      display: block;
-      color: var(--ink-muted);
-      font-family: var(--blk-mono);
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .rec-zone-win .rec-zone-range {
-      color: var(--brand-violet);
-    }
-
-    .rec-zone p {
-      margin: 7px 0 0;
-      color: var(--ink-soft);
-      font-size: 14.5px;
-      line-height: 1.4;
-      text-wrap: pretty;
-    }
-
-    .rec-zone-win p {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    .slide.active .rec-zones {
-      animation: enter .6s var(--ease) 1.15s both;
-    }
-
-    .rec-stats-block {
-      display: grid;
-      gap: clamp(10px, 1.4vh, 15px);
-    }
-
-    .rec-stats-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      color: var(--brand-violet);
-      font-family: var(--blk-mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .rec-stats-label::before {
-      content: "";
-      width: 22px;
-      height: 2px;
-      flex: 0 0 auto;
-      background: var(--grad-ia);
-    }
-
-    .rec-fine {
-      margin: 0;
-      color: var(--ink-muted);
-      font-size: 12.5px;
-      line-height: 1.5;
-      text-wrap: pretty;
-    }
-
-    .slide.active .rec-fine {
-      animation: enter .6s var(--ease) 1.5s both;
-    }
-
     /* --- Las cinco razones, una por diapositiva (#razon-1 … #razon-5) --- */
     .rzs-layout {
       display: grid;
@@ -3034,7 +2700,58 @@
       animation-delay: .14s;
     }
 
-    /* ---- Ventana de producto compartida por los cinco mockups ---- */
+    /* --- Tus herramientas (#herramientas) --- */
+    .hr-layout {
+      display: grid;
+      /* auto auto y no 1fr: con 1fr el grid se estira y reparte el sobrante
+         entre las filas, separando los módulos con huecos enormes. */
+      grid-template-rows: auto auto;
+      align-content: center;
+      gap: clamp(26px, 3.8vh, 46px);
+      max-width: 1080px;
+    }
+
+    .hr-head .blk-h2 {
+      max-width: 820px;
+    }
+
+    .hr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      /* Sin start, el item se estira a la altura de la fila y la barra de la
+         izquierda queda colgando bajo el texto. */
+      align-items: start;
+      gap: clamp(26px, 4.2vh, 48px) clamp(20px, 2.6vw, 34px);
+    }
+
+    .hr-item {
+      padding-left: clamp(14px, 1.6vw, 20px);
+      border-left: 2px solid var(--brand-violet);
+    }
+
+    .hr-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(16px, 1.4vw, 20px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    .hr-item span {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink-soft);
+      font-size: 13.5px;
+      line-height: 1.4;
+      text-wrap: pretty;
+    }
+
+    .slide.active .hr-grid {
+      animation: enter .64s var(--ease) .14s both;
+    }
+
+    /* ---- Ventana de producto compartida por los mockups ---- */
     .mock {
       justify-self: end;
       width: min(100%, 500px);
@@ -3225,345 +2942,6 @@
     @keyframes mockWave {
       0%, 100% { height: 5px; }
       50% { height: 17px; }
-    }
-
-    /* ---- Flujo automático (razón 2) ---- */
-    .mock-flow {
-      display: grid;
-    }
-
-    .mock-flow-step {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 11px 2px;
-    }
-
-    .mock-flow-step + .mock-flow-step {
-      border-top: 1px solid var(--border-sterile);
-    }
-
-    .mock-flow-step b,
-    .mock-flow-step small {
-      display: block;
-    }
-
-    .mock-flow-step b {
-      color: var(--ink);
-      font-size: 13px;
-      font-weight: 650;
-      line-height: 1.25;
-    }
-
-    .mock-flow-step small {
-      margin-top: 2px;
-      color: var(--ink-muted);
-      font-size: 11px;
-      line-height: 1.3;
-    }
-
-    .mock-check {
-      display: grid;
-      flex: 0 0 auto;
-      place-items: center;
-      width: 20px;
-      height: 20px;
-      margin-left: auto;
-      color: var(--brand-mint);
-    }
-
-    .mock-check svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .slide.active .mock-check {
-      animation: mockPop .42s var(--ease) both;
-    }
-
-    @keyframes mockPop {
-      from { opacity: 0; transform: scale(.55); }
-      to { opacity: 1; transform: none; }
-    }
-
-    /* ---- Filas de morosos (razón 3) ---- */
-    .mock-row {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 9px 11px;
-      border: 1px solid var(--border-sterile);
-      border-radius: var(--radius-md);
-      background: #ffffff;
-    }
-
-    .mock-avatar {
-      display: grid;
-      flex: 0 0 auto;
-      place-items: center;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      color: var(--ink-soft);
-      background: var(--bg-steel);
-      font-family: var(--blk-mono);
-      font-size: 10px;
-      font-weight: 700;
-    }
-
-    .mock-row b,
-    .mock-row small {
-      display: block;
-    }
-
-    .mock-row b {
-      color: var(--ink);
-      font-size: 12.5px;
-      font-weight: 650;
-      line-height: 1.2;
-    }
-
-    .mock-row small {
-      margin-top: 2px;
-      color: var(--ink-muted);
-      font-size: 10.5px;
-    }
-
-    .mock-chip {
-      flex: 0 0 auto;
-      margin-left: auto;
-      padding: 4px 9px;
-      border-radius: var(--radius-sm);
-      font-family: var(--blk-mono);
-      font-size: 8.5px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .mock-chip.act {
-      color: var(--brand-violet);
-      background: #7c3aed14;
-    }
-
-    .mock-chip.done {
-      color: var(--brand-mint);
-      background: #10b98114;
-    }
-
-    .mock-total {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 3px;
-      padding-top: 11px;
-      border-top: 1px solid var(--border-sterile);
-    }
-
-    .mock-total span {
-      color: var(--ink-muted);
-      font-family: var(--blk-mono);
-      font-size: 8.5px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .mock-total b {
-      color: var(--ink);
-      font-family: var(--blk-mono);
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: -.01em;
-    }
-
-    /* ---- Mensajes por sede (razón 4) ---- */
-    .mock-sede {
-      display: flex;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .mock-sede-av {
-      display: grid;
-      flex: 0 0 auto;
-      place-items: center;
-      width: 27px;
-      height: 27px;
-      border-radius: 50%;
-      color: #ffffff;
-      font-family: var(--blk-mono);
-      font-size: 9px;
-      font-weight: 700;
-    }
-
-    .mock-sede-av.c1 { background: var(--brand-cyan); }
-    .mock-sede-av.c2 { background: var(--brand-violet); }
-    .mock-sede-av.c3 { background: var(--brand-magenta); }
-
-    .mock-sede-body {
-      min-width: 0;
-    }
-
-    .mock-sede-body span {
-      display: block;
-      color: var(--ink-muted);
-      font-family: var(--blk-mono);
-      font-size: 8px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .mock-sede-body p {
-      margin: 4px 0 0;
-      padding: 8px 11px;
-      border: 1px solid var(--border-sterile);
-      border-radius: 10px;
-      border-top-left-radius: 3px;
-      color: var(--ink);
-      background: #ffffff;
-      font-size: 13px;
-      line-height: 1.45;
-      text-wrap: pretty;
-    }
-
-    /* ---- Respuesta con gráfico (razón 5) ---- */
-    .mock-answer {
-      padding: 12px 13px 13px;
-      border: 1px solid var(--border-sterile);
-      border-radius: 12px 12px 12px 4px;
-      background: #ffffff;
-    }
-
-    .mock-ai-head {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--brand-violet);
-      font-family: var(--blk-mono);
-      font-size: 8.5px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .mock-ai-head svg {
-      width: 11px;
-      height: 11px;
-      fill: currentColor;
-    }
-
-    .mock-answer > p {
-      margin: 9px 0 0;
-      color: var(--ink);
-      font-size: 13px;
-      line-height: 1.5;
-      text-wrap: pretty;
-    }
-
-    .mock-answer b {
-      font-weight: 700;
-    }
-
-    .mock-bars {
-      display: grid;
-      gap: 8px;
-      margin-top: 12px;
-      padding-top: 11px;
-      border-top: 1px solid var(--border-sterile);
-    }
-
-    .mock-bars > div {
-      display: grid;
-      grid-template-columns: 62px minmax(0, 1fr) 44px;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .mock-bars span {
-      color: var(--ink-muted);
-      font-size: 11px;
-    }
-
-    .mock-bars b {
-      display: block;
-      height: 7px;
-      overflow: hidden;
-      border-radius: 4px;
-      background: var(--bg-steel);
-    }
-
-    .mock-bars b i {
-      display: block;
-      height: 100%;
-      border-radius: inherit;
-      background: var(--brand-violet);
-      transform-origin: left center;
-    }
-
-    .mock-bars b i.soft {
-      background: var(--ink-light);
-    }
-
-    .slide.active .mock-bars b i {
-      animation: mockGrow .85s .5s var(--ease) both;
-    }
-
-    @keyframes mockGrow {
-      from { transform: scaleX(0); }
-      to { transform: scaleX(1); }
-    }
-
-    .mock-bars small {
-      color: var(--ink);
-      font-family: var(--blk-mono);
-      font-size: 10px;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .mock-input {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 13px;
-      border-top: 1px solid var(--border-sterile);
-      background: #ffffff;
-    }
-
-    .mock-input span {
-      color: var(--ink-muted);
-      font-size: 12.5px;
-    }
-
-    .mock-input i {
-      display: grid;
-      flex: 0 0 auto;
-      place-items: center;
-      width: 26px;
-      height: 26px;
-      border-radius: var(--radius-md);
-      color: #ffffff;
-      background: var(--brand-violet);
-    }
-
-    .mock-input i svg {
-      width: 12px;
-      height: 12px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
     }
 
     /* --- La condición (#migracion) — la única sección oscura --- */
@@ -3789,11 +3167,6 @@
       .cn-cards {
         max-width: 640px;
       }
-
-      .rec-layout {
-        grid-template-rows: auto auto auto;
-        align-content: start;
-      }
     }
 
     /* Bajo ~760px la tabla deja de ser tabla y pasa a ser una tarjeta por
@@ -3804,85 +3177,26 @@
        pisen, el eje se queda con los dos extremos y las tres cifras pasan a
        una columna. */
     @media (max-width: 760px) {
-      .rc-plot {
-        height: clamp(168px, 27vh, 230px);
+
+      /* Nueve módulos en tres columnas no entran en un teléfono. */
+      .hr-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 18px;
       }
 
-      .rc-rec-lab {
-        display: none;
+      .hr-item strong {
+        font-size: 15px;
       }
 
-      .rc-plan-lab {
-        top: 38%;
-      }
-
-      .rc-gain-tag {
-        left: 54%;
-        top: 48%;
-      }
-
-      .rc-t50,
-      .rc-t100,
-      .rc-tend-long {
-        display: none;
-      }
-
-      .rc-tend-short {
-        display: block;
-      }
-
-      .rec-zones {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .rec-stats {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
-      .rec-stat {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: baseline;
-        gap: 3px 14px;
-      }
-
-      .rec-stat-vol {
-        grid-column: 1;
-      }
-
-      .rec-stat-money {
-        grid-column: 2;
-        grid-row: 1 / span 2;
-        margin-top: 0;
-        align-self: center;
-        font-size: 26px;
-      }
-
-      .rec-stat-x {
-        grid-column: 1;
-        margin-top: 0;
-        font-size: 13px;
+      .hr-item span {
+        margin-top: 4px;
+        font-size: 12.5px;
       }
     }
 
     @media (max-width: 620px) {
       .blk-lead {
         font-size: 17px;
-      }
-
-      .rc-tag {
-        font-size: 10px;
-      }
-
-      .rc-lab {
-        font-size: 9.5px;
-      }
-
-      .rc-cross {
-        width: 118px;
-        margin-left: -59px;
       }
 
       .fg-cash {
@@ -3892,14 +3206,6 @@
 
       .fg-result-figure {
         font-size: 30px;
-      }
-
-      .rec-head .blk-h2 {
-        font-size: 25px;
-      }
-
-      .rec-layout {
-        gap: 16px;
       }
 
       .rzs-points {
@@ -3995,10 +3301,6 @@
       .fg-panel {
         padding: 22px;
       }
-
-      .rec-head .blk-h2 {
-        font-size: clamp(23px, 2.3vw, 33px);
-      }
     }
 
     @media (max-height: 720px) and (min-width: 961px) {
@@ -4014,14 +3316,6 @@
 
       .fg-panel {
         padding: 18px;
-      }
-
-      .rec-layout {
-        gap: 16px;
-      }
-
-      .rec-head .blk-h2 {
-        font-size: clamp(21px, 2.1vw, 29px);
       }
 
       .cn-body {
@@ -4051,36 +3345,6 @@
        1366x640: acá se aprieta lo justo para que la tabla completa siga
        entrando en pantalla sin scroll. */
     @media (max-height: 680px) and (min-width: 961px) {
-      .rec-layout {
-        gap: 9px;
-      }
-
-      .rec-head .blk-eyebrow {
-        margin-bottom: 14px;
-      }
-
-      .rec-head .blk-h2 {
-        font-size: clamp(18px, 1.75vw, 23px);
-      }
-
-      .rc-plot {
-        height: 122px;
-      }
-
-      .rc-axis {
-        margin-top: 6px;
-        padding-top: 6px;
-      }
-
-      .rec-stat-money {
-        margin-top: 5px;
-        font-size: clamp(20px, 2vw, 26px);
-      }
-
-      .rec-stat-x {
-        margin-top: 5px;
-        font-size: 12.5px;
-      }
 
       /* La fuga: la lista de checks y el panel de la cadena también aprietan. */
       .fg-copy > .fg-detail {
@@ -4390,99 +3654,20 @@
 
       <section
         class="slide blk"
-        id="recuperacion"
-        data-name="Lo que recuperas"
-        aria-hidden="true"
-      >
-        <div class="slide-inner rec-layout">
-          <header class="rec-head">
-            <div class="blk-eyebrow">EL DINERO SOBRE LA MESA</div>
-            <h2 class="blk-h2">Esto dejas sobre la mesa cada mes. <span class="blk-grad-text">El plan cuesta US$ 279</span>.</h2>
-          </header>
-
-          <figure class="rec-chart" aria-label="Bajo 56 leads calificados al mes lo que Clinera recupera no alcanza a cubrir los US$ 279 del plan. Sobre esa cifra lo supera, y la diferencia crece con cada lead.">
-            <div class="rc-plot">
-              <svg class="rc-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                <defs>
-                  <linearGradient id="rcGain" x1="0" y1="1" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#009fe3" stop-opacity=".13" />
-                    <stop offset="55%" stop-color="#7c3aed" stop-opacity=".2" />
-                    <stop offset="100%" stop-color="#c850c0" stop-opacity=".26" />
-                  </linearGradient>
-                </defs>
-                <polygon class="rc-loss" points="0,62.8 37.2,62.8 0,100" />
-                <polygon class="rc-gain" points="37.2,62.8 100,0 100,62.8" fill="url(#rcGain)" />
-                <line class="rc-plan" x1="0" y1="62.8" x2="100" y2="62.8" />
-                <line class="rc-mark" x1="37.2" y1="4" x2="37.2" y2="100" />
-                <polyline class="rc-rec" points="0,100 100,0" />
-              </svg>
-              <span class="rc-lab rc-plan-lab">El plan · US$ 279 al mes</span>
-              <span class="rc-lab rc-rec-lab">Lo que recuperas</span>
-              <span class="rc-tag rc-loss-tag">Acá pierdes plata</span>
-              <span class="rc-tag rc-gain-tag">Acá ganas plata</span>
-              <span class="rc-dot" aria-hidden="true"></span>
-              <span class="rc-tag rc-cross">56 leads al mes</span>
-            </div>
-            <div class="rc-axis" aria-hidden="true">
-              <span class="rc-t0">0</span>
-              <span class="rc-t50">50</span>
-              <span class="rc-t100">100</span>
-              <span class="rc-tend rc-tend-long">150 leads calificados al mes</span>
-              <span class="rc-tend rc-tend-short">150 leads/mes</span>
-            </div>
-          </figure>
-
-          <div class="rec-zones">
-            <div class="rec-zone rec-zone-lose">
-              <span class="rec-zone-range">0 a 56 leads</span>
-              <p>El costo de la IA es mayor a lo que puedes recuperar.</p>
-            </div>
-            <div class="rec-zone rec-zone-win">
-              <span class="rec-zone-range">De 56 leads en adelante</span>
-              <p>Recuperas más de lo que cuesta el plan, y la diferencia crece con cada lead.</p>
-            </div>
-          </div>
-
-          <div class="rec-stats-block">
-            <span class="rec-stats-label">Acá sí tiene sentido contratar Clinera</span>
-            <div class="rec-stats">
-              <div class="rec-stat">
-                <span class="rec-stat-vol">300 leads al mes</span>
-                <strong class="rec-stat-money">US$ 1.500</strong>
-                <span class="rec-stat-x">5× lo que pagas</span>
-              </div>
-              <div class="rec-stat">
-                <span class="rec-stat-vol">1.000 leads al mes</span>
-                <strong class="rec-stat-money">US$ 5.000</strong>
-                <span class="rec-stat-x">18× lo que pagas</span>
-              </div>
-              <div class="rec-stat">
-                <span class="rec-stat-vol">3.000 leads al mes</span>
-                <strong class="rec-stat-money">US$ 15.000</strong>
-                <span class="rec-stat-x">54× lo que pagas</span>
-              </div>
-            </div>
-          </div>
-
-          <p class="rec-fine">Leads × 20% × US$ 25, sin contar el tratamiento. Plan de entrada Vortex, US$ 279/mes.</p>
-        </div>
-      </section>
-
-      <section
-        class="slide blk"
-        id="razon-1"
-        data-name="Razón 01"
+        id="aura"
+        data-name="Tu empleado digital"
         aria-hidden="true"
       >
         <div class="slide-inner rzs-layout">
           <div class="rzs-copy">
-            <div class="blk-eyebrow">RAZÓN 01 · AURA</div>
-            <h2 class="blk-h2">Crece <span class="blk-grad-text">sin subir costos</span>.</h2>
-            <p class="blk-lead">AURA responde, agenda y confirma 24/7, por WhatsApp y por llamada. El volumen sube; la planilla no.</p>
+            <div class="blk-eyebrow">TU NUEVO SOFTWARE</div>
+            <h2 class="blk-h2">Te presento a <span class="blk-grad-text">AURA</span>, tu empleado digital.</h2>
+            <p class="blk-lead">Responde, agenda, confirma, reagenda y cobra. Por WhatsApp y por llamada, las 24 horas.</p>
             <ul class="rzs-points">
-              <li>De noche, fines de semana y feriados</li>
+              <li>Atiende de noche, fines de semana y feriados</li>
+              <li>Confirma la hora sola: recepción deja de perseguir a nadie</li>
+              <li>Sale a cobrar lo pendiente hasta cerrar el pago</li>
               <li>Si la cosa se pone delicada, toma tu equipo</li>
-              <li>Sin perder una línea del historial</li>
             </ul>
           </div>
 
@@ -4525,188 +3710,14 @@
 
       <section
         class="slide blk"
-        id="razon-2"
-        data-name="Razón 02"
+        id="inteligencia"
+        data-name="Clinera Intelligence"
         aria-hidden="true"
       >
         <div class="slide-inner rzs-layout">
           <div class="rzs-copy">
-            <div class="blk-eyebrow">RAZÓN 02 · AUTOMATIZACIONES</div>
-            <h2 class="blk-h2">Automatización inteligente de <span class="blk-grad-text">recordatorios</span>.</h2>
-            <p class="blk-lead">La hora se confirma sola, sin que nadie tenga que perseguir al paciente.</p>
-            <ul class="rzs-points">
-              <li>Agenda, recordatorio y confirmación, en cadena</li>
-              <li>Ajustamos el flujo a tu proceso, no es una plantilla</li>
-              <li>Recepción vuelve a atender, no a perseguir</li>
-            </ul>
-          </div>
-
-          <aside class="mock reveal" aria-label="Flujo automático: cita agendada, recordatorio enviado y paciente confirmado">
-            <div class="mock-bar">
-              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="mock-title">Automatización · Recordatorios</span>
-            </div>
-            <div class="mock-body">
-              <div class="mock-flow">
-                <div class="mock-flow-step mock-step" style="animation-delay: .2s">
-                  <span class="mock-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg>
-                  </span>
-                  <span>
-                    <b>Cita agendada</b>
-                    <small>Jueves 15:30 · Dra. Rivas</small>
-                  </span>
-                  <span class="mock-check" style="animation-delay: .6s" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
-                  </span>
-                </div>
-                <div class="mock-flow-step mock-step" style="animation-delay: 1.2s">
-                  <span class="mock-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
-                  </span>
-                  <span>
-                    <b>Recordatorio enviado</b>
-                    <small>24 horas antes, por WhatsApp</small>
-                  </span>
-                  <span class="mock-check" style="animation-delay: 1.7s" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
-                  </span>
-                </div>
-                <div class="mock-flow-step mock-step" style="animation-delay: 2.3s">
-                  <span class="mock-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.5 1.5 2 2 4-4"/></svg>
-                  </span>
-                  <span>
-                    <b>Paciente confirma</b>
-                    <small>La hora deja de estar en riesgo</small>
-                  </span>
-                  <span class="mock-check" style="animation-delay: 2.8s" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section
-        class="slide blk"
-        id="razon-3"
-        data-name="Razón 03"
-        aria-hidden="true"
-      >
-        <div class="slide-inner rzs-layout">
-          <div class="rzs-copy">
-            <div class="blk-eyebrow">RAZÓN 03 · LIA</div>
-            <h2 class="blk-h2">Reduce la morosidad a <span class="blk-grad-text">$0</span>.</h2>
-            <p class="blk-lead">LIA detecta lo que está pendiente y sale a cobrarlo, sin que nadie se lo pida.</p>
-            <ul class="rzs-points">
-              <li>Revisa la morosidad todos los días, no una vez al mes</li>
-              <li>Llama y escribe hasta cerrar el pago</li>
-              <li>Cada gestión queda registrada</li>
-            </ul>
-          </div>
-
-          <aside class="mock reveal" aria-label="LIA detecta pacientes morosos y los contacta por llamada y WhatsApp hasta recuperar el pago">
-            <div class="mock-bar">
-              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="mock-title">LIA · Recaudación</span>
-            </div>
-            <div class="mock-body">
-              <div class="mock-row mock-step" style="animation-delay: .2s">
-                <span class="mock-avatar" aria-hidden="true">MP</span>
-                <span>
-                  <b>Marcela Pérez</b>
-                  <small>$185.000 · 34 días de mora</small>
-                </span>
-                <span class="mock-chip act">Llamando</span>
-              </div>
-              <div class="mock-row mock-step" style="animation-delay: 1s">
-                <span class="mock-avatar" aria-hidden="true">JR</span>
-                <span>
-                  <b>Javier Rojas</b>
-                  <small>$92.400 · 12 días de mora</small>
-                </span>
-                <span class="mock-chip act">WhatsApp</span>
-              </div>
-              <div class="mock-row mock-step" style="animation-delay: 1.8s">
-                <span class="mock-avatar" aria-hidden="true">CS</span>
-                <span>
-                  <b>Camila Soto</b>
-                  <small>$248.900 · pagó hace 3 min</small>
-                </span>
-                <span class="mock-chip done">Pagado</span>
-              </div>
-              <div class="mock-total mock-step" style="animation-delay: 2.6s">
-                <span>Recuperado este mes</span>
-                <b>$4.126.300</b>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section
-        class="slide blk"
-        id="razon-4"
-        data-name="Razón 04"
-        aria-hidden="true"
-      >
-        <div class="slide-inner rzs-layout">
-          <div class="rzs-copy">
-            <div class="blk-eyebrow">RAZÓN 04 · CLINERA O.S.</div>
-            <h2 class="blk-h2">Unifica todas tus <span class="blk-grad-text">sucursales</span>.</h2>
-            <p class="blk-lead">Todas tus sucursales en una sola operación, aunque sean cinco direcciones distintas.</p>
-            <ul class="rzs-points">
-              <li>Fichas, precios y agenda se configuran una vez</li>
-              <li>Un mismo criterio para todas las sedes</li>
-              <li>Crecer deja de multiplicar el desorden</li>
-            </ul>
-          </div>
-
-          <aside class="mock reveal" aria-label="Canal interno con mensajes de las sucursales Vitacura, Concón y Los Ángeles">
-            <div class="mock-bar">
-              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="mock-title">Canal interno · Todas las sedes</span>
-            </div>
-            <div class="mock-body">
-              <div class="mock-sede mock-step" style="animation-delay: .2s">
-                <span class="mock-sede-av c1" aria-hidden="true">VI</span>
-                <span class="mock-sede-body">
-                  <span>Sucursal Vitacura</span>
-                  <p>Se liberó el box 3 a las 16:00, por si alguien necesita derivar.</p>
-                </span>
-              </div>
-              <div class="mock-sede mock-step" style="animation-delay: 1.2s">
-                <span class="mock-sede-av c2" aria-hidden="true">CO</span>
-                <span class="mock-sede-body">
-                  <span>Sucursal Concón</span>
-                  <p>Perfecto, mando a una paciente de control para allá.</p>
-                </span>
-              </div>
-              <div class="mock-sede mock-step" style="animation-delay: 2.2s">
-                <span class="mock-sede-av c3" aria-hidden="true">LA</span>
-                <span class="mock-sede-body">
-                  <span>Sucursal Los Ángeles</span>
-                  <p>Nosotros ya cargamos el protocolo nuevo. Queda igual en las tres.</p>
-                </span>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section
-        class="slide blk"
-        id="razon-5"
-        data-name="Razón 05"
-        aria-hidden="true"
-      >
-        <div class="slide-inner rzs-layout">
-          <div class="rzs-copy">
-            <div class="blk-eyebrow">RAZÓN 05 · CLINERA INTELLIGENCE</div>
-            <h2 class="blk-h2">Consulta datos y <span class="blk-grad-text">toma decisiones</span>.</h2>
+            <div class="blk-eyebrow">CLINERA INTELLIGENCE</div>
+            <h2 class="blk-h2">Tu <span class="blk-grad-text">agente interno</span> de inteligencia artificial.</h2>
             <p class="blk-lead">Le preguntas a tu clínica en español y te responde con lo que realmente pasó.</p>
             <ul class="rzs-points">
               <li>Ventas, cobros, citas y tratamientos en un chat</li>
@@ -4745,6 +3756,59 @@
               </i>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="herramientas"
+        data-name="Tus herramientas"
+        aria-hidden="true"
+      >
+        <div class="slide-inner hr-layout">
+          <header class="hr-head">
+            <div class="blk-eyebrow">TUS HERRAMIENTAS</div>
+            <h2 class="blk-h2">Y todo lo demás, <span class="blk-grad-text">en el mismo sistema</span>.</h2>
+          </header>
+
+          <div class="hr-grid">
+            <div class="hr-item">
+              <strong>Agenda</strong>
+              <span>Horas, bloqueos y disponibilidad</span>
+            </div>
+            <div class="hr-item">
+              <strong>Fichas clínicas</strong>
+              <span>Historial completo del paciente</span>
+            </div>
+            <div class="hr-item">
+              <strong>Consentimientos</strong>
+              <span>Firmados y archivados</span>
+            </div>
+            <div class="hr-item">
+              <strong>Tratamientos</strong>
+              <span>Protocolos y precios</span>
+            </div>
+            <div class="hr-item">
+              <strong>Pagos y cobros</strong>
+              <span>Conciliación al día</span>
+            </div>
+            <div class="hr-item">
+              <strong>Automatizaciones</strong>
+              <span>Flujos que se disparan solos</span>
+            </div>
+            <div class="hr-item">
+              <strong>Profesionales</strong>
+              <span>Agendas, permisos y comisiones</span>
+            </div>
+            <div class="hr-item">
+              <strong>Sucursales</strong>
+              <span>Todas en una sola operación</span>
+            </div>
+            <div class="hr-item">
+              <strong>Marketing</strong>
+              <span>Campañas y difusión</span>
+            </div>
+          </div>
         </div>
       </section>
 
