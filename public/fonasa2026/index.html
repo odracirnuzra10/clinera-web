@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Telemedicina + Fonasa — Clinera · /fonasa2026</title>
-<meta name="description" content="Presentación interna Clinera.io: telemedicina + Fonasa en 5 ideas.">
+<meta name="description" content="Presentación interna Clinera.io: telemedicina + Fonasa — 4 escenarios y sus fechas.">
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23009FE3'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -588,10 +588,6 @@ video {
   position: absolute;
 }
 
-.relative {
-  position: relative;
-}
-
 .inset-x-0 {
   left: 0px;
   right: 0px;
@@ -617,6 +613,10 @@ video {
   z-index: 40;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .mt-0\.5 {
   margin-top: 0.125rem;
 }
@@ -637,12 +637,28 @@ video {
   margin-top: 4rem;
 }
 
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-2\.5 {
+  margin-top: 0.625rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
 
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.mt-7 {
+  margin-top: 1.75rem;
 }
 
 .mt-8 {
@@ -697,20 +713,16 @@ video {
   max-width: 64rem;
 }
 
+.max-w-md {
+  max-width: 28rem;
+}
+
 .shrink-0 {
   flex-shrink: 0;
 }
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.grid-cols-\[auto\2c 1fr\2c 1fr\] {
-  grid-template-columns: auto 1fr 1fr;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
 }
 
 .items-start {
@@ -735,6 +747,10 @@ video {
 
 .gap-1\.5 {
   gap: 0.375rem;
+}
+
+.gap-10 {
+  gap: 2.5rem;
 }
 
 .gap-2 {
@@ -765,14 +781,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-
-.self-end {
-  align-self: flex-end;
-}
-
-.self-center {
-  align-self: center;
 }
 
 .rounded-full {
@@ -834,6 +842,11 @@ video {
   border-top-color: rgb(0 159 227 / var(--tw-border-opacity, 1));
 }
 
+.border-t-vi {
+  --tw-border-opacity: 1;
+  border-top-color: rgb(124 92 252 / var(--tw-border-opacity, 1));
+}
+
 .bg-cy {
   --tw-bg-opacity: 1;
   background-color: rgb(0 159 227 / var(--tw-bg-opacity, 1));
@@ -872,6 +885,10 @@ video {
   padding: 1rem;
 }
 
+.p-6 {
+  padding: 1.5rem;
+}
+
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
@@ -887,14 +904,6 @@ video {
   padding-bottom: 1.25rem;
 }
 
-.pb-1 {
-  padding-bottom: 0.25rem;
-}
-
-.pr-1 {
-  padding-right: 0.25rem;
-}
-
 .text-center {
   text-align: center;
 }
@@ -903,12 +912,20 @@ video {
   font-family: Outfit, system-ui, sans-serif;
 }
 
+.text-\[clamp\(1\.2rem\2c 2\.6vw\2c 2rem\)\] {
+  font-size: clamp(1.2rem,2.6vw,2rem);
+}
+
 .text-\[clamp\(1\.3rem\2c 2\.8vw\2c 2\.2rem\)\] {
   font-size: clamp(1.3rem,2.8vw,2.2rem);
 }
 
-.text-\[clamp\(1\.4rem\2c 3vw\2c 2\.4rem\)\] {
-  font-size: clamp(1.4rem,3vw,2.4rem);
+.text-\[clamp\(2\.2rem\2c 5\.5vw\2c 4\.2rem\)\] {
+  font-size: clamp(2.2rem,5.5vw,4.2rem);
+}
+
+.text-\[clamp\(2\.3rem\2c 5\.5vw\2c 4\.4rem\)\] {
+  font-size: clamp(2.3rem,5.5vw,4.4rem);
 }
 
 .text-\[clamp\(2\.4rem\2c 6vw\2c 4\.8rem\)\] {
@@ -961,6 +978,14 @@ video {
 
 .leading-\[1\.15\] {
   line-height: 1.15;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+.leading-snug {
+  line-height: 1.375;
 }
 
 .leading-tight {
@@ -1034,17 +1059,21 @@ video {
 }
 
 @media (min-width: 768px) {
-  .md\:gap-3 {
-    gap: 0.75rem;
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-\[1\.1fr\2c 1fr\] {
+    grid-template-columns: 1.1fr 1fr;
+  }
+
+  .md\:gap-14 {
+    gap: 3.5rem;
   }
 
   .md\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-
-  .md\:pr-3 {
-    padding-right: 0.75rem;
   }
 
   .md\:text-2xl {
@@ -1105,19 +1134,6 @@ video {
     color: #6B6B6B;
   }
 
-  /* ---------- flow nodes ---------- */
-  .node {
-    background: #FFFFFF; border: 1px solid #EAEAEA; border-radius: .75rem;
-    padding: .9rem 1.3rem; text-align: left;
-  }
-  .node .nrole { display: block; margin-bottom: .15rem; font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #6B6B6B; }
-  .node .nname { font-weight: 600; font-size: 1.05rem; color: #111111; line-height: 1.2; }
-  .node-cy { border-top: 3px solid #009FE3; }
-  .node-vi { border-top: 3px solid #7C5CFC; }
-  .node-gray { border: 1.5px dashed #C9C9C6; background: #FBFBFA; }
-  .flow { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
-  .farrow { color: #B5B5B2; flex: 0 0 auto; }
-
   /* ---------- pills ---------- */
   .pill {
     display: inline-flex; align-items: center; gap: .4rem;
@@ -1128,21 +1144,17 @@ video {
   .pill-dev { background: #FBF3DB; color: #8A6D1A; }
   .pill-no  { background: #FDEBEC; color: #991B1B; }
 
-  /* ---------- 2x2 grid states ---------- */
-  .qcell {
-    position: relative; border: 1px solid #EAEAEA; border-radius: .8rem; background: #FFFFFF;
-    padding: 1.3rem 1.4rem; min-height: 8rem;
-    display: flex; flex-direction: column; justify-content: space-between; gap: .8rem;
-    transition: background-color .55s ease, border-color .55s ease, box-shadow .55s ease;
+  /* ---------- escenario: mini cuadrante ---------- */
+  .quad rect { fill: #ECECEA; }
+  .quad rect.q-on { fill: #009FE3; }
+
+  /* ---------- ilustraciones ---------- */
+  .viz {
+    border: 1px solid #EAEAEA; border-radius: 1rem; background: #FBFBFA;
+    padding: 1.5rem;
   }
-  @media (min-width: 768px) { .qcell { min-height: 10rem; padding: 1.5rem 1.7rem; } }
-  .qcell .qstate { opacity: 0; transform: scale(.85); transition: opacity .4s ease .15s, transform .4s ease .15s; align-self: flex-end; }
-  .qcell.ok  { background: #EDF3EC; border-color: #CBDCC9; }
-  .qcell.ok .qstate.s-ok { opacity: 1; transform: none; }
-  .qcell.dev { background: #FBF3DB; border-color: #E4D3A0; box-shadow: 0 0 0 3px #F6E9C4; }
-  .qcell.dev .qstate.s-dev { opacity: 1; transform: none; }
-  @keyframes cellpop { 0% { transform: scale(1); } 45% { transform: scale(1.025); } 100% { transform: scale(1); } }
-  .qcell.dev { animation: cellpop .5s ease; }
+  @media (min-width: 768px) { .viz { padding: 2rem; } }
+  .viz svg { width: 100%; height: auto; display: block; }
 
   /* ---------- chrome ---------- */
   .btn-nav {
@@ -1170,11 +1182,10 @@ video {
   /* laptops de poca altura */
   @media (max-height: 830px) {
     .frame { padding-top: 4.5rem; padding-bottom: 4rem; }
-    .qcell { min-height: 7.5rem !important; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .slide, [data-r], .qcell, .qcell .qstate, #finale { transition: none !important; animation: none !important; }
+    .slide, [data-r], #finale { transition: none !important; animation: none !important; }
     [data-r] { opacity: 1; transform: none; }
   }
 </style>
@@ -1195,7 +1206,7 @@ video {
 
 <!-- bottom chrome -->
 <footer class="fixed bottom-0 inset-x-0 z-30 flex items-center justify-between px-5 md:px-8 h-16 pointer-events-none">
-  <span id="counter" class="lbl">1 / 5</span>
+  <span id="counter" class="lbl">1 / 8</span>
   <div class="flex gap-2 pointer-events-auto">
     <button id="btnPrev" class="btn-nav" aria-label="Anterior">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
@@ -1216,7 +1227,7 @@ video {
       <span class="text-cy">Telemedicina</span> <span class="text-sub font-normal">≠</span> <span class="text-vi">Fonasa</span>
     </h1>
     <p class="bigmsg text-[clamp(1.3rem,2.8vw,2.2rem)] mt-10 max-w-3xl text-sub" data-r>
-      Lo regulatorio aparece <span class="text-ink">solo cuando la teleconsulta se paga con bono Fonasa</span>.
+      Cuatro escenarios, dos fechas. Lo regulatorio aparece <span class="text-ink">solo cuando la teleconsulta se paga con bono Fonasa</span>.
     </p>
     <div class="mt-16 flex items-center gap-3 text-sub text-xs" data-r>
       <span class="kbd">←</span><span class="kbd">→</span><span>para avanzar</span>
@@ -1224,122 +1235,233 @@ video {
   </div>
 </section>
 
-<!-- ============ 2 · Los cuatro escenarios ============ -->
+<!-- ============ 2 · Escenario 1: Presencial + Particular ============ -->
 <section class="slide">
   <div class="frame">
-    <p class="kicker" data-r>02 · Los cuatro escenarios</p>
+    <div class="grid md:grid-cols-[1.1fr,1fr] gap-10 md:gap-14 items-center">
+      <div>
+        <div class="flex items-center gap-3" data-r>
+          <svg class="quad shrink-0" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect class="q-on" x="0" y="0" width="11" height="11" rx="2.5"/><rect x="15" y="0" width="11" height="11" rx="2.5"/><rect x="0" y="15" width="11" height="11" rx="2.5"/><rect x="15" y="15" width="11" height="11" rx="2.5"/></svg>
+          <p class="kicker">Escenario 1 de 4 · Presencial + Particular</p>
+        </div>
+        <h2 class="display text-[clamp(2.3rem,5.5vw,4.4rem)] mt-6" data-r>Clinera, hoy.</h2>
+        <p class="text-sub text-lg md:text-xl mt-5 max-w-md" data-r>Agenda, ficha clínica y pago, todo dentro de Clinera. Sin requisitos extra.</p>
+        <p class="mt-7" data-r><span class="pill pill-ok">Listo</span></p>
+      </div>
+      <div class="viz" data-r>
+        <svg viewBox="0 0 360 260" role="img" aria-label="Atención presencial en la clínica">
+          <line x1="28" y1="224" x2="332" y2="224" stroke="#EAEAEA" stroke-width="2"/>
+          <path d="M44 56 h16 M52 48 v16" stroke="#7C5CFC" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="120" r="20" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <path d="M64 224 v-32 a36 36 0 0 1 72 0 v32" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <path d="M100 152 c0 12 4 18 10 20" fill="none" stroke="#009FE3" stroke-width="1.7" stroke-linecap="round"/>
+          <circle cx="116" cy="176" r="5" fill="none" stroke="#009FE3" stroke-width="1.7"/>
+          <circle cx="264" cy="126" r="18" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <path d="M230 224 v-28 a34 34 0 0 1 68 0 v28" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <rect x="148" y="158" width="68" height="9" rx="3" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <line x1="157" y1="167" x2="157" y2="224" stroke="#111111" stroke-width="1.7"/>
+          <line x1="207" y1="167" x2="207" y2="224" stroke="#111111" stroke-width="1.7"/>
+          <rect x="163" y="132" width="38" height="26" rx="3" fill="#FFFFFF" stroke="#111111" stroke-width="1.5"/>
+          <line x1="170" y1="141" x2="194" y2="141" stroke="#B5B5B2" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="170" y1="149" x2="188" y2="149" stroke="#B5B5B2" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="mt-10 max-w-4xl" data-r>
-      <div class="grid grid-cols-[auto,1fr,1fr] gap-2 md:gap-3 items-stretch">
-        <div></div>
-        <div class="lbl text-center pb-1 self-end">Particular</div>
-        <div class="lbl text-center pb-1 self-end text-vi">Fonasa</div>
+<!-- ============ 3 · Escenario 2: Presencial + Fonasa ============ -->
+<section class="slide">
+  <div class="frame">
+    <div class="grid md:grid-cols-[1.1fr,1fr] gap-10 md:gap-14 items-center">
+      <div>
+        <div class="flex items-center gap-3" data-r>
+          <svg class="quad shrink-0" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="0" y="0" width="11" height="11" rx="2.5"/><rect class="q-on" x="15" y="0" width="11" height="11" rx="2.5"/><rect x="0" y="15" width="11" height="11" rx="2.5"/><rect x="15" y="15" width="11" height="11" rx="2.5"/></svg>
+          <p class="kicker">Escenario 2 de 4 · Presencial + Fonasa</p>
+        </div>
+        <h2 class="display text-[clamp(2.3rem,5.5vw,4.4rem)] mt-6" data-r>Bono Web / Electrónico.</h2>
+        <p class="text-sub text-lg md:text-xl mt-5 max-w-md" data-r>El paciente paga su bono por la web y la venta queda con respaldo Fonasa y copago según su tramo.</p>
+        <p class="mt-7" data-r><span class="pill pill-dev">1ª semana de septiembre</span></p>
+      </div>
+      <div class="viz" data-r>
+        <svg viewBox="0 0 360 260" role="img" aria-label="Pago del bono por la web">
+          <rect x="58" y="42" width="244" height="176" rx="12" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <line x1="58" y1="74" x2="302" y2="74" stroke="#111111" stroke-width="1.7"/>
+          <circle cx="76" cy="58" r="3.5" fill="#EAEAEA"/><circle cx="88" cy="58" r="3.5" fill="#EAEAEA"/><circle cx="100" cy="58" r="3.5" fill="#EAEAEA"/>
+          <rect x="116" y="50" width="150" height="16" rx="8" fill="#FBFBFA" stroke="#EAEAEA"/>
+          <rect x="86" y="98" width="104" height="66" rx="8" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <rect x="96" y="110" width="18" height="13" rx="2.5" fill="#FBF3DB" stroke="#111111" stroke-width="1.3"/>
+          <line x1="96" y1="144" x2="150" y2="144" stroke="#B5B5B2" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="96" y1="152" x2="128" y2="152" stroke="#B5B5B2" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="238" cy="130" r="24" fill="#EDF3EC" stroke="#2F6B3C" stroke-width="1.7"/>
+          <path d="M228 130 l7 7 15 -15" fill="none" stroke="#2F6B3C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="106" y="182" width="126" height="22" rx="11" fill="#FBFBFA" stroke="#EAEAEA"/>
+          <circle cx="120" cy="193" r="4" fill="#009FE3"/>
+          <line x1="132" y1="193" x2="218" y2="193" stroke="#B5B5B2" stroke-width="2" stroke-linecap="round"/>
+          <path d="M268 196 l0 26 7 -7 5 11 6 -3 -5 -10 9 -1 z" fill="#111111"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="lbl self-center pr-1 md:pr-3" style="writing-mode:vertical-rl; transform:rotate(180deg); text-align:center;">Presencial</div>
-        <div class="qcell" data-cell="1">
-          <p class="font-semibold text-lg md:text-2xl leading-tight">Clinera</p>
-          <span class="qstate s-ok pill pill-ok">Listo</span>
+<!-- ============ 4 · Escenario 3: Telemedicina + Particular ============ -->
+<section class="slide">
+  <div class="frame">
+    <div class="grid md:grid-cols-[1.1fr,1fr] gap-10 md:gap-14 items-center">
+      <div>
+        <div class="flex items-center gap-3" data-r>
+          <svg class="quad shrink-0" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="0" y="0" width="11" height="11" rx="2.5"/><rect x="15" y="0" width="11" height="11" rx="2.5"/><rect class="q-on" x="0" y="15" width="11" height="11" rx="2.5"/><rect x="15" y="15" width="11" height="11" rx="2.5"/></svg>
+          <p class="kicker">Escenario 3 de 4 · Telemedicina + Particular</p>
         </div>
-        <div class="qcell" data-cell="2">
-          <p class="font-semibold text-lg md:text-2xl leading-tight">Bono Web / Electrónico</p>
-          <span class="qstate s-ok pill pill-ok">Listo</span>
-        </div>
+        <h2 class="display text-[clamp(2.3rem,5.5vw,4.4rem)] mt-6" data-r>Clinera + LiveKit.</h2>
+        <p class="text-sub text-lg md:text-xl mt-5 max-w-md" data-r>Teleconsulta particular con nuestra propia videollamada. No requiere certificación externa.</p>
+        <p class="mt-7" data-r><span class="pill pill-dev">1ª semana de octubre</span></p>
+      </div>
+      <div class="viz" data-r>
+        <svg viewBox="0 0 360 260" role="img" aria-label="Videollamada de teleconsulta">
+          <rect x="92" y="46" width="176" height="122" rx="10" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <rect x="104" y="58" width="152" height="98" rx="6" fill="#FBFBFA" stroke="#EAEAEA"/>
+          <circle cx="180" cy="52" r="2.5" fill="#111111"/>
+          <circle cx="180" cy="96" r="16" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <path d="M152 156 v-4 a28 28 0 0 1 56 0 v4" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <path d="M98 186 h164 l-14 -18 h-136 z" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <path d="M290 86 a26 26 0 0 1 0 36" fill="none" stroke="#009FE3" stroke-width="1.7" stroke-linecap="round"/>
+          <path d="M300 76 a40 40 0 0 1 0 56" fill="none" stroke="#009FE3" stroke-width="1.7" stroke-linecap="round" opacity=".5"/>
+          <path d="M70 86 a26 26 0 0 0 0 36" fill="none" stroke="#009FE3" stroke-width="1.7" stroke-linecap="round"/>
+          <path d="M60 76 a40 40 0 0 0 0 56" fill="none" stroke="#009FE3" stroke-width="1.7" stroke-linecap="round" opacity=".5"/>
+          <rect x="140" y="200" width="80" height="16" rx="8" fill="#FBFBFA" stroke="#EAEAEA"/>
+          <circle cx="156" cy="208" r="4" fill="#EAEAEA"/>
+          <circle cx="180" cy="208" r="4" fill="#EAEAEA"/>
+          <circle cx="204" cy="208" r="4" fill="#FDEBEC" stroke="#991B1B" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="lbl self-center pr-1 md:pr-3" style="writing-mode:vertical-rl; transform:rotate(180deg); text-align:center;">Telemedicina</div>
-        <div class="qcell" data-cell="3">
-          <p class="font-semibold text-lg md:text-2xl leading-tight">Clinera + LiveKit</p>
-          <span class="qstate s-ok pill pill-ok">Sin certificación</span>
+<!-- ============ 5 · Escenario 4: Telemedicina + Fonasa ============ -->
+<section class="slide">
+  <div class="frame">
+    <div class="grid md:grid-cols-[1.1fr,1fr] gap-10 md:gap-14 items-center">
+      <div>
+        <div class="flex items-center gap-3" data-r>
+          <svg class="quad shrink-0" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="0" y="0" width="11" height="11" rx="2.5"/><rect x="15" y="0" width="11" height="11" rx="2.5"/><rect x="0" y="15" width="11" height="11" rx="2.5"/><rect class="q-on" x="15" y="15" width="11" height="11" rx="2.5"/></svg>
+          <p class="kicker">Escenario 4 de 4 · Telemedicina + Fonasa</p>
         </div>
-        <div class="qcell" data-cell="4">
-          <p class="font-semibold text-lg md:text-2xl leading-tight">Clinera + Partner certificado</p>
-          <span class="qstate s-dev pill pill-dev">En desarrollo</span>
-        </div>
+        <h2 class="display text-[clamp(2.3rem,5.5vw,4.4rem)] mt-6" data-r>Partner certificado.</h2>
+        <p class="text-sub text-lg md:text-xl mt-5 max-w-md" data-r>El bono exige identidad verificada y plataforma certificada. Entramos con un partner; los datos vuelven a Clinera.</p>
+        <p class="mt-7" data-r><span class="pill pill-dev">1ª semana de octubre · vía partner</span></p>
+      </div>
+      <div class="viz" data-r>
+        <svg viewBox="0 0 360 260" role="img" aria-label="Verificación de identidad con huella digital">
+          <rect x="112" y="58" width="126" height="146" rx="14" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <rect x="134" y="82" width="82" height="94" rx="10" fill="#FBFBFA" stroke="#EAEAEA"/>
+          <g fill="none" stroke="#009FE3" stroke-width="1.7" stroke-linecap="round">
+            <circle cx="175" cy="128" r="10" stroke-dasharray="46 17"/>
+            <circle cx="175" cy="128" r="18" stroke-dasharray="82 31"/>
+            <circle cx="175" cy="128" r="26" stroke-dasharray="118 45"/>
+          </g>
+          <circle cx="175" cy="128" r="3" fill="#009FE3"/>
+          <line x1="142" y1="128" x2="208" y2="128" stroke="#7C5CFC" stroke-width="2" opacity=".55"/>
+          <circle cx="175" cy="190" r="4" fill="#2F6B3C"/>
+          <path d="M284 88 l22 9 v22 c0 18 -10 29 -22 35 c-12 -6 -22 -17 -22 -35 v-22 z" fill="#FFFFFF" stroke="#111111" stroke-width="1.7"/>
+          <path d="M274 118 l7 7 14 -14" fill="none" stroke="#2F6B3C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 · El producto ============ -->
+<section class="slide">
+  <div class="frame">
+    <p class="kicker" data-r>06 · El producto</p>
+    <h2 class="display text-[clamp(2.2rem,5.5vw,4.2rem)] mt-8" data-r>Tres cambios en Clinera.</h2>
+
+    <div class="mt-12 grid md:grid-cols-3 gap-4" data-r>
+      <div class="rounded-xl border border-line bg-white border-t-[3px] border-t-cy p-6">
+        <p class="lbl">Nueva Venta</p>
+        <p class="font-semibold text-lg md:text-xl mt-2 leading-snug">Comprobante Fonasa</p>
+        <p class="text-sub mt-3 leading-relaxed">Nuevo adjunto bajo Comprobantes, y tratamientos con su código de prestación Fonasa.</p>
+      </div>
+      <div class="rounded-xl border border-line bg-white border-t-[3px] border-t-cy p-6">
+        <p class="lbl">Configuración de Clínica</p>
+        <p class="font-semibold text-lg md:text-xl mt-2 leading-snug">Activar convenio</p>
+        <p class="text-sub mt-3 leading-relaxed">Selector de convenio: Fonasa (Chile) y símiles de Colombia, México y Perú.</p>
+      </div>
+      <div class="rounded-xl border border-line bg-white border-t-[3px] border-t-vi p-6">
+        <p class="lbl">Registro de Ventas</p>
+        <p class="font-semibold text-lg md:text-xl mt-2 leading-snug">Tramo A · B · C · D</p>
+        <p class="text-sub mt-3 leading-relaxed">Sección Fonasa por venta: tramo del paciente, copago Fonasa y cuánto paga el paciente.</p>
       </div>
     </div>
 
-    <p class="bigmsg text-[clamp(1.4rem,3vw,2.4rem)] mt-10 max-w-4xl" data-r>
-      Solo <strong>uno</strong> necesita hoy un proveedor certificado externo.
-    </p>
+    <p class="bigmsg text-[clamp(1.2rem,2.6vw,2rem)] mt-10 max-w-4xl" data-r>Todo se enciende con un switch por clínica: <strong>sin convenio, nada cambia</strong>.</p>
   </div>
 </section>
 
-<!-- ============ 3 · El partner ============ -->
+<!-- ============ 7 · Desarrollo técnico ============ -->
 <section class="slide">
   <div class="frame">
-    <p class="kicker" data-r>03 · El partner</p>
-    <h2 class="display text-[clamp(2.4rem,6vw,4.8rem)] mt-8" data-r>Un puente,<br>no un matrimonio.</h2>
+    <p class="kicker" data-r>07 · Desarrollo técnico</p>
+    <h2 class="display text-[clamp(2.2rem,5.5vw,4.2rem)] mt-8" data-r>Cuándo, y con qué reglas.</h2>
 
-    <div class="flow mt-12" data-r>
-      <div class="node node-cy"><span class="nname">Clinera</span></div>
-      <svg class="farrow" width="34" height="24" viewBox="0 0 34 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h26m0 0-5-5m5 5-5 5"/></svg>
-      <div class="node node-gray"><span class="nrole">Certificación prestada</span><span class="nname">Partner certificado</span></div>
-      <svg class="farrow" width="34" height="24" viewBox="0 0 34 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h26m0 0-5-5m5 5-5 5"/></svg>
-      <div class="node node-vi"><span class="nname">Fonasa</span></div>
-    </div>
-
-    <div class="mt-12 space-y-4 max-w-3xl" data-r>
-      <p class="text-xl md:text-2xl font-medium flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-cy mt-3 shrink-0"></span>Necesitamos su certificación, no su tecnología.</p>
-      <p class="text-xl md:text-2xl font-medium flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-cy mt-3 shrink-0"></span>Los datos vuelven a Clinera: una sola ficha.</p>
-      <p class="text-xl md:text-2xl font-medium flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-cy mt-3 shrink-0"></span>Gana el más fácil de reemplazar mañana.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 4 · El proyecto ============ -->
-<section class="slide">
-  <div class="frame">
-    <p class="kicker" data-r>04 · El proyecto</p>
-    <h2 class="display text-[clamp(2.4rem,6vw,4.8rem)] mt-8" data-r>Un mes para construirlo.</h2>
-    <p class="text-sub text-lg md:text-xl mt-6" data-r>Nicolás Agurto · 11 ago → 11 sep · 8 issues en Linear</p>
-
-    <div class="mt-12 hidden sm:flex gap-1.5 items-stretch max-w-5xl" data-r>
-      <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-cy p-4" style="flex-grow:8">
-        <p class="lbl">11–18 ago</p>
-        <p class="font-semibold text-base md:text-lg mt-1 leading-tight">Investigación</p>
+    <div class="mt-10 hidden sm:flex gap-1.5 items-stretch max-w-5xl" data-r>
+      <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-cy p-4" style="flex-grow:7">
+        <p class="lbl">11 ago – 4 sep</p>
+        <p class="font-semibold text-base md:text-lg mt-1 leading-tight">Construcción Fonasa presencial</p>
+      </div>
+      <div class="rounded-lg border border-line bg-okbg border-t-[3px] border-t-[#7FA982] p-4" style="flex-grow:3">
+        <p class="lbl">1ª sem sept</p>
+        <p class="font-semibold text-base md:text-lg mt-1 leading-tight">Sale Presencial + Fonasa</p>
       </div>
       <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-cy p-4" style="flex-grow:7">
-        <p class="lbl">19–25 ago</p>
-        <p class="font-semibold text-base md:text-lg mt-1 leading-tight">Selección</p>
+        <p class="lbl">sept – oct</p>
+        <p class="font-semibold text-base md:text-lg mt-1 leading-tight">Construcción telemedicina</p>
       </div>
-      <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-cy p-4" style="flex-grow:11">
-        <p class="lbl">26 ago – 5 sep</p>
-        <p class="font-semibold text-base md:text-lg mt-1 leading-tight">Construcción</p>
-      </div>
-      <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-[#7FA982] p-4" style="flex-grow:4">
-        <p class="lbl">8–11 sep</p>
-        <p class="font-semibold text-base md:text-lg mt-1 leading-tight">QA</p>
+      <div class="rounded-lg border border-line bg-okbg border-t-[3px] border-t-[#7FA982] p-4" style="flex-grow:3">
+        <p class="lbl">1ª sem oct</p>
+        <p class="font-semibold text-base md:text-lg mt-1 leading-tight">Sale Telemedicina</p>
       </div>
     </div>
 
-    <div class="mt-10 sm:hidden space-y-2" data-r>
-      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-cy"><p class="lbl">11–18 ago</p><p class="font-semibold mt-0.5">Investigación</p></div>
-      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-cy"><p class="lbl">19–25 ago</p><p class="font-semibold mt-0.5">Selección</p></div>
-      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-cy"><p class="lbl">26 ago – 5 sep</p><p class="font-semibold mt-0.5">Construcción</p></div>
-      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-[#7FA982]"><p class="lbl">8–11 sep</p><p class="font-semibold mt-0.5">QA</p></div>
+    <div class="mt-8 sm:hidden space-y-2" data-r>
+      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-cy"><p class="lbl">11 ago – 4 sep</p><p class="font-semibold mt-0.5">Construcción Fonasa presencial</p></div>
+      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-[#7FA982]"><p class="lbl">1ª sem sept</p><p class="font-semibold mt-0.5">Sale Presencial + Fonasa</p></div>
+      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-cy"><p class="lbl">sept – oct</p><p class="font-semibold mt-0.5">Construcción telemedicina</p></div>
+      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-[#7FA982]"><p class="lbl">1ª sem oct</p><p class="font-semibold mt-0.5">Sale Telemedicina</p></div>
     </div>
 
-    <p class="bigmsg text-[clamp(1.3rem,2.8vw,2.2rem)] mt-12 max-w-4xl" data-r>La meta: habilitar a Comercial el 11 de septiembre.</p>
+    <div class="mt-10 max-w-3xl" data-r>
+      <p class="lbl mb-4">Qué debe considerar el desarrollo</p>
+      <div class="space-y-4">
+        <p class="text-lg md:text-xl font-medium flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-cy mt-2.5 shrink-0"></span>Aranceles según prestación y tramo (A, B, C y D), actualizables sin deploy.</p>
+        <p class="text-lg md:text-xl font-medium flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-cy mt-2.5 shrink-0"></span>Registro de bonos: folio, montos y comprobante en cada venta.</p>
+        <p class="text-lg md:text-xl font-medium flex items-start gap-3"><span class="w-2 h-2 rounded-full bg-cy mt-2.5 shrink-0"></span>Conexión con IA: a cuánto asciende lo que cubre Fonasa y cuánto es el monto real — siempre desde el motor de aranceles, nunca inventado.</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ============ 5 · Para Comercial ============ -->
+<!-- ============ 8 · Para Comercial ============ -->
 <section class="slide" id="slideFinal">
   <div class="frame">
-    <p class="kicker" data-r>05 · Para Comercial</p>
+    <p class="kicker" data-r>08 · Para Comercial</p>
     <h2 class="display text-[clamp(2.4rem,6vw,4.8rem)] mt-8" data-r>Qué vender hoy.</h2>
 
     <div class="mt-12 space-y-3 max-w-4xl" data-r>
       <div class="flex items-center justify-between gap-4 rounded-xl border border-[#CBDCC9] bg-okbg px-6 py-5">
-        <p class="font-semibold text-xl md:text-2xl leading-tight">Presencial + Fonasa</p>
-        <span class="pill pill-ok">Verde</span>
-      </div>
-      <div class="flex items-center justify-between gap-4 rounded-xl border border-[#CBDCC9] bg-okbg px-6 py-5">
-        <p class="font-semibold text-xl md:text-2xl leading-tight">Telemedicina particular en Clinera</p>
-        <span class="pill pill-ok">Verde</span>
+        <p class="font-semibold text-xl md:text-2xl leading-tight">Presencial particular</p>
+        <span class="pill pill-ok">Verde hoy</span>
       </div>
       <div class="flex items-center justify-between gap-4 rounded-xl border border-[#E4D3A0] bg-devbg px-6 py-5">
-        <p class="font-semibold text-xl md:text-2xl leading-tight">Teleconsulta con bono Fonasa</p>
-        <span class="pill pill-dev">Ámbar · en desarrollo</span>
+        <p class="font-semibold text-xl md:text-2xl leading-tight">Presencial + Fonasa</p>
+        <span class="pill pill-dev">Septiembre</span>
+      </div>
+      <div class="flex items-center justify-between gap-4 rounded-xl border border-[#E4D3A0] bg-devbg px-6 py-5">
+        <p class="font-semibold text-xl md:text-2xl leading-tight">Telemedicina — particular y Fonasa</p>
+        <span class="pill pill-dev">Octubre</span>
       </div>
     </div>
 
@@ -1370,7 +1492,6 @@ video {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let cur = -1;
-  let gridTimers = [];
   let fragShown = 0;
 
   function reveal(slide) {
@@ -1383,27 +1504,6 @@ video {
     slide.querySelectorAll('[data-r]').forEach(el => { el.style.transitionDelay = '0ms'; el.classList.remove('on'); });
   }
 
-  function animateGrid(slide) {
-    const cells = slide.querySelectorAll('[data-cell]');
-    if (!cells.length) return;
-    clearGrid(slide);
-    if (reduced) {
-      cells.forEach(c => c.classList.add(c.dataset.cell === '4' ? 'dev' : 'ok'));
-      return;
-    }
-    const seq = [
-      [700,  () => cells[0].classList.add('ok')],
-      [1150, () => cells[1].classList.add('ok')],
-      [1600, () => cells[2].classList.add('ok')],
-      [2350, () => cells[3].classList.add('dev')]
-    ];
-    seq.forEach(([t, fn]) => gridTimers.push(setTimeout(fn, t)));
-  }
-  function clearGrid(slide) {
-    gridTimers.forEach(clearTimeout); gridTimers = [];
-    slide.querySelectorAll('[data-cell]').forEach(c => c.classList.remove('ok', 'dev'));
-  }
-
   function frags(slide) { return slide ? Array.from(slide.querySelectorAll('[data-frag]')) : []; }
   function resetFrags(slide) { frags(slide).forEach(f => f.classList.remove('show')); fragShown = 0; }
 
@@ -1414,14 +1514,14 @@ video {
       const old = slides[cur];
       old.classList.remove('active');
       old.setAttribute('aria-hidden', 'true');
-      unreveal(old); clearGrid(old); resetFrags(old);
+      unreveal(old); resetFrags(old);
     }
     cur = n;
     const s = slides[cur];
     s.classList.add('active');
     s.removeAttribute('aria-hidden');
     s.scrollTop = 0;
-    reveal(s); animateGrid(s); resetFrags(s);
+    reveal(s); resetFrags(s);
     counter.textContent = (cur + 1) + ' / ' + N;
     bar.style.width = ((cur + 1) / N * 100) + '%';
     history.replaceState(null, '', '#' + (cur + 1));
