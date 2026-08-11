@@ -1,0 +1,2877 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telemedicina + Fonasa — Clinera · /fonasa2026</title>
+<meta name="description" content="Presentación interna Clinera.io: qué construimos ahora en telemedicina + Fonasa y hacia dónde vamos.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%23009FE3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Tailwind 3.4.17 precompilado — sin CDN, compatible con la CSP del sitio */
+*, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+/*
+! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com
+*/
+
+/*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* 1 */
+  border-width: 0;
+  /* 2 */
+  border-style: solid;
+  /* 2 */
+  border-color: #e5e7eb;
+  /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+/*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
+*/
+
+html,
+:host {
+  line-height: 1.5;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  -moz-tab-size: 4;
+  /* 3 */
+  -o-tab-size: 4;
+     tab-size: 4;
+  /* 3 */
+  font-family: Outfit, system-ui, sans-serif;
+  /* 4 */
+  font-feature-settings: normal;
+  /* 5 */
+  font-variation-settings: normal;
+  /* 6 */
+  -webkit-tap-highlight-color: transparent;
+  /* 7 */
+}
+
+/*
+1. Remove the margin in all browsers.
+2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+*/
+
+body {
+  margin: 0;
+  /* 1 */
+  line-height: inherit;
+  /* 2 */
+}
+
+/*
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+3. Ensure horizontal rules are visible by default.
+*/
+
+hr {
+  height: 0;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  border-top-width: 1px;
+  /* 3 */
+}
+
+/*
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+
+abbr:where([title]) {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/*
+Remove the default font size and weight for headings.
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*
+Reset links to optimize for opt-in styling instead of opt-out.
+*/
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/*
+Add the correct font weight in Edge and Safari.
+*/
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/*
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
+*/
+
+code,
+kbd,
+samp,
+pre {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  /* 1 */
+  font-feature-settings: normal;
+  /* 2 */
+  font-variation-settings: normal;
+  /* 3 */
+  font-size: 1em;
+  /* 4 */
+}
+
+/*
+Add the correct font size in all browsers.
+*/
+
+small {
+  font-size: 80%;
+}
+
+/*
+Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+*/
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+
+table {
+  text-indent: 0;
+  /* 1 */
+  border-color: inherit;
+  /* 2 */
+  border-collapse: collapse;
+  /* 3 */
+}
+
+/*
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+3. Remove default padding in all browsers.
+*/
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-feature-settings: inherit;
+  /* 1 */
+  font-variation-settings: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  font-weight: inherit;
+  /* 1 */
+  line-height: inherit;
+  /* 1 */
+  letter-spacing: inherit;
+  /* 1 */
+  color: inherit;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  padding: 0;
+  /* 3 */
+}
+
+/*
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+
+button,
+select {
+  text-transform: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+
+button,
+input:where([type='button']),
+input:where([type='reset']),
+input:where([type='submit']) {
+  -webkit-appearance: button;
+  /* 1 */
+  background-color: transparent;
+  /* 2 */
+  background-image: none;
+  /* 2 */
+}
+
+/*
+Use the modern Firefox focus style for all focusable elements.
+*/
+
+:-moz-focusring {
+  outline: auto;
+}
+
+/*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+*/
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+/*
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+progress {
+  vertical-align: baseline;
+}
+
+/*
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/*
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+[type='search'] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/*
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to `inherit` in Safari.
+*/
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+  display: list-item;
+}
+
+/*
+Removes the default spacing and border for appropriate elements.
+*/
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+Reset default styling for dialogs.
+*/
+
+dialog {
+  padding: 0;
+}
+
+/*
+Prevent resizing textareas horizontally by default.
+*/
+
+textarea {
+  resize: vertical;
+}
+
+/*
+1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+2. Set the default placeholder color to the user's configured gray 400 color.
+*/
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
+}
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
+}
+
+/*
+Set the default cursor for buttons.
+*/
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+/*
+Make sure disabled buttons don't get the pointer cursor.
+*/
+
+:disabled {
+  cursor: default;
+}
+
+/*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  /* 1 */
+  vertical-align: middle;
+  /* 2 */
+}
+
+/*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make elements with the HTML hidden attribute stay hidden by default */
+
+[hidden]:where(:not([hidden="until-found"])) {
+  display: none;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.pointer-events-auto {
+  pointer-events: auto;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.collapse {
+  visibility: collapse;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.inset-0 {
+  inset: 0px;
+}
+
+.inset-x-0 {
+  left: 0px;
+  right: 0px;
+}
+
+.-bottom-3 {
+  bottom: -0.75rem;
+}
+
+.-top-6 {
+  top: -1.5rem;
+}
+
+.-top-\[9px\] {
+  top: -9px;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.bottom-3 {
+  bottom: 0.75rem;
+}
+
+.left-0 {
+  left: 0px;
+}
+
+.right-3 {
+  right: 0.75rem;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.z-30 {
+  z-index: 30;
+}
+
+.z-40 {
+  z-index: 40;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mb-1\.5 {
+  margin-bottom: 0.375rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-2\.5 {
+  margin-bottom: 0.625rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.ml-1\.5 {
+  margin-left: 0.375rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.ml-3 {
+  margin-left: 0.75rem;
+}
+
+.ml-\[7\%\] {
+  margin-left: 7%;
+}
+
+.mr-\[4\%\] {
+  margin-right: 4%;
+}
+
+.mt-0\.5 {
+  margin-top: 0.125rem;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-1\.5 {
+  margin-top: 0.375rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mt-12 {
+  margin-top: 3rem;
+}
+
+.mt-14 {
+  margin-top: 3.5rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 0.75rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.table {
+  display: table;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+.h-14 {
+  height: 3.5rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.h-2 {
+  height: 0.5rem;
+}
+
+.h-2\.5 {
+  height: 0.625rem;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-9 {
+  height: 2.25rem;
+}
+
+.h-\[3px\] {
+  height: 3px;
+}
+
+.w-2 {
+  width: 0.5rem;
+}
+
+.w-2\.5 {
+  width: 0.625rem;
+}
+
+.min-w-\[860px\] {
+  min-width: 860px;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.max-w-5xl {
+  max-width: 64rem;
+}
+
+.max-w-6xl {
+  max-width: 72rem;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.border-collapse {
+  border-collapse: collapse;
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.grid-cols-\[auto\2c 1fr\2c 1fr\] {
+  grid-template-columns: auto 1fr 1fr;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-baseline {
+  align-items: baseline;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-1\.5 {
+  gap: 0.375rem;
+}
+
+.gap-10 {
+  gap: 2.5rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-2\.5 {
+  gap: 0.625rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.gap-x-10 {
+  -moz-column-gap: 2.5rem;
+       column-gap: 2.5rem;
+}
+
+.gap-x-8 {
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+}
+
+.gap-y-3 {
+  row-gap: 0.75rem;
+}
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
+.space-y-2\.5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.625rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.625rem * var(--tw-space-y-reverse));
+}
+
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
+.space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+
+.divide-line > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(234 234 234 / var(--tw-divide-opacity, 1));
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.whitespace-pre {
+  white-space: pre;
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rounded-b-xl {
+  border-bottom-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-x {
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.border-l-\[3px\] {
+  border-left-width: 3px;
+}
+
+.border-t {
+  border-top-width: 1px;
+}
+
+.border-t-2 {
+  border-top-width: 2px;
+}
+
+.border-t-\[3px\] {
+  border-top-width: 3px;
+}
+
+.border-dashed {
+  border-style: dashed;
+}
+
+.border-\[\#C9C9C6\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(201 201 198 / var(--tw-border-opacity, 1));
+}
+
+.border-\[\#CBDCC9\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 220 201 / var(--tw-border-opacity, 1));
+}
+
+.border-\[\#E4D3A0\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(228 211 160 / var(--tw-border-opacity, 1));
+}
+
+.border-\[\#F3CDD0\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(243 205 208 / var(--tw-border-opacity, 1));
+}
+
+.border-cy {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 159 227 / var(--tw-border-opacity, 1));
+}
+
+.border-ink {
+  --tw-border-opacity: 1;
+  border-color: rgb(17 17 17 / var(--tw-border-opacity, 1));
+}
+
+.border-line {
+  --tw-border-opacity: 1;
+  border-color: rgb(234 234 234 / var(--tw-border-opacity, 1));
+}
+
+.border-vi {
+  --tw-border-opacity: 1;
+  border-color: rgb(124 92 252 / var(--tw-border-opacity, 1));
+}
+
+.border-l-\[\#7FA982\] {
+  --tw-border-opacity: 1;
+  border-left-color: rgb(127 169 130 / var(--tw-border-opacity, 1));
+}
+
+.border-l-cy {
+  --tw-border-opacity: 1;
+  border-left-color: rgb(0 159 227 / var(--tw-border-opacity, 1));
+}
+
+.border-t-\[\#7FA982\] {
+  --tw-border-opacity: 1;
+  border-top-color: rgb(127 169 130 / var(--tw-border-opacity, 1));
+}
+
+.border-t-cy {
+  --tw-border-opacity: 1;
+  border-top-color: rgb(0 159 227 / var(--tw-border-opacity, 1));
+}
+
+.border-t-vi {
+  --tw-border-opacity: 1;
+  border-top-color: rgb(124 92 252 / var(--tw-border-opacity, 1));
+}
+
+.bg-\[\#28C840\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(40 200 64 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#FEBC2E\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 188 46 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#FF5F57\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 95 87 / var(--tw-bg-opacity, 1));
+}
+
+.bg-cy {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 159 227 / var(--tw-bg-opacity, 1));
+}
+
+.bg-devbg {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 243 219 / var(--tw-bg-opacity, 1));
+}
+
+.bg-nobg {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 235 236 / var(--tw-bg-opacity, 1));
+}
+
+.bg-okbg {
+  --tw-bg-opacity: 1;
+  background-color: rgb(237 243 236 / var(--tw-bg-opacity, 1));
+}
+
+.bg-vi {
+  --tw-bg-opacity: 1;
+  background-color: rgb(124 92 252 / var(--tw-bg-opacity, 1));
+}
+
+.bg-warm {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 251 250 / var(--tw-bg-opacity, 1));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-white\/70 {
+  background-color: rgb(255 255 255 / 0.7);
+}
+
+.p-3\.5 {
+  padding: 0.875rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.p-5 {
+  padding: 1.25rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.py-3\.5 {
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
+.pl-6 {
+  padding-left: 1.5rem;
+}
+
+.pr-1 {
+  padding-right: 0.25rem;
+}
+
+.pt-1 {
+  padding-top: 0.25rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
+}
+
+.pt-8 {
+  padding-top: 2rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.font-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+.font-sans {
+  font-family: Outfit, system-ui, sans-serif;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.text-\[0\.6em\] {
+  font-size: 0.6em;
+}
+
+.text-\[10\.5px\] {
+  font-size: 10.5px;
+}
+
+.text-\[10px\] {
+  font-size: 10px;
+}
+
+.text-\[11px\] {
+  font-size: 11px;
+}
+
+.text-\[12px\] {
+  font-size: 12px;
+}
+
+.text-\[9\.5px\] {
+  font-size: 9.5px;
+}
+
+.text-\[clamp\(1\.15rem\2c 2\.2vw\2c 1\.7rem\)\] {
+  font-size: clamp(1.15rem,2.2vw,1.7rem);
+}
+
+.text-\[clamp\(1\.35rem\2c 2\.8vw\2c 2\.2rem\)\] {
+  font-size: clamp(1.35rem,2.8vw,2.2rem);
+}
+
+.text-\[clamp\(1\.3rem\2c 2\.6vw\2c 2\.1rem\)\] {
+  font-size: clamp(1.3rem,2.6vw,2.1rem);
+}
+
+.text-\[clamp\(1\.3rem\2c 2\.6vw\2c 2rem\)\] {
+  font-size: clamp(1.3rem,2.6vw,2rem);
+}
+
+.text-\[clamp\(1\.3rem\2c 2\.8vw\2c 2\.2rem\)\] {
+  font-size: clamp(1.3rem,2.8vw,2.2rem);
+}
+
+.text-\[clamp\(1\.4rem\2c 3vw\2c 2\.4rem\)\] {
+  font-size: clamp(1.4rem,3vw,2.4rem);
+}
+
+.text-\[clamp\(1\.4rem\2c 3vw\2c 2\.5rem\)\] {
+  font-size: clamp(1.4rem,3vw,2.5rem);
+}
+
+.text-\[clamp\(1\.5rem\2c 3\.2vw\2c 2\.5rem\)\] {
+  font-size: clamp(1.5rem,3.2vw,2.5rem);
+}
+
+.text-\[clamp\(1\.5rem\2c 3\.2vw\2c 2\.6rem\)\] {
+  font-size: clamp(1.5rem,3.2vw,2.6rem);
+}
+
+.text-\[clamp\(1\.6rem\2c 3vw\2c 2\.4rem\)\] {
+  font-size: clamp(1.6rem,3vw,2.4rem);
+}
+
+.text-\[clamp\(1\.7rem\2c 3\.6vw\2c 2\.8rem\)\] {
+  font-size: clamp(1.7rem,3.6vw,2.8rem);
+}
+
+.text-\[clamp\(1\.8rem\2c 4\.5vw\2c 3\.8rem\)\] {
+  font-size: clamp(1.8rem,4.5vw,3.8rem);
+}
+
+.text-\[clamp\(1\.9rem\2c 4vw\2c 3\.2rem\)\] {
+  font-size: clamp(1.9rem,4vw,3.2rem);
+}
+
+.text-\[clamp\(2\.2rem\2c 5vw\2c 4rem\)\] {
+  font-size: clamp(2.2rem,5vw,4rem);
+}
+
+.text-\[clamp\(2\.3rem\2c 6vw\2c 5\.2rem\)\] {
+  font-size: clamp(2.3rem,6vw,5.2rem);
+}
+
+.text-\[clamp\(2\.6rem\2c 7vw\2c 5\.8rem\)\] {
+  font-size: clamp(2.6rem,7vw,5.8rem);
+}
+
+.text-\[clamp\(2rem\2c 4\.6vw\2c 3\.6rem\)\] {
+  font-size: clamp(2rem,4.6vw,3.6rem);
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.leading-\[1\.15\] {
+  line-height: 1.15;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+.leading-snug {
+  line-height: 1.375;
+}
+
+.leading-tight {
+  line-height: 1.25;
+}
+
+.tracking-\[0\.15em\] {
+  letter-spacing: 0.15em;
+}
+
+.tracking-\[0\.18em\] {
+  letter-spacing: 0.18em;
+}
+
+.tracking-\[0\.22em\] {
+  letter-spacing: 0.22em;
+}
+
+.tracking-\[0\.2em\] {
+  letter-spacing: 0.2em;
+}
+
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+
+.text-\[\#2F6B3C\] {
+  --tw-text-opacity: 1;
+  color: rgb(47 107 60 / var(--tw-text-opacity, 1));
+}
+
+.text-\[\#7A1F24\] {
+  --tw-text-opacity: 1;
+  color: rgb(122 31 36 / var(--tw-text-opacity, 1));
+}
+
+.text-\[\#8A6D1A\] {
+  --tw-text-opacity: 1;
+  color: rgb(138 109 26 / var(--tw-text-opacity, 1));
+}
+
+.text-\[\#8A8A87\] {
+  --tw-text-opacity: 1;
+  color: rgb(138 138 135 / var(--tw-text-opacity, 1));
+}
+
+.text-\[\#991B1B\] {
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity, 1));
+}
+
+.text-\[\#B04A50\] {
+  --tw-text-opacity: 1;
+  color: rgb(176 74 80 / var(--tw-text-opacity, 1));
+}
+
+.text-cy {
+  --tw-text-opacity: 1;
+  color: rgb(0 159 227 / var(--tw-text-opacity, 1));
+}
+
+.text-ink {
+  --tw-text-opacity: 1;
+  color: rgb(17 17 17 / var(--tw-text-opacity, 1));
+}
+
+.text-line {
+  --tw-text-opacity: 1;
+  color: rgb(234 234 234 / var(--tw-text-opacity, 1));
+}
+
+.text-sub {
+  --tw-text-opacity: 1;
+  color: rgb(107 107 107 / var(--tw-text-opacity, 1));
+}
+
+.text-vi {
+  --tw-text-opacity: 1;
+  color: rgb(124 92 252 / var(--tw-text-opacity, 1));
+}
+
+.underline {
+  text-decoration-line: underline;
+}
+
+.line-through {
+  text-decoration-line: line-through;
+}
+
+.decoration-cy {
+  text-decoration-color: #009FE3;
+}
+
+.decoration-\[1\.5px\] {
+  text-decoration-thickness: 1.5px;
+}
+
+.decoration-\[3px\] {
+  text-decoration-thickness: 3px;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 4px;
+}
+
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.opacity-55 {
+  opacity: 0.55;
+}
+
+.shadow-\[0_1px_2px_rgba\(0\2c 0\2c 0\2c 0\.04\)\] {
+  --tw-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  --tw-shadow-colored: 0 1px 2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-\[width\] {
+  transition-property: width;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.hover\:bg-warm:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 251 250 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:text-cy:hover {
+  --tw-text-opacity: 1;
+  color: rgb(0 159 227 / var(--tw-text-opacity, 1));
+}
+
+@media (min-width: 640px) {
+  .sm\:block {
+    display: block;
+  }
+
+  .sm\:hidden {
+    display: none;
+  }
+
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:inline {
+    display: inline;
+  }
+
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .md\:gap-3 {
+    gap: 0.75rem;
+  }
+
+  .md\:p-6 {
+    padding: 1.5rem;
+  }
+
+  .md\:p-7 {
+    padding: 1.75rem;
+  }
+
+  .md\:px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .md\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .md\:pr-3 {
+    padding-right: 0.75rem;
+  }
+
+  .md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .md\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .md\:text-\[11px\] {
+    font-size: 11px;
+  }
+
+  .md\:text-\[13px\] {
+    font-size: 13px;
+  }
+
+  .md\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .md\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+
+  .md\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-\[1\.05fr\2c 1fr\] {
+    grid-template-columns: 1.05fr 1fr;
+  }
+
+  .lg\:grid-cols-\[1\.15fr\2c 1fr\] {
+    grid-template-columns: 1.15fr 1fr;
+  }
+
+  .lg\:pt-2 {
+    padding-top: 0.5rem;
+  }
+}
+</style>
+<style>
+  html { scroll-behavior: auto; }
+  body { -webkit-font-smoothing: antialiased; }
+
+  /* ---------- deck engine ---------- */
+  .slide {
+    position: fixed; inset: 0;
+    overflow-y: auto;
+    opacity: 0; visibility: hidden; z-index: 0;
+    transition: opacity .45s ease, visibility 0s linear .45s;
+    background: #FFFFFF;
+  }
+  .slide.active {
+    opacity: 1; visibility: visible; z-index: 10;
+    transition: opacity .45s ease;
+  }
+  .frame {
+    min-height: 100dvh;
+    display: flex; flex-direction: column; justify-content: center;
+    width: 100%; max-width: 72rem;
+    margin: 0 auto;
+    padding: 6.5rem 1.5rem 6rem;
+  }
+  @media (min-width: 768px) { .frame { padding: 7rem 3rem 6.5rem; } }
+
+  /* ---------- reveal cascade ---------- */
+  [data-r] { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+  [data-r].on { opacity: 1; transform: none; }
+
+  /* ---------- type ---------- */
+  .kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: #6B6B6B; font-weight: 500;
+  }
+  @media (min-width: 768px) { .kicker { font-size: 12px; } }
+  .display { font-weight: 700; letter-spacing: -0.02em; line-height: 1.06; }
+  .bigmsg { font-weight: 600; letter-spacing: -0.015em; line-height: 1.25; }
+
+  /* ---------- flow nodes ---------- */
+  .node {
+    background: #FFFFFF; border: 1px solid #EAEAEA; border-radius: .75rem;
+    padding: .8rem 1.1rem; text-align: left; min-width: 7.5rem;
+  }
+  .node .nrole {
+    font-family: "JetBrains Mono", monospace; font-size: 10px;
+    letter-spacing: .18em; text-transform: uppercase; color: #6B6B6B;
+    display: block; margin-bottom: .2rem;
+  }
+  .node .nname { font-weight: 600; font-size: .95rem; color: #111111; line-height: 1.2; }
+  .node-cy { border-top: 3px solid #009FE3; }
+  .node-vi { border-top: 3px solid #7C5CFC; }
+  .node-gray { border: 1.5px dashed #C9C9C6; background: #FBFBFA; }
+  .node-ghost { border: 1.5px dashed #E3E3E0; background: transparent; }
+  .node-ghost .nname, .node-ghost .nrole { color: #C0C0BD; }
+  .flow { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+  .farrow { color: #B5B5B2; flex: 0 0 auto; }
+
+  /* ---------- pills / badges ---------- */
+  .pill {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-family: "JetBrains Mono", monospace; font-size: 10.5px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
+    border-radius: 999px; padding: .3rem .7rem; white-space: nowrap;
+  }
+  .pill-ok  { background: #EDF3EC; color: #2F6B3C; }
+  .pill-dev { background: #FBF3DB; color: #8A6D1A; }
+  .pill-no  { background: #FDEBEC; color: #991B1B; }
+  .pill-neutral { background: #F3F3F1; color: #6B6B6B; }
+
+  .dot { width: 8px; height: 8px; border-radius: 999px; display: inline-block; flex: 0 0 auto; }
+
+  /* ---------- 2x2 grid states (slide 3) ---------- */
+  .qcell {
+    position: relative; border: 1px solid #EAEAEA; border-radius: .75rem; background: #FFFFFF;
+    padding: 1.1rem 1.2rem;
+    transition: background-color .55s ease, border-color .55s ease, box-shadow .55s ease;
+    min-height: 8.2rem;
+  }
+  @media (min-width: 768px) { .qcell { min-height: 10.5rem; padding: 1.4rem 1.5rem; } }
+  .qcell .qstate { opacity: 0; transform: scale(.8); transition: opacity .4s ease .15s, transform .4s ease .15s; }
+  .qcell.ok  { background: #EDF3EC; border-color: #CBDCc9; border-color: #CBDCC9; }
+  .qcell.ok .qstate.s-ok { opacity: 1; transform: none; }
+  .qcell.dev { background: #FBF3DB; border-color: #E4D3A0; box-shadow: 0 0 0 3px #F6E9C4; }
+  .qcell.dev .qstate.s-dev { opacity: 1; transform: none; }
+  @keyframes cellpop { 0% { transform: scale(1); } 45% { transform: scale(1.025); } 100% { transform: scale(1); } }
+  .qcell.dev { animation: cellpop .5s ease; }
+
+  /* ---------- quote ---------- */
+  .bigquote { font-weight: 600; letter-spacing: -0.015em; line-height: 1.3; color: #111111; }
+
+  /* ---------- tables ---------- */
+  .tbl { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  .tbl th {
+    font-family: "JetBrains Mono", monospace; font-size: 10px; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase; color: #6B6B6B;
+    text-align: left; padding: .55rem .75rem; border-bottom: 1px solid #EAEAEA; white-space: nowrap;
+  }
+  .tbl td { padding: .58rem .75rem; border-bottom: 1px solid #F0F0EE; vertical-align: middle; }
+  .tbl tr:last-child td { border-bottom: none; }
+  @media (min-width: 1024px) { .tbl { font-size: .9rem; } }
+
+  /* ---------- toggle (mockup) ---------- */
+  .tog {
+    width: 38px; height: 22px; border-radius: 999px; background: #D9D9D6; position: relative;
+    transition: background .25s ease; flex: 0 0 auto; border: none; cursor: pointer;
+  }
+  .tog::after {
+    content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px;
+    border-radius: 999px; background: #fff; transition: transform .25s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+  .tog.on { background: #009FE3; }
+  .tog.on::after { transform: translateX(16px); }
+  .tog.tog-static { cursor: default; }
+
+  /* ---------- chrome ---------- */
+  .btn-nav {
+    width: 40px; height: 40px; border-radius: .6rem; border: 1px solid #EAEAEA; background: #FFFFFF;
+    display: inline-flex; align-items: center; justify-content: center; color: #111111;
+    transition: background .2s ease, transform .15s ease;
+  }
+  .btn-nav:hover { background: #F7F6F3; }
+  .btn-nav:active { transform: scale(.96); }
+  .btn-nav:disabled { opacity: .35; pointer-events: none; }
+
+  .kbd {
+    font-family: "JetBrains Mono", monospace; font-size: 10px; color: #6B6B6B;
+    border: 1px solid #EAEAEA; border-bottom-width: 2px; border-radius: .35rem;
+    padding: .1rem .4rem; background: #FFFFFF;
+  }
+
+  /* ---------- index overlay ---------- */
+  #index { transition: opacity .3s ease, visibility 0s linear .3s; opacity: 0; visibility: hidden; }
+  #index.open { opacity: 1; visibility: visible; transition: opacity .3s ease; }
+  .idx-card {
+    display: flex; align-items: flex-start; gap: .7rem; width: 100%; text-align: left;
+    border: 1px solid #EAEAEA; border-radius: .7rem; background: #fff;
+    padding: .7rem .85rem; transition: background .18s ease, border-color .18s ease;
+  }
+  .idx-card:hover { background: #F7F6F3; }
+  .idx-card.cur { border-color: #009FE3; box-shadow: 0 0 0 1px #009FE3; }
+  .idx-num { font-family: "JetBrains Mono", monospace; font-size: 11px; color: #6B6B6B; padding-top: .15rem; }
+
+  /* ---------- finale ---------- */
+  #finale {
+    position: absolute; inset: 0; z-index: 20; background: #FFFFFF;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility 0s linear .6s;
+  }
+  #finale.show { opacity: 1; visibility: visible; transition: opacity .6s ease; }
+
+  /* laptops de poca altura: recuperar espacio vertical */
+  @media (max-height: 830px) {
+    .frame { padding-top: 4.5rem; padding-bottom: 4.25rem; }
+    .qcell { min-height: 7.5rem !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slide, [data-r], .qcell, .qcell .qstate, #finale, #index { transition: none !important; animation: none !important; }
+    [data-r] { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+
+<body class="bg-white text-ink font-sans">
+
+<!-- progress -->
+<div id="bar" class="fixed top-0 left-0 h-[3px] bg-cy z-40 transition-[width] duration-300" style="width:0%"></div>
+
+<!-- top chrome -->
+<header class="fixed top-0 inset-x-0 z-30 flex items-center justify-between px-5 md:px-8 h-14 pointer-events-none">
+  <div class="flex items-baseline gap-2 pointer-events-auto">
+    <span class="font-semibold tracking-tight">clinera<span class="text-cy">.io</span></span>
+    <span class="font-mono text-[11px] text-sub">/fonasa2026</span>
+  </div>
+  <button id="btnIndex" class="pointer-events-auto flex items-center gap-2 border border-line rounded-lg bg-white hover:bg-warm px-3 h-9 font-mono text-[11px] uppercase tracking-[0.15em] text-sub transition-colors" aria-label="Abrir índice de slides">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg>
+    Índice
+  </button>
+</header>
+
+<!-- bottom chrome -->
+<footer class="fixed bottom-0 inset-x-0 z-30 flex items-center justify-between px-5 md:px-8 h-16 pointer-events-none">
+  <div class="font-mono text-[11px] text-sub tracking-[0.15em] uppercase">
+    <span id="counter">01 / 18</span><span id="slideTitle" class="hidden md:inline"></span>
+  </div>
+  <div class="flex gap-2 pointer-events-auto">
+    <button id="btnPrev" class="btn-nav" aria-label="Slide anterior">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button id="btnNext" class="btn-nav" aria-label="Slide siguiente">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+</footer>
+
+<main id="deck">
+
+<!-- ============ SLIDE 1 · La pregunta ============ -->
+<section class="slide" data-title="La pregunta">
+  <div class="frame">
+    <p class="kicker" data-r>Clinera.io · Sesión interna · Agosto 2026</p>
+    <h1 class="display text-[clamp(2.3rem,6vw,5.2rem)] mt-8 max-w-5xl" data-r>
+      ¿Cómo ofrecemos <span class="text-cy">telemedicina</span> en Clinera y al mismo tiempo soportamos <span class="text-vi">Fonasa</span>?
+    </h1>
+    <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3 text-sub" data-r>
+      <span class="text-sm md:text-base">Ingeniería y Producto · Customer Success · Comercial</span>
+      <span class="font-mono text-[11px] uppercase tracking-[0.18em]">15–20 min</span>
+    </div>
+    <div class="mt-16 flex items-center gap-3 text-sub text-xs" data-r>
+      <span class="kbd">←</span><span class="kbd">→</span><span class="kbd">espacio</span>
+      <span>para avanzar</span>
+      <span class="mx-2 text-line">·</span>
+      <span class="kbd">G</span><span>índice</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 2 · La idea que hay que separar ============ -->
+<section class="slide" data-title="Telemedicina ≠ Fonasa">
+  <div class="frame">
+    <p class="kicker" data-r>02 · La idea que hay que separar</p>
+    <h2 class="display text-[clamp(2.6rem,7vw,5.8rem)] mt-8" data-r>
+      Telemedicina <span class="text-sub font-normal mx-1">≠</span> Fonasa
+    </h2>
+    <div class="grid md:grid-cols-2 gap-4 mt-12 max-w-4xl" data-r>
+      <div class="border border-line rounded-xl p-6 bg-white">
+        <div class="flex items-center gap-2">
+          <span class="dot bg-cy"></span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-sub">Telemedicina particular</span>
+        </div>
+        <p class="mt-3 text-lg font-medium leading-snug">La podemos ofrecer hoy, dentro de Clinera, <strong>sin certificación de nadie</strong>.</p>
+      </div>
+      <div class="border border-line rounded-xl p-6 bg-white">
+        <div class="flex items-center gap-2">
+          <span class="dot bg-vi"></span>
+          <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-sub">Teleconsulta con bono Fonasa</span>
+        </div>
+        <p class="mt-3 text-lg font-medium leading-snug">Aquí —y solo aquí— aparece el <strong>requisito regulatorio</strong>.</p>
+      </div>
+    </div>
+    <p class="bigmsg text-[clamp(1.3rem,2.6vw,2.1rem)] mt-12 max-w-4xl" data-r>
+      El problema regulatorio aparece únicamente cuando una teleconsulta <span class="text-vi">se paga con bono Fonasa</span>.
+    </p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 3 · Los cuatro escenarios ============ -->
+<section class="slide" data-title="Los cuatro escenarios" id="slideGrid">
+  <div class="frame">
+    <p class="kicker" data-r>03 · Los cuatro escenarios</p>
+    <h2 class="display text-[clamp(1.9rem,4vw,3.2rem)] mt-6 max-w-4xl" data-r>Toda la discusión cabe en un cuadro de dos por dos.</h2>
+
+    <div class="mt-8 max-w-4xl" data-r>
+      <div class="grid grid-cols-[auto,1fr,1fr] gap-2 md:gap-3 items-stretch">
+        <div></div>
+        <div class="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-sub text-center pb-1 self-end">Particular</div>
+        <div class="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-vi text-center pb-1 self-end">Fonasa</div>
+
+        <div class="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-sub self-center pr-1 md:pr-3" style="writing-mode:vertical-rl; transform:rotate(180deg); text-align:center;">Presencial</div>
+        <div class="qcell" data-cell="1">
+          <span class="font-mono text-[10px] text-sub">01</span>
+          <p class="font-semibold text-base md:text-xl mt-1.5 leading-tight">Clinera</p>
+          <p class="text-sub text-xs md:text-sm mt-1">Flujo completo propio.</p>
+          <span class="qstate s-ok pill pill-ok absolute bottom-3 right-3">Sin certificación</span>
+        </div>
+        <div class="qcell" data-cell="2">
+          <span class="font-mono text-[10px] text-sub">02</span>
+          <p class="font-semibold text-base md:text-xl mt-1.5 leading-tight">Bono Web / Bono Electrónico</p>
+          <p class="text-sub text-xs md:text-sm mt-1">El bono se emite fuera; Clinera opera la clínica.</p>
+          <span class="qstate s-ok pill pill-ok absolute bottom-3 right-3">Sin certificación</span>
+        </div>
+
+        <div class="font-mono text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-sub self-center pr-1 md:pr-3" style="writing-mode:vertical-rl; transform:rotate(180deg); text-align:center;">Telemedicina</div>
+        <div class="qcell" data-cell="3">
+          <span class="font-mono text-[10px] text-sub">03</span>
+          <p class="font-semibold text-base md:text-xl mt-1.5 leading-tight">Clinera + LiveKit</p>
+          <p class="text-sub text-xs md:text-sm mt-1">Video propio, sin certificación.</p>
+          <span class="qstate s-ok pill pill-ok absolute bottom-3 right-3">Sin certificación</span>
+        </div>
+        <div class="qcell" data-cell="4">
+          <span class="font-mono text-[10px] text-sub">04</span>
+          <p class="font-semibold text-base md:text-xl mt-1.5 leading-tight">Clinera + Partner certificado</p>
+          <p class="text-sub text-xs md:text-sm mt-1">El único que exige certificación hoy.</p>
+          <span class="qstate s-dev pill pill-dev absolute bottom-3 right-3">En desarrollo</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="bigmsg text-[clamp(1.3rem,2.8vw,2.2rem)] mt-8 max-w-4xl" data-r>
+      De los cuatro escenarios, <strong>solo uno</strong> necesita hoy un proveedor certificado externo.
+    </p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 4 · Escenario 1: presencial particular ============ -->
+<section class="slide" data-title="Presencial particular">
+  <div class="frame">
+    <p class="kicker" data-r>04 · Escenario 1 de 4</p>
+    <div class="flex flex-wrap items-center gap-4 mt-6" data-r>
+      <h2 class="display text-[clamp(1.9rem,4vw,3.2rem)]">Presencial particular</h2>
+      <span class="pill pill-ok">Disponible hoy</span>
+    </div>
+
+    <div class="flow mt-12" data-r>
+      <div class="node"><span class="nrole">Persona</span><span class="nname">Paciente</span></div>
+      <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+      <div class="node node-cy"><span class="nrole">Plataforma</span><span class="nname">Clinera</span></div>
+      <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="pill pill-neutral">Agenda</span>
+        <span class="pill pill-neutral">Ficha</span>
+        <span class="pill pill-neutral">Pago</span>
+        <span class="pill pill-neutral">Atención</span>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4 mt-14 max-w-4xl" data-r>
+      <div class="border-t border-line pt-4">
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">¿Quién controla?</p>
+        <p class="mt-2 font-medium">Clinera, de punta a punta.</p>
+      </div>
+      <div class="border-t border-line pt-4">
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">¿Fonasa?</p>
+        <p class="mt-2 font-medium">No participa.</p>
+      </div>
+      <div class="border-t border-line pt-4">
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">¿Certificación?</p>
+        <p class="mt-2 font-medium">No se requiere.</p>
+      </div>
+    </div>
+
+    <p class="text-sub mt-12 max-w-3xl" data-r>Es la operación de siempre: la consulta de Dermatología Vela o del Centro Médico Luma, agendada, atendida y cobrada dentro de Clinera.</p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 5 · Escenario 2: presencial con Fonasa ============ -->
+<section class="slide" data-title="Presencial con Fonasa">
+  <div class="frame">
+    <p class="kicker" data-r>05 · Escenario 2 de 4</p>
+    <div class="flex flex-wrap items-center gap-4 mt-6" data-r>
+      <h2 class="display text-[clamp(1.9rem,4vw,3.2rem)]">Presencial con Fonasa</h2>
+      <span class="pill pill-ok">Disponible hoy</span>
+    </div>
+
+    <div class="flow mt-12" data-r>
+      <div class="node"><span class="nrole">Persona</span><span class="nname">Paciente</span></div>
+      <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+      <div class="node node-vi"><span class="nrole">Pago regulado</span><span class="nname">Bono Fonasa · Web o i-Med</span></div>
+      <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+      <div class="node"><span class="nrole">Prestador</span><span class="nname">Clínica</span></div>
+      <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+      <div class="node node-cy"><span class="nrole">Software</span><span class="nname">Clinera</span></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 mt-12 max-w-4xl" data-r>
+      <div class="border border-line rounded-xl p-5 bg-white">
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Bono Web</p>
+        <p class="mt-2 text-sm leading-relaxed">El paciente lo compra en fonasa.cl y llega a la clínica con su folio.</p>
+      </div>
+      <div class="border border-line rounded-xl p-5 bg-white">
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Bono Electrónico</p>
+        <p class="mt-2 text-sm leading-relaxed">Se emite en la clínica vía i-Med o Medipass, con verificación de huella.</p>
+      </div>
+    </div>
+
+    <div class="mt-8 max-w-4xl space-y-3" data-r>
+      <div class="rounded-xl bg-okbg px-5 py-4 flex items-start gap-3">
+        <svg class="shrink-0 mt-0.5 text-[#2F6B3C]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+        <p class="text-sm md:text-base"><strong>Clinera no necesita certificarse</strong> para operar el software alrededor de esta atención: agenda, ficha y caja siguen siendo nuestros.</p>
+      </div>
+      <div class="rounded-xl border border-line bg-warm px-5 py-4 flex items-start gap-3">
+        <svg class="shrink-0 mt-0.5 text-sub" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/></svg>
+        <p class="text-sm md:text-base text-sub"><strong class="text-ink">API Multiprestador: no se construirá todavía.</strong> Lo que sí está en curso es la integración i-Med para bono electrónico <span class="font-mono text-[11px]">(OACG-406 · vence 17 ago)</span>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 6 · Escenario 3: teleconsulta particular ============ -->
+<section class="slide" data-title="Teleconsulta particular">
+  <div class="frame">
+    <p class="kicker" data-r>06 · Escenario 3 de 4</p>
+    <div class="flex flex-wrap items-center gap-4 mt-6" data-r>
+      <h2 class="display text-[clamp(1.9rem,4vw,3.2rem)]">Teleconsulta particular</h2>
+      <span class="pill pill-ok">Sin certificación</span>
+    </div>
+
+    <div class="flow mt-12" data-r>
+      <div class="node"><span class="nrole">Persona</span><span class="nname">Paciente</span></div>
+      <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+      <div class="node node-cy"><span class="nrole">Plataforma</span><span class="nname">Clinera · autenticación, agenda, ficha</span></div>
+      <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+      <div class="node node-gray"><span class="nrole">Infraestructura WebRTC</span><span class="nname">LiveKit</span></div>
+      <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+      <div class="node"><span class="nrole">Persona</span><span class="nname">Profesional</span></div>
+    </div>
+
+    <div class="mt-12 max-w-4xl" data-r>
+      <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub mb-3">Clinera controla</p>
+      <div class="flex flex-wrap gap-2">
+        <span class="pill pill-neutral"><span class="dot bg-cy"></span>Agenda</span>
+        <span class="pill pill-neutral"><span class="dot bg-cy"></span>Identidad</span>
+        <span class="pill pill-neutral"><span class="dot bg-cy"></span>Acceso</span>
+        <span class="pill pill-neutral"><span class="dot bg-cy"></span>Tokens</span>
+        <span class="pill pill-neutral"><span class="dot bg-cy"></span>Ficha</span>
+        <span class="pill pill-neutral"><span class="dot bg-cy"></span>Logs</span>
+        <span class="pill pill-neutral"><span class="dot bg-cy"></span>Datos</span>
+        <span class="pill pill-neutral"><span class="dot bg-cy"></span>Experiencia</span>
+      </div>
+      <p class="text-sub text-sm mt-4">LiveKit es solo la infraestructura WebRTC. <span class="font-mono text-[11px]">Plan base USD 50/mes · 150.000 min incluidos ≈ 3.750 consultas mensuales.</span></p>
+    </div>
+
+    <div class="mt-10 rounded-xl bg-okbg px-6 py-5 max-w-4xl" data-r>
+      <p class="bigmsg text-[clamp(1.15rem,2.2vw,1.7rem)] text-[#2F6B3C]">Sin Fonasa. Sin certificación. <strong>Se puede vender apenas esté construido.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 7 · Escenario 4: teleconsulta con bono Fonasa ============ -->
+<section class="slide" data-title="Teleconsulta con bono Fonasa">
+  <div class="frame">
+    <p class="kicker" data-r>07 · Escenario 4 de 4</p>
+    <div class="flex flex-wrap items-center gap-4 mt-6" data-r>
+      <h2 class="display text-[clamp(1.9rem,4vw,3.2rem)]">Teleconsulta con bono Fonasa</h2>
+      <span class="pill pill-dev">En desarrollo</span>
+    </div>
+
+    <div class="mt-12 max-w-5xl" data-r>
+      <div class="flow">
+        <div class="node"><span class="nrole">Persona</span><span class="nname">Paciente</span></div>
+        <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+        <div class="node node-cy"><span class="nrole">Plataforma</span><span class="nname">Clinera</span></div>
+        <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+        <div class="node node-gray"><span class="nrole">Certificación prestada</span><span class="nname">Partner certificado</span></div>
+        <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+        <div class="node node-vi"><span class="nrole">Atención</span><span class="nname">Teleconsulta</span></div>
+      </div>
+      <div class="ml-[7%] mr-[4%] mt-2">
+        <div class="border-x border-b border-dashed border-[#C9C9C6] rounded-b-xl h-8 relative">
+          <svg class="absolute -top-[9px] left-0 text-[#8A8A87]" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6m0 0-5 5m5-5 5 5"/></svg>
+          <p class="absolute inset-x-0 -bottom-3 text-center"><span class="bg-white px-3 font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Los datos vuelven a Clinera</span></p>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="mt-16 max-w-4xl border-l-[3px] border-vi pl-6" data-r>
+      <p class="bigquote text-[clamp(1.35rem,2.8vw,2.2rem)]">El partner existe <strong>no porque necesitemos su tecnología de video</strong>, sino porque necesitamos <span class="text-vi">temporalmente su certificación</span>.</p>
+    </blockquote>
+
+    <p class="text-sub text-sm mt-8" data-r>Proveedor: en evaluación — ninguno está decidido todavía.</p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 8 · Por qué está bloqueado ============ -->
+<section class="slide" data-title="Por qué está bloqueado">
+  <div class="frame">
+    <p class="kicker" data-r>08 · Por qué está bloqueado</p>
+
+    <figure class="mt-10 max-w-5xl" data-r>
+      <svg class="text-vi mb-4" width="36" height="28" viewBox="0 0 36 28" fill="currentColor" aria-hidden="true"><path d="M0 28V16.8C0 7.5 5.6 1.5 14.4 0l1.8 4.6c-5 1.4-8 4.6-8.4 8.6H16V28H0Zm20 0V16.8C20 7.5 25.6 1.5 34.4 0l1.6 4.6c-5 1.4-8 4.6-8.4 8.6H36V28H20Z"/></svg>
+      <blockquote class="bigquote text-[clamp(1.4rem,3vw,2.5rem)]">
+        …copia del convenio con alguna de las plataformas o plataforma propia, <span class="text-vi">previamente certificada por Fonasa</span> o a través de un <span class="text-vi">tercero autorizado por Fonasa</span>…
+      </blockquote>
+      <figcaption class="mt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-sub">Fonasa · Requisitos de inscripción del prestador — telemedicina MLE</figcaption>
+    </figure>
+
+    <div class="mt-12 max-w-5xl" data-r>
+      <p class="font-medium text-lg md:text-xl">El filtro está en la <strong>inscripción del prestador</strong>, no en el momento del pago.</p>
+      <div class="flow mt-5">
+        <div class="node node-vi"><span class="nrole">Paso 1</span><span class="nname">Sin convenio…</span></div>
+        <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+        <div class="node node-vi"><span class="nrole">Paso 2</span><span class="nname">…no hay código Tc inscrito…</span></div>
+        <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+        <div class="node node-vi"><span class="nrole">Paso 3</span><span class="nname">…no hay bono que comprar.</span></div>
+      </div>
+    </div>
+
+    <div class="mt-10 rounded-xl bg-nobg px-6 py-5 max-w-5xl" data-r>
+      <p class="text-[#991B1B] text-sm md:text-base leading-relaxed">
+        <span class="font-mono text-[10px] uppercase tracking-[0.18em] block mb-2">Y la puerta trasera está cerrada</span>
+        “los prestadores no podrán seguir utilizando los códigos presenciales para otorgar atención remota”
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 9 · El partner es un puente ============ -->
+<section class="slide" data-title="Un puente, no un matrimonio">
+  <div class="frame">
+    <p class="kicker" data-r>09 · Cómo elegir al partner</p>
+    <h2 class="display text-[clamp(2.2rem,5vw,4rem)] mt-8" data-r>Un puente, no un matrimonio.</h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-12 max-w-5xl" data-r>
+      <div class="border border-line rounded-xl px-5 py-4 flex items-center gap-3 bg-white"><svg class="shrink-0 text-ink" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg><span class="font-medium text-sm md:text-base">Sin exclusividad</span></div>
+      <div class="border border-line rounded-xl px-5 py-4 flex items-center gap-3 bg-white"><svg class="shrink-0 text-ink" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg><span class="font-medium text-sm md:text-base">Sin vendor lock-in</span></div>
+      <div class="border border-line rounded-xl px-5 py-4 flex items-center gap-3 bg-white"><svg class="shrink-0 text-ink" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg><span class="font-medium text-sm md:text-base">Los datos regresan a Clinera</span></div>
+      <div class="border border-line rounded-xl px-5 py-4 flex items-center gap-3 bg-white"><svg class="shrink-0 text-ink" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg><span class="font-medium text-sm md:text-base">Ficha principal en Clinera</span></div>
+      <div class="border border-line rounded-xl px-5 py-4 flex items-center gap-3 bg-white"><svg class="shrink-0 text-ink" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg><span class="font-medium text-sm md:text-base">API / SDK obligatorio</span></div>
+      <div class="border border-line rounded-xl px-5 py-4 flex items-center gap-3 bg-white"><svg class="shrink-0 text-ink" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg><span class="font-medium text-sm md:text-base">Migración futura posible</span></div>
+    </div>
+
+    <div class="mt-14 max-w-5xl" data-r>
+      <p class="text-sub line-through decoration-[1.5px] text-lg">“¿Cuál tiene más funcionalidades?”</p>
+      <p class="bigmsg text-[clamp(1.4rem,3vw,2.4rem)] mt-4">“¿Cuál es el proveedor certificado <span class="underline decoration-cy decoration-[3px] underline-offset-4">más fácil de reemplazar</span> cuando Clinera tenga su propia certificación?”</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 10 · Arquitectura técnica ============ -->
+<section class="slide" data-title="Arquitectura técnica">
+  <div class="frame">
+    <p class="kicker" data-r>10 · Arquitectura técnica</p>
+    <h2 class="display text-[clamp(1.9rem,4vw,3.2rem)] mt-6" data-r>Una interfaz, tres implementaciones.</h2>
+
+    <div class="grid lg:grid-cols-[1.05fr,1fr] gap-8 mt-10 items-start max-w-6xl">
+      <div data-r>
+        <div class="rounded-xl border border-line bg-warm p-5 font-mono text-[12px] md:text-[13px] leading-relaxed overflow-x-auto">
+<pre class="whitespace-pre">interface <span class="text-cy font-semibold">TelemedicineProvider</span> {
+  crearSesion(cita)
+  entregarAccesos(paciente, profesional)
+  recuperarAtencion(): <span class="text-cy">DatosAtencion</span>  <span class="text-sub">// → ficha única</span>
+}</pre>
+        </div>
+        <div class="mt-4 space-y-2.5">
+          <div class="border border-line rounded-xl p-4 border-t-[3px] border-t-cy bg-white">
+            <p class="font-mono text-[12px] font-semibold">ClineraPrivateProvider</p>
+            <p class="text-sub text-sm mt-1">→ LiveKit · telemedicina particular</p>
+          </div>
+          <div class="rounded-xl p-4 node-gray">
+            <p class="font-mono text-[12px] font-semibold">FonasaPartnerProvider</p>
+            <p class="text-sub text-sm mt-1">→ proveedor certificado actual · teleconsulta con bono, hoy</p>
+          </div>
+          <div class="border border-line rounded-xl p-4 border-t-[3px] border-t-vi bg-white">
+            <p class="font-mono text-[12px] font-semibold">ClineraFonasaProvider</p>
+            <p class="text-sub text-sm mt-1">→ futura infraestructura certificada propia</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:pt-2" data-r>
+        <p class="text-lg md:text-xl font-medium leading-snug max-w-md">El dominio de Clinera <strong>no debe conocer detalles del proveedor</strong>: agenda, ficha y frontend hablan con la interfaz, no con el partner.</p>
+        <div class="mt-8 rounded-xl border border-line p-5 bg-white">
+          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Hoy</p>
+          <p class="font-mono text-sm md:text-base mt-1.5">Clinera <span class="text-sub">→</span> partner <span class="text-sub">→</span> paciente</p>
+          <div class="my-4 flex items-center gap-3">
+            <svg class="text-sub" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13m0 0-5-5m5 5 5-5"/></svg>
+            <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">debe poder convertirse en</span>
+          </div>
+          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Mañana</p>
+          <p class="font-mono text-sm md:text-base mt-1.5">Clinera <span class="text-sub">→</span> paciente</p>
+        </div>
+        <p class="text-sub text-sm mt-4 leading-relaxed">Sin reconstruir <strong class="text-ink">agenda</strong>, <strong class="text-ink">ficha</strong>, <strong class="text-ink">frontend</strong> ni <strong class="text-ink">base de datos</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 11 · Dónde vive esto en el producto ============ -->
+<section class="slide" data-title="Dónde vive en el producto">
+  <div class="frame">
+    <p class="kicker" data-r>11 · Dónde vive esto en el producto</p>
+
+    <div class="grid lg:grid-cols-[1.15fr,1fr] gap-10 mt-8 items-center max-w-6xl">
+      <!-- mockup: Configuración de Clínica -->
+      <div data-r>
+        <div class="rounded-xl border border-line overflow-hidden bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          <div class="flex items-center gap-2 px-4 h-9 border-b border-line bg-warm">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#FF5F57]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#FEBC2E]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#28C840]"></span>
+            <span class="ml-3 font-mono text-[10px] text-sub truncate">clinera.io/app/configuracion/clinica</span>
+          </div>
+          <div class="p-5 md:p-6 text-sm">
+            <p class="font-semibold text-base">Configuración de Clínica</p>
+            <p class="text-sub text-xs mt-0.5">Centro Médico Luma · Providencia, Santiago</p>
+
+            <div class="mt-5">
+              <label class="block text-xs font-medium mb-1.5">Zona horaria</label>
+              <div class="flex items-center justify-between border border-line rounded-lg px-3 py-2.5">
+                <span>(GMT-04:00) América/Santiago</span>
+                <svg class="text-sub" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <label class="block text-xs font-medium mb-1.5">Configuración de convenios</label>
+              <div class="border border-line rounded-lg divide-y divide-line">
+                <div class="flex items-center justify-between px-3 py-2.5">
+                  <span class="font-medium">Chile — Fonasa MLE</span>
+                  <span class="pill pill-ok">Activo</span>
+                </div>
+                <div class="flex items-center justify-between px-3 py-2.5 opacity-55">
+                  <span>México</span><span class="pill pill-neutral">Fase 2</span>
+                </div>
+                <div class="flex items-center justify-between px-3 py-2.5 opacity-55">
+                  <span>Perú</span><span class="pill pill-neutral">Fase 2</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-line">
+              <div class="flex items-center justify-between gap-4">
+                <div>
+                  <p class="font-medium">Activar telemedicina</p>
+                  <p class="text-sub text-xs mt-0.5">Habilita las modalidades de atención remota.</p>
+                </div>
+                <button id="mockTog" class="tog on" role="switch" aria-checked="true" aria-label="Activar telemedicina"></button>
+              </div>
+              <div id="mockModes" class="mt-3 space-y-2">
+                <div class="flex items-center justify-between border border-line rounded-lg px-3 py-2.5">
+                  <div>
+                    <p class="font-medium">Telemedicina particular</p>
+                    <p class="text-sub text-xs">Video integrado en Clinera</p>
+                  </div>
+                  <span class="pill pill-ok">Disponible</span>
+                </div>
+                <div class="flex items-center justify-between border border-line rounded-lg px-3 py-2.5">
+                  <div>
+                    <p class="font-medium">Teleconsulta con bono Fonasa</p>
+                    <p class="text-sub text-xs">Vía proveedor certificado</p>
+                  </div>
+                  <span class="pill pill-dev">En desarrollo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- explanation -->
+      <div data-r>
+        <div class="space-y-6">
+          <div class="border-l-[3px] border-cy pl-5">
+            <p class="font-medium leading-snug">Selector <strong>“Configuración de convenios”</strong> junto a Zona Horaria, en Configuración de Clínica.</p>
+            <p class="text-sub text-sm mt-1.5">Multi-país desde el diseño: Chile/Fonasa activo; México y Perú declarados fase 2.</p>
+          </div>
+          <div class="border-l-[3px] border-cy pl-5">
+            <p class="font-medium leading-snug">Toggle <strong>“Activar telemedicina”</strong> despliega las dos modalidades.</p>
+            <p class="text-sub text-sm mt-1.5">Una Disponible y otra En desarrollo — la clínica ve el estado real.</p>
+          </div>
+        </div>
+        <p class="bigmsg text-[clamp(1.3rem,2.6vw,2rem)] mt-10">Sin pantallas nuevas: todo entra donde el cliente <span class="text-cy">ya configura su clínica</span>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 12 · La regla número uno sobre datos ============ -->
+<section class="slide" data-title="La regla nº 1 sobre datos">
+  <div class="frame">
+    <p class="kicker" data-r>12 · La regla número uno sobre datos</p>
+    <h2 class="display text-[clamp(2rem,4.6vw,3.6rem)] mt-8 max-w-4xl" data-r>La clínica no puede terminar con <span class="text-cy">dos fichas</span>.</h2>
+
+    <div class="mt-12 max-w-5xl" data-r>
+      <div class="flow">
+        <div class="node node-gray"><span class="nrole">Atiende hoy</span><span class="nname">Partner certificado</span></div>
+        <svg class="farrow text-cy" width="46" height="24" viewBox="0 0 46 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h38m0 0-5-5m5 5-5 5"/></svg>
+        <div class="node node-cy"><span class="nrole">Fuente de verdad</span><span class="nname">Ficha única en Clinera</span></div>
+      </div>
+      <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub mt-8 mb-3">Todo esto vuelve, por cada atención</p>
+      <div class="flex flex-wrap gap-2 max-w-4xl">
+        <span class="pill pill-neutral">Identificador</span>
+        <span class="pill pill-neutral">Profesional</span>
+        <span class="pill pill-neutral">Paciente</span>
+        <span class="pill pill-neutral">Fecha</span>
+        <span class="pill pill-neutral">Inicio y fin</span>
+        <span class="pill pill-neutral">Estado</span>
+        <span class="pill pill-neutral">Prestación y código</span>
+        <span class="pill pill-neutral">Información clínica permitida</span>
+        <span class="pill pill-neutral">Nota clínica</span>
+        <span class="pill pill-neutral">Folios</span>
+        <span class="pill pill-neutral">Logs</span>
+      </div>
+    </div>
+
+    <div class="mt-12 rounded-xl bg-nobg px-6 py-5 max-w-5xl" data-r>
+      <p class="text-sm md:text-base leading-relaxed text-[#991B1B]"><strong>Si esto falla:</strong> el cliente pregunta para qué paga dos sistemas — y se cae el argumento de <strong>integración total</strong> con el que cerramos la venta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 13 · El proyecto ============ -->
+<section class="slide" data-title="El proyecto">
+  <div class="frame">
+    <p class="kicker" data-r>13 · El proyecto</p>
+
+    <div class="mt-8 border border-line rounded-xl p-6 md:p-7 max-w-5xl bg-white" data-r>
+      <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Linear · Épica</p>
+      <h2 class="display text-[clamp(1.5rem,3.2vw,2.5rem)] mt-2">Telemedicina con bono Fonasa vía partner certificado</h2>
+      <div class="flex flex-wrap gap-x-10 gap-y-3 mt-5 text-sm">
+        <div>
+          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Responsable</p>
+          <p class="mt-1 font-medium">Nicolás Agurto <span class="text-sub font-normal">· nicolas.agurto@oacg.cl</span></p>
+        </div>
+        <div>
+          <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Ventana</p>
+          <p class="mt-1 font-medium">11 de agosto → 11 de septiembre de 2026</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- timeline horizontal -->
+    <div class="mt-10 max-w-5xl hidden sm:block" data-r>
+      <div class="relative">
+        <div class="absolute -top-6 left-0 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-cy"></span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-cy">Hoy · 11 ago</span>
+        </div>
+        <div class="flex gap-1.5 items-stretch">
+          <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-cy p-3.5" style="flex-grow:8">
+            <p class="font-mono text-[10px] text-sub">FASE 1 · 11–18 AGO</p>
+            <p class="font-semibold text-sm mt-1 leading-tight">Investigación</p>
+          </div>
+          <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-cy p-3.5" style="flex-grow:7">
+            <p class="font-mono text-[10px] text-sub">FASE 2 · 19–25 AGO</p>
+            <p class="font-semibold text-sm mt-1 leading-tight">Especificación y selección</p>
+          </div>
+          <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-cy p-3.5" style="flex-grow:11">
+            <p class="font-mono text-[10px] text-sub">FASE 3 · 26 AGO – 5 SEP</p>
+            <p class="font-semibold text-sm mt-1 leading-tight">Construcción</p>
+          </div>
+          <div style="flex-grow:2"></div>
+          <div class="rounded-lg border border-line bg-warm border-t-[3px] border-t-[#7FA982] p-3.5" style="flex-grow:4">
+            <p class="font-mono text-[10px] text-sub">FASE 4 · 8–11 SEP</p>
+            <p class="font-semibold text-sm mt-1 leading-tight">QA y habilitación comercial</p>
+          </div>
+        </div>
+        <!-- cycles strip -->
+        <div class="flex gap-1.5 mt-1.5">
+          <div class="text-center font-mono text-[9.5px] text-sub border-t border-line pt-1" style="flex-grow:7">CYCLE 3 · 10–17</div>
+          <div class="text-center font-mono text-[9.5px] text-sub border-t border-line pt-1" style="flex-grow:7">CYCLE 4 · 17–24</div>
+          <div class="text-center font-mono text-[9.5px] text-sub border-t border-line pt-1" style="flex-grow:7">CYCLE 5 · 24–31</div>
+          <div class="text-center font-mono text-[9.5px] text-sub border-t border-line pt-1" style="flex-grow:7">CYCLE 6 · 31–7</div>
+          <div class="text-center font-mono text-[9.5px] text-sub border-t border-line pt-1" style="flex-grow:7">CYCLE 7 · 7–14</div>
+        </div>
+        <p class="font-mono text-[9.5px] text-sub mt-1.5">Cycles semanales del equipo en Linear</p>
+      </div>
+    </div>
+
+    <!-- timeline vertical (mobile) -->
+    <div class="mt-8 sm:hidden space-y-2" data-r>
+      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-cy"><p class="font-mono text-[10px] text-sub">FASE 1 · 11–18 AGO</p><p class="font-semibold text-sm mt-0.5">Investigación</p></div>
+      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-cy"><p class="font-mono text-[10px] text-sub">FASE 2 · 19–25 AGO</p><p class="font-semibold text-sm mt-0.5">Especificación y selección</p></div>
+      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-cy"><p class="font-mono text-[10px] text-sub">FASE 3 · 26 AGO – 5 SEP</p><p class="font-semibold text-sm mt-0.5">Construcción</p></div>
+      <div class="border border-line rounded-lg p-3.5 border-l-[3px] border-l-[#7FA982]"><p class="font-mono text-[10px] text-sub">FASE 4 · 8–11 SEP</p><p class="font-semibold text-sm mt-0.5">QA y habilitación comercial</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 14 · Las ocho issues ============ -->
+<section class="slide" data-title="Las ocho issues">
+  <div class="frame">
+    <p class="kicker" data-r>14 · Las ocho issues</p>
+    <h2 class="display text-[clamp(1.7rem,3.6vw,2.8rem)] mt-6" data-r>El plan, issue por issue, en cycles semanales.</h2>
+
+    <div class="mt-8 border border-line rounded-xl overflow-x-auto max-w-6xl bg-white" data-r>
+      <table class="tbl min-w-[860px]">
+        <thead>
+          <tr>
+            <th>Issue</th>
+            <th>Qué es</th>
+            <th>Cycle</th>
+            <th>Vence</th>
+            <th>Desbloquea</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-mono text-[12px] whitespace-nowrap">OACG-399 <span class="pill pill-no ml-1.5">Urgent</span></td>
+            <td>Levantar el universo oficial de plataformas certificadas</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">3 · <span class="text-cy">actual</span></td>
+            <td class="font-mono text-[12px] whitespace-nowrap">14 ago</td>
+            <td class="text-sub">OACG-400</td>
+          </tr>
+          <tr>
+            <td class="font-mono text-[12px] whitespace-nowrap">OACG-406</td>
+            <td>Integración i-Med — bono electrónico (presencial)</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">3 · <span class="text-cy">actual</span></td>
+            <td class="font-mono text-[12px] whitespace-nowrap">17 ago</td>
+            <td class="text-sub">Bono electrónico en clínica</td>
+          </tr>
+          <tr>
+            <td class="font-mono text-[12px] whitespace-nowrap">OACG-400 <span class="pill pill-no ml-1.5">Urgent</span></td>
+            <td>Entrevistar proveedores — 20 preguntas obligatorias</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">4</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">18 ago</td>
+            <td class="text-sub">OACG-401</td>
+          </tr>
+          <tr>
+            <td class="font-mono text-[12px] whitespace-nowrap">OACG-401</td>
+            <td>Matriz comparativa y selección del partner</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">4</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">22 ago</td>
+            <td class="text-sub">OACG-402</td>
+          </tr>
+          <tr>
+            <td class="font-mono text-[12px] whitespace-nowrap">OACG-402</td>
+            <td>Especificación técnica de la integración</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">5</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">25 ago</td>
+            <td class="text-sub">OACG-403</td>
+          </tr>
+          <tr>
+            <td class="font-mono text-[12px] whitespace-nowrap">OACG-403</td>
+            <td>Adaptador configurable por clínica y modalidad</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">6</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">2 sep</td>
+            <td class="text-sub">OACG-404</td>
+          </tr>
+          <tr>
+            <td class="font-mono text-[12px] whitespace-nowrap">OACG-404 <span class="pill pill-no ml-1.5">Crítica</span></td>
+            <td>Retorno de información a la ficha</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">6</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">5 sep</td>
+            <td class="text-sub">OACG-405</td>
+          </tr>
+          <tr>
+            <td class="font-mono text-[12px] whitespace-nowrap">OACG-405</td>
+            <td>QA de los 4 escenarios y habilitación comercial</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">7</td>
+            <td class="font-mono text-[12px] whitespace-nowrap">11 sep</td>
+            <td class="text-sub">Comercial puede vender</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-5 font-mono text-[11px] text-sub break-all" data-r>
+      <a class="hover:text-cy transition-colors" href="https://linear.app/oacg/project/telemedicina-con-bono-fonasa-via-partner-certificado-239b65b9799e" target="_blank" rel="noopener">linear.app/oacg/project/telemedicina-con-bono-fonasa-via-partner-certificado</a>
+    </p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 15 · Lo que Comercial puede vender hoy ============ -->
+<section class="slide" data-title="Qué puede vender Comercial">
+  <div class="frame">
+    <p class="kicker" data-r>15 · Para Comercial</p>
+    <h2 class="display text-[clamp(1.9rem,4vw,3.2rem)] mt-6" data-r>Lo que se puede vender hoy.</h2>
+
+    <div class="grid md:grid-cols-3 gap-4 mt-12 max-w-6xl items-stretch" data-r>
+      <div class="rounded-xl border border-[#CBDCC9] bg-okbg p-6 flex flex-col">
+        <span class="pill pill-ok self-start bg-white/70">Verde</span>
+        <p class="font-semibold text-xl md:text-2xl leading-tight mt-4">Consulta presencial + Fonasa</p>
+        <p class="text-sm text-[#2F6B3C] mt-3 leading-relaxed">La clínica atiende con bono; Clinera opera agenda, ficha y caja.</p>
+      </div>
+      <div class="rounded-xl border border-[#CBDCC9] bg-okbg p-6 flex flex-col">
+        <span class="pill pill-ok self-start bg-white/70">Verde</span>
+        <p class="font-semibold text-xl md:text-2xl leading-tight mt-4">Telemedicina particular dentro de Clinera</p>
+        <p class="text-sm text-[#2F6B3C] mt-3 leading-relaxed">Video propio con LiveKit, sin certificación de nadie.</p>
+      </div>
+      <div class="rounded-xl border border-[#E4D3A0] bg-devbg p-6 flex flex-col">
+        <span class="pill pill-dev self-start bg-white/70">Ámbar</span>
+        <p class="font-semibold text-xl md:text-2xl leading-tight mt-4">Telemedicina pagada con Fonasa</p>
+        <p class="text-sm text-[#8A6D1A] mt-3 leading-relaxed">En desarrollo vía partner certificado. Sin fecha comprometida.</p>
+      </div>
+    </div>
+
+    <p class="text-sub mt-10 max-w-3xl" data-r>Verde se promete en una demo. Ámbar se cuenta como roadmap, nunca como fecha.</p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 16 · Lo que Comercial NO debe decir ============ -->
+<section class="slide" data-title="Qué NO decir" style="background:#FDEBEC">
+  <div class="frame">
+    <p class="kicker text-[#B04A50]" data-r>16 · Para Comercial</p>
+    <h2 class="display text-[clamp(1.9rem,4vw,3.2rem)] mt-6 text-[#7A1F24]" data-r>Lo que <span class="underline decoration-[3px] underline-offset-4">no</span> debemos decir.</h2>
+
+    <div class="mt-10 space-y-3 max-w-4xl" data-r>
+      <div class="flex items-start gap-3 bg-white/70 border border-[#F3CDD0] rounded-xl px-5 py-3.5">
+        <svg class="shrink-0 mt-1 text-[#991B1B]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <p class="font-medium text-[#7A1F24]">“Clinera está certificada por Fonasa”</p>
+      </div>
+      <div class="flex items-start gap-3 bg-white/70 border border-[#F3CDD0] rounded-xl px-5 py-3.5">
+        <svg class="shrink-0 mt-1 text-[#991B1B]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <p class="font-medium text-[#7A1F24]">“Fonasa ya funciona dentro de la telemedicina de Clinera”</p>
+      </div>
+      <div class="flex items-start gap-3 bg-white/70 border border-[#F3CDD0] rounded-xl px-5 py-3.5">
+        <svg class="shrink-0 mt-1 text-[#991B1B]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <p class="font-medium text-[#7A1F24]">“Podemos emitir cualquier bono directamente desde Clinera”</p>
+      </div>
+      <div class="flex items-start gap-3 bg-white/70 border border-[#F3CDD0] rounded-xl px-5 py-3.5">
+        <svg class="shrink-0 mt-1 text-[#991B1B]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <p class="font-medium text-[#7A1F24]">Cualquier fecha de lanzamiento que ingeniería no haya comprometido</p>
+      </div>
+    </div>
+
+    <div class="mt-10 bg-white rounded-xl border border-[#F3CDD0] p-6 max-w-4xl" data-r>
+      <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub">Guion de respuesta — prospecto pregunta: “¿Clinera funciona con Fonasa?”</p>
+      <p class="mt-3 text-base md:text-lg leading-relaxed">“Sí para la operación presencial, y estamos integrando la modalidad de teleconsulta Fonasa mediante infraestructura certificada. Además, Clinera tendrá telemedicina particular directamente dentro de la plataforma.”</p>
+      <p class="mt-4 pt-4 border-t border-line text-sm text-sub flex items-start gap-2">
+        <svg class="shrink-0 mt-0.5" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+        <span>Y antes de prometer bonos: la clínica necesita <strong class="text-ink">convenio MLE vigente</strong> y <strong class="text-ink">códigos Tc inscritos</strong> — no todas los tienen.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SLIDE 17 · Por qué no nos certificamos ahora ============ -->
+<section class="slide" data-title="Por qué no certificarnos aún">
+  <div class="frame">
+    <p class="kicker" data-r>17 · Por qué no nos certificamos ahora</p>
+
+    <div class="grid sm:grid-cols-3 gap-4 mt-10 max-w-5xl" data-r>
+      <div class="border-t-2 border-ink pt-4">
+        <p class="font-mono font-semibold text-[clamp(1.6rem,3vw,2.4rem)] tracking-tight">80+ <span class="text-sub font-normal text-[0.6em]">→ 200</span></p>
+        <p class="text-sub text-sm mt-1.5">clientes hoy → meta a diciembre de 2026</p>
+      </div>
+      <div class="border-t-2 border-ink pt-4">
+        <p class="font-mono font-semibold text-[clamp(1.6rem,3vw,2.4rem)] tracking-tight">$9–20M</p>
+        <p class="text-sub text-sm mt-1.5">cuesta certificarse el primer año, más 3–5 meses de ingeniería</p>
+      </div>
+      <div class="border-t-2 border-ink pt-4">
+        <p class="font-mono font-semibold text-[clamp(1.6rem,3vw,2.4rem)] tracking-tight">—</p>
+        <p class="text-sub text-sm mt-1.5">todavía no hay información de uso real que justifique esa inversión</p>
+      </div>
+    </div>
+
+    <div class="mt-12 max-w-5xl" data-r>
+      <p class="text-sub"><span class="line-through decoration-[1.5px]">Gatillo viejo: 300 consultas / 15 clínicas</span> <span class="pill pill-neutral ml-2">Descartado</span></p>
+      <p class="mt-4 font-medium text-lg md:text-xl max-w-4xl">Al acercarnos a 200 clientes mediremos, con datos reales:</p>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <span class="pill pill-neutral">Adopción de telemedicina</span>
+        <span class="pill pill-neutral">Clínicas usando Fonasa</span>
+        <span class="pill pill-neutral">Teleconsultas mensuales</span>
+        <span class="pill pill-neutral">MRR incremental</span>
+        <span class="pill pill-neutral">Costo del partner</span>
+        <span class="pill pill-neutral">Margen perdido</span>
+        <span class="pill pill-neutral">Demanda comercial perdida</span>
+      </div>
+      <p class="mt-5 text-sub max-w-4xl">La certificación propia deberá tener un <strong class="text-ink">business case económico</strong>, no una fecha en el calendario.</p>
+    </div>
+
+    <p class="bigmsg text-[clamp(1.5rem,3.2vw,2.6rem)] mt-12 max-w-4xl" data-r>Primero medimos el mercado.<br>Después internalizamos la infraestructura.</p>
+
+    <p class="mt-10 font-mono text-[10.5px] text-sub" data-r>Referencia de proceso: Sello CENS 99 UF + IVA ≈ $4,8M · 6–12 meses · vigencia 3 años · Fonasa acepta 2FA por SMS como alternativa a Clave Única.</p>
+  </div>
+</section>
+
+<!-- ============ SLIDE 18 · Visión futura y cierre ============ -->
+<section class="slide" data-title="Visión futura y cierre" id="slideFinal">
+  <div class="frame">
+    <p class="kicker" data-r>18 · Visión futura</p>
+
+    <div class="mt-10 space-y-6 max-w-5xl" data-r>
+      <div>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub mb-2.5">Hoy</p>
+        <div class="flow">
+          <div class="node node-cy"><span class="nname">Clinera</span></div>
+          <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+          <div class="node node-gray"><span class="nname">Partner certificado</span></div>
+          <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+          <div class="node node-vi"><span class="nname">Fonasa</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-sub mb-2.5">Mañana</p>
+        <div class="flow">
+          <div class="node node-cy"><span class="nname">Clinera</span></div>
+          <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+          <div class="node node-ghost"><span class="nname">Partner certificado</span></div>
+          <svg class="farrow" width="30" height="24" viewBox="0 0 30 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h22m0 0-5-5m5 5-5 5"/></svg>
+          <div class="node node-vi"><span class="nname">Fonasa</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-line pt-8 max-w-5xl" data-r>
+      <p class="font-medium text-lg md:text-xl">El horizonte mayor: Clinera como <strong>capa de infraestructura para clínicas</strong>.</p>
+      <div class="flex flex-wrap gap-2 mt-4">
+        <span class="pill pill-neutral">Agenda</span>
+        <span class="pill pill-neutral">Ficha</span>
+        <span class="pill pill-neutral">Bonos</span>
+        <span class="pill pill-neutral">Telemedicina</span>
+        <span class="pill pill-neutral">Recetas</span>
+        <span class="pill pill-neutral">Pagos</span>
+        <span class="pill pill-neutral">APIs</span>
+        <span class="pill pill-neutral">Agentes de IA</span>
+      </div>
+      <p class="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-sub">Presiona <span class="kbd">→</span> una vez más</p>
+    </div>
+  </div>
+
+  <!-- finale fragment: la frase, sola en pantalla -->
+  <div id="finale" data-frag>
+    <div class="px-6 max-w-5xl text-center">
+      <p class="display text-[clamp(1.8rem,4.5vw,3.8rem)] leading-[1.15]">“Construimos hoy para <span class="text-cy">entrar rápido</span>, pero diseñamos para <span class="text-cy">no depender de nadie</span> mañana.”</p>
+      <p class="mt-10 font-mono text-[11px] uppercase tracking-[0.22em] text-sub">clinera.io · fonasa2026</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ index overlay ============ -->
+<div id="index" class="fixed inset-0 z-50 bg-white overflow-y-auto" role="dialog" aria-modal="true" aria-label="Índice de slides">
+  <div class="max-w-5xl mx-auto px-6 md:px-10 py-16">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="kicker">Índice</p>
+        <h2 class="display text-2xl md:text-3xl mt-2">Telemedicina + Fonasa</h2>
+      </div>
+      <button id="btnCloseIndex" class="btn-nav" aria-label="Cerrar índice">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div id="idxList" class="mt-10 space-y-8"></div>
+    <p class="mt-10 font-mono text-[10.5px] text-sub uppercase tracking-[0.18em]">Esc para volver · ← → para navegar</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const N = slides.length;
+  const bar = document.getElementById('bar');
+  const counter = document.getElementById('counter');
+  const slideTitle = document.getElementById('slideTitle');
+  const idx = document.getElementById('index');
+  const idxList = document.getElementById('idxList');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let cur = -1;
+  let gridTimers = [];
+  let fragShown = 0;
+
+  /* ---------- index overlay content ---------- */
+  const groups = [
+    { name: 'Contexto', items: [0, 1, 2] },
+    { name: 'Los cuatro escenarios', items: [3, 4, 5, 6] },
+    { name: 'Regulación y partner', items: [7, 8, 9] },
+    { name: 'Producto y datos', items: [10, 11] },
+    { name: 'El proyecto', items: [12, 13] },
+    { name: 'Comercial', items: [14, 15] },
+    { name: 'Estrategia', items: [16, 17] }
+  ];
+  groups.forEach(g => {
+    const sec = document.createElement('div');
+    const h = document.createElement('p');
+    h.className = 'font-mono text-[10px] uppercase tracking-[0.2em] text-sub mb-3';
+    h.textContent = g.name;
+    sec.appendChild(h);
+    const grid = document.createElement('div');
+    grid.className = 'grid sm:grid-cols-2 lg:grid-cols-3 gap-2.5';
+    g.items.forEach(i => {
+      const b = document.createElement('button');
+      b.className = 'idx-card';
+      b.dataset.i = i;
+      b.innerHTML = '<span class="idx-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+                    '<span class="font-medium text-sm leading-snug">' + slides[i].dataset.title + '</span>';
+      b.addEventListener('click', () => { closeIndex(); goTo(i); });
+      grid.appendChild(b);
+    });
+    sec.appendChild(grid);
+    idxList.appendChild(sec);
+  });
+
+  function markCurrent() {
+    idxList.querySelectorAll('.idx-card').forEach(b => b.classList.toggle('cur', Number(b.dataset.i) === cur));
+  }
+  function openIndex()  { markCurrent(); idx.classList.add('open'); }
+  function closeIndex() { idx.classList.remove('open'); }
+  function indexOpen()  { return idx.classList.contains('open'); }
+
+  /* ---------- reveals ---------- */
+  function reveal(slide) {
+    const els = slide.querySelectorAll('[data-r]');
+    els.forEach((el, i) => {
+      el.style.transitionDelay = reduced ? '0ms' : (120 + i * 80) + 'ms';
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')));
+    });
+  }
+  function unreveal(slide) {
+    slide.querySelectorAll('[data-r]').forEach(el => { el.style.transitionDelay = '0ms'; el.classList.remove('on'); });
+  }
+
+  /* ---------- slide 3 grid animation ---------- */
+  function animateGrid(slide) {
+    const cells = slide.querySelectorAll('[data-cell]');
+    if (!cells.length) return;
+    clearGrid(slide);
+    if (reduced) {
+      cells.forEach(c => c.classList.add(c.dataset.cell === '4' ? 'dev' : 'ok'));
+      return;
+    }
+    const seq = [
+      [700,  () => cells[0].classList.add('ok')],
+      [1150, () => cells[1].classList.add('ok')],
+      [1600, () => cells[2].classList.add('ok')],
+      [2350, () => cells[3].classList.add('dev')]
+    ];
+    seq.forEach(([t, fn]) => gridTimers.push(setTimeout(fn, t)));
+  }
+  function clearGrid(slide) {
+    gridTimers.forEach(clearTimeout); gridTimers = [];
+    slide.querySelectorAll('[data-cell]').forEach(c => c.classList.remove('ok', 'dev'));
+  }
+
+  /* ---------- fragments (slide 18) ---------- */
+  function frags(slide) { return slide ? Array.from(slide.querySelectorAll('[data-frag]')) : []; }
+  function resetFrags(slide) { frags(slide).forEach(f => f.classList.remove('show')); fragShown = 0; }
+
+  /* ---------- navigation ---------- */
+  function goTo(n) {
+    n = Math.max(0, Math.min(N - 1, n));
+    if (n === cur) return;
+    if (cur >= 0) {
+      const old = slides[cur];
+      old.classList.remove('active');
+      old.setAttribute('aria-hidden', 'true');
+      unreveal(old); clearGrid(old); resetFrags(old);
+    }
+    cur = n;
+    const s = slides[cur];
+    s.classList.add('active');
+    s.removeAttribute('aria-hidden');
+    s.scrollTop = 0;
+    reveal(s); animateGrid(s); resetFrags(s);
+
+    counter.textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
+    slideTitle.textContent = ' — ' + s.dataset.title;
+    bar.style.width = ((cur + 1) / N * 100) + '%';
+    history.replaceState(null, '', '#' + (cur + 1));
+    if (indexOpen()) markCurrent();
+  }
+
+  function next() {
+    const f = frags(slides[cur]);
+    if (f.length && fragShown < f.length) { f[fragShown].classList.add('show'); fragShown++; return; }
+    goTo(cur + 1);
+  }
+  function prev() {
+    const f = frags(slides[cur]);
+    if (f.length && fragShown > 0) { fragShown--; f[fragShown].classList.remove('show'); return; }
+    goTo(cur - 1);
+  }
+
+  /* ---------- input ---------- */
+  document.getElementById('btnNext').addEventListener('click', next);
+  document.getElementById('btnPrev').addEventListener('click', prev);
+  document.getElementById('btnIndex').addEventListener('click', () => indexOpen() ? closeIndex() : openIndex());
+  document.getElementById('btnCloseIndex').addEventListener('click', closeIndex);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const k = e.key;
+    if (indexOpen()) {
+      if (k === 'Escape' || k === 'g' || k === 'G') { e.preventDefault(); closeIndex(); }
+      return;
+    }
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) { e.preventDefault(); next(); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || (k === ' ' && e.shiftKey)) { e.preventDefault(); prev(); }
+    else if (k === 'Home') { e.preventDefault(); goTo(0); }
+    else if (k === 'End') { e.preventDefault(); goTo(N - 1); }
+    else if (k === 'g' || k === 'G' || k === 'i' || k === 'I') { e.preventDefault(); openIndex(); }
+  });
+
+  /* ---------- mockup toggle (slide 11) ---------- */
+  const mockTog = document.getElementById('mockTog');
+  const mockModes = document.getElementById('mockModes');
+  if (mockTog && mockModes) {
+    mockTog.addEventListener('click', () => {
+      const on = mockTog.classList.toggle('on');
+      mockTog.setAttribute('aria-checked', on ? 'true' : 'false');
+      mockModes.style.display = on ? '' : 'none';
+    });
+  }
+
+  /* ---------- boot ---------- */
+  slides.forEach(s => s.setAttribute('aria-hidden', 'true'));
+  const initial = parseInt((location.hash || '').replace('#', ''), 10);
+  goTo(Number.isFinite(initial) && initial >= 1 && initial <= N ? initial - 1 : 0);
+
+  window.__deck = { goTo, next, prev };
+})();
+</script>
+</body>
+</html>
