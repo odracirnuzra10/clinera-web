@@ -238,6 +238,10 @@ const nextConfig: NextConfig = {
         source: '/fonasa2026',
         destination: '/fonasa2026/index.html',
       },
+      {
+        source: '/convenio',
+        destination: '/convenio/index.html',
+      },
     ];
   },
   async redirects() {
