@@ -234,6 +234,10 @@ const nextConfig: NextConfig = {
         source: '/gcp',
         destination: '/gcp/index.html',
       },
+      {
+        source: '/fonasa2026',
+        destination: '/fonasa2026/index.html',
+      },
     ];
   },
   async redirects() {
