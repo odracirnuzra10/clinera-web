@@ -1,11 +1,19 @@
 /**
  * Contenido normativo de /acreditacion.
  *
- * REGLA QUE MANDA SOBRE TODO LO DEMÁS: Clinera NO está certificado ni
- * acreditado en ningún país. Nada de "cumplimos", "certificados",
- * "acreditados" ni "conectados a RENHICE". Las únicas fórmulas permitidas son
- * "las medidas que esta norma exige están activas en Clinera" y "diseñado bajo
- * los requisitos técnicos de X". Si agregas o editas contenido aquí, respétalo.
+ * REGLA QUE MANDA SOBRE TODO LO DEMÁS (decidida por Ricardo, agosto 2026):
+ * la página afirma que Clinera cumple con los REQUISITOS TÉCNICOS que exigen
+ * estas normas —cifrado, aislamiento por clínica, trazabilidad, respaldo—,
+ * porque esas medidas están activas y son verificables.
+ *
+ * Lo que NO se afirma, y no debe aparecer nunca: que Clinera esté certificado,
+ * acreditado, registrado o conectado al RENHICE. En México, Perú y Colombia el
+ * cumplimiento formal ES el registro estatal (DGIS, MINSA/OGTI, MinSalud) y
+ * esos trámites están en curso, no resueltos. Afirmarlos sería falso y además
+ * es lo único de esta página que expone legalmente a la empresa.
+ *
+ * En resumen: "cumple con los requisitos técnicos que exige la norma" sí;
+ * "cumple con la norma" / "certificado" / "acreditado" no.
  *
  * Fuentes verificadas (agosto 2026):
  * - CL  Ley 20.584; Decreto 41/2012 MINSAL; Ley 21.668 (28-05-2024,
@@ -25,7 +33,7 @@ export const MODIFIED_ISO = "2026-08-12";
 export type TocEntry = { id: string; label: string };
 
 export const TOC: TocEntry[] = [
-  { id: "estado", label: "Dónde estamos hoy" },
+  { id: "estado", label: "Clinera y la norma" },
   { id: "equivalencias", label: "Equivalencias entre países" },
   { id: "chile", label: "Chile" },
   { id: "mexico", label: "México" },
@@ -178,7 +186,7 @@ export const COUNTRIES: Country[] = [
     exige:
       "La NOM-004-SSA3-2012 fija qué debe contener el expediente clínico, y la NOM-024-SSA3-2012 regula el software que lo opera —el SIRES— con reglas de estructura, seguridad e intercambio de información. El decreto publicado en el DOF el 15 de enero de 2026 incorporó los artículos 71 Bis y 71 Ter a la Ley General de Salud: definen la salud digital y ordenan digitalizar la información médica del Sistema Nacional de Salud garantizando interoperabilidad.",
     valida:
-      "La DGIS (Dirección General de Información en Salud), de la Secretaría de Salud, audita y certifica los SIRES bajo la NOM-024-SSA3-2012; Clinera no cuenta hoy con esa certificación.",
+      "La DGIS (Dirección General de Información en Salud), de la Secretaría de Salud, es el organismo que audita los SIRES bajo la NOM-024-SSA3-2012.",
     arquitectura: [
       "La ficha cubre los apartados que la NOM-004 exige del expediente —identificación, historia clínica, notas de evolución, consentimientos informados— con el profesional que registra identificado en cada anotación.",
       "Las anotaciones son inmutables y versionadas: una corrección se agrega, nunca sobrescribe, que es el criterio de integridad del expediente.",
@@ -194,7 +202,7 @@ export const COUNTRIES: Country[] = [
     exige:
       "La Ley 30024 creó el RENHICE, el registro nacional que permite a una IPRESS consultar la historia clínica electrónica de un paciente atendido en otro establecimiento. Para conectarse, el software de historia clínica —el SIHCE— debe estar acreditado, y la RM 164-2025/MINSA fijó ese procedimiento mediante la Directiva Administrativa 373-MINSA/OGTI-2025. La acreditación se evalúa sobre seis atributos: confidencialidad, integridad, disponibilidad, confiabilidad, trazabilidad y no repudio.",
     valida:
-      "El MINSA acredita los SIHCE a través de su Oficina General de Tecnologías de la Información (OGTI); Clinera no cuenta hoy con esa acreditación ni está conectado al RENHICE.",
+      "El MINSA es el organismo que evalúa los SIHCE, a través de su Oficina General de Tecnologías de la Información (OGTI).",
     arquitectura: [
       "Confidencialidad e integridad: AES-256-GCM en reposo, TLS en tránsito y una llave de cifrado por clínica, con llave maestra en bóveda gestionada.",
       "Trazabilidad y no repudio: cada lectura y cada escritura sobre la ficha queda registrada con usuario, acción y marca de tiempo, en un log que el operador de la clínica no puede editar.",
@@ -210,7 +218,7 @@ export const COUNTRIES: Country[] = [
     exige:
       "La Ley 2015 de 2020 creó la historia clínica electrónica interoperable y la Resolución 866 de 2021 definió el conjunto de datos clínicos relevantes que deben poder intercambiarse. La Resolución 1888 de 2025 adoptó el Resumen Digital de Atención (RDA) como mecanismo obligatorio de ese intercambio, sobre HL7 FHIR R4 y con transporte cifrado. Alcanza a todo prestador inscrito en el REPS, con plazo de adecuación de seis meses contados desde el 15 de octubre de 2025.",
     valida:
-      "El Ministerio de Salud y Protección Social certifica técnicamente al prestador y al software que usa antes de habilitarlo contra la plataforma IHCE; Clinera no cuenta hoy con esa certificación.",
+      "El Ministerio de Salud y Protección Social es el organismo que valida técnicamente al prestador y a su software antes de habilitarlo contra la plataforma IHCE.",
     arquitectura: [
       "El modelo de datos de la ficha cubre los elementos del conjunto mínimo de la Resolución 866, de modo que armar un RDA es una transformación de salida y no un rediseño del núcleo clínico.",
       "Cifrado del contenido clínico en reposo y transporte cifrado extremo a extremo, con una llave por clínica.",
