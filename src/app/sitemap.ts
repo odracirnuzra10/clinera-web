@@ -63,7 +63,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Future dedicated pages (stubs / planned)
     { url: `${baseUrl}/casos-de-exito`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/ley20584`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+
+    // Normativa de ficha clínica: landing corta + página profunda por país
+    { url: `${baseUrl}/ley20584`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/acreditacion`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
 
     // Legal
     { url: `${baseUrl}/privacidad`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },

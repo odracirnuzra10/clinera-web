@@ -112,7 +112,12 @@ html, body {
 
 html,
 body {
-  overflow-x: hidden;
+  /* `clip` y no `hidden`: recorta el desborde horizontal igual, pero no
+     convierte a <body> en contenedor de scroll. Con `hidden`, el scrollport
+     más cercano de cualquier position:sticky pasaba a ser <body> —que nunca
+     scrollea— y el sticky no se activaba nunca: ni el nav de brand-v3, ni el
+     TOC de /acreditacion. */
+  overflow-x: clip;
   width: 100%;
   position: relative;
 }
