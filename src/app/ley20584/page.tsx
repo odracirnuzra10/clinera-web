@@ -2,175 +2,149 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
+import { JsonLd } from "@/components/seo/JsonLd";
+import s from "./ley20584.module.css";
 
 export const metadata: Metadata = {
-  title: "Seguridad de datos y Ley 20.584 — Clinera.io",
+  title: "Seguridad de datos clínicos — cifrado y trazabilidad de la ficha",
   description:
-    "Cómo Clinera protege los datos clínicos: cifrado en reposo AES-256-GCM con envelope encryption, una llave por clínica y trazabilidad de acceso a la ficha, bajo las leyes 20.584 y 21.719.",
+    "Cómo Clinera protege la ficha clínica: cifrado en reposo AES-256-GCM, una llave por clínica, trazabilidad de acceso y respaldo continuo, sobre los requisitos técnicos de la normativa de ficha clínica de Chile, México, Perú y Colombia.",
   alternates: { canonical: "https://www.clinera.io/ley20584" },
   openGraph: {
     url: "https://www.clinera.io/ley20584",
-    title: "Seguridad de datos y Ley 20.584 — Clinera.io",
+    title: "Tus datos clínicos, cifrados y trazables — Clinera.io",
     description:
-      "Seguridad de datos de nivel enterprise: cifrado, aislamiento por clínica y trazabilidad de la ficha, bajo las leyes 20.584 y 21.719.",
+      "Cifrado en reposo AES-256-GCM, una llave por clínica, trazabilidad de acceso a la ficha y respaldo continuo.",
     type: "article",
   },
 };
 
-const LAST_UPDATED = "22 de julio de 2026";
+const PUBLISHED = "2026-07-22";
+const MODIFIED = "2026-08-12";
+const LAST_UPDATED = "12 de agosto de 2026";
+
+const MEDIDAS = [
+  {
+    title: "Cifrado en reposo",
+    text: "Todo el contenido clínico, AES-256-GCM.",
+  },
+  {
+    title: "Una llave por clínica",
+    text: "Los datos de una clínica no se descifran con la de otra.",
+  },
+  {
+    title: "Trazabilidad de la ficha",
+    text: "Queda registrado quién accede a qué, y cuándo.",
+  },
+  {
+    title: "Respaldo continuo",
+    text: "Copias automáticas y restauración a un instante exacto.",
+  },
+];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://www.clinera.io/ley20584#article",
+  headline: "Tus datos clínicos, cifrados y trazables",
+  description:
+    "Medidas técnicas de protección de la ficha clínica en Clinera: cifrado en reposo AES-256-GCM, una llave de cifrado por clínica, trazabilidad de acceso y respaldo continuo con restauración punto en el tiempo.",
+  url: "https://www.clinera.io/ley20584",
+  inLanguage: "es",
+  datePublished: PUBLISHED,
+  dateModified: MODIFIED,
+  author: { "@id": "https://www.clinera.io/#organization" },
+  publisher: { "@id": "https://www.clinera.io/#organization" },
+  isPartOf: { "@id": "https://www.clinera.io/acreditacion#article" },
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": "https://www.clinera.io/ley20584",
+  },
+};
 
 export default function Ley20584Page() {
   return (
     <>
+      <JsonLd data={articleSchema} />
       <NavV3 />
-      <main>
-        <section className="section">
-          <div className="container" style={{ maxWidth: 820 }}>
-            <div style={{ marginBottom: 12 }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-tech)",
-                  fontSize: "0.72rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: "var(--brand-cyan)",
-                }}
-              >
-                Seguridad y cumplimiento
+      <main className={s.page}>
+        {/* Bloque 0 — Hero */}
+        <section className={s.hero}>
+          <div className={s.wrap}>
+            <p className={s.eyebrow}>Seguridad de datos</p>
+            <div className={s.rule} aria-hidden="true" />
+            <h1 className={s.h1}>Tus datos clínicos, cifrados y trazables.</h1>
+            <p className={s.lede}>
+              La ficha clínica es el dato más sensible que existe. Así la protegemos.
+            </p>
+            <p className={s.stamp}>Última actualización — {LAST_UPDATED}</p>
+          </div>
+        </section>
+
+        {/* Bloque 1 — Cuatro medidas */}
+        <section aria-label="Medidas activas">
+          <div className={s.wrap}>
+            <div className={s.cards}>
+              {MEDIDAS.map((m, i) => (
+                <article key={m.title} className={s.card}>
+                  <p className={s.cardIdx}>{String(i + 1).padStart(2, "0")}</p>
+                  <h2 className={s.cardTitle}>{m.title}</h2>
+                  <p className={s.cardText}>{m.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Bloque 2 — Envelope encryption */}
+        <section className={s.envelope}>
+          <div className={s.wrap}>
+            <p className={s.eyebrow}>Envelope encryption, en una frase</p>
+            <p className={s.envSentence}>
+              Cada ficha se cifra con una llave única por clínica, esa llave se guarda cifrada
+              por una llave maestra en un servicio de custodia especializado, y un robo de la
+              base de datos expone solo texto ilegible.
+            </p>
+          </div>
+        </section>
+
+        {/* Bloque 3 — Franja de países */}
+        <section className={s.strip} aria-label="Países donde opera Clinera">
+          <div className={s.wrap}>
+            <div className={s.stripInner}>
+              <p className={s.codes}>CL · MX · PE · CO</p>
+              <p className={s.stripText}>
+                Clinera está diseñado sobre los requisitos técnicos de la normativa de ficha
+                clínica de cada país donde operamos.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bloque 4 — Derivación */}
+        <section className={s.cta}>
+          <div className={s.wrap}>
+            <Link href="/acreditacion" className={s.ctaLink}>
+              Ver la normativa de cada país en detalle
+              <span className={s.arrow} aria-hidden="true">
+                →
               </span>
-            </div>
-            <h1
-              style={{
-                fontSize: "2.5rem",
-                fontWeight: 700,
-                letterSpacing: "-0.03em",
-                color: "var(--ink-primary)",
-                marginBottom: 8,
-              }}
-            >
-              Seguridad de datos y Ley 20.584
-            </h1>
-            <p
-              style={{
-                fontFamily: "var(--font-tech)",
-                fontSize: "0.9rem",
-                color: "var(--ink-tertiary)",
-                marginBottom: 8,
-              }}
-            >
-              Datos de salud — la categoría más sensible bajo la Ley 21.719.
+            </Link>
+          </div>
+        </section>
+
+        {/* Bloque 5 — Legal */}
+        <section className={s.legal}>
+          <div className={s.wrap}>
+            <p className={s.legalText}>
+              Esta página es informativa y no constituye asesoría legal. Clinera no ostenta
+              certificaciones regulatorias de software clínico; lo que describe son las medidas
+              técnicas activas en la plataforma, auditables en una revisión de due diligence.
+              Qué exige cada marco normativo y quién lo valida está detallado en{" "}
+              <Link href="/acreditacion">normativa y acreditación en LATAM</Link>. Para una
+              revisión técnica con nuestro equipo,{" "}
+              <Link href="/hablar-con-ventas">agenda una reunión</Link>.
             </p>
-            <p
-              style={{
-                fontSize: "0.85rem",
-                color: "var(--ink-tertiary)",
-                marginBottom: 32,
-              }}
-            >
-              Última actualización: {LAST_UPDATED}
-            </p>
-
-            <div
-              style={{
-                fontSize: "1rem",
-                lineHeight: 1.7,
-                color: "var(--ink-secondary)",
-              }}
-            >
-              <p style={p}>
-                La ficha clínica es la categoría de datos más sensible que existe. En Clinera la
-                tratamos con estándares de seguridad de nivel enterprise: cifrado, aislamiento por
-                clínica y trazabilidad de acceso a cada ficha.
-              </p>
-
-              <h2 style={h2}>Cómo protegemos tus datos</h2>
-              <p style={p}>
-                Estas medidas están activas para todas las clínicas de la plataforma:
-              </p>
-              <ul style={ul}>
-                <li style={li}>
-                  <strong>Cifrado en reposo del 100% del contenido clínico.</strong> Todo el
-                  contenido de la ficha se cifra en la base de datos.
-                  <span style={badgeRow}>
-                    <span style={badge}>AES-256-GCM</span>
-                    <span style={badge}>Envelope encryption</span>
-                  </span>
-                </li>
-                <li style={li}>
-                  <strong>Una llave de cifrado por clínica.</strong> Aislamiento total entre
-                  clínicas: los datos de una clínica no se pueden descifrar con la llave de otra.
-                  <span style={badgeRow}>
-                    <span style={badge}>1 DEK per clinic</span>
-                    <span style={badge}>Cloud KMS</span>
-                  </span>
-                </li>
-                <li style={li}>
-                  <strong>Llave maestra en bóveda gestionada, nunca expuesta.</strong> La llave que
-                  protege a las demás vive en un servicio de custodia, con acceso mínimo y rotación
-                  periódica.
-                  <span style={badgeRow}>
-                    <span style={badge}>KMS</span>
-                    <span style={badge}>IAM mínimo</span>
-                    <span style={badge}>rotación 90d</span>
-                  </span>
-                </li>
-                <li style={li}>
-                  <strong>Trazabilidad completa de acceso a la ficha.</strong> Registro de quién
-                  accede a cada ficha, en línea con la Ley 20.584.
-                  <span style={badgeRow}>
-                    <span style={badge}>Access log</span>
-                    <span style={badge}>Ley 20.584</span>
-                  </span>
-                </li>
-                <li style={li}>
-                  <strong>Respaldos automáticos y recuperación punto en el tiempo.</strong> Copias
-                  automáticas con restauración a un instante específico.
-                  <span style={badgeRow}>
-                    <span style={badge}>Backups + PITR 7d</span>
-                  </span>
-                </li>
-              </ul>
-
-              <h2 style={h2}>Envelope encryption, en una frase</h2>
-              <p style={p}>
-                Cada ficha se cifra con una llave única por clínica; esa llave se guarda cifrada por
-                una llave maestra en un servicio de custodia especializado. Un robo de la base de
-                datos expone solo texto ilegible.
-              </p>
-
-              <h2 style={h2}>Ley 20.584 — derechos del paciente y la ficha clínica</h2>
-              <p style={p}>
-                La Ley 20.584 regula los derechos y deberes de las personas en su atención de salud.
-                Entre ellos, establece que la ficha clínica es un dato sensible: su acceso debe ser
-                restringido al personal autorizado y quedar registrado. Por eso la trazabilidad de
-                acceso a la ficha es una medida vigente en Clinera, no una promesa.
-              </p>
-              <p style={p}>
-                Profundizamos en el marco legal chileno de la ficha clínica en{" "}
-                <Link href="/blog/normativa-ficha-clinica-chile-ley-20584" style={linkStyle}>
-                  esta guía sobre la Ley 20.584 y la ficha clínica
-                </Link>
-                .
-              </p>
-
-              <h2 style={h2}>Ley 21.719 — protección de datos personales</h2>
-              <p style={p}>
-                La Ley 21.719 moderniza la protección de datos personales en Chile y entra en
-                vigencia en diciembre de 2026. Trata los datos de salud como una categoría especial,
-                con obligaciones reforzadas de seguridad, consentimiento y derechos del titular. En
-                Clinera aplicamos ese estándar de exigencia sobre los datos clínicos: cifrado,
-                aislamiento por clínica y trazabilidad de acceso a cada ficha.
-              </p>
-
-              <p style={{ ...p, fontSize: "0.85rem", color: "var(--ink-tertiary)", marginTop: 28 }}>
-                Esta página es informativa y no constituye asesoría legal. Para una revisión técnica
-                de seguridad (due diligence),{" "}
-                <Link href="/hablar-con-ventas" style={linkStyle}>
-                  agenda una reunión con nuestro equipo
-                </Link>
-                .
-              </p>
-            </div>
           </div>
         </section>
       </main>
@@ -178,53 +152,3 @@ export default function Ley20584Page() {
     </>
   );
 }
-
-const h2 = {
-  fontSize: "1.4rem",
-  fontWeight: 700,
-  color: "var(--ink-primary)",
-  marginTop: 36,
-  marginBottom: 12,
-  letterSpacing: "-0.02em",
-} as const;
-
-const p = {
-  marginBottom: 14,
-  color: "var(--ink-secondary)",
-  lineHeight: 1.7,
-} as const;
-
-const ul = {
-  margin: "0 0 18px",
-  paddingLeft: 24,
-  color: "var(--ink-secondary)",
-  lineHeight: 1.75,
-} as const;
-
-const li = {
-  marginBottom: 12,
-} as const;
-
-const badgeRow = {
-  display: "flex",
-  flexWrap: "wrap",
-  gap: 6,
-  marginTop: 6,
-} as const;
-
-const badge = {
-  fontFamily: "var(--font-tech)",
-  fontSize: "0.72rem",
-  letterSpacing: "0.01em",
-  color: "var(--ink-secondary)",
-  background: "var(--surface-1)",
-  border: "1px solid var(--surface-2)",
-  borderRadius: 6,
-  padding: "2px 8px",
-} as const;
-
-const linkStyle = {
-  color: "var(--brand-cyan)",
-  textDecoration: "underline",
-  textUnderlineOffset: 2,
-} as const;
