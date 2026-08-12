@@ -2802,6 +2802,36 @@
       text-wrap: pretty;
     }
 
+    /* Diapositiva "Clinera y la norma": reusa hr-layout con una tercera fila
+       para la linea de medidas, y la grilla en 2x2 porque son cuatro paises. */
+    .nr-layout {
+      grid-template-rows: auto auto auto;
+    }
+
+    .hr-grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .nr-measures {
+      margin: 0;
+      padding-top: clamp(14px, 2vh, 22px);
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--blk-mono);
+      font-size: 12px;
+      letter-spacing: .06em;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    .nr-status {
+      display: block;
+      margin-top: 8px;
+      color: var(--ink-soft);
+      font-size: 11px;
+      letter-spacing: .1em;
+    }
+
     .slide.active .hr-grid {
       animation: enter .64s var(--ease) .14s both;
     }
@@ -3882,6 +3912,48 @@
               <span>Campañas y difusión</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="normativa"
+        data-name="Clinera y la norma"
+        aria-hidden="true"
+      >
+        <div class="slide-inner hr-layout nr-layout">
+          <header class="hr-head">
+            <div class="blk-eyebrow">CLINERA Y LA NORMA</div>
+            <h2 class="blk-h2">
+              Cumplimos con los requisitos técnicos
+              <span class="blk-grad-text">de los cuatro países</span>.
+            </h2>
+          </header>
+
+          <div class="hr-grid hr-grid-2">
+            <div class="hr-item">
+              <strong>Chile</strong>
+              <span>Ley 20.584 · Decreto 41/2012 · Ley 21.668 · Ley 21.719</span>
+            </div>
+            <div class="hr-item">
+              <strong>México</strong>
+              <span>NOM-004-SSA3-2012 · NOM-024-SSA3-2012</span>
+            </div>
+            <div class="hr-item">
+              <strong>Perú</strong>
+              <span>Ley 30024 · RM 164-2025/MINSA</span>
+            </div>
+            <div class="hr-item">
+              <strong>Colombia</strong>
+              <span>Ley 2015 de 2020 · Res. 866/2021 · Res. 1888/2025</span>
+            </div>
+          </div>
+
+          <p class="nr-measures">
+            Cifrado AES-256-GCM del contenido clínico · una llave por clínica · trazabilidad
+            de acceso a la ficha · respaldo continuo
+            <span class="nr-status">Medidas activas hoy · registros estatales en curso</span>
+          </p>
         </div>
       </section>
 
