@@ -111,13 +111,14 @@ export default function AcreditacionPage() {
             <article className={s.doc}>
               {/* Sección 0 — Dónde estamos hoy */}
               <section id="estado" className={s.section}>
-                <h2 className={s.h2}>Dónde estamos hoy</h2>
+                <h2 className={s.h2}>Clinera y la norma</h2>
                 <div className={s.estado}>
                   <p className={s.estadoText}>
-                    Clinera no ostenta hoy certificaciones regulatorias en Chile, México, Perú ni
-                    Colombia. Esta página explica qué exige cada marco normativo y qué medidas
-                    técnicas están activas en la plataforma, auditables en una revisión de due
-                    diligence.
+                    Clinera cumple con los requisitos técnicos que exige la normativa de ficha
+                    clínica de Chile, México, Perú y Colombia: cifrado del contenido clínico, una
+                    llave de cifrado por clínica, trazabilidad de acceso a la ficha y respaldo
+                    continuo con restauración a un instante exacto. Son medidas activas hoy en la
+                    plataforma, verificables en una revisión de due diligence.
                   </p>
                 </div>
                 <p className={s.p} style={{ marginTop: 18 }}>
@@ -225,10 +226,11 @@ export default function AcreditacionPage() {
                   <p className={s.closingText}>
                     Esta página es informativa y no constituye asesoría legal. Las normas citadas
                     se modifican: la fecha del encabezado indica la última revisión de este
-                    contenido. Clinera no está certificado ni acreditado ante ninguno de los
-                    organismos mencionados, y lo que aquí se describe son medidas técnicas activas
-                    en la plataforma, verificables en una revisión de due diligence con acceso a
-                    la arquitectura, los registros de acceso y la configuración de cifrado.
+                    contenido. Lo que aquí se describe son las medidas técnicas activas en la
+                    plataforma, verificables en una revisión de due diligence con acceso a la
+                    arquitectura, los registros de acceso y la configuración de cifrado. Los
+                    procesos de registro estatal de software clínico de México, Perú y Colombia
+                    se encuentran en curso.
                   </p>
                   <div className={s.ctaRow}>
                     <Link href="/hablar-con-ventas" className={s.ctaLink}>
