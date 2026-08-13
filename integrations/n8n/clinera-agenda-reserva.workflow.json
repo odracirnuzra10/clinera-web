@@ -1,0 +1,290 @@
+{
+  "name": "Clinera — Reserva /agenda (www)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "clinera-agenda-config",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://www.clinera.io"
+        }
+      },
+      "id": "a1c0f7e0-0001-4c00-8000-000000000001",
+      "name": "Webhook Config",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 0]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, clinicaUrl: \"clinera-software-1769526763629\", sucursalId: \"cmoqinfoi007dso3d7fhnwdyb\", sucursalNombre: \"Clinera Software\", tratamientoId: \"cmoyoj9sn026xoi3dnedn2kl8\", tratamiento: \"Reunión con Clinera\", duracionMin: 20 }) }}"
+      },
+      "id": "a1c0f7e0-0002-4c00-8000-000000000002",
+      "name": "Responder Config",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [480, 0]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "clinera-agenda-disponibilidad",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://www.clinera.io"
+        }
+      },
+      "id": "a1c0f7e0-0003-4c00-8000-000000000003",
+      "name": "Webhook Disponibilidad",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Valida la fecha y arma la URL de disponibilidad de app.clinera.io.\n// CONFIG: mismos valores que el nodo \"Responder Config\".\nconst CONFIG = {\n  clinicaUrl: 'clinera-software-1769526763629',\n  sucursalId: 'cmoqinfoi007dso3d7fhnwdyb',\n  tratamientoId: 'cmoyoj9sn026xoi3dnedn2kl8',\n  duracionMin: 20,\n};\nconst fecha = String($json.query?.fecha || '');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(fecha)) {\n  return [{ json: { ok: false, error: 'fecha inválida (YYYY-MM-DD)' } }];\n}\nconst qs = new URLSearchParams({\n  clinicaUrl: CONFIG.clinicaUrl,\n  sucursalId: CONFIG.sucursalId,\n  fecha,\n  duracionMin: String(CONFIG.duracionMin),\n  tratamientoId: CONFIG.tratamientoId,\n});\nreturn [{ json: { ok: true, url: 'https://app.clinera.io/api/public/iframe/disponibilidad?' + qs.toString() } }];"
+      },
+      "id": "a1c0f7e0-0004-4c00-8000-000000000004",
+      "name": "Armar URL Disponibilidad",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.ok }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "a1c0f7e0-0005-4c00-8000-000000000005",
+      "name": "¿Fecha válida?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": { "timeout": 15000 }
+      },
+      "id": "a1c0f7e0-0006-4c00-8000-000000000006",
+      "name": "GET Disponibilidad Clinera",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 120],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}"
+      },
+      "id": "a1c0f7e0-0007-4c00-8000-000000000007",
+      "name": "Responder Disponibilidad",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1140, 120]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseCode": 400,
+        "responseBody": "={{ JSON.stringify({ ok: false, error: $json.error || 'No se pudo obtener disponibilidad' }) }}"
+      },
+      "id": "a1c0f7e0-0008-4c00-8000-000000000008",
+      "name": "Responder Error Disponibilidad",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1140, 300]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "clinera-agenda-turno",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://www.clinera.io"
+        }
+      },
+      "id": "a1c0f7e0-0009-4c00-8000-000000000009",
+      "name": "Webhook Turno",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 520]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Valida y normaliza el pedido de turno que llega desde www.clinera.io/agenda.\n// Replica el flujo del widget embebido: primero upsert del paciente, después la cita.\nconst CONFIG = {\n  clinicaUrl: 'clinera-software-1769526763629',\n  sucursalId: 'cmoqinfoi007dso3d7fhnwdyb',\n  sucursalNombre: 'Clinera Software',\n  tratamientoId: 'cmoyoj9sn026xoi3dnedn2kl8',\n  tratamiento: 'Reunión con Clinera',\n  duracionMin: 20,\n};\nconst b = $json.body || {};\nconst nombre = String(b.nombre || '').trim().slice(0, 120);\nconst email = String(b.email || '').trim().toLowerCase().slice(0, 160);\nconst telefono = String(b.telefono || '').replace(/[^\\d+]/g, '').slice(0, 20);\nconst fecha = String(b.fecha || '');\nconst hora = String(b.hora || '');\nconst professionalId = String(b.professionalId || '').slice(0, 64);\nconst professionalName = String(b.professionalName || '').trim().slice(0, 120);\n\nconst errores = [];\nif (nombre.length < 2) errores.push('nombre');\nif (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) errores.push('email');\nif (telefono.replace(/\\D/g, '').length < 10) errores.push('telefono');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(fecha)) errores.push('fecha');\nif (!/^\\d{2}:\\d{2}$/.test(hora)) errores.push('hora');\nif (!professionalId && !professionalName) errores.push('profesional');\nif (errores.length) {\n  return [{ json: { ok: false, error: 'Campos inválidos: ' + errores.join(', ') } }];\n}\n\nreturn [{ json: {\n  ok: true,\n  config: CONFIG,\n  paciente: { name: nombre, email, telefono },\n  cita: {\n    nombre,\n    email,\n    telefono,\n    fecha,\n    hora,\n    professionalId: professionalId || undefined,\n    doctor: professionalName || undefined,\n    notas: 'Turno solicitado desde www.clinera.io/agenda',\n    tratamientoId: CONFIG.tratamientoId,\n    tratamiento: CONFIG.tratamiento,\n    sucursal: CONFIG.sucursalNombre,\n    sucursalId: CONFIG.sucursalId,\n    sucursalNombre: CONFIG.sucursalNombre,\n    duracion: CONFIG.duracionMin,\n    createAsNewPatient: false,\n  },\n} }];"
+      },
+      "id": "a1c0f7e0-0010-4c00-8000-000000000010",
+      "name": "Validar y Normalizar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 520]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.ok }}",
+              "rightValue": true,
+              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "a1c0f7e0-0011-4c00-8000-000000000011",
+      "name": "¿Pedido válido?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 520]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://app.clinera.io/api/public/landing-clinica/{{ $json.config.clinicaUrl }}/pacientes",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.paciente) }}",
+        "options": { "timeout": 15000 }
+      },
+      "id": "a1c0f7e0-0012-4c00-8000-000000000012",
+      "name": "POST Paciente",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 440],
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// La cita usa los datos que devolvió el upsert del paciente si vinieron;\n// si el POST de paciente falló, sigue con los datos originales (igual que el widget).\nconst req = $('Validar y Normalizar').first().json;\nconst resp = $json || {};\nconst data = resp.data || {};\nconst cita = { ...req.cita };\nif (data.email) {\n  cita.nombre = data.name || cita.nombre;\n  cita.email = data.email;\n  if (data.phone) cita.telefono = String(data.phone).replace(/[^\\d+]/g, '');\n}\nreturn [{ json: { config: req.config, cita } }];"
+      },
+      "id": "a1c0f7e0-0013-4c00-8000-000000000013",
+      "name": "Preparar Cita",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 440]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://app.clinera.io/api/public/landing-clinica/{{ $json.config.clinicaUrl }}/citas",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.cita) }}",
+        "options": { "timeout": 20000 }
+      },
+      "id": "a1c0f7e0-0014-4c00-8000-000000000014",
+      "name": "POST Cita",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1340, 440],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, cita: $('Preparar Cita').first().json.cita, respuesta: $json }) }}"
+      },
+      "id": "a1c0f7e0-0015-4c00-8000-000000000015",
+      "name": "Responder Turno OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1580, 360]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseCode": 502,
+        "responseBody": "={{ JSON.stringify({ ok: false, error: 'No se pudo crear la cita en Clinera' }) }}"
+      },
+      "id": "a1c0f7e0-0016-4c00-8000-000000000016",
+      "name": "Responder Turno Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1580, 540]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseCode": 400,
+        "responseBody": "={{ JSON.stringify({ ok: false, error: $json.error || 'Pedido inválido' }) }}"
+      },
+      "id": "a1c0f7e0-0017-4c00-8000-000000000017",
+      "name": "Responder Turno Inválido",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 700]
+    }
+  ],
+  "connections": {
+    "Webhook Config": {
+      "main": [[{ "node": "Responder Config", "type": "main", "index": 0 }]]
+    },
+    "Webhook Disponibilidad": {
+      "main": [[{ "node": "Armar URL Disponibilidad", "type": "main", "index": 0 }]]
+    },
+    "Armar URL Disponibilidad": {
+      "main": [[{ "node": "¿Fecha válida?", "type": "main", "index": 0 }]]
+    },
+    "¿Fecha válida?": {
+      "main": [
+        [{ "node": "GET Disponibilidad Clinera", "type": "main", "index": 0 }],
+        [{ "node": "Responder Error Disponibilidad", "type": "main", "index": 0 }]
+      ]
+    },
+    "GET Disponibilidad Clinera": {
+      "main": [
+        [{ "node": "Responder Disponibilidad", "type": "main", "index": 0 }],
+        [{ "node": "Responder Error Disponibilidad", "type": "main", "index": 0 }]
+      ]
+    },
+    "Webhook Turno": {
+      "main": [[{ "node": "Validar y Normalizar", "type": "main", "index": 0 }]]
+    },
+    "Validar y Normalizar": {
+      "main": [[{ "node": "¿Pedido válido?", "type": "main", "index": 0 }]]
+    },
+    "¿Pedido válido?": {
+      "main": [
+        [{ "node": "POST Paciente", "type": "main", "index": 0 }],
+        [{ "node": "Responder Turno Inválido", "type": "main", "index": 0 }]
+      ]
+    },
+    "POST Paciente": {
+      "main": [[{ "node": "Preparar Cita", "type": "main", "index": 0 }]]
+    },
+    "Preparar Cita": {
+      "main": [[{ "node": "POST Cita", "type": "main", "index": 0 }]]
+    },
+    "POST Cita": {
+      "main": [
+        [{ "node": "Responder Turno OK", "type": "main", "index": 0 }],
+        [{ "node": "Responder Turno Error", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}
