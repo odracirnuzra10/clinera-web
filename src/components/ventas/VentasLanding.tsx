@@ -1169,6 +1169,23 @@ async function submitBookingConfirmation({
     );
   }
 
+  // MQL: la reunión agendada ES el MQL (MQL_TRIGGER = "booking_confirmed").
+  // Se dispara acá y no en el paso 3, para que un lead cuente UNA sola vez.
+  // fireMqlEvent es idempotente por sesión y sólo dispara si el lead califica.
+  // En /agenda, n8n manda además el MQL por CAPI con este mismo event_id:
+  // Meta deduplica por (event_name, event_id), así que sigue siendo uno.
+  if (MQL_TRIGGER === "booking_confirmed" && qual?.califica) {
+    void fireMqlEvent({
+      eventId: confirmEventId,
+      qual: { califica: qual.califica, prioridadAlta: qual.prioridadAlta },
+      customData: qualCustomData(software, size, qual, PHONE_RULES[form.prefix]?.name ?? ""),
+      contact: {
+        email: form.email,
+        phoneE164: form.prefix + form.phone.replace(/\D/g, ""),
+      },
+    });
+  }
+
   pushDL("ventas_booking_confirmed", {
     lead_event_id: leadCtx?.eventId,
     cal_booking_uid: booking?.booking?.uid,
