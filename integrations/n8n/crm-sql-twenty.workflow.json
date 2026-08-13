@@ -12,27 +12,41 @@
       "name": "Webhook CRM (Twenty)",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [240, 300]
+      "position": [
+        240,
+        300
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// ===================================================================\n// SQL: el closer marcó el lead como calificado en crm.oacg.cl (Twenty).\n// Es una conversión OFFLINE: Meta la castea por email/teléfono hasheados\n// (action_source \"system_generated\"), no por cookie de navegador.\n//\n// El payload de Twenty cambia según la versión y el objeto que dispare el\n// webhook, así que las claves se buscan en profundidad en vez de asumir\n// una ruta fija.\n// ===================================================================\nconst crypto = require('crypto');\nconst hash = (v) => (v ? crypto.createHash('sha256').update(String(v).trim().toLowerCase()).digest('hex') : '');\n\n// Valor de un SQL. Si algún día cambia, se toca acá y en ningún otro lado.\nconst VALOR_SQL = 100;\nconst MONEDA = 'USD';\n\n// Etapas que cuentan como SQL (comparación sin acentos, en minúsculas).\nconst ETAPAS_SQL = ['calificado', 'qualified', 'sql', 'sales qualified'];\n\nfunction norm(s) {\n  return String(s == null ? '' : s)\n    .normalize('NFD')\n    .replace(/[\\u0300-\\u036f]/g, '')\n    .toLowerCase()\n    .trim();\n}\n\nfunction deepFind(obj, claves, validar) {\n  const objetivo = claves.map(norm);\n  const visto = new Set();\n  const cola = [obj];\n  while (cola.length) {\n    const cur = cola.shift();\n    if (!cur || typeof cur !== 'object' || visto.has(cur)) continue;\n    visto.add(cur);\n    for (const k of Object.keys(cur)) {\n      const v = cur[k];\n      if (v && typeof v === 'object') { cola.push(v); continue; }\n      if (!objetivo.includes(norm(k))) continue;\n      const s = String(v == null ? '' : v).trim();\n      if (!s) continue;\n      if (validar && !validar(s)) continue;\n      return s;\n    }\n  }\n  return '';\n}\n\nconst wh = $json || {};\nconst body = wh.body || wh;\nconst headers = wh.headers || {};\n\nconst email = deepFind(body, ['email', 'primaryemail', 'emails', 'correo'], function (s) { return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(s); }).toLowerCase();\nconst telefonoRaw = deepFind(body, ['phone', 'primaryphonenumber', 'telefono', 'celular', 'whatsapp']);\nconst telefono = String(telefonoRaw).replace(/\\D/g, '');\nconst nombre = deepFind(body, ['name', 'nombre', 'firstname', 'fullname']);\nconst apellido = deepFind(body, ['lastname', 'apellido']);\nconst etapa = deepFind(body, ['stage', 'etapa', 'status', 'estado', 'pipelinestage', 'dealstage']);\nconst recordId = deepFind(body, ['id', 'recordid', 'opportunityid']);\n// Si el lead trae los identificadores de Meta guardados desde la landing,\n// se aprovechan: suben mucho la calidad del match.\nconst fbc = deepFind(body, ['fbc', 'metafbc', 'fbclid']);\nconst fbp = deepFind(body, ['fbp', 'metafbp']);\n\nif (!email && telefono.length < 10) {\n  return [{ json: { ok: false, motivo: 'sin_email_ni_telefono', payload: body } }];\n}\n\nconst etapaNorm = norm(etapa);\nconst esSql = ETAPAS_SQL.some(function (e) { return etapaNorm.indexOf(e) !== -1; });\nif (!esSql) {\n  // Otro cambio en el CRM: no es un SQL, no se manda nada.\n  return [{ json: { ok: false, motivo: 'etapa_no_sql', etapa: etapa, payload: body } }];\n}\n\n// Anti-duplicado: si el closer mueve el registro de etapa varias veces,\n// el SQL se cuenta una sola vez por lead.\nconst estado = $getWorkflowStaticData('global');\nestado.sql = estado.sql || {};\nconst clave = recordId || hash(email || telefono);\nconst ahora = Date.now();\nfor (const k of Object.keys(estado.sql)) {\n  if (ahora - estado.sql[k] > 90 * 86400000) delete estado.sql[k];\n}\nif (estado.sql[clave]) {\n  return [{ json: { ok: false, motivo: 'sql_ya_enviado', clave: clave } }];\n}\nestado.sql[clave] = ahora;\n\nconst eventTime = Math.floor(Date.now() / 1000);\nconst eventId = 'sql_' + clave;\n\nlet country = 'CL';\nconst PREFIJOS = [['595','PY'],['593','EC'],['507','PA'],['506','CR'],['56','CL'],['54','AR'],['52','MX'],['51','PE'],['34','ES'],['1','US']];\nfor (const par of PREFIJOS) { if (telefono.indexOf(par[0]) === 0) { country = par[1]; break; } }\n\nconst emailHash = hash(email || telefono);\n\nconst ga4Body = {\n  client_id: String((parseInt(emailHash.slice(0, 12), 16) % 1e10) + '.' + eventTime),\n  user_id: emailHash,\n  timestamp_micros: eventTime * 1000000,\n  non_personalized_ads: false,\n  events: [{\n    name: 'sql',\n    params: {\n      currency: MONEDA,\n      value: VALOR_SQL,\n      session_id: String(eventTime),\n      engagement_time_msec: 100,\n      event_source: 'crm_twenty',\n      crm_stage: String(etapa),\n      items: [{\n        item_id: 'clinera_sql_calificado',\n        item_name: 'Clinera SQL - Lead calificado por closer',\n        item_category: 'crm',\n        price: VALOR_SQL,\n        quantity: 1,\n      }],\n    },\n  }],\n};\n\nreturn [{ json: {\n  ok: true,\n  em: hash(email),\n  ph: hash(telefono),\n  fn: hash(nombre),\n  ln: hash(apellido),\n  country_hashed: hash(country),\n  external_id: hash(email || telefono),\n  fbc: fbc,\n  fbp: fbp,\n  client_user_agent: String(headers['user-agent'] || ''),\n  event_time: eventTime,\n  event_id: eventId,\n  value: VALOR_SQL,\n  currency: MONEDA,\n  country: country,\n  etapa: String(etapa),\n  record_id: String(recordId || ''),\n  ga4Body: ga4Body,\n} }];"
+        "jsCode": "// ===================================================================\n// SQL: el closer marcó el lead como calificado en crm.oacg.cl (Twenty).\n// Es una conversión OFFLINE: Meta la castea por email/teléfono hasheados\n// (action_source \"system_generated\"), no por cookie de navegador.\n//\n// El payload de Twenty cambia según la versión y el objeto que dispare el\n// webhook, así que las claves se buscan en profundidad en vez de asumir\n// una ruta fija.\n// ===================================================================\nconst crypto = require('crypto');\nconst hash = (v) => (v ? crypto.createHash('sha256').update(String(v).trim().toLowerCase()).digest('hex') : '');\n\n// Valor de un SQL. Si algún día cambia, se toca acá y en ningún otro lado.\nconst VALOR_SQL = 100;\nconst MONEDA = 'USD';\n\n// Etapas del pipeline que cuentan como SQL (comparación EXACTA, sin\n// acentos y en minúsculas). El pipeline tiene además Nuevo, MQL y\n// PQL · No contesta, que no disparan nada.\nconst ETAPAS_SQL = ['sql', 'sql+'];\n\nfunction norm(s) {\n  return String(s == null ? '' : s)\n    .normalize('NFD')\n    .replace(/[\\u0300-\\u036f]/g, '')\n    .toLowerCase()\n    .trim();\n}\n\nfunction deepFind(obj, claves, validar) {\n  const objetivo = claves.map(norm);\n  const visto = new Set();\n  const cola = [obj];\n  while (cola.length) {\n    const cur = cola.shift();\n    if (!cur || typeof cur !== 'object' || visto.has(cur)) continue;\n    visto.add(cur);\n    for (const k of Object.keys(cur)) {\n      const v = cur[k];\n      if (v && typeof v === 'object') { cola.push(v); continue; }\n      if (!objetivo.includes(norm(k))) continue;\n      const s = String(v == null ? '' : v).trim();\n      if (!s) continue;\n      if (validar && !validar(s)) continue;\n      return s;\n    }\n  }\n  return '';\n}\n\nconst wh = $json || {};\nconst body = wh.body || wh;\nconst headers = wh.headers || {};\n\nconst email = deepFind(body, ['email', 'primaryemail', 'emails', 'correo'], function (s) { return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(s); }).toLowerCase();\nconst telefonoRaw = deepFind(body, ['phone', 'primaryphonenumber', 'telefono', 'celular', 'whatsapp']);\nconst telefono = String(telefonoRaw).replace(/\\D/g, '');\nconst nombre = deepFind(body, ['name', 'nombre', 'firstname', 'fullname']);\nconst apellido = deepFind(body, ['lastname', 'apellido']);\nconst etapa = deepFind(body, ['stage', 'etapa', 'status', 'estado', 'pipelinestage', 'dealstage']);\nconst recordId = deepFind(body, ['id', 'recordid', 'opportunityid']);\n// Si el lead trae los identificadores de Meta guardados desde la landing,\n// se aprovechan: suben mucho la calidad del match.\nconst fbc = deepFind(body, ['fbc', 'metafbc', 'fbclid']);\nconst fbp = deepFind(body, ['fbp', 'metafbp']);\n\nif (!email && telefono.length < 10) {\n  return [{ json: { ok: false, motivo: 'sin_email_ni_telefono', payload: body } }];\n}\n\nconst etapaNorm = norm(etapa);\nconst esSql = ETAPAS_SQL.indexOf(etapaNorm) !== -1;\nif (!esSql) {\n  // Otro cambio en el CRM: no es un SQL, no se manda nada.\n  return [{ json: { ok: false, motivo: 'etapa_no_sql', etapa: etapa, payload: body } }];\n}\n\n// Anti-duplicado: si el closer mueve el registro de etapa varias veces,\n// el SQL se cuenta una sola vez por lead.\nconst estado = $getWorkflowStaticData('global');\nestado.sql = estado.sql || {};\nconst clave = recordId || hash(email || telefono);\nconst ahora = Date.now();\nfor (const k of Object.keys(estado.sql)) {\n  if (ahora - estado.sql[k] > 90 * 86400000) delete estado.sql[k];\n}\nif (estado.sql[clave]) {\n  return [{ json: { ok: false, motivo: 'sql_ya_enviado', clave: clave } }];\n}\nestado.sql[clave] = ahora;\n\nconst eventTime = Math.floor(Date.now() / 1000);\nconst eventId = 'sql_' + clave;\n\nlet country = 'CL';\nconst PREFIJOS = [['595','PY'],['593','EC'],['507','PA'],['506','CR'],['56','CL'],['54','AR'],['52','MX'],['51','PE'],['34','ES'],['1','US']];\nfor (const par of PREFIJOS) { if (telefono.indexOf(par[0]) === 0) { country = par[1]; break; } }\n\nconst emailHash = hash(email || telefono);\n\nconst ga4Body = {\n  client_id: String((parseInt(emailHash.slice(0, 12), 16) % 1e10) + '.' + eventTime),\n  user_id: emailHash,\n  timestamp_micros: eventTime * 1000000,\n  non_personalized_ads: false,\n  events: [{\n    name: 'sql',\n    params: {\n      currency: MONEDA,\n      value: VALOR_SQL,\n      session_id: String(eventTime),\n      engagement_time_msec: 100,\n      event_source: 'crm_twenty',\n      crm_stage: String(etapa),\n      items: [{\n        item_id: 'clinera_sql_calificado',\n        item_name: 'Clinera SQL - Lead calificado por closer',\n        item_category: 'crm',\n        price: VALOR_SQL,\n        quantity: 1,\n      }],\n    },\n  }],\n};\n\nreturn [{ json: {\n  ok: true,\n  em: hash(email),\n  ph: hash(telefono),\n  fn: hash(nombre),\n  ln: hash(apellido),\n  country_hashed: hash(country),\n  external_id: hash(email || telefono),\n  fbc: fbc,\n  fbp: fbp,\n  client_user_agent: String(headers['user-agent'] || ''),\n  event_time: eventTime,\n  event_id: eventId,\n  value: VALOR_SQL,\n  currency: MONEDA,\n  country: country,\n  etapa: String(etapa),\n  record_id: String(recordId || ''),\n  ga4Body: ga4Body,\n} }];"
       },
       "id": "c3e2b9a0-0002-4c00-8000-000000000002",
       "name": "Validar SQL",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [
+        460,
+        300
+      ]
     },
     {
       "parameters": {
         "conditions": {
-          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
           "conditions": [
             {
               "leftValue": "={{ $json.ok }}",
               "rightValue": true,
-              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
             }
           ],
           "combinator": "and"
@@ -42,7 +56,10 @@
       "name": "¿Es SQL nuevo?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [680, 300]
+      "position": [
+        680,
+        300
+      ]
     },
     {
       "parameters": {
@@ -50,18 +67,28 @@
         "url": "https://graph.facebook.com/v21.0/1104567405156111/events",
         "sendQuery": true,
         "queryParameters": {
-          "parameters": [{ "name": "access_token", "value": "__META_CAPI_ACCESS_TOKEN__" }]
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "__META_CAPI_ACCESS_TOKEN__"
+            }
+          ]
         },
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"data\": [\n    {\n      \"event_name\": \"SQL\",\n      \"event_time\": {{ $json.event_time }},\n      \"event_id\": \"{{ $json.event_id }}\",\n      \"action_source\": \"system_generated\",\n      \"user_data\": {\n        \"em\": [\"{{ $json.em }}\"],\n        \"ph\": [\"{{ $json.ph }}\"],\n        \"fn\": [\"{{ $json.fn }}\"],\n        \"ln\": [\"{{ $json.ln }}\"],\n        \"country\": [\"{{ $json.country_hashed }}\"],\n        \"external_id\": [\"{{ $json.external_id }}\"],\n        \"fbc\": \"{{ $json.fbc }}\",\n        \"fbp\": \"{{ $json.fbp }}\"\n      },\n      \"custom_data\": {\n        \"currency\": \"{{ $json.currency }}\",\n        \"value\": {{ $json.value }},\n        \"content_name\": \"SQL - Lead calificado por closer\",\n        \"content_category\": \"crm\",\n        \"lead_source\": \"crm_twenty\",\n        \"crm_stage\": \"{{ $json.etapa }}\",\n        \"country\": \"{{ $json.country }}\"\n      }\n    }\n  ]\n}",
-        "options": { "timeout": 10000 }
+        "options": {
+          "timeout": 10000
+        }
       },
       "id": "c3e2b9a0-0004-4c00-8000-000000000004",
       "name": "Meta CAPI - SQL",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [900, 220],
+      "position": [
+        900,
+        220
+      ],
       "onError": "continueRegularOutput",
       "retryOnFail": true,
       "maxTries": 2,
@@ -74,13 +101,18 @@
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify($('Validar SQL').first().json.ga4Body) }}",
-        "options": { "timeout": 10000 }
+        "options": {
+          "timeout": 10000
+        }
       },
       "id": "c3e2b9a0-0005-4c00-8000-000000000005",
       "name": "GA4 - SQL",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1120, 220],
+      "position": [
+        1120,
+        220
+      ],
       "onError": "continueRegularOutput"
     },
     {
@@ -92,7 +124,10 @@
       "name": "Responder SQL OK",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [1340, 220]
+      "position": [
+        1340,
+        220
+      ]
     },
     {
       "parameters": {
@@ -103,27 +138,74 @@
       "name": "Responder Sin SQL",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [900, 440]
+      "position": [
+        900,
+        440
+      ]
     }
   ],
   "connections": {
     "Webhook CRM (Twenty)": {
-      "main": [[{ "node": "Validar SQL", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validar SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validar SQL": {
-      "main": [[{ "node": "¿Es SQL nuevo?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "¿Es SQL nuevo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "¿Es SQL nuevo?": {
       "main": [
-        [{ "node": "Meta CAPI - SQL", "type": "main", "index": 0 }],
-        [{ "node": "Responder Sin SQL", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Meta CAPI - SQL",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Sin SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Meta CAPI - SQL": {
-      "main": [[{ "node": "GA4 - SQL", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "GA4 - SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "GA4 - SQL": {
-      "main": [[{ "node": "Responder SQL OK", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Responder SQL OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
