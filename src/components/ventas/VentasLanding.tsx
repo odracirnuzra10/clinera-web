@@ -184,6 +184,28 @@ const CLINERA_EMBED_PRESET = {
 };
 const CLINERA_EMBED_ORIGIN = "https://app.clinera.io";
 
+// Reserva nativa vía n8n.oacg.cl: el paso final de /agenda intenta primero el
+// flujo sin iframe (datos ya precargados; el cliente solo elige profesional,
+// fecha y hora). n8n hace de puente server-side hacia la API pública de
+// app.clinera.io — el workflow vive en integrations/n8n/. Si el webhook de
+// config no responde (workflow inactivo o caído), se cae al embed oficial.
+const N8N_AGENDA_CONFIG_URL = "https://n8n.oacg.cl/webhook/clinera-agenda-config";
+const N8N_AGENDA_DISPO_URL = "https://n8n.oacg.cl/webhook/clinera-agenda-disponibilidad";
+const N8N_AGENDA_TURNO_URL = "https://n8n.oacg.cl/webhook/clinera-agenda-turno";
+
+type ClineraAgendaConfig = {
+  ok: boolean;
+  tratamiento?: string;
+  duracionMin?: number;
+};
+
+type DispoSlot = {
+  horaInicio: string;
+  horaFin?: string;
+  duracionMin?: number;
+  profesional?: { id?: string; name?: string };
+};
+
 type Form = { nombre: string; clinica: string; tipoClinica: ClinicType | ""; prefix: string; phone: string; email: string };
 
 // ============== TRACKING HELPERS ==============
@@ -882,22 +904,23 @@ function Wizard({
         />
       )}
       {!submitted && !declined && step === calStep && scheduler === "clinera" && (
-        <StepClineraEmbed
+        <StepClineraScheduler
           form={form}
           label={`Paso ${calStep} de ${totalSteps}`}
           onBack={() => setStep(contactStep)}
-          onBooked={async () => {
-            // El embed no expone los datos del turno (fecha/uid); la etapa de
-            // confirmación viaja con los campos cal_* en null y via propia.
+          onBooked={async (clineraBooking, via) => {
+            // Nativo: trae fecha/hora/profesional reales. Embed: viene {} y los
+            // campos cal_* viajan en null. `via` distingue el agendador en n8n.
+            setBooking(clineraBooking);
             await submitBookingConfirmation({
               form,
               software,
               size,
               qual: qualification,
               leadCtx,
-              booking: {},
+              booking: clineraBooking,
               sourcePath,
-              via: "Clinera embed confirm",
+              via,
             });
             setSubmitted(true);
           }}
@@ -2133,6 +2156,368 @@ function StepClineraEmbed({
         />
         {!embedLoaded && <CalendarLoadingOverlay />}
       </div>
+      <FormNote>
+        <strong>Sin compromiso</strong> · Videollamada con el equipo Clinera
+      </FormNote>
+    </div>
+  );
+}
+
+// ============== STEP 4 (alt) — Selector de agendador Clinera ==============
+// Prueba el webhook de config de n8n: si responde, reserva nativa (sin iframe,
+// con los datos del paso 3 precargados); si no (workflow inactivo, n8n caído,
+// timeout), cae al embed oficial. /agenda funciona igual aunque n8n no esté.
+function StepClineraScheduler({
+  form,
+  label,
+  onBack,
+  onBooked,
+}: {
+  form: Form;
+  label?: string;
+  onBack: () => void;
+  onBooked: (b: CalBooking, via: string) => void | Promise<void>;
+}) {
+  const [mode, setMode] = useState<"checking" | "nativo" | "embed">("checking");
+  const [config, setConfig] = useState<ClineraAgendaConfig | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const ctrl = new AbortController();
+    const t = window.setTimeout(() => ctrl.abort(), 2500);
+    fetch(N8N_AGENDA_CONFIG_URL, { signal: ctrl.signal })
+      .then((r) => (r.ok ? (r.json() as Promise<ClineraAgendaConfig>) : null))
+      .then((cfg) => {
+        if (cancelled) return;
+        if (cfg?.ok) {
+          setConfig(cfg);
+          setMode("nativo");
+        } else {
+          setMode("embed");
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setMode("embed");
+      })
+      .finally(() => window.clearTimeout(t));
+    return () => {
+      cancelled = true;
+      ctrl.abort();
+      window.clearTimeout(t);
+    };
+  }, []);
+
+  if (mode === "checking") {
+    return (
+      <div>
+        <BackBtn onClick={onBack} />
+        <div style={{ position: "relative", width: "100%", minHeight: 480 }}>
+          <CalendarLoadingOverlay />
+        </div>
+      </div>
+    );
+  }
+  if (mode === "nativo") {
+    return (
+      <StepClineraNativo
+        form={form}
+        config={config ?? { ok: true }}
+        label={label}
+        onBack={onBack}
+        onBooked={(b) => onBooked(b, "Clinera nativo (n8n)")}
+        onFallback={() => setMode("embed")}
+      />
+    );
+  }
+  return (
+    <StepClineraEmbed
+      form={form}
+      label={label}
+      onBack={onBack}
+      onBooked={() => onBooked({}, "Clinera embed confirm")}
+    />
+  );
+}
+
+// ============== STEP 4 (alt) — Reserva nativa vía n8n ==============
+// UX estilo Cal.com sin iframe: el cliente ya dejó sus datos en el paso 3, acá
+// solo elige día, profesional y hora. Disponibilidad y creación del turno van
+// por los webhooks de n8n.oacg.cl (integrations/n8n/), que llaman a la API
+// pública de app.clinera.io — el turno queda en la agenda real de Clinera.
+function toYMD(d: Date): string {
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${m}-${day}`;
+}
+
+function StepClineraNativo({
+  form,
+  config,
+  label = "Paso 4 de 4",
+  onBack,
+  onBooked,
+  onFallback,
+}: {
+  form: Form;
+  config: ClineraAgendaConfig;
+  label?: string;
+  onBack: () => void;
+  onBooked: (b: CalBooking) => void | Promise<void>;
+  onFallback: () => void;
+}) {
+  // Días ofrecidos: hoy + 13. La disponibilidad real la decide la API por día.
+  const days = useMemo(() => {
+    const base = new Date();
+    return Array.from({ length: 14 }, (_, i) => {
+      const d = new Date(base.getFullYear(), base.getMonth(), base.getDate() + i);
+      return { ymd: toYMD(d), date: d };
+    });
+  }, []);
+
+  const [fecha, setFecha] = useState(days[0].ymd);
+  const [profFilter, setProfFilter] = useState<string>("any");
+  const [hora, setHora] = useState<string>("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [retryTick, setRetryTick] = useState(0);
+  // El estado de disponibilidad se escribe SOLO desde los callbacks del fetch;
+  // loading/slots/error se derivan comparando la clave pedida vs la recibida.
+  const dispoKey = `${fecha}#${retryTick}`;
+  const [dispo, setDispo] = useState<{ key: string; slots: DispoSlot[]; error: boolean } | null>(null);
+
+  useEffect(() => {
+    const ctrl = new AbortController();
+    const key = dispoKey;
+    fetch(`${N8N_AGENDA_DISPO_URL}?fecha=${fecha}`, { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("dispo " + r.status))))
+      .then((json: { data?: { horariosDisponibles?: DispoSlot[] }; horariosDisponibles?: DispoSlot[] }) => {
+        const list = json?.data?.horariosDisponibles ?? json?.horariosDisponibles ?? [];
+        setDispo({ key, slots: Array.isArray(list) ? list : [], error: false });
+      })
+      .catch((e: unknown) => {
+        if (e instanceof DOMException && e.name === "AbortError") return;
+        setDispo({ key, slots: [], error: true });
+      });
+    return () => ctrl.abort();
+  }, [fecha, dispoKey]);
+
+  const loadingSlots = dispo?.key !== dispoKey;
+  const slots = useMemo(() => (loadingSlots || !dispo ? [] : dispo.slots), [loadingSlots, dispo]);
+  const slotsError = !loadingSlots && !!dispo?.error;
+
+  // Profesionales presentes en los slots del día elegido.
+  const professionals = useMemo(() => {
+    const map = new Map<string, string>();
+    slots.forEach((s) => {
+      if (s.profesional?.id && s.profesional.name) map.set(s.profesional.id, s.profesional.name);
+    });
+    return Array.from(map, ([id, name]) => ({ id, name }));
+  }, [slots]);
+
+  // Si el filtro apunta a un profesional que no atiende ese día, cae a "any"
+  // (derivado, no efecto: el estado guardado no se pisa).
+  const effectiveProfFilter =
+    profFilter === "any" || professionals.some((p) => p.id === profFilter) ? profFilter : "any";
+
+  const visibleSlots = useMemo(() => {
+    const filtered =
+      effectiveProfFilter === "any" ? slots : slots.filter((s) => s.profesional?.id === effectiveProfFilter);
+    const seen = new Set<string>();
+    return filtered
+      .filter((s) => {
+        if (!s.horaInicio || seen.has(s.horaInicio)) return false;
+        seen.add(s.horaInicio);
+        return true;
+      })
+      .sort((a, b) => a.horaInicio.localeCompare(b.horaInicio));
+  }, [slots, effectiveProfFilter]);
+
+  // La hora elegida solo vale si sigue existiendo en el día/filtro visibles.
+  const selectedSlot = visibleSlots.find((s) => s.horaInicio === hora) ?? null;
+
+  async function confirmar() {
+    const slot = selectedSlot;
+    if (!slot || submitting) return;
+    setSubmitting(true);
+    setSubmitError(false);
+    const digits = form.phone.replace(/\D/g, "");
+    try {
+      const res = await fetch(N8N_AGENDA_TURNO_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: form.nombre.trim(),
+          email: form.email.trim(),
+          telefono: form.prefix + digits,
+          fecha,
+          hora: slot.horaInicio,
+          professionalId: slot.profesional?.id ?? "",
+          professionalName: slot.profesional?.name ?? "",
+        }),
+      });
+      const json: { ok?: boolean } = res.ok ? await res.json() : { ok: false };
+      if (!json.ok) throw new Error("turno no creado");
+      await onBooked({
+        date: `${fecha}T${slot.horaInicio}:00`,
+        duration: slot.duracionMin ?? config.duracionMin,
+        organizer: slot.profesional?.name ? { name: slot.profesional.name } : undefined,
+        confirmed: true,
+      });
+    } catch {
+      setSubmitting(false);
+      setSubmitError(true);
+    }
+  }
+
+  const dayBtn = (sel: boolean): React.CSSProperties => ({
+    flex: "0 0 auto",
+    minWidth: 74,
+    padding: "10px 8px",
+    border: "1.5px solid " + (sel ? "#0A0A0A" : "#E7EBF0"),
+    borderRadius: 12,
+    background: sel ? "#0A0A0A" : "#fff",
+    color: sel ? "#fff" : "#0A0A0A",
+    cursor: "pointer",
+    fontFamily: "Inter",
+    textAlign: "center",
+    transition: "all .2s",
+  });
+
+  return (
+    <div>
+      <BackBtn onClick={onBack} />
+      <StepHeader
+        label={label}
+        title={
+          <>
+            Elige profesional y{" "}
+            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>horario</em>
+          </>
+        }
+        sub="Tus datos ya quedaron guardados: solo confirma con quién y cuándo."
+      />
+
+      <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 6, marginBottom: 14, WebkitOverflowScrolling: "touch" }}>
+        {days.map((d) => {
+          const sel = d.ymd === fecha;
+          const wd = d.date.toLocaleDateString("es-CL", { weekday: "short" }).replace(".", "");
+          const dm = d.date.toLocaleDateString("es-CL", { day: "numeric", month: "short" }).replace(".", "");
+          return (
+            <button key={d.ymd} type="button" onClick={() => setFecha(d.ymd)} style={dayBtn(sel)}>
+              <span style={{ display: "block", fontSize: 10.5, fontWeight: 600, textTransform: "uppercase", letterSpacing: ".06em", opacity: sel ? 0.75 : 0.55 }}>{wd}</span>
+              <span style={{ display: "block", fontSize: 14, fontWeight: 700, marginTop: 2, whiteSpace: "nowrap" }}>{dm}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {professionals.length > 1 && (
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
+          {[{ id: "any", name: "Cualquier profesional" }, ...professionals].map((p) => {
+            const sel = effectiveProfFilter === p.id;
+            return (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => {
+                  setProfFilter(p.id);
+                  setHora("");
+                }}
+                style={{
+                  padding: "8px 14px",
+                  border: "1.5px solid " + (sel ? "#0A0A0A" : "#E7EBF0"),
+                  borderRadius: 999,
+                  background: sel ? "#FAFBFD" : "#fff",
+                  fontFamily: "Inter",
+                  fontSize: 13.5,
+                  fontWeight: sel ? 700 : 500,
+                  color: "#0A0A0A",
+                  cursor: "pointer",
+                  transition: "all .2s",
+                }}
+              >
+                {p.name}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      <div style={{ minHeight: 180, marginBottom: 6 }}>
+        {loadingSlots && (
+          <div style={{ position: "relative", minHeight: 180 }}>
+            <CalendarLoadingOverlay />
+          </div>
+        )}
+        {!loadingSlots && slotsError && (
+          <div style={{ fontFamily: "Inter", fontSize: 14, color: "#4B5563", textAlign: "center", padding: "28px 12px" }}>
+            No pudimos cargar los horarios.{" "}
+            <button
+              type="button"
+              onClick={() => setRetryTick((t) => t + 1)}
+              style={{ background: "none", border: 0, color: "#7C3AED", fontWeight: 600, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 3, fontSize: 14, fontFamily: "Inter" }}
+            >
+              Reintentar
+            </button>
+          </div>
+        )}
+        {!loadingSlots && !slotsError && visibleSlots.length === 0 && (
+          <div style={{ fontFamily: "Inter", fontSize: 14, color: "#6B7280", textAlign: "center", padding: "28px 12px" }}>
+            Sin horas disponibles este día — prueba con otra fecha.
+          </div>
+        )}
+        {!loadingSlots && !slotsError && visibleSlots.length > 0 && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(84px, 1fr))", gap: 8 }}>
+            {visibleSlots.map((s) => {
+              const sel = hora === s.horaInicio;
+              return (
+                <button
+                  key={s.horaInicio}
+                  type="button"
+                  onClick={() => setHora(s.horaInicio)}
+                  style={{
+                    padding: "11px 6px",
+                    border: "1.5px solid " + (sel ? "#0A0A0A" : "#E7EBF0"),
+                    borderRadius: 10,
+                    background: sel ? "#0A0A0A" : "#fff",
+                    color: sel ? "#fff" : "#0A0A0A",
+                    fontFamily: "Inter",
+                    fontSize: 14.5,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    transition: "all .2s",
+                  }}
+                >
+                  {s.horaInicio}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {submitError && (
+        <div style={{ fontFamily: "Inter", fontSize: 13, color: "#E74C3C", fontWeight: 600, textAlign: "center", marginBottom: 8 }}>
+          No pudimos confirmar tu reunión. Intenta de nuevo o{" "}
+          <button
+            type="button"
+            onClick={onFallback}
+            style={{ background: "none", border: 0, color: "#E74C3C", fontWeight: 700, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 3, fontSize: 13, fontFamily: "Inter" }}
+          >
+            usa el calendario clásico
+          </button>
+          .
+        </div>
+      )}
+
+      <SubmitBtn enabled={!!selectedSlot && !submitting} onClick={confirmar}>
+        {submitting ? "Confirmando…" : "Confirmar reunión"}
+        {!submitting && (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        )}
+      </SubmitBtn>
       <FormNote>
         <strong>Sin compromiso</strong> · Videollamada con el equipo Clinera
       </FormNote>
