@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   buildCalLinkWithAttribution,
   getAttributionPayload,
@@ -167,6 +167,23 @@ const CLINIC_TYPE_LABELS: Record<ClinicType, string> = {
 const WEBHOOK_URL = "https://n8n.oacg.cl/webhook/088a2cfe-5c93-4a4b-a4e5-ac2617979ea5";
 const WA_NUMBER = "56985581524";
 
+// ============== AGENDADOR DEL PASO FINAL ==============
+// "cal"     → embed inline de Cal.com (flujo original de /ventas).
+// "clinera" → widget de reserva del propio producto (app.clinera.io/embed),
+//             usado por /agenda: dogfooding de la agenda real de Clinera.
+export type SchedulerId = "cal" | "clinera";
+
+// Embed oficial de Clinera: la clínica "Clinera software" (instancia comercial
+// propia). sucursalId + tratamientoId presetean los pasos 1 y 2 del widget, que
+// arranca directo en la elección de profesional.
+const CLINERA_EMBED_BASE =
+  "https://app.clinera.io/embed/clinera-software-1769526763629/modal";
+const CLINERA_EMBED_PRESET = {
+  sucursalId: "cmoqinfoi007dso3d7fhnwdyb",
+  tratamientoId: "cmoyoj9sn026xoi3dnedn2kl8",
+};
+const CLINERA_EMBED_ORIGIN = "https://app.clinera.io";
+
 type Form = { nombre: string; clinica: string; tipoClinica: ClinicType | ""; prefix: string; phone: string; email: string };
 
 // ============== TRACKING HELPERS ==============
@@ -283,8 +300,14 @@ function backCompatFields(software: SoftwareId | null, size: SizeAnswers, qual: 
 // ============== ROOT ==============
 export default function VentasLanding({
   enableMigrationQualification = false,
+  scheduler = "cal",
+  sourcePath = "/ventas",
 }: {
   enableMigrationQualification?: boolean;
+  /** Agendador del paso final. Default: Cal.com (comportamiento original). */
+  scheduler?: SchedulerId;
+  /** Ruta que origina el lead — viaja en `fuente` del webhook y en el mensaje de WhatsApp. */
+  sourcePath?: string;
 }) {
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -353,7 +376,11 @@ export default function VentasLanding({
           .ventas-volume-num { font-size: 46px !important; }
         }
       `}</style>
-      <ReunionHero enableMigrationQualification={enableMigrationQualification} />
+      <ReunionHero
+        enableMigrationQualification={enableMigrationQualification}
+        scheduler={scheduler}
+        sourcePath={sourcePath}
+      />
     </>
   );
 }
@@ -361,8 +388,12 @@ export default function VentasLanding({
 // ============== HERO ==============
 function ReunionHero({
   enableMigrationQualification,
+  scheduler,
+  sourcePath,
 }: {
   enableMigrationQualification: boolean;
+  scheduler: SchedulerId;
+  sourcePath: string;
 }) {
   return (
     <section style={{ position: "relative", overflow: "hidden", display: "flex", alignItems: "center" }}>
@@ -492,7 +523,11 @@ function ReunionHero({
         </div>
 
         <div className="reveal" style={{ display: "flex", minWidth: 0 }}>
-          <Wizard enableMigrationQualification={enableMigrationQualification} />
+          <Wizard
+            enableMigrationQualification={enableMigrationQualification}
+            scheduler={scheduler}
+            sourcePath={sourcePath}
+          />
         </div>
       </div>
     </section>
@@ -678,8 +713,12 @@ function TestimonialCarousel() {
 // ============== WIZARD ==============
 function Wizard({
   enableMigrationQualification,
+  scheduler,
+  sourcePath,
 }: {
   enableMigrationQualification: boolean;
+  scheduler: SchedulerId;
+  sourcePath: string;
 }) {
   const [step, setStep] = useState(1);
   const [software, setSoftware] = useState<SoftwareId | null>(null);
@@ -773,7 +812,7 @@ function Wizard({
             if (!leadCtx) setLeadCtx({ eventId, leadSource: detectLeadSource() });
             // Persistir el lead parcial YA (apenas se completa el paso 2): así queda
             // capturado aunque el usuario abandone antes de dejar sus datos.
-            void submitSizeLead({ software, size, qual, eventId });
+            void submitSizeLead({ software, size, qual, eventId, sourcePath });
             // MQL en el Paso 2 sólo si el equipo lo activó. Sin user_data:
             // todavía no hay datos de contacto (email/teléfono).
             if (MQL_TRIGGER === "qualified_step2") {
@@ -800,7 +839,7 @@ function Wizard({
             pushDL("lead_completo", sizeAttributes(software, size, qualification));
             // Enviar el lead completo en background — sin bloquear el avance al embed.
             // Reutiliza el event_id del lead parcial (paso 2) para que n8n haga upsert.
-            submitContactLead({ form, software, size, qual: qualification, leadCtx }).then((ctx) => {
+            submitContactLead({ form, software, size, qual: qualification, leadCtx, sourcePath }).then((ctx) => {
               if (ctx) setLeadCtx(ctx);
               // MQL (default): SOLO con submit OK del backend y lead CALIFICADO.
               // Idempotente por sesión → recarga/doble-click/atrás no lo redisparan.
@@ -828,7 +867,7 @@ function Wizard({
           }}
         />
       )}
-      {!submitted && !declined && step === calStep && (
+      {!submitted && !declined && step === calStep && scheduler === "cal" && (
         <StepCalCom
           form={form}
           software={software}
@@ -837,7 +876,29 @@ function Wizard({
           onBack={() => setStep(contactStep)}
           onBooked={async (calBooking) => {
             setBooking(calBooking);
-            await submitBookingConfirmation({ form, software, size, qual: qualification, leadCtx, booking: calBooking });
+            await submitBookingConfirmation({ form, software, size, qual: qualification, leadCtx, booking: calBooking, sourcePath });
+            setSubmitted(true);
+          }}
+        />
+      )}
+      {!submitted && !declined && step === calStep && scheduler === "clinera" && (
+        <StepClineraEmbed
+          form={form}
+          label={`Paso ${calStep} de ${totalSteps}`}
+          onBack={() => setStep(contactStep)}
+          onBooked={async () => {
+            // El embed no expone los datos del turno (fecha/uid); la etapa de
+            // confirmación viaja con los campos cal_* en null y via propia.
+            await submitBookingConfirmation({
+              form,
+              software,
+              size,
+              qual: qualification,
+              leadCtx,
+              booking: {},
+              sourcePath,
+              via: "Clinera embed confirm",
+            });
             setSubmitted(true);
           }}
         />
@@ -847,7 +908,7 @@ function Wizard({
           onBack={() => setDeclined(false)}
         />
       )}
-      {submitted && <StepSuccess form={form} software={software} size={size} booking={booking} />}
+      {submitted && <StepSuccess form={form} software={software} size={size} booking={booking} sourcePath={sourcePath} />}
     </div>
   );
 }
@@ -905,11 +966,13 @@ async function submitSizeLead({
   size,
   qual,
   eventId,
+  sourcePath = "/ventas",
 }: {
   software: SoftwareId | null;
   size: SizeAnswers;
   qual: Qualification;
   eventId?: string;
+  sourcePath?: string;
 }): Promise<{ eventId: string; leadSource: string } | null> {
   if (!qual.califica) return null;
 
@@ -941,7 +1004,7 @@ async function submitSizeLead({
     ...getAttributionPayload(),
     ...sizeAttributes(software, size, qual),
     ...backCompatFields(software, size, qual),
-    fuente: "Landing /ventas — Clinera (tamaño)",
+    fuente: `Landing ${sourcePath} — Clinera (tamaño)`,
     landing_url: typeof window !== "undefined" ? location.href : "",
     referrer: typeof document !== "undefined" ? document.referrer : "",
     created_at: new Date().toISOString(),
@@ -960,12 +1023,14 @@ async function submitContactLead({
   size,
   qual,
   leadCtx,
+  sourcePath = "/ventas",
 }: {
   form: Form;
   software: SoftwareId | null;
   size: SizeAnswers;
   qual: Qualification | null;
   leadCtx: { eventId: string; leadSource: string } | null;
+  sourcePath?: string;
 }): Promise<{ eventId: string; leadSource: string; ok: boolean } | null> {
   const eventId = leadCtx?.eventId ?? newLeadEventId();
   const leadSource = leadCtx?.leadSource ?? detectLeadSource();
@@ -1011,7 +1076,7 @@ async function submitContactLead({
     celular_digits: digits,
     celular_pais: rule?.name,
     email: form.email.trim(),
-    fuente: "Landing /ventas — Clinera",
+    fuente: `Landing ${sourcePath} — Clinera`,
     landing_url: typeof window !== "undefined" ? location.href : "",
     referrer: typeof document !== "undefined" ? document.referrer : "",
     created_at: new Date().toISOString(),
@@ -1030,6 +1095,8 @@ async function submitBookingConfirmation({
   qual,
   leadCtx,
   booking,
+  sourcePath = "/ventas",
+  via = "Cal.com confirm",
 }: {
   form: Form;
   software: SoftwareId | null;
@@ -1037,6 +1104,9 @@ async function submitBookingConfirmation({
   qual: Qualification | null;
   leadCtx: { eventId: string; leadSource: string } | null;
   booking: CalBooking;
+  sourcePath?: string;
+  /** Agendador que confirmó la reserva — distingue Cal.com del embed de Clinera en n8n. */
+  via?: string;
 }) {
   const confirmEventId =
     "ventas_confirm_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9);
@@ -1107,7 +1177,7 @@ async function submitBookingConfirmation({
     celular_digits: digits,
     celular_pais: rule?.name,
     email: form.email.trim(),
-    fuente: "Landing /ventas — Clinera (Cal.com confirm)",
+    fuente: `Landing ${sourcePath} — Clinera (${via})`,
     landing_url: typeof window !== "undefined" ? location.href : "",
     created_at: new Date().toISOString(),
     timestamp: Date.now(),
@@ -1838,136 +1908,233 @@ function StepCalCom({
             borderRadius: 12,
           }}
         />
-        {!calLoaded && (
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: 12,
-              background: "linear-gradient(135deg,#F4F8FF 0%,#FAF5FF 100%)",
-              border: "1px solid rgba(124,58,237,.08)",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 24,
-              padding: 32,
-              animation: "calOverlayFade 220ms ease",
-            }}
-          >
-            <div className="cal-skeleton-grid" aria-hidden="true">
-              {Array.from({ length: 35 }).map((_, i) => (
-                <span key={i} className="cal-skeleton-cell" />
-              ))}
-            </div>
-            <div
-              role="status"
-              aria-live="polite"
-              style={{
-                fontFamily: "Inter, system-ui, sans-serif",
-                fontSize: 14,
-                fontWeight: 500,
-                letterSpacing: "-0.01em",
-                color: "#4B5563",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-              }}
-            >
-              <span
-                aria-hidden="true"
-                style={{
-                  width: 14,
-                  height: 14,
-                  borderRadius: "50%",
-                  border: "2px solid rgba(124,58,237,.18)",
-                  borderTopColor: "#7C3AED",
-                  animation: "calSpin 0.8s linear infinite",
-                }}
-              />
-              Cargando tu calendario<span className="cal-loading-dots" />
-            </div>
-          </div>
-        )}
-        <style jsx>{`
-          .cal-skeleton-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            width: 100%;
-            max-width: 420px;
-          }
-          .cal-skeleton-cell {
-            aspect-ratio: 1 / 1;
-            border-radius: 8px;
-            background: linear-gradient(
-              90deg,
-              rgba(124, 58, 237, 0.06) 0%,
-              rgba(217, 70, 239, 0.1) 50%,
-              rgba(124, 58, 237, 0.06) 100%
-            );
-            background-size: 200% 100%;
-            animation: calShimmer 1.4s ease-in-out infinite;
-          }
-          .cal-skeleton-cell:nth-child(7n) {
-            animation-delay: 0.05s;
-          }
-          .cal-skeleton-cell:nth-child(3n) {
-            animation-delay: 0.1s;
-          }
-          .cal-loading-dots::after {
-            display: inline-block;
-            width: 1.4em;
-            text-align: left;
-            content: "";
-            animation: calDots 1.2s steps(4, end) infinite;
-          }
-          @keyframes calShimmer {
-            0% {
-              background-position: 200% 0;
-            }
-            100% {
-              background-position: -200% 0;
-            }
-          }
-          @keyframes calSpin {
-            to {
-              transform: rotate(360deg);
-            }
-          }
-          @keyframes calDots {
-            0% {
-              content: "";
-            }
-            25% {
-              content: ".";
-            }
-            50% {
-              content: "..";
-            }
-            75% {
-              content: "...";
-            }
-          }
-          @keyframes calOverlayFade {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .cal-skeleton-cell,
-            .cal-loading-dots::after {
-              animation: none;
-            }
-          }
-        `}</style>
+        {!calLoaded && <CalendarLoadingOverlay />}
       </div>
       <FormNote>
         <strong>Sin compromiso</strong> · 30 min por videollamada
+      </FormNote>
+    </div>
+  );
+}
+
+// Overlay de carga del calendario — compartido por StepCalCom (Cal.com) y
+// StepClineraEmbed (widget propio). Los padres lo montan mientras su embed
+// no avisa que quedó listo.
+function CalendarLoadingOverlay() {
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        inset: 0,
+        borderRadius: 12,
+        background: "linear-gradient(135deg,#F4F8FF 0%,#FAF5FF 100%)",
+        border: "1px solid rgba(124,58,237,.08)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 24,
+        padding: 32,
+        animation: "calOverlayFade 220ms ease",
+      }}
+    >
+      <div className="cal-skeleton-grid" aria-hidden="true">
+        {Array.from({ length: 35 }).map((_, i) => (
+          <span key={i} className="cal-skeleton-cell" />
+        ))}
+      </div>
+      <div
+        role="status"
+        aria-live="polite"
+        style={{
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontSize: 14,
+          fontWeight: 500,
+          letterSpacing: "-0.01em",
+          color: "#4B5563",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
+        <span
+          aria-hidden="true"
+          style={{
+            width: 14,
+            height: 14,
+            borderRadius: "50%",
+            border: "2px solid rgba(124,58,237,.18)",
+            borderTopColor: "#7C3AED",
+            animation: "calSpin 0.8s linear infinite",
+          }}
+        />
+        Cargando tu calendario<span className="cal-loading-dots" />
+      </div>
+      <style jsx>{`
+        .cal-skeleton-grid {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          gap: 8px;
+          width: 100%;
+          max-width: 420px;
+        }
+        .cal-skeleton-cell {
+          aspect-ratio: 1 / 1;
+          border-radius: 8px;
+          background: linear-gradient(
+            90deg,
+            rgba(124, 58, 237, 0.06) 0%,
+            rgba(217, 70, 239, 0.1) 50%,
+            rgba(124, 58, 237, 0.06) 100%
+          );
+          background-size: 200% 100%;
+          animation: calShimmer 1.4s ease-in-out infinite;
+        }
+        .cal-skeleton-cell:nth-child(7n) {
+          animation-delay: 0.05s;
+        }
+        .cal-skeleton-cell:nth-child(3n) {
+          animation-delay: 0.1s;
+        }
+        .cal-loading-dots::after {
+          display: inline-block;
+          width: 1.4em;
+          text-align: left;
+          content: "";
+          animation: calDots 1.2s steps(4, end) infinite;
+        }
+        @keyframes calShimmer {
+          0% {
+            background-position: 200% 0;
+          }
+          100% {
+            background-position: -200% 0;
+          }
+        }
+        @keyframes calSpin {
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        @keyframes calDots {
+          0% {
+            content: "";
+          }
+          25% {
+            content: ".";
+          }
+          50% {
+            content: "..";
+          }
+          75% {
+            content: "...";
+          }
+        }
+        @keyframes calOverlayFade {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cal-skeleton-cell,
+          .cal-loading-dots::after {
+            animation: none;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
+
+// ============== STEP 4 (alt) — Embed oficial de Clinera ==============
+// El paso final de /agenda: en vez de Cal.com, el widget de reserva del propio
+// producto. sucursalId + tratamientoId van preseteados, así que el widget abre
+// directo en la elección de profesional → fecha/hora. Los datos del paso
+// anterior viajan en la URL con los MISMOS nombres del estado interno del
+// wizard del embed (nombre / email / telefono, este último en E.164) para que
+// el widget los precargue en su paso "Tus datos" apenas app.clinera.io los lea
+// del preset; enviarlos hoy es inocuo (parámetros ignorados).
+function StepClineraEmbed({
+  form,
+  label = "Paso 4 de 4",
+  onBack,
+  onBooked,
+}: {
+  form: Form;
+  label?: string;
+  onBack: () => void;
+  onBooked: () => void;
+}) {
+  // Callback más reciente sin re-registrar el listener (mismo patrón que StepCalCom).
+  const onBookedRef = useRef(onBooked);
+  useEffect(() => {
+    onBookedRef.current = onBooked;
+  });
+
+  const [embedLoaded, setEmbedLoaded] = useState(false);
+  // Guard contra doble disparo (dos clicks a "Entendido", mensajes repetidos).
+  const bookedRef = useRef(false);
+
+  const src = useMemo(() => {
+    const params = new URLSearchParams(CLINERA_EMBED_PRESET);
+    const digits = form.phone.replace(/\D/g, "");
+    if (form.nombre.trim()) params.set("nombre", form.nombre.trim());
+    if (form.email.trim()) params.set("email", form.email.trim());
+    if (digits) params.set("telefono", form.prefix + digits);
+    return `${CLINERA_EMBED_BASE}?${params.toString()}`;
+  }, [form.nombre, form.email, form.phone, form.prefix]);
+
+  // El único postMessage que emite el embed es {type:"CLOSE_FROM_IFRAME"}, y
+  // sale exclusivamente del botón "Entendido" de su pantalla de éxito → llega
+  // solo cuando el turno ya se creó. Se valida el origen y se dispara una vez.
+  useEffect(() => {
+    const onMessage = (ev: MessageEvent) => {
+      if (ev.origin !== CLINERA_EMBED_ORIGIN) return;
+      const type = (ev.data as { type?: string } | null)?.type;
+      if (type !== "CLOSE_FROM_IFRAME") return;
+      if (bookedRef.current) return;
+      bookedRef.current = true;
+      onBookedRef.current?.();
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
+
+  return (
+    <div>
+      <BackBtn onClick={onBack} />
+      <StepHeader
+        label={label}
+        title={
+          <>
+            Elige profesional y{" "}
+            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>horario</em>
+          </>
+        }
+        sub="Selecciona con quién y cuándo te acomoda reunirte. Recibirás la confirmación por email."
+      />
+      <div style={{ position: "relative", width: "100%", minHeight: 700 }}>
+        <iframe
+          src={src}
+          title="Widget de Reserva de Turnos"
+          onLoad={() => setEmbedLoaded(true)}
+          style={{
+            border: "none",
+            borderRadius: 12,
+            width: "100%",
+            height: 700,
+            display: "block",
+            background: "transparent",
+          }}
+        />
+        {!embedLoaded && <CalendarLoadingOverlay />}
+      </div>
+      <FormNote>
+        <strong>Sin compromiso</strong> · Videollamada con el equipo Clinera
       </FormNote>
     </div>
   );
@@ -1996,17 +2163,19 @@ function StepSuccess({
   software,
   size,
   booking,
+  sourcePath = "/ventas",
 }: {
   form: Form;
   software: SoftwareId | null;
   size: SizeAnswers;
   booking: CalBooking | null;
+  sourcePath?: string;
 }) {
   const bookingLabel = formatBookingDate(booking?.date);
   const softwareLabel = software ? SOFTWARE_LABELS[software] : "";
   const sizeLabel = sizeSummaryLabel(size);
   const msg = encodeURIComponent(
-    `Hola Clinera, acabo de agendar una reunión comercial desde /ventas.\n\nNombre: ${form.nombre}\nClínica: ${form.clinica}\nEmail: ${form.email}${softwareLabel ? `\nSoftware actual: ${softwareLabel}` : ""}${sizeLabel ? `\nTamaño: ${sizeLabel}` : ""}${bookingLabel ? `\nCuándo: ${bookingLabel}` : ""}`,
+    `Hola Clinera, acabo de agendar una reunión comercial desde ${sourcePath}.\n\nNombre: ${form.nombre}\nClínica: ${form.clinica}\nEmail: ${form.email}${softwareLabel ? `\nSoftware actual: ${softwareLabel}` : ""}${sizeLabel ? `\nTamaño: ${sizeLabel}` : ""}${bookingLabel ? `\nCuándo: ${bookingLabel}` : ""}`,
   );
   const waUrl = `https://wa.me/${WA_NUMBER}?text=${msg}`;
 

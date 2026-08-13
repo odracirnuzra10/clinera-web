@@ -8,6 +8,11 @@ node_modules/
 .env*
 .DS_Store
 
+# El repo nunca ha versionado lockfile (Vercel instala con npm install
+# flotando dentro de semver); ignorarlo evita que un npm install local
+# lo deje como archivo suelto.
+package-lock.json
+
 # Carpetas viejas que no queremos en el repo (ancladas a la raíz;
 # /public/onboarding es una página del sitio y sí debe versionarse)
 /onboarding/
