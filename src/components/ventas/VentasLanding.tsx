@@ -206,6 +206,17 @@ type DispoSlot = {
   profesional?: { id?: string; name?: string };
 };
 
+// client_id de GA4 desde la cookie _ga (`GA1.1.<client_id>`). Se manda al
+// webhook para que el evento server-side caiga en la misma sesión/usuario
+// que el resto de la navegación, en vez de crear un usuario nuevo.
+function readGaClientId(): string {
+  if (typeof document === "undefined") return "";
+  const m = document.cookie.match(/(?:^|;\s*)_ga=([^;]+)/);
+  if (!m) return "";
+  const partes = m[1].split(".");
+  return partes.length >= 4 ? partes.slice(-2).join(".") : "";
+}
+
 type Form = { nombre: string; clinica: string; tipoClinica: ClinicType | ""; prefix: string; phone: string; email: string };
 
 // ============== TRACKING HELPERS ==============
@@ -908,7 +919,7 @@ function Wizard({
           form={form}
           label={`Paso ${calStep} de ${totalSteps}`}
           onBack={() => setStep(contactStep)}
-          onBooked={async (clineraBooking, via) => {
+          onBooked={async (clineraBooking, via, confirmEventId) => {
             // Nativo: trae fecha/hora/profesional reales. Embed: viene {} y los
             // campos cal_* viajan en null. `via` distingue el agendador en n8n.
             setBooking(clineraBooking);
@@ -921,6 +932,7 @@ function Wizard({
               booking: clineraBooking,
               sourcePath,
               via,
+              confirmEventId,
             });
             setSubmitted(true);
           }}
@@ -1120,6 +1132,7 @@ async function submitBookingConfirmation({
   booking,
   sourcePath = "/ventas",
   via = "Cal.com confirm",
+  confirmEventId: confirmEventIdProp,
 }: {
   form: Form;
   software: SoftwareId | null;
@@ -1130,8 +1143,14 @@ async function submitBookingConfirmation({
   sourcePath?: string;
   /** Agendador que confirmó la reserva — distingue Cal.com del embed de Clinera en n8n. */
   via?: string;
+  /**
+   * event_id ya enviado al webhook del turno (flujo nativo). Reutilizarlo hace
+   * que el Schedule del Pixel y el de CAPI se dedupliquen en Meta.
+   */
+  confirmEventId?: string;
 }) {
   const confirmEventId =
+    confirmEventIdProp ??
     "ventas_confirm_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9);
 
   // Disparar Schedule pixel — funnel step posterior al Lead.
@@ -2176,7 +2195,7 @@ function StepClineraScheduler({
   form: Form;
   label?: string;
   onBack: () => void;
-  onBooked: (b: CalBooking, via: string) => void | Promise<void>;
+  onBooked: (b: CalBooking, via: string, confirmEventId?: string) => void | Promise<void>;
 }) {
   const [mode, setMode] = useState<"checking" | "nativo" | "embed">("checking");
   const [config, setConfig] = useState<ClineraAgendaConfig | null>(null);
@@ -2224,7 +2243,7 @@ function StepClineraScheduler({
         config={config ?? { ok: true }}
         label={label}
         onBack={onBack}
-        onBooked={(b) => onBooked(b, "Clinera nativo (n8n)")}
+        onBooked={(b, confirmEventId) => onBooked(b, "Clinera nativo (n8n)", confirmEventId)}
         onFallback={() => setMode("embed")}
       />
     );
@@ -2262,7 +2281,7 @@ function StepClineraNativo({
   config: ClineraAgendaConfig;
   label?: string;
   onBack: () => void;
-  onBooked: (b: CalBooking) => void | Promise<void>;
+  onBooked: (b: CalBooking, confirmEventId: string) => void | Promise<void>;
   onFallback: () => void;
 }) {
   // Días ofrecidos: hoy + 13. La disponibilidad real la decide la API por día.
@@ -2341,6 +2360,11 @@ function StepClineraNativo({
     setSubmitting(true);
     setSubmitError(false);
     const digits = form.phone.replace(/\D/g, "");
+    // El event_id se genera ACÁ y viaja tanto al webhook (que dispara el
+    // Schedule server-side por CAPI) como al fbq del navegador: Meta deduplica
+    // por (event_name, event_id), así que el par cuenta como UNA conversión.
+    const confirmEventId =
+      "ventas_confirm_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9);
     try {
       const res = await fetch(N8N_AGENDA_TURNO_URL, {
         method: "POST",
@@ -2353,16 +2377,25 @@ function StepClineraNativo({
           hora: slot.horaInicio,
           professionalId: slot.profesional?.id ?? "",
           professionalName: slot.profesional?.name ?? "",
+          // Tracking server-side (Meta CAPI + GA4 Measurement Protocol).
+          event_id: confirmEventId,
+          event_source_url: typeof window !== "undefined" ? window.location.href : "",
+          ga_client_id: readGaClientId(),
+          ...getClineraMetaIds(),
+          ...getAttributionPayload(),
         }),
       });
       const json: { ok?: boolean } = res.ok ? await res.json() : { ok: false };
       if (!json.ok) throw new Error("turno no creado");
-      await onBooked({
-        date: `${fecha}T${slot.horaInicio}:00`,
-        duration: slot.duracionMin ?? config.duracionMin,
-        organizer: slot.profesional?.name ? { name: slot.profesional.name } : undefined,
-        confirmed: true,
-      });
+      await onBooked(
+        {
+          date: `${fecha}T${slot.horaInicio}:00`,
+          duration: slot.duracionMin ?? config.duracionMin,
+          organizer: slot.profesional?.name ? { name: slot.profesional.name } : undefined,
+          confirmed: true,
+        },
+        confirmEventId,
+      );
     } catch {
       setSubmitting(false);
       setSubmitError(true);

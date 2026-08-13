@@ -334,6 +334,73 @@
         620
       ],
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ===================================================================\n// Prepara el evento de conversión \"Schedule\" (agendamiento confirmado)\n// para Meta CAPI y GA4 Measurement Protocol.\n//\n// Dedupe con el Pixel: el navegador manda su event_id en el body y usa\n// EL MISMO en fbq('track','Schedule', ..., { eventID }). Meta deduplica\n// por (event_name, event_id), así que Pixel + CAPI = 1 sola conversión.\n// Si el turno entra por otro canal (sin event_id), se arma uno\n// determinista por turno para no contar dos veces un reintento.\n// ===================================================================\nconst crypto = require('crypto');\nconst hash = (v) => (v ? crypto.createHash('sha256').update(String(v).trim().toLowerCase()).digest('hex') : '');\n\nconst req = $('Validar y Normalizar').first().json;\nconst cita = req.cita || {};\nconst wh = $('Webhook Turno').first().json || {};\nconst body = wh.body || {};\nconst headers = wh.headers || {};\n\nconst email = String(cita.email || '').toLowerCase();\nconst telefono = String(cita.telefono || '').replace(/\\D/g, ''); // dígitos con país\nconst nombre = String(cita.nombre || '').trim();\nconst partes = nombre.split(/\\s+/).filter(Boolean);\nconst firstName = partes[0] || '';\nconst lastName = partes.slice(1).join(' ');\n\n// País por prefijo del teléfono (E.164 sin '+').\nconst PREFIJOS = [['595','PY'],['593','EC'],['507','PA'],['506','CR'],['56','CL'],['54','AR'],['52','MX'],['51','PE'],['34','ES'],['1','US']];\nlet country = 'CL';\nfor (const par of PREFIJOS) { if (telefono.indexOf(par[0]) === 0) { country = par[1]; break; } }\n\nconst eventTime = Math.floor(Date.now() / 1000);\nconst eventId = String(body.event_id || ('schedule_' + hash(email).slice(0, 12) + '_' + cita.fecha + '_' + cita.hora));\nconst ip = String(headers['x-forwarded-for'] || '').split(',')[0].trim();\nconst ua = String(headers['user-agent'] || '');\n\n// GA4 usa el client_id real de la cookie _ga si el navegador lo mandó;\n// si no, uno derivado del email para no inventar un usuario por evento.\nconst emailHash = hash(email || 'anon');\nconst gaClientId = String(body.ga_client_id || ((parseInt(emailHash.slice(0, 12), 16) % 1e10) + '.' + eventTime));\n\nconst ga4Body = {\n  client_id: gaClientId,\n  user_id: emailHash,\n  timestamp_micros: eventTime * 1000000,\n  non_personalized_ads: false,\n  events: [{\n    name: 'schedule',\n    params: {\n      currency: 'USD',\n      value: 0,\n      session_id: String(eventTime),\n      engagement_time_msec: 100,\n      event_source: 'clinera_agenda',\n      method: 'agenda_nativa_n8n',\n      professional: String(cita.doctor || ''),\n      appointment_date: String(cita.fecha || ''),\n      appointment_time: String(cita.hora || ''),\n      items: [{\n        item_id: 'clinera_sales_demo_booked',\n        item_name: 'Clinera Sales Demo - Booked',\n        item_category: String((req.config && req.config.tratamiento) || 'Reunion con Clinera'),\n        price: 0,\n        quantity: 1,\n      }],\n    },\n  }],\n};\n\nreturn [{ json: {\n  em: hash(email),\n  ph: hash(telefono),\n  fn: hash(firstName),\n  ln: hash(lastName),\n  country_hashed: hash(country),\n  external_id: hash(email),\n  fbc: String(body.meta_fbc || body.fbc || ''),\n  fbp: String(body.meta_fbp || body.fbp || ''),\n  client_ip_address: ip,\n  client_user_agent: ua,\n  event_time: eventTime,\n  event_id: eventId,\n  event_source_url: String(body.event_source_url || 'https://www.clinera.io/agenda'),\n  country: country,\n  profesional: String(cita.doctor || ''),\n  fecha: String(cita.fecha || ''),\n  hora: String(cita.hora || ''),\n  ga4Body: ga4Body,\n} }];\n"
+      },
+      "id": "a1c0f7e0-0019-4c00-8000-000000000019",
+      "name": "Preparar Tracking",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1580,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v21.0/1104567405156111/events",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "__META_CAPI_ACCESS_TOKEN__"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"data\": [\n    {\n      \"event_name\": \"Schedule\",\n      \"event_time\": {{ $json.event_time }},\n      \"event_id\": \"{{ $json.event_id }}\",\n      \"event_source_url\": \"{{ $json.event_source_url }}\",\n      \"action_source\": \"website\",\n      \"user_data\": {\n        \"em\": [\"{{ $json.em }}\"],\n        \"ph\": [\"{{ $json.ph }}\"],\n        \"fn\": [\"{{ $json.fn }}\"],\n        \"ln\": [\"{{ $json.ln }}\"],\n        \"country\": [\"{{ $json.country_hashed }}\"],\n        \"external_id\": [\"{{ $json.external_id }}\"],\n        \"client_ip_address\": \"{{ $json.client_ip_address }}\",\n        \"client_user_agent\": \"{{ $json.client_user_agent }}\",\n        \"fbc\": \"{{ $json.fbc }}\",\n        \"fbp\": \"{{ $json.fbp }}\"\n      },\n      \"custom_data\": {\n        \"currency\": \"USD\",\n        \"value\": 0,\n        \"content_name\": \"Sales Demo Scheduled - Agenda Clinera\",\n        \"content_category\": \"booking\",\n        \"lead_source\": \"clinera_agenda_nativa\",\n        \"country\": \"{{ $json.country }}\",\n        \"organizer\": \"{{ $json.profesional }}\",\n        \"appointment_date\": \"{{ $json.fecha }}\",\n        \"appointment_time\": \"{{ $json.hora }}\"\n      }\n    }\n  ]\n}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "a1c0f7e0-0020-4c00-8000-000000000020",
+      "name": "Meta CAPI - Schedule",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1800,
+        780
+      ],
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.google-analytics.com/mp/collect?measurement_id=G-FB5YV66KKJ&api_secret=__GA4_API_SECRET__",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($('Preparar Tracking').first().json.ga4Body) }}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "a1c0f7e0-0021-4c00-8000-000000000021",
+      "name": "GA4 - Schedule",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2020,
+        780
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -480,11 +547,38 @@
             "node": "Avisar Meet",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Preparar Tracking",
+            "type": "main",
+            "index": 0
           }
         ],
         [
           {
             "node": "Responder Turno Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Tracking": {
+      "main": [
+        [
+          {
+            "node": "Meta CAPI - Schedule",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta CAPI - Schedule": {
+      "main": [
+        [
+          {
+            "node": "GA4 - Schedule",
             "type": "main",
             "index": 0
           }

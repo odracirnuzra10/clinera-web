@@ -23,6 +23,31 @@ widget embebido).
    con los datos precargados; mientras esté inactivo, `/agenda` sigue
    funcionando con el embed (el cliente re-tipea sus datos, como hoy).
 
+### Tracking de conversión (Meta CAPI + GA4)
+
+Al crear la cita, el workflow dispara **en paralelo** a la respuesta del
+navegador (nunca la demora ni la rompe):
+
+| Nodo | Destino | Evento |
+|---|---|---|
+| `Meta CAPI - Schedule` | Pixel `1104567405156111` | `Schedule` |
+| `GA4 - Schedule` | `G-FB5YV66KKJ` (Measurement Protocol) | `schedule` |
+
+**Dedupe con el Pixel del navegador**: `/agenda` genera el `event_id` *antes*
+de llamar al webhook, lo manda en el body y usa el mismo en
+`fbq('track','Schedule', …, { eventID })`. Meta deduplica por
+(`event_name`, `event_id`), así que Pixel + CAPI cuentan **una** conversión.
+El navegador también manda `meta_fbp` / `meta_fbc`, el `client_id` de la
+cookie `_ga` y la atribución de Google Ads, de modo que el evento
+server-side cae en la misma sesión y usuario.
+
+> [!IMPORTANT]
+> El JSON de este repo lleva **placeholders**, porque el repositorio es
+> público: `__META_CAPI_ACCESS_TOKEN__` y `__GA4_API_SECRET__`. Los valores
+> reales viven solo en n8n — son los mismos que ya usan
+> "OACG TECH | Reunión Cal.com (Orgánico)" y "OACG TECH | Wizard". Si se
+> reimporta este archivo hay que volver a pegarlos en los dos nodos.
+
 ### Contrato con el sitio
 
 `src/components/ventas/VentasLanding.tsx` (constantes `N8N_AGENDA_*`) asume
