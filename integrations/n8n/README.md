@@ -28,3 +28,46 @@ widget embebido).
 `src/components/ventas/VentasLanding.tsx` (constantes `N8N_AGENDA_*`) asume
 las tres rutas de arriba. Si se renombran los paths de los webhooks hay que
 actualizar esas constantes.
+
+## clinera-meet-por-profesional.workflow.json
+
+Crea un **Google Meet en el calendario de la persona con la que se agendó**.
+Hoy mapea a Nohe y Rebe; sumar a alguien más es agregar una línea al array
+`CALENDARIOS` del nodo "Normalizar Reserva".
+
+| Profesional (match por nombre, sin acentos) | Calendario donde cae el evento |
+|---|---|
+| contiene `nohe` | `nohelymar.sanchez@oacg.cl` |
+| contiene `rebe` | `rebeca@oacg.cl` |
+
+Webhook: `POST https://n8n.oacg.cl/webhook/clinera-meet`
+
+Acepta dos formatos de payload:
+
+1. **El del workflow de reserva de `/agenda`** — ya conectado: el nodo
+   "Avisar Meet" lo llama en paralelo cuando la cita se crea, sin tocar la
+   respuesta al navegador.
+2. **El del webhook de automatizaciones de app.clinera.io** (Marketing →
+   Automatizaciones → Configurar webhook → "Enviar payload completo"). El
+   nodo "Normalizar Reserva" busca las claves en profundidad
+   (`profesional`/`doctor`, `fecha`, `hora`, `nombre`, `email`, `telefono`,
+   `duracion`), así que tolera el formato del evento que dispare.
+
+Detalles:
+
+- La hora del turno se interpreta en **hora de la clínica** (`America/Santiago`,
+  con su DST) y se manda a Google con offset explícito, de modo que cada quien
+  la ve en su huso (Nohe está en `America/Caracas`).
+- El cliente va como invitado (`sendUpdates: all`), así recibe la invitación
+  con el link del Meet.
+- Anti-duplicado por `calendario + inicio + email` durante 10 minutos: si el
+  mismo turno se avisa dos veces (workflow de `/agenda` + automatización de
+  Clinera), se crea un solo Meet.
+- `{"test": true}` en el body crea el evento marcado `[PRUEBA — BORRAR]` y sin
+  invitados, para probar sin mandar correos.
+- Si el profesional no es Nohe ni Rebe, responde `{"ok":false,"motivo":"sin_match"}`
+  y no crea nada. El payload queda en la ejecución de n8n para poder mapearlo.
+
+Credencial usada: **Google Calendar OACG** (la misma del workflow
+"OACG TECH | Agendamiento (Meet)"). Requiere que esa cuenta tenga permiso de
+**"Hacer cambios en los eventos"** sobre los calendarios de destino.
