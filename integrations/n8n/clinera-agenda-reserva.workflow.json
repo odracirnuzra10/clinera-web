@@ -313,6 +313,27 @@
         900,
         700
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n.oacg.cl/webhook/clinera-meet",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($('Preparar Cita').first().json.cita) }}",
+        "options": {
+          "timeout": 15000
+        }
+      },
+      "id": "a1c0f7e0-0018-4c00-8000-000000000018",
+      "name": "Avisar Meet",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1580,
+        620
+      ],
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -452,6 +473,11 @@
         [
           {
             "node": "Responder Turno OK",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Avisar Meet",
             "type": "main",
             "index": 0
           }
