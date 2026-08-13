@@ -14,7 +14,10 @@
       "name": "Webhook Config",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [240, 0]
+      "position": [
+        240,
+        0
+      ]
     },
     {
       "parameters": {
@@ -25,7 +28,10 @@
       "name": "Responder Config",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [480, 0]
+      "position": [
+        480,
+        0
+      ]
     },
     {
       "parameters": {
@@ -40,27 +46,41 @@
       "name": "Webhook Disponibilidad",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [240, 200]
+      "position": [
+        240,
+        200
+      ]
     },
     {
       "parameters": {
-        "jsCode": "// Valida la fecha y arma la URL de disponibilidad de app.clinera.io.\n// CONFIG: mismos valores que el nodo \"Responder Config\".\nconst CONFIG = {\n  clinicaUrl: 'clinera-software-1769526763629',\n  sucursalId: 'cmoqinfoi007dso3d7fhnwdyb',\n  tratamientoId: 'cmoyoj9sn026xoi3dnedn2kl8',\n  duracionMin: 20,\n};\nconst fecha = String($json.query?.fecha || '');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(fecha)) {\n  return [{ json: { ok: false, error: 'fecha inválida (YYYY-MM-DD)' } }];\n}\nconst qs = new URLSearchParams({\n  clinicaUrl: CONFIG.clinicaUrl,\n  sucursalId: CONFIG.sucursalId,\n  fecha,\n  duracionMin: String(CONFIG.duracionMin),\n  tratamientoId: CONFIG.tratamientoId,\n});\nreturn [{ json: { ok: true, url: 'https://app.clinera.io/api/public/iframe/disponibilidad?' + qs.toString() } }];"
+        "jsCode": "// Valida la fecha y arma la URL de disponibilidad de app.clinera.io.\n// Sin URLSearchParams: el sandbox del Code node de este n8n no lo expone.\n// CONFIG: mismos valores que el nodo \"Responder Config\".\nconst CONFIG = {\n  clinicaUrl: 'clinera-software-1769526763629',\n  sucursalId: 'cmoqinfoi007dso3d7fhnwdyb',\n  tratamientoId: 'cmoyoj9sn026xoi3dnedn2kl8',\n  duracionMin: 20,\n};\nconst fecha = String(($json.query && $json.query.fecha) || '');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(fecha)) {\n  return [{ json: { ok: false, error: 'fecha inválida (YYYY-MM-DD)' } }];\n}\nconst qs = [\n  ['clinicaUrl', CONFIG.clinicaUrl],\n  ['sucursalId', CONFIG.sucursalId],\n  ['fecha', fecha],\n  ['duracionMin', String(CONFIG.duracionMin)],\n  ['tratamientoId', CONFIG.tratamientoId],\n].map(function (kv) { return kv[0] + '=' + encodeURIComponent(kv[1]); }).join('&');\nreturn [{ json: { ok: true, url: 'https://app.clinera.io/api/public/iframe/disponibilidad?' + qs } }];"
       },
       "id": "a1c0f7e0-0004-4c00-8000-000000000004",
       "name": "Armar URL Disponibilidad",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 200]
+      "position": [
+        460,
+        200
+      ]
     },
     {
       "parameters": {
         "conditions": {
-          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
           "conditions": [
             {
               "leftValue": "={{ $json.ok }}",
               "rightValue": true,
-              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
             }
           ],
           "combinator": "and"
@@ -70,18 +90,26 @@
       "name": "¿Fecha válida?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [680, 200]
+      "position": [
+        680,
+        200
+      ]
     },
     {
       "parameters": {
         "url": "={{ $json.url }}",
-        "options": { "timeout": 15000 }
+        "options": {
+          "timeout": 15000
+        }
       },
       "id": "a1c0f7e0-0006-4c00-8000-000000000006",
       "name": "GET Disponibilidad Clinera",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [900, 120],
+      "position": [
+        900,
+        120
+      ],
       "retryOnFail": true,
       "maxTries": 3,
       "waitBetweenTries": 1000,
@@ -96,19 +124,27 @@
       "name": "Responder Disponibilidad",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [1140, 120]
+      "position": [
+        1140,
+        120
+      ]
     },
     {
       "parameters": {
         "respondWith": "json",
-        "responseCode": 400,
-        "responseBody": "={{ JSON.stringify({ ok: false, error: $json.error || 'No se pudo obtener disponibilidad' }) }}"
+        "responseBody": "={{ JSON.stringify({ ok: false, error: $json.error || 'No se pudo obtener disponibilidad' }) }}",
+        "options": {
+          "responseCode": 400
+        }
       },
       "id": "a1c0f7e0-0008-4c00-8000-000000000008",
       "name": "Responder Error Disponibilidad",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [1140, 300]
+      "position": [
+        1140,
+        300
+      ]
     },
     {
       "parameters": {
@@ -123,7 +159,10 @@
       "name": "Webhook Turno",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [240, 520]
+      "position": [
+        240,
+        520
+      ]
     },
     {
       "parameters": {
@@ -133,17 +172,28 @@
       "name": "Validar y Normalizar",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 520]
+      "position": [
+        460,
+        520
+      ]
     },
     {
       "parameters": {
         "conditions": {
-          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
           "conditions": [
             {
               "leftValue": "={{ $json.ok }}",
               "rightValue": true,
-              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
             }
           ],
           "combinator": "and"
@@ -153,7 +203,10 @@
       "name": "¿Pedido válido?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [680, 520]
+      "position": [
+        680,
+        520
+      ]
     },
     {
       "parameters": {
@@ -162,13 +215,18 @@
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify($json.paciente) }}",
-        "options": { "timeout": 15000 }
+        "options": {
+          "timeout": 15000
+        }
       },
       "id": "a1c0f7e0-0012-4c00-8000-000000000012",
       "name": "POST Paciente",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [900, 440],
+      "position": [
+        900,
+        440
+      ],
       "retryOnFail": true,
       "maxTries": 2,
       "waitBetweenTries": 1000,
@@ -182,7 +240,10 @@
       "name": "Preparar Cita",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1120, 440]
+      "position": [
+        1120,
+        440
+      ]
     },
     {
       "parameters": {
@@ -191,13 +252,18 @@
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify($json.cita) }}",
-        "options": { "timeout": 20000 }
+        "options": {
+          "timeout": 20000
+        }
       },
       "id": "a1c0f7e0-0014-4c00-8000-000000000014",
       "name": "POST Cita",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1340, 440],
+      "position": [
+        1340,
+        440
+      ],
       "onError": "continueErrorOutput"
     },
     {
@@ -209,77 +275,194 @@
       "name": "Responder Turno OK",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [1580, 360]
+      "position": [
+        1580,
+        360
+      ]
     },
     {
       "parameters": {
         "respondWith": "json",
-        "responseCode": 502,
-        "responseBody": "={{ JSON.stringify({ ok: false, error: 'No se pudo crear la cita en Clinera' }) }}"
+        "responseBody": "={{ JSON.stringify({ ok: false, error: 'No se pudo crear la cita en Clinera' }) }}",
+        "options": {
+          "responseCode": 502
+        }
       },
       "id": "a1c0f7e0-0016-4c00-8000-000000000016",
       "name": "Responder Turno Error",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [1580, 540]
+      "position": [
+        1580,
+        540
+      ]
     },
     {
       "parameters": {
         "respondWith": "json",
-        "responseCode": 400,
-        "responseBody": "={{ JSON.stringify({ ok: false, error: $json.error || 'Pedido inválido' }) }}"
+        "responseBody": "={{ JSON.stringify({ ok: false, error: $json.error || 'Pedido inválido' }) }}",
+        "options": {
+          "responseCode": 400
+        }
       },
       "id": "a1c0f7e0-0017-4c00-8000-000000000017",
       "name": "Responder Turno Inválido",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [900, 700]
+      "position": [
+        900,
+        700
+      ]
     }
   ],
   "connections": {
     "Webhook Config": {
-      "main": [[{ "node": "Responder Config", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Responder Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Webhook Disponibilidad": {
-      "main": [[{ "node": "Armar URL Disponibilidad", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Armar URL Disponibilidad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Armar URL Disponibilidad": {
-      "main": [[{ "node": "¿Fecha válida?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "¿Fecha válida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "¿Fecha válida?": {
       "main": [
-        [{ "node": "GET Disponibilidad Clinera", "type": "main", "index": 0 }],
-        [{ "node": "Responder Error Disponibilidad", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "GET Disponibilidad Clinera",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Error Disponibilidad",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "GET Disponibilidad Clinera": {
       "main": [
-        [{ "node": "Responder Disponibilidad", "type": "main", "index": 0 }],
-        [{ "node": "Responder Error Disponibilidad", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Responder Disponibilidad",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Error Disponibilidad",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Webhook Turno": {
-      "main": [[{ "node": "Validar y Normalizar", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Validar y Normalizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Validar y Normalizar": {
-      "main": [[{ "node": "¿Pedido válido?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "¿Pedido válido?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "¿Pedido válido?": {
       "main": [
-        [{ "node": "POST Paciente", "type": "main", "index": 0 }],
-        [{ "node": "Responder Turno Inválido", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "POST Paciente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Turno Inválido",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "POST Paciente": {
-      "main": [[{ "node": "Preparar Cita", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Preparar Cita",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Preparar Cita": {
-      "main": [[{ "node": "POST Cita", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "POST Cita",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "POST Cita": {
       "main": [
-        [{ "node": "Responder Turno OK", "type": "main", "index": 0 }],
-        [{ "node": "Responder Turno Error", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Responder Turno OK",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Turno Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
