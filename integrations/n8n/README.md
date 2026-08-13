@@ -25,13 +25,21 @@ widget embebido).
 
 ### Tracking de conversión (Meta CAPI + GA4)
 
+El embudo tiene dos eventos, y cada uno se dispara desde donde realmente
+ocurre:
+
+| Evento | Cuándo | Dónde vive | Valor |
+|---|---|---|---|
+| **MQL** | alguien agenda en `www.clinera.io/agenda` | este workflow | — |
+| **SQL** | el closer lo marca calificado en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 100 |
+
 Al crear la cita, el workflow dispara **en paralelo** a la respuesta del
 navegador (nunca la demora ni la rompe):
 
 | Nodo | Destino | Evento |
 |---|---|---|
-| `Meta CAPI - Schedule` | Pixel `1104567405156111` | `Schedule` |
-| `GA4 - Schedule` | `G-FB5YV66KKJ` (Measurement Protocol) | `schedule` |
+| `Meta CAPI - MQL` | Pixel `1104567405156111` | `MQL` |
+| `GA4 - MQL` | `G-FB5YV66KKJ` (Measurement Protocol) | `mql` |
 
 **Dedupe con el Pixel del navegador**: `/agenda` genera el `event_id` *antes*
 de llamar al webhook, lo manda en el body y usa el mismo en
@@ -96,3 +104,26 @@ Detalles:
 Credencial usada: **Google Calendar OACG** (la misma del workflow
 "OACG TECH | Agendamiento (Meet)"). Requiere que esa cuenta tenga permiso de
 **"Hacer cambios en los eventos"** sobre los calendarios de destino.
+
+## crm-sql-twenty.workflow.json
+
+El segundo evento del embudo: **SQL** (US$ 100), cuando el closer marca el
+lead como calificado en **crm.oacg.cl** (Twenty).
+
+Webhook: `POST https://n8n.oacg.cl/webhook/crm-sql`
+
+Se configura en Twenty: **Settings → APIs & Webhooks → New webhook**, apuntando
+a esa URL y suscrito a los cambios del objeto donde el closer marca la
+calificación (p. ej. `opportunity.updated` / `person.updated`).
+
+- Cuenta como SQL cuando la etapa contiene `calificado`, `qualified`, `sql` o
+  `sales qualified` (lista `ETAPAS_SQL` del nodo "Validar SQL"). Cualquier otro
+  cambio en el CRM responde `etapa_no_sql` y no manda nada.
+- Es una conversión **offline**: va con `action_source: system_generated` y el
+  match lo hace Meta por email y teléfono hasheados (SHA-256). Si el registro
+  de Twenty guarda `fbc`/`fbp` de la landing, se usan y el match mejora.
+- **Anti-duplicado por lead durante 90 días**: mover el registro de etapa
+  varias veces no infla el conteo.
+- Valor y moneda salen de `VALOR_SQL` / `MONEDA` en el mismo nodo.
+
+Mismos placeholders de secretos que el workflow de reserva.

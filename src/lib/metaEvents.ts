@@ -25,8 +25,12 @@ import type { Qualification } from "@/components/ventas/VentasLanding";
 //        volumen de señal para ads). Sin user_data: aún no hay datos de contacto.
 // Ambos caminos están implementados; sólo el default está activo.
 // ---------------------------------------------------------------------------
-export type MqlTrigger = "contact_submitted" | "qualified_step2";
-export const MQL_TRIGGER: MqlTrigger = "contact_submitted";
+//   "booking_confirmed" (actual)  → dispara cuando el lead CALIFICADO confirma
+//        la reunión. Es la definición vigente de MQL del equipo comercial:
+//        "MQL = alguien agendó". Un lead que deja sus datos y no agenda NO es
+//        MQL, así que el costo por MQL de las campañas refleja reuniones reales.
+export type MqlTrigger = "contact_submitted" | "qualified_step2" | "booking_confirmed";
+export const MQL_TRIGGER: MqlTrigger = "booking_confirmed";
 
 // Endpoint server-side que reenvía a la Conversions API de Meta. Único seam
 // configurable: por defecto la route del propio sitio; se puede repuntar a un
