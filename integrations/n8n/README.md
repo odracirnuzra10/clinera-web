@@ -113,17 +113,80 @@ lead como calificado en **crm.oacg.cl** (Twenty).
 Webhook: `POST https://n8n.oacg.cl/webhook/crm-sql`
 
 Se configura en Twenty: **Settings → APIs & Webhooks → New webhook**, apuntando
-a esa URL y suscrito a los cambios del objeto donde el closer marca la
-calificación (p. ej. `opportunity.updated` / `person.updated`).
+a esa URL y suscrito a `opportunity.updated` / `opportunity.created`.
 
-- Cuenta como SQL cuando la etapa contiene `calificado`, `qualified`, `sql` o
-  `sales qualified` (lista `ETAPAS_SQL` del nodo "Validar SQL"). Cualquier otro
-  cambio en el CRM responde `etapa_no_sql` y no manda nada.
-- Es una conversión **offline**: va con `action_source: system_generated` y el
-  match lo hace Meta por email y teléfono hasheados (SHA-256). Si el registro
-  de Twenty guarda `fbc`/`fbp` de la landing, se usan y el match mejora.
-- **Anti-duplicado por lead durante 90 días**: mover el registro de etapa
-  varias veces no infla el conteo.
-- Valor y moneda salen de `VALOR_SQL` / `MONEDA` en el mismo nodo.
+### Qué cuenta como SQL
 
-Mismos placeholders de secretos que el workflow de reserva.
+Twenty manda en el webhook el **valor** del enum de etapa, no la etiqueta que
+se ve en el tablero. El mapa del workspace OACG es:
+
+| Valor en el webhook | Etiqueta en el tablero |
+|---|---|
+| `NEW` | Nuevo |
+| `SCREENING` | **MQL** |
+| `PQL` | PQL · No contesta |
+| `MEETING` | **SQL** |
+| `PROPOSAL` | **SQL+** |
+| `CUSTOMER` | Contrata |
+| `NQL` | NQL · No califica |
+
+`ETAPAS_SQL` acepta `meeting` y `proposal` (y también las etiquetas `sql` /
+`sql+`, por si el webhook llegara desde otra vista).
+
+### Filtros antes de mandar la conversión
+
+1. **Solo oportunidades.** El webhook del CRM está abierto a todos los objetos;
+   notas, personas y empresas responden `objeto_no_es_oportunidad`.
+2. **Solo si cambió la etapa.** Editar el monto de un negocio que ya está en
+   SQL responde `no_cambio_la_etapa` (se mira `updatedFields`).
+3. **Solo si lo movió una persona.** El SQL es una calificación humana: si la
+   etapa la movió una automatización (`updatedBy.source = API`, que es como
+   escribe n8n) responde `etapa_movida_por_automatizacion`. Por eso agendar
+   deja el negocio en **MQL** y no lo sube solo a SQL.
+4. **Anti-duplicado por negocio durante 90 días**, con el `id` del registro
+   como clave. Mover SQL → SQL+ cuenta una sola vez.
+
+### De dónde salen el contacto y los identificadores de Meta
+
+La oportunidad de Twenty no lleva email ni teléfono encima: solo
+`pointOfContactId`. El nodo "Validar SQL" resuelve la persona con
+`GET crm.oacg.cl/rest/people/{id}` (token en `$env.TWENTY_API_KEY`) y de ahí
+saca email, teléfono y nombre para hashearlos.
+
+Es una conversión **offline**: va con `action_source: system_generated` y el
+match lo hace Meta por email y teléfono hasheados (SHA-256). El `fbc` / `fbp`
+de la landing sube mucho la calidad de ese match, y Twenty no tiene dónde
+guardarlos — así que el nodo **"Baserow - Meta ids"** los busca en la tabla 152
+(columnas `Meta fbc` / `Meta fbp`), que es donde el Wizard los deja al capturar
+el lead. Si no hay fila o vienen vacíos, el evento sale igual sin ellos.
+
+Valor y moneda salen de `VALOR_SQL` / `MONEDA` en el mismo nodo.
+
+Además de los placeholders del workflow de reserva, este archivo lleva
+`__BASEROW_TOKEN__` en el nodo "Baserow - Meta ids".
+
+## Cambios en "OACG TECH | Wizard" (no vive en este repo)
+
+El workflow `A3wOPmhQjit8VswM` recibe el formulario de `/ventas` y `/agenda` y
+es el que escribe en Baserow y en Twenty. No se versiona acá porque lleva
+credenciales inline y sirve a más flujos, pero `/agenda` depende de cuatro
+cosas suyas:
+
+- **Un solo MQL.** El nodo "No es booking confirmado?" ahora exige además que
+  `landing_url` **no** contenga `/agenda`. En `/agenda` el MQL lo emite el
+  workflow de reserva en el momento del agendamiento, con el mismo `event_id`
+  que el Pixel; sin este filtro el lead contaba dos MQL con `event_id`
+  distintos y Meta no los deduplicaba. `/ventas` sigue igual.
+- **Fecha de la demo.** "Prepare Sales Lead Data" ahora deriva `fecha` / `hora`
+  de `cal_date` / `cal_start_time` cuando el formulario no las trae. La reserva
+  nativa manda la hora local de Chile sin zona (`2026-08-17T13:00:00`) y
+  Cal.com la manda en UTC; las dos se normalizan a hora local antes de la
+  conversión a UTC que ya existía. Sin esto, "Fecha demo" quedaba vacía en
+  Baserow y en Twenty.
+- **Responsable = quien atiende.** "Twenty - Crear Lead" toma el profesional de
+  `cal_organizer_name` y pone el negocio a su nombre (Rebeca, Nohelymar), en
+  vez del sorteo de encargada. Se aplica también cuando el negocio ya existía;
+  si no hay profesional, no se reasigna a nadie.
+- **Agendar = MQL.** Tanto "Twenty - Crear Lead" como "Twenty - Agendó
+  (Cal.com)" dejan el negocio en `SCREENING` (MQL). Antes lo subían a `MEETING`
+  (SQL) y el embudo se saltaba el paso del closer.
