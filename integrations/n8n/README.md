@@ -11,6 +11,7 @@ widget embebido).
 |--------------------------------------------------------|--------|-----|
 | `https://n8n.oacg.cl/webhook/clinera-agenda-config`    | GET    | Health-check + parámetros (clínica, sucursal, tratamiento, duración). Si no responde, `/agenda` cae automáticamente al iframe del embed oficial. |
 | `https://n8n.oacg.cl/webhook/clinera-agenda-disponibilidad?fecha=YYYY-MM-DD` | GET | Proxy de `GET app.clinera.io/api/public/iframe/disponibilidad` |
+| `…/clinera-agenda-disponibilidad?desde=YYYY-MM-DD&dias=21` | GET | Resumen: `{ dias: { "YYYY-MM-DD": nº de horas } }`. La página lo pide una vez al abrir el paso 4 para **no ofrecer días vacíos**; pedirlos uno por uno serían diez requests desde el navegador. Cuenta horas únicas (la API devuelve una entrada por profesional) y salta sábados y domingos. Un día que no se pudo consultar vuelve como `-1`, y ese se ofrece igual: mejor mostrar un día vacío que esconder uno que sí tenía horas. |
 | `https://n8n.oacg.cl/webhook/clinera-agenda-turno`     | POST   | Upsert del paciente (`POST …/pacientes`) y creación de la cita (`POST …/citas`), replicando el flujo del widget. Body: `{ nombre, email, telefono, fecha, hora, professionalId, professionalName }` |
 
 ### Instalación (una vez)
@@ -61,6 +62,15 @@ server-side cae en la misma sesión y usuario.
 `src/components/ventas/VentasLanding.tsx` (constantes `N8N_AGENDA_*`) asume
 las tres rutas de arriba. Si se renombran los paths de los webhooks hay que
 actualizar esas constantes.
+
+### El día en curso no se ofrece
+
+Para **hoy**, la API de Clinera arma la grilla desde la hora **UTC** actual en
+vez del horario de atención del profesional. Chile va cuatro horas atrás, así
+que a las 16:30 de la tarde el servidor ya está en 20:30 y devuelve cero horas
+aunque queden bloques libres; más temprano devuelve horas que no corresponden.
+Por eso el picker parte en mañana. Cuando Clinera lo corrija se puede volver a
+incluir el día en curso.
 
 ## clinera-meet-por-profesional.workflow.json
 
