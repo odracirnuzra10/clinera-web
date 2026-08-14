@@ -167,6 +167,32 @@ El aviso va al mismo espacio de Google Chat, **una vez cada media hora por
 motivo**, con la cuenta de leads afectados en la ventana. Seis llamadas que
 fallan en la misma tanda son un mensaje, no seis.
 
+### Por qué 166 leads llevaban un mes sin llamada
+
+Baserow guarda `Intentos IA` como decimal: **`"1.00"`**. El cron
+(«OACG TECH \| Camila Cron · Clinera», nodo «Split Items») lo leía así:
+
+```js
+parseInt(String(row['Intentos IA'] || '0').replace(/[^0-9]/g, ''))
+```
+
+`"1.00"` → quitar los no-dígitos → `"100"` → **100 intentos**. Y la regla de
+más abajo es `if (intentos >= 3) skip`. O sea: **cualquier lead que recibiera
+una sola llamada quedaba marcado como agotado y no se volvía a llamar jamás**.
+Solo pasaban los que tenían el contador en 0 o vacío.
+
+Se leyó con `parseFloat`. Es la misma trampa que hay que evitar en cualquier
+sitio que lea un número de Baserow.
+
+Al arreglarlo se liberaban de golpe 164 leads atascados desde julio, con sus
+demos ya vencidas, así que se les puso `📅 Próxima llamada` a futuro para que
+el cron no los tome hasta que se decida qué hacer con ellos.
+
+Y como esos leads tienen fecha de demo pasada, «Prepare Call Data» ahora mira
+si la demo quedó atrás: si ya pasó, la llamada vuelve a ser de **agendamiento**
+en vez de confirmación. Llamar a alguien a «confirmar tu reunión del 14 de
+julio» es peor que no llamarlo.
+
 ### Qué necesidad oye Camila
 
 «Prepare Call Data» lee la columna `Necesidad principal` de Baserow (id 14264,
