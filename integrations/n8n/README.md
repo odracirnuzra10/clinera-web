@@ -11,6 +11,7 @@ widget embebido).
 |--------------------------------------------------------|--------|-----|
 | `https://n8n.oacg.cl/webhook/clinera-agenda-config`    | GET    | Health-check + parámetros (clínica, sucursal, tratamiento, duración). Si no responde, `/agenda` cae automáticamente al iframe del embed oficial. |
 | `https://n8n.oacg.cl/webhook/clinera-agenda-disponibilidad?fecha=YYYY-MM-DD` | GET | Proxy de `GET app.clinera.io/api/public/iframe/disponibilidad` |
+| `…/clinera-agenda-disponibilidad?desde=YYYY-MM-DD&dias=21` | GET | Resumen: `{ dias: { "YYYY-MM-DD": nº de horas } }`. La página lo pide una vez al abrir el paso 4 para **no ofrecer días vacíos**; pedirlos uno por uno serían diez requests desde el navegador. Cuenta horas únicas (la API devuelve una entrada por profesional) y salta sábados y domingos. Un día que no se pudo consultar vuelve como `-1`, y ese se ofrece igual: mejor mostrar un día vacío que esconder uno que sí tenía horas. |
 | `https://n8n.oacg.cl/webhook/clinera-agenda-turno`     | POST   | Upsert del paciente (`POST …/pacientes`) y creación de la cita (`POST …/citas`), replicando el flujo del widget. Body: `{ nombre, email, telefono, fecha, hora, professionalId, professionalName }` |
 
 ### Instalación (una vez)
@@ -62,6 +63,15 @@ server-side cae en la misma sesión y usuario.
 las tres rutas de arriba. Si se renombran los paths de los webhooks hay que
 actualizar esas constantes.
 
+### El día en curso no se ofrece
+
+Para **hoy**, la API de Clinera arma la grilla desde la hora **UTC** actual en
+vez del horario de atención del profesional. Chile va cuatro horas atrás, así
+que a las 16:30 de la tarde el servidor ya está en 20:30 y devuelve cero horas
+aunque queden bloques libres; más temprano devuelve horas que no corresponden.
+Por eso el picker parte en mañana. Cuando Clinera lo corrija se puede volver a
+incluir el día en curso.
+
 ## clinera-meet-por-profesional.workflow.json
 
 Crea un **Google Meet en el calendario de la persona con la que se agendó**.
@@ -105,6 +115,67 @@ Credencial usada: **Google Calendar OACG** (la misma del workflow
 "OACG TECH | Agendamiento (Meet)"). Requiere que esa cuenta tenga permiso de
 **"Hacer cambios en los eventos"** sobre los calendarios de destino.
 
+### Dónde queda guardado el evento
+
+Al crear el Meet, el workflow busca el lead en Baserow por email y guarda la
+referencia del evento en la columna `🔖 Cal Booking UID`, con el formato
+`clinera#<eventId>@<calendarId>`. Va colgado de la creación, en paralelo a la
+respuesta: si Baserow falla, el Meet ya está hecho y el navegador no se entera.
+
+Sirve para **mover** el evento cuando el paciente reagende. Mover conserva el
+link del Meet y el evento que el paciente ya tiene en su calendario; borrar y
+recrear cambia el link y deja al paciente con una invitación muerta.
+
+El prefijo `clinera#` distingue esta referencia de un uid de Cal.com, porque la
+columna se comparte entre los dos agendadores.
+
+> [!NOTE]
+> El token de Baserow del workspace no tiene permiso para crear columnas, así
+> que se reusó una existente. Si algún día se agrega una columna propia
+> (p. ej. `Meet eventId`), conviene mover esto ahí.
+
+## camila-tool-solicitar-reagenda.workflow.json
+
+Tool de Vapi para **Camila**, la IA que llama a confirmar la reunión agendada.
+Si el lead no puede y quiere moverla, Camila pregunta cuándo le acomoda, llama
+a este tool y cierra la llamada.
+
+Webhook: `POST https://n8n.oacg.cl/webhook/camila-solicitar-reagenda`
+
+**No mueve la cita.** Clinera no expone endpoint para reagendar (ver más
+abajo), así que el tool deja constancia y le pasa el caso a una persona:
+
+1. Avisa a **Google Chat** con nombre, clínica, teléfono, email, la demo
+   agendada, lo que el lead dijo textualmente sobre cuándo le acomoda, y el
+   link a la fila de Baserow.
+2. Marca la fila de Baserow con `Reunión: Reagendar`.
+3. Le devuelve a Camila la instrucción de cerrar con *"Perfecto, déjame
+   confirmar bien el horario y le escribo de vuelta, ¿está bien?"*, sin
+   prometer fecha ni ofrecer horarios.
+
+La preferencia del lead va **sin interpretar** ("la próxima semana en la
+mañana"): quien devuelva la llamada necesita saber qué pidió, no una fecha que
+adivinó un modelo.
+
+Placeholders de secretos: `__GOOGLE_CHAT_WEBHOOK__` y `__BASEROW_TOKEN__`.
+
+### Lo que falta en la API de Clinera para automatizarlo entero
+
+Verificado contra `app.clinera.io` (agosto 2026): `POST …/citas` crea, y
+`PATCH` / `PUT` / `DELETE` sobre `/citas` responden **405**; `/citas/{id}` ni
+siquiera existe (**404**). Para que Camila reagende sola hacen falta:
+
+| Endpoint | Para qué |
+|---|---|
+| `GET /citas?telefono=…` | Saber qué cita tiene quien llama |
+| `PATCH /citas/{id}` | Mover fecha/hora validando disponibilidad en el servidor (409 si se la ganaron) |
+| `DELETE /citas/{id}` | Cancelar y liberar el bloque |
+| API key por header | Hoy son públicos sin llave: listar citas de pacientes así no corresponde |
+
+Con eso, el tool pasa a mover la cita en Clinera y a **mover** el evento de
+Google con `sendUpdates: all`, y el paciente recibe el correo con la hora nueva
+sobre el mismo Meet.
+
 ## crm-sql-twenty.workflow.json
 
 El segundo evento del embudo: **SQL** (US$ 100), cuando el closer marca el
@@ -113,17 +184,85 @@ lead como calificado en **crm.oacg.cl** (Twenty).
 Webhook: `POST https://n8n.oacg.cl/webhook/crm-sql`
 
 Se configura en Twenty: **Settings → APIs & Webhooks → New webhook**, apuntando
-a esa URL y suscrito a los cambios del objeto donde el closer marca la
-calificación (p. ej. `opportunity.updated` / `person.updated`).
+a esa URL y suscrito a `opportunity.updated` / `opportunity.created`.
 
-- Cuenta como SQL cuando la etapa contiene `calificado`, `qualified`, `sql` o
-  `sales qualified` (lista `ETAPAS_SQL` del nodo "Validar SQL"). Cualquier otro
-  cambio en el CRM responde `etapa_no_sql` y no manda nada.
-- Es una conversión **offline**: va con `action_source: system_generated` y el
-  match lo hace Meta por email y teléfono hasheados (SHA-256). Si el registro
-  de Twenty guarda `fbc`/`fbp` de la landing, se usan y el match mejora.
-- **Anti-duplicado por lead durante 90 días**: mover el registro de etapa
-  varias veces no infla el conteo.
-- Valor y moneda salen de `VALOR_SQL` / `MONEDA` en el mismo nodo.
+### Qué cuenta como SQL
 
-Mismos placeholders de secretos que el workflow de reserva.
+Twenty manda en el webhook el **valor** del enum de etapa, no la etiqueta que
+se ve en el tablero. El mapa del workspace OACG es:
+
+| Valor en el webhook | Etiqueta en el tablero |
+|---|---|
+| `NEW` | Nuevo |
+| `SCREENING` | **MQL** |
+| `PQL` | PQL · No contesta |
+| `MEETING` | **SQL** |
+| `PROPOSAL` | **SQL+** |
+| `CUSTOMER` | Contrata |
+| `NQL` | NQL · No califica |
+
+`ETAPAS_SQL` acepta `meeting` y `proposal` (y también las etiquetas `sql` /
+`sql+`, por si el webhook llegara desde otra vista).
+
+### Filtros antes de mandar la conversión
+
+1. **Solo oportunidades.** El webhook del CRM está abierto a todos los objetos;
+   notas, personas y empresas responden `objeto_no_es_oportunidad`.
+2. **Solo si cambió la etapa.** Editar el monto de un negocio que ya está en
+   SQL responde `no_cambio_la_etapa` (se mira `updatedFields`).
+3. **Solo si lo movió una persona.** El SQL es una calificación humana: si la
+   etapa la movió una automatización (`updatedBy.source = API`, que es como
+   escribe n8n) responde `etapa_movida_por_automatizacion`. Por eso agendar
+   deja el negocio en **MQL** y no lo sube solo a SQL.
+4. **Anti-duplicado por negocio durante 90 días**, con el `id` del registro
+   como clave. Mover SQL → SQL+ cuenta una sola vez.
+
+### De dónde salen el contacto y los identificadores de Meta
+
+La oportunidad de Twenty no lleva email ni teléfono encima: solo
+`pointOfContactId`. El nodo "Validar SQL" resuelve la persona con
+`GET crm.oacg.cl/rest/people/{id}` (token en `$env.TWENTY_API_KEY`) y de ahí
+saca email, teléfono y nombre para hashearlos.
+
+Es una conversión **offline**: va con `action_source: system_generated` y el
+match lo hace Meta por email y teléfono hasheados (SHA-256). El `fbc` / `fbp`
+de la landing sube mucho la calidad de ese match, y Twenty no tiene dónde
+guardarlos — así que el nodo **"Baserow - Meta ids"** los busca en la tabla 152
+(columnas `Meta fbc` / `Meta fbp`), que es donde el Wizard los deja al capturar
+el lead. Si no hay fila o vienen vacíos, el evento sale igual sin ellos.
+
+Valor y moneda salen de `VALOR_SQL` / `MONEDA` en el mismo nodo.
+
+Además de los placeholders del workflow de reserva, este archivo lleva
+`__BASEROW_TOKEN__` en el nodo "Baserow - Meta ids".
+
+## Cambios en "OACG TECH | Wizard" (no vive en este repo)
+
+El workflow `A3wOPmhQjit8VswM` recibe el formulario de `/ventas` y `/agenda` y
+es el que escribe en Baserow y en Twenty. No se versiona acá porque lleva
+credenciales inline y sirve a más flujos, pero `/agenda` depende de cuatro
+cosas suyas:
+
+- **Un solo MQL.** El nodo "No es booking confirmado?" ahora exige además que
+  `landing_url` **no** contenga `/agenda`. En `/agenda` el MQL lo emite el
+  workflow de reserva en el momento del agendamiento, con el mismo `event_id`
+  que el Pixel; sin este filtro el lead contaba dos MQL con `event_id`
+  distintos y Meta no los deduplicaba. `/ventas` sigue igual.
+- **Fecha de la demo.** "Prepare Sales Lead Data" ahora deriva `fecha` / `hora`
+  de `cal_date` / `cal_start_time` cuando el formulario no las trae. La reserva
+  nativa manda la hora local de Chile sin zona (`2026-08-17T13:00:00`) y
+  Cal.com la manda en UTC; las dos se normalizan a hora local antes de la
+  conversión a UTC que ya existía. Sin esto, "Fecha demo" quedaba vacía en
+  Baserow y en Twenty.
+- **Responsable = quien atiende.** "Twenty - Crear Lead" toma el profesional de
+  `cal_organizer_name` y pone el negocio a su nombre (Rebeca, Nohelymar), en
+  vez del sorteo de encargada. Se aplica también cuando el negocio ya existía;
+  si no hay profesional, no se reasigna a nadie.
+- **Todo lead entra como MQL.** "Twenty - Crear Lead" y "Twenty - Agendó
+  (Cal.com)" dejan el negocio en `SCREENING` (MQL), siempre. Subirlo a SQL o
+  SQL+ es decisión de ventas (Nohe, Rebe o Cheul) en el CRM: ni el formulario ni
+  el agendamiento lo hacen solos. Antes el agendamiento subía a `MEETING` (SQL)
+  y el embudo se saltaba el paso del closer.
+- **Qué cambia cuando un lead que ya existe agenda.** Solo la fecha de la demo y
+  el responsable (el profesional con quien quedó el Meet). La etapa no baja
+  nunca y tampoco sube: si ventas ya lo había marcado SQL, ahí se queda.

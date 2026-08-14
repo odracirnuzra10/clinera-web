@@ -385,6 +385,7 @@ export default function VentasLanding({
   sourcePath = "/ventas",
   question1 = "software",
   investmentAfterContact = false,
+  meetingMinutes = 30,
 }: {
   enableMigrationQualification?: boolean;
   /** Qué pregunta el paso 1: el software actual (default) o la necesidad. */
@@ -394,6 +395,8 @@ export default function VentasLanding({
    * el lead dejó sus datos: menos fricción y el lead queda capturado igual.
    */
   investmentAfterContact?: boolean;
+  /** Duración real de la reunión, la que se promete en el copy. */
+  meetingMinutes?: number;
   /** Agendador del paso final. Default: Cal.com (comportamiento original). */
   scheduler?: SchedulerId;
   /** Ruta que origina el lead — viaja en `fuente` del webhook y en el mensaje de WhatsApp. */
@@ -472,6 +475,7 @@ export default function VentasLanding({
         sourcePath={sourcePath}
         question1={question1}
         investmentAfterContact={investmentAfterContact}
+        meetingMinutes={meetingMinutes}
       />
     </>
   );
@@ -484,12 +488,14 @@ function ReunionHero({
   sourcePath,
   question1,
   investmentAfterContact,
+  meetingMinutes,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
   sourcePath: string;
   question1: Question1;
   investmentAfterContact: boolean;
+  meetingMinutes: number;
 }) {
   return (
     <section style={{ position: "relative", overflow: "hidden", display: "flex", alignItems: "center" }}>
@@ -557,7 +563,7 @@ function ReunionHero({
             </span>
             SOLO DUEÑOS Y GERENTES DE CLÍNICAS
             <span style={{ color: "#9CA3AF" }}>·</span>
-            <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>reunión de 30 min</span>
+            <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>reunión de {meetingMinutes} min</span>
           </span>
 
           <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
@@ -625,6 +631,7 @@ function ReunionHero({
             sourcePath={sourcePath}
             question1={question1}
             investmentAfterContact={investmentAfterContact}
+            meetingMinutes={meetingMinutes}
           />
         </div>
       </div>
@@ -815,12 +822,14 @@ function Wizard({
   sourcePath,
   question1,
   investmentAfterContact,
+  meetingMinutes,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
   sourcePath: string;
   question1: Question1;
   investmentAfterContact: boolean;
+  meetingMinutes: number;
 }) {
   const [step, setStep] = useState(1);
   const [software, setSoftware] = useState<Step1Id | null>(null);
@@ -937,6 +946,7 @@ function Wizard({
       )}
       {!submitted && !declined && step === contactStep && (
         <StepContact
+          meetingMinutes={meetingMinutes}
           form={form}
           setForm={setForm}
           label={`Paso ${contactStep} de ${totalSteps}`}
@@ -1728,10 +1738,12 @@ function StepContact({
   label = "Paso 2 de 3",
   onBack,
   onNext,
+  meetingMinutes = 30,
 }: {
   form: Form;
   setForm: (f: Form) => void;
   label?: string;
+  meetingMinutes?: number;
   onBack: () => void;
   onNext: () => void;
 }) {
@@ -1930,7 +1942,7 @@ function StepContact({
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </SubmitBtn>
-      <FormNote>Sin compromiso · 30 min por videollamada</FormNote>
+      <FormNote>Sin compromiso · {meetingMinutes} min por videollamada</FormNote>
     </div>
   );
 }
@@ -2429,12 +2441,15 @@ function StepClineraNativo({
   onBooked: (b: CalBooking, confirmEventId: string) => void | Promise<void>;
   onFallback: () => void;
 }) {
-  // Días ofrecidos: los próximos 10 hábiles. La clínica atiende de lunes a
-  // viernes, así que ofrecer sábado y domingo solo lleva a "sin horas".
-  const days = useMemo(() => {
+  // Días candidatos: los próximos hábiles, a partir de mañana. La clínica
+  // atiende de lunes a viernes, así que ofrecer el fin de semana solo lleva a
+  // "sin horas". Hoy tampoco se ofrece: para el día en curso la API arma la
+  // grilla desde la hora actual en UTC, no desde el horario de atención, y a
+  // media tarde en Chile ya devuelve cero.
+  const candidateDays = useMemo(() => {
     const base = new Date();
     const out: { ymd: string; date: Date }[] = [];
-    for (let i = 0; out.length < 10 && i < 21; i++) {
+    for (let i = 1; out.length < 14 && i < 28; i++) {
       const d = new Date(base.getFullYear(), base.getMonth(), base.getDate() + i);
       const dow = d.getDay();
       if (dow === 0 || dow === 6) continue;
@@ -2443,21 +2458,52 @@ function StepClineraNativo({
     return out;
   }, []);
 
-  const [fecha, setFecha] = useState(days[0].ymd);
-  const [profFilter, setProfFilter] = useState<string>("any");
+  // Cuántas horas tiene cada día, en una sola llamada. Sirve para no ofrecer
+  // un día que va a responder "sin horas disponibles": el visitante lo
+  // descubre recién al hacer clic y parece que la agenda está rota.
+  const [resumen, setResumen] = useState<Record<string, number> | null>(null);
+  useEffect(() => {
+    const desde = candidateDays[0]?.ymd;
+    if (!desde) return;
+    const ctrl = new AbortController();
+    fetch(`${N8N_AGENDA_DISPO_URL}?desde=${desde}&dias=21`, { signal: ctrl.signal })
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("resumen " + r.status))))
+      .then((json: { dias?: Record<string, number> }) => {
+        if (json && json.dias && typeof json.dias === "object") setResumen(json.dias);
+      })
+      .catch(() => {
+        /* Sin resumen se ofrecen todos los días: mejor mostrar uno vacío que
+           esconder uno que sí tenía horas. */
+      });
+    return () => ctrl.abort();
+  }, [candidateDays]);
+
+  // Un día se esconde solo si el resumen dice que tiene CERO horas. El -1 es
+  // "no se pudo consultar", y ese se ofrece igual.
+  const days = useMemo(
+    () => (resumen ? candidateDays.filter((d) => resumen[d.ymd] !== 0) : candidateDays).slice(0, 10),
+    [candidateDays, resumen],
+  );
+
+  const [fecha, setFecha] = useState(candidateDays[0].ymd);
   const [hora, setHora] = useState<string>("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(false);
   const [retryTick, setRetryTick] = useState(0);
+  // Si el día elegido se cayó de la tira porque el resumen dijo que no tiene
+  // horas, se muestra el primero que sí tenga. Derivado, no efecto: lo que el
+  // visitante eligió no se pisa.
+  const fechaEfectiva = days.some((d) => d.ymd === fecha) ? fecha : (days[0]?.ymd ?? fecha);
+
   // El estado de disponibilidad se escribe SOLO desde los callbacks del fetch;
   // loading/slots/error se derivan comparando la clave pedida vs la recibida.
-  const dispoKey = `${fecha}#${retryTick}`;
+  const dispoKey = `${fechaEfectiva}#${retryTick}`;
   const [dispo, setDispo] = useState<{ key: string; slots: DispoSlot[]; error: boolean } | null>(null);
 
   useEffect(() => {
     const ctrl = new AbortController();
     const key = dispoKey;
-    fetch(`${N8N_AGENDA_DISPO_URL}?fecha=${fecha}`, { signal: ctrl.signal })
+    fetch(`${N8N_AGENDA_DISPO_URL}?fecha=${fechaEfectiva}`, { signal: ctrl.signal })
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("dispo " + r.status))))
       .then((json: { data?: { horariosDisponibles?: DispoSlot[] }; horariosDisponibles?: DispoSlot[] }) => {
         const list = json?.data?.horariosDisponibles ?? json?.horariosDisponibles ?? [];
@@ -2468,40 +2514,28 @@ function StepClineraNativo({
         setDispo({ key, slots: [], error: true });
       });
     return () => ctrl.abort();
-  }, [fecha, dispoKey]);
+  }, [fechaEfectiva, dispoKey]);
 
   const loadingSlots = dispo?.key !== dispoKey;
   const slots = useMemo(() => (loadingSlots || !dispo ? [] : dispo.slots), [loadingSlots, dispo]);
   const slotsError = !loadingSlots && !!dispo?.error;
 
-  // Profesionales presentes en los slots del día elegido.
-  const professionals = useMemo(() => {
-    const map = new Map<string, string>();
-    slots.forEach((s) => {
-      if (s.profesional?.id && s.profesional.name) map.set(s.profesional.id, s.profesional.name);
-    });
-    return Array.from(map, ([id, name]) => ({ id, name }));
-  }, [slots]);
-
-  // Si el filtro apunta a un profesional que no atiende ese día, cae a "any"
-  // (derivado, no efecto: el estado guardado no se pisa).
-  const effectiveProfFilter =
-    profFilter === "any" || professionals.some((p) => p.id === profFilter) ? profFilter : "any";
-
+  // Sin selector de profesional: acá nadie agenda por persona, agenda por hora
+  // disponible. La API devuelve una entrada por profesional, así que cada hora
+  // se ofrece una sola vez y la reserva queda con el primero que la tenga
+  // libre.
   const visibleSlots = useMemo(() => {
-    const filtered =
-      effectiveProfFilter === "any" ? slots : slots.filter((s) => s.profesional?.id === effectiveProfFilter);
     const seen = new Set<string>();
-    return filtered
+    return slots
       .filter((s) => {
         if (!s.horaInicio || seen.has(s.horaInicio)) return false;
         seen.add(s.horaInicio);
         return true;
       })
       .sort((a, b) => a.horaInicio.localeCompare(b.horaInicio));
-  }, [slots, effectiveProfFilter]);
+  }, [slots]);
 
-  // La hora elegida solo vale si sigue existiendo en el día/filtro visibles.
+  // La hora elegida solo vale si sigue existiendo en el día visible.
   const selectedSlot = visibleSlots.find((s) => s.horaInicio === hora) ?? null;
 
   async function confirmar() {
@@ -2573,11 +2607,11 @@ function StepClineraNativo({
         label={label}
         title={
           <>
-            Elige profesional y{" "}
-            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>horario</em>
+            Elige el día y la{" "}
+            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>hora</em>
           </>
         }
-        sub="Tus datos ya quedaron guardados: solo confirma con quién y cuándo."
+        sub="Tus datos ya quedaron guardados: solo elige cuándo te acomoda."
       />
 
       {showInvestment && (
@@ -2602,7 +2636,7 @@ function StepClineraNativo({
 
       <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 6, marginBottom: 14, WebkitOverflowScrolling: "touch" }}>
         {days.map((d) => {
-          const sel = d.ymd === fecha;
+          const sel = d.ymd === fechaEfectiva;
           const wd = d.date.toLocaleDateString("es-CL", { weekday: "short" }).replace(".", "");
           const dm = d.date.toLocaleDateString("es-CL", { day: "numeric", month: "short" }).replace(".", "");
           return (
@@ -2613,38 +2647,6 @@ function StepClineraNativo({
           );
         })}
       </div>
-
-      {professionals.length > 1 && (
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
-          {[{ id: "any", name: "Cualquier profesional" }, ...professionals].map((p) => {
-            const sel = effectiveProfFilter === p.id;
-            return (
-              <button
-                key={p.id}
-                type="button"
-                onClick={() => {
-                  setProfFilter(p.id);
-                  setHora("");
-                }}
-                style={{
-                  padding: "8px 14px",
-                  border: "1.5px solid " + (sel ? "#0A0A0A" : "#E7EBF0"),
-                  borderRadius: 999,
-                  background: sel ? "#FAFBFD" : "#fff",
-                  fontFamily: "Inter",
-                  fontSize: 13.5,
-                  fontWeight: sel ? 700 : 500,
-                  color: "#0A0A0A",
-                  cursor: "pointer",
-                  transition: "all .2s",
-                }}
-              >
-                {p.name}
-              </button>
-            );
-          })}
-        </div>
-      )}
 
       <div style={{ minHeight: 180, marginBottom: 6 }}>
         {loadingSlots && (
@@ -2743,7 +2745,7 @@ function StepClineraNativo({
         </div>
       )}
       <FormNote>
-        <strong>Sin compromiso</strong> · Videollamada con el equipo Clinera
+        <strong>Sin compromiso</strong> · {config.duracionMin ?? 45} min por videollamada
       </FormNote>
     </div>
   );

@@ -12,27 +12,42 @@
       "name": "Webhook Turno→Meet",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [240, 300]
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "e93b02eb-1b16-418d-bd6b-b6dd2dd9c889"
     },
     {
       "parameters": {
-        "jsCode": "// ===================================================================\n// Normaliza el aviso de turno y decide EN QUÉ CALENDARIO va el Meet.\n// Acepta dos orígenes:\n//   1) El workflow de reserva de www.clinera.io/agenda (formato propio).\n//   2) El webhook de automatizaciones de app.clinera.io (formato libre):\n//      se buscan las claves en profundidad, porque el payload cambia\n//      según el evento que dispare la automatización.\n// ===================================================================\n\n// Mapa profesional -> calendario de Google. Para sumar a alguien más,\n// basta agregar una línea (el match es por \"contiene\", sin acentos).\nconst CALENDARIOS = [\n  { clave: 'nohe', calendarId: 'nohelymar.sanchez@oacg.cl', nombre: 'Nohely Sánchez' },\n  { clave: 'rebe', calendarId: 'rebeca@oacg.cl', nombre: 'Rebeca' },\n];\n\nconst TZ_CLINICA = 'America/Santiago'; // la hora del turno es hora de la clínica\nconst DURACION_DEFAULT = 30;\n\n// --- utilidades ----------------------------------------------------\nfunction norm(s) {\n  return String(s || '')\n    .normalize('NFD')\n    .replace(/[\\u0300-\\u036f]/g, '')\n    .toLowerCase()\n    .trim();\n}\n\n// Busca en profundidad la primera clave que matchee y devuelva string útil.\nfunction deepFind(obj, claves, validar) {\n  const objetivo = claves.map(norm);\n  const visto = new Set();\n  const cola = [obj];\n  while (cola.length) {\n    const cur = cola.shift();\n    if (!cur || typeof cur !== 'object' || visto.has(cur)) continue;\n    visto.add(cur);\n    for (const k of Object.keys(cur)) {\n      const v = cur[k];\n      if (v && typeof v === 'object') { cola.push(v); continue; }\n      if (!objetivo.includes(norm(k))) continue;\n      const s = String(v == null ? '' : v).trim();\n      if (!s) continue;\n      if (validar && !validar(s)) continue;\n      return s;\n    }\n  }\n  return '';\n}\n\n// Offset real de Chile continental para esa fecha (DST: 1er domingo de\n// septiembre al 1er domingo de abril). Se intenta primero con Intl para\n// no depender de la regla escrita a mano.\nfunction offsetChile(y, m, d) {\n  try {\n    const fmt = new Intl.DateTimeFormat('en-US', { timeZone: TZ_CLINICA, timeZoneName: 'longOffset' });\n    const partes = fmt.formatToParts(new Date(Date.UTC(y, m - 1, d, 15, 0, 0)));\n    const tzn = (partes.find(function (p) { return p.type === 'timeZoneName'; }) || {}).value || '';\n    const mm = tzn.match(/GMT([+-])(\\d{1,2})(?::?(\\d{2}))?/);\n    if (mm) {\n      const sig = mm[1];\n      const hh = String(mm[2]).padStart(2, '0');\n      const mi = String(mm[3] || '00').padStart(2, '0');\n      return sig + hh + ':' + mi;\n    }\n  } catch (e) { /* runtime sin full-icu: caemos a la regla */ }\n  function primerDomingo(anio, mes) {\n    const dt = new Date(Date.UTC(anio, mes - 1, 1));\n    return 1 + ((7 - dt.getUTCDay()) % 7);\n  }\n  const verano = m > 9 || (m === 9 && d >= primerDomingo(y, 9)) || m < 4 || (m === 4 && d < primerDomingo(y, 4));\n  return verano ? '-03:00' : '-04:00';\n}\n\nfunction pad(n) { return String(n).padStart(2, '0'); }\n\n// --- extracción ----------------------------------------------------\nconst body = $json.body || $json || {};\n\nconst profesional = deepFind(body, ['professionalName', 'profesional', 'doctor', 'profesionalNombre', 'professional', 'medico']);\nconst profesionalEmail = deepFind(body, ['professionalEmail', 'profesionalEmail', 'doctorEmail'], function (s) { return s.indexOf('@') > 0; });\n\nlet fecha = deepFind(body, ['fecha', 'date', 'fechaTurno', 'startDate'], function (s) { return /^\\d{4}-\\d{2}-\\d{2}/.test(s); });\nif (fecha) fecha = fecha.slice(0, 10);\nconst hora = deepFind(body, ['hora', 'time', 'horaInicio', 'startTime'], function (s) { return /^\\d{1,2}:\\d{2}/.test(s); });\n\nconst clienteNombre = deepFind(body, ['nombre', 'name', 'pacienteNombre', 'clientName', 'paciente']);\nconst clienteEmail = deepFind(body, ['email', 'correo', 'mail', 'pacienteEmail'], function (s) { return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(s); });\nconst clienteTelefono = deepFind(body, ['telefono', 'phone', 'celular', 'whatsapp']);\nconst tratamiento = deepFind(body, ['tratamiento', 'tratamientoNombre', 'servicio', 'treatment']);\nconst duracionRaw = deepFind(body, ['duracion', 'duracionMin', 'duration', 'duracionPorSesion'], function (s) { return /^\\d+$/.test(s); });\nconst duracion = duracionRaw ? parseInt(duracionRaw, 10) : DURACION_DEFAULT;\nconst esPrueba = body.test === true || body.prueba === true;\n\n// --- a quién le toca ------------------------------------------------\nconst aguja = norm(profesional) + ' ' + norm(profesionalEmail);\nconst destino = CALENDARIOS.find(function (c) { return aguja.indexOf(c.clave) !== -1; });\n\nif (!destino) {\n  // No es Nohe ni Rebe (o el payload no trae profesional): no se crea nada.\n  // El payload queda guardado en la ejecución para poder mapearlo después.\n  return [{ json: { ok: false, motivo: 'sin_match', profesional: profesional, fecha: fecha, hora: hora, payload: body } }];\n}\nif (!fecha || !hora) {\n  return [{ json: { ok: false, motivo: 'sin_fecha_u_hora', profesional: profesional, payload: body } }];\n}\n\n// --- horario --------------------------------------------------------\nconst y = parseInt(fecha.slice(0, 4), 10);\nconst mes = parseInt(fecha.slice(5, 7), 10);\nconst dia = parseInt(fecha.slice(8, 10), 10);\nconst horaHH = pad(parseInt(hora.split(':')[0], 10));\nconst horaMM = pad(parseInt(hora.split(':')[1], 10));\nconst offset = offsetChile(y, mes, dia);\n\nconst startISO = fecha + 'T' + horaHH + ':' + horaMM + ':00' + offset;\nconst offMin = (offset[0] === '-' ? -1 : 1) * (parseInt(offset.slice(1, 3), 10) * 60 + parseInt(offset.slice(4, 6), 10));\nconst finLocal = new Date(Date.parse(startISO) + duracion * 60000 + offMin * 60000);\nconst endISO = finLocal.getUTCFullYear() + '-' + pad(finLocal.getUTCMonth() + 1) + '-' + pad(finLocal.getUTCDate()) +\n  'T' + pad(finLocal.getUTCHours()) + ':' + pad(finLocal.getUTCMinutes()) + ':00' + offset;\n\n// --- anti-duplicado --------------------------------------------------\n// Si el mismo turno llega dos veces (p. ej. el workflow de /agenda y la\n// automatización de Clinera avisan lo mismo), se crea un solo Meet.\nconst estado = $getWorkflowStaticData('global');\nestado.creados = estado.creados || {};\nconst clave = destino.calendarId + '|' + startISO + '|' + norm(clienteEmail);\nconst ahora = Date.now();\nfor (const k of Object.keys(estado.creados)) {\n  if (ahora - estado.creados[k] > 86400000) delete estado.creados[k];\n}\nif (!esPrueba && estado.creados[clave] && ahora - estado.creados[clave] < 600000) {\n  return [{ json: { ok: false, motivo: 'duplicado', calendarId: destino.calendarId, startISO: startISO } }];\n}\nestado.creados[clave] = ahora;\n\n// --- evento -----------------------------------------------------------\nconst titulo = (esPrueba ? '[PRUEBA — BORRAR] ' : '') +\n  (tratamiento || 'Reunión con Clinera') + ' · ' + (clienteNombre || 'Cliente');\n\nconst descripcion = [\n  'Reunión agendada desde Clinera.',\n  clienteNombre ? 'Cliente: ' + clienteNombre : '',\n  clienteEmail ? 'Email: ' + clienteEmail : '',\n  clienteTelefono ? 'Teléfono: ' + clienteTelefono : '',\n  profesional ? 'Profesional: ' + profesional : '',\n  tratamiento ? 'Tratamiento: ' + tratamiento : '',\n].filter(Boolean).join('\\n');\n\n// En pruebas no se invita a nadie, para no mandar correos.\nconst attendees = !esPrueba && clienteEmail ? [clienteEmail] : [];\n\nreturn [{ json: {\n  ok: true,\n  esPrueba: esPrueba,\n  calendarId: destino.calendarId,\n  responsable: destino.nombre,\n  startISO: startISO,\n  endISO: endISO,\n  summary: titulo,\n  description: descripcion,\n  attendees: attendees,\n  sendUpdates: attendees.length ? 'all' : 'none',\n  cliente: { nombre: clienteNombre, email: clienteEmail, telefono: clienteTelefono },\n} }];"
+        "jsCode": "// ===================================================================\n// Normaliza el aviso de turno y decide EN QUÉ CALENDARIO va el Meet.\n// Acepta dos orígenes:\n//   1) El workflow de reserva de www.clinera.io/agenda (formato propio).\n//   2) El webhook de automatizaciones de app.clinera.io (formato libre):\n//      se buscan las claves en profundidad, porque el payload cambia\n//      según el evento que dispare la automatización.\n// ===================================================================\n\n// Mapa profesional -> calendario de Google. Para sumar a alguien más,\n// basta agregar una línea (el match es por \"contiene\", sin acentos).\nconst CALENDARIOS = [\n  { clave: 'nohe', calendarId: 'nohelymar.sanchez@oacg.cl', nombre: 'Nohely Sánchez' },\n  { clave: 'rebe', calendarId: 'rebeca@oacg.cl', nombre: 'Rebeca' },\n];\n\nconst TZ_CLINICA = 'America/Santiago'; // la hora del turno es hora de la clínica\n// Si el payload no trae duración, se asume la de la Reunión Comercial.\nconst DURACION_DEFAULT = 45;\n\n// --- utilidades ----------------------------------------------------\nfunction norm(s) {\n  return String(s || '')\n    .normalize('NFD')\n    .replace(/[\\u0300-\\u036f]/g, '')\n    .toLowerCase()\n    .trim();\n}\n\n// Busca en profundidad la primera clave que matchee y devuelva string útil.\nfunction deepFind(obj, claves, validar) {\n  const objetivo = claves.map(norm);\n  const visto = new Set();\n  const cola = [obj];\n  while (cola.length) {\n    const cur = cola.shift();\n    if (!cur || typeof cur !== 'object' || visto.has(cur)) continue;\n    visto.add(cur);\n    for (const k of Object.keys(cur)) {\n      const v = cur[k];\n      if (v && typeof v === 'object') { cola.push(v); continue; }\n      if (!objetivo.includes(norm(k))) continue;\n      const s = String(v == null ? '' : v).trim();\n      if (!s) continue;\n      if (validar && !validar(s)) continue;\n      return s;\n    }\n  }\n  return '';\n}\n\n// Offset real de Chile continental para esa fecha (DST: 1er domingo de\n// septiembre al 1er domingo de abril). Se intenta primero con Intl para\n// no depender de la regla escrita a mano.\nfunction offsetChile(y, m, d) {\n  try {\n    const fmt = new Intl.DateTimeFormat('en-US', { timeZone: TZ_CLINICA, timeZoneName: 'longOffset' });\n    const partes = fmt.formatToParts(new Date(Date.UTC(y, m - 1, d, 15, 0, 0)));\n    const tzn = (partes.find(function (p) { return p.type === 'timeZoneName'; }) || {}).value || '';\n    const mm = tzn.match(/GMT([+-])(\\d{1,2})(?::?(\\d{2}))?/);\n    if (mm) {\n      const sig = mm[1];\n      const hh = String(mm[2]).padStart(2, '0');\n      const mi = String(mm[3] || '00').padStart(2, '0');\n      return sig + hh + ':' + mi;\n    }\n  } catch (e) { /* runtime sin full-icu: caemos a la regla */ }\n  function primerDomingo(anio, mes) {\n    const dt = new Date(Date.UTC(anio, mes - 1, 1));\n    return 1 + ((7 - dt.getUTCDay()) % 7);\n  }\n  const verano = m > 9 || (m === 9 && d >= primerDomingo(y, 9)) || m < 4 || (m === 4 && d < primerDomingo(y, 4));\n  return verano ? '-03:00' : '-04:00';\n}\n\nfunction pad(n) { return String(n).padStart(2, '0'); }\n\n// --- extracción ----------------------------------------------------\nconst body = $json.body || $json || {};\n\nconst profesional = deepFind(body, ['professionalName', 'profesional', 'doctor', 'profesionalNombre', 'professional', 'medico']);\nconst profesionalEmail = deepFind(body, ['professionalEmail', 'profesionalEmail', 'doctorEmail'], function (s) { return s.indexOf('@') > 0; });\n\nlet fecha = deepFind(body, ['fecha', 'date', 'fechaTurno', 'startDate'], function (s) {\n  return /^\\d{4}-\\d{2}-\\d{2}/.test(s) || /^\\d{2}-\\d{2}-\\d{4}$/.test(s);\n});\n// Clinera manda DD-MM-YYYY; el resto del código trabaja en YYYY-MM-DD.\nif (/^\\d{2}-\\d{2}-\\d{4}$/.test(fecha)) {\n  const t = fecha.split('-');\n  fecha = t[2] + '-' + t[1] + '-' + t[0];\n} else if (fecha) {\n  fecha = fecha.slice(0, 10);\n}\n// Si viene el ISO completo (booking.date_time), manda ese: ya trae el offset\n// real de la clínica y evita deducir el huso.\nconst dateTimeISO = deepFind(body, ['date_time', 'dateTime', 'startISO', 'fechaHora'], function (s) {\n  return /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}/.test(s);\n});\nif (dateTimeISO) fecha = dateTimeISO.slice(0, 10);\nconst hora = dateTimeISO\n  ? dateTimeISO.slice(11, 16)\n  : deepFind(body, ['hora', 'time', 'horaInicio', 'startTime'], function (s) { return /^\\d{1,2}:\\d{2}/.test(s); });\n\nconst clienteNombre = deepFind(body, ['full_name', 'fullName', 'nombre', 'name', 'pacienteNombre', 'clientName', 'paciente']);\nconst clienteEmail = deepFind(body, ['email', 'correo', 'mail', 'pacienteEmail'], function (s) { return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(s); });\nconst clienteTelefono = deepFind(body, ['telefono', 'phone', 'celular', 'whatsapp']);\nconst tratamiento = deepFind(body, ['tratamiento', 'tratamientoNombre', 'servicio', 'treatment']);\nconst duracionRaw = deepFind(body, ['duracion', 'duracionMin', 'duration', 'duracionPorSesion'], function (s) { return /^\\d+$/.test(s); });\nconst duracion = duracionRaw ? parseInt(duracionRaw, 10) : DURACION_DEFAULT;\nconst esPrueba = body.test === true || body.prueba === true;\n\n// --- a quién le toca ------------------------------------------------\nconst aguja = norm(profesional) + ' ' + norm(profesionalEmail);\nconst destino = CALENDARIOS.find(function (c) { return aguja.indexOf(c.clave) !== -1; });\n\nif (!destino) {\n  // No es Nohe ni Rebe (o el payload no trae profesional): no se crea nada.\n  // El payload queda guardado en la ejecución para poder mapearlo después.\n  return [{ json: { ok: false, motivo: 'sin_match', profesional: profesional, fecha: fecha, hora: hora, payload: body } }];\n}\nif (!fecha || !hora) {\n  return [{ json: { ok: false, motivo: 'sin_fecha_u_hora', profesional: profesional, payload: body } }];\n}\n\n// --- horario --------------------------------------------------------\nconst y = parseInt(fecha.slice(0, 4), 10);\nconst mes = parseInt(fecha.slice(5, 7), 10);\nconst dia = parseInt(fecha.slice(8, 10), 10);\nconst horaHH = pad(parseInt(hora.split(':')[0], 10));\nconst horaMM = pad(parseInt(hora.split(':')[1], 10));\nconst offset = dateTimeISO && /[+-]\\d{2}:\\d{2}$/.test(dateTimeISO)\n  ? dateTimeISO.slice(-6)\n  : offsetChile(y, mes, dia);\n\nconst startISO = dateTimeISO && /[+-]\\d{2}:\\d{2}$/.test(dateTimeISO)\n  ? dateTimeISO\n  : fecha + 'T' + horaHH + ':' + horaMM + ':00' + offset;\nconst offMin = (offset[0] === '-' ? -1 : 1) * (parseInt(offset.slice(1, 3), 10) * 60 + parseInt(offset.slice(4, 6), 10));\nconst finLocal = new Date(Date.parse(startISO) + duracion * 60000 + offMin * 60000);\nconst endISO = finLocal.getUTCFullYear() + '-' + pad(finLocal.getUTCMonth() + 1) + '-' + pad(finLocal.getUTCDate()) +\n  'T' + pad(finLocal.getUTCHours()) + ':' + pad(finLocal.getUTCMinutes()) + ':00' + offset;\n\n// --- anti-duplicado --------------------------------------------------\n// Si el mismo turno llega dos veces (p. ej. el workflow de /agenda y la\n// automatización de Clinera avisan lo mismo), se crea un solo Meet.\nconst estado = $getWorkflowStaticData('global');\nestado.creados = estado.creados || {};\nconst clave = destino.calendarId + '|' + startISO + '|' + norm(clienteEmail);\nconst ahora = Date.now();\nfor (const k of Object.keys(estado.creados)) {\n  if (ahora - estado.creados[k] > 86400000) delete estado.creados[k];\n}\nif (!esPrueba && estado.creados[clave] && ahora - estado.creados[clave] < 600000) {\n  return [{ json: { ok: false, motivo: 'duplicado', calendarId: destino.calendarId, startISO: startISO } }];\n}\nestado.creados[clave] = ahora;\n\n// --- evento -----------------------------------------------------------\nconst titulo = (esPrueba ? '[PRUEBA — BORRAR] ' : '') +\n  (tratamiento || 'Reunión con Clinera') + ' · ' + (clienteNombre || 'Cliente');\n\nconst descripcion = [\n  'Reunión agendada desde Clinera.',\n  clienteNombre ? 'Cliente: ' + clienteNombre : '',\n  clienteEmail ? 'Email: ' + clienteEmail : '',\n  clienteTelefono ? 'Teléfono: ' + clienteTelefono : '',\n  profesional ? 'Profesional: ' + profesional : '',\n  tratamiento ? 'Tratamiento: ' + tratamiento : '',\n].filter(Boolean).join('\\n');\n\n// En pruebas no se invita a nadie, para no mandar correos.\nconst attendees = !esPrueba && clienteEmail ? [clienteEmail] : [];\n\nreturn [{ json: {\n  ok: true,\n  esPrueba: esPrueba,\n  calendarId: destino.calendarId,\n  responsable: destino.nombre,\n  startISO: startISO,\n  endISO: endISO,\n  summary: titulo,\n  description: descripcion,\n  attendees: attendees,\n  sendUpdates: attendees.length ? 'all' : 'none',\n  cliente: { nombre: clienteNombre, email: clienteEmail, telefono: clienteTelefono },\n} }];"
       },
       "id": "b2d1a8f0-0002-4c00-8000-000000000002",
       "name": "Normalizar Reserva",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [
+        460,
+        300
+      ]
     },
     {
       "parameters": {
         "conditions": {
-          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
           "conditions": [
             {
               "leftValue": "={{ $json.ok }}",
               "rightValue": true,
-              "operator": { "type": "boolean", "operation": "true", "singleValue": true }
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
             }
           ],
           "combinator": "and"
@@ -42,7 +57,10 @@
       "name": "¿Es Nohe o Rebe?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [680, 300]
+      "position": [
+        680,
+        300
+      ]
     },
     {
       "parameters": {
@@ -74,7 +92,10 @@
       "name": "Crear Evento + Meet",
       "type": "n8n-nodes-base.googleCalendar",
       "typeVersion": 1.3,
-      "position": [900, 220],
+      "position": [
+        900,
+        220
+      ],
       "credentials": {
         "googleCalendarOAuth2Api": {
           "id": "Ct6EXqpJ8blk1Yv9",
@@ -95,19 +116,27 @@
       "name": "Responder Meet OK",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [1140, 140]
+      "position": [
+        1140,
+        140
+      ]
     },
     {
       "parameters": {
         "respondWith": "json",
         "responseBody": "={{ JSON.stringify({ ok: false, error: 'No se pudo crear el evento en Google Calendar', detalle: ($json.error && $json.error.message) || null }) }}",
-        "options": { "responseCode": 502 }
+        "options": {
+          "responseCode": 502
+        }
       },
       "id": "b2d1a8f0-0006-4c00-8000-000000000006",
       "name": "Responder Meet Error",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [1140, 320]
+      "position": [
+        1140,
+        320
+      ]
     },
     {
       "parameters": {
@@ -118,26 +147,206 @@
       "name": "Responder Sin Meet",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
-      "position": [900, 460]
+      "position": [
+        900,
+        460
+      ]
+    },
+    {
+      "id": "brow-buscar-lead",
+      "name": "Baserow - Buscar Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        300
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://core.oacg.cl/api/database/rows/table/152/?user_field_names=true&size=1&order_by=-Creado&filter__Email__equal={{ encodeURIComponent($('Normalizar Reserva').first().json.cliente.email || '__sin_email__') }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "__BASEROW_TOKEN__"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "id": "brow-hay-fila",
+      "name": "¿Hay fila y no es prueba?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1260,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f1",
+              "leftValue": "={{ (($json.results || [])[0] || {}).id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f2",
+              "leftValue": "={{ $('Normalizar Reserva').first().json.esPrueba }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "brow-guardar-meet",
+      "name": "Baserow - Guardar Meet",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1380,
+        300
+      ],
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://core.oacg.cl/api/database/rows/table/152/{{ (($json.results || [])[0] || {}).id }}/?user_field_names=true",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "__BASEROW_TOKEN__"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ '🔖 Cal Booking UID': 'clinera#' + $('Crear Evento + Meet').first().json.id + '@' + $('Normalizar Reserva').first().json.calendarId }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 10000
+        }
+      }
     }
   ],
   "connections": {
     "Webhook Turno→Meet": {
-      "main": [[{ "node": "Normalizar Reserva", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Normalizar Reserva",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Normalizar Reserva": {
-      "main": [[{ "node": "¿Es Nohe o Rebe?", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "¿Es Nohe o Rebe?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "¿Es Nohe o Rebe?": {
       "main": [
-        [{ "node": "Crear Evento + Meet", "type": "main", "index": 0 }],
-        [{ "node": "Responder Sin Meet", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Crear Evento + Meet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Sin Meet",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Crear Evento + Meet": {
       "main": [
-        [{ "node": "Responder Meet OK", "type": "main", "index": 0 }],
-        [{ "node": "Responder Meet Error", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Responder Meet OK",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Baserow - Buscar Lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Meet Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Baserow - Buscar Lead": {
+      "main": [
+        [
+          {
+            "node": "¿Hay fila y no es prueba?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay fila y no es prueba?": {
+      "main": [
+        [
+          {
+            "node": "Baserow - Guardar Meet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
       ]
     }
   },

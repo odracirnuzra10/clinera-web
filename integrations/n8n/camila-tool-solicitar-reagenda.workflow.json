@@ -1,0 +1,151 @@
+{
+  "name": "OACG TECH | Camila · Tool Solicitar Reagenda",
+  "nodes": [
+    {
+      "id": "wh",
+      "name": "Webhook Vapi Tool",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "camila-solicitar-reagenda",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "camila-solicitar-reagenda",
+        "responseMode": "lastNode",
+        "responseData": "firstEntryJson",
+        "options": {}
+      }
+    },
+    {
+      "id": "ex",
+      "name": "Extraer Solicitud",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Tool de Vapi: el lead no puede confirmar la reunión y pide reagendar.\n// Camila NO mueve la cita: Clinera todavía no expone un endpoint para eso.\n// Lo que hace es dejar constancia de la preferencia y avisar a Google Chat\n// para que una persona tome el caso y vuelva a llamar.\nconst body = $input.first().json.body || {};\nconst msg = body.message || {};\nconst tc = (msg.toolCallList || msg.toolCalls || [])[0] || {};\nlet args = (tc.function && tc.function.arguments) || {};\nif (typeof args === 'string') { try { args = JSON.parse(args); } catch (e) { args = {}; } }\n\nconst meta = (msg.call && msg.call.metadata) || msg.metadata || {};\nconst vars = (msg.call && msg.call.assistantOverrides && msg.call.assistantOverrides.variableValues) || {};\nconst limpiar = (v) => String(v == null ? '' : v).replace(/[\\r\\n\\t]+/g, ' ').trim();\n\nconst datos = {\n  toolCallId: tc.id || '',\n  nombre: limpiar(args.nombre || vars.nombre),\n  clinica: limpiar(args.clinica || vars.nombre_clinica),\n  telefono: limpiar(args.telefono || vars.lead_phone || (msg.call && msg.call.customer && msg.call.customer.number)),\n  email: limpiar(args.email || vars.email_lead),\n  demoActual: limpiar(args.fecha_demo_actual || vars.fecha_demo || meta.fecha_demo),\n  // Lo que el lead dijo textualmente: \"la próxima semana en la mañana\",\n  // \"el jueves después de las cuatro\". No se interpreta acá: va tal cual,\n  // para que quien devuelva la llamada sepa qué ofrecerle.\n  preferencia: limpiar(args.preferencia_reagenda || args.preferencia),\n  motivo: limpiar(args.motivo || 'No pudo confirmar la reunión agendada'),\n  filaBaserow: limpiar(args.baserow_row_id || args.monday_item_id || meta.mondayItemId),\n};\n\nconst linea = (etiqueta, valor) => (valor ? '*' + etiqueta + ':* ' + valor + '\\n' : '');\ndatos.textoChat =\n  '🔄 *Reagendar demo — el lead no pudo confirmar*\\n\\n' +\n  linea('Nombre', datos.nombre) +\n  linea('Clínica', datos.clinica) +\n  linea('Teléfono', datos.telefono) +\n  linea('Email', datos.email) +\n  linea('Demo agendada', datos.demoActual) +\n  linea('Cuándo le acomoda', datos.preferencia || '(no lo dijo — preguntar al llamar)') +\n  linea('Motivo', datos.motivo) +\n  '\\n_Lo pidió durante la llamada de confirmación de Camila (IA). Hay que llamarlo, acordar la hora y moverla a mano en Clinera._' +\n  (datos.filaBaserow ? '\\n\\nVer en Baserow: https://core.oacg.cl/database/41/table/152/row/' + datos.filaBaserow : '');\n\nreturn [{ json: datos }];"
+      }
+    },
+    {
+      "id": "gc",
+      "name": "Aviso Google Chat",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        -120
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "__GOOGLE_CHAT_WEBHOOK__",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $json.textoChat }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "id": "br",
+      "name": "Baserow - Marcar Reagendar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        140
+      ],
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://core.oacg.cl/api/database/rows/table/152/{{ $json.filaBaserow || 0 }}/?user_field_names=true",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "__BASEROW_TOKEN__"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ 'Reunión': 'Reagendar' }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "id": "rs",
+      "name": "Responder a Camila",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        -120
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Lo que Camila recibe de vuelta. Es una instrucción para ella, no algo que\n// deba leer literal: cierra con la frase acordada y sin prometer una hora,\n// porque la hora la confirma una persona después.\nconst d = $('Extraer Solicitud').first().json;\nconst aviso = $input.first().json || {};\nconst llego = !(aviso && aviso.error);\n\nconst resultado = llego\n  ? 'SOLICITUD DE REAGENDA REGISTRADA. El equipo ya fue notificado y va a llamar para cerrar la nueva hora. '\n    + 'Cierra la llamada con: \"Perfecto, dejame confirmar bien el horario y le escribo de vuelta, esta bien?\". '\n    + 'NO prometas una fecha ni una hora concreta, no ofrezcas horarios y no insistas. Despidete cordialmente.'\n  : 'NO SE PUDO REGISTRAR LA SOLICITUD. Igual cierra con: \"Perfecto, dejame confirmar bien el horario y le escribo de vuelta, esta bien?\" '\n    + 'y despidete cordialmente. El equipo lo revisa igual.';\n\nreturn [{ json: { results: [{ toolCallId: d.toolCallId, result: resultado }] } }];"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Vapi Tool": {
+      "main": [
+        [
+          {
+            "node": "Extraer Solicitud",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraer Solicitud": {
+      "main": [
+        [
+          {
+            "node": "Aviso Google Chat",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Baserow - Marcar Reagendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aviso Google Chat": {
+      "main": [
+        [
+          {
+            "node": "Responder a Camila",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}
