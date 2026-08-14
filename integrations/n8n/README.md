@@ -167,6 +167,34 @@ El aviso va al mismo espacio de Google Chat, **una vez cada media hora por
 motivo**, con la cuenta de leads afectados en la ventana. Seis llamadas que
 fallan en la misma tanda son un mensaje, no seis.
 
+### Qué necesidad oye Camila
+
+«Prepare Call Data» lee la columna `Necesidad principal` de Baserow, que **no
+existe**: por eso Camila llamaba sin saber qué necesita el lead y caía siempre
+en el genérico "optimizar su gestión clínica".
+
+Mientras esa columna no exista, para los leads de `/agenda` se usa `Software
+actual`, que es donde el wizard deja la respuesta a «¿cuál es tu principal
+necesidad?» — esa landing cambió la pregunta 1. En `/ventas` no se usa de
+reemplazo, porque ahí la columna sí guarda un software.
+
+Cuando se cree `Necesidad principal` (texto), manda ella y el respaldo deja de
+usarse solo. El token de Baserow del workspace no puede crear columnas, así que
+hay que hacerlo desde la interfaz.
+
+### El tool de reagenda en el asistente de Vapi
+
+`solicitar_reagenda` está montado en el asistente **Agendador de Citas
+(Outbound)** (`d865820f-…`), junto a los tres que ya tenía. El prompt de Camila
+elige camino según `{{cal_booking_uid}}`:
+
+- **Cita de Cal.com** (uid normal) → sigue reagendando en vivo con
+  `get_available_slots` + `book_demo`, como siempre.
+- **Cita de Clinera** (uid vacío o que empieza con `clinera#`) → no puede
+  moverla: usar `get_available_slots` ahí crearía una reunión paralela en otro
+  calendario y dejaría la original ocupada. Pregunta cuándo le acomoda, llama a
+  `solicitar_reagenda` con esa preferencia textual y cierra sin prometer hora.
+
 ## camila-tool-solicitar-reagenda.workflow.json
 
 Tool de Vapi para **Camila**, la IA que llama a confirmar la reunión agendada.
