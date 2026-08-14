@@ -4563,7 +4563,7 @@ export function Pricing({
                           whiteSpace: "nowrap",
                         }}
                       >
-                        Implementación
+                        {isAnnual ? "Implementación" : "Mes 1"}
                       </span>
                       {isAnnual ? (
                         <span style={{ display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap" }}>
@@ -4596,7 +4596,7 @@ export function Pricing({
                     <div style={{ fontFamily: "Inter", fontSize: 11.5, lineHeight: 1.45, color: impl.note, marginTop: 5 }}>
                       {isAnnual
                         ? "Incluida en el plan anual — no se cobra"
-                        : "Pago único · se cobra el mes 1"}
+                        : "Implementación · pago único"}
                     </div>
                   </div>
 
@@ -4613,10 +4613,10 @@ export function Pricing({
                           color: th.sub,
                         }}
                       >
-                        Modalidad · {billingLabel}
+                        {isAnnual ? `Modalidad · ${billingLabel}` : "Mes 2 en adelante"}
                       </div>
                       <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, lineHeight: 1.5, color: th.sub, marginTop: 5 }}>
-                        {isAnnual ? "Plan anual" : "Mes 2 en adelante"}
+                        {isAnnual ? "Plan anual" : `Modalidad · ${billingLabel}`}
                       </div>
                       {showCredits && (
                         <div
