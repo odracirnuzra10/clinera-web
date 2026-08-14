@@ -3989,11 +3989,12 @@ function planFeatures(plan: (typeof CLINERA_PLANS)[number]): string[] {
   }
 }
 
-// Tema visual por card, estilo Vambe: el tinte escala con el tier recorriendo
-// el espectro de marca (cyan → violeta → magenta); Summit va saturado con
-// texto blanco.
+// Tema visual por card: el tinte escala con el tier recorriendo el espectro de
+// marca (cyan → violeta → magenta), con superficies suaves para que el precio
+// siga siendo el primer punto de atención. Summit conserva el mayor contraste.
 type PlanTheme = {
   cardBg: string;
+  cardBorder: string;
   cardShadow: string;
   label: string;
   name: string;
@@ -4019,8 +4020,9 @@ type PlanTheme = {
 
 const PLAN_THEMES: Record<(typeof CLINERA_PLANS)[number]["id"], PlanTheme> = {
   vortex: {
-    cardBg: "#E4F4FD",
-    cardShadow: "0 4px 24px rgba(2,132,199,.08)",
+    cardBg: "linear-gradient(145deg,#F6FCFF 0%,#E6F5FC 100%)",
+    cardBorder: "rgba(2,132,199,.20)",
+    cardShadow: "0 18px 36px -28px rgba(2,132,199,.46), 0 4px 14px rgba(2,132,199,.06)",
     label: "#0C4A6E",
     name: "#0284C7",
     ink: "#0A0A0A",
@@ -4043,8 +4045,9 @@ const PLAN_THEMES: Record<(typeof CLINERA_PLANS)[number]["id"], PlanTheme> = {
     iconColor: "#0284C7",
   },
   atlas: {
-    cardBg: "#D8C9F9",
-    cardShadow: "0 10px 32px rgba(109,40,217,.16)",
+    cardBg: "linear-gradient(145deg,#FCFAFF 0%,#F0EBFC 100%)",
+    cardBorder: "rgba(109,40,217,.20)",
+    cardShadow: "0 22px 42px -28px rgba(109,40,217,.52), 0 6px 18px rgba(109,40,217,.08)",
     label: "#3B1E7E",
     name: "#5B21B6",
     ink: "#150B33",
@@ -4067,8 +4070,9 @@ const PLAN_THEMES: Record<(typeof CLINERA_PLANS)[number]["id"], PlanTheme> = {
     iconColor: "#6D28D9",
   },
   summit: {
-    cardBg: "linear-gradient(160deg,#5B21B6 0%,#7C3AED 46%,#BC29CE 100%)",
-    cardShadow: "0 36px 80px -16px rgba(124,58,237,.45), 0 12px 28px rgba(200,80,192,.18)",
+    cardBg: "linear-gradient(145deg,#6D28D9 0%,#7C3AED 58%,#A855F7 100%)",
+    cardBorder: "rgba(255,255,255,.34)",
+    cardShadow: "0 42px 78px -22px rgba(124,58,237,.52), 0 14px 30px rgba(91,33,182,.20)",
     label: "rgba(255,255,255,.72)",
     name: "#fff",
     ink: "#fff",
@@ -4293,10 +4297,11 @@ export function Pricing({
   const [billing, setBilling] = useState<Billing>("annual");
   const isAnnual = billing === "annual";
   const isSemester = billing === "semester";
+  const billingLabel = isAnnual ? "anual" : isSemester ? "semestral" : "mensual";
   const isComparisonIntro = intro === "comparison";
   // "none": la página ya trae su propio hero (p. ej. /planes) — sin header duplicado.
   const hideHeader = intro === "none";
-  const IA_MODELS = ["Gemini 3.0 Flash", "Gemini 2.5 Flash", "Sonnet 5", "Opus 4.8", "Kimi K2.6", "GLM 5.2", "MiniMax M3"];
+  const IA_MODELS = ["Kimi K2.6"];
   const plans = CLINERA_PLANS.map((plan) => ({
     id: plan.id,
     name: plan.name,
@@ -4462,13 +4467,15 @@ export function Pricing({
                 className={p.featured ? "home-plan-card home-plan-card-featured" : "home-plan-card"}
                 style={{
                   background: th.cardBg,
+                  border: `1px solid ${th.cardBorder}`,
                   borderRadius: 24,
-                  padding: "30px 28px",
+                  padding: p.featured ? "34px 30px 32px" : "32px 28px",
                   boxShadow: th.cardShadow,
                   position: "relative",
                   display: "flex",
                   flexDirection: "column",
-                  transform: "none",
+                  minWidth: 0,
+                  willChange: "transform",
                 }}
               >
                 {p.featured && (
@@ -4499,7 +4506,7 @@ export function Pricing({
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12, marginBottom: 18 }}>
                   <div>
                     <div style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 500, color: th.label }}>Plan</div>
-                    <div style={{ fontFamily: "Inter", fontSize: 29, fontWeight: 800, color: th.name, letterSpacing: "-0.03em", marginTop: 2 }}>
+                    <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 29, fontWeight: 800, color: th.name, letterSpacing: "-0.03em", marginTop: 2 }}>
                       {p.name}
                     </div>
                   </div>
@@ -4523,6 +4530,7 @@ export function Pricing({
 
                 {/* Pago secuencial: mes 1 implementación, mes 2 en adelante el plan */}
                 <div
+                  className="home-plan-economics"
                   style={{
                     background: th.panelBg,
                     border: `1px solid ${th.panelBorder}`,
@@ -4605,16 +4613,37 @@ export function Pricing({
                           color: th.sub,
                         }}
                       >
+                        Modalidad · {billingLabel}
+                      </div>
+                      <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, lineHeight: 1.5, color: th.sub, marginTop: 5 }}>
                         {isAnnual ? "Plan anual" : "Mes 2 en adelante"}
                       </div>
                       {showCredits && (
-                        <div style={{ fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.5, color: th.sub, marginTop: 8 }}>
-                          {p.credits} créditos/mes
+                        <div
+                          className="home-plan-credit-pill"
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 5,
+                            background: th.chipBg,
+                            border: `1px solid ${th.chipBorder}`,
+                            borderRadius: 999,
+                            padding: "5px 9px",
+                            fontFamily: "'Plus Jakarta Sans', sans-serif",
+                            fontSize: 11,
+                            fontWeight: 700,
+                            lineHeight: 1.2,
+                            color: th.ink,
+                            marginTop: 10,
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <span style={{ fontSize: 12 }}>{p.credits}</span> créditos/mes
                         </div>
                       )}
                     </div>
                     <div style={{ textAlign: "right", flex: "0 0 auto" }}>
-                      <div style={{ fontFamily: "Inter", fontSize: 36, fontWeight: 800, color: th.ink, letterSpacing: "-0.045em", lineHeight: 1.05 }}>
+                      <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 38, fontWeight: 800, color: th.ink, letterSpacing: "-0.05em", lineHeight: 1.05 }}>
                         {isAnnual ? p.annualMonthly : isSemester ? p.semesterMonthly : p.price}
                       </div>
                       <div style={{ fontFamily: "Inter", fontSize: 11.5, fontWeight: 600, color: th.sub, marginTop: 6 }}>USD/mes</div>
@@ -4673,6 +4702,7 @@ export function Pricing({
                     botón de conversión toma el estilo primario de la tarjeta. */}
                 <div style={{ display: "flex", flexDirection: "column", marginBottom: 22 }}>
                   <a
+                    className="home-plan-cta"
                     href={checkoutUrl(p)}
                     target="_blank"
                     rel="noopener"
@@ -4686,7 +4716,7 @@ export function Pricing({
                       borderRadius: 12,
                       fontWeight: 700,
                       fontSize: 14.5,
-                      fontFamily: "Inter",
+                      fontFamily: "'Plus Jakarta Sans', sans-serif",
                       boxShadow: th.ctaPrimaryShadow,
                       boxSizing: "border-box",
                     }}
@@ -4855,20 +4885,18 @@ export function Pricing({
           </div>
         </div>
 
-        <style dangerouslySetInnerHTML={{ __html: "@keyframes iaMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}" }} />
         <div className="reveal home-ia-strip" style={{ marginTop: 34, borderTop: "1px solid #EEECEA", borderBottom: "1px solid #EEECEA", padding: "14px 0", display: "flex", alignItems: "stretch" }}>
           <div className="home-ia-label" style={{ flexShrink: 0, padding: "4px 18px 4px 0", borderRight: "1px solid #EEECEA", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, fontWeight: 600, letterSpacing: ".13em", textTransform: "uppercase", color: "#6B7280", display: "flex", alignItems: "center", whiteSpace: "nowrap", lineHeight: 1.3 }}>
-            Elige tu IA · cualquier plan
+            Modelo activo · todos los planes
           </div>
           <div style={{ flex: 1, minWidth: 0, overflow: "hidden", position: "relative", WebkitMaskImage: "linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent)", maskImage: "linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent)" }}>
-            <div style={{ display: "flex", whiteSpace: "nowrap", animation: "iaMarquee 30s linear infinite", width: "max-content", paddingLeft: 14 }}>
-              {[...IA_MODELS, ...IA_MODELS].map((m, i, arr) => (
-                <span key={i} style={{ display: "inline-flex", alignItems: "center" }}>
+            <div style={{ display: "flex", whiteSpace: "nowrap", width: "max-content", paddingLeft: 14 }}>
+              {IA_MODELS.map((m) => (
+                <span key={m} style={{ display: "inline-flex", alignItems: "center" }}>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0 22px", fontFamily: "Inter", fontSize: 14, fontWeight: 600, color: "#0A0A0A" }}>
                     <span style={{ width: 6, height: 6, borderRadius: "50%", background: GRAD, display: "inline-block" }} />
                     {m}
                   </span>
-                  {i < arr.length - 1 && <span style={{ color: "#D1D5DB", fontSize: 10 }}>•</span>}
                 </span>
               ))}
             </div>
@@ -4923,6 +4951,37 @@ export function Pricing({
           :global(.home-h2-big) { font-size: 32px !important; }
           :global(.home-billing-toggle > div) { width: 100% !important; }
           :global(.billing-toggle-option) { min-width: 0 !important; padding-left: 11px !important; padding-right: 11px !important; }
+        }
+        :global(.home-plan-card) {
+          transition: transform .26s cubic-bezier(.16,1,.3,1), box-shadow .26s ease, filter .26s ease;
+        }
+        :global(.home-plan-card-featured) { transform: translateY(-8px); }
+        :global(.home-plan-card:hover) {
+          transform: translateY(-4px);
+          filter: saturate(1.03) brightness(1.01);
+        }
+        :global(.home-plan-card-featured:hover) { transform: translateY(-12px); }
+        :global(.home-plan-cta) {
+          min-height: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
+        }
+        :global(.home-plan-cta:hover) {
+          transform: translateY(-2px);
+          filter: brightness(.96);
+        }
+        :global(.home-plan-cta:focus-visible) {
+          outline: 3px solid rgba(124,58,237,.55);
+          outline-offset: 3px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          :global(.home-plan-card), :global(.home-plan-cta) { transition: none !important; }
+          :global(.home-plan-card-featured), :global(.home-plan-card:hover), :global(.home-plan-card-featured:hover), :global(.home-plan-cta:hover) { transform: none !important; }
+        }
+        @media (max-width: 980px) {
+          :global(.home-plan-card), :global(.home-plan-card-featured), :global(.home-plan-card:hover), :global(.home-plan-card-featured:hover) { transform: none !important; }
         }
       `}</style>
     </section>
