@@ -6,6 +6,7 @@ import { useReveal } from "@/components/home-v3/sections";
 import {
   ANNUAL_DISCOUNT_PERCENT,
   CLINERA_PLANS,
+  SETUP_FEE_NUMBER,
   type ClineraPlan,
   stripeLink,
 } from "@/content/pricing";
@@ -435,6 +436,10 @@ function PlansSection() {
                       fontWeight: 700,
                       letterSpacing: "-0.02em",
                       margin: 0,
+                      // globals.css fija `h1..h6 { color: var(--text-main) }`, que
+                      // gana sobre el color heredado de la tarjeta: en la oscura
+                      // el nombre del plan quedaba #111318 sobre #0E1014.
+                      color: popular ? "#fff" : "#0A0A0A",
                     }}
                   >
                     {plan.name}
@@ -462,10 +467,61 @@ function PlansSection() {
                       ${plan.price}
                     </s>
                   </div>
-                  <div style={{ minHeight: 20, marginBottom: 20, display: "flex", alignItems: "center" }}>
+                  <div style={{ minHeight: 20, marginBottom: 12, display: "flex", alignItems: "center" }}>
                     <span style={{ fontFamily: "Inter", fontSize: 12.5, color: popular ? "rgba(255,255,255,.7)" : "#6B7280" }}>
-                      Plan anual · USD {plan.annualTotal}/año · {ANNUAL_DISCOUNT_PERCENT}% OFF + implementación gratis
+                      Plan anual · USD {plan.annualTotal}/año · {ANNUAL_DISCOUNT_PERCENT}% OFF
                     </span>
+                  </div>
+
+                  {/* Mismo semáforo que las tarjetas de /planes: verde = la
+                      implementación va incluida. Acá siempre es el anual. */}
+                  <div
+                    style={{
+                      background: "#EDF3EC",
+                      border: "1px solid rgba(47,106,63,.22)",
+                      borderRadius: 12,
+                      padding: "10px 13px",
+                      marginBottom: 20,
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+                      <span
+                        style={{
+                          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                          fontSize: 10,
+                          fontWeight: 700,
+                          letterSpacing: "0.09em",
+                          textTransform: "uppercase",
+                          color: "#2F6A3F",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Implementación
+                      </span>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap" }}>
+                        <s style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 600, color: "#6B8A72", textDecorationThickness: "from-font" }}>
+                          ${SETUP_FEE_NUMBER}
+                        </s>
+                        <span
+                          style={{
+                            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                            fontSize: 10.5,
+                            fontWeight: 700,
+                            letterSpacing: "0.1em",
+                            textTransform: "uppercase",
+                            color: "#FFFFFF",
+                            background: "#2F6A3F",
+                            borderRadius: 999,
+                            padding: "4px 10px",
+                          }}
+                        >
+                          Gratis
+                        </span>
+                      </span>
+                    </div>
+                    <div style={{ fontFamily: "Inter", fontSize: 11.5, lineHeight: 1.45, color: "#4A6B52", marginTop: 5 }}>
+                      Incluida en el plan anual — no se cobra
+                    </div>
                   </div>
                   <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
                     {plan.features.map((f) => (
@@ -628,27 +684,8 @@ function PlansSection() {
                       </div>
                     </div>
                   )}
-                  <Link
-                    href="/hablar-con-ventas"
-                    data-plan={plan.slug}
-                    data-plan-value={plan.price}
-                    data-plan-name={`${plan.name} talk-to-sales`}
-                    style={{
-                      background: popular ? GRAD : "#0A0A0A",
-                      color: "#fff",
-                      padding: "13px 18px",
-                      borderRadius: 10,
-                      fontFamily: "Inter",
-                      fontWeight: 600,
-                      fontSize: 14.5,
-                      textDecoration: "none",
-                      textAlign: "center",
-                      marginBottom: 10,
-                      boxShadow: popular ? "0 12px 32px -8px rgba(217,70,239,.5)" : "none",
-                    }}
-                  >
-                    Agendar demo
-                  </Link>
+                  {/* Un solo CTA, igual que en /planes: contratar. El "Agendar
+                      demo" salía sobrando en la página que ES la demo. */}
                   <a
                     href={plan.stripeAnnual}
                     target="_blank"
@@ -658,16 +695,16 @@ function PlansSection() {
                     data-plan-value={plan.annualValue}
                     data-plan-name={`${plan.name} pay annual`}
                     style={{
-                      background: popular ? "rgba(255,255,255,.1)" : "#fff",
-                      color: popular ? "#fff" : "#0A0A0A",
-                      border: popular ? "1px solid rgba(255,255,255,.18)" : "1px solid #E5E7EB",
-                      padding: "12px 18px",
+                      background: popular ? GRAD : "#0A0A0A",
+                      color: "#fff",
+                      padding: "13px 18px",
                       borderRadius: 10,
                       fontFamily: "Inter",
-                      fontWeight: 600,
-                      fontSize: 14,
+                      fontWeight: 700,
+                      fontSize: 14.5,
                       textDecoration: "none",
                       textAlign: "center",
+                      boxShadow: popular ? "0 12px 32px -8px rgba(217,70,239,.5)" : "none",
                     }}
                   >
                     Contratar {plan.name} anual →
