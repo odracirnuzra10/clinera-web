@@ -64,6 +64,50 @@ const SOFTWARE_LABELS: Record<SoftwareId, string> = SOFTWARE_OPTIONS.reduce(
   {} as Record<SoftwareId, string>,
 );
 
+// ============== PASO 1 — VARIANTE "NECESIDAD" ==============
+// /agenda pregunta por el dolor, no por el software actual: abre la puerta a
+// clínicas sin sistema y le da al equipo comercial el motivo real de la
+// reunión. /ventas sigue preguntando por el software (prop `question1`).
+type NeedId =
+  | "fuera_horario"
+  | "unificar_operacion"
+  | "no_show"
+  | "recuperar_pacientes"
+  | "liberar_recepcion"
+  | "otra";
+
+const NEED_OPTIONS: { id: NeedId; label: string }[] = [
+  { id: "fuera_horario", label: "Responder a pacientes fuera de horario" },
+  { id: "unificar_operacion", label: "Unificar la operación en un solo software" },
+  { id: "no_show", label: "Reducir las horas perdidas por inasistencias" },
+  { id: "recuperar_pacientes", label: "Recuperar pacientes que dejaron de venir" },
+  { id: "liberar_recepcion", label: "Liberar a recepción de tareas repetitivas" },
+  { id: "otra", label: "Otra necesidad" },
+];
+
+/** Qué pregunta el paso 1. El resto del wizard es idéntico en ambos casos. */
+export type Question1 = "software" | "need";
+
+type Step1Id = SoftwareId | NeedId;
+
+const NEED_IDS = new Set<string>(NEED_OPTIONS.map((o) => o.id));
+
+/** Etiqueta legible de la respuesta del paso 1, sea software o necesidad. */
+const STEP1_LABELS: Record<string, string> = {
+  ...SOFTWARE_LABELS,
+  ...NEED_OPTIONS.reduce((acc, o) => ({ ...acc, [o.id]: o.label }), {}),
+};
+
+/** Campos del paso 1 para el webhook: se conservan las claves legacy. */
+function step1Fields(id: Step1Id | null) {
+  const esNecesidad = !!id && NEED_IDS.has(id);
+  return {
+    paso1_pregunta: esNecesidad ? "necesidad" : "software",
+    necesidad_principal: esNecesidad ? id : "",
+    necesidad_principal_label: esNecesidad ? STEP1_LABELS[id] : "",
+  };
+}
+
 // ============== PASO 2 — TAMAÑO DE OPERACIÓN ==============
 // UNA sola pregunta, sobre UN solo eje: el volumen mensual de pacientes.
 // Reemplaza al perfil mixto (sedes + pacientes) que estuvo hasta agosto 2026 y
@@ -257,14 +301,18 @@ function newLeadEventId(): string {
 // Atributos NO personales del lead (software + tamaño + calificación). Se usan
 // tanto en los eventos de analytics como en el payload del webhook.
 function sizeAttributes(
-  software: SoftwareId | null,
+  software: Step1Id | null,
   size: SizeAnswers,
   qual: Qualification | null,
 ) {
   const p = size.profile;
   return {
     software_actual: software ?? "",
-    software_actual_label: software ? SOFTWARE_LABELS[software] : "",
+    software_actual_label: software ? STEP1_LABELS[software] : "",
+    // En /agenda el paso 1 pregunta la necesidad, no el software: se emite
+    // además con clave propia para que el CRM no lea "necesidad" donde dice
+    // "software". Las claves legacy de arriba se conservan igual.
+    ...step1Fields(software),
     // Tamaño de operación — la clave que n8n mapea a la columna «Tamaño de
     // operación» de Baserow 152 y al campo homónimo del negocio en Twenty.
     tamano_operacion: p?.id ?? "",
@@ -291,7 +339,7 @@ function sizeAttributes(
 // y SIN los labels legibles. `pais` sale del prefijo telefónico cuando ya hay
 // contacto (Paso 3); "" mientras no lo tengamos.
 function qualCustomData(
-  software: SoftwareId | null,
+  software: Step1Id | null,
   size: SizeAnswers,
   qual: Qualification | null,
   pais: string,
@@ -314,7 +362,7 @@ function qualCustomData(
 // Campos legacy para no romper el mapeo de n8n → Monday (que esperaba los datos
 // del esquema anterior: tamano_clinica, patient_volume, migration_intent, etc.).
 // Toda clínica que llega aquí ya tiene software → su intención es migrar.
-function backCompatFields(software: SoftwareId | null, size: SizeAnswers, qual: Qualification | null) {
+function backCompatFields(software: Step1Id | null, size: SizeAnswers, qual: Qualification | null) {
   // `patient_volume` solo se puede afirmar cuando ya hay banda elegida. Las tres
   // bandas arrancan en 200 pacientes/mes, así que todas caen en "over_100".
   const patientVolume = size.profile ? "over_100" : "unknown";
@@ -323,7 +371,7 @@ function backCompatFields(software: SoftwareId | null, size: SizeAnswers, qual: 
     patient_volume: patientVolume,
     migration_intent: "yes_migrate",
     migration_intent_label: "Queremos migrar a Clinera",
-    software_actual_migracion: software ? SOFTWARE_LABELS[software] : "",
+    software_actual_migracion: software ? STEP1_LABELS[software] : "",
     monday_initial_status: "quiere migrar",
     lead_priority: qual?.priority ?? "standard",
     calendar_access: "allowed",
@@ -335,8 +383,17 @@ export default function VentasLanding({
   enableMigrationQualification = false,
   scheduler = "cal",
   sourcePath = "/ventas",
+  question1 = "software",
+  investmentAfterContact = false,
 }: {
   enableMigrationQualification?: boolean;
+  /** Qué pregunta el paso 1: el software actual (default) o la necesidad. */
+  question1?: Question1;
+  /**
+   * Corre el aviso de inversión del paso 2 al paso 4, es decir después de que
+   * el lead dejó sus datos: menos fricción y el lead queda capturado igual.
+   */
+  investmentAfterContact?: boolean;
   /** Agendador del paso final. Default: Cal.com (comportamiento original). */
   scheduler?: SchedulerId;
   /** Ruta que origina el lead — viaja en `fuente` del webhook y en el mensaje de WhatsApp. */
@@ -413,6 +470,8 @@ export default function VentasLanding({
         enableMigrationQualification={enableMigrationQualification}
         scheduler={scheduler}
         sourcePath={sourcePath}
+        question1={question1}
+        investmentAfterContact={investmentAfterContact}
       />
     </>
   );
@@ -423,10 +482,14 @@ function ReunionHero({
   enableMigrationQualification,
   scheduler,
   sourcePath,
+  question1,
+  investmentAfterContact,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
   sourcePath: string;
+  question1: Question1;
+  investmentAfterContact: boolean;
 }) {
   return (
     <section style={{ position: "relative", overflow: "hidden", display: "flex", alignItems: "center" }}>
@@ -560,6 +623,8 @@ function ReunionHero({
             enableMigrationQualification={enableMigrationQualification}
             scheduler={scheduler}
             sourcePath={sourcePath}
+            question1={question1}
+            investmentAfterContact={investmentAfterContact}
           />
         </div>
       </div>
@@ -748,13 +813,17 @@ function Wizard({
   enableMigrationQualification,
   scheduler,
   sourcePath,
+  question1,
+  investmentAfterContact,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
   sourcePath: string;
+  question1: Question1;
+  investmentAfterContact: boolean;
 }) {
   const [step, setStep] = useState(1);
-  const [software, setSoftware] = useState<SoftwareId | null>(null);
+  const [software, setSoftware] = useState<Step1Id | null>(null);
   const [size, setSize] = useState<SizeAnswers>({ profile: null });
   const [qualification, setQualification] = useState<Qualification | null>(null);
   const [form, setForm] = useState<Form>({ nombre: "", clinica: "", tipoClinica: "", prefix: "+56", phone: "", email: "" });
@@ -770,6 +839,21 @@ function Wizard({
   const sizeStep = hasSoftwareStep ? 2 : 1;
   const contactStep = hasSoftwareStep ? 3 : 2;
   const calStep = hasSoftwareStep ? 4 : 3;
+
+  // Aceptación / descarte de la inversión. Vive acá porque el aviso de precio
+  // se muestra en el paso 2 o en el 4 según `investmentAfterContact`, y ambos
+  // deben registrar exactamente lo mismo.
+  const handleInteres = (v: "si" | "no") => {
+    if (v === "no") {
+      pushDL("no_interesa", {
+        software_actual: software ?? "",
+        software_actual_label: software ? STEP1_LABELS[software] : "",
+      });
+      setDeclined(true);
+    } else {
+      pushDL("interes_confirmado", { software_actual: software ?? "" });
+    }
+  };
 
   return (
     <div
@@ -793,13 +877,14 @@ function Wizard({
 
       {!submitted && !declined && hasSoftwareStep && step === softwareStep && (
         <StepSoftware
+          question1={question1}
           software={software}
           setSoftware={setSoftware}
           label={`Paso ${softwareStep} de ${totalSteps}`}
           onNext={() => {
             pushDL("paso_1_completado", {
               software_actual: software ?? "",
-              software_actual_label: software ? SOFTWARE_LABELS[software] : "",
+              software_actual_label: software ? STEP1_LABELS[software] : "",
             });
             setStep(sizeStep);
           }}
@@ -807,19 +892,10 @@ function Wizard({
       )}
       {!submitted && !declined && step === sizeStep && (
         <StepSize
+          showInvestment={!investmentAfterContact}
           size={size}
           setSize={setSize}
-          onInteres={(v) => {
-            if (v === "no") {
-              pushDL("no_interesa", {
-                software_actual: software ?? "",
-                software_actual_label: software ? SOFTWARE_LABELS[software] : "",
-              });
-              setDeclined(true);
-            } else {
-              pushDL("interes_confirmado", { software_actual: software ?? "" });
-            }
-          }}
+          onInteres={handleInteres}
           label={`Paso ${sizeStep} de ${totalSteps}`}
           onBack={hasSoftwareStep ? () => setStep(softwareStep) : undefined}
           onNext={() => {
@@ -917,6 +993,8 @@ function Wizard({
       {!submitted && !declined && step === calStep && scheduler === "clinera" && (
         <StepClineraScheduler
           form={form}
+          showInvestment={investmentAfterContact}
+          onInteres={handleInteres}
           label={`Paso ${calStep} de ${totalSteps}`}
           onBack={() => setStep(contactStep)}
           onBooked={async (clineraBooking, via, confirmEventId) => {
@@ -1003,7 +1081,7 @@ async function submitSizeLead({
   eventId,
   sourcePath = "/ventas",
 }: {
-  software: SoftwareId | null;
+  software: Step1Id | null;
   size: SizeAnswers;
   qual: Qualification;
   eventId?: string;
@@ -1061,7 +1139,7 @@ async function submitContactLead({
   sourcePath = "/ventas",
 }: {
   form: Form;
-  software: SoftwareId | null;
+  software: Step1Id | null;
   size: SizeAnswers;
   qual: Qualification | null;
   leadCtx: { eventId: string; leadSource: string } | null;
@@ -1135,7 +1213,7 @@ async function submitBookingConfirmation({
   confirmEventId: confirmEventIdProp,
 }: {
   form: Form;
-  software: SoftwareId | null;
+  software: Step1Id | null;
   size: SizeAnswers;
   qual: Qualification | null;
   leadCtx: { eventId: string; leadSource: string } | null;
@@ -1247,23 +1325,29 @@ async function submitBookingConfirmation({
 
 // ============== STEP 1 — SOFTWARE ACTUAL ==============
 function StepSoftware({
+  question1 = "software",
   software,
   setSoftware,
   label,
   onNext,
 }: {
-  software: SoftwareId | null;
-  setSoftware: (id: SoftwareId) => void;
+  question1?: Question1;
+  software: Step1Id | null;
+  setSoftware: (id: Step1Id) => void;
   label: string;
   onNext: () => void;
 }) {
-  // Elegir el software avanza solo: el paso no tiene nada más que responder y
+  const esNecesidad = question1 === "need";
+  const opciones: { id: Step1Id; label: string }[] = esNecesidad
+    ? NEED_OPTIONS
+    : SOFTWARE_OPTIONS;
+  // Elegir la opción avanza solo: el paso no tiene nada más que responder y
   // un "Continuar" ahí es un tap de más. El respiro alcanza para ver el check.
   const advanceRef = useRef<number | null>(null);
   useEffect(() => () => {
     if (advanceRef.current !== null) window.clearTimeout(advanceRef.current);
   }, []);
-  const pick = (id: SoftwareId) => {
+  const pick = (id: Step1Id) => {
     setSoftware(id);
     if (advanceRef.current !== null) window.clearTimeout(advanceRef.current);
     advanceRef.current = window.setTimeout(onNext, 320);
@@ -1273,18 +1357,28 @@ function StepSoftware({
       <StepHeader
         label={label}
         title={
-          <>
-            ¿Qué{" "}
-            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-              software
-            </em>{" "}
-            usan hoy en tu clínica?
-          </>
+          esNecesidad ? (
+            <>
+              ¿Cuál es tu principal{" "}
+              <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                necesidad
+              </em>
+              ?
+            </>
+          ) : (
+            <>
+              ¿Qué{" "}
+              <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                software
+              </em>{" "}
+              usan hoy en tu clínica?
+            </>
+          )
         }
         sub="Reunión exclusiva para dueños, gerentes y directores médicos de clínicas."
       />
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {SOFTWARE_OPTIONS.map((opt) => {
+        {opciones.map((opt) => {
           const sel = software === opt.id;
           return (
             <button
@@ -1446,6 +1540,7 @@ function StepSize({
   label,
   onBack,
   onNext,
+  showInvestment = true,
 }: {
   size: SizeAnswers;
   setSize: (s: SizeAnswers) => void;
@@ -1453,6 +1548,8 @@ function StepSize({
   label: string;
   onBack?: () => void;
   onNext: () => void;
+  /** Con false, el precio y el descarte se muestran recién en el paso 4. */
+  showInvestment?: boolean;
 }) {
   // Ya no hay gate de "¿te hace sentido?": el CTA principal ES la aceptación.
   // Basta con haber elegido perfil operativo.
@@ -1463,19 +1560,35 @@ function StepSize({
       <StepHeader
         label={label}
         title={
-          <>
-            Así funciona la{" "}
-            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-              inversión
-            </em>
-            .
-          </>
+          showInvestment ? (
+            <>
+              Así funciona la{" "}
+              <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                inversión
+              </em>
+              .
+            </>
+          ) : (
+            <>
+              ¿Qué{" "}
+              <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                volumen
+              </em>{" "}
+              maneja tu clínica?
+            </>
+          )
         }
-        sub="Para que no haya sorpresas en la reunión."
+        sub={
+          showInvestment
+            ? "Para que no haya sorpresas en la reunión."
+            : "Para preparar la reunión con datos de tu operación."
+        }
       />
 
       {/* Gate de precio — muestra solo el valor mensual de entrada para no
-          convertir la implementación en un filtro antes de la reunión. */}
+          convertir la implementación en un filtro antes de la reunión.
+          Con showInvestment=false se muestra recién en el paso 4. */}
+      {showInvestment && (
       <div
         style={{
           background: "linear-gradient(135deg,#F4F8FF 0%,#FAF5FF 100%)",
@@ -1502,6 +1615,7 @@ function StepSize({
           </div>
         </div>
       </div>
+      )}
 
       <ProfilePicker
         selected={size.profile}
@@ -1518,13 +1632,15 @@ function StepSize({
           onNext();
         }}
       >
-        Continuar con esta inversión
+        {showInvestment ? "Continuar con esta inversión" : "Continuar"}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </SubmitBtn>
 
-      {/* Abandono explícito para analytics: enlace discreto, nunca compite con el CTA. */}
+      {/* Abandono explícito para analytics: enlace discreto, nunca compite con el
+          CTA. Va junto al precio: sin precio a la vista no hay nada que declinar. */}
+      {showInvestment && (
       <div style={{ textAlign: "center", marginTop: 12 }}>
         <button
           type="button"
@@ -1544,6 +1660,7 @@ function StepSize({
           No es para mí
         </button>
       </div>
+      )}
     </div>
   );
 }
@@ -1828,7 +1945,7 @@ function StepCalCom({
   onBooked,
 }: {
   form: Form;
-  software: SoftwareId | null;
+  software: Step1Id | null;
   size: SizeAnswers;
   label?: string;
   onBack: () => void;
@@ -1892,7 +2009,7 @@ function StepCalCom({
 
     const sizeLabel = sizeSummaryLabel(size);
     const notes = [
-      software ? `Software actual: ${SOFTWARE_LABELS[software]}` : null,
+      software ? `Software actual: ${STEP1_LABELS[software]}` : null,
       sizeLabel ? `Tamaño: ${sizeLabel}` : null,
       form.clinica ? `Clínica: ${form.clinica}` : null,
       form.phone ? `Teléfono: ${form.prefix} ${form.phone}` : null,
@@ -2208,9 +2325,14 @@ function StepClineraScheduler({
   label,
   onBack,
   onBooked,
+  showInvestment = false,
+  onInteres,
 }: {
   form: Form;
   label?: string;
+  /** Muestra el aviso de inversión acá (viene del paso 2 para bajar fricción). */
+  showInvestment?: boolean;
+  onInteres?: (v: "si" | "no") => void;
   onBack: () => void;
   onBooked: (b: CalBooking, via: string, confirmEventId?: string) => void | Promise<void>;
 }) {
@@ -2258,6 +2380,8 @@ function StepClineraScheduler({
       <StepClineraNativo
         form={form}
         config={config ?? { ok: true }}
+        showInvestment={showInvestment}
+        onInteres={onInteres}
         label={label}
         onBack={onBack}
         onBooked={(b, confirmEventId) => onBooked(b, "Clinera nativo (n8n)", confirmEventId)}
@@ -2293,21 +2417,30 @@ function StepClineraNativo({
   onBack,
   onBooked,
   onFallback,
+  showInvestment = false,
+  onInteres,
 }: {
   form: Form;
   config: ClineraAgendaConfig;
   label?: string;
+  showInvestment?: boolean;
+  onInteres?: (v: "si" | "no") => void;
   onBack: () => void;
   onBooked: (b: CalBooking, confirmEventId: string) => void | Promise<void>;
   onFallback: () => void;
 }) {
-  // Días ofrecidos: hoy + 13. La disponibilidad real la decide la API por día.
+  // Días ofrecidos: los próximos 10 hábiles. La clínica atiende de lunes a
+  // viernes, así que ofrecer sábado y domingo solo lleva a "sin horas".
   const days = useMemo(() => {
     const base = new Date();
-    return Array.from({ length: 14 }, (_, i) => {
+    const out: { ymd: string; date: Date }[] = [];
+    for (let i = 0; out.length < 10 && i < 21; i++) {
       const d = new Date(base.getFullYear(), base.getMonth(), base.getDate() + i);
-      return { ymd: toYMD(d), date: d };
-    });
+      const dow = d.getDay();
+      if (dow === 0 || dow === 6) continue;
+      out.push({ ymd: toYMD(d), date: d });
+    }
+    return out;
   }, []);
 
   const [fecha, setFecha] = useState(days[0].ymd);
@@ -2447,6 +2580,26 @@ function StepClineraNativo({
         sub="Tus datos ya quedaron guardados: solo confirma con quién y cuándo."
       />
 
+      {showInvestment && (
+        <div
+          style={{
+            background: "linear-gradient(135deg,#F4F8FF 0%,#FAF5FF 100%)",
+            border: "1px solid rgba(124,58,237,.16)",
+            borderRadius: 14,
+            padding: 14,
+            marginBottom: 16,
+            textAlign: "center",
+          }}
+        >
+          <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 9, letterSpacing: ".1em", textTransform: "uppercase", color: "#7C3AED", marginBottom: 6 }}>
+            Planes desde
+          </div>
+          <div style={{ fontFamily: "Inter", fontSize: 19, fontWeight: 800, letterSpacing: "-.03em", color: "#0A0A0A", lineHeight: 1.15 }}>
+            USD 279 mensuales
+          </div>
+        </div>
+      )}
+
       <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 6, marginBottom: 14, WebkitOverflowScrolling: "touch" }}>
         {days.map((d) => {
           const sel = d.ymd === fecha;
@@ -2568,6 +2721,27 @@ function StepClineraNativo({
           </svg>
         )}
       </SubmitBtn>
+      {showInvestment && onInteres && (
+        <div style={{ textAlign: "center", marginTop: 12 }}>
+          <button
+            type="button"
+            onClick={() => onInteres("no")}
+            style={{
+              background: "transparent",
+              border: 0,
+              padding: "4px 6px",
+              fontFamily: "Inter",
+              fontSize: 13,
+              color: "#9CA3AF",
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
+              cursor: "pointer",
+            }}
+          >
+            No es para mí
+          </button>
+        </div>
+      )}
       <FormNote>
         <strong>Sin compromiso</strong> · Videollamada con el equipo Clinera
       </FormNote>
@@ -2601,13 +2775,13 @@ function StepSuccess({
   sourcePath = "/ventas",
 }: {
   form: Form;
-  software: SoftwareId | null;
+  software: Step1Id | null;
   size: SizeAnswers;
   booking: CalBooking | null;
   sourcePath?: string;
 }) {
   const bookingLabel = formatBookingDate(booking?.date);
-  const softwareLabel = software ? SOFTWARE_LABELS[software] : "";
+  const softwareLabel = software ? STEP1_LABELS[software] : "";
   const sizeLabel = sizeSummaryLabel(size);
   const msg = encodeURIComponent(
     `Hola Clinera, acabo de agendar una reunión comercial desde ${sourcePath}.\n\nNombre: ${form.nombre}\nClínica: ${form.clinica}\nEmail: ${form.email}${softwareLabel ? `\nSoftware actual: ${softwareLabel}` : ""}${sizeLabel ? `\nTamaño: ${sizeLabel}` : ""}${bookingLabel ? `\nCuándo: ${bookingLabel}` : ""}`,

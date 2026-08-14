@@ -30,7 +30,13 @@ export default function AgendaPage() {
   return (
     <>
       <h1 style={srOnly}>Agenda una reunión con el equipo de Clinera</h1>
-      <VentasLanding enableMigrationQualification scheduler="clinera" sourcePath="/agenda" />
+      <VentasLanding
+        enableMigrationQualification
+        scheduler="clinera"
+        sourcePath="/agenda"
+        question1="need"
+        investmentAfterContact
+      />
     </>
   );
 }
