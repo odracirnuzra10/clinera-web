@@ -134,6 +134,39 @@ columna se comparte entre los dos agendadores.
 > que se reusó una existente. Si algún día se agrega una columna propia
 > (p. ej. `Meet eventId`), conviene mover esto ahí.
 
+## Por qué falló la llamada (en "OACG TECH | Vapi Outbound Trigger")
+
+Ese workflow tampoco vive acá — lleva credenciales y es anterior a `/agenda` —
+pero el 14 de agosto se le cambió el manejo de errores y conviene que quede
+escrito.
+
+**Lo que pasó:** la cuenta de Vapi se quedó sin saldo el 13 de agosto. Durante
+dos días, cada llamada devolvió `400 — "Your Wallet Balance is -0.09"`, y el
+workflow marcaba **todas** las filas como `Error / Número inválido`. Once leads
+reales quedaron sin contacto —dos de ellos con demo agendada— y el tablero
+decía que la base estaba sucia. Nadie se enteró hasta que se revisaron las
+ejecuciones a mano.
+
+Dos cosas lo hacían invisible: el motivo era mentira, y `Error` es un estado
+del que nadie vuelve — el cron solo toma las filas en `🕐 En cola`.
+
+**Lo que hace ahora** el nodo Code «Clasificar Fallo», colgado de la salida de
+error de «Vapi Trigger Call»:
+
+| Motivo | Cómo se detecta | Qué le pasa al lead | Avisa |
+|---|---|---|---|
+| `sin_saldo` | el mensaje menciona wallet balance / credits | vuelve a `🕐 En cola`, se le devuelve el intento gastado y se pone `📅 Próxima llamada` a +20 min | sí |
+| `numero_invalido` | `customer.number must be a valid phone…` | `Error / Número inválido` (como antes) | no |
+| `error_api` | cualquier otro rechazo | `Error / Error técnico`, con el mensaje real en el resumen | sí |
+
+Los +20 minutos usan una regla que el cron ya respetaba: así no reintenta cada
+diez minutos mientras el problema sigue sin resolverse, pero se recupera solo
+apenas hay crédito, sin que nadie reencole nada.
+
+El aviso va al mismo espacio de Google Chat, **una vez cada media hora por
+motivo**, con la cuenta de leads afectados en la ventana. Seis llamadas que
+fallan en la misma tanda son un mensaje, no seis.
+
 ## camila-tool-solicitar-reagenda.workflow.json
 
 Tool de Vapi para **Camila**, la IA que llama a confirmar la reunión agendada.
