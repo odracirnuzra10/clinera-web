@@ -4658,35 +4658,6 @@ export function Pricing({
                     </div>
                   </div>
 
-                  {isAnnual && (
-                    <div style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${th.divider}`, display: "flex", flexDirection: "column", gap: 7 }}>
-                      <div
-                        style={{
-                          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                          fontSize: 10.5,
-                          fontWeight: 600,
-                          letterSpacing: ".03em",
-                          lineHeight: 1.5,
-                          color: th.accent,
-                        }}
-                      >
-                        Año: {p.annualTotal} · {ANNUAL_DISCOUNT_PERCENT}% OFF
-                      </div>
-                      <div
-                        style={{
-                          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                          fontSize: 10.5,
-                          fontWeight: 700,
-                          letterSpacing: ".03em",
-                          lineHeight: 1.5,
-                          color: th.ink,
-                        }}
-                      >
-                        Ahorras {p.annualSavings} el primer año
-                      </div>
-                    </div>
-                  )}
-
                   {isSemester && (
                     <div
                       style={{
