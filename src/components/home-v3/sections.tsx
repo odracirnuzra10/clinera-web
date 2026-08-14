@@ -4337,7 +4337,10 @@ export function Pricing({
     <section
       id="precios"
       style={{
-        padding: hideHeader ? "12px 80px 112px" : isComparisonIntro ? "80px 80px 112px" : "112px 80px",
+        // Padding lateral más corto que el resto del sitio: las tres tarjetas
+        // necesitan ancho para que el precio y sus notas no se partan en dos
+        // líneas y estiren la caja a lo alto.
+        padding: hideHeader ? "12px 56px 112px" : isComparisonIntro ? "80px 56px 112px" : "112px 56px",
         background: "#FAFAFA",
         borderTop: hideHeader ? "none" : "1px solid #F0F0F0",
         position: "relative",
@@ -4355,7 +4358,7 @@ export function Pricing({
           pointerEvents: "none",
         }}
       />
-      <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
+      <div style={{ maxWidth: 1320, margin: "0 auto", position: "relative" }}>
         {!hideHeader && (
         <div className="reveal" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 26px" }}>
           <Eyebrow>{isComparisonIntro ? "Comparación" : "Planes"}</Eyebrow>
@@ -4430,6 +4433,29 @@ export function Pricing({
         >
           {plans.map((p) => {
             const th = PLAN_THEMES[p.id];
+            // Semáforo de la implementación: ámbar = hay un cobro, verde = va
+            // incluida. Son los pasteles desaturados de estado de la marca, así
+            // que el tono se lee igual sobre las tres tarjetas (incluida Summit,
+            // que va sobre degradado) sin competir con el acento del plan.
+            const impl = isAnnual
+              ? {
+                  bg: "#EDF3EC",
+                  border: "rgba(47,106,63,.22)",
+                  label: "#2F6A3F",
+                  note: "#4A6B52",
+                  strike: "#6B8A72",
+                  pillBg: "#2F6A3F",
+                  pillInk: "#FFFFFF",
+                }
+              : {
+                  bg: "#FBF3DB",
+                  border: "rgba(146,104,20,.24)",
+                  label: "#8A6516",
+                  note: "#7A6023",
+                  strike: "#8A6516",
+                  pillBg: "#8A6516",
+                  pillInk: "#FFFFFF",
+                };
             return (
               <article
                 key={p.name}
@@ -4505,57 +4531,68 @@ export function Pricing({
                     marginBottom: 18,
                   }}
                 >
-                  {/* La etiqueta y el monto se separan con gap generoso: con poco
-                      aire el mono en mayúsculas queda pegado a la cifra. */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 20, flexWrap: "wrap" }}>
-                    <span
-                      style={{
-                        fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                        fontSize: 10.5,
-                        fontWeight: 600,
-                        letterSpacing: "0.08em",
-                        lineHeight: 1.5,
-                        textTransform: "uppercase",
-                        color: th.sub,
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      {isAnnual ? "Implementación" : "Mes 1 · Implementación"}
-                    </span>
-                    {isAnnual ? (
-                      // El regalo del anual es lo único que cambia de signo en la
-                      // tarjeta: el 450 tachado al lado del "gratis" es el argumento.
-                      <span style={{ display: "inline-flex", alignItems: "baseline", gap: 8, whiteSpace: "nowrap" }}>
-                        <s style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 600, color: th.sub, textDecorationThickness: "from-font" }}>
-                          {SETUP_FEE_AMOUNT}
-                        </s>
-                        <span
-                          style={{
-                            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                            fontSize: 11,
-                            fontWeight: 700,
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            color: th.ctaPrimaryColor,
-                            background: th.ctaPrimaryBg,
-                            borderRadius: 999,
-                            padding: "4px 10px",
-                          }}
-                        >
-                          Gratis
+                  {/* Bloque de implementación con color de estado: se lee antes
+                      que el precio y dice en un golpe si hay cobro o no. */}
+                  <div
+                    style={{
+                      background: impl.bg,
+                      border: `1px solid ${impl.border}`,
+                      borderRadius: 12,
+                      padding: "11px 14px",
+                      marginBottom: 16,
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 14, flexWrap: "nowrap" }}>
+                      <span
+                        style={{
+                          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                          fontSize: 10,
+                          fontWeight: 700,
+                          letterSpacing: "0.09em",
+                          lineHeight: 1.5,
+                          textTransform: "uppercase",
+                          color: impl.label,
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Implementación
+                      </span>
+                      {isAnnual ? (
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap" }}>
+                          <s style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 600, color: impl.strike, textDecorationThickness: "from-font" }}>
+                            {SETUP_FEE_AMOUNT}
+                          </s>
+                          <span
+                            style={{
+                              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                              fontSize: 10.5,
+                              fontWeight: 700,
+                              letterSpacing: "0.1em",
+                              textTransform: "uppercase",
+                              color: impl.pillInk,
+                              background: impl.pillBg,
+                              borderRadius: 999,
+                              padding: "4px 10px",
+                            }}
+                          >
+                            Gratis
+                          </span>
                         </span>
-                      </span>
-                    ) : (
-                      <span style={{ display: "inline-flex", alignItems: "baseline", gap: 6, fontFamily: "Inter", fontSize: 17, fontWeight: 800, color: th.ink, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
-                        {SETUP_FEE_AMOUNT}
-                        <span style={{ fontSize: 11, fontWeight: 600, color: th.sub }}>USD</span>
-                      </span>
-                    )}
+                      ) : (
+                        <span style={{ display: "inline-flex", alignItems: "baseline", gap: 6, fontFamily: "Inter", fontSize: 17, fontWeight: 800, color: impl.label, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
+                          {SETUP_FEE_AMOUNT}
+                          <span style={{ fontSize: 11, fontWeight: 600 }}>USD</span>
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ fontFamily: "Inter", fontSize: 11.5, lineHeight: 1.45, color: impl.note, marginTop: 5 }}>
+                      {isAnnual
+                        ? "Incluida en el plan anual — no se cobra"
+                        : "Pago único · se cobra el mes 1"}
+                    </div>
                   </div>
 
-                  <div aria-hidden style={{ height: 1, background: th.divider, margin: "18px 0" }} />
-
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
                     <div style={{ minWidth: 0 }}>
                       <div
                         style={{
@@ -4632,9 +4669,13 @@ export function Pricing({
                   )}
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 }}>
-                  <Link
-                    href="/hablar-con-ventas"
+                {/* Un solo CTA: contratar. Sin "Agendar demo" compitiendo, el
+                    botón de conversión toma el estilo primario de la tarjeta. */}
+                <div style={{ display: "flex", flexDirection: "column", marginBottom: 22 }}>
+                  <a
+                    href={checkoutUrl(p)}
+                    target="_blank"
+                    rel="noopener"
                     style={{
                       textDecoration: "none",
                       textAlign: "center",
@@ -4647,26 +4688,6 @@ export function Pricing({
                       fontSize: 14.5,
                       fontFamily: "Inter",
                       boxShadow: th.ctaPrimaryShadow,
-                      boxSizing: "border-box",
-                    }}
-                  >
-                    Agendar demo
-                  </Link>
-                  <a
-                    href={checkoutUrl(p)}
-                    target="_blank"
-                    rel="noopener"
-                    style={{
-                      textDecoration: "none",
-                      textAlign: "center",
-                      background: th.ctaSecondaryBg,
-                      color: th.ctaSecondaryColor,
-                      border: `1px solid ${th.ctaSecondaryBorder}`,
-                      padding: "12px 20px",
-                      borderRadius: 12,
-                      fontWeight: 600,
-                      fontSize: 14.5,
-                      fontFamily: "Inter",
                       boxSizing: "border-box",
                     }}
                     data-plan={p.name.toLowerCase()}
