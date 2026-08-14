@@ -4501,17 +4501,20 @@ export function Pricing({
                     background: th.panelBg,
                     border: `1px solid ${th.panelBorder}`,
                     borderRadius: 16,
-                    padding: "16px 18px",
+                    padding: "20px 22px",
                     marginBottom: 18,
                   }}
                 >
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12 }}>
+                  {/* La etiqueta y el monto se separan con gap generoso: con poco
+                      aire el mono en mayúsculas queda pegado a la cifra. */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 20, flexWrap: "wrap" }}>
                     <span
                       style={{
                         fontFamily: "'JetBrains Mono', ui-monospace, monospace",
                         fontSize: 10.5,
                         fontWeight: 600,
                         letterSpacing: "0.08em",
+                        lineHeight: 1.5,
                         textTransform: "uppercase",
                         color: th.sub,
                         whiteSpace: "nowrap",
@@ -4543,15 +4546,16 @@ export function Pricing({
                         </span>
                       </span>
                     ) : (
-                      <span style={{ fontFamily: "Inter", fontSize: 17, fontWeight: 800, color: th.ink, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
-                        {SETUP_FEE_AMOUNT} <span style={{ fontSize: 11, fontWeight: 600, color: th.sub }}>USD</span>
+                      <span style={{ display: "inline-flex", alignItems: "baseline", gap: 6, fontFamily: "Inter", fontSize: 17, fontWeight: 800, color: th.ink, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
+                        {SETUP_FEE_AMOUNT}
+                        <span style={{ fontSize: 11, fontWeight: 600, color: th.sub }}>USD</span>
                       </span>
                     )}
                   </div>
 
-                  <div aria-hidden style={{ height: 1, background: th.divider, margin: "13px 0" }} />
+                  <div aria-hidden style={{ height: 1, background: th.divider, margin: "18px 0" }} />
 
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20 }}>
                     <div style={{ minWidth: 0 }}>
                       <div
                         style={{
@@ -4559,6 +4563,7 @@ export function Pricing({
                           fontSize: 10.5,
                           fontWeight: 600,
                           letterSpacing: "0.08em",
+                          lineHeight: 1.5,
                           textTransform: "uppercase",
                           color: th.sub,
                         }}
@@ -4566,27 +4571,28 @@ export function Pricing({
                         {isAnnual ? "Plan anual" : "Mes 2 en adelante"}
                       </div>
                       {showCredits && (
-                        <div style={{ fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.45, color: th.sub, marginTop: 6 }}>
+                        <div style={{ fontFamily: "Inter", fontSize: 12.5, lineHeight: 1.5, color: th.sub, marginTop: 8 }}>
                           {p.credits} créditos/mes
                         </div>
                       )}
                     </div>
                     <div style={{ textAlign: "right", flex: "0 0 auto" }}>
-                      <div style={{ fontFamily: "Inter", fontSize: 36, fontWeight: 800, color: th.ink, letterSpacing: "-0.045em", lineHeight: 1 }}>
+                      <div style={{ fontFamily: "Inter", fontSize: 36, fontWeight: 800, color: th.ink, letterSpacing: "-0.045em", lineHeight: 1.05 }}>
                         {isAnnual ? p.annualMonthly : isSemester ? p.semesterMonthly : p.price}
                       </div>
-                      <div style={{ fontFamily: "Inter", fontSize: 11.5, fontWeight: 600, color: th.sub, marginTop: 4 }}>USD/mes</div>
+                      <div style={{ fontFamily: "Inter", fontSize: 11.5, fontWeight: 600, color: th.sub, marginTop: 6 }}>USD/mes</div>
                     </div>
                   </div>
 
                   {isAnnual && (
-                    <div style={{ marginTop: 10, display: "flex", flexDirection: "column", gap: 4 }}>
+                    <div style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${th.divider}`, display: "flex", flexDirection: "column", gap: 7 }}>
                       <div
                         style={{
                           fontFamily: "'JetBrains Mono', ui-monospace, monospace",
                           fontSize: 10.5,
                           fontWeight: 600,
                           letterSpacing: ".03em",
+                          lineHeight: 1.5,
                           color: th.accent,
                         }}
                       >
@@ -4598,6 +4604,7 @@ export function Pricing({
                           fontSize: 10.5,
                           fontWeight: 700,
                           letterSpacing: ".03em",
+                          lineHeight: 1.5,
                           color: th.ink,
                         }}
                       >
@@ -4613,8 +4620,11 @@ export function Pricing({
                         fontSize: 10.5,
                         fontWeight: 600,
                         letterSpacing: ".03em",
+                        lineHeight: 1.5,
                         color: th.accent,
-                        marginTop: 10,
+                        marginTop: 16,
+                        paddingTop: 14,
+                        borderTop: `1px solid ${th.divider}`,
                       }}
                     >
                       Semestre: {p.semesterTotal} · {SEMESTER_DISCOUNT_PERCENT}% OFF
