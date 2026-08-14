@@ -4438,26 +4438,17 @@ export function Pricing({
         >
           {plans.map((p) => {
             const th = PLAN_THEMES[p.id];
-            // Semáforo de la implementación: ámbar = hay un cobro, verde = va
-            // incluida. Son los pasteles desaturados de estado de la marca, así
-            // que el tono se lee igual sobre las tres tarjetas (incluida Summit,
-            // que va sobre degradado) sin competir con el acento del plan.
+            // La implementación usa la tinta de cada tarjeta para conservar
+            // contraste también sobre Summit. El verde queda reservado al estado
+            // "Gratis" de la modalidad anual.
             const impl = isAnnual
               ? {
-                  bg: "#EDF3EC",
-                  border: "rgba(47,106,63,.22)",
-                  label: "#2F6A3F",
-                  note: "#4A6B52",
                   strike: "#6B8A72",
                   pillBg: "#2F6A3F",
                   pillInk: "#FFFFFF",
                 }
               : {
-                  bg: "#FBF3DB",
-                  border: "rgba(146,104,20,.24)",
-                  label: "#8A6516",
-                  note: "#7A6023",
-                  strike: "#8A6516",
+                  strike: th.sub,
                   pillBg: "#8A6516",
                   pillInk: "#FFFFFF",
                 };
@@ -4531,40 +4522,50 @@ export function Pricing({
                 {/* Pago secuencial: mes 1 implementación, mes 2 en adelante el plan */}
                 <div
                   className="home-plan-economics"
+                  role="table"
+                  aria-label={`Secuencia de cobro del plan ${p.name}`}
                   style={{
                     background: th.panelBg,
                     border: `1px solid ${th.panelBorder}`,
                     borderRadius: 16,
-                    padding: "20px 22px",
+                    padding: "0 20px",
                     marginBottom: 18,
                   }}
                 >
-                  {/* Bloque de implementación con color de estado: se lee antes
-                      que el precio y dice en un golpe si hay cobro o no. */}
+                  {/* Dos filas y un divisor continuo: primero implementación,
+                      después el plan. La secuencia se entiende antes de leer el
+                      detalle de modalidad o créditos. */}
                   <div
+                    className="home-plan-payment-row"
+                    role="row"
                     style={{
-                      background: impl.bg,
-                      border: `1px solid ${impl.border}`,
-                      borderRadius: 12,
-                      padding: "11px 14px",
-                      marginBottom: 16,
+                      display: "grid",
+                      gridTemplateColumns: "minmax(0, 1fr) auto",
+                      alignItems: "center",
+                      gap: 16,
+                      padding: "17px 0 15px",
                     }}
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 14, flexWrap: "nowrap" }}>
-                      <span
+                    <div role="cell" style={{ minWidth: 0 }}>
+                      <div
                         style={{
                           fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                          fontSize: 10,
+                          fontSize: 10.5,
                           fontWeight: 700,
                           letterSpacing: "0.09em",
                           lineHeight: 1.5,
                           textTransform: "uppercase",
-                          color: impl.label,
+                          color: th.sub,
                           whiteSpace: "nowrap",
                         }}
                       >
                         {isAnnual ? "Implementación" : "Mes 1"}
-                      </span>
+                      </div>
+                      <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 12.5, fontWeight: 600, lineHeight: 1.35, color: th.ink, marginTop: 4, whiteSpace: "nowrap" }}>
+                        {isAnnual ? "Incluida en el plan anual" : "Implementación"}
+                      </div>
+                    </div>
+                    <div role="cell" style={{ textAlign: "right", flex: "0 0 auto" }}>
                       {isAnnual ? (
                         <span style={{ display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap" }}>
                           <s style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 600, color: impl.strike, textDecorationThickness: "from-font" }}>
@@ -4587,21 +4588,28 @@ export function Pricing({
                           </span>
                         </span>
                       ) : (
-                        <span style={{ display: "inline-flex", alignItems: "baseline", gap: 6, fontFamily: "Inter", fontSize: 17, fontWeight: 800, color: impl.label, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}>
+                        <span style={{ display: "inline-flex", alignItems: "baseline", gap: 6, fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 24, fontWeight: 800, color: th.ink, letterSpacing: "-0.04em", whiteSpace: "nowrap" }}>
                           {SETUP_FEE_AMOUNT}
-                          <span style={{ fontSize: 11, fontWeight: 600 }}>USD</span>
+                          <span style={{ fontFamily: "Inter", fontSize: 11, fontWeight: 600, letterSpacing: 0, color: th.sub }}>USD</span>
                         </span>
                       )}
                     </div>
-                    <div style={{ fontFamily: "Inter", fontSize: 11.5, lineHeight: 1.45, color: impl.note, marginTop: 5 }}>
-                      {isAnnual
-                        ? "Incluida en el plan anual — no se cobra"
-                        : "Implementación · pago único"}
-                    </div>
                   </div>
 
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
-                    <div style={{ minWidth: 0 }}>
+                  <div aria-hidden style={{ borderTop: `1px solid ${th.divider}` }} />
+
+                  <div
+                    className="home-plan-payment-row"
+                    role="row"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "minmax(0, 1fr) auto",
+                      alignItems: "center",
+                      gap: 16,
+                      padding: "16px 0 18px",
+                    }}
+                  >
+                    <div role="cell" style={{ minWidth: 0 }}>
                       <div
                         style={{
                           fontFamily: "'JetBrains Mono', ui-monospace, monospace",
@@ -4613,10 +4621,10 @@ export function Pricing({
                           color: th.sub,
                         }}
                       >
-                        {isAnnual ? `Modalidad · ${billingLabel}` : "Mes 2 en adelante"}
+                        {isAnnual ? "Plan anual" : "Mes 2 en adelante"}
                       </div>
                       <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, lineHeight: 1.5, color: th.sub, marginTop: 5 }}>
-                        {isAnnual ? "Plan anual" : `Modalidad · ${billingLabel}`}
+                        {isAnnual ? "Equivalente mensual" : `Plan · ${billingLabel}`}
                       </div>
                       {showCredits && (
                         <div
@@ -4642,7 +4650,7 @@ export function Pricing({
                         </div>
                       )}
                     </div>
-                    <div style={{ textAlign: "right", flex: "0 0 auto" }}>
+                    <div role="cell" style={{ textAlign: "right", flex: "0 0 auto" }}>
                       <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 38, fontWeight: 800, color: th.ink, letterSpacing: "-0.05em", lineHeight: 1.05 }}>
                         {isAnnual ? p.annualMonthly : isSemester ? p.semesterMonthly : p.price}
                       </div>
