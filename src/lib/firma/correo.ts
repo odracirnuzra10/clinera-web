@@ -19,6 +19,7 @@
 // ============================================================================
 
 import nodemailer from "nodemailer";
+import { periodoAdjetivo } from "./cotizacion";
 import type { SobreMeta } from "./tipos";
 
 export function correoConfigurado(): boolean {
@@ -50,7 +51,7 @@ export async function enviarCotizacionAlLead(
   });
 
   const totalPeriodo = cotizacion.centavos.recurrenteFinal + cotizacion.centavos.setupFinal;
-  const periodo = cotizacion.periodoMeses === 6 ? "semestral" : "mensual";
+  const periodo = periodoAdjetivo(cotizacion.periodoMeses);
   const gestor = meta.gestor;
   const primerNombre = meta.cliente.nombre.split(" ")[0] || "Hola";
 

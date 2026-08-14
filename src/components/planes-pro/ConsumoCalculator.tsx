@@ -355,7 +355,7 @@ export default function ConsumoCalculator() {
                   </span>
                 </div>
                 <div style={{ fontFamily: MONO, fontSize: 12.5, color: FAINT, marginTop: 6 }}>
-                  + USD ${fmt(IMPL)} implementación (pago único)
+                  + USD ${fmt(IMPL)} implementación (pago único · gratis en anual)
                 </div>
 
                 <div style={{ marginTop: 20 }}>
@@ -447,7 +447,7 @@ export default function ConsumoCalculator() {
             </div>
 
             <p style={{ fontFamily: MONO, fontSize: 12.5, color: FAINT, lineHeight: 1.6, marginTop: 18 }}>
-              Clinera opera en modo Agentic: un agendamiento automático consume ~195 cr y una conversación que no agenda ~30 cr. Todos los planes suman USD ${fmt(IMPL)} de implementación (pago único).
+              Clinera opera en modo Agentic: un agendamiento automático consume ~195 cr y una conversación que no agenda ~30 cr. En mensual y semestral los planes suman USD ${fmt(IMPL)} de implementación (pago único); en el plan anual va gratis.
               <br />
               Sobre 46.000 créditos → Plan Corporativo (desde USD ${fmt(CORP_FROM)}/mes, créditos a medida).
             </p>

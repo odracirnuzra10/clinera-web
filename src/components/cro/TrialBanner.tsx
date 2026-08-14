@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SETUP_FEE_NUMBER } from "@/content/pricing";
 
 type Props = {
   variant?: "light" | "dark";
@@ -8,7 +9,7 @@ export default function TrialBanner({ variant = "light" }: Props) {
   const dark = variant === "dark";
   return (
     <section
-      aria-label="Implementación de Clinera: pago único"
+      aria-label="Implementación de Clinera: pago único, gratis en plan anual"
       style={{
         padding: "32px 24px",
         background: dark ? "#0A0A0A" : "#FAF8FF",
@@ -58,7 +59,25 @@ export default function TrialBanner({ variant = "light" }: Props) {
                 letterSpacing: "-0.01em",
               }}
             >
-              Configuración inicial USD 450 (pago único)
+              Configuración inicial USD {SETUP_FEE_NUMBER}
+              <span
+                style={{
+                  marginLeft: 8,
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 10.5,
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "#fff",
+                  background: "linear-gradient(135deg, #7C3AED 0%, #D946EF 100%)",
+                  borderRadius: 999,
+                  padding: "3px 9px",
+                  whiteSpace: "nowrap",
+                  verticalAlign: "middle",
+                }}
+              >
+                Gratis en plan anual
+              </span>
             </p>
             <p
               style={{
@@ -68,7 +87,7 @@ export default function TrialBanner({ variant = "light" }: Props) {
                 color: dark ? "rgba(255,255,255,0.72)" : "#4B5563",
               }}
             >
-              Onboarding asistido por un humano: configura AURA, conecta tu WhatsApp e importa tu base. Quedas operando el mismo día.
+              Onboarding asistido por un humano: configura AURA, conecta tu WhatsApp e importa tu base. Quedas operando el mismo día. Pago único en mensual y semestral; si contratas el año, va incluida.
             </p>
           </div>
         </div>

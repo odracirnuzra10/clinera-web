@@ -3,15 +3,37 @@
 import Link from "next/link";
 import { Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { useReveal } from "@/components/home-v3/sections";
-import { stripeLink } from "@/content/pricing";
+import {
+  ANNUAL_DISCOUNT_PERCENT,
+  CLINERA_PLANS,
+  type ClineraPlan,
+  stripeLink,
+} from "@/content/pricing";
 
 type DemoAgent = { id: "aura" | "lia" | "camila"; name: string };
+
+const fmt = (n: number, decimales = 0) =>
+  n.toLocaleString("es-CL", { minimumFractionDigits: decimales, maximumFractionDigits: decimales });
+
+/** Precios del catálogo para el plan, sin repetir números en esta pantalla. */
+const precios = (id: ClineraPlan["id"]) => {
+  const plan = CLINERA_PLANS.find((p) => p.id === id)!;
+  return {
+    price: String(plan.monthlyPrice),
+    annualMonthly: fmt(plan.annualMonthly, 2),
+    annualTotal: fmt(plan.annualTotal),
+    annualValue: plan.annualTotal,
+    stripeAnnual: stripeLink(id, "anual"),
+    stripeMonthly: stripeLink(id, "mensual"),
+  };
+};
 
 const PLANS = [
   {
     name: "Vortex",
     slug: "vortex",
-    price: "279",
+    ...precios("vortex"),
+    popular: false,
     tagline: "AURA por WhatsApp 24/7 con agendamiento automático. Modo Agentic.",
     features: [
       "28.000 créditos / mes (bolsa única)",
@@ -23,12 +45,11 @@ const PLANS = [
     ],
     models: ["Kimi K2.6"],
     agents: [{ id: "aura", name: "AURA" }] as DemoAgent[],
-    stripeUrl: stripeLink("vortex"),
   },
   {
     name: "Atlas",
     slug: "atlas",
-    price: "379",
+    ...precios("atlas"),
     tagline: "AURA por texto + CAMILA por voz. Más equipo, más sucursales.",
     popular: true,
     features: [
@@ -44,12 +65,12 @@ const PLANS = [
       { id: "aura", name: "AURA" },
       { id: "camila", name: "CAMILA" },
     ] as DemoAgent[],
-    stripeUrl: stripeLink("atlas"),
   },
   {
     name: "Summit",
     slug: "summit",
-    price: "479",
+    ...precios("summit"),
+    popular: false,
     tagline: "AURA + CAMILA + LIA. LIA fiscaliza y audita. Para clínicas que escalan.",
     features: [
       "46.000 créditos / mes (bolsa única)",
@@ -65,7 +86,6 @@ const PLANS = [
       { id: "camila", name: "CAMILA" },
       { id: "lia", name: "LIA" },
     ] as DemoAgent[],
-    stripeUrl: stripeLink("summit"),
   },
 ];
 
@@ -348,7 +368,8 @@ function PlansSection() {
             Elige tu plan y activa hoy.
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", margin: 0 }}>
-            Permanencia mínima de 6 meses · mes 1: implementación USD 450 pago único · precios en USD.
+            Precios anuales con {ANNUAL_DISCOUNT_PERCENT}% OFF e implementación gratis · en mensual y semestral, el mes 1 suma la
+            implementación de USD 450 (pago único) · permanencia mínima de 6 meses · precios en USD.
           </p>
         </div>
         <div
@@ -429,18 +450,21 @@ function PlansSection() {
                   >
                     {plan.tagline}
                   </p>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 6 }}>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 6, flexWrap: "wrap" }}>
                     <span style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 600 }}>$</span>
                     <span style={{ fontFamily: "Inter", fontSize: 48, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1 }}>
-                      {plan.price}
+                      {plan.annualMonthly}
                     </span>
                     <span style={{ fontFamily: "Inter", fontSize: 14, color: popular ? "rgba(255,255,255,.7)" : "#6B7280", marginLeft: 4 }}>
                       USD/mes
                     </span>
+                    <s style={{ fontFamily: "Inter", fontSize: 14, color: popular ? "rgba(255,255,255,.55)" : "#9CA3AF", textDecorationThickness: "from-font" }}>
+                      ${plan.price}
+                    </s>
                   </div>
                   <div style={{ minHeight: 20, marginBottom: 20, display: "flex", alignItems: "center" }}>
                     <span style={{ fontFamily: "Inter", fontSize: 12.5, color: popular ? "rgba(255,255,255,.7)" : "#6B7280" }}>
-                      Bolsa única de créditos · pago mensual o semestral
+                      Plan anual · USD {plan.annualTotal}/año · {ANNUAL_DISCOUNT_PERCENT}% OFF + implementación gratis
                     </span>
                   </div>
                   <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
@@ -626,13 +650,13 @@ function PlansSection() {
                     Agendar demo
                   </Link>
                   <a
-                    href={plan.stripeUrl}
+                    href={plan.stripeAnnual}
                     target="_blank"
                     rel="noopener"
                     data-plan={plan.slug}
-                    data-plan-billing="monthly"
-                    data-plan-value={plan.price}
-                    data-plan-name={`${plan.name} pay monthly`}
+                    data-plan-billing="annual"
+                    data-plan-value={plan.annualValue}
+                    data-plan-name={`${plan.name} pay annual`}
                     style={{
                       background: popular ? "rgba(255,255,255,.1)" : "#fff",
                       color: popular ? "#fff" : "#0A0A0A",
@@ -646,7 +670,28 @@ function PlansSection() {
                       textAlign: "center",
                     }}
                   >
-                    Contratar {plan.name} →
+                    Contratar {plan.name} anual →
+                  </a>
+                  {/* El mensual sigue disponible, pero en segundo plano. */}
+                  <a
+                    href={plan.stripeMonthly}
+                    target="_blank"
+                    rel="noopener"
+                    data-plan={plan.slug}
+                    data-plan-billing="monthly"
+                    data-plan-value={plan.price}
+                    data-plan-name={`${plan.name} pay monthly`}
+                    style={{
+                      marginTop: 8,
+                      color: popular ? "rgba(255,255,255,.68)" : "#6B7280",
+                      fontFamily: "Inter",
+                      fontWeight: 500,
+                      fontSize: 12.5,
+                      textDecoration: "none",
+                      textAlign: "center",
+                    }}
+                  >
+                    o mensual por USD {plan.price}/mes →
                   </a>
                   <p
                     style={{

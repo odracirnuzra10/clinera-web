@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import {
+  ANNUAL_DISCOUNT_PERCENT,
+  ANNUAL_MONTHS,
   CLINERA_PLANS,
   EXTRA_CREDIT_PACK_CREDITS,
   EXTRA_CREDIT_PACK_USD,
@@ -10,10 +12,10 @@ import {
   SEMESTER_DISCOUNT_PERCENT,
   SEMESTER_MONTHS,
   SETUP_FEE_USD,
+  planPeriodTotal,
+  type Billing,
 } from "@/content/pricing";
 import styles from "./cotizacion.module.css";
-
-type Billing = "monthly" | "semester";
 
 type Discounts = {
   plan: number;
@@ -179,7 +181,7 @@ export default function QuoteBuilder({
   const [validUntil, setValidUntil] = useState(initialValidUntil);
   const [selectedPlanId, setSelectedPlanId] =
     useState<(typeof CLINERA_PLANS)[number]["id"]>("atlas");
-  const [billing, setBilling] = useState<Billing>("semester");
+  const [billing, setBilling] = useState<Billing>("annual");
   const [extraUsers, setExtraUsers] = useState(0);
   const [extraCreditPacks, setExtraCreditPacks] = useState(0);
   const [includeSetup, setIncludeSetup] = useState(true);
@@ -213,12 +215,15 @@ export default function QuoteBuilder({
 
   const selectedPlan =
     CLINERA_PLANS.find((plan) => plan.id === selectedPlanId) ?? CLINERA_PLANS[0];
-  const periodMonths = billing === "semester" ? SEMESTER_MONTHS : 1;
-  const periodLabel = billing === "semester" ? "Semestral" : "Mensual";
+  const isAnnual = billing === "annual";
+  const periodMonths = isAnnual ? ANNUAL_MONTHS : billing === "semester" ? SEMESTER_MONTHS : 1;
+  const periodLabel = isAnnual ? "Anual" : billing === "semester" ? "Semestral" : "Mensual";
+  // El anual incluye la implementación: el checkbox queda anulado en esa
+  // modalidad para que la cotización no prometa un cobro que Stripe no hará.
+  const setupCharged = includeSetup && !isAnnual;
 
   const rows = useMemo<QuoteRow[]>(() => {
-    const planBase =
-      billing === "semester" ? selectedPlan.semesterTotal : selectedPlan.monthlyPrice;
+    const planBase = planPeriodTotal(selectedPlan, billing);
     const userBase = extraUsers * EXTRA_USER_USD * periodMonths;
     const creditBase = extraCreditPacks * EXTRA_CREDIT_PACK_USD * periodMonths;
 
@@ -227,9 +232,11 @@ export default function QuoteBuilder({
         id: "plan",
         name: `Plan ${selectedPlan.name}`,
         detail:
-          billing === "semester"
-            ? `${SEMESTER_MONTHS} meses · ${SEMESTER_DISCOUNT_PERCENT}% de ahorro semestral incluido`
-            : "Facturación mes a mes",
+          billing === "annual"
+            ? `${ANNUAL_MONTHS} meses · ${ANNUAL_DISCOUNT_PERCENT}% de ahorro anual e implementación incluida`
+            : billing === "semester"
+              ? `${SEMESTER_MONTHS} meses · ${SEMESTER_DISCOUNT_PERCENT}% de ahorro semestral incluido`
+              : "Facturación mes a mes",
         quantity: "1",
         base: planBase,
         discount: discounts.plan,
@@ -267,7 +274,7 @@ export default function QuoteBuilder({
             },
           ]
         : []),
-      ...(includeSetup
+      ...(setupCharged
         ? [
             {
               id: "setup" as const,
@@ -286,7 +293,7 @@ export default function QuoteBuilder({
     discounts,
     extraCreditPacks,
     extraUsers,
-    includeSetup,
+    setupCharged,
     periodMonths,
     selectedPlan,
   ]);
@@ -314,7 +321,7 @@ export default function QuoteBuilder({
     setQuoteDate(initialDate);
     setValidUntil(initialValidUntil);
     setSelectedPlanId("atlas");
-    setBilling("semester");
+    setBilling("annual");
     setExtraUsers(0);
     setExtraCreditPacks(0);
     setIncludeSetup(true);
@@ -337,7 +344,7 @@ export default function QuoteBuilder({
     billing,
     extraUsuarios: extraUsers,
     extraPacks: extraCreditPacks,
-    incluirSetup: includeSetup,
+    incluirSetup: setupCharged,
     descuentos: discounts,
     duracionDescuento:
       duracionTipo === "meses" ? { tipo: "meses", meses: duracionMeses } : { tipo: duracionTipo },
@@ -618,16 +625,18 @@ export default function QuoteBuilder({
             <fieldset className={styles.billingFieldset}>
               <legend>Modalidad de pago</legend>
               <div className={styles.billingOptions}>
-                <label className={billing === "monthly" ? styles.billingSelected : ""}>
+                <label className={isAnnual ? styles.billingSelected : ""}>
                   <input
                     type="radio"
                     name="billing"
-                    value="monthly"
-                    checked={billing === "monthly"}
-                    onChange={() => setBilling("monthly")}
+                    value="annual"
+                    checked={isAnnual}
+                    onChange={() => setBilling("annual")}
                   />
-                  <strong>Mensual</strong>
-                  <small>Pago mes a mes</small>
+                  <strong>Anual</strong>
+                  <small>
+                    {ANNUAL_MONTHS} meses · {ANNUAL_DISCOUNT_PERCENT}% OFF + implementación gratis
+                  </small>
                 </label>
                 <label className={billing === "semester" ? styles.billingSelected : ""}>
                   <input
@@ -640,6 +649,17 @@ export default function QuoteBuilder({
                   <strong>Semestral</strong>
                   <small>{SEMESTER_MONTHS} meses · {SEMESTER_DISCOUNT_PERCENT}% OFF</small>
                 </label>
+                <label className={billing === "monthly" ? styles.billingSelected : ""}>
+                  <input
+                    type="radio"
+                    name="billing"
+                    value="monthly"
+                    checked={billing === "monthly"}
+                    onChange={() => setBilling("monthly")}
+                  />
+                  <strong>Mensual</strong>
+                  <small>Pago mes a mes</small>
+                </label>
               </div>
             </fieldset>
 
@@ -647,16 +667,21 @@ export default function QuoteBuilder({
               <span>
                 <input
                   type="checkbox"
-                  checked={includeSetup}
+                  checked={setupCharged}
+                  disabled={isAnnual}
                   onChange={(event) => setIncludeSetup(event.target.checked)}
                 />
                 <i aria-hidden="true" />
               </span>
               <span>
                 <strong>Incluir configuración inicial</strong>
-                <small>Migración, configuración y capacitación · pago único</small>
+                <small>
+                  {isAnnual
+                    ? "Incluida sin costo en el plan anual"
+                    : "Migración, configuración y capacitación · pago único"}
+                </small>
               </span>
-              <b>{formatUsd(SETUP_FEE_USD)}</b>
+              <b>{isAnnual ? "Gratis" : formatUsd(SETUP_FEE_USD)}</b>
             </label>
           </section>
 
@@ -1056,9 +1081,11 @@ export default function QuoteBuilder({
                 <div className={styles.savingsNote}>
                   <span>Condición comercial</span>
                   <p>
-                    {billing === "semester"
-                      ? `El plan ya incorpora ${SEMESTER_DISCOUNT_PERCENT}% de ahorro por pago semestral.`
-                      : `Facturación mensual con permanencia mínima de ${SEMESTER_MONTHS} meses.`}
+                    {billing === "annual"
+                      ? `El plan ya incorpora ${ANNUAL_DISCOUNT_PERCENT}% de ahorro por pago anual e incluye la configuración inicial de ${formatUsd(SETUP_FEE_USD)} sin costo.`
+                      : billing === "semester"
+                        ? `El plan ya incorpora ${SEMESTER_DISCOUNT_PERCENT}% de ahorro por pago semestral.`
+                        : `Facturación mensual con permanencia mínima de ${SEMESTER_MONTHS} meses.`}
                   </p>
                   {itemDiscountSavings + globalDiscountAmount > 0 && (
                     <strong>
@@ -1085,7 +1112,9 @@ export default function QuoteBuilder({
                     </div>
                   )}
                   <div className={styles.grandTotal}>
-                    <dt>Total {billing === "semester" ? "semestral" : "inicial"}</dt>
+                    <dt>
+                      Total {billing === "annual" ? "anual" : billing === "semester" ? "semestral" : "inicial"}
+                    </dt>
                     <dd>{formatUsd(total)}</dd>
                   </div>
                 </dl>
