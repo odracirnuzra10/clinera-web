@@ -15,7 +15,8 @@
       "position": [
         240,
         300
-      ]
+      ],
+      "webhookId": "e93b02eb-1b16-418d-bd6b-b6dd2dd9c889"
     },
     {
       "parameters": {
@@ -150,6 +151,115 @@
         900,
         460
       ]
+    },
+    {
+      "id": "brow-buscar-lead",
+      "name": "Baserow - Buscar Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        300
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "=https://core.oacg.cl/api/database/rows/table/152/?user_field_names=true&size=1&order_by=-Creado&filter__Email__equal={{ encodeURIComponent($('Normalizar Reserva').first().json.cliente.email || '__sin_email__') }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "__BASEROW_TOKEN__"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 10000
+        }
+      }
+    },
+    {
+      "id": "brow-hay-fila",
+      "name": "¿Hay fila y no es prueba?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1260,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "f1",
+              "leftValue": "={{ (($json.results || [])[0] || {}).id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "f2",
+              "leftValue": "={{ $('Normalizar Reserva').first().json.esPrueba }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "false",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "brow-guardar-meet",
+      "name": "Baserow - Guardar Meet",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1380,
+        300
+      ],
+      "parameters": {
+        "method": "PATCH",
+        "url": "=https://core.oacg.cl/api/database/rows/table/152/{{ (($json.results || [])[0] || {}).id }}/?user_field_names=true",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "__BASEROW_TOKEN__"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ '🔖 Cal Booking UID': 'clinera#' + $('Crear Evento + Meet').first().json.id + '@' + $('Normalizar Reserva').first().json.calendarId }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 10000
+        }
+      }
     }
   ],
   "connections": {
@@ -200,6 +310,11 @@
             "node": "Responder Meet OK",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Baserow - Buscar Lead",
+            "type": "main",
+            "index": 0
           }
         ],
         [
@@ -209,6 +324,29 @@
             "index": 0
           }
         ]
+      ]
+    },
+    "Baserow - Buscar Lead": {
+      "main": [
+        [
+          {
+            "node": "¿Hay fila y no es prueba?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Hay fila y no es prueba?": {
+      "main": [
+        [
+          {
+            "node": "Baserow - Guardar Meet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
       ]
     }
   },

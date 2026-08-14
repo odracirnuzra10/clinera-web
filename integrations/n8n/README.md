@@ -105,6 +105,67 @@ Credencial usada: **Google Calendar OACG** (la misma del workflow
 "OACG TECH | Agendamiento (Meet)"). Requiere que esa cuenta tenga permiso de
 **"Hacer cambios en los eventos"** sobre los calendarios de destino.
 
+### Dónde queda guardado el evento
+
+Al crear el Meet, el workflow busca el lead en Baserow por email y guarda la
+referencia del evento en la columna `🔖 Cal Booking UID`, con el formato
+`clinera#<eventId>@<calendarId>`. Va colgado de la creación, en paralelo a la
+respuesta: si Baserow falla, el Meet ya está hecho y el navegador no se entera.
+
+Sirve para **mover** el evento cuando el paciente reagende. Mover conserva el
+link del Meet y el evento que el paciente ya tiene en su calendario; borrar y
+recrear cambia el link y deja al paciente con una invitación muerta.
+
+El prefijo `clinera#` distingue esta referencia de un uid de Cal.com, porque la
+columna se comparte entre los dos agendadores.
+
+> [!NOTE]
+> El token de Baserow del workspace no tiene permiso para crear columnas, así
+> que se reusó una existente. Si algún día se agrega una columna propia
+> (p. ej. `Meet eventId`), conviene mover esto ahí.
+
+## camila-tool-solicitar-reagenda.workflow.json
+
+Tool de Vapi para **Camila**, la IA que llama a confirmar la reunión agendada.
+Si el lead no puede y quiere moverla, Camila pregunta cuándo le acomoda, llama
+a este tool y cierra la llamada.
+
+Webhook: `POST https://n8n.oacg.cl/webhook/camila-solicitar-reagenda`
+
+**No mueve la cita.** Clinera no expone endpoint para reagendar (ver más
+abajo), así que el tool deja constancia y le pasa el caso a una persona:
+
+1. Avisa a **Google Chat** con nombre, clínica, teléfono, email, la demo
+   agendada, lo que el lead dijo textualmente sobre cuándo le acomoda, y el
+   link a la fila de Baserow.
+2. Marca la fila de Baserow con `Reunión: Reagendar`.
+3. Le devuelve a Camila la instrucción de cerrar con *"Perfecto, déjame
+   confirmar bien el horario y le escribo de vuelta, ¿está bien?"*, sin
+   prometer fecha ni ofrecer horarios.
+
+La preferencia del lead va **sin interpretar** ("la próxima semana en la
+mañana"): quien devuelva la llamada necesita saber qué pidió, no una fecha que
+adivinó un modelo.
+
+Placeholders de secretos: `__GOOGLE_CHAT_WEBHOOK__` y `__BASEROW_TOKEN__`.
+
+### Lo que falta en la API de Clinera para automatizarlo entero
+
+Verificado contra `app.clinera.io` (agosto 2026): `POST …/citas` crea, y
+`PATCH` / `PUT` / `DELETE` sobre `/citas` responden **405**; `/citas/{id}` ni
+siquiera existe (**404**). Para que Camila reagende sola hacen falta:
+
+| Endpoint | Para qué |
+|---|---|
+| `GET /citas?telefono=…` | Saber qué cita tiene quien llama |
+| `PATCH /citas/{id}` | Mover fecha/hora validando disponibilidad en el servidor (409 si se la ganaron) |
+| `DELETE /citas/{id}` | Cancelar y liberar el bloque |
+| API key por header | Hoy son públicos sin llave: listar citas de pacientes así no corresponde |
+
+Con eso, el tool pasa a mover la cita en Clinera y a **mover** el evento de
+Google con `sendUpdates: all`, y el paciente recibe el correo con la hora nueva
+sobre el mismo Meet.
+
 ## crm-sql-twenty.workflow.json
 
 El segundo evento del embudo: **SQL** (US$ 100), cuando el closer marca el
