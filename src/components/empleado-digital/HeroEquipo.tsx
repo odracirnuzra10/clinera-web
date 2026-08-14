@@ -55,7 +55,7 @@ export default function HeroEquipo() {
             </div>
 
             <p className={styles.trustLine}>
-              Desde USD 279/mes · Configuración inicial USD 450 (onboarding asistido) · Pago seguro vía Stripe
+              Desde USD 279/mes · Plan anual: 20% OFF + implementación gratis · Pago seguro vía Stripe
             </p>
           </div>
         </div>

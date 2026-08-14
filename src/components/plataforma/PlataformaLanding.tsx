@@ -316,7 +316,7 @@ function FrequentlyAsked() {
     },
     {
       q: "¿Hay permanencia?",
-      a: "Sí. Desde ahora todos los planes tienen una permanencia mínima de 6 meses. El valor semestral visible ya incluye 20% de descuento.",
+      a: "Sí. Todos los planes tienen una permanencia mínima de 6 meses. Puedes pagar mes a mes, anticipar el semestre con 20% de descuento, o anticipar el año con 20% de descuento y la implementación de USD 450 incluida sin costo.",
     },
   ];
 
@@ -350,9 +350,9 @@ function FinalCta() {
         <p>En 30 minutos te mostramos cómo se verían tus sedes, tu equipo y tus procesos dentro de Clinera.</p>
         <Link className={styles.finalButton} href="/ventas">Ver Clinera con mi operación <Arrow /></Link>
         <div className={styles.finalMeta}>
-          <span>Desde USD 279/mes</span>
+          <span>Anual: 20% OFF + implementación gratis</span>
           <i />
-          <span>Semestral: 20% OFF</span>
+          <span>Desde USD 279/mes</span>
           <i />
           <span>Permanencia mínima: 6 meses</span>
           <i />

@@ -600,7 +600,7 @@ function getFaqs(
       },
       {
         q: `¿Hay versión gratuita?`,
-        a: `Doctocliq tiene plan gratis permanente. Clinera no tiene plan gratis; el costo de configuración es un pago único de USD 450 (onboarding asistido por un humano, operando el mismo día) y la permanencia mínima es de 6 meses: pagas el plan mensual desde USD 279/mes o anticipas el semestre con 20% de descuento.`,
+        a: `Doctocliq tiene plan gratis permanente. Clinera no tiene plan gratis; el costo de configuración es un pago único de USD 450 (onboarding asistido por un humano, operando el mismo día) y la permanencia mínima es de 6 meses: pagas el plan mensual desde USD 279/mes, anticipas el semestre con 20% de descuento, o contratas el año con 20% de descuento y la implementación gratis.`,
       },
       {
         q: `¿Migrar de un software a otro pierde datos?`,
@@ -628,7 +628,7 @@ function getFaqs(
       },
       {
         q: `¿Hay versión gratuita?`,
-        a: `Ninguno de los softwares colombianos del listado ofrece plan gratuito permanente. Clinera tiene un costo de configuración de pago único USD 450 (onboarding asistido por un humano, operando el mismo día) y permanencia mínima de 6 meses: pagas el plan mensual desde USD 279/mes o anticipas el semestre con 20% de descuento.`,
+        a: `Ninguno de los softwares colombianos del listado ofrece plan gratuito permanente. Clinera tiene un costo de configuración de pago único USD 450 (onboarding asistido por un humano, operando el mismo día) y permanencia mínima de 6 meses: pagas el plan mensual desde USD 279/mes, anticipas el semestre con 20% de descuento, o contratas el año con 20% de descuento y la implementación gratis.`,
       },
       {
         q: `¿Migrar de un software a otro pierde datos?`,
@@ -652,7 +652,7 @@ function getFaqs(
     },
     {
       q: `¿Hay versión gratuita?`,
-      a: `Ninguno de los softwares de esta lista ofrece plan gratuito permanente. Clinera tiene un costo de configuración de pago único USD 450 (onboarding asistido por un humano) y permanencia mínima de 6 meses: pagas el plan mensual desde USD 279/mes o anticipas el semestre con 20% de descuento.`,
+      a: `Ninguno de los softwares de esta lista ofrece plan gratuito permanente. Clinera tiene un costo de configuración de pago único USD 450 (onboarding asistido por un humano) y permanencia mínima de 6 meses: pagas el plan mensual desde USD 279/mes, anticipas el semestre con 20% de descuento, o contratas el año con 20% de descuento y la implementación gratis.`,
     },
     {
       q: `¿Migrar de un software a otro pierde datos?`,

@@ -4,18 +4,18 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import PlanesV3 from "@/components/interior-v3/PlanesV3";
 import TrialBanner from "@/components/cro/TrialBanner";
 import { PLANES_FAQ } from "@/content/planes-faq";
-import { CLINERA_PLANS } from "@/content/pricing";
+import { ANNUAL_DISCOUNT_PERCENT, CLINERA_PLANS } from "@/content/pricing";
 
 export const metadata: Metadata = {
-  title: "Planes y Precios — Clinera.io (desde USD 279/mes)",
+  title: "Planes y Precios — Clinera.io (desde USD 223/mes con plan anual)",
   description:
-    "Vortex USD 279/mes (28.000 créditos · AURA por WhatsApp), Atlas USD 379/mes (37.000 créditos · AURA + CAMILA por voz), Summit USD 479/mes (46.000 créditos · AURA + CAMILA + LIA). Configuración inicial USD 450 (pago único). Pago semestral con 20% OFF o mensual con permanencia mínima de 6 meses.",
+    "Vortex, Atlas y Summit con bolsa de créditos (28.000 / 37.000 / 46.000) y AURA por WhatsApp 24/7. Tres modalidades: anual con 20% OFF e implementación gratis (desde USD 2.678/año), semestral con 20% OFF, o mensual desde USD 279/mes. Configuración inicial USD 450, gratis si pagas el año.",
   alternates: { canonical: "https://www.clinera.io/planes" },
   openGraph: {
     url: "https://www.clinera.io/planes",
     title: "Planes y Precios — Clinera.io",
     description:
-      "3 planes con bolsa de créditos para clínicas en LATAM. Desde USD 279/mes + USD 450 de configuración inicial. Semestral con 20% OFF.",
+      "3 planes con bolsa de créditos para clínicas en LATAM. Anual con 20% OFF e implementación gratis (ahorras hasta USD 1.600 el primer año), semestral con 20% OFF o mensual desde USD 279/mes.",
     type: "website",
   },
 };
@@ -26,6 +26,16 @@ const jsonLd = {
   name: "Clinera.io",
   description: "Software de IA para clínicas",
   offers: [
+    // El anual va primero también acá: es la oferta que queremos que citen
+    // los buscadores y los motores de IA cuando resuman los precios.
+    ...CLINERA_PLANS.map((plan) => ({
+      "@type": "Offer",
+      name: `${plan.name} · Anual`,
+      price: String(plan.annualTotal),
+      priceCurrency: "USD",
+      url: "https://www.clinera.io/planes",
+      description: `Pago anual: ${ANNUAL_DISCOUNT_PERCENT}% OFF e implementación gratis (equivale a USD ${plan.annualMonthly}/mes).`,
+    })),
     ...CLINERA_PLANS.map((plan) => ({
       "@type": "Offer",
       name: plan.name,

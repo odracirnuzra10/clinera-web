@@ -9,12 +9,27 @@
 // ============================================================================
 
 import {
+  ANNUAL_MONTHS,
   CLINERA_PLANS,
   EXTRA_CREDIT_PACK_USD,
   EXTRA_USER_USD,
   SEMESTER_MONTHS,
   SETUP_FEE_USD,
+  type Billing,
 } from "@/content/pricing";
+
+/** Meses que cubre cada modalidad de pago. */
+export type PeriodoMeses = 1 | 6 | 12;
+
+/** "mensual" / "semestral" / "anual" — para redactar frases. */
+export function periodoAdjetivo(meses: PeriodoMeses): "mensual" | "semestral" | "anual" {
+  return meses === 12 ? "anual" : meses === 6 ? "semestral" : "mensual";
+}
+
+/** "mes" / "semestre" / "año" — para sufijos tipo "USD 2.678 / año". */
+export function periodoSustantivo(meses: PeriodoMeses): "mes" | "semestre" | "año" {
+  return meses === 12 ? "año" : meses === 6 ? "semestre" : "mes";
+}
 
 /** Cuánto dura la personalización de precio de la suscripción. */
 export type DescuentoDuracion =
@@ -26,8 +41,8 @@ export type CotizacionSnapshot = {
   numero: string;
   planId: (typeof CLINERA_PLANS)[number]["id"];
   planNombre: string;
-  billing: "monthly" | "semester";
-  periodoMeses: 1 | 6;
+  billing: Billing;
+  periodoMeses: PeriodoMeses;
   extraUsuarios: number;
   extraPacks: number;
   incluirSetup: boolean;
@@ -87,9 +102,17 @@ export function construirCotizacion(cruda: unknown): CotizacionSnapshot | null {
   const plan = CLINERA_PLANS.find((p) => p.id === c.planId);
   if (!plan) return null;
 
-  const billing = c.billing === "semester" ? "semester" : c.billing === "monthly" ? "monthly" : null;
+  const billing: Billing | null =
+    c.billing === "annual"
+      ? "annual"
+      : c.billing === "semester"
+        ? "semester"
+        : c.billing === "monthly"
+          ? "monthly"
+          : null;
   if (!billing) return null;
-  const periodoMeses = billing === "semester" ? SEMESTER_MONTHS : 1;
+  const periodoMeses: PeriodoMeses =
+    billing === "annual" ? (ANNUAL_MONTHS as 12) : billing === "semester" ? (SEMESTER_MONTHS as 6) : 1;
 
   const d = (typeof c.descuentos === "object" && c.descuentos !== null
     ? c.descuentos
@@ -117,11 +140,19 @@ export function construirCotizacion(cruda: unknown): CotizacionSnapshot | null {
 
   const extraUsuarios = clampQty(c.extraUsuarios);
   const extraPacks = clampQty(c.extraPacks);
-  const incluirSetup = c.incluirSetup === true;
+  // El plan anual incluye la implementación: aunque el navegador mande
+  // incluirSetup en true, acá no se cobra. Es política comercial, no una
+  // preferencia del cotizador.
+  const incluirSetup = billing !== "annual" && c.incluirSetup === true;
 
   // Mismo cálculo que QuoteBuilder: descuento por línea y luego el global
   // sobre todo (incluido el setup).
-  const planListaUsd = billing === "semester" ? plan.semesterTotal : plan.monthlyPrice;
+  const planListaUsd =
+    billing === "annual"
+      ? plan.annualTotal
+      : billing === "semester"
+        ? plan.semesterTotal
+        : plan.monthlyPrice;
   const usuarioListaUsd = EXTRA_USER_USD * periodoMeses;
   const packListaUsd = EXTRA_CREDIT_PACK_USD * periodoMeses;
 
@@ -160,7 +191,7 @@ export function construirCotizacion(cruda: unknown): CotizacionSnapshot | null {
     planId: plan.id,
     planNombre: plan.name,
     billing,
-    periodoMeses: periodoMeses as 1 | 6,
+    periodoMeses,
     extraUsuarios,
     extraPacks,
     incluirSetup,

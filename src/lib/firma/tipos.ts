@@ -6,7 +6,7 @@
 // completo está en meta.json (no hay base de datos).
 // ============================================================================
 
-import type { CotizacionSnapshot, DescuentoDuracion } from "./cotizacion";
+import { periodoAdjetivo, type CotizacionSnapshot, type DescuentoDuracion } from "./cotizacion";
 
 export type SobreEstado = "pendiente" | "firmado";
 
@@ -108,7 +108,7 @@ export type SobrePublico = {
     totalPeriodo: number;
     descuentoPeriodo: number;
     setupUnico: number;
-    periodo: "mensual" | "semestral";
+    periodo: "mensual" | "semestral" | "anual";
     moneda: "USD";
     duracionDescuento: DescuentoDuracion;
   };
@@ -149,7 +149,7 @@ export function proyectarSobre(meta: SobreMeta): SobrePublico {
             totalPeriodo: meta.cotizacion.centavos.recurrenteFinal,
             descuentoPeriodo: meta.cotizacion.centavos.descuentoRecurrente,
             setupUnico: meta.cotizacion.centavos.setupFinal,
-            periodo: meta.cotizacion.periodoMeses === 6 ? ("semestral" as const) : ("mensual" as const),
+            periodo: periodoAdjetivo(meta.cotizacion.periodoMeses),
             moneda: "USD" as const,
             duracionDescuento: meta.cotizacion.duracionDescuento,
           },

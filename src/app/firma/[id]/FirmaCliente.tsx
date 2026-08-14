@@ -22,6 +22,10 @@ const formatoUsdCentavos = (centavos: number) =>
     minimumFractionDigits: 2,
   }).format(centavos / 100);
 
+/** "USD 2.678,00 / año" — el sustantivo del período que se cobra. */
+const sufijoPeriodo = (periodo: NonNullable<SobrePublico["pago"]>["periodo"]) =>
+  periodo === "anual" ? "año" : periodo === "semestral" ? "semestre" : "mes";
+
 const formatoFechaLarga = (iso: string) =>
   new Intl.DateTimeFormat("es-CL", {
     timeZone: "America/Santiago",
@@ -223,8 +227,7 @@ export default function FirmaCliente({ id }: { id: string }) {
                   <div>
                     <span>Suscripción {sobre.pago.periodo}</span>
                     <strong>
-                      {formatoUsdCentavos(sobre.pago.totalPeriodo)} /{" "}
-                      {sobre.pago.periodo === "semestral" ? "semestre" : "mes"}
+                      {formatoUsdCentavos(sobre.pago.totalPeriodo)} / {sufijoPeriodo(sobre.pago.periodo)}
                     </strong>
                     {sobre.pago.descuentoPeriodo > 0 && (
                       <small>
@@ -400,7 +403,7 @@ export default function FirmaCliente({ id }: { id: string }) {
                 <div>
                   <span>Suscripción {sobre.pago.periodo}</span>
                   <strong>
-                    {formatoUsdCentavos(sobre.pago.totalPeriodo)} / {sobre.pago.periodo === "semestral" ? "semestre" : "mes"}
+                    {formatoUsdCentavos(sobre.pago.totalPeriodo)} / {sufijoPeriodo(sobre.pago.periodo)}
                   </strong>
                   {sobre.pago.descuentoPeriodo > 0 && (
                     <small>

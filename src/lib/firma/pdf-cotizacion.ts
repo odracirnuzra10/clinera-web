@@ -15,7 +15,7 @@
 import { PDFDocument, PDFFont, PDFName, PDFPage, PDFString, StandardFonts, rgb } from "pdf-lib";
 import { latin1 } from "./certificado";
 import { ENTIDAD_LEGAL } from "./firma-ceo";
-import type { CotizacionSnapshot } from "./cotizacion";
+import { periodoAdjetivo, type CotizacionSnapshot } from "./cotizacion";
 
 const A4: [number, number] = [595.28, 841.89];
 const MARGEN = 52;
@@ -86,6 +86,12 @@ function botonConLink(
   }
 }
 
+/** "Mensual" / "Semestral" / "Anual" para las bandas del PDF. */
+function etiquetaPeriodo(c: CotizacionSnapshot): string {
+  const adj = periodoAdjetivo(c.periodoMeses);
+  return adj.charAt(0).toUpperCase() + adj.slice(1);
+}
+
 type Filas = Array<{ nombre: string; detalle: string; cantidad: string; dcto: number; lista: number; final: number }>;
 
 function filasDeCotizacion(c: CotizacionSnapshot): Filas {
@@ -93,9 +99,11 @@ function filasDeCotizacion(c: CotizacionSnapshot): Filas {
     {
       nombre: `Plan ${c.planNombre}`,
       detalle:
-        c.billing === "semester"
-          ? "6 meses · ahorro semestral de catálogo incluido"
-          : "Facturación mes a mes",
+        c.billing === "annual"
+          ? "12 meses · 20% de ahorro anual e implementación incluida"
+          : c.billing === "semester"
+            ? "6 meses · ahorro semestral de catálogo incluido"
+            : "Facturación mes a mes",
       cantidad: "1",
       dcto: c.descuentos.plan,
       lista: c.centavos.planLista,
@@ -193,7 +201,7 @@ export async function generarPdfCotizacion(
   pagina.drawRectangle({ x: MARGEN, y: y - 44, width: ancho, height: 44, color: PAPEL_SUAVE });
   texto("PLAN SELECCIONADO", MARGEN + 14, y - 15, 7, negrita, GRIS);
   texto(
-    `${cotizacion.planNombre} · ${cotizacion.billing === "semester" ? "Semestral" : "Mensual"}`,
+    `${cotizacion.planNombre} · ${etiquetaPeriodo(cotizacion)}`,
     MARGEN + 14,
     y - 32,
     12.5,
@@ -254,7 +262,12 @@ export async function generarPdfCotizacion(
   // Caja de total
   const altoTotal = 34;
   pagina.drawRectangle({ x: xResumen - 12, y: y - altoTotal + 8, width: 252, height: altoTotal, color: TINTA });
-  const etiquetaTotal = cotizacion.billing === "semester" ? "TOTAL SEMESTRAL" : "TOTAL PRIMER MES";
+  const etiquetaTotal =
+    cotizacion.billing === "annual"
+      ? "TOTAL ANUAL"
+      : cotizacion.billing === "semester"
+        ? "TOTAL SEMESTRAL"
+        : "TOTAL PRIMER MES";
   texto(etiquetaTotal, xResumen, y - 14, 7.5, negrita, rgb(1, 1, 1));
   const totalTxt = usd(totalPeriodo);
   texto(totalTxt, colTotal - 12 - anchoDe(totalTxt, 13, negrita), y - 16, 13, negrita, rgb(1, 1, 1));
@@ -272,7 +285,7 @@ export async function generarPdfCotizacion(
   pagina.drawRectangle({ x: MARGEN, y: y - 92, width: 3, height: 92, color: VIOLETA });
   texto("ACEPTA Y PAGA EN LÍNEA", MARGEN + 18, y - 20, 7.5, negrita, VIOLETA);
   texto(
-    `Suscripción ${cotizacion.billing === "semester" ? "semestral" : "mensual"} por ${usd(totalPeriodo)}. Tras el pago, firmarás el contrato en el mismo enlace.`,
+    `Suscripción ${periodoAdjetivo(cotizacion.periodoMeses)} por ${usd(totalPeriodo)}. Tras el pago, firmarás el contrato en el mismo enlace.`,
     MARGEN + 18,
     y - 34,
     8.5,

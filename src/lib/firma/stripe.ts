@@ -21,6 +21,7 @@
 // ============================================================================
 
 import Stripe from "stripe";
+import { periodoAdjetivo, periodoSustantivo } from "./cotizacion";
 import type { SobreMeta } from "./tipos";
 
 export function stripeConfigurado(): boolean {
@@ -51,11 +52,13 @@ export async function crearSesionPago(
   if (!cotizacion) throw new Error("El sobre no tiene cotización asociada.");
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
-  const recurring: Stripe.Checkout.SessionCreateParams.LineItem.PriceData.Recurring = {
-    interval: "month",
-    interval_count: cotizacion.periodoMeses,
-  };
-  const sufijoPeriodo = cotizacion.periodoMeses === 6 ? "semestre" : "mes";
+  // Los 12 meses del anual se expresan como un intervalo anual: Stripe acepta
+  // interval_count hasta 12 en meses, pero "year" es lo que muestra al cliente.
+  const recurring: Stripe.Checkout.SessionCreateParams.LineItem.PriceData.Recurring =
+    cotizacion.periodoMeses === 12
+      ? { interval: "year", interval_count: 1 }
+      : { interval: "month", interval_count: cotizacion.periodoMeses };
+  const sufijoPeriodo = periodoSustantivo(cotizacion.periodoMeses);
 
   const lineas: Stripe.Checkout.SessionCreateParams.LineItem[] = [
     {
@@ -66,7 +69,7 @@ export async function crearSesionPago(
         recurring,
         product_data: {
           name: `Plan ${cotizacion.planNombre} · Clinera`,
-          description: `Suscripción ${sufijoPeriodo === "mes" ? "mensual" : "semestral"} — cotización ${cotizacion.numero}`,
+          description: `Suscripción ${periodoAdjetivo(cotizacion.periodoMeses)} — cotización ${cotizacion.numero}`,
         },
       },
     },

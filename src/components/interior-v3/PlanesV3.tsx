@@ -5,9 +5,11 @@ import { Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { FinalCTA, Pricing, useReveal } from "@/components/home-v3/sections";
 import { PLANES_FAQ } from "@/content/planes-faq";
 import {
+  ANNUAL_DISCOUNT_PERCENT,
   EXTRA_CREDIT_PACK_CREDITS,
   EXTRA_CREDIT_PACK_USD,
   EXTRA_USER_USD,
+  SEMESTER_DISCOUNT_PERCENT,
 } from "@/content/pricing";
 
 const FAQ = PLANES_FAQ;
@@ -72,7 +74,12 @@ function PlanesHero() {
             maxWidth: 620,
           }}
         >
-          Del equipo de recepción a varias sedes. Precios en USD, permanencia mínima de 6 meses y 20% OFF al pagar el semestre.
+          Del equipo de recepción a varias sedes. Precios en USD y permanencia mínima de 6 meses. Elige mensual, semestral con{" "}
+          {SEMESTER_DISCOUNT_PERCENT}% OFF o{" "}
+          <b style={{ color: "#0A0A0A" }}>
+            anual con {ANNUAL_DISCOUNT_PERCENT}% OFF e implementación gratis
+          </b>
+          .
         </p>
       </div>
       <style jsx>{`
