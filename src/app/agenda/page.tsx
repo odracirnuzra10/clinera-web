@@ -5,7 +5,7 @@ import VentasLanding from "@/components/ventas/VentasLanding";
 export const metadata: Metadata = {
   title: "Agenda una reunión comercial — Clinera.io",
   description:
-    "Reserva con el equipo comercial de Clinera en la agenda real del producto: elige profesional y horario disponible.",
+    "45 min con el equipo comercial de Clinera. Reserva en la agenda real del producto: elige profesional y horario disponible.",
   alternates: { canonical: "https://www.clinera.io/agenda" },
   openGraph: { url: "https://www.clinera.io/agenda" },
 };
@@ -36,6 +36,7 @@ export default function AgendaPage() {
         sourcePath="/agenda"
         question1="need"
         investmentAfterContact
+        meetingMinutes={45}
       />
     </>
   );

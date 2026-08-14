@@ -385,6 +385,7 @@ export default function VentasLanding({
   sourcePath = "/ventas",
   question1 = "software",
   investmentAfterContact = false,
+  meetingMinutes = 30,
 }: {
   enableMigrationQualification?: boolean;
   /** Qué pregunta el paso 1: el software actual (default) o la necesidad. */
@@ -394,6 +395,8 @@ export default function VentasLanding({
    * el lead dejó sus datos: menos fricción y el lead queda capturado igual.
    */
   investmentAfterContact?: boolean;
+  /** Duración real de la reunión, la que se promete en el copy. */
+  meetingMinutes?: number;
   /** Agendador del paso final. Default: Cal.com (comportamiento original). */
   scheduler?: SchedulerId;
   /** Ruta que origina el lead — viaja en `fuente` del webhook y en el mensaje de WhatsApp. */
@@ -472,6 +475,7 @@ export default function VentasLanding({
         sourcePath={sourcePath}
         question1={question1}
         investmentAfterContact={investmentAfterContact}
+        meetingMinutes={meetingMinutes}
       />
     </>
   );
@@ -484,12 +488,14 @@ function ReunionHero({
   sourcePath,
   question1,
   investmentAfterContact,
+  meetingMinutes,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
   sourcePath: string;
   question1: Question1;
   investmentAfterContact: boolean;
+  meetingMinutes: number;
 }) {
   return (
     <section style={{ position: "relative", overflow: "hidden", display: "flex", alignItems: "center" }}>
@@ -557,7 +563,7 @@ function ReunionHero({
             </span>
             SOLO DUEÑOS Y GERENTES DE CLÍNICAS
             <span style={{ color: "#9CA3AF" }}>·</span>
-            <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>reunión de 30 min</span>
+            <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>reunión de {meetingMinutes} min</span>
           </span>
 
           <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
@@ -625,6 +631,7 @@ function ReunionHero({
             sourcePath={sourcePath}
             question1={question1}
             investmentAfterContact={investmentAfterContact}
+            meetingMinutes={meetingMinutes}
           />
         </div>
       </div>
@@ -815,12 +822,14 @@ function Wizard({
   sourcePath,
   question1,
   investmentAfterContact,
+  meetingMinutes,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
   sourcePath: string;
   question1: Question1;
   investmentAfterContact: boolean;
+  meetingMinutes: number;
 }) {
   const [step, setStep] = useState(1);
   const [software, setSoftware] = useState<Step1Id | null>(null);
@@ -937,6 +946,7 @@ function Wizard({
       )}
       {!submitted && !declined && step === contactStep && (
         <StepContact
+          meetingMinutes={meetingMinutes}
           form={form}
           setForm={setForm}
           label={`Paso ${contactStep} de ${totalSteps}`}
@@ -1728,10 +1738,12 @@ function StepContact({
   label = "Paso 2 de 3",
   onBack,
   onNext,
+  meetingMinutes = 30,
 }: {
   form: Form;
   setForm: (f: Form) => void;
   label?: string;
+  meetingMinutes?: number;
   onBack: () => void;
   onNext: () => void;
 }) {
@@ -1930,7 +1942,7 @@ function StepContact({
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </SubmitBtn>
-      <FormNote>Sin compromiso · 30 min por videollamada</FormNote>
+      <FormNote>Sin compromiso · {meetingMinutes} min por videollamada</FormNote>
     </div>
   );
 }
@@ -2743,7 +2755,7 @@ function StepClineraNativo({
         </div>
       )}
       <FormNote>
-        <strong>Sin compromiso</strong> · Videollamada con el equipo Clinera
+        <strong>Sin compromiso</strong> · {config.duracionMin ?? 45} min por videollamada
       </FormNote>
     </div>
   );
