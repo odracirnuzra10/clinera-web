@@ -169,18 +169,24 @@ fallan en la misma tanda son un mensaje, no seis.
 
 ### Qué necesidad oye Camila
 
-«Prepare Call Data» lee la columna `Necesidad principal` de Baserow, que **no
-existe**: por eso Camila llamaba sin saber qué necesita el lead y caía siempre
-en el genérico "optimizar su gestión clínica".
+«Prepare Call Data» lee la columna `Necesidad principal` de Baserow (id 14264,
+texto largo), que **no existía**: por eso Camila llamaba sin saber qué necesita
+el lead y caía siempre en el genérico "optimizar su gestión clínica".
 
-Mientras esa columna no exista, para los leads de `/agenda` se usa `Software
-actual`, que es donde el wizard deja la respuesta a «¿cuál es tu principal
-necesidad?» — esa landing cambió la pregunta 1. En `/ventas` no se usa de
-reemplazo, porque ahí la columna sí guarda un software.
+Ahora la columna existe y el wizard la escribe desde `necesidad_principal_label`,
+que es la clave propia con que la landing manda la respuesta del paso 1 de
+`/agenda`. En `/ventas` el paso 1 sigue preguntando el software y esa columna
+queda vacía, como corresponde.
 
-Cuando se cree `Necesidad principal` (texto), manda ella y el respaldo deja de
-usarse solo. El token de Baserow del workspace no puede crear columnas, así que
-hay que hacerlo desde la interfaz.
+Queda además un respaldo en «Prepare Call Data»: si `Necesidad principal` viene
+vacía y el lead entró por `/agenda`, se usa `Software actual`. Cubre a los leads
+capturados antes de que existiera la columna. Ojo al rellenar hacia atrás: los
+leads de `/agenda` anteriores al cambio de la pregunta 1 tienen un software de
+verdad ahí (Dentalink, AgendaPro), y copiarlo como necesidad es peor que dejarlo
+vacío.
+
+El token de Baserow del workspace **no puede crear columnas** — eso necesita
+sesión de usuario, se hace desde la interfaz.
 
 ### El tool de reagenda en el asistente de Vapi
 
