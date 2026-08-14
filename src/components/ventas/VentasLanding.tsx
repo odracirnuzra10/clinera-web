@@ -2441,12 +2441,15 @@ function StepClineraNativo({
   onBooked: (b: CalBooking, confirmEventId: string) => void | Promise<void>;
   onFallback: () => void;
 }) {
-  // Días ofrecidos: los próximos 10 hábiles. La clínica atiende de lunes a
-  // viernes, así que ofrecer sábado y domingo solo lleva a "sin horas".
+  // Días ofrecidos: los próximos 10 hábiles, a partir de mañana. La clínica
+  // atiende de lunes a viernes, así que ofrecer el fin de semana solo lleva a
+  // "sin horas". Hoy tampoco se ofrece: para el día en curso la API arma la
+  // grilla desde la hora actual en UTC, no desde el horario de atención, y
+  // devuelve horas que no corresponden (02:45, 03:30…).
   const days = useMemo(() => {
     const base = new Date();
     const out: { ymd: string; date: Date }[] = [];
-    for (let i = 0; out.length < 10 && i < 21; i++) {
+    for (let i = 1; out.length < 10 && i < 21; i++) {
       const d = new Date(base.getFullYear(), base.getMonth(), base.getDate() + i);
       const dow = d.getDay();
       if (dow === 0 || dow === 6) continue;
