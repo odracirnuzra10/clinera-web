@@ -4443,7 +4443,7 @@ export function Pricing({
             // "Gratis" de la modalidad anual.
             const impl = isAnnual
               ? {
-                  strike: "#6B8A72",
+                  strike: th.sub,
                   pillBg: "#2F6A3F",
                   pillInk: "#FFFFFF",
                 }
