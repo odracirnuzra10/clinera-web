@@ -4337,7 +4337,10 @@ export function Pricing({
     <section
       id="precios"
       style={{
-        padding: hideHeader ? "12px 80px 112px" : isComparisonIntro ? "80px 80px 112px" : "112px 80px",
+        // Padding lateral más corto que el resto del sitio: las tres tarjetas
+        // necesitan ancho para que el precio y sus notas no se partan en dos
+        // líneas y estiren la caja a lo alto.
+        padding: hideHeader ? "12px 56px 112px" : isComparisonIntro ? "80px 56px 112px" : "112px 56px",
         background: "#FAFAFA",
         borderTop: hideHeader ? "none" : "1px solid #F0F0F0",
         position: "relative",
@@ -4355,7 +4358,7 @@ export function Pricing({
           pointerEvents: "none",
         }}
       />
-      <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
+      <div style={{ maxWidth: 1320, margin: "0 auto", position: "relative" }}>
         {!hideHeader && (
         <div className="reveal" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 26px" }}>
           <Eyebrow>{isComparisonIntro ? "Comparación" : "Planes"}</Eyebrow>
@@ -4505,9 +4508,9 @@ export function Pricing({
                     marginBottom: 18,
                   }}
                 >
-                  {/* La etiqueta y el monto se separan con gap generoso: con poco
-                      aire el mono en mayúsculas queda pegado a la cifra. */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 20, flexWrap: "wrap" }}>
+                  {/* Etiqueta y monto en UNA línea: si envuelven, el "$450 GRATIS"
+                      cae solo y la caja crece a lo alto sin necesidad. */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 14, flexWrap: "nowrap" }}>
                     <span
                       style={{
                         fontFamily: "'JetBrains Mono', ui-monospace, monospace",
@@ -4555,7 +4558,7 @@ export function Pricing({
 
                   <div aria-hidden style={{ height: 1, background: th.divider, margin: "18px 0" }} />
 
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 20 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
                     <div style={{ minWidth: 0 }}>
                       <div
                         style={{
