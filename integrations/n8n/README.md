@@ -187,6 +187,11 @@ cosas suyas:
   `cal_organizer_name` y pone el negocio a su nombre (Rebeca, Nohelymar), en
   vez del sorteo de encargada. Se aplica también cuando el negocio ya existía;
   si no hay profesional, no se reasigna a nadie.
-- **Agendar = MQL.** Tanto "Twenty - Crear Lead" como "Twenty - Agendó
-  (Cal.com)" dejan el negocio en `SCREENING` (MQL). Antes lo subían a `MEETING`
-  (SQL) y el embudo se saltaba el paso del closer.
+- **Todo lead entra como MQL.** "Twenty - Crear Lead" y "Twenty - Agendó
+  (Cal.com)" dejan el negocio en `SCREENING` (MQL), siempre. Subirlo a SQL o
+  SQL+ es decisión de ventas (Nohe, Rebe o Cheul) en el CRM: ni el formulario ni
+  el agendamiento lo hacen solos. Antes el agendamiento subía a `MEETING` (SQL)
+  y el embudo se saltaba el paso del closer.
+- **Qué cambia cuando un lead que ya existe agenda.** Solo la fecha de la demo y
+  el responsable (el profesional con quien quedó el Meet). La etapa no baja
+  nunca y tampoco sube: si ventas ya lo había marcado SQL, ahí se queda.
