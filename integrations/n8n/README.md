@@ -134,6 +134,99 @@ columna se comparte entre los dos agendadores.
 > que se reusó una existente. Si algún día se agrega una columna propia
 > (p. ej. `Meet eventId`), conviene mover esto ahí.
 
+## Por qué falló la llamada (en "OACG TECH | Vapi Outbound Trigger")
+
+Ese workflow tampoco vive acá — lleva credenciales y es anterior a `/agenda` —
+pero el 14 de agosto se le cambió el manejo de errores y conviene que quede
+escrito.
+
+**Lo que pasó:** la cuenta de Vapi se quedó sin saldo el 13 de agosto. Durante
+dos días, cada llamada devolvió `400 — "Your Wallet Balance is -0.09"`, y el
+workflow marcaba **todas** las filas como `Error / Número inválido`. Once leads
+reales quedaron sin contacto —dos de ellos con demo agendada— y el tablero
+decía que la base estaba sucia. Nadie se enteró hasta que se revisaron las
+ejecuciones a mano.
+
+Dos cosas lo hacían invisible: el motivo era mentira, y `Error` es un estado
+del que nadie vuelve — el cron solo toma las filas en `🕐 En cola`.
+
+**Lo que hace ahora** el nodo Code «Clasificar Fallo», colgado de la salida de
+error de «Vapi Trigger Call»:
+
+| Motivo | Cómo se detecta | Qué le pasa al lead | Avisa |
+|---|---|---|---|
+| `sin_saldo` | el mensaje menciona wallet balance / credits | vuelve a `🕐 En cola`, se le devuelve el intento gastado y se pone `📅 Próxima llamada` a +20 min | sí |
+| `numero_invalido` | `customer.number must be a valid phone…` | `Error / Número inválido` (como antes) | no |
+| `error_api` | cualquier otro rechazo | `Error / Error técnico`, con el mensaje real en el resumen | sí |
+
+Los +20 minutos usan una regla que el cron ya respetaba: así no reintenta cada
+diez minutos mientras el problema sigue sin resolverse, pero se recupera solo
+apenas hay crédito, sin que nadie reencole nada.
+
+El aviso va al mismo espacio de Google Chat, **una vez cada media hora por
+motivo**, con la cuenta de leads afectados en la ventana. Seis llamadas que
+fallan en la misma tanda son un mensaje, no seis.
+
+### Por qué 166 leads llevaban un mes sin llamada
+
+Baserow guarda `Intentos IA` como decimal: **`"1.00"`**. El cron
+(«OACG TECH \| Camila Cron · Clinera», nodo «Split Items») lo leía así:
+
+```js
+parseInt(String(row['Intentos IA'] || '0').replace(/[^0-9]/g, ''))
+```
+
+`"1.00"` → quitar los no-dígitos → `"100"` → **100 intentos**. Y la regla de
+más abajo es `if (intentos >= 3) skip`. O sea: **cualquier lead que recibiera
+una sola llamada quedaba marcado como agotado y no se volvía a llamar jamás**.
+Solo pasaban los que tenían el contador en 0 o vacío.
+
+Se leyó con `parseFloat`. Es la misma trampa que hay que evitar en cualquier
+sitio que lea un número de Baserow.
+
+Al arreglarlo se liberaban de golpe 164 leads atascados desde julio, con sus
+demos ya vencidas, así que se les puso `📅 Próxima llamada` a futuro para que
+el cron no los tome hasta que se decida qué hacer con ellos.
+
+Y como esos leads tienen fecha de demo pasada, «Prepare Call Data» ahora mira
+si la demo quedó atrás: si ya pasó, la llamada vuelve a ser de **agendamiento**
+en vez de confirmación. Llamar a alguien a «confirmar tu reunión del 14 de
+julio» es peor que no llamarlo.
+
+### Qué necesidad oye Camila
+
+«Prepare Call Data» lee la columna `Necesidad principal` de Baserow (id 14264,
+texto largo), que **no existía**: por eso Camila llamaba sin saber qué necesita
+el lead y caía siempre en el genérico "optimizar su gestión clínica".
+
+Ahora la columna existe y el wizard la escribe desde `necesidad_principal_label`,
+que es la clave propia con que la landing manda la respuesta del paso 1 de
+`/agenda`. En `/ventas` el paso 1 sigue preguntando el software y esa columna
+queda vacía, como corresponde.
+
+Queda además un respaldo en «Prepare Call Data»: si `Necesidad principal` viene
+vacía y el lead entró por `/agenda`, se usa `Software actual`. Cubre a los leads
+capturados antes de que existiera la columna. Ojo al rellenar hacia atrás: los
+leads de `/agenda` anteriores al cambio de la pregunta 1 tienen un software de
+verdad ahí (Dentalink, AgendaPro), y copiarlo como necesidad es peor que dejarlo
+vacío.
+
+El token de Baserow del workspace **no puede crear columnas** — eso necesita
+sesión de usuario, se hace desde la interfaz.
+
+### El tool de reagenda en el asistente de Vapi
+
+`solicitar_reagenda` está montado en el asistente **Agendador de Citas
+(Outbound)** (`d865820f-…`), junto a los tres que ya tenía. El prompt de Camila
+elige camino según `{{cal_booking_uid}}`:
+
+- **Cita de Cal.com** (uid normal) → sigue reagendando en vivo con
+  `get_available_slots` + `book_demo`, como siempre.
+- **Cita de Clinera** (uid vacío o que empieza con `clinera#`) → no puede
+  moverla: usar `get_available_slots` ahí crearía una reunión paralela en otro
+  calendario y dejaría la original ocupada. Pregunta cuándo le acomoda, llama a
+  `solicitar_reagenda` con esa preferencia textual y cierra sin prometer hora.
+
 ## camila-tool-solicitar-reagenda.workflow.json
 
 Tool de Vapi para **Camila**, la IA que llama a confirmar la reunión agendada.
