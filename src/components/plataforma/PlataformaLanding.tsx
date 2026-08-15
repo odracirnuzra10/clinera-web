@@ -138,7 +138,7 @@ function Hero() {
             Migramos tus datos, configuramos la operación y capacitamos a tu equipo.
           </p>
           <div className={styles.heroActions}>
-            <Link className={styles.primaryCta} href="/ventas">
+            <Link className={styles.primaryCta} href="/agenda">
               Ver Clinera con mi operación
               <Arrow />
             </Link>
@@ -348,7 +348,7 @@ function FinalCta() {
         <span className={styles.finalEyebrow}>IA enterprise para clínicas medianas</span>
         <h2>La solución enterprise de IA que usan las clínicas grandes, al alcance de la tuya.</h2>
         <p>En 30 minutos te mostramos cómo se verían tus sedes, tu equipo y tus procesos dentro de Clinera.</p>
-        <Link className={styles.finalButton} href="/ventas">Ver Clinera con mi operación <Arrow /></Link>
+        <Link className={styles.finalButton} href="/agenda">Ver Clinera con mi operación <Arrow /></Link>
         <div className={styles.finalMeta}>
           <span>Anual: 20% OFF + implementación gratis</span>
           <i />
