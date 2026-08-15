@@ -4658,23 +4658,6 @@ export function Pricing({
                     </div>
                   </div>
 
-                  {isSemester && (
-                    <div
-                      style={{
-                        fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                        fontSize: 10.5,
-                        fontWeight: 600,
-                        letterSpacing: ".03em",
-                        lineHeight: 1.5,
-                        color: th.accent,
-                        marginTop: 16,
-                        paddingTop: 14,
-                        borderTop: `1px solid ${th.divider}`,
-                      }}
-                    >
-                      Semestre: {p.semesterTotal} · {SEMESTER_DISCOUNT_PERCENT}% OFF
-                    </div>
-                  )}
                 </div>
 
                 {/* Un solo CTA: contratar. Sin "Agendar demo" compitiendo, el
