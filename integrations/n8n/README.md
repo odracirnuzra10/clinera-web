@@ -354,11 +354,34 @@ si Meta rechaza el evento, el negocio no queda marcado y se reintenta. El valor
 sale de `META_CAPI_VALUE_SQL_PLUS`, con 300 como default en el código — si esa
 variable está declarada en el entorno de n8n, **gana sobre el código**.
 
-**Doble conteo conocido, sin resolver:** el primero y el tercero mandan los dos
-el evento `SQL` con valor 100, pero con `event_id` de espacios distintos
-(`sql_<opportunityId de Twenty>` vs `sql_<row.id de Baserow 152>`). Meta
-deduplica por (`event_name`, `event_id`), así que **no se deduplican entre sí**:
-un lead que existe en los dos lados puede contarse dos veces como SQL.
+**Doble conteo, resuelto el 2026-08-19.** El primero y el tercero mandan los dos
+el evento `SQL` con valor 100. Cada uno usaba el id de su propio sistema
+(`sql_<opportunityId de Twenty>` vs `sql_<row.id de Baserow 152>`), y como Meta
+deduplica por (`event_name`, `event_id`) esos ids **nunca colisionaban**: un lead
+que existía en los dos lados se contaba —y se cobraba— dos veces.
+
+Ahora los dos arman el `event_id` con **el contacto hasheado**, que es lo único
+que ambos sistemas comparten:
+
+```
+event_id = 'sql_' + sha256( email en minúsculas y sin espacios
+                            || teléfono en dígitos, si no hay correo )
+```
+
+Dos cosas que hay que respetar al tocar cualquiera de los dos:
+
+1. **La normalización va IDÉNTICA en los dos.** Un `trim()` de más en uno rompe
+   la colisión en silencio: los eventos siguen saliendo, Meta sigue aceptándolos,
+   y el doble conteo vuelve sin ningún error visible.
+2. **No confundir el `event_id` con el anti-duplicado propio de cada workflow.**
+   El de Twenty sigue llevando su ledger en la static data por id de negocio, y
+   el de Baserow su columna `🎯 Evento SQL enviado` por fila. Esos evitan que
+   CADA workflow reenvíe lo suyo; el `event_id` compartido es lo que evita que
+   los DOS cuenten el mismo lead.
+
+`SQL` (US$ 100) y `SQL_Plus` (US$ 300) son eventos distintos a propósito y no se
+deduplican entre sí: son dos peldaños del embudo, no el mismo hecho contado dos
+veces.
 
 Además de los placeholders del workflow de reserva, este archivo lleva
 `__BASEROW_TOKEN__` en el nodo "Baserow - Meta ids".
