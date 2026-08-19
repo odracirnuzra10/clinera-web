@@ -13,15 +13,13 @@ import styles from "./HeroCarousel.module.css";
    siguiente vista viene sola. */
 
 const VIEWS = [
-  { id: "aura", label: "WhatsApp con IA", url: "app.clinera.io / conversaciones" },
-  { id: "intelligence", label: "Intelligence", url: "app.clinera.io / intelligence" },
-  { id: "red", label: "Consolidado", url: "app.clinera.io / consolidado-red" },
-  { id: "ficha", label: "Ficha clínica", url: "app.clinera.io / pacientes / ficha" },
-  { id: "odonto", label: "Odontograma", url: "app.clinera.io / pacientes / odontograma" },
-  { id: "corporal", label: "Ficha corporal", url: "app.clinera.io / pacientes / evaluacion" },
+  { id: "aura", label: "WhatsApp con IA", url: "app.clinera.io / conversaciones", hold: 9200 },
+  { id: "intelligence", label: "Intelligence", url: "app.clinera.io / intelligence", hold: 6200 },
+  { id: "red", label: "Consolidado", url: "app.clinera.io / consolidado-red", hold: 6000 },
+  { id: "ficha", label: "Ficha clínica", url: "app.clinera.io / pacientes / ficha", hold: 6400 },
+  { id: "odonto", label: "Odontograma", url: "app.clinera.io / pacientes / odontograma", hold: 6000 },
+  { id: "corporal", label: "Ficha corporal", url: "app.clinera.io / pacientes / evaluacion", hold: 6200 },
 ] as const;
-
-const ROTATION_MS = 5800;
 
 function Check() {
   return (
@@ -355,23 +353,42 @@ export default function HeroCarousel() {
   // Cambia en cada arranque de ciclo: reinicia la barra de progreso y el
   // contador sin desincronizarse del temporizador.
   const [run, setRun] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const frameRef = useRef<HTMLDivElement>(null);
   const reduced = useRef(false);
 
   useEffect(() => {
     reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }, []);
 
+  // Las escenas se reproducen sólo mientras la ventana está a la vista: si
+  // rotara desde la carga, quien llega scrolleando se pierde la animación.
   useEffect(() => {
-    if (paused || reduced.current) return;
-    const t = setTimeout(() => setActive((i) => (i + 1) % VIEWS.length), ROTATION_MS);
+    const el = frameRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setPlaying(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => setPlaying(entry.isIntersecting),
+      { threshold: 0.45 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (paused || !playing || reduced.current) return;
+    const t = setTimeout(() => setActive((i) => (i + 1) % VIEWS.length), VIEWS[active].hold);
     return () => clearTimeout(t);
-  }, [active, paused, run]);
+  }, [active, paused, playing, run]);
 
   const next = VIEWS[(active + 1) % VIEWS.length].label;
 
   return (
     <div
-      className={styles.frame}
+      ref={frameRef}
+      className={playing ? `${styles.frame} ${styles.playing}` : styles.frame}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => {
         setPaused(false);
@@ -397,7 +414,7 @@ export default function HeroCarousel() {
             {v.id === "ficha" && <ChartView />}
             {v.id === "odonto" && <OdontogramView />}
             {v.id === "corporal" && <BodyChartView />}
-            {v.id === "intelligence" && <IntelligenceView run={run} />}
+            {v.id === "intelligence" && <IntelligenceView run={playing ? run : -1} />}
           </div>
         ))}
       </div>
@@ -440,8 +457,8 @@ export default function HeroCarousel() {
           key={`${active}-${run}`}
           className={styles.progressFill}
           style={{
-            animationDuration: `${ROTATION_MS}ms`,
-            animationPlayState: paused ? "paused" : "running",
+            animationDuration: `${VIEWS[active].hold}ms`,
+            animationPlayState: paused || !playing ? "paused" : "running",
           }}
         />
       </div>

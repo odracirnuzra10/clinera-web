@@ -22,6 +22,11 @@
   to { opacity: 1; transform: none; }
 }
 
+/* Interruptor de escena: lo activa el observador de visibilidad. */
+.playing {
+  --scene: on;
+}
+
 .bar {
   min-height: 46px;
   display: grid;
@@ -97,7 +102,7 @@
   transition: opacity 420ms ease, transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.slideOn {
+.playing .slideOn {
   position: relative;
   opacity: 1;
   transform: none;
@@ -614,85 +619,89 @@
   to { transform: scaleX(1); }
 }
 
-.slideOn .view > * {
+.playing .slideOn .view > * {
   animation: riseIn 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.slideOn .view > *:nth-child(1) { animation-delay: 40ms; }
-.slideOn .view > *:nth-child(2) { animation-delay: 140ms; }
-.slideOn .view > *:nth-child(3) { animation-delay: 240ms; }
-.slideOn .view > *:nth-child(4) { animation-delay: 340ms; }
+.playing .slideOn .view > *:nth-child(1) { animation-delay: 40ms; }
+.playing .slideOn .view > *:nth-child(2) { animation-delay: 140ms; }
+.playing .slideOn .view > *:nth-child(3) { animation-delay: 240ms; }
+.playing .slideOn .view > *:nth-child(4) { animation-delay: 340ms; }
 
 /* Barras que se llenan en vez de aparecer llenas */
-.slideOn .branchList b i,
-.slideOn .bars b i {
+.playing .slideOn .branchList b i,
+.playing .slideOn .bars b i {
   transform-origin: left;
   animation: growBar 720ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.slideOn .branchList > div:nth-child(1) b i { animation-delay: 340ms; }
-.slideOn .branchList > div:nth-child(2) b i { animation-delay: 440ms; }
-.slideOn .branchList > div:nth-child(3) b i { animation-delay: 540ms; }
+.playing .slideOn .branchList > div:nth-child(1) b i { animation-delay: 340ms; }
+.playing .slideOn .branchList > div:nth-child(2) b i { animation-delay: 440ms; }
+.playing .slideOn .branchList > div:nth-child(3) b i { animation-delay: 540ms; }
 
-.slideOn .bars > div:nth-child(1) b i { animation-delay: 420ms; }
-.slideOn .bars > div:nth-child(2) b i { animation-delay: 520ms; }
-.slideOn .bars > div:nth-child(3) b i { animation-delay: 620ms; }
+.playing .slideOn .bars > div:nth-child(1) b i { animation-delay: 420ms; }
+.playing .slideOn .bars > div:nth-child(2) b i { animation-delay: 520ms; }
+.playing .slideOn .bars > div:nth-child(3) b i { animation-delay: 620ms; }
 
 /* KPIs uno a uno */
-.slideOn .kpiGrid > div {
+.playing .slideOn .kpiGrid > div {
   animation: riseIn 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.slideOn .kpiGrid > div:nth-child(1) { animation-delay: 180ms; }
-.slideOn .kpiGrid > div:nth-child(2) { animation-delay: 250ms; }
-.slideOn .kpiGrid > div:nth-child(3) { animation-delay: 320ms; }
-.slideOn .kpiGrid > div:nth-child(4) { animation-delay: 390ms; }
+.playing .slideOn .kpiGrid > div:nth-child(1) { animation-delay: 180ms; }
+.playing .slideOn .kpiGrid > div:nth-child(2) { animation-delay: 250ms; }
+.playing .slideOn .kpiGrid > div:nth-child(3) { animation-delay: 320ms; }
+.playing .slideOn .kpiGrid > div:nth-child(4) { animation-delay: 390ms; }
 
 /* Ficha clínica: chips y línea de tiempo */
-.slideOn .chips span {
+.playing .slideOn .chips span {
   animation: popIn 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.slideOn .chips span:nth-child(1) { animation-delay: 200ms; }
-.slideOn .chips span:nth-child(2) { animation-delay: 280ms; }
-.slideOn .chips span:nth-child(3) { animation-delay: 360ms; }
+.playing .slideOn .chips span:nth-child(1) { animation-delay: 200ms; }
+.playing .slideOn .chips span:nth-child(2) { animation-delay: 280ms; }
+.playing .slideOn .chips span:nth-child(3) { animation-delay: 360ms; }
 
-.slideOn .timeline li {
+.playing .slideOn .timeline li {
   animation: riseIn 440ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.slideOn .timeline li:nth-child(1) { animation-delay: 360ms; }
-.slideOn .timeline li:nth-child(2) { animation-delay: 450ms; }
-.slideOn .timeline li:nth-child(3) { animation-delay: 540ms; }
+.playing .slideOn .timeline li:nth-child(1) { animation-delay: 360ms; }
+.playing .slideOn .timeline li:nth-child(2) { animation-delay: 450ms; }
+.playing .slideOn .timeline li:nth-child(3) { animation-delay: 540ms; }
 
 /* El cierre verde entra al final, cuando ya se leyó el resto */
-.slideOn .nextUp,
-.slideOn .result {
+.playing .slideOn .nextUp,
+.playing .slideOn .result {
   animation: popIn 460ms cubic-bezier(0.16, 1, 0.3, 1) 700ms both;
 }
 
 /* Conversación: el "escribiendo" ocupa su turno y se apaga al llegar la
    respuesta, que aparece justo después. */
-.slideOn .thread p {
+.playing .slideOn .thread p {
   animation: riseIn 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Fila explícita para cada pieza — y columna, o el auto-placement abre una
+   segunda columna al compartir fila el "escribiendo" con la respuesta y las
+   burbujas quedan a media anchura. */
+.thread > * { grid-column: 1; }
 .thread p:nth-child(1) { grid-row: 1; }
 .thread p:nth-child(3) { grid-row: 2; }
 .thread p:nth-child(4) { grid-row: 3; }
 .systemEvent { grid-row: 4; }
 
-.slideOn .thread p:nth-child(1) { animation-delay: 150ms; }
-.slideOn .thread p:nth-child(3) { animation-delay: 1080ms; }
-.slideOn .thread p:nth-child(4) { animation-delay: 1450ms; }
+.playing .slideOn .thread p:nth-child(1) { animation-delay: 350ms; }
+.playing .slideOn .thread p:nth-child(3) { animation-delay: 2500ms; }
+.playing .slideOn .thread p:nth-child(4) { animation-delay: 3450ms; }
 
-.slideOn .systemEvent {
-  animation: popIn 420ms cubic-bezier(0.16, 1, 0.3, 1) 1780ms both;
+.playing .slideOn .systemEvent {
+  animation: popIn 480ms cubic-bezier(0.16, 1, 0.3, 1) 4250ms both;
 }
 
 /* En la vista de conversación el resto espera a que termine el hilo. */
-.slideOn .view:has(.thread) .callRow { animation-delay: 2100ms; }
-.slideOn .view:has(.thread) .result { animation-delay: 2330ms; }
+.playing .slideOn .view:has(.thread) .callRow { animation-delay: 5000ms; }
+.playing .slideOn .view:has(.thread) .result { animation-delay: 5700ms; }
 
 .typing {
   grid-column: 1;
@@ -716,16 +725,16 @@
   background: #b6bbc3;
 }
 
-.slideOn .typing {
-  animation: typingLife 780ms 330ms both;
+.playing .slideOn .typing {
+  animation: typingLife 1750ms 800ms both;
 }
 
-.slideOn .typing i {
+.playing .slideOn .typing i {
   animation: typingBounce 900ms ease-in-out infinite;
 }
 
-.slideOn .typing i:nth-child(2) { animation-delay: 140ms; }
-.slideOn .typing i:nth-child(3) { animation-delay: 280ms; }
+.playing .slideOn .typing i:nth-child(2) { animation-delay: 140ms; }
+.playing .slideOn .typing i:nth-child(3) { animation-delay: 280ms; }
 
 @keyframes typingLife {
   0% { opacity: 0; transform: translateY(6px); }
@@ -818,7 +827,7 @@
   opacity: 0;
 }
 
-.slideOn .scan {
+.playing .slideOn .scan {
   animation: scanDown 1700ms cubic-bezier(0.5, 0, 0.5, 1) 300ms 1 both;
 }
 
@@ -907,15 +916,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slideOn .view > *,
-  .slideOn .kpiGrid > div,
-  .slideOn .chips span,
-  .slideOn .timeline li,
-  .slideOn .thread p,
-  .slideOn .nextUp,
-  .slideOn .result,
-  .slideOn .branchList b i,
-  .slideOn .bars b i,
+  .playing .slideOn .view > *,
+  .playing .slideOn .kpiGrid > div,
+  .playing .slideOn .chips span,
+  .playing .slideOn .timeline li,
+  .playing .slideOn .thread p,
+  .playing .slideOn .nextUp,
+  .playing .slideOn .result,
+  .playing .slideOn .branchList b i,
+  .playing .slideOn .bars b i,
   .tooth,
   .progressFill,
   .upNextDot {
@@ -926,7 +935,7 @@
 
   .typing { display: none; }
 
-  .slideOn .scan { animation: none !important; }
+  .playing .slideOn .scan { animation: none !important; }
 }
 
 @media (max-width: 820px) {

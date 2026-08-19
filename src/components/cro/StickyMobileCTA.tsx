@@ -7,15 +7,15 @@ import Link from "next/link";
 export default function StickyMobileCTA() {
   const pathname = usePathname();
   const isDemo = pathname?.startsWith("/demo") === true;
-  // En /plataforma2 la barra lleva un solo CTA, el mismo que el resto de la
+  // En /plataforma la barra lleva un solo CTA, el mismo que el resto de la
   // página: dos acciones compitiendo diluyen la que importa.
-  const soloAgenda = pathname === "/plataforma2";
+  const soloAgenda = pathname === "/plataforma";
   // Páginas largas de conversión donde el CTA persistente ayuda en móvil.
   const enabled =
     isDemo ||
     pathname === "/" ||
     pathname === "/planes" ||
-    pathname === "/plataforma2" ||
+    pathname === "/plataforma" ||
     pathname?.startsWith("/comparativas") === true;
   const [show, setShow] = useState(false);
   const [dismissed, setDismissed] = useState(false);

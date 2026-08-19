@@ -1,7 +1,7 @@
 .section {
   position: relative;
   overflow: hidden;
-  padding: 116px 24px 120px;
+  padding: 82px 24px 86px;
   background: #fbfbfc;
   color: #111318;
 }
@@ -314,7 +314,7 @@
 
 @media (max-width: 760px) {
   .section {
-    padding: 86px 20px;
+    padding: 62px 20px;
   }
 
   .heading {
@@ -322,7 +322,7 @@
   }
 
   .heading h2 {
-    font-size: clamp(2.65rem, 12vw, 4rem);
+    font-size: clamp(1.95rem, 8vw, 2.7rem);
   }
 
   .heading p {
@@ -332,8 +332,8 @@
 
   .network {
     grid-template-columns: 1fr;
-    gap: 50px;
-    margin-top: 56px;
+    gap: 34px;
+    margin-top: 38px;
   }
 
   .aura {
@@ -361,13 +361,9 @@
 }
 
 @media (max-width: 520px) {
-  .inputGrid {
-    grid-template-columns: 1fr;
-  }
-
   .inputCard,
   .actionCard {
-    min-height: 68px;
+    min-height: 60px;
   }
 
   .auraStage {
