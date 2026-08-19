@@ -26,14 +26,14 @@ widget embebido).
 
 ### Tracking de conversión (Meta CAPI + GA4)
 
-El embudo tiene dos eventos, y cada uno se dispara desde donde realmente
+El embudo tiene tres eventos, y cada uno se dispara desde donde realmente
 ocurre:
 
 | Evento | Cuándo | Dónde vive | Valor |
 |---|---|---|---|
 | **MQL** | alguien agenda en `www.clinera.io/agenda` | este workflow | — |
 | **SQL** | el closer lo marca calificado en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 100 |
-| **SQL+** | el closer lo sube a propuesta en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 300 (total) |
+| **SQL_Plus** | el closer lo sube a propuesta en `crm.oacg.cl` | **solo en n8n**, ver abajo | US$ 300 |
 
 Al crear la cita, el workflow dispara **en paralelo** a la respuesta del
 navegador (nunca la demora ni la rompe):
@@ -272,10 +272,8 @@ sobre el mismo Meet.
 
 ## crm-sql-twenty.workflow.json
 
-El segundo evento del embudo: **SQL**, cuando el closer califica el lead en
-**crm.oacg.cl** (Twenty). Son dos peldaños, **SQL US$ 100** y **SQL+ US$ 300**,
-y los dos salen como el mismo evento `SQL` de Meta — lo que cambia es el valor,
-y `custom_data.crm_stage` dice cuál de los dos es.
+El segundo evento del embudo: **SQL** (US$ 100), cuando el closer marca el
+lead como calificado en **crm.oacg.cl** (Twenty).
 
 Webhook: `POST https://n8n.oacg.cl/webhook/crm-sql`
 
@@ -297,32 +295,8 @@ se ve en el tablero. El mapa del workspace OACG es:
 | `CUSTOMER` | Contrata |
 | `NQL` | NQL · No califica |
 
-La constante `ESCALERA` del nodo "Validar SQL" mapea cada etapa a su peldaño y
-su valor; acepta `meeting` y `proposal` y también las etiquetas `sql` / `sql+`,
-por si el webhook llegara desde otra vista. **No hay una segunda lista de
-etapas** que se pueda desincronizar: `ESCALERA[].etapas` es la única.
-
-### La escalera: un lead en SQL+ vale US$ 300 EN TOTAL
-
-El valor que viaja es **incremental**, no el del peldaño:
-
-| Camino del negocio | Eventos a Meta | Total del lead |
-|---|---|---|
-| MQL → SQL | `SQL` US$ 100 | US$ 100 |
-| MQL → SQL → SQL+ | `SQL` US$ 100 · `SQL` US$ 200 | US$ 300 |
-| MQL → SQL+ (salto directo) | `SQL` US$ 300 | US$ 300 |
-
-Un lead que llega a SQL+ vale 300 venga del camino que venga. Si el segundo
-evento mandara los 300 completos, cada lead que recorriera los dos peldaños
-inflaría el embudo en US$ 100 — hoy serían ~21 de 90 negocios.
-
-Dos detalles que sostienen esto y no se pueden tocar por separado:
-
-- **El `event_id` lleva el peldaño** (`sql_<negocio>` y `sqlplus_<negocio>`).
-  Meta deduplica por (`event_name`, `event_id`): con el mismo id, el SQL+ se
-  perdería contra el SQL que ya salió.
-- **La escalera no baja.** Devolver un negocio de SQL+ a SQL en el tablero
-  responde `escalon_ya_superado` y no cobra otra vez.
+`ETAPAS_SQL` acepta `meeting` y `proposal` (y también las etiquetas `sql` /
+`sql+`, por si el webhook llegara desde otra vista).
 
 ### Filtros antes de mandar la conversión
 
@@ -334,13 +308,8 @@ Dos detalles que sostienen esto y no se pueden tocar por separado:
    etapa la movió una automatización (`updatedBy.source = API`, que es como
    escribe n8n) responde `etapa_movida_por_automatizacion`. Por eso agendar
    deja el negocio en **MQL** y no lo sube solo a SQL.
-4. **Anti-duplicado por peldaño durante 90 días**, con `<id del registro>:<peldaño>`
-   como clave. Cada peldaño se cobra una sola vez, pero un mismo negocio puede
-   mandar su SQL y después su SQL+. Hasta agosto de 2026 la clave era sólo el
-   negocio, y por eso subir a SQL+ respondía `sql_ya_enviado` y Meta nunca se
-   enteraba del salto; el nodo **migra solo** esas claves viejas a `<negocio>:sql`
-   al primer evento que reciba, para que el primer SQL+ cobre el delta de 200 y
-   no los 300 completos.
+4. **Anti-duplicado por negocio durante 90 días**, con el `id` del registro
+   como clave. Mover SQL → SQL+ cuenta una sola vez.
 
 ### De dónde salen el contacto y los identificadores de Meta
 
@@ -356,15 +325,40 @@ guardarlos — así que el nodo **"Baserow - Meta ids"** los busca en la tabla 1
 (columnas `Meta fbc` / `Meta fbp`), que es donde el Wizard los deja al capturar
 el lead. Si no hay fila o vienen vacíos, el evento sale igual sin ellos.
 
-Los valores y la moneda salen de `ESCALERA` / `MONEDA` en el mismo nodo. El
-nodo `Meta CAPI - SQL` **no** conoce los montos: lee `value` de la salida de
-"Validar SQL", así que cambiar un precio no obliga a tocar el nodo que lleva el
-token de Meta.
+Valor y moneda salen de `VALOR_SQL` / `MONEDA` en el mismo nodo.
 
-`tests/n8n/crm-sql-escalera.check.js` corre el código real del nodo contra los
-stubs de n8n (`node tests/n8n/crm-sql-escalera.check.js`) y cubre los dos
-caminos, el salto directo, el retroceso, la migración de la clave vieja y los
-filtros previos. No toca la red ni manda nada a Meta.
+> [!IMPORTANT]
+> **Este workflow NO manda el SQL+.** `ETAPAS_SQL` acepta `proposal`, pero el
+> anti-duplicado usa el id del negocio como clave, así que un negocio que ya
+> mandó su SQL responde `sql_ya_enviado` al subir a SQL+. El SQL+ lo emite otro
+> workflow, y ese **no vive en este repo** — ver la sección siguiente. No sumarle
+> el SQL+ acá sin apagar el otro primero: serían dos conversiones por el mismo
+> salto.
+
+## Lo que NO está versionado: dos workflows más sobre el mismo pixel
+
+Descubierto el 2026-08-19 leyendo la instancia con la API. Los tres apuntan al
+pixel `1104567405156111`. Se anotan acá para que nadie vuelva a diseñar el
+embudo mirando solo este repo.
+
+| Workflow en n8n | Id | Evento | Valor | Disparo |
+|---|---|---|---|---|
+| `Clinera — SQL desde CRM (Twenty)` | `dhwqS9oW3qfvq6Y4` | `SQL` | US$ 100 | webhook de Twenty (este archivo) |
+| `CRM · SQL+ → Meta CAPI` | `rWZDSfi8RJ780q76` | `SQL_Plus` | US$ 300 | sondeo cada 5 min a `stage=PROPOSAL` |
+| `OACG TECH \| SQL Conversión Alto Valor` | `1erGwPkeneXUkqzG` | `SQL` | US$ 100 | Baserow tabla 152 + backstop 24 h |
+
+**`CRM · SQL+ → Meta CAPI`** sondea en vez de escuchar el webhook porque nació
+antes de que se confirmara que Twenty emite `opportunity.updated`. Lleva su
+propio ledger en la static data, que **solo confirma el nodo posterior al POST**:
+si Meta rechaza el evento, el negocio no queda marcado y se reintenta. El valor
+sale de `META_CAPI_VALUE_SQL_PLUS`, con 300 como default en el código — si esa
+variable está declarada en el entorno de n8n, **gana sobre el código**.
+
+**Doble conteo conocido, sin resolver:** el primero y el tercero mandan los dos
+el evento `SQL` con valor 100, pero con `event_id` de espacios distintos
+(`sql_<opportunityId de Twenty>` vs `sql_<row.id de Baserow 152>`). Meta
+deduplica por (`event_name`, `event_id`), así que **no se deduplican entre sí**:
+un lead que existe en los dos lados puede contarse dos veces como SQL.
 
 Además de los placeholders del workflow de reserva, este archivo lleva
 `__BASEROW_TOKEN__` en el nodo "Baserow - Meta ids".
