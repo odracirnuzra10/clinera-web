@@ -12,6 +12,7 @@ export default function StickyMobileCTA() {
     isDemo ||
     pathname === "/" ||
     pathname === "/planes" ||
+    pathname === "/plataforma2" ||
     pathname?.startsWith("/comparativas") === true;
   const [show, setShow] = useState(false);
   const [dismissed, setDismissed] = useState(false);
