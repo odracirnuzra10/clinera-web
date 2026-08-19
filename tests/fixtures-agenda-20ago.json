@@ -1,0 +1,154 @@
+[
+  {
+    "horaInicio": "10:00",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "10:45",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "10:45",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "11:30",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "11:30",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "12:15",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "12:15",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "13:00",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "13:00",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "13:45",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "13:45",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "14:30",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "14:30",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "15:15",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "15:15",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "16:00",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "16:00",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  },
+  {
+    "horaInicio": "16:45",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-b",
+      "name": "Profesional B"
+    }
+  },
+  {
+    "horaInicio": "16:45",
+    "duracionMin": 45,
+    "profesional": {
+      "id": "prof-a",
+      "name": "Profesional A"
+    }
+  }
+]

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import {
   buildCalLinkWithAttribution,
   getAttributionPayload,
@@ -243,7 +243,7 @@ type ClineraAgendaConfig = {
   duracionMin?: number;
 };
 
-type DispoSlot = {
+export type DispoSlot = {
   horaInicio: string;
   horaFin?: string;
   duracionMin?: number;
@@ -2422,6 +2422,144 @@ function toYMD(d: Date): string {
   return `${d.getFullYear()}-${m}-${day}`;
 }
 
+// ---------------------------------------------------------------------------
+// La API de disponibilidad manda las horas como TEXTO PLANO en hora de Chile
+// ("10:00"), sin zona. Un dueño de clínica en México leía ese 10:00 como suyo,
+// reservaba, y la reunión le quedaba a las 08:00 de su mañana. Acá el bloque se
+// ancla a un instante real para poder mostrarlo en la zona del visitante.
+//
+// Lo que se manda al webhook NO cambia: sigue siendo `horaInicio` en hora de
+// Chile. Esto es sólo lo que el visitante lee.
+// ---------------------------------------------------------------------------
+export const TZ_CLINICA = "America/Santiago";
+
+/** Offset de una zona para un instante dado, en minutos (-240 = GMT-4). */
+export function offsetZona(tz: string, instante: Date): number {
+  const partes = new Intl.DateTimeFormat("en-US", {
+    timeZone: tz,
+    hour12: false,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  }).formatToParts(instante);
+  const p: Record<string, string> = {};
+  for (const parte of partes) p[parte.type] = parte.value;
+  const comoUTC = Date.UTC(
+    Number(p.year),
+    Number(p.month) - 1,
+    Number(p.day),
+    Number(p.hour) % 24,
+    Number(p.minute),
+    Number(p.second),
+  );
+  return (comoUTC - (instante.getTime() - instante.getMilliseconds())) / 60000;
+}
+
+/**
+ * Instante real de un bloque `YYYY-MM-DD` + `HH:MM` expresado en hora de Chile.
+ * Dos pasadas a propósito: la primera da un offset aproximado y la segunda lo
+ * corrige si el ajuste cruzó el cambio de horario. El offset NO se escribe a
+ * mano — Chile pasa a GMT-3 el primer domingo de septiembre y una constante
+ * quedaría vieja ese día sin que nadie se entere.
+ */
+export function instanteEnChile(ymd: string, hhmm: string): Date {
+  const [Y, M, D] = ymd.split("-").map(Number);
+  const [h, m] = hhmm.split(":").map(Number);
+  const tentativo = Date.UTC(Y, (M || 1) - 1, D, h || 0, m || 0);
+  let ts = tentativo - offsetZona(TZ_CLINICA, new Date(tentativo)) * 60000;
+  ts = tentativo - offsetZona(TZ_CLINICA, new Date(ts)) * 60000;
+  return new Date(ts);
+}
+
+export function horaEnZona(instante: Date, tz: string): string {
+  return new Intl.DateTimeFormat("es-CL", {
+    timeZone: tz,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(instante);
+}
+
+/** Rótulo GMT±H de una zona para ese instante ("GMT-6", "GMT+5:30"). */
+export function etiquetaGmt(tz: string, instante: Date): string {
+  const min = offsetZona(tz, instante);
+  const abs = Math.abs(min);
+  const h = Math.floor(abs / 60);
+  const m = abs % 60;
+  return "GMT" + (min < 0 ? "-" : "+") + h + (m ? ":" + String(m).padStart(2, "0") : "");
+}
+
+/** Zona del visitante, o "" si el navegador no la expone o estamos en el server. */
+function zonaVisitante(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * Deja UN slot por hora, eligiendo a qué profesional le toca.
+ *
+ * Antes esto era un dedupe que conservaba la PRIMERA aparición, y no repartía
+ * nada: la API ordena por id de profesional de forma estable, así que la misma
+ * persona salía primera en 48 de cada 50 bloques y se llevaba todas las
+ * reuniones. Ahora gana quien tenga MÁS bloques libres ese día — más libres =
+ * menos agendado —, así el reparto se equilibra solo, sin llevar cuenta entre
+ * visitas (cada visitante reserva una vez y no sabe nada de los demás).
+ *
+ * Pura y exportada para poder probarla contra la respuesta real de la API.
+ */
+export function repartirSlots(slots: DispoSlot[]): DispoSlot[] {
+  const libres = new Map<string, number>();
+  const porHora = new Map<string, DispoSlot[]>();
+  for (const s of slots) {
+    if (!s.horaInicio) continue;
+    const id = s.profesional?.id ?? "";
+    libres.set(id, (libres.get(id) ?? 0) + 1);
+    const previos = porHora.get(s.horaInicio);
+    if (previos) previos.push(s);
+    else porHora.set(s.horaInicio, [s]);
+  }
+
+  // Contar sólo los bloques libres del día NO alcanza: es un número por
+  // persona, así que quien tenga uno más se lleva las 10 horas y volvemos al
+  // mismo problema con otro nombre. Hay que repartir también DENTRO del día,
+  // llevando cuenta de lo que ya se entregó en esta misma grilla.
+  //
+  // Cada visitante reserva un solo bloque, pero distintos visitantes eligen
+  // distintas horas: si las horas quedan repartidas entre las dos, el agregado
+  // se equilibra aunque nadie lleve un registro entre visitas.
+  const entregados = new Map<string, number>();
+  return Array.from(porHora.keys())
+    .sort((a, b) => a.localeCompare(b))
+    .map((horaInicio, i) => {
+      const cand = porHora.get(horaInicio) as DispoSlot[];
+      // El empate se rompe rotando por la posición de la hora, NO con
+      // Math.random(): esto corre dentro de un useMemo y la aleatoriedad haría
+      // saltar la asignación en cada recálculo, cambiándole el profesional al
+      // visitante bajo los pies.
+      let mejor = cand[0];
+      let mejorHolgura = -Infinity;
+      for (let j = 0; j < cand.length; j++) {
+        const c = cand[(j + i) % cand.length];
+        const id = c.profesional?.id ?? "";
+        const holgura = (libres.get(id) ?? 0) - (entregados.get(id) ?? 0);
+        if (holgura > mejorHolgura) {
+          mejor = c;
+          mejorHolgura = holgura;
+        }
+      }
+      const idMejor = mejor.profesional?.id ?? "";
+      entregados.set(idMejor, (entregados.get(idMejor) ?? 0) + 1);
+      return mejor;
+    });
+}
+
 function StepClineraNativo({
   form,
   config,
@@ -2522,18 +2660,36 @@ function StepClineraNativo({
 
   // Sin selector de profesional: acá nadie agenda por persona, agenda por hora
   // disponible. La API devuelve una entrada por profesional, así que cada hora
-  // se ofrece una sola vez y la reserva queda con el primero que la tenga
-  // libre.
-  const visibleSlots = useMemo(() => {
-    const seen = new Set<string>();
-    return slots
-      .filter((s) => {
-        if (!s.horaInicio || seen.has(s.horaInicio)) return false;
-        seen.add(s.horaInicio);
-        return true;
-      })
-      .sort((a, b) => a.horaInicio.localeCompare(b.horaInicio));
-  }, [slots]);
+  // se ofrece una sola vez y hay que elegir a quién le queda.
+  //
+  // Antes se conservaba la PRIMERA aparición, y eso no repartía nada: la API
+  // ordena por id de profesional de forma estable, así que la misma persona
+  // salía primera en 48 de cada 50 bloques y se llevaba todas las reuniones.
+  //
+  // Ahora gana quien tenga MÁS bloques libres ese día: más libres = menos
+  // agendado, así que el reparto se equilibra solo, sin llevar cuenta entre
+  // visitas (cada visitante reserva una vez y no sabe nada de los demás).
+  const visibleSlots = useMemo(() => repartirSlots(slots), [slots]);
+
+  // Zona del visitante. Va por useSyncExternalStore y no por useState porque el
+  // servidor no tiene navegador: el snapshot de servidor es "" y el de cliente
+  // la zona real, así que el primer render coincide en los dos lados y no hay
+  // error de hidratación. La zona no cambia durante la vida de la página, así
+  // que la suscripción no tiene nada que hacer.
+  const tzVisitante = useSyncExternalStore(
+    () => () => {},
+    zonaVisitante,
+    () => "",
+  );
+
+  // Instante de referencia del día visible, para comparar offsets y rotular.
+  const refInstante = useMemo(() => instanteEnChile(fechaEfectiva, "12:00"), [fechaEfectiva]);
+
+  // Se compara el OFFSET, no el nombre de la zona: alguien en Caracas está en
+  // GMT-4 igual que Chile en invierno, y mostrarle dos horas iguales sería
+  // ruido. Alguien en Punta Arenas sí difiere aunque también sea Chile.
+  const otraZona =
+    !!tzVisitante && offsetZona(tzVisitante, refInstante) !== offsetZona(TZ_CLINICA, refInstante);
 
   // La hora elegida solo vale si sigue existiendo en el día visible.
   const selectedSlot = visibleSlots.find((s) => s.horaInicio === hora) ?? null;
@@ -2557,7 +2713,11 @@ function StepClineraNativo({
           nombre: form.nombre.trim(),
           email: form.email.trim(),
           telefono: form.prefix + digits,
-          fecha,
+          // fechaEfectiva, no fecha: si el día que el visitante tocó se cayó de
+          // la tira porque el resumen dijo que no tenía horas, la grilla que
+          // está viendo es la de OTRO día. Reservar con `fecha` agendaba sobre
+          // el día que ya no se muestra.
+          fecha: fechaEfectiva,
           hora: slot.horaInicio,
           professionalId: slot.profesional?.id ?? "",
           professionalName: slot.profesional?.name ?? "",
@@ -2573,7 +2733,7 @@ function StepClineraNativo({
       if (!json.ok) throw new Error("turno no creado");
       await onBooked(
         {
-          date: `${fecha}T${slot.horaInicio}:00`,
+          date: `${fechaEfectiva}T${slot.horaInicio}:00`,
           duration: slot.duracionMin ?? config.duracionMin,
           organizer: slot.profesional?.name ? { name: slot.profesional.name } : undefined,
           confirmed: true,
@@ -2693,10 +2853,45 @@ function StepClineraNativo({
                     transition: "all .2s",
                   }}
                 >
-                  {s.horaInicio}
+                  {otraZona ? (
+                    <>
+                      <span style={{ display: "block" }}>
+                        {horaEnZona(instanteEnChile(fechaEfectiva, s.horaInicio), tzVisitante)}
+                      </span>
+                      <span
+                        style={{
+                          display: "block",
+                          fontSize: 10.5,
+                          fontWeight: 600,
+                          marginTop: 2,
+                          opacity: sel ? 0.7 : 0.5,
+                        }}
+                      >
+                        {s.horaInicio} CL
+                      </span>
+                    </>
+                  ) : (
+                    s.horaInicio
+                  )}
                 </button>
               );
             })}
+          </div>
+        )}
+        {!loadingSlots && !slotsError && visibleSlots.length > 0 && (
+          <div
+            style={{
+              fontFamily: "Inter",
+              fontSize: 12,
+              color: "#6B7280",
+              textAlign: "center",
+              marginTop: 10,
+              lineHeight: 1.45,
+            }}
+          >
+            {otraZona
+              ? `Horarios en tu hora local (${etiquetaGmt(tzVisitante, refInstante)}). La clínica atiende en hora de Chile (${etiquetaGmt(TZ_CLINICA, refInstante)}).`
+              : `Horarios en hora de Chile (${etiquetaGmt(TZ_CLINICA, refInstante)}).`}
           </div>
         )}
       </div>
