@@ -100,6 +100,9 @@ function AuraView() {
         <span className={styles.typing} aria-hidden="true"><i /><i /><i /></span>
         <p className={styles.outgoing}>Sí: mañana 10:00 con la Dra. Meza. ¿Se la agendo?</p>
         <p className={styles.incoming}>Dale, perfecto</p>
+        <span className={styles.systemEvent}>
+          <Check />Cita agendada en el sistema · jue 10:00 · Dra. Meza
+        </span>
       </div>
 
       <div className={styles.callRow}>
@@ -188,8 +191,8 @@ function Tooth({ state, index }: { state?: ToothState; index: number }) {
   if (state?.missing) {
     return (
       <g className={styles.tooth} style={{ animationDelay: delay }}>
-        <rect width="26" height="26" rx="4" fill="#f4f4f6" stroke="#e2e2e8" />
-        <path d="M7 7 19 19M19 7 7 19" stroke="#a8a8b3" strokeWidth="1.6" strokeLinecap="round" />
+        <rect width="26" height="26" rx="4" fill="var(--od-missing)" stroke="var(--od-missing-line)" />
+        <path d="M7 7 19 19M19 7 7 19" stroke="var(--od-x)" strokeWidth="1.6" strokeLinecap="round" />
       </g>
     );
   }
@@ -202,13 +205,13 @@ function Tooth({ state, index }: { state?: ToothState; index: number }) {
           <polygon
             key={face}
             points={FACE_POINTS[face]}
-            fill={mark ? FACE_FILL[mark] : "#fff"}
-            stroke={state?.corona ? "#7c3aed" : "#dcdce3"}
+            fill={mark ? FACE_FILL[mark] : "var(--od-face)"}
+            stroke={state?.corona ? "var(--od-crown)" : "var(--od-line)"}
             strokeWidth={state?.corona ? 1.1 : 0.8}
           />
         );
       })}
-      {state?.corona && <rect width="26" height="26" rx="3" fill="none" stroke="#7c3aed" strokeWidth="1.6" />}
+      {state?.corona && <rect width="26" height="26" rx="3" fill="none" stroke="var(--od-crown)" strokeWidth="1.6" />}
     </g>
   );
 }
@@ -224,7 +227,7 @@ function ToothRow({ codes, y, labelsBelow }: { codes: number[]; y: number; label
             y={labelsBelow ? 38 : -6}
             textAnchor="middle"
             fontSize="8.5"
-            fill="#9aa0aa"
+            fill="var(--od-num)"
             fontFamily="'JetBrains Mono', monospace"
           >
             {code}
@@ -249,7 +252,7 @@ function OdontogramView() {
       <div className={styles.odontoWrap}>
         <svg viewBox="-4 -14 502 108" className={styles.odonto} role="img" aria-label="Odontograma con hallazgos por pieza">
           <ToothRow codes={UPPER_TEETH} y={0} labelsBelow={false} />
-          <line x1="-4" y1="42" x2="498" y2="42" stroke="#eeecf1" strokeWidth="1" />
+          <line x1="-4" y1="42" x2="498" y2="42" stroke="var(--od-line)" strokeWidth="1" />
           <ToothRow codes={LOWER_TEETH} y={52} labelsBelow />
         </svg>
       </div>
@@ -257,8 +260,8 @@ function OdontogramView() {
       <div className={styles.legend}>
         <span><i style={{ background: "#ef4444" }} />Caries</span>
         <span><i style={{ background: "#3b82f6" }} />Obturado</span>
-        <span><i style={{ background: "#fff", border: "1.5px solid #7c3aed" }} />Corona</span>
-        <span><i style={{ background: "#f4f4f6", border: "1px solid #e2e2e8" }} />Ausente</span>
+        <span><i style={{ background: "var(--od-face)", border: "1.5px solid var(--od-crown)" }} />Corona</span>
+        <span><i style={{ background: "var(--od-missing)", border: "1px solid var(--od-missing-line)" }} />Ausente</span>
       </div>
 
       <div className={styles.nextUp}>

@@ -2,6 +2,13 @@
    ventana blanca con barra macOS, borde #e4e3e7 y sombra difusa. */
 
 .frame {
+  --od-face: #fff;
+  --od-line: #dcdce3;
+  --od-missing: #f4f4f6;
+  --od-missing-line: #e2e2e8;
+  --od-x: #a8a8b3;
+  --od-crown: #7c3aed;
+  --od-num: #9aa0aa;
   overflow: hidden;
   border: 1px solid #e4e3e7;
   border-radius: 18px;
@@ -78,7 +85,7 @@
 .stage {
   position: relative;
   /* Alto común a las seis vistas: si una empuja, la página salta al rotar. */
-  min-height: 400px;
+  min-height: 452px;
 }
 
 .slide {
@@ -99,6 +106,7 @@
 
 .view {
   display: grid;
+  align-content: start;
   gap: 14px;
   padding: 20px 22px;
 }
@@ -345,6 +353,23 @@
   border-radius: 12px 12px 4px 12px;
   background: #f2faf5;
   color: #1f5134;
+}
+
+/* Marca de sistema dentro de la conversación: la cita no queda sólo dicha
+   en el chat, queda escrita en la agenda. */
+.systemEvent {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  border: 1px dashed #cfe6d7;
+  border-radius: 999px;
+  background: #f6fbf8;
+  padding: 5px 11px;
+  color: #15803d;
+  font-size: 10.5px;
+  font-weight: 550;
 }
 
 .callRow {
@@ -649,15 +674,27 @@
   animation: riseIn 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.thread p:nth-child(1) { grid-row: 1; }
+.thread p:nth-child(3) { grid-row: 2; }
+.thread p:nth-child(4) { grid-row: 3; }
+.systemEvent { grid-row: 4; }
+
 .slideOn .thread p:nth-child(1) { animation-delay: 150ms; }
 .slideOn .thread p:nth-child(3) { animation-delay: 1080ms; }
 .slideOn .thread p:nth-child(4) { animation-delay: 1450ms; }
 
+.slideOn .systemEvent {
+  animation: popIn 420ms cubic-bezier(0.16, 1, 0.3, 1) 1780ms both;
+}
+
 /* En la vista de conversación el resto espera a que termine el hilo. */
-.slideOn .view:has(.thread) .callRow { animation-delay: 1750ms; }
-.slideOn .view:has(.thread) .result { animation-delay: 1980ms; }
+.slideOn .view:has(.thread) .callRow { animation-delay: 2100ms; }
+.slideOn .view:has(.thread) .result { animation-delay: 2330ms; }
 
 .typing {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
   justify-self: start;
   display: inline-flex;
   align-items: center;
@@ -690,8 +727,8 @@
 @keyframes typingLife {
   0% { opacity: 0; transform: translateY(6px); }
   14% { opacity: 1; transform: none; }
-  88% { opacity: 1; height: auto; }
-  100% { opacity: 0; height: 0; padding-top: 0; padding-bottom: 0; border-width: 0; margin-top: -8px; }
+  88% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 @keyframes typingBounce {
@@ -890,7 +927,7 @@
 }
 
 @media (max-width: 820px) {
-  .stage { min-height: 400px; }
+  .stage { min-height: 452px; }
 
   .kpiGrid { grid-template-columns: repeat(2, 1fr); }
   .kpiGrid > div:nth-child(2n) { border-right: 0; }
@@ -923,8 +960,31 @@
 }
 
 @media (max-width: 520px) {
-  .stage { min-height: 432px; }
+  .stage { min-height: 452px; }
   .view { padding: 16px; }
+
+  /* La conversación es la vista más larga: aquí se compacta para no obligar
+     al resto de las vistas a crecer con ella. */
+  .thread { gap: 6px; }
+
+  .thread p {
+    max-width: 88%;
+    padding: 8px 11px;
+    font-size: 11.5px;
+  }
+
+  .systemEvent {
+    padding: 4px 9px;
+    font-size: 9.5px;
+  }
+
+  .callRow { padding: 8px 10px; }
+
+  .avatar {
+    width: 26px;
+    height: 26px;
+    font-size: 9.5px;
+  }
 
   .legend { gap: 10px; font-size: 9.5px; }
   .tabs { padding: 9px; }
@@ -938,5 +998,161 @@
   .wave i {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+
+/* ============================================================
+   Móvil: la ventana va en oscuro. Sobre el hero claro gana peso
+   y las animaciones —barras, burbujas, escaneo— se leen mucho mejor.
+   ============================================================ */
+
+@media (max-width: 820px) {
+  .frame {
+    --od-face: #1b1e26;
+    --od-line: #3a4050;
+    --od-missing: #171a21;
+    --od-missing-line: #333947;
+    --od-x: #6b7280;
+    --od-crown: #a78bfa;
+    --od-num: #7e8695;
+    border-color: rgba(255, 255, 255, 0.09);
+    background: #111318;
+    box-shadow: 0 26px 60px -34px rgba(10, 8, 22, 0.7);
+  }
+
+  .bar {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    background: #15181f;
+  }
+
+  .dots i { opacity: 0.85; }
+
+  .url,
+  .eyebrow,
+  .panelLabel { color: #6f7683; }
+
+  .badge,
+  .livePill {
+    border-color: rgba(167, 139, 250, 0.28);
+    background: rgba(124, 58, 237, 0.16);
+    color: #c4b5fd;
+  }
+
+  .viewHead strong,
+  .kpiGrid strong,
+  .timeline strong,
+  .callRow strong,
+  .answerTotal,
+  .panelMeta dd { color: #f2f3f6; }
+
+  .synced,
+  .kpiGrid span,
+  .kpiGrid small,
+  .branchList small,
+  .timeline small,
+  .callRow small,
+  .tlDate,
+  .bars small,
+  .legend,
+  .zoneList b,
+  .panelMeta dt,
+  .answer > small { color: #868d9b; }
+
+  .branchList > div,
+  .bars > div,
+  .zoneList li,
+  .chips span { color: #c8ccd6; }
+
+  .kpiGrid,
+  .answer,
+  .callRow,
+  .bodyCard,
+  .zoneList li,
+  .chips span {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: #171a21;
+  }
+
+  .kpiGrid > div { border-right-color: rgba(255, 255, 255, 0.08); }
+
+  .branchList b,
+  .bars b { background: rgba(255, 255, 255, 0.08); }
+
+  .timeline li { border-left-color: rgba(167, 139, 250, 0.35); }
+
+  .chat,
+  .panelMeta { border-top-color: rgba(255, 255, 255, 0.08); }
+
+  .incoming {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: #1b1f28;
+    color: #d3d7df;
+  }
+
+  .outgoing {
+    border-color: rgba(34, 197, 94, 0.26);
+    background: rgba(34, 197, 94, 0.13);
+    color: #86efac;
+  }
+
+  .typing {
+    border-color: rgba(255, 255, 255, 0.08);
+    background: #1b1f28;
+  }
+
+  .typing i { background: #6b7280; }
+
+  .question {
+    border-color: rgba(167, 139, 250, 0.3);
+    background: rgba(124, 58, 237, 0.16);
+    color: #d8ccff;
+  }
+
+  .nextUp,
+  .result,
+  .systemEvent,
+  .tagOk {
+    border-color: rgba(34, 197, 94, 0.26);
+    background: rgba(34, 197, 94, 0.1);
+    color: #6ee7a8;
+  }
+
+  .tagOk {
+    border: 0;
+    background: none;
+  }
+
+  .bodyShot { background: #171a21; }
+
+  .tabs {
+    border-top-color: rgba(255, 255, 255, 0.08);
+    background: #15181f;
+  }
+
+  .tab { color: #868d9b; }
+
+  .tab:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #d3d7df;
+  }
+
+  .tabOn {
+    border-color: rgba(167, 139, 250, 0.3);
+    background: rgba(124, 58, 237, 0.18);
+    color: #c4b5fd;
+  }
+
+  .note {
+    border-top-color: rgba(255, 255, 255, 0.08);
+    color: #6f7683;
+  }
+
+  .upNext { color: #c4b5fd; }
+
+  .upNextDot { background: #a78bfa; }
+
+  .scan {
+    background: linear-gradient(180deg, rgba(167, 139, 250, 0) 0%, rgba(167, 139, 250, 0.24) 60%, rgba(167, 139, 250, 0) 100%);
   }
 }
