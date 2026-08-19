@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import styles from "./HeroCarousel.module.css";
 
@@ -12,12 +13,12 @@ import styles from "./HeroCarousel.module.css";
    siguiente vista viene sola. */
 
 const VIEWS = [
-  { id: "red", label: "Consolidado", url: "app.clinera.io / consolidado-red" },
   { id: "aura", label: "WhatsApp con IA", url: "app.clinera.io / conversaciones" },
+  { id: "intelligence", label: "Intelligence", url: "app.clinera.io / intelligence" },
+  { id: "red", label: "Consolidado", url: "app.clinera.io / consolidado-red" },
   { id: "ficha", label: "Ficha clínica", url: "app.clinera.io / pacientes / ficha" },
   { id: "odonto", label: "Odontograma", url: "app.clinera.io / pacientes / odontograma" },
   { id: "corporal", label: "Ficha corporal", url: "app.clinera.io / pacientes / evaluacion" },
-  { id: "intelligence", label: "Intelligence", url: "app.clinera.io / intelligence" },
 ] as const;
 
 const ROTATION_MS = 5800;
@@ -98,8 +99,7 @@ function AuraView() {
             que hace que la conversación se lea en vivo y no como captura. */}
         <span className={styles.typing} aria-hidden="true"><i /><i /><i /></span>
         <p className={styles.outgoing}>Sí: mañana 10:00 con la Dra. Meza. ¿Se la agendo?</p>
-        <p className={styles.incoming}>Sí, perfecto</p>
-        <p className={styles.outgoing}>Listo. Te confirmo por acá el día anterior.</p>
+        <p className={styles.incoming}>Dale, perfecto</p>
       </div>
 
       <div className={styles.callRow}>
@@ -270,48 +270,6 @@ function OdontogramView() {
 
 /* ---------- Ficha corporal ---------- */
 
-function BodySilhouette({ back = false }: { back?: boolean }) {
-  return (
-    <svg viewBox="0 0 100 174" className={styles.body} aria-hidden="true">
-      <g fill="#e6e6ee">
-        {/* Cabeza y cuello */}
-        <ellipse cx="50" cy="13" rx="9" ry="11" />
-        <path d="M45 21h10v8a5 5 0 0 1-10 0Z" />
-
-        {/* Tronco: hombros redondeados, cintura marcada, pelvis */}
-        <path d="M36 28h28a9 9 0 0 1 9 8l1.5 16h-49L27 36a9 9 0 0 1 9-8Z" />
-        <path d="M25.5 50h49l-2.5 17h-44Z" />
-        <path d="M28 64h44l-3.5 20a8 8 0 0 1-8 6H39.5a8 8 0 0 1-8-6Z" />
-
-        {/* Brazos: brazo y antebrazo, con hombro empalmado al tronco */}
-        <path d="M28 34a7 7 0 0 1 1 5l-2.5 24h-8l2-24a7 7 0 0 1 7.5-5Z" />
-        <path d="M72 34a7 7 0 0 0-1 5l2.5 24h8l-2-24A7 7 0 0 0 72 34Z" />
-        <rect x="18.5" y="58" width="8" height="27" rx="4" />
-        <rect x="73.5" y="58" width="8" height="27" rx="4" />
-
-        {/* Piernas: muslo ancho que se afina en la pantorrilla */}
-        <path d="M36.5 82h12.5l-1 40h-12Z" />
-        <path d="M51 82h12.5l.5 40h-12Z" />
-        <rect x="37" y="112" width="10.5" height="50" rx="5" />
-        <rect x="52.5" y="112" width="10.5" height="50" rx="5" />
-      </g>
-
-      {/* Zonas evaluadas: entran una a una y laten suave. */}
-      <g className={styles.zones}>
-        <rect className={styles.zoneAbdomen} x="39" y="46" width="22" height="21" rx="8" />
-        <ellipse className={styles.zoneFlank} cx="31" cy="55" rx="5" ry="10" />
-        <ellipse className={styles.zoneFlank} cx="69" cy="55" rx="5" ry="10" />
-        <ellipse className={styles.zoneThigh} cx="42.5" cy="100" rx="6.5" ry="17" />
-        <ellipse className={styles.zoneThigh} cx="57.5" cy="100" rx="6.5" ry="17" />
-      </g>
-
-      <text x="50" y="171" textAnchor="middle" fontSize="7" fill="#9aa0aa" fontFamily="'JetBrains Mono', monospace">
-        {back ? "POSTERIOR" : "ANTERIOR"}
-      </text>
-    </svg>
-  );
-}
-
 function BodyChartView() {
   return (
     <div className={styles.view}>
@@ -323,15 +281,31 @@ function BodyChartView() {
         <span className={styles.livePill}><i />Reducción localizada</span>
       </div>
 
+      {/* Evaluación corporal real del producto, encuadrada en las figuras;
+          el detalle del plan va al lado para aprovechar el ancho. */}
       <div className={styles.bodyCard}>
-        <div className={styles.bodyStage}>
-          <BodySilhouette />
-          <BodySilhouette back />
-        </div>
-        <div className={styles.bodyLegend}>
-          <span className={styles.legendAbdomen}><i />Abdomen</span>
-          <span className={styles.legendFlank}><i />Flancos</span>
-          <span className={styles.legendThigh}><i />Muslos</span>
+        <figure className={styles.bodyShot}>
+          <Image
+            src="/presentacion/eval-corporal.jpg"
+            alt="Evaluación corporal con abdomen, flancos y muslos marcados"
+            width={1600}
+            height={1022}
+            sizes="260px"
+          />
+          <span className={styles.scan} aria-hidden="true" />
+        </figure>
+
+        <div className={styles.bodyPanel}>
+          <span className={styles.panelLabel}>Zonas evaluadas</span>
+          <ul className={styles.zoneList}>
+            <li><i className={styles.zAbdomen} />Abdomen<b>3 sesiones</b></li>
+            <li><i className={styles.zFlank} />Flancos<b>2 sesiones</b></li>
+            <li><i className={styles.zThigh} />Muslos<b>1 sesión</b></li>
+          </ul>
+          <dl className={styles.panelMeta}>
+            <div><dt>Plan</dt><dd>Reducción localizada</dd></div>
+            <div><dt>Próxima</dt><dd>jue 14:30 · Dra. Reyes</dd></div>
+          </dl>
         </div>
       </div>
 
