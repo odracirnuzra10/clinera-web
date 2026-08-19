@@ -77,7 +77,8 @@
 
 .stage {
   position: relative;
-  min-height: 348px;
+  /* Alto común a las seis vistas: si una empuja, la página salta al rotar. */
+  min-height: 400px;
 }
 
 .slide {
@@ -651,11 +652,10 @@
 .slideOn .thread p:nth-child(1) { animation-delay: 150ms; }
 .slideOn .thread p:nth-child(3) { animation-delay: 1080ms; }
 .slideOn .thread p:nth-child(4) { animation-delay: 1450ms; }
-.slideOn .thread p:nth-child(5) { animation-delay: 1800ms; }
 
 /* En la vista de conversación el resto espera a que termine el hilo. */
-.slideOn .view:has(.thread) .callRow { animation-delay: 2050ms; }
-.slideOn .view:has(.thread) .result { animation-delay: 2300ms; }
+.slideOn .view:has(.thread) .callRow { animation-delay: 1750ms; }
+.slideOn .view:has(.thread) .result { animation-delay: 1980ms; }
 
 .typing {
   justify-self: start;
@@ -737,81 +737,134 @@
   border-radius: 2px;
 }
 
-/* Ficha corporal: las zonas evaluadas se encienden una a una */
+/* Ficha corporal: la evaluación real encuadrada en las figuras, con el
+   detalle del plan al lado y un barrido que la recorre al entrar. */
 .bodyCard {
   display: grid;
-  gap: 10px;
+  grid-template-columns: 196px minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
   border: 1px solid #eeecf1;
   border-radius: 12px;
   padding: 12px;
 }
 
-.bodyStage {
-  display: flex;
-  justify-content: center;
-  gap: 26px;
+.bodyShot {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  height: 211px;
+  border-radius: 9px;
+  background: #fbfbfc;
 }
 
-.body {
-  width: 120px;
-  height: auto;
+.bodyShot img {
+  width: 100%;
+  height: 100%;
+  /* La imagen es apaisada y las figuras van al centro: cover recorta el
+     blanco de los costados en vez de encogerlas. */
+  object-fit: cover;
+  /* Un punto de zoom más: deja fuera el marco y los rótulos del asset y
+     encuadra sólo las dos figuras. */
+  object-position: center 39%;
+  transform: scale(1.3);
 }
 
-.zoneAbdomen { fill: #f59e0b; }
-.zoneFlank { fill: #06b6d4; }
-.zoneThigh { fill: #7c3aed; }
-
-.zones > * {
+.scan {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 36%;
+  background: linear-gradient(180deg, rgba(124, 58, 237, 0) 0%, rgba(124, 58, 237, 0.16) 60%, rgba(124, 58, 237, 0) 100%);
   opacity: 0;
 }
 
-.slideOn .zones > * {
-  animation: zoneIn 520ms cubic-bezier(0.16, 1, 0.3, 1) both, zoneBreathe 2.8s ease-in-out 1.2s infinite;
-  transform-origin: center;
+.slideOn .scan {
+  animation: scanDown 1700ms cubic-bezier(0.5, 0, 0.5, 1) 300ms 1 both;
 }
 
-.slideOn .zones > *:nth-child(1) { animation-delay: 320ms, 1.2s; }
-.slideOn .zones > *:nth-child(2),
-.slideOn .zones > *:nth-child(3) { animation-delay: 470ms, 1.4s; }
-.slideOn .zones > *:nth-child(4),
-.slideOn .zones > *:nth-child(5) { animation-delay: 620ms, 1.6s; }
-
-@keyframes zoneIn {
-  from { opacity: 0; transform: scale(0.7); }
-  to { opacity: 0.62; transform: scale(1); }
+@keyframes scanDown {
+  0% { transform: translateY(-40%); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(290%); opacity: 0; }
 }
 
-@keyframes zoneBreathe {
-  0%, 100% { opacity: 0.62; }
-  50% { opacity: 0.4; }
-}
-
-.bodyLegend {
+.bodyPanel {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  border-top: 1px solid #f2f1f5;
-  padding-top: 10px;
-  color: #7c8089;
-  font-size: 10.5px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.bodyLegend span {
-  display: inline-flex;
+.panelLabel {
+  color: #858b95;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.zoneList {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.zoneList li {
+  display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  border: 1px solid #eeecf1;
+  border-radius: 9px;
+  padding: 7px 10px;
+  color: #40454e;
+  font-size: 11.5px;
 }
 
-.bodyLegend i {
+.zoneList i {
   width: 9px;
   height: 9px;
   border-radius: 2px;
 }
 
-.legendAbdomen i { background: #f59e0b; }
-.legendFlank i { background: #06b6d4; }
-.legendThigh i { background: #7c3aed; }
+.zoneList b {
+  margin-left: auto;
+  color: #7c8089;
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+.zAbdomen { background: #f0a63c; }
+.zFlank { background: #56c1e8; }
+.zThigh { background: #8b3ff0; }
+
+.panelMeta {
+  display: grid;
+  gap: 6px;
+  margin: auto 0 0;
+  border-top: 1px solid #f2f1f5;
+  padding-top: 10px;
+}
+
+.panelMeta > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.panelMeta dt {
+  color: #858b95;
+  font-size: 10px;
+}
+
+.panelMeta dd {
+  margin: 0;
+  color: #111318;
+  font-size: 11.5px;
+  font-weight: 550;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .slideOn .view > *,
@@ -833,14 +886,11 @@
 
   .typing { display: none; }
 
-  .slideOn .zones > * {
-    animation: none !important;
-    opacity: 0.62 !important;
-  }
+  .slideOn .scan { animation: none !important; }
 }
 
 @media (max-width: 820px) {
-  .stage { min-height: 360px; }
+  .stage { min-height: 400px; }
 
   .kpiGrid { grid-template-columns: repeat(2, 1fr); }
   .kpiGrid > div:nth-child(2n) { border-right: 0; }
@@ -850,13 +900,33 @@
   .bars > div { grid-template-columns: 92px 1fr 68px; }
 }
 
+@media (max-width: 640px) {
+  /* La ficha corporal mantiene las dos columnas: apilarlas la haría más alta
+     que el resto de las vistas y la ventana saltaría al rotar. */
+  .bodyCard {
+    grid-template-columns: 126px minmax(0, 1fr);
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .bodyShot { height: 196px; }
+
+  .zoneList li {
+    gap: 6px;
+    padding: 6px 8px;
+    font-size: 10.5px;
+  }
+
+  .zoneList b { font-size: 9.5px; }
+
+  .panelMeta dd { font-size: 10.5px; text-align: right; }
+}
+
 @media (max-width: 520px) {
-  .stage { min-height: 400px; }
+  .stage { min-height: 432px; }
   .view { padding: 16px; }
 
   .legend { gap: 10px; font-size: 9.5px; }
-  .bodyStage { gap: 14px; }
-  .body { width: 96px; }
   .tabs { padding: 9px; }
   .tab { font-size: 10.5px; padding: 5px 9px; }
 }
