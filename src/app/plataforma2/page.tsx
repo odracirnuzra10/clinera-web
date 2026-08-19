@@ -6,7 +6,7 @@ import PlataformaLanding2, { FAQ } from "@/components/plataforma2/PlataformaLand
 export const metadata: Metadata = {
   title: "Clinera O.S. — El sistema operativo de tu clínica",
   description:
-    "Agenda, fichas, pagos y WhatsApp con IA en una sola plataforma. Migramos tus datos, configuramos la operación y capacitamos a tu equipo.",
+    "Todas las operaciones de tu clínica bajo un mismo sistema operativo con IA: agenda, fichas, tratamientos, pagos, marketing y WhatsApp. Migramos tus datos, configuramos la operación y capacitamos a tu equipo.",
   robots: { index: false, follow: false },
   alternates: { canonical: "https://www.clinera.io/plataforma" },
 };
