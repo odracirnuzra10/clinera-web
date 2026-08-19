@@ -33,6 +33,7 @@ ocurre:
 |---|---|---|---|
 | **MQL** | alguien agenda en `www.clinera.io/agenda` | este workflow | — |
 | **SQL** | el closer lo marca calificado en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 100 |
+| **SQL+** | el closer lo sube a propuesta en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 300 (total) |
 
 Al crear la cita, el workflow dispara **en paralelo** a la respuesta del
 navegador (nunca la demora ni la rompe):
@@ -271,8 +272,10 @@ sobre el mismo Meet.
 
 ## crm-sql-twenty.workflow.json
 
-El segundo evento del embudo: **SQL** (US$ 100), cuando el closer marca el
-lead como calificado en **crm.oacg.cl** (Twenty).
+El segundo evento del embudo: **SQL**, cuando el closer califica el lead en
+**crm.oacg.cl** (Twenty). Son dos peldaños, **SQL US$ 100** y **SQL+ US$ 300**,
+y los dos salen como el mismo evento `SQL` de Meta — lo que cambia es el valor,
+y `custom_data.crm_stage` dice cuál de los dos es.
 
 Webhook: `POST https://n8n.oacg.cl/webhook/crm-sql`
 
@@ -294,8 +297,32 @@ se ve en el tablero. El mapa del workspace OACG es:
 | `CUSTOMER` | Contrata |
 | `NQL` | NQL · No califica |
 
-`ETAPAS_SQL` acepta `meeting` y `proposal` (y también las etiquetas `sql` /
-`sql+`, por si el webhook llegara desde otra vista).
+La constante `ESCALERA` del nodo "Validar SQL" mapea cada etapa a su peldaño y
+su valor; acepta `meeting` y `proposal` y también las etiquetas `sql` / `sql+`,
+por si el webhook llegara desde otra vista. **No hay una segunda lista de
+etapas** que se pueda desincronizar: `ESCALERA[].etapas` es la única.
+
+### La escalera: un lead en SQL+ vale US$ 300 EN TOTAL
+
+El valor que viaja es **incremental**, no el del peldaño:
+
+| Camino del negocio | Eventos a Meta | Total del lead |
+|---|---|---|
+| MQL → SQL | `SQL` US$ 100 | US$ 100 |
+| MQL → SQL → SQL+ | `SQL` US$ 100 · `SQL` US$ 200 | US$ 300 |
+| MQL → SQL+ (salto directo) | `SQL` US$ 300 | US$ 300 |
+
+Un lead que llega a SQL+ vale 300 venga del camino que venga. Si el segundo
+evento mandara los 300 completos, cada lead que recorriera los dos peldaños
+inflaría el embudo en US$ 100 — hoy serían ~21 de 90 negocios.
+
+Dos detalles que sostienen esto y no se pueden tocar por separado:
+
+- **El `event_id` lleva el peldaño** (`sql_<negocio>` y `sqlplus_<negocio>`).
+  Meta deduplica por (`event_name`, `event_id`): con el mismo id, el SQL+ se
+  perdería contra el SQL que ya salió.
+- **La escalera no baja.** Devolver un negocio de SQL+ a SQL en el tablero
+  responde `escalon_ya_superado` y no cobra otra vez.
 
 ### Filtros antes de mandar la conversión
 
@@ -307,8 +334,13 @@ se ve en el tablero. El mapa del workspace OACG es:
    etapa la movió una automatización (`updatedBy.source = API`, que es como
    escribe n8n) responde `etapa_movida_por_automatizacion`. Por eso agendar
    deja el negocio en **MQL** y no lo sube solo a SQL.
-4. **Anti-duplicado por negocio durante 90 días**, con el `id` del registro
-   como clave. Mover SQL → SQL+ cuenta una sola vez.
+4. **Anti-duplicado por peldaño durante 90 días**, con `<id del registro>:<peldaño>`
+   como clave. Cada peldaño se cobra una sola vez, pero un mismo negocio puede
+   mandar su SQL y después su SQL+. Hasta agosto de 2026 la clave era sólo el
+   negocio, y por eso subir a SQL+ respondía `sql_ya_enviado` y Meta nunca se
+   enteraba del salto; el nodo **migra solo** esas claves viejas a `<negocio>:sql`
+   al primer evento que reciba, para que el primer SQL+ cobre el delta de 200 y
+   no los 300 completos.
 
 ### De dónde salen el contacto y los identificadores de Meta
 
@@ -324,7 +356,15 @@ guardarlos — así que el nodo **"Baserow - Meta ids"** los busca en la tabla 1
 (columnas `Meta fbc` / `Meta fbp`), que es donde el Wizard los deja al capturar
 el lead. Si no hay fila o vienen vacíos, el evento sale igual sin ellos.
 
-Valor y moneda salen de `VALOR_SQL` / `MONEDA` en el mismo nodo.
+Los valores y la moneda salen de `ESCALERA` / `MONEDA` en el mismo nodo. El
+nodo `Meta CAPI - SQL` **no** conoce los montos: lee `value` de la salida de
+"Validar SQL", así que cambiar un precio no obliga a tocar el nodo que lleva el
+token de Meta.
+
+`tests/n8n/crm-sql-escalera.check.js` corre el código real del nodo contra los
+stubs de n8n (`node tests/n8n/crm-sql-escalera.check.js`) y cubre los dos
+caminos, el salto directo, el retroceso, la migración de la clave vieja y los
+filtros previos. No toca la red ni manda nada a Meta.
 
 Además de los placeholders del workflow de reserva, este archivo lleva
 `__BASEROW_TOKEN__` en el nodo "Baserow - Meta ids".
