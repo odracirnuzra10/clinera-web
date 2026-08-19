@@ -530,19 +530,22 @@
 }
 
 .tabOn {
-  position: relative;
-  overflow: hidden;
   border-color: #e6e1f5;
   background: #f8f6ff;
   color: #6d28d9;
 }
 
-/* Cuenta regresiva visible del ciclo: al llegar al final, cambia la vista. */
-.tabProgress {
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 2px;
-  background: linear-gradient(90deg, #3b82f6, #7c3aed);
+/* Cuenta regresiva del ciclo, al pie de la ventana: cruza todo el ancho, así
+   se ve completa aunque los tabs caigan en dos filas. */
+.progressTrack {
+  height: 4px;
+  background: #ece9f2;
+}
+
+.progressFill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #7c3aed, #d946ef);
   transform-origin: left;
   animation-name: fillBar;
   animation-timing-function: linear;
@@ -914,7 +917,7 @@
   .slideOn .branchList b i,
   .slideOn .bars b i,
   .tooth,
-  .tabProgress,
+  .progressFill,
   .upNextDot {
     animation: none !important;
     opacity: 1 !important;
@@ -1146,6 +1149,12 @@
   .note {
     border-top-color: rgba(255, 255, 255, 0.08);
     color: #6f7683;
+  }
+
+  .progressTrack { background: rgba(255, 255, 255, 0.07); }
+
+  .progressFill {
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #e879f9);
   }
 
   .upNext { color: #c4b5fd; }
