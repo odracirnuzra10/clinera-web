@@ -116,7 +116,9 @@ export default function AuraNetwork() {
     <section className={styles.section} aria-labelledby="aura-network-title">
       <div className={styles.heading}>
         <span>Todo conectado · una sola IA</span>
-        <h2 id="aura-network-title">Todas tus sedes, <em>en una sola IA.</em></h2>
+        <h2 id="aura-network-title">
+          Todas las operaciones, bajo <em>un mismo sistema operativo con IA.</em>
+        </h2>
         <p>
           Agenda, fichas, tratamientos, pagos, marketing y WhatsApp de cada sede alimentan un solo
           núcleo. Clinera aprende de toda tu operación y actúa con visibilidad y control central.

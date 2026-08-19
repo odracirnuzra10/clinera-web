@@ -1,8 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+import NavV3 from "@/components/brand-v3/Nav";
+import FooterV3 from "@/components/brand-v3/Footer";
 import { CnnLogo } from "@/components/brand-v3/Brand";
-import { IntelligencePlataformaSection } from "@/components/IntelligenceSection";
 import AuraNetwork from "./AuraNetwork";
+import CtaLink from "./CtaLink";
+import HeroCarousel from "./HeroCarousel";
 import PlanesSection from "./PlanesSection";
 import styles from "./PlataformaLanding.module.css";
 
@@ -23,25 +26,32 @@ const PARTNERS = [
 ];
 
 const MIGRATION_STEPS = [
+  { number: "01", title: "Migramos", copy: "Pacientes, agendas y datos históricos desde tu sistema actual." },
+  { number: "02", title: "Configuramos", copy: "Sedes, roles, precios, protocolos y automatizaciones." },
+  { number: "03", title: "Capacitamos", copy: "Al equipo operativo y a quienes necesitan control gerencial." },
+  { number: "04", title: "Entregamos", copy: "Validamos contigo y activamos una operación lista para trabajar." },
+];
+
+export const FAQ = [
   {
-    number: "01",
-    title: "Migramos",
-    copy: "Importamos pacientes, agendas y datos históricos desde tu sistema actual.",
+    q: "¿Se integra con Reservo, AgendaPro o Medilink?",
+    a: "No. Clinera opera sobre su propia agenda, ficha clínica y módulo de pagos — por eso migramos tus datos en el onboarding en vez de sincronizar dos sistemas. Para conectar otras herramientas tienes Webhooks y API pública (n8n, Make, Zapier) en los planes Atlas y Summit.",
   },
   {
-    number: "02",
-    title: "Configuramos",
-    copy: "Preparamos sedes, roles, precios, protocolos y automatizaciones.",
+    q: "¿Qué pasa con el software que usamos hoy y cómo validan la migración?",
+    a: "Revisamos tu sistema actual y definimos qué se migra antes de intervenir la operación. Mapeamos los datos, hacemos controles de integridad y validamos contigo las excepciones antes de la entrega.",
   },
   {
-    number: "03",
-    title: "Capacitamos",
-    copy: "Entrenamos al equipo operativo y a quienes necesitan control gerencial.",
+    q: "¿Cuánto demora la implementación y cuánto cuesta?",
+    a: "Depende del volumen de datos, las sedes y las integraciones; el alcance y el calendario quedan definidos antes de comenzar. La implementación tiene un costo único de USD 450, incluido sin costo si contratas el plan anual.",
   },
   {
-    number: "04",
-    title: "Entregamos",
-    copy: "Validamos contigo y activamos una operación lista para trabajar.",
+    q: "¿Hay permanencia?",
+    a: "Sí. Todos los planes tienen una permanencia mínima de 6 meses. Puedes pagar mes a mes, anticipar el semestre con 20% de descuento, o anticipar el año con 20% de descuento y la implementación de USD 450 incluida sin costo.",
+  },
+  {
+    q: "¿Cómo protegen los datos de los pacientes?",
+    a: "Datos aislados por clínica, cifrado AES-256-GCM con Cloud KMS, accesos registrados, backups con point-in-time recovery y operación conforme a la Ley 20.584.",
   },
 ];
 
@@ -61,63 +71,6 @@ function Check() {
   );
 }
 
-function NetworkConsole() {
-  return (
-    <div className={styles.console} aria-label="Vista de control multi-sede de Clinera">
-      <div className={styles.consoleBar}>
-        <div className={styles.windowDots} aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </div>
-        <span className={styles.consoleUrl}>app.clinera.io / consolidado-red</span>
-        <span className={styles.livePill}><i /> IA activa</span>
-      </div>
-
-      <div className={styles.consoleBody}>
-        <div className={styles.consoleData}>
-          <div className={styles.consoleHeading}>
-            <div>
-              <span className={styles.consoleEyebrow}>Consolidado de red</span>
-              <strong>3 sedes · este mes</strong>
-            </div>
-            <span className={styles.synced}>Sincronizado hace 40 s</span>
-          </div>
-
-          <div className={styles.kpiGrid}>
-            <div><span>Citas</span><strong>2.347</strong><small>+11,4%</small></div>
-            <div><span>Ocupación</span><strong>83%</strong><small>+6 pts</small></div>
-            <div><span>No-show</span><strong>6,1%</strong><small>−8,3 pts</small></div>
-            <div><span>Recuperados</span><strong>184</strong><small>por IA</small></div>
-          </div>
-
-          <div className={styles.branchList}>
-            <div><span><i className={styles.violetDot} />Providencia</span><b><i style={{ width: "88%" }} /></b><small>88%</small></div>
-            <div><span><i className={styles.blueDot} />Las Condes</span><b><i style={{ width: "81%" }} /></b><small>81%</small></div>
-            <div><span><i className={styles.magentaDot} />Viña del Mar</span><b><i style={{ width: "74%" }} /></b><small>74%</small></div>
-          </div>
-        </div>
-
-        <div className={styles.consoleAgent}>
-          <div className={styles.agentHeading}>
-            <span className={styles.agentMark} aria-hidden="true">✦</span>
-            <div><strong>AURA</strong><small>Atiende las 3 sedes · 24/7</small></div>
-          </div>
-          <span className={styles.channelLabel}>Responde por texto</span>
-          <div className={styles.incoming}>Hola, ¿tienen hora mañana en Las Condes?</div>
-          <div className={styles.outgoing}>Sí: mañana 10:00 con la Dra. Meza. ¿Se la agendo?</div>
-          <div className={styles.callRow}>
-            <span className={styles.avatar}>MR</span>
-            <div><strong>Sra. Rojas</strong><small>en llamada · 00:14</small></div>
-            <span className={styles.wave} aria-hidden="true"><i /><i /><i /><i /><i /></span>
-          </div>
-          <div className={styles.agentResult}><Check />14 citas agendadas hoy</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
   return (
     <section className={styles.hero}>
@@ -125,38 +78,36 @@ function Hero() {
         <div className={styles.heroCopy}>
           <span className={styles.eyebrow}>Para clínicas con equipo, alto volumen o varias sedes</span>
           <h1>
-            Clinera O.S.
-            <span> El sistema operativo de tu clínica con IA.</span>
+            Todas las operaciones de tu clínica, bajo un mismo sistema operativo con IA.
+            <span>Clinera O.S.</span>
           </h1>
           <strong className={styles.enterpriseThesis}>
             Mucho más que un chatbot: el sistema por el que opera tu clínica, con la potencia
             enterprise de las clínicas grandes al alcance de la tuya.
           </strong>
           <p>
-            Agenda, tratamientos, pacientes, fichas clínicas, consentimientos, automatizaciones,
-            ventas, marketing y comunicación con IA por voz y texto — en una sola plataforma.
             Migramos tus datos, configuramos la operación y capacitamos a tu equipo.
           </p>
           <div className={styles.heroActions}>
-            <Link className={styles.primaryCta} href="/agenda">
-              Ver Clinera con mi operación
+            <CtaLink href="/agenda" id="hero-demo" location="hero" className={styles.primaryCta}>
+              Agendar demo de 30 min
               <Arrow />
-            </Link>
-            <Link className={styles.secondaryCta} href="#migracion">
-              Cómo migramos
-            </Link>
+            </CtaLink>
+            <CtaLink href="#precios" id="hero-planes" location="hero" className={styles.secondaryCta}>
+              Ver planes y precios
+            </CtaLink>
           </div>
           <div className={styles.proofLine} aria-label="Cifras de Clinera">
-            <span><strong>80+</strong> clínicas activas</span>
+            <span><strong>+52</strong> clínicas activas</span>
             <i />
-            <span><strong>500+</strong> profesionales</span>
+            <span><strong>+500</strong> profesionales</span>
             <i />
             <span><strong>10</strong> países</span>
           </div>
         </div>
         <div className={styles.heroProduct}>
-          <span className={styles.productLabel}>Multi-sede por diseño</span>
-          <NetworkConsole />
+          <span className={styles.productLabel}>Una sola plataforma · multi-sede por diseño</span>
+          <HeroCarousel />
         </div>
       </div>
     </section>
@@ -185,9 +136,9 @@ function CustomerResult() {
     <section className={styles.resultSection}>
       <div className={styles.resultGrid}>
         <div className={styles.resultNumber}>
-          <span>Resultado reportado por cliente</span>
-          <strong>−71%</strong>
-          <p>en costos de marketing</p>
+          <span>Promedio sobre 52 clínicas activas · abril 2026</span>
+          <strong>−73%</strong>
+          <p>en no-shows, comparando los 90 días previos y posteriores a Clinera</p>
         </div>
         <figure className={styles.testimonial}>
           <blockquote>“Clinera me permite crecer sin pagar de más.”</blockquote>
@@ -218,9 +169,6 @@ function PressCNN() {
           </p>
           <div className={styles.pressLinks}>
             <Link href="/prensa">Ver cobertura y prensa <Arrow /></Link>
-            <a href="https://www.youtube.com/watch?v=Gskr4kELyx4" target="_blank" rel="noreferrer">
-              Abrir en YouTube
-            </a>
           </div>
         </div>
 
@@ -228,6 +176,7 @@ function PressCNN() {
           <iframe
             src="https://player.vimeo.com/video/1205127087?badge=0&autopause=0&player_id=0&app_id=58479"
             title="Reportaje de CNN sobre Clinera"
+            loading="lazy"
             allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
             allowFullScreen
           />
@@ -277,23 +226,16 @@ function Migration() {
             <li>Backups + PITR</li>
           </ul>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function Trust() {
-  return (
-    <section className={styles.trustSection}>
-      <div className={styles.trustInner}>
-        <div>
-          <span className={styles.eyebrow}>Infraestructura conectada</span>
-          <h2>Opera sobre herramientas oficiales.</h2>
-        </div>
-        <div className={styles.partnerLogos}>
-          {PARTNERS.map((partner) => (
-            <Image key={partner.src} src={partner.src} alt={partner.alt} width={147} height={44} />
-          ))}
+        {/* La franja de partners vivía en su propia sección; aquí cierra la de
+            infraestructura sin sumar otro bloque de página. */}
+        <div className={styles.partnerRow}>
+          <span>Opera sobre herramientas oficiales</span>
+          <div className={styles.partnerLogos}>
+            {PARTNERS.map((partner) => (
+              <Image key={partner.src} src={partner.src} alt={partner.alt} width={132} height={40} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -301,25 +243,6 @@ function Trust() {
 }
 
 function FrequentlyAsked() {
-  const questions = [
-    {
-      q: "¿Qué pasa con el software que usamos hoy?",
-      a: "Revisamos tu sistema actual, definimos qué se migra y preparamos el cambio antes de intervenir la operación.",
-    },
-    {
-      q: "¿Cómo validan la migración?",
-      a: "Mapeamos los datos, hacemos controles de integridad y validamos contigo las excepciones antes de la entrega.",
-    },
-    {
-      q: "¿Cuánto demora la implementación?",
-      a: "Depende del volumen de datos, las sedes y las integraciones. El alcance y el calendario quedan definidos antes de comenzar.",
-    },
-    {
-      q: "¿Hay permanencia?",
-      a: "Sí. Todos los planes tienen una permanencia mínima de 6 meses. Puedes pagar mes a mes, anticipar el semestre con 20% de descuento, o anticipar el año con 20% de descuento y la implementación de USD 450 incluida sin costo.",
-    },
-  ];
-
   return (
     <section className={styles.faqSection}>
       <div className={styles.faqGrid}>
@@ -329,7 +252,7 @@ function FrequentlyAsked() {
           <p>El producto importa. La continuidad de tu clínica también.</p>
         </div>
         <div className={styles.faqList}>
-          {questions.map((item) => (
+          {FAQ.map((item) => (
             <details key={item.q}>
               <summary>{item.q}<span aria-hidden="true">+</span></summary>
               <p>{item.a}</p>
@@ -346,19 +269,19 @@ function FinalCta() {
     <section className={styles.finalCta}>
       <div className={styles.finalCtaInner}>
         <span className={styles.finalEyebrow}>IA enterprise para clínicas medianas</span>
-        <h2>La solución enterprise de IA que usan las clínicas grandes, al alcance de la tuya.</h2>
-        <p>En 30 minutos te mostramos cómo se verían tus sedes, tu equipo y tus procesos dentro de Clinera.</p>
-        <Link className={styles.finalButton} href="/agenda">Ver Clinera con mi operación <Arrow /></Link>
+        <h2>Te mostramos tu clínica dentro de Clinera.</h2>
+        <p>En 30 minutos, con tus sedes, tu equipo y tus procesos reales.</p>
+        <CtaLink href="/agenda" id="final-demo" location="cierre" className={styles.finalButton}>
+          Agendar demo de 30 min <Arrow />
+        </CtaLink>
         <div className={styles.finalMeta}>
-          <span>Anual: 20% OFF + implementación gratis</span>
-          <i />
           <span>Desde USD 279/mes</span>
+          <i />
+          <span>Anual: 20% OFF + implementación gratis</span>
           <i />
           <span>Permanencia mínima: 6 meses</span>
           <i />
           <span>Migración gestionada</span>
-          <i />
-          <span>WhatsApp Business API</span>
         </div>
       </div>
     </section>
@@ -367,18 +290,20 @@ function FinalCta() {
 
 export default function PlataformaLanding() {
   return (
-    <div className={styles.page}>
-      <Hero />
-      <ClientProof />
-      <AuraNetwork />
-      <IntelligencePlataformaSection />
-      <CustomerResult />
-      <PressCNN />
-      <Migration />
-      <PlanesSection />
-      <Trust />
-      <FrequentlyAsked />
-      <FinalCta />
-    </div>
+    <>
+      <NavV3 ctaHref="/agenda" />
+      <div className={styles.page}>
+        <Hero />
+        <ClientProof />
+        <AuraNetwork />
+        <CustomerResult />
+        <PressCNN />
+        <Migration />
+        <PlanesSection />
+        <FrequentlyAsked />
+        <FinalCta />
+      </div>
+      <FooterV3 />
+    </>
   );
 }

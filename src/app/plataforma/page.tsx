@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import PlataformaLanding from "@/components/plataforma/PlataformaLanding";
+import PlataformaLanding, { FAQ } from "@/components/plataforma/PlataformaLanding";
 
 export const metadata: Metadata = {
   title: "Clinera O.S. — El sistema operativo de tu clínica con IA",
   description:
-    "Clinera O.S.: agenda, tratamientos, pacientes, fichas clínicas, consentimientos, automatizaciones, ventas, marketing y comunicación con IA por voz y texto — con implementación gestionada.",
+    "Todas las operaciones de tu clínica bajo un mismo sistema operativo con IA: agenda, tratamientos, pacientes, fichas clínicas, consentimientos, automatizaciones, ventas, marketing y comunicación por voz y texto — con implementación gestionada.",
   alternates: { canonical: "https://www.clinera.io/plataforma" },
   openGraph: {
     url: "https://www.clinera.io/plataforma",
@@ -45,6 +45,18 @@ const softwareLd = {
   },
 };
 
+// Las mismas preguntas que rinde la página, para que Google y los motores de
+// IA citen la respuesta y no una versión inventada.
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
 export default function PlataformaPage() {
   return (
     <>
@@ -56,10 +68,12 @@ export default function PlataformaPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
 
-      <main>
-        <PlataformaLanding />
-      </main>
+      <PlataformaLanding />
     </>
   );
 }

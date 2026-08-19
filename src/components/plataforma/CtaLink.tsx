@@ -11,7 +11,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-/* Todos los CTAs de /plataforma2 pasan por aquí: sin esto no hay forma de
+/* Todos los CTAs de /plataforma pasan por aquí: sin esto no hay forma de
    saber qué bloque de la página convierte. */
 export default function CtaLink({ href, id, location, className, children }: Props) {
   return (
@@ -19,7 +19,7 @@ export default function CtaLink({ href, id, location, className, children }: Pro
       href={href}
       className={className}
       data-cta={id}
-      onClick={() => track("cta_click", { cta_id: id, cta_location: location, page: "plataforma2" })}
+      onClick={() => track("cta_click", { cta_id: id, cta_location: location, page: "plataforma" })}
     >
       {children}
     </Link>
