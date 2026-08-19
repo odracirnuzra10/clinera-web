@@ -416,17 +416,6 @@ export default function HeroCarousel() {
             }}
           >
             {v.label}
-            {i === active && (
-              <i
-                key={run}
-                className={styles.tabProgress}
-                style={{
-                  animationDuration: `${ROTATION_MS}ms`,
-                  animationPlayState: paused ? "paused" : "running",
-                }}
-                aria-hidden="true"
-              />
-            )}
           </button>
         ))}
       </div>
@@ -444,6 +433,18 @@ export default function HeroCarousel() {
           )}
         </span>
       </p>
+
+      <div className={styles.progressTrack} aria-hidden="true">
+        {/* La key incluye la vista: al rotar sola, la barra debe volver a cero. */}
+        <i
+          key={`${active}-${run}`}
+          className={styles.progressFill}
+          style={{
+            animationDuration: `${ROTATION_MS}ms`,
+            animationPlayState: paused ? "paused" : "running",
+          }}
+        />
+      </div>
     </div>
   );
 }

@@ -7,6 +7,9 @@ import Link from "next/link";
 export default function StickyMobileCTA() {
   const pathname = usePathname();
   const isDemo = pathname?.startsWith("/demo") === true;
+  // En /plataforma2 la barra lleva un solo CTA, el mismo que el resto de la
+  // página: dos acciones compitiendo diluyen la que importa.
+  const soloAgenda = pathname === "/plataforma2";
   // Páginas largas de conversión donde el CTA persistente ayuda en móvil.
   const enabled =
     isDemo ||
@@ -49,6 +52,7 @@ export default function StickyMobileCTA() {
   return (
     <>
       <div className="sticky-mobile-cta" role="region" aria-label="Acción rápida Clinera">
+        {!soloAgenda && (
         <a
           href="https://wa.me/56985581524?text=Hola%2C%20quiero%20asistencia%20con%20Clinera."
           target="_blank"
@@ -61,8 +65,9 @@ export default function StickyMobileCTA() {
           </svg>
           WhatsApp
         </a>
+        )}
         <Link
-          href="/hablar-con-ventas"
+          href={soloAgenda ? "/agenda" : "/hablar-con-ventas"}
           onClick={() => trackClick("agendar")}
           className="sticky-primary"
         >
@@ -70,7 +75,7 @@ export default function StickyMobileCTA() {
             <rect x="3" y="5" width="18" height="16" rx="2" />
             <path d="M16 3v4M8 3v4M3 10h18" />
           </svg>
-          Agendar reunión
+          {soloAgenda ? "Agendar demo de 30 min" : "Agendar reunión"}
         </Link>
         <button
           onClick={dismiss}
