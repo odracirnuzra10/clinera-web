@@ -106,25 +106,27 @@
 }
 
 @media (max-width: 820px) {
+  /* Más generoso que la ronda vacía (13px) pero por debajo del pedido de
+     18px: con 2+2 chips el panel ya pesa, y el tope real es ~650px útiles
+     de un in-app browser. */
   .panel {
-    padding: 13px 14px 12px;
+    padding: 12px 14px 10px;
     border-radius: 18px;
   }
 
-  /* En móvil las columnas van apiladas, no lado a lado: el contraste de fondo
-     ya distingue una de otra sin gastar una fila en decirlo. Por el mismo
-     motivo se saca el rótulo — es el segundo lugar donde ya se dice "esto es
-     una demo", después del contraste de color, y acá cada línea cuenta: el
-     paso completo (animación + pregunta + botones) tiene que entrar sin
-     scroll en un navegador in-app, que recorta el alto real bastante más de
-     lo que el viewport reportado sugiere. */
-  .badge,
-  .eyebrow {
+  /* El badge ("Clinera en funcionamiento") sigue oculto: el eyebrow + el
+     título ya nombran qué se muestra. El eyebrow sí vuelve — sin él el panel
+     oscuro se sentía un título suelto sobre la animación. */
+  .badge {
     display: none;
   }
 
+  .eyebrow {
+    margin-bottom: 6px;
+  }
+
   .title {
-    font-size: 17px;
+    font-size: 18px;
     margin-bottom: 8px;
   }
 }
