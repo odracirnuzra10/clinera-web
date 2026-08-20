@@ -22,6 +22,7 @@ import {
 } from "@/components/home-v3/sections";
 import { IntelligencePlataformaSection } from "@/components/IntelligenceSection";
 import HeroCarousel from "@/components/plataforma/HeroCarousel";
+import AuraNetwork from "@/components/plataforma/AuraNetwork";
 import {
   ANNUAL_DISCOUNT_PERCENT,
   CLINERA_PLANS,
@@ -114,6 +115,7 @@ export default function SoftwareVerticalLanding({
         <Hero content={content} agendaHref={agendaHref} />
         <Logos />
         <Includes content={content} />
+        <AuraNetwork />
         <ModosAgendamiento />
         <DeepDive content={content} />
         <AgentShowcase
@@ -348,8 +350,8 @@ function DeepDive({ content }: { content: SoftwareVerticalContent }) {
             <Image
               src={deepDive.imageSrc}
               alt={deepDive.imageAlt ?? ""}
-              width={1600}
-              height={1022}
+              width={708}
+              height={478}
               sizes="(max-width: 1080px) 100vw, 560px"
               style={{ width: "100%", height: "auto", borderRadius: 16, border: "1px solid #EAEAEA" }}
             />

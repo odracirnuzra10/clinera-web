@@ -211,6 +211,8 @@ export const DENTAL: SoftwareVerticalContent = {
     eyebrow: "Odontograma",
     h2: "Odontograma FDI, por pieza y por cara",
     body: "Marcas el hallazgo en la pieza, armas el presupuesto y lo mandas por WhatsApp. El odontograma vive en la ficha del paciente — no es un módulo suelto ni un PDF escaneado.",
+    imageSrc: "/presentacion/odontograma.webp",
+    imageAlt: "Odontograma de Clinera: arcadas, hallazgos por pieza y por cara",
     bullets: [
       "Nomenclatura FDI, hallazgos por pieza y cara",
       "Presupuesto generado desde lo marcado",
