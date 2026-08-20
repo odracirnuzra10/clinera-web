@@ -465,17 +465,22 @@ export default function VentasLanding({
            fluyendo con su alto natural. */
         .ventas-hero-centrado { min-height: 100svh; }
         @supports not (min-height: 100svh) { .ventas-hero-centrado { min-height: 100vh; } }
-        /* En móvil las dos columnas apiladas superan la ventana: forzar el alto
-           dejaría un vacío bajo el wizard. */
-        @media (max-width: 820px) { .ventas-hero-centrado { min-height: 0; } }
+        /* En móvil el stack ya cabe en ~650px útiles. Volver a 100svh centra el
+           bloque en pantallas altas (844) y reparte la franja blanca arriba y
+           abajo en vez de dejar un hueco enorme sólo abajo — sin forzar scroll
+           cuando el contenido es más bajo que la ventana. */
+        @media (max-width: 820px) {
+          .ventas-hero-centrado { min-height: 100svh; }
+          @supports not (min-height: 100svh) { .ventas-hero-centrado { min-height: 100vh; } }
+        }
         /* Desktop shows the big carousel card; mobile swaps to a compact horizontal strip */
         .ventas-testi-desktop { display: block; }
         .ventas-testi-mobile { display: none; }
         @media (max-width: 820px) {
           .ventas-hero-grid {
             grid-template-columns: 1fr !important;
-            gap: 14px !important;
-            padding: 10px 14px 14px !important;
+            gap: 10px !important;
+            padding: 8px 14px 10px !important;
           }
           /* Envuelve a dos líneas en casi cualquier ancho de móvil y se come
              ~70-80px que en /agenda hacen falta para que el paso completo entre
@@ -485,30 +490,34 @@ export default function VentasLanding({
           .ventas-testi-desktop { display: none !important; }
           .ventas-testi-mobile { display: flex !important; }
           .ventas-integraciones { display: none !important; }
-          /* Compartido por /ventas, /hablar-con-ventas y /agenda. Los números
-             equilibran dos metas: /agenda (showcase) sigue sin scroll en un
-             in-app browser (~650px útiles), y el panel + la tarjeta se sienten
-             de la misma "familia" — no una apretada y otra generosa. */
-          .ventas-wizard { padding: 18px 16px 16px !important; border-radius: 16px !important; }
-          .ventas-wizard-progress { margin-bottom: 8px !important; }
+          /* Compartido por /ventas, /hablar-con-ventas y /agenda. Un poco más
+             generoso que la ronda vacía, sin pasar el techo de ~650px útiles
+             de un in-app browser donde viven panel + tarjeta apilados. */
+          .ventas-wizard { padding: 14px 14px 12px !important; border-radius: 16px !important; }
+          .ventas-wizard-progress { margin-bottom: 6px !important; }
           .ventas-cal-embed { min-height: 560px !important; }
-          .ventas-step-title { font-size: 20.5px !important; letter-spacing: -.02em !important; }
-          .ventas-step-header { margin-bottom: 8px !important; }
-          .ventas-step-sub { font-size: 13px !important; }
+          .ventas-step-title { font-size: 18.5px !important; letter-spacing: -.02em !important; margin-bottom: 6px !important; }
+          .ventas-step-header { margin-bottom: 6px !important; }
+          .ventas-step-sub { font-size: 12.5px !important; }
           .ventas-step-label { font-size: 10.5px !important; margin-bottom: 4px !important; }
+          .ventas-interes-q { font-size: 14.5px !important; margin-bottom: 10px !important; }
+          .ventas-interes-stack { gap: 7px !important; }
+          .ventas-interes-no { padding: 10px 16px !important; font-size: 14px !important; }
           .ventas-challenge-opt { padding: 10px 12px !important; gap: 10px !important; }
           .ventas-challenge-icon { width: 36px !important; height: 36px !important; font-size: 18px !important; }
           .ventas-challenge-title { font-size: 14px !important; }
           .ventas-challenge-desc { font-size: 12px !important; }
-          .ventas-submit-btn { padding: 13px !important; font-size: 15px !important; }
+          .ventas-submit-btn { padding: 11px !important; font-size: 14.5px !important; }
           .ventas-field { margin-bottom: 10px !important; }
           .ventas-field-label { margin-bottom: 4px !important; }
           .ventas-volume-num { font-size: 46px !important; }
-          .ventas-volume-picker { margin-bottom: 10px !important; }
-          .ventas-volume-label { font-size: 13px !important; margin-bottom: 6px !important; }
-          .ventas-volume-list { gap: 6px !important; }
-          .ventas-volume-opt { padding: 9px 12px !important; gap: 9px !important; }
-          .ventas-volume-opt-text { font-size: 13.5px !important; }
+          .ventas-volume-picker { margin-bottom: 8px !important; }
+          .ventas-volume-label { font-size: 12.5px !important; margin-bottom: 5px !important; }
+          .ventas-volume-list { gap: 5px !important; }
+          .ventas-volume-opt { padding: 8px 11px !important; gap: 8px !important; }
+          .ventas-volume-opt-text { font-size: 13px !important; }
+          .ventas-form-note { margin-top: 8px !important; font-size: 11px !important; }
+          .ventas-back-btn { min-height: 32px !important; margin-bottom: 2px !important; }
         }
       `}</style>
       <ReunionHero
@@ -1588,6 +1597,7 @@ function StepInteres({
       />
 
       <p
+        className="ventas-interes-q"
         style={{
           fontFamily: "Inter",
           fontSize: 16.5,
@@ -1600,7 +1610,7 @@ function StepInteres({
         ¿Te interesa implementarlo?
       </p>
 
-      <div style={{ display: "grid", gap: 10 }}>
+      <div className="ventas-interes-stack" style={{ display: "grid", gap: 10 }}>
         <button
           type="button"
           onClick={onSi}
@@ -1631,6 +1641,7 @@ function StepInteres({
         <button
           type="button"
           onClick={onNo}
+          className="ventas-interes-no"
           style={{
             width: "100%",
             padding: "13px 20px",
@@ -3360,6 +3371,7 @@ function BackBtn({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
+      className="ventas-back-btn"
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -3474,7 +3486,7 @@ function SubmitBtn({ enabled, children, onClick }: { enabled: boolean; children:
   );
 }
 function FormNote({ children }: { children: React.ReactNode }) {
-  return <div style={{ textAlign: "center", fontFamily: "Inter", fontSize: 12.5, color: "#9CA3AF", marginTop: 12, fontWeight: 400 }}>{children}</div>;
+  return <div className="ventas-form-note" style={{ textAlign: "center", fontFamily: "Inter", fontSize: 12.5, color: "#9CA3AF", marginTop: 12, fontWeight: 400 }}>{children}</div>;
 }
 function WhatsAppIcon({ size = 17 }: { size?: number }) {
   return (
