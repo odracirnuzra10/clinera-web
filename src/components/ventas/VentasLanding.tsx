@@ -474,20 +474,30 @@ export default function VentasLanding({
         @media (max-width: 820px) {
           .ventas-hero-grid {
             grid-template-columns: 1fr !important;
-            gap: 14px !important;
-            padding: 12px 16px 16px !important;
+            gap: 10px !important;
+            padding: 10px 14px 14px !important;
           }
-          .ventas-hero-badge { font-size: 10.5px !important; padding: 5px 10px !important; gap: 6px !important; }
+          /* Envuelve a dos líneas en casi cualquier ancho de móvil y se come
+             ~70-80px que en /agenda hacen falta para que el paso completo entre
+             sin scroll. La info que da ("solo dueños y gerentes", "45 min") no
+             es esencial para decidir — se pierde en mobile, se mantiene en desktop. */
+          .ventas-hero-badge { display: none !important; }
           .ventas-testi-desktop { display: none !important; }
           .ventas-testi-mobile { display: flex !important; }
           .ventas-integraciones { display: none !important; }
-          .ventas-wizard { padding: 20px 14px 16px !important; border-radius: 16px !important; }
-          .ventas-wizard-progress { margin-bottom: 16px !important; }
+          /* Este bloque es compartido por /ventas, /hablar-con-ventas y /agenda.
+             Los números son más chicos de lo que un móvil "normal" pediría porque
+             /agenda (showcase) tiene que entrar sin scroll en un navegador in-app
+             -WhatsApp, Instagram-, que se come buena parte del viewport reportado.
+             En /ventas y /hablar-con-ventas el mismo apriete sólo deja más aire
+             para scrollear cómodo; no rompe nada, así que se comparte. */
+          .ventas-wizard { padding: 14px 12px 12px !important; border-radius: 16px !important; }
+          .ventas-wizard-progress { margin-bottom: 8px !important; }
           .ventas-cal-embed { min-height: 560px !important; }
-          .ventas-step-title { font-size: 22px !important; letter-spacing: -.02em !important; }
-          .ventas-step-header { margin-bottom: 14px !important; }
-          .ventas-step-sub { font-size: 13px !important; }
-          .ventas-step-label { font-size: 10.5px !important; margin-bottom: 6px !important; }
+          .ventas-step-title { font-size: 18px !important; letter-spacing: -.02em !important; }
+          .ventas-step-header { margin-bottom: 6px !important; }
+          .ventas-step-sub { font-size: 12px !important; }
+          .ventas-step-label { font-size: 10.5px !important; margin-bottom: 4px !important; }
           .ventas-challenge-opt { padding: 10px 12px !important; gap: 10px !important; }
           .ventas-challenge-icon { width: 36px !important; height: 36px !important; font-size: 18px !important; }
           .ventas-challenge-title { font-size: 14px !important; }
@@ -496,6 +506,11 @@ export default function VentasLanding({
           .ventas-field { margin-bottom: 10px !important; }
           .ventas-field-label { margin-bottom: 4px !important; }
           .ventas-volume-num { font-size: 46px !important; }
+          .ventas-volume-picker { margin-bottom: 10px !important; }
+          .ventas-volume-label { font-size: 12px !important; margin-bottom: 6px !important; }
+          .ventas-volume-list { gap: 5px !important; }
+          .ventas-volume-opt { padding: 7px 10px !important; gap: 8px !important; }
+          .ventas-volume-opt-text { font-size: 13px !important; }
         }
       `}</style>
       <ReunionHero
@@ -1652,8 +1667,9 @@ function ProfilePicker({
   onSelect: (p: OperationalProfile) => void;
 }) {
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div className="ventas-volume-picker" style={{ marginBottom: 16 }}>
       <div
+        className="ventas-volume-label"
         style={{
           fontFamily: "Inter",
           fontWeight: 600,
@@ -1665,7 +1681,7 @@ function ProfilePicker({
       >
         ¿De qué tamaño es tu operación mensual?
       </div>
-      <div role="radiogroup" aria-label="Tamaño de operación" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <div role="radiogroup" aria-label="Tamaño de operación" className="ventas-volume-list" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {OPERATIONAL_PROFILES.map((opt) => {
           const sel = selected?.id === opt.id;
           return (
@@ -1675,6 +1691,7 @@ function ProfilePicker({
               role="radio"
               aria-checked={sel}
               onClick={() => onSelect(opt)}
+              className="ventas-volume-opt"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -1721,7 +1738,7 @@ function ProfilePicker({
                   />
                 )}
               </span>
-              <span style={{ flex: 1, minWidth: 0 }}>{opt.label}</span>
+              <span className="ventas-volume-opt-text" style={{ flex: 1, minWidth: 0 }}>{opt.label}</span>
             </button>
           );
         })}
@@ -1751,6 +1768,28 @@ function StepSize({
   // Ya no hay gate de "¿te hace sentido?": el CTA principal ES la aceptación.
   // Basta con haber elegido perfil operativo.
   const complete = sizeComplete(size);
+
+  // Sin precio de por medio (showInvestment=false, variante /agenda) elegir UN
+  // perfil YA es la respuesta completa del paso — igual que en StepSoftware — así
+  // que avanza sola en vez de esperar un click aparte en "Continuar". Con precio
+  // de por medio (/ventas) el click SIGUE siendo la aceptación explícita de la
+  // inversión, así que ahí no se toca nada.
+  const advanceRef = useRef<number | null>(null);
+  useEffect(() => {
+    return () => {
+      if (advanceRef.current !== null) window.clearTimeout(advanceRef.current);
+    };
+  }, []);
+  const selectProfile = (profile: OperationalProfile) => {
+    setSize({ profile });
+    if (showInvestment) return;
+    if (advanceRef.current !== null) window.clearTimeout(advanceRef.current);
+    advanceRef.current = window.setTimeout(() => {
+      onInteres("si");
+      onNext();
+    }, 320);
+  };
+
   return (
     <div>
       {onBack && <BackBtn onClick={onBack} />}
@@ -1816,9 +1855,15 @@ function StepSize({
 
       <ProfilePicker
         selected={size.profile}
-        onSelect={(profile) => setSize({ profile })}
+        onSelect={selectProfile}
       />
 
+      {/* Sólo la variante con precio necesita un CTA propio: ahí el click ES la
+          aceptación de la inversión, distinta de simplemente elegir un perfil.
+          Sin precio, selectProfile ya avanza sola — un botón acá sería
+          redundante y, con el timeout de 320ms, alcanzaría a mostrarse
+          habilitado por un instante antes de que la pantalla cambie sola. */}
+      {showInvestment && (
       <SubmitBtn
         enabled={complete}
         onClick={() => {
@@ -1829,11 +1874,12 @@ function StepSize({
           onNext();
         }}
       >
-        {showInvestment ? "Continuar con esta inversión" : "Continuar"}
+        Continuar con esta inversión
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7" />
         </svg>
       </SubmitBtn>
+      )}
 
       {/* Abandono explícito para analytics: enlace discreto, nunca compite con el
           CTA. Va junto al precio: sin precio a la vista no hay nada que declinar. */}

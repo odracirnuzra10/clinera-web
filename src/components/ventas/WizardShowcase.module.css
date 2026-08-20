@@ -107,23 +107,25 @@
 
 @media (max-width: 820px) {
   .panel {
-    padding: 18px 15px 16px;
-    border-radius: 20px;
+    padding: 13px 14px 12px;
+    border-radius: 18px;
   }
 
   /* En móvil las columnas van apiladas, no lado a lado: el contraste de fondo
-     ya distingue una de otra sin gastar una fila en decirlo. */
-  .badge {
+     ya distingue una de otra sin gastar una fila en decirlo. Por el mismo
+     motivo se saca el rótulo — es el segundo lugar donde ya se dice "esto es
+     una demo", después del contraste de color, y acá cada línea cuenta: el
+     paso completo (animación + pregunta + botones) tiene que entrar sin
+     scroll en un navegador in-app, que recorta el alto real bastante más de
+     lo que el viewport reportado sugiere. */
+  .badge,
+  .eyebrow {
     display: none;
   }
 
-  .eyebrow {
-    margin-bottom: 8px;
-  }
-
   .title {
-    font-size: 20.5px;
-    margin-bottom: 13px;
+    font-size: 17px;
+    margin-bottom: 8px;
   }
 }
 

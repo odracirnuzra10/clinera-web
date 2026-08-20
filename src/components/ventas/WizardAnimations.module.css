@@ -472,18 +472,23 @@
   color: #6d28d9;
 }
 
-/* ================= Móvil ================= */
+/* ================= Móvil =================
+   En un navegador in-app (WhatsApp, Instagram) la barra superior + la inferior
+   se comen buena parte del viewport real: los 844px que reporta un iPhone en
+   Playwright no existen ahí. La meta no es "quepa en 844" sino "quepa en lo que
+   sobra después del chrome del navegador", así que estas animaciones se reducen
+   a lo mínimo que sigue contando la idea — el resto vive en desktop. */
 
 @media (max-width: 820px) {
   .flow {
-    gap: 10px;
+    gap: 8px;
   }
 
-  /* Dos entradas y dos salidas alcanzan para contar "entra dato, sale acción".
-     En móvil esta caja va ENCIMA del wizard y cada fila de más empuja los
-     botones fuera de pantalla, que es justo la fricción que vinimos a sacar. */
-  .feed:nth-child(n + 3),
-  .emit:nth-child(n + 3) {
+  /* Las listas de entrada/salida son el detalle, no la idea: el título de arriba
+     ya dice "tu clínica entra por un lado, las respuestas salen por el otro".
+     En móvil sólo queda AURA pulsando — así el diagrama pasa de ~300px a ~60px
+     y el paso completo (pregunta + botones) entra sin scroll. */
+  .flowSide {
     display: none;
   }
 
@@ -492,24 +497,37 @@
   }
 
   .orb {
-    width: 44px;
-    height: 44px;
+    width: 42px;
+    height: 42px;
   }
 
   .orb svg {
-    width: 23px;
-    height: 23px;
+    width: 22px;
+    height: 22px;
   }
 
-  .orb {
-    width: 48px;
-    height: 48px;
+  .flowCore > strong {
+    font-size: 13px;
   }
 
+  .deviceBar,
+  .deviceFoot {
+    padding: 6px 10px;
+  }
 
+  /* Dos mensajes y dos horas alcanzan para contar "escribe → queda agendado".
+     El resto del array es refuerzo para desktop, donde sobra alto. */
+  .chat > span:nth-child(n + 3),
+  .agenda > span:nth-child(n + 4) {
+    display: none;
+  }
+
+  /* Alto mínimo chico pero fijo: con sólo 2 filas por escena, "agenda" (cabecera
+     + 2 turnos) es apenas más alta que "chat" (2 burbujas) — sin un mínimo, el
+     wizard de al lado saltaría unos px cada vez que rota la escena. */
   .deviceStage {
-    min-height: 232px;
-    padding: 13px 11px;
+    min-height: 82px;
+    padding: 10px 11px;
   }
 
   .bubble {
