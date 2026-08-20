@@ -4,6 +4,21 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
+# Mantén este archivo al día
+
+Orden permanente de Ricardo (2026-08-19): **cuando aprendas algo significativo
+trabajando en este repo, anótalo acá.** Significativo = lo que haría que el
+próximo que abra el proyecto se equivoque si no lo sabe: una decisión de
+negocio con un número detrás, un contrato entre sistemas, una trampa que ya
+costó un error.
+
+Dos reglas para que no se pudra:
+
+1. **Punteros, no copias.** Las tablas y los valores viven en su fuente
+   (`pricing.ts`, el README de `integrations/n8n/`, el código). Acá va qué
+   existe, por qué, y dónde mirar. Duplicar tablas las desincroniza.
+2. **El porqué antes que el qué.** El qué se lee del código; el porqué no.
+
 # Economía de Clinera: créditos, costos y precios
 
 Antes de tocar cualquier número de precio, crédito, consumo o equivalencia en
@@ -146,3 +161,52 @@ renderizan las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
 - **Mes 1:** implementación, US$ 450, pago único.
 - **Mes 2 en adelante:** el plan contratado (Vortex US$ 279 / Atlas US$ 379 /
   Summit US$ 479 al mes).
+
+# Embudo de Meta: qué evento vale cuánto, y dónde vive de verdad
+
+> [!WARNING]
+> **Leer solo este repo lleva a conclusiones falsas.** De los tres workflows
+> que mandan conversiones al pixel `1104567405156111`, **dos no están
+> versionados acá**. En agosto de 2026 se diseñó un cambio entero sobre la
+> premisa —falsa— de que SQL+ no generaba ninguna señal, porque el repo no lo
+> mostraba. Antes de tocar el embudo, mira la instancia de n8n.
+
+| Evento | Cuándo | Valor | Dónde vive |
+|---|---|---|---|
+| `MQL` | el lead agenda en `/agenda` | — | `integrations/n8n/clinera-agenda-reserva.workflow.json` |
+| `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
+| `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
+
+`SQL` y `SQL_Plus` son eventos **distintos a propósito**: dos peldaños del
+embudo, no el mismo hecho contado dos veces. No los unifiques.
+
+**La trampa que ya costó un doble cobro:** los dos workflows que mandan `SQL`
+arman el `event_id` con el contacto hasheado, porque es lo único que ambos
+sistemas comparten. Meta deduplica por (`event_name`, `event_id`), así que la
+normalización tiene que quedar **idéntica** en los dos — un `trim()` de más en
+uno rompe la colisión en silencio: los eventos siguen saliendo, Meta los sigue
+aceptando, y el mismo lead se cuenta dos veces sin ningún error visible.
+
+Ids, disparos y el detalle completo: `integrations/n8n/README.md`.
+
+# `/agenda`: la hora que se guarda es de Chile, siempre
+
+El paso 4 de `/agenda` (`StepClineraNativo` en
+`src/components/ventas/VentasLanding.tsx`) recibe los bloques de la API de
+Clinera como texto plano en **hora de Chile** (`"10:00"`), sin zona.
+
+- **Lo que se muestra** se convierte a la zona del visitante. Un dueño de
+  clínica en México veía "10:00" y llegaba a una reunión que para él era a las
+  08:00; ya pasó con un lead real.
+- **Lo que se manda al webhook no se toca**: sigue siendo la hora de Chile.
+  Clinera, el turno y el Meet dependen de eso.
+- **El offset de Chile sale de `Intl`, nunca de una constante.** Chile pasa a
+  GMT−3 el primer domingo de septiembre; un número escrito a mano empieza a
+  mentir ese día sin que nadie se entere.
+
+El profesional tampoco lo elige el visitante: se reparte según disponibilidad,
+de forma **determinista**. Nada de `Math.random()` ahí — el cálculo corre en un
+`useMemo` que se recalcula varias veces, y el azar le cambiaría el profesional
+al lead entre que elige la hora y confirma.
+
+Guardián: `tests/agenda-scheduler.spec.ts`.
