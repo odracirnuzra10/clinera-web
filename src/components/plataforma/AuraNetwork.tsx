@@ -1,6 +1,6 @@
 import styles from "./AuraNetwork.module.css";
 
-const INPUTS = [
+export const INPUTS = [
   { icon: "calendar", title: "Agenda", copy: "Horas y bloqueos" },
   { icon: "branches", title: "Sedes", copy: "Toda tu operación" },
   { icon: "file", title: "Fichas", copy: "Historial de cada paciente" },
@@ -13,7 +13,7 @@ const INPUTS = [
   { icon: "pulse", title: "Exámenes", copy: "Resultados y controles" },
 ];
 
-const ACTIONS = [
+export const ACTIONS = [
   { icon: "calendar", title: "Agenda y reagenda", copy: "Reserva y mueve horas sola" },
   { icon: "message", title: "Responde 24/7", copy: "Por WhatsApp, sin descanso" },
   { icon: "voice", title: "Llama y confirma", copy: "Confirma citas mediante llamadas de voz" },
@@ -21,7 +21,7 @@ const ACTIONS = [
   { icon: "bolt", title: "Automatiza", copy: "Ejecuta flujos sin intervención manual" },
 ];
 
-function FeatureIcon({ name }: { name: string }) {
+export function FeatureIcon({ name }: { name: string }) {
   const common = {
     stroke: "currentColor",
     strokeWidth: 1.7,

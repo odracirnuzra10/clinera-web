@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import WizardShowcase from "./WizardShowcase";
 import {
   buildCalLinkWithAttribution,
   getAttributionPayload,
@@ -386,6 +387,7 @@ export default function VentasLanding({
   question1 = "software",
   investmentAfterContact = false,
   meetingMinutes = 30,
+  showcase = false,
 }: {
   enableMigrationQualification?: boolean;
   /** Qué pregunta el paso 1: el software actual (default) o la necesidad. */
@@ -401,6 +403,12 @@ export default function VentasLanding({
   scheduler?: SchedulerId;
   /** Ruta que origina el lead — viaja en `fuente` del webhook y en el mensaje de WhatsApp. */
   sourcePath?: string;
+  /**
+   * Reemplaza la columna de testimonios por el argumento de producto que vivía
+   * en /plataforma, sincronizado con el paso del wizard: el visitante ve qué es
+   * Clinera sin salir de la página donde agenda. Ver WizardShowcase.
+   */
+  showcase?: boolean;
 }) {
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -476,6 +484,7 @@ export default function VentasLanding({
         question1={question1}
         investmentAfterContact={investmentAfterContact}
         meetingMinutes={meetingMinutes}
+        showcase={showcase}
       />
     </>
   );
@@ -489,6 +498,7 @@ function ReunionHero({
   question1,
   investmentAfterContact,
   meetingMinutes,
+  showcase,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
@@ -496,7 +506,11 @@ function ReunionHero({
   question1: Question1;
   investmentAfterContact: boolean;
   meetingMinutes: number;
+  showcase: boolean;
 }) {
+  // Espejo de solo lectura del paso del wizard, para que la columna de
+  // argumento cambie con él. El wizard sigue siendo el dueño del estado.
+  const [visibleStep, setVisibleStep] = useState(1);
   return (
     <section style={{ position: "relative", overflow: "hidden", display: "flex", alignItems: "center" }}>
       <div
@@ -566,6 +580,10 @@ function ReunionHero({
             <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>reunión de {meetingMinutes} min</span>
           </span>
 
+          {showcase ? (
+            <WizardShowcase step={visibleStep} meetingMinutes={meetingMinutes} />
+          ) : (
+          <>
           <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
             <TestimonialCarousel />
           </div>
@@ -622,6 +640,8 @@ function ReunionHero({
               </div>
             </div>
           </div>
+          </>
+          )}
         </div>
 
         <div className="reveal" style={{ display: "flex", minWidth: 0 }}>
@@ -632,6 +652,8 @@ function ReunionHero({
             question1={question1}
             investmentAfterContact={investmentAfterContact}
             meetingMinutes={meetingMinutes}
+            showcase={showcase}
+            onStepChange={setVisibleStep}
           />
         </div>
       </div>
@@ -823,6 +845,8 @@ function Wizard({
   question1,
   investmentAfterContact,
   meetingMinutes,
+  showcase = false,
+  onStepChange,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
@@ -830,6 +854,9 @@ function Wizard({
   question1: Question1;
   investmentAfterContact: boolean;
   meetingMinutes: number;
+  /** Con showcase, el precio y el descarte viven junto al paso 3 (ver WizardShowcase). */
+  showcase?: boolean;
+  onStepChange?: (step: number) => void;
 }) {
   const [step, setStep] = useState(1);
   const [software, setSoftware] = useState<Step1Id | null>(null);
@@ -848,6 +875,13 @@ function Wizard({
   const sizeStep = hasSoftwareStep ? 2 : 1;
   const contactStep = hasSoftwareStep ? 3 : 2;
   const calStep = hasSoftwareStep ? 4 : 3;
+
+  // El paso se avisa hacia arriba en un efecto y no en cada setStep: así ninguna
+  // de las transiciones existentes cambia, y la columna de argumento sigue al
+  // wizard aunque se vuelva atrás.
+  useEffect(() => {
+    onStepChange?.(step);
+  }, [step, onStepChange]);
 
   // Aceptación / descarte de la inversión. Vive acá porque el aviso de precio
   // se muestra en el paso 2 o en el 4 según `investmentAfterContact`, y ambos
@@ -901,7 +935,7 @@ function Wizard({
       )}
       {!submitted && !declined && step === sizeStep && (
         <StepSize
-          showInvestment={!investmentAfterContact}
+          showInvestment={!investmentAfterContact && !showcase}
           size={size}
           setSize={setSize}
           onInteres={handleInteres}
@@ -950,6 +984,7 @@ function Wizard({
           form={form}
           setForm={setForm}
           label={`Paso ${contactStep} de ${totalSteps}`}
+          onInteres={showcase ? handleInteres : undefined}
           onBack={() => setStep(sizeStep)}
           onNext={() => {
             if (typeof window !== "undefined" && typeof window.fbq === "function") {
@@ -1003,7 +1038,7 @@ function Wizard({
       {!submitted && !declined && step === calStep && scheduler === "clinera" && (
         <StepClineraScheduler
           form={form}
-          showInvestment={investmentAfterContact}
+          showInvestment={investmentAfterContact && !showcase}
           onInteres={handleInteres}
           label={`Paso ${calStep} de ${totalSteps}`}
           onBack={() => setStep(contactStep)}
@@ -1738,6 +1773,7 @@ function StepContact({
   label = "Paso 2 de 3",
   onBack,
   onNext,
+  onInteres,
   meetingMinutes = 30,
 }: {
   form: Form;
@@ -1746,6 +1782,12 @@ function StepContact({
   meetingMinutes?: number;
   onBack: () => void;
   onNext: () => void;
+  /**
+   * Descarte explícito. Sólo lo pasa la variante con showcase: ahí el precio se
+   * muestra al lado de este paso, así que el "no" pertenece acá. En el flujo
+   * original el descarte vive junto al precio, en el paso 2 o en el 4.
+   */
+  onInteres?: (v: "si" | "no") => void;
 }) {
   const [attempted, setAttempted] = useState(false);
   const phoneFieldLabel = "Tu WhatsApp personal (dueño/a o gerente)";
@@ -1943,6 +1985,27 @@ function StepContact({
         </svg>
       </SubmitBtn>
       <FormNote>Sin compromiso · {meetingMinutes} min por videollamada</FormNote>
+      {onInteres && (
+        <div style={{ textAlign: "center", marginTop: 10 }}>
+          <button
+            type="button"
+            onClick={() => onInteres("no")}
+            style={{
+              background: "transparent",
+              border: 0,
+              padding: "4px 6px",
+              fontFamily: "Inter",
+              fontSize: 13,
+              color: "#9CA3AF",
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
+              cursor: "pointer",
+            }}
+          >
+            No es para mí
+          </button>
+        </div>
+      )}
     </div>
   );
 }
