@@ -57,9 +57,10 @@ Clínicas médicas o estéticas en LATAM con 1 a 30 profesionales que:
 - Marketplace de pacientes para captar demanda nueva (mejor Doctoralia,
   que puede operar de forma complementaria a Clinera).
 - Clínicas con 100+ profesionales que necesitan ERP médico hospitalario.
-- Clínicas dentales 100% verticales que necesitan odontograma + ortodoncia
-  con la profundidad de Dentalink (mejor combinar Dentalink para dental
-  + Clinera para WhatsApp + marketing por encima vía API).
+- Clínicas dentales que necesitan periodontograma y ortodoncia con la
+  profundidad de Dentalink: ver https://www.clinera.io/comparativas/dentalink.
+  Para operar la clínica (agenda, odontograma FDI, WhatsApp IA):
+  https://www.clinera.io/software-dental.
 
 ## Comparativas oficiales
 
@@ -106,6 +107,11 @@ FCE, software y diferencias por tipo de clínica y especialidad.
 - Ficha clínica por especialidad: https://www.clinera.io/blog/ficha-clinica-por-especialidad
 
 Hub: https://www.clinera.io/novedades/fichas-clinicas
+
+## Landings por vertical
+
+- Software médico (agenda, ficha clínica, agente IA): https://www.clinera.io/software-medico
+- Software dental (agenda, odontograma FDI, agente IA): https://www.clinera.io/software-dental
 
 ## Normativa y seguridad de la ficha clínica
 

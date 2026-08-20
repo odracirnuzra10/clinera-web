@@ -158,87 +158,6 @@ function ChartView() {
 
 /* ---------- Odontograma ---------- */
 
-const UPPER_TEETH = [18, 17, 16, 15, 14, 13, 12, 11, 21, 22, 23, 24, 25, 26, 27, 28];
-const LOWER_TEETH = [48, 47, 46, 45, 44, 43, 42, 41, 31, 32, 33, 34, 35, 36, 37, 38];
-
-type Face = "v" | "l" | "m" | "d" | "o";
-type ToothState = { faces?: Partial<Record<Face, "caries" | "obturado">>; missing?: boolean; corona?: boolean };
-
-// Hallazgos de la ficha de ejemplo, en notación FDI.
-const FINDINGS: Record<number, ToothState> = {
-  16: { faces: { o: "caries" } },
-  15: { faces: { d: "obturado" } },
-  24: { faces: { o: "obturado" } },
-  26: { faces: { v: "caries", o: "obturado" } },
-  36: { missing: true },
-  46: { corona: true },
-  11: { faces: { m: "caries" } },
-  37: { faces: { o: "obturado" } },
-};
-
-const FACE_POINTS: Record<Face, string> = {
-  v: "0,0 26,0 18,8 8,8",
-  l: "0,26 26,26 18,18 8,18",
-  m: "0,0 8,8 8,18 0,26",
-  d: "26,0 18,8 18,18 26,26",
-  o: "8,8 18,8 18,18 8,18",
-};
-
-const FACE_FILL = { caries: "#ef4444", obturado: "#3b82f6" } as const;
-
-function Tooth({ state, index }: { state?: ToothState; index: number }) {
-  const delay = `${index * 22}ms`;
-
-  if (state?.missing) {
-    return (
-      <g className={styles.tooth} style={{ animationDelay: delay }}>
-        <rect width="26" height="26" rx="4" fill="var(--od-missing)" stroke="var(--od-missing-line)" />
-        <path d="M7 7 19 19M19 7 7 19" stroke="var(--od-x)" strokeWidth="1.6" strokeLinecap="round" />
-      </g>
-    );
-  }
-
-  return (
-    <g className={styles.tooth} style={{ animationDelay: delay }}>
-      {(Object.keys(FACE_POINTS) as Face[]).map((face) => {
-        const mark = state?.faces?.[face];
-        return (
-          <polygon
-            key={face}
-            points={FACE_POINTS[face]}
-            fill={mark ? FACE_FILL[mark] : "var(--od-face)"}
-            stroke={state?.corona ? "var(--od-crown)" : "var(--od-line)"}
-            strokeWidth={state?.corona ? 1.1 : 0.8}
-          />
-        );
-      })}
-      {state?.corona && <rect width="26" height="26" rx="3" fill="none" stroke="var(--od-crown)" strokeWidth="1.6" />}
-    </g>
-  );
-}
-
-function ToothRow({ codes, y, labelsBelow }: { codes: number[]; y: number; labelsBelow: boolean }) {
-  return (
-    <>
-      {codes.map((code, i) => (
-        <g key={code} transform={`translate(${i * 31}, ${y})`}>
-          <Tooth state={FINDINGS[code]} index={labelsBelow ? i : codes.length - i} />
-          <text
-            x="13"
-            y={labelsBelow ? 38 : -6}
-            textAnchor="middle"
-            fontSize="8.5"
-            fill="var(--od-num)"
-            fontFamily="'JetBrains Mono', monospace"
-          >
-            {code}
-          </text>
-        </g>
-      ))}
-    </>
-  );
-}
-
 function OdontogramView() {
   return (
     <div className={styles.view}>
@@ -250,20 +169,16 @@ function OdontogramView() {
         <span className={styles.tagOk}><Check />Actualizado hoy</span>
       </div>
 
-      <div className={styles.odontoWrap}>
-        <svg viewBox="-4 -14 502 108" className={styles.odonto} role="img" aria-label="Odontograma con hallazgos por pieza">
-          <ToothRow codes={UPPER_TEETH} y={0} labelsBelow={false} />
-          <line x1="-4" y1="42" x2="498" y2="42" stroke="var(--od-line)" strokeWidth="1" />
-          <ToothRow codes={LOWER_TEETH} y={52} labelsBelow />
-        </svg>
-      </div>
-
-      <div className={styles.legend}>
-        <span><i style={{ background: "#ef4444" }} />Caries</span>
-        <span><i style={{ background: "#3b82f6" }} />Obturado</span>
-        <span><i style={{ background: "var(--od-face)", border: "1.5px solid var(--od-crown)" }} />Corona</span>
-        <span><i style={{ background: "var(--od-missing)", border: "1px solid var(--od-missing-line)" }} />Ausente</span>
-      </div>
+      <figure className={styles.odontoShot}>
+        <Image
+          src="/presentacion/odontograma.webp"
+          alt="Odontograma con hallazgos por pieza y por cara"
+          width={708}
+          height={478}
+          sizes="(max-width: 720px) 100vw, 540px"
+          style={{ width: "100%", height: "auto" }}
+        />
+      </figure>
 
       <div className={styles.nextUp}>
         <Check />Presupuesto de 1.6 enviado por WhatsApp · pendiente de aprobación

@@ -15,15 +15,12 @@ export const metadata: Metadata = {
   description:
     "Agenda pacientes con IA las 24 horas. Clinera responde, agenda y confirma citas por ti 24/7 con inteligencia artificial.",
   keywords: [
-    "software medico",
-    "software para clinicas",
     "agendamiento con IA",
     "WhatsApp clinica",
     "gestion clinica",
     "inteligencia artificial clinica",
     "agenda medica",
     "ficha clinica digital",
-    "software dental",
     "software estetica",
     "clinera",
   ],

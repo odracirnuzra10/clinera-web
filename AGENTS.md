@@ -210,3 +210,18 @@ de forma **determinista**. Nada de `Math.random()` ahí — el cálculo corre en
 al lead entre que elige la hora y confirma.
 
 Guardián: `tests/agenda-scheduler.spec.ts`.
+
+# Landings `/software-medico` y `/software-dental`
+
+Dueñas de los clusters de Google Ads "Softwares" (software médico / software
+dental). Esqueleto compartido en `src/components/software-vertical/`; el copy
+vive solo en `content.ts`. CTA canónico: `/agenda` **preservando la query**
+(`Nav`, sticky móvil y CTAs internos) porque `detectLeadSource()` en
+`VentasLanding.tsx` lee la URL actual, no la cookie `_clinera_gclid`.
+`lead_source` de GTM: `software_medico_landing` / `software_dental_landing`.
+El wizard de `/agenda` no tiene opción "Dental" a propósito.
+
+Hallazgo fuera de alcance: el JSON-LD del home (`src/app/page.tsx`) publica
+`lowPrice:"129"` obsoleto, y `softwareSchema` / `productPlansSchema` en
+`src/components/seo/schemas.ts` son exports muertos con precios duplicados.
+`detectLeadSource()` tampoco lee `gbraid`/`wbraid`.

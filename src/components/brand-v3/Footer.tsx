@@ -10,6 +10,8 @@ const cols: Col[] = [
     t: "Producto",
     l: [
       ["Ver demo", "/demo"],
+      ["Software médico", "/software-medico"],
+      ["Software dental", "/software-dental"],
       ["Funciones", "/funciones"],
       ["Planes", "/planes"],
       ["App móvil", "/app"],
