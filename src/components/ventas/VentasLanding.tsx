@@ -474,7 +474,7 @@ export default function VentasLanding({
         @media (max-width: 820px) {
           .ventas-hero-grid {
             grid-template-columns: 1fr !important;
-            gap: 10px !important;
+            gap: 14px !important;
             padding: 10px 14px 14px !important;
           }
           /* Envuelve a dos líneas en casi cualquier ancho de móvil y se come
@@ -485,32 +485,30 @@ export default function VentasLanding({
           .ventas-testi-desktop { display: none !important; }
           .ventas-testi-mobile { display: flex !important; }
           .ventas-integraciones { display: none !important; }
-          /* Este bloque es compartido por /ventas, /hablar-con-ventas y /agenda.
-             Los números son más chicos de lo que un móvil "normal" pediría porque
-             /agenda (showcase) tiene que entrar sin scroll en un navegador in-app
-             -WhatsApp, Instagram-, que se come buena parte del viewport reportado.
-             En /ventas y /hablar-con-ventas el mismo apriete sólo deja más aire
-             para scrollear cómodo; no rompe nada, así que se comparte. */
-          .ventas-wizard { padding: 14px 12px 12px !important; border-radius: 16px !important; }
+          /* Compartido por /ventas, /hablar-con-ventas y /agenda. Los números
+             equilibran dos metas: /agenda (showcase) sigue sin scroll en un
+             in-app browser (~650px útiles), y el panel + la tarjeta se sienten
+             de la misma "familia" — no una apretada y otra generosa. */
+          .ventas-wizard { padding: 18px 16px 16px !important; border-radius: 16px !important; }
           .ventas-wizard-progress { margin-bottom: 8px !important; }
           .ventas-cal-embed { min-height: 560px !important; }
-          .ventas-step-title { font-size: 18px !important; letter-spacing: -.02em !important; }
-          .ventas-step-header { margin-bottom: 6px !important; }
-          .ventas-step-sub { font-size: 12px !important; }
+          .ventas-step-title { font-size: 20.5px !important; letter-spacing: -.02em !important; }
+          .ventas-step-header { margin-bottom: 8px !important; }
+          .ventas-step-sub { font-size: 13px !important; }
           .ventas-step-label { font-size: 10.5px !important; margin-bottom: 4px !important; }
           .ventas-challenge-opt { padding: 10px 12px !important; gap: 10px !important; }
           .ventas-challenge-icon { width: 36px !important; height: 36px !important; font-size: 18px !important; }
           .ventas-challenge-title { font-size: 14px !important; }
           .ventas-challenge-desc { font-size: 12px !important; }
-          .ventas-submit-btn { padding: 12px !important; font-size: 14.5px !important; }
+          .ventas-submit-btn { padding: 13px !important; font-size: 15px !important; }
           .ventas-field { margin-bottom: 10px !important; }
           .ventas-field-label { margin-bottom: 4px !important; }
           .ventas-volume-num { font-size: 46px !important; }
           .ventas-volume-picker { margin-bottom: 10px !important; }
-          .ventas-volume-label { font-size: 12px !important; margin-bottom: 6px !important; }
-          .ventas-volume-list { gap: 5px !important; }
-          .ventas-volume-opt { padding: 7px 10px !important; gap: 8px !important; }
-          .ventas-volume-opt-text { font-size: 13px !important; }
+          .ventas-volume-label { font-size: 13px !important; margin-bottom: 6px !important; }
+          .ventas-volume-list { gap: 6px !important; }
+          .ventas-volume-opt { padding: 9px 12px !important; gap: 9px !important; }
+          .ventas-volume-opt-text { font-size: 13.5px !important; }
         }
       `}</style>
       <ReunionHero
