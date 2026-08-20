@@ -132,7 +132,13 @@ const PLATAFORMA_META = [
   "Acceso para todo el equipo, según permisos",
 ];
 
-export function IntelligencePlataformaSection() {
+export function IntelligencePlataformaSection({
+  ctaHref = "/demo",
+  ctaLabel = "Ver una demo",
+}: {
+  ctaHref?: string;
+  ctaLabel?: string;
+} = {}) {
   return (
     <section id="intelligence" className={styles.platSection}>
       <div className={styles.platInner}>
@@ -172,8 +178,8 @@ export function IntelligencePlataformaSection() {
                 </li>
               ))}
             </ul>
-            <Link className={styles.primaryCta} href="/demo">
-              Ver una demo <ArrowIcon />
+            <Link className={styles.primaryCta} href={ctaHref}>
+              {ctaLabel} <ArrowIcon />
             </Link>
           </div>
           <div className={styles.platMockup}>

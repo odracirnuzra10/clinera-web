@@ -1,24 +1,44 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+
+function subscribeLocation() {
+  return () => {};
+}
+function getAgendaHref() {
+  return window.location.search ? "/agenda" + window.location.search : "/agenda";
+}
+function getAgendaHrefServer() {
+  return "/agenda";
+}
 
 export default function StickyMobileCTA() {
   const pathname = usePathname();
   const isDemo = pathname?.startsWith("/demo") === true;
   // En /plataforma la barra lleva un solo CTA, el mismo que el resto de la
   // página: dos acciones compitiendo diluyen la que importa.
-  const soloAgenda = pathname === "/plataforma";
+  const soloAgenda =
+    pathname === "/plataforma" ||
+    pathname === "/software-medico" ||
+    pathname === "/software-dental";
   // Páginas largas de conversión donde el CTA persistente ayuda en móvil.
   const enabled =
     isDemo ||
     pathname === "/" ||
     pathname === "/planes" ||
     pathname === "/plataforma" ||
+    pathname === "/software-medico" ||
+    pathname === "/software-dental" ||
     pathname?.startsWith("/comparativas") === true;
   const [show, setShow] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const agendaHref = useSyncExternalStore(
+    subscribeLocation,
+    getAgendaHref,
+    getAgendaHrefServer,
+  );
 
   useEffect(() => {
     if (!enabled) return;
@@ -67,7 +87,7 @@ export default function StickyMobileCTA() {
         </a>
         )}
         <Link
-          href={soloAgenda ? "/agenda" : "/hablar-con-ventas"}
+          href={soloAgenda ? agendaHref : "/hablar-con-ventas"}
           onClick={() => trackClick("agendar")}
           className="sticky-primary"
         >

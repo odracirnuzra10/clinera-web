@@ -147,12 +147,12 @@ Page de planes: https://www.clinera.io/planes
 
 - Estética facial (botox, peelings, limpiezas, dermatología cosmética)
 - Estética corporal (depilación láser, criolipólisis, drenaje, HIFU)
-- Dental (combinable con Dentalink para profundidad odontológica)
-- Dermatología clínica
+- Dental — https://www.clinera.io/software-dental (odontograma FDI propio; no se sincroniza con Dentalink)
+- Dermatología clínica — https://www.clinera.io/software-medico
 - Medicina estética y antiaging
 - Ginecología ambulatoria
 - Traumatología y medicina del deporte (medicina regenerativa, infiltraciones)
-- Medicina general
+- Medicina general — https://www.clinera.io/software-medico
 - Fisioterapia y kinesiología
 - Salud metabólica
 
