@@ -27,11 +27,11 @@ const srOnly: CSSProperties = {
 // contacto del paso 3 viajan en la URL del iframe y el cliente solo elige
 // profesional y fecha disponible.
 //
-// `showcase` es lo que la vuelve landing única: la columna izquierda deja de
-// mostrar testimonios y pasa a llevar el argumento de producto que vivía en
-// /plataforma —sistema operativo + AURA, Intelligence y fichas, inversión,
-// reunión—, un bloque por paso del wizard. El lead ya no tiene que ir a otra
-// página y volver para agendar.
+// `showcase` es lo que la vuelve landing única: en los pasos 1 y 2 la columna
+// izquierda deja de mostrar testimonios y pasa a llevar el producto en
+// movimiento —la IA recibiendo datos y respondiendo; el chat que termina en una
+// hora tomada en la agenda—. Desde el paso 3 vuelven los doctores. El lead ya no
+// tiene que ir a otra página y volver para agendar.
 export default function AgendaPage() {
   return (
     <>
@@ -40,7 +40,7 @@ export default function AgendaPage() {
         enableMigrationQualification
         scheduler="clinera"
         sourcePath="/agenda"
-        question1="need"
+        question1="interest"
         investmentAfterContact
         meetingMinutes={45}
         showcase
