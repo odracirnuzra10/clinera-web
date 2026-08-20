@@ -5,9 +5,10 @@ import { Pricing, useReveal } from "@/components/home-v3/sections";
 import { track } from "@/lib/tracking";
 import styles from "./PlataformaLanding.module.css";
 
-/* Las tarjetas canónicas de planes sólo ofrecen "Contratar" (checkout).
-   En esta página el comprador tiene varias sedes y compra con migración
-   gestionada: necesita un carril de ventas, no una tarjeta de crédito. */
+/* En esta página el comprador tiene varias sedes y compra con migración
+   gestionada: necesita un carril de ventas, no una tarjeta de crédito. Por eso
+   las tarjetas canónicas no van al checkout de Stripe acá — el CTA de cada plan
+   apunta a /agenda, porque el objetivo de /plataforma es la reunión. */
 export default function PlanesSection() {
   useReveal();
   return (
@@ -22,7 +23,7 @@ export default function PlanesSection() {
         `,
         }}
       />
-      <Pricing />
+      <Pricing ctaHref="/agenda" />
       <div className={styles.salesLane}>
         <p>
           ¿Varias sedes, migración desde otro sistema o facturación a empresa? Lo vemos antes de

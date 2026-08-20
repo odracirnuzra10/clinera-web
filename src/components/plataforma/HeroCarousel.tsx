@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./HeroCarousel.module.css";
 
-/* Carrusel del hero: seis vistas del producto rotando en la misma ventana.
+/* Carrusel del hero: seis vistas del producto rotando en la misma ventana (o el
+   subconjunto que pida `only`).
    Muestra qué es Clinera O.S. en vez de describirlo.
 
    Cada vista arma sus elementos en cascada al entrar (las animaciones cuelgan
@@ -20,6 +21,8 @@ const VIEWS = [
   { id: "odonto", label: "Odontograma", url: "app.clinera.io / pacientes / odontograma", hold: 6000 },
   { id: "corporal", label: "Ficha corporal", url: "app.clinera.io / pacientes / evaluacion", hold: 6200 },
 ] as const;
+
+export type HeroViewId = (typeof VIEWS)[number]["id"];
 
 function Check() {
   return (
@@ -347,7 +350,17 @@ function IntelligenceView({ run }: { run: number }) {
   );
 }
 
-export default function HeroCarousel() {
+/* `only` recorta el carrusel a un subconjunto de vistas, en el orden pedido: el
+   wizard de /agenda muestra sólo las vistas del paso en que va el visitante. Sin
+   la prop se ven las seis, que es lo que hace /plataforma. */
+export default function HeroCarousel({ only }: { only?: readonly HeroViewId[] } = {}) {
+  const views = useMemo(
+    () => {
+      const picked = only ? only.map((id) => VIEWS.find((v) => v.id === id)).filter((v) => !!v) : [];
+      return picked.length ? picked : [...VIEWS];
+    },
+    [only],
+  );
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   // Cambia en cada arranque de ciclo: reinicia la barra de progreso y el
@@ -379,11 +392,11 @@ export default function HeroCarousel() {
 
   useEffect(() => {
     if (paused || !playing || reduced.current) return;
-    const t = setTimeout(() => setActive((i) => (i + 1) % VIEWS.length), VIEWS[active].hold);
+    const t = setTimeout(() => setActive((i) => (i + 1) % views.length), views[active].hold);
     return () => clearTimeout(t);
-  }, [active, paused, playing, run]);
+  }, [active, paused, playing, run, views]);
 
-  const next = VIEWS[(active + 1) % VIEWS.length].label;
+  const next = views[(active + 1) % views.length].label;
 
   return (
     <div
@@ -397,12 +410,12 @@ export default function HeroCarousel() {
     >
       <div className={styles.bar}>
         <span className={styles.dots} aria-hidden="true"><i /><i /><i /></span>
-        <span className={styles.url}>{VIEWS[active].url}</span>
+        <span className={styles.url}>{views[active].url}</span>
         <span className={styles.badge}><i /> IA activa</span>
       </div>
 
       <div className={styles.stage}>
-        {VIEWS.map((v, i) => (
+        {views.map((v, i) => (
           <div
             key={v.id}
             className={i === active ? `${styles.slide} ${styles.slideOn}` : styles.slide}
@@ -420,7 +433,7 @@ export default function HeroCarousel() {
       </div>
 
       <div className={styles.tabs} role="tablist" aria-label="Vistas de Clinera">
-        {VIEWS.map((v, i) => (
+        {views.map((v, i) => (
           <button
             key={v.id}
             type="button"
@@ -457,7 +470,7 @@ export default function HeroCarousel() {
           key={`${active}-${run}`}
           className={styles.progressFill}
           style={{
-            animationDuration: `${VIEWS[active].hold}ms`,
+            animationDuration: `${views[active].hold}ms`,
             animationPlayState: paused || !playing ? "paused" : "running",
           }}
         />

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import WizardShowcase from "./WizardShowcase";
 import {
   buildCalLinkWithAttribution,
   getAttributionPayload,
@@ -85,24 +86,36 @@ const NEED_OPTIONS: { id: NeedId; label: string }[] = [
   { id: "otra", label: "Otra necesidad" },
 ];
 
-/** Qué pregunta el paso 1. El resto del wizard es idéntico en ambos casos. */
-export type Question1 = "software" | "need";
+// ============== PASO 1 — VARIANTE "INTERÉS" ==============
+// /agenda pregunta directo si quiere implementar Clinera: un Sí que avanza y un
+// No que cierra. Decisión de Ricardo (agosto 2026), sabiendo el costo: esta
+// variante NO captura `necesidad_principal`, así que el equipo comercial llega a
+// la reunión sin el motivo declarado. La contraparte es un paso de un solo tap.
+const INTEREST_ID = "interes_implementar" as const;
+const INTEREST_LABEL = "Confirmó interés en implementar Clinera";
 
-type Step1Id = SoftwareId | NeedId;
+/** Qué pregunta el paso 1. El resto del wizard es idéntico en los tres casos. */
+export type Question1 = "software" | "need" | "interest";
+
+type Step1Id = SoftwareId | NeedId | typeof INTEREST_ID;
 
 const NEED_IDS = new Set<string>(NEED_OPTIONS.map((o) => o.id));
 
-/** Etiqueta legible de la respuesta del paso 1, sea software o necesidad. */
+/** Etiqueta legible de la respuesta del paso 1: software, necesidad o interés. */
 const STEP1_LABELS: Record<string, string> = {
   ...SOFTWARE_LABELS,
   ...NEED_OPTIONS.reduce((acc, o) => ({ ...acc, [o.id]: o.label }), {}),
+  [INTEREST_ID]: INTEREST_LABEL,
 };
 
 /** Campos del paso 1 para el webhook: se conservan las claves legacy. */
 function step1Fields(id: Step1Id | null) {
+  const esInteres = id === INTEREST_ID;
   const esNecesidad = !!id && NEED_IDS.has(id);
+  // `necesidad_principal` queda vacío en la variante de interés en vez de
+  // inventarse un motivo, igual que el número de sedes en el paso 2.
   return {
-    paso1_pregunta: esNecesidad ? "necesidad" : "software",
+    paso1_pregunta: esInteres ? "interes" : esNecesidad ? "necesidad" : "software",
     necesidad_principal: esNecesidad ? id : "",
     necesidad_principal_label: esNecesidad ? STEP1_LABELS[id] : "",
   };
@@ -386,6 +399,7 @@ export default function VentasLanding({
   question1 = "software",
   investmentAfterContact = false,
   meetingMinutes = 30,
+  showcase = false,
 }: {
   enableMigrationQualification?: boolean;
   /** Qué pregunta el paso 1: el software actual (default) o la necesidad. */
@@ -401,6 +415,12 @@ export default function VentasLanding({
   scheduler?: SchedulerId;
   /** Ruta que origina el lead — viaja en `fuente` del webhook y en el mensaje de WhatsApp. */
   sourcePath?: string;
+  /**
+   * Reemplaza la columna de testimonios por el argumento de producto que vivía
+   * en /plataforma, sincronizado con el paso del wizard: el visitante ve qué es
+   * Clinera sin salir de la página donde agenda. Ver WizardShowcase.
+   */
+  showcase?: boolean;
 }) {
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -439,6 +459,15 @@ export default function VentasLanding({
         @keyframes marqueeScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes ventasFadeUp { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
         @media (prefers-reduced-motion: reduce) { * { animation-duration: 0ms !important; transition-duration: 0ms !important; } }
+        /* /agenda ocupa la ventana completa y centra el bloque: es una landing de
+           un solo golpe de vista, no una página para scrollear. Sólo la variante
+           showcase — el resto de las páginas que comparten este hero siguen
+           fluyendo con su alto natural. */
+        .ventas-hero-centrado { min-height: 100svh; }
+        @supports not (min-height: 100svh) { .ventas-hero-centrado { min-height: 100vh; } }
+        /* En móvil las dos columnas apiladas superan la ventana: forzar el alto
+           dejaría un vacío bajo el wizard. */
+        @media (max-width: 820px) { .ventas-hero-centrado { min-height: 0; } }
         /* Desktop shows the big carousel card; mobile swaps to a compact horizontal strip */
         .ventas-testi-desktop { display: block; }
         .ventas-testi-mobile { display: none; }
@@ -476,6 +505,7 @@ export default function VentasLanding({
         question1={question1}
         investmentAfterContact={investmentAfterContact}
         meetingMinutes={meetingMinutes}
+        showcase={showcase}
       />
     </>
   );
@@ -489,6 +519,7 @@ function ReunionHero({
   question1,
   investmentAfterContact,
   meetingMinutes,
+  showcase,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
@@ -496,9 +527,16 @@ function ReunionHero({
   question1: Question1;
   investmentAfterContact: boolean;
   meetingMinutes: number;
+  showcase: boolean;
 }) {
+  // Espejo de solo lectura del paso del wizard, para que la columna de
+  // argumento cambie con él. El wizard sigue siendo el dueño del estado.
+  const [visibleStep, setVisibleStep] = useState(1);
   return (
-    <section style={{ position: "relative", overflow: "hidden", display: "flex", alignItems: "center" }}>
+    <section
+      className={showcase ? "ventas-hero ventas-hero-centrado" : "ventas-hero"}
+      style={{ position: "relative", overflow: "hidden", display: "flex", alignItems: "center" }}
+    >
       <div
         style={{
           position: "absolute",
@@ -520,7 +558,10 @@ function ReunionHero({
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 40,
-          alignItems: "stretch",
+          // Con showcase las dos columnas tienen alturas distintas por paso, así
+          // que se centran entre sí en vez de estirarse: si no, la más corta
+          // queda pegada arriba y el conjunto se ve desbalanceado.
+          alignItems: showcase ? "center" : "stretch",
         }}
       >
         <div className="reveal" style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
@@ -566,6 +607,14 @@ function ReunionHero({
             <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>reunión de {meetingMinutes} min</span>
           </span>
 
+          {/* La animación acompaña sólo a las dos primeras preguntas. Desde el
+              paso 3 vuelve el carrusel de doctores: en los datos y en la hora lo
+              que falta no es entender el producto sino confiar, y ahí la cara de
+              un colega que ya lo usa pesa más que un diagrama. */}
+          {showcase && visibleStep <= 2 ? (
+            <WizardShowcase step={visibleStep} />
+          ) : (
+          <>
           <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
             <TestimonialCarousel />
           </div>
@@ -622,6 +671,8 @@ function ReunionHero({
               </div>
             </div>
           </div>
+          </>
+          )}
         </div>
 
         <div className="reveal" style={{ display: "flex", minWidth: 0 }}>
@@ -632,6 +683,8 @@ function ReunionHero({
             question1={question1}
             investmentAfterContact={investmentAfterContact}
             meetingMinutes={meetingMinutes}
+            showcase={showcase}
+            onStepChange={setVisibleStep}
           />
         </div>
       </div>
@@ -823,6 +876,8 @@ function Wizard({
   question1,
   investmentAfterContact,
   meetingMinutes,
+  showcase = false,
+  onStepChange,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
@@ -830,6 +885,9 @@ function Wizard({
   question1: Question1;
   investmentAfterContact: boolean;
   meetingMinutes: number;
+  /** Con showcase, el precio y el descarte viven junto al paso 3 (ver WizardShowcase). */
+  showcase?: boolean;
+  onStepChange?: (step: number) => void;
 }) {
   const [step, setStep] = useState(1);
   const [software, setSoftware] = useState<Step1Id | null>(null);
@@ -849,9 +907,22 @@ function Wizard({
   const contactStep = hasSoftwareStep ? 3 : 2;
   const calStep = hasSoftwareStep ? 4 : 3;
 
+  // El paso se avisa hacia arriba en un efecto y no en cada setStep: así ninguna
+  // de las transiciones existentes cambia, y la columna de argumento sigue al
+  // wizard aunque se vuelva atrás.
+  useEffect(() => {
+    onStepChange?.(step);
+  }, [step, onStepChange]);
+
   // Aceptación / descarte de la inversión. Vive acá porque el aviso de precio
-  // se muestra en el paso 2 o en el 4 según `investmentAfterContact`, y ambos
-  // deben registrar exactamente lo mismo.
+  // se muestra en el paso 1, el 2 o el 4 según la variante, y todos deben
+  // registrar exactamente lo mismo.
+  //
+  // `interes_confirmado` se emite UNA vez por sesión de wizard. Sin el guardia
+  // se contaba de más en dos caminos: volver del paso 3 al 2 y pulsar
+  // "Continuar" otra vez, y —con question1="interest"— el sí del paso 1 más el
+  // submit del paso 2, que también lo emite.
+  const interesSiEmitido = useRef(false);
   const handleInteres = (v: "si" | "no") => {
     if (v === "no") {
       pushDL("no_interesa", {
@@ -859,7 +930,8 @@ function Wizard({
         software_actual_label: software ? STEP1_LABELS[software] : "",
       });
       setDeclined(true);
-    } else {
+    } else if (!interesSiEmitido.current) {
+      interesSiEmitido.current = true;
       pushDL("interes_confirmado", { software_actual: software ?? "" });
     }
   };
@@ -885,23 +957,41 @@ function Wizard({
       </div>
 
       {!submitted && !declined && hasSoftwareStep && step === softwareStep && (
-        <StepSoftware
-          question1={question1}
-          software={software}
-          setSoftware={setSoftware}
-          label={`Paso ${softwareStep} de ${totalSteps}`}
-          onNext={() => {
-            pushDL("paso_1_completado", {
-              software_actual: software ?? "",
-              software_actual_label: software ? STEP1_LABELS[software] : "",
-            });
-            setStep(sizeStep);
-          }}
-        />
+        question1 === "interest" ? (
+          <StepInteres
+            label={`Paso ${softwareStep} de ${totalSteps}`}
+            onSi={() => {
+              // El "sí" queda registrado como la respuesta del paso 1, así el
+              // webhook sigue recibiendo las mismas claves con un valor real.
+              setSoftware(INTEREST_ID);
+              pushDL("paso_1_completado", {
+                software_actual: INTEREST_ID,
+                software_actual_label: INTEREST_LABEL,
+              });
+              handleInteres("si");
+              setStep(sizeStep);
+            }}
+            onNo={() => handleInteres("no")}
+          />
+        ) : (
+          <StepSoftware
+            question1={question1}
+            software={software}
+            setSoftware={setSoftware}
+            label={`Paso ${softwareStep} de ${totalSteps}`}
+            onNext={() => {
+              pushDL("paso_1_completado", {
+                software_actual: software ?? "",
+                software_actual_label: software ? STEP1_LABELS[software] : "",
+              });
+              setStep(sizeStep);
+            }}
+          />
+        )
       )}
       {!submitted && !declined && step === sizeStep && (
         <StepSize
-          showInvestment={!investmentAfterContact}
+          showInvestment={!investmentAfterContact && !showcase}
           size={size}
           setSize={setSize}
           onInteres={handleInteres}
@@ -950,6 +1040,7 @@ function Wizard({
           form={form}
           setForm={setForm}
           label={`Paso ${contactStep} de ${totalSteps}`}
+          onInteres={showcase ? handleInteres : undefined}
           onBack={() => setStep(sizeStep)}
           onNext={() => {
             if (typeof window !== "undefined" && typeof window.fbq === "function") {
@@ -1003,7 +1094,7 @@ function Wizard({
       {!submitted && !declined && step === calStep && scheduler === "clinera" && (
         <StepClineraScheduler
           form={form}
-          showInvestment={investmentAfterContact}
+          showInvestment={investmentAfterContact && !showcase}
           onInteres={handleInteres}
           label={`Paso ${calStep} de ${totalSteps}`}
           onBack={() => setStep(contactStep)}
@@ -1454,6 +1545,102 @@ function StepSoftware({
   );
 }
 
+// ============== STEP 1 (alt) — ¿TE INTERESA IMPLEMENTARLO? ==============
+// Un solo tap: Sí avanza, No cierra con StepDeclined. El "No" es un botón real y
+// no un enlace discreto porque acá la pregunta ES el filtro; en los otros pasos
+// el descarte compite con el CTA y por eso va abajo y en gris.
+function StepInteres({
+  label,
+  onSi,
+  onNo,
+}: {
+  label: string;
+  onSi: () => void;
+  onNo: () => void;
+}) {
+  return (
+    <div>
+      <StepHeader
+        label={label}
+        title={
+          <>
+            Clinera ordena tu clínica bajo un mismo{" "}
+            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+              sistema operativo con IA
+            </em>
+            .
+          </>
+        }
+        sub="Agendas, fichas, sedes, tratamientos, comunicaciones y profesionales, en un solo lugar."
+      />
+
+      <p
+        style={{
+          fontFamily: "Inter",
+          fontSize: 16.5,
+          fontWeight: 700,
+          letterSpacing: "-.018em",
+          color: "#0A0A0A",
+          margin: "0 0 14px",
+        }}
+      >
+        ¿Te interesa implementarlo?
+      </p>
+
+      <div style={{ display: "grid", gap: 10 }}>
+        <button
+          type="button"
+          onClick={onSi}
+          className="ventas-submit-btn"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            width: "100%",
+            padding: "14px 20px",
+            border: 0,
+            borderRadius: 14,
+            background: "#0A0A0A",
+            color: "#fff",
+            fontFamily: "Inter",
+            fontSize: 15.5,
+            fontWeight: 700,
+            letterSpacing: "-.012em",
+            cursor: "pointer",
+          }}
+        >
+          Sí, me interesa
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={onNo}
+          style={{
+            width: "100%",
+            padding: "13px 20px",
+            border: "1.5px solid #E7EBF0",
+            borderRadius: 14,
+            background: "#fff",
+            color: "#4B5563",
+            fontFamily: "Inter",
+            fontSize: 15,
+            fontWeight: 600,
+            letterSpacing: "-.01em",
+            cursor: "pointer",
+          }}
+        >
+          No por ahora
+        </button>
+      </div>
+
+      <FormNote>Reunión exclusiva para dueños, gerentes y directores médicos.</FormNote>
+    </div>
+  );
+}
+
 // ============== STEP 2 — TAMAÑO DE OPERACIÓN ==============
 // Lista vertical (no chips): las etiquetas son largas y en móvil los chips
 // obligaban a truncar o a scroll horizontal.
@@ -1738,6 +1925,7 @@ function StepContact({
   label = "Paso 2 de 3",
   onBack,
   onNext,
+  onInteres,
   meetingMinutes = 30,
 }: {
   form: Form;
@@ -1746,6 +1934,12 @@ function StepContact({
   meetingMinutes?: number;
   onBack: () => void;
   onNext: () => void;
+  /**
+   * Descarte explícito. Sólo lo pasa la variante con showcase: ahí el precio se
+   * muestra al lado de este paso, así que el "no" pertenece acá. En el flujo
+   * original el descarte vive junto al precio, en el paso 2 o en el 4.
+   */
+  onInteres?: (v: "si" | "no") => void;
 }) {
   const [attempted, setAttempted] = useState(false);
   const phoneFieldLabel = "Tu WhatsApp personal (dueño/a o gerente)";
@@ -1943,6 +2137,27 @@ function StepContact({
         </svg>
       </SubmitBtn>
       <FormNote>Sin compromiso · {meetingMinutes} min por videollamada</FormNote>
+      {onInteres && (
+        <div style={{ textAlign: "center", marginTop: 10 }}>
+          <button
+            type="button"
+            onClick={() => onInteres("no")}
+            style={{
+              background: "transparent",
+              border: 0,
+              padding: "4px 6px",
+              fontFamily: "Inter",
+              fontSize: 13,
+              color: "#9CA3AF",
+              textDecoration: "underline",
+              textUnderlineOffset: 3,
+              cursor: "pointer",
+            }}
+          >
+            No es para mí
+          </button>
+        </div>
+      )}
     </div>
   );
 }

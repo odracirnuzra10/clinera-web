@@ -4290,9 +4290,14 @@ export function BillingToggle({ billing, onChange }: { billing: Billing; onChang
 export function Pricing({
   showCredits = true,
   intro = "default",
+  ctaHref,
 }: {
   showCredits?: boolean;
   intro?: "default" | "comparison" | "none";
+  // Destino del CTA de cada tarjeta. Por defecto es el checkout de Stripe del
+  // plan y la modalidad elegida. Las páginas cuyo objetivo es la reunión y no
+  // la venta con tarjeta (p. ej. /plataforma) pasan una ruta interna acá.
+  ctaHref?: string;
 } = {}) {
   const [billing, setBilling] = useState<Billing>("annual");
   const isAnnual = billing === "annual";
@@ -4334,7 +4339,10 @@ export function Pricing({
   }));
 
   const checkoutUrl = (p: (typeof plans)[number]) =>
-    isAnnual ? p.stripeAnnual : isSemester ? p.stripeSemester : p.stripe;
+    ctaHref ?? (isAnnual ? p.stripeAnnual : isSemester ? p.stripeSemester : p.stripe);
+  // Stripe vive fuera del sitio y se abre en pestaña nueva; una ruta interna
+  // como /agenda tiene que continuar en la misma pestaña.
+  const ctaIsExternal = !ctaHref;
   const checkoutValue = (p: (typeof plans)[number]) =>
     isAnnual ? p.annualValue : isSemester ? p.semesterValue : p.monthlyValue;
 
@@ -4666,8 +4674,7 @@ export function Pricing({
                   <a
                     className="home-plan-cta"
                     href={checkoutUrl(p)}
-                    target="_blank"
-                    rel="noopener"
+                    {...(ctaIsExternal ? { target: "_blank", rel: "noopener" } : {})}
                     style={{
                       textDecoration: "none",
                       textAlign: "center",
