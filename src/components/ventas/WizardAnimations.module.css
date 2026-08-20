@@ -574,13 +574,13 @@
      Si queda corto, al rotar a agenda el panel crece y empuja el wizard
      fuera del viewport in-app. */
   .deviceStage {
-    min-height: 152px;
-    padding: 11px 10px;
+    min-height: 148px;
+    padding: 10px 10px;
   }
 
   .bubble {
     font-size: 12.5px;
-    padding: 7px 11px;
+    padding: 6px 11px;
   }
 
   /* Una sola línea por turno: el tratamiento (small) es detalle de desktop.

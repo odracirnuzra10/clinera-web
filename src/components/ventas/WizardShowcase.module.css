@@ -110,7 +110,7 @@
      18px: con 2+2 chips el panel ya pesa, y el tope real es ~650px útiles
      de un in-app browser. */
   .panel {
-    padding: 14px 14px 12px;
+    padding: 12px 14px 10px;
     border-radius: 18px;
   }
 

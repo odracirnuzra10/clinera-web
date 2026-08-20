@@ -493,11 +493,11 @@ export default function VentasLanding({
           /* Compartido por /ventas, /hablar-con-ventas y /agenda. Un poco más
              generoso que la ronda vacía, sin pasar el techo de ~650px útiles
              de un in-app browser donde viven panel + tarjeta apilados. */
-          .ventas-wizard { padding: 14px 14px 12px !important; border-radius: 16px !important; }
-          .ventas-wizard-progress { margin-bottom: 6px !important; }
+          .ventas-wizard { padding: 12px 14px 10px !important; border-radius: 16px !important; }
+          .ventas-wizard-progress { margin-bottom: 5px !important; }
           .ventas-cal-embed { min-height: 560px !important; }
-          .ventas-step-title { font-size: 18.5px !important; letter-spacing: -.02em !important; margin-bottom: 6px !important; }
-          .ventas-step-header { margin-bottom: 6px !important; }
+          .ventas-step-title { font-size: 18.5px !important; letter-spacing: -.02em !important; margin-bottom: 5px !important; }
+          .ventas-step-header { margin-bottom: 5px !important; }
           .ventas-step-sub { font-size: 12.5px !important; }
           .ventas-step-label { font-size: 10.5px !important; margin-bottom: 4px !important; }
           .ventas-interes-q { font-size: 14.5px !important; margin-bottom: 10px !important; }
@@ -511,13 +511,13 @@ export default function VentasLanding({
           .ventas-field { margin-bottom: 10px !important; }
           .ventas-field-label { margin-bottom: 4px !important; }
           .ventas-volume-num { font-size: 46px !important; }
-          .ventas-volume-picker { margin-bottom: 8px !important; }
-          .ventas-volume-label { font-size: 12.5px !important; margin-bottom: 5px !important; }
-          .ventas-volume-list { gap: 5px !important; }
-          .ventas-volume-opt { padding: 8px 11px !important; gap: 8px !important; }
+          .ventas-volume-picker { margin-bottom: 6px !important; }
+          .ventas-volume-label { font-size: 12.5px !important; margin-bottom: 4px !important; }
+          .ventas-volume-list { gap: 4px !important; }
+          .ventas-volume-opt { padding: 7px 11px !important; gap: 8px !important; }
           .ventas-volume-opt-text { font-size: 13px !important; }
           .ventas-form-note { margin-top: 8px !important; font-size: 11px !important; }
-          .ventas-back-btn { min-height: 32px !important; margin-bottom: 2px !important; }
+          .ventas-back-btn { min-height: 30px !important; margin-bottom: 2px !important; }
         }
       `}</style>
       <ReunionHero
