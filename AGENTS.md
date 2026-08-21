@@ -216,12 +216,60 @@ Guardián: `tests/agenda-scheduler.spec.ts`.
 Dueñas de los clusters de Google Ads "Softwares" (software médico / software
 dental). Esqueleto compartido en `src/components/software-vertical/`; el copy
 vive solo en `content.ts`. CTA canónico: `/agenda` **preservando la query**
-(`Nav`, sticky móvil y CTAs internos) porque `detectLeadSource()` en
-`VentasLanding.tsx` lee la URL actual, no la cookie `_clinera_gclid`.
+(`Nav`, sticky móvil y CTAs internos): la query sigue mandando sobre todo lo
+demás en `clasificarLeadSource()`, así que perderla degrada la atribución aunque
+ya no la borre (ver abajo).
 `lead_source` de GTM: `software_medico_landing` / `software_dental_landing`.
 El wizard de `/agenda` no tiene opción "Dental" a propósito.
 
 Hallazgo fuera de alcance: el JSON-LD del home (`src/app/page.tsx`) publica
 `lowPrice:"129"` obsoleto, y `softwareSchema` / `productPlansSchema` en
 `src/components/seo/schemas.ts` son exports muertos con precios duplicados.
-`detectLeadSource()` tampoco lee `gbraid`/`wbraid`.
+
+# De dónde viene el lead: la regla vive en UNA función pura
+
+`clasificarLeadSource()` (`VentasLanding.tsx`) decide entre `google-ads`,
+`meta-ads` y `organico`; `detectLeadSource()` solo junta las señales. El orden
+es la regla y está explicado ahí mismo, pero lo que hay que saber antes de
+tocarlo es **por qué el identificador de click va antes que el `utm`**: un `utm`
+lo escribe cualquiera, un `gclid` lo pone Google al hacer clic.
+
+Dos cosas que costaron leads pagados contados como orgánicos, corregidas en
+agosto 2026 y que no deben volver:
+
+- **`gbraid` / `wbraid` son identificadores de click de Google**, los de
+  YouTube/Demand Gen e iOS, donde no viene `gclid`. `gclid.ts` los guardaba y
+  viajaban en el payload desde siempre; la clasificación no los miraba.
+- **La segunda página.** Quien entra por un anuncio a `/planes` y llega a
+  `/agenda` por el menú ya no trae query. El identificador sigue en la cookie
+  `_clinera_gclid` (90 días) y en el sessionStorage de `metaIds.ts`, así que hoy
+  se leen de ahí como respaldo — el lead ya no sale `organico` con su propio
+  `gclid` al lado en el mismo webhook.
+
+La cookie `_fbp` **no** es señal de origen: la tiene todo visitante que cargue
+el Pixel. Guardián: `tests/lead-source.spec.ts`.
+
+Ojo con el alcance: **el `Origen` que se ve en Baserow 152 y en Twenty NO sale
+de acá**, sale de `classifyOrigin()` dentro del nodo "Prepare Sales Lead Data"
+del workflow `OACG TECH | Wizard` (`A3wOPmhQjit8VswM`), que no vive en este
+repo. Ese nodo lee el `lead_source` que le manda el sitio, pero sólo después de
+sus propias reglas. El reemplazo revisado está en el repo `baserow`
+(`sales/n8n/wizard-classify-origin.js`).
+
+# El wizard manda VARIOS webhooks por lead, no uno
+
+`/agenda` postea al mismo webhook de n8n (`088a2cfe-…`) hasta tres veces con el
+mismo correo, y cada uno es una etapa distinta del wizard:
+
+| Cuándo | `lead_stage` | `booking_status` | Qué trae de nuevo |
+|---|---|---|---|
+| Paso 2, si califica | `size_captured` | `pending` | tamaño; **sin contacto** |
+| Paso 3, al enviar | `contact` | `pending` | nombre, correo, teléfono, clínica |
+| Al confirmar la hora | `booking_confirmed` | `confirmed` | `cal_date`, `cal_organizer_name` |
+
+El primero no lleva correo y n8n lo descarta en su nodo "Tiene contacto?". Los
+otros dos entran los dos, así que **el segundo encuentra la fila que creó el
+primero un minuto antes**: eso NO es un lead recurrente, es el mismo lead
+terminando de agendar. El aviso de Google Chat lo daba por recurrente hasta
+agosto 2026; hoy se distingue por `lead_stage` (ver el repo `baserow`,
+`sales/n8n/wizard-aviso-chat.jsonbody.txt`).

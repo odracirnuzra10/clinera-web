@@ -283,20 +283,85 @@ function getCookie(name: string): string {
   return match ? decodeURIComponent(match[2]) : "";
 }
 
-function detectLeadSource(): string {
-  if (typeof window === "undefined") return "organico";
-  const qs = new URLSearchParams(window.location.search);
+// Señales de origen de un visitante. Se separan del navegador para poder probar
+// la regla sin montar una página: `detectLeadSource()` las junta y
+// `clasificarLeadSource()` decide.
+export type LeadSourceSignals = {
+  /** Query de la URL actual (`window.location.search`). */
+  search: string;
+  /** Identificador de click de Google ya guardado (cookie `_clinera_gclid`, 90 días). */
+  storedGoogleClickId?: string | null;
+  /** fbclid persistido en sessionStorage por `metaIds.ts`. */
+  storedFbclid?: string | null;
+  /** Cookie `_fbc`. El Pixel solo la escribe cuando vio un fbclid → es click pagado. */
+  storedFbc?: string | null;
+};
+
+/**
+ * De dónde viene el lead: "google-ads" | "meta-ads" | "organico" — o el
+ * `utm_source` crudo cuando la campaña no es de ninguna de las dos redes.
+ *
+ * El orden ES la regla, y cada peldaño está por un motivo:
+ *
+ * 1. `?source=` / `?lead_source=` explícito: lo ponemos nosotros en un enlace,
+ *    no se discute con heurísticas.
+ * 2. **Identificador de click**, primero el de la URL y después el guardado. Es
+ *    la única prueba dura de que hubo un anuncio: un `utm` lo escribe
+ *    cualquiera, un `gclid` lo pone Google al hacer clic.
+ * 3. Los `utm`, que dicen de dónde *dice* venir el enlace.
+ *
+ * Dos huecos que esto cierra, los dos contaban leads PAGADOS como orgánicos:
+ *
+ * - **`gbraid` / `wbraid`**: el identificador de click de YouTube/Demand Gen y
+ *   de iOS, donde Google no manda `gclid`. `gclid.ts` los guarda y viajan en el
+ *   payload desde siempre; nadie los miraba para decidir el origen.
+ * - **La segunda página.** Quien entra por un anuncio a `/planes` y llega a
+ *   `/agenda` por el menú ya no trae nada en la URL. El `gclid` sigue en la
+ *   cookie de 90 días y viaja igual en el payload, así que el lead quedaba
+ *   marcado "organico" con su propio `gclid` al lado.
+ *
+ * Lo que NO es señal de origen: la cookie `_fbp`. La tiene TODO visitante que
+ * cargue el Pixel, venga de donde venga; usarla marcaría el sitio entero como
+ * Meta Ads.
+ */
+export function clasificarLeadSource(s: LeadSourceSignals): string {
+  const qs = new URLSearchParams(s.search || "");
   const explicit = (qs.get("source") || qs.get("lead_source") || "").toLowerCase();
   if (explicit === "google" || explicit === "google-ads") return "google-ads";
   if (explicit === "meta" || explicit === "meta-ads" || explicit === "facebook") return "meta-ads";
   if (explicit === "organico" || explicit === "organic") return "organico";
-  if (qs.get("gclid")) return "google-ads";
+
+  // Identificador de click en la URL — la visita de AHORA.
+  if (qs.get("gclid") || qs.get("gbraid") || qs.get("wbraid")) return "google-ads";
   if (qs.get("fbclid")) return "meta-ads";
+  // `gad_source` / `gad_campaignid` los agrega el autotagging de Google y a
+  // veces llegan sin `gclid` (redirecciones que se comen el resto de la query).
+  if (qs.get("gad_source") || qs.get("gad_campaignid")) return "google-ads";
+
+  // Identificador de click guardado — un anuncio de una visita anterior, dentro
+  // de la ventana de atribución.
+  if (s.storedGoogleClickId) return "google-ads";
+  if (s.storedFbclid || s.storedFbc) return "meta-ads";
+
   const utm = (qs.get("utm_source") || "").toLowerCase();
-  if (utm.includes("google") || utm.includes("adwords")) return "google-ads";
+  if (utm.includes("google") || utm.includes("adwords") || utm.includes("youtube")) return "google-ads";
   if (utm.includes("facebook") || utm.includes("meta") || utm.includes("instagram") || utm.includes("ig")) return "meta-ads";
   if (utm) return utm;
   return "organico";
+}
+
+function detectLeadSource(): string {
+  if (typeof window === "undefined") return "organico";
+  // Las mismas dos fuentes que ya viajan en el payload del webhook, para que el
+  // `lead_source` no pueda contradecir al `gclid` que va tres líneas más abajo.
+  const ads = getAttributionPayload();
+  const meta = getClineraMetaIds();
+  return clasificarLeadSource({
+    search: window.location.search,
+    storedGoogleClickId: ads.gclid || ads.gbraid || ads.wbraid,
+    storedFbclid: meta.fbclid,
+    storedFbc: meta.meta_fbc,
+  });
 }
 
 // Empuja un evento a GTM/dataLayer (mecanismo de analytics que ya usa el sitio).
