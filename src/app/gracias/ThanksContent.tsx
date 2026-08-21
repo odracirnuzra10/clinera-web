@@ -29,7 +29,19 @@ const TEAM: Record<"catalina" | "nohelymar", Ejecutiva> = {
   },
 };
 
-export function ThanksContent() {
+// pixelVerified lo calcula page.tsx (Server Component) validando el token
+// firmado que trae la URL — ver ./token.ts. Sin él, CompleteRegistration no
+// dispara aunque event_id venga en la URL (hallazgo #3 de
+// auditoria-leads-clinera.md, PR #170): antes bastaba con visitar
+// /gracias?event_id=x a mano para inflar el Pixel con una conversión falsa.
+//
+// Ojo con el alcance: hoy quien llega acá con un lead real es
+// RoiCalculator.tsx (calculadora de ROI), no el wizard de /agenda ni
+// /ventas — ninguno de los dos redirige a /gracias, confirmado revisando
+// VentasLanding.tsx, ReunionLanding.tsx y DemoWizard.tsx. La protección
+// vive igual acá porque /gracias es la página vulnerable, sea cual sea el
+// formulario que la use hoy o mañana.
+export function ThanksContent({ pixelVerified }: { pixelVerified: boolean }) {
   const params = useSearchParams();
   const source = params.get("source") ?? "unknown";
   const eventId = params.get("event_id") ?? "";
@@ -47,7 +59,7 @@ export function ThanksContent() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (window.fbq && eventId) {
+    if (window.fbq && eventId && pixelVerified) {
       window.fbq(
         "track",
         "CompleteRegistration",
@@ -63,7 +75,7 @@ export function ThanksContent() {
         ejecutiva_asignada: key,
       });
     }
-  }, [source, eventId, key]);
+  }, [source, eventId, key, pixelVerified]);
 
   return (
     <main
