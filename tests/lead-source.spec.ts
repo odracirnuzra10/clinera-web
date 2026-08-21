@@ -90,6 +90,16 @@ test.describe("utm — solo cuando no hay identificador de click", () => {
     expect(solo("?utm_source=ig&utm_medium=paid_social")).toBe("meta-ads");
   });
 
+  test("«an» es Audience Network y «msg» es Messenger — los rótulos de Meta", () => {
+    // El caso real: un lead de agosto 2026 llegó a /agenda con
+    // `utm_medium=paid&utm_source=an`. Traía fbclid, así que no se notó; el que
+    // pierde el fbclid por el camino quedaba contado como orgánico.
+    expect(solo("?utm_medium=paid&utm_source=an&utm_campaign=120247672764930218")).toBe("meta-ads");
+    expect(solo("?utm_source=msg")).toBe("meta-ads");
+    // Por igualdad, no por substring.
+    expect(solo("?utm_source=analytics")).toBe("analytics");
+  });
+
   test("una campaña de otra red se devuelve tal cual, no se inventa", () => {
     expect(solo("?utm_source=linkedin&utm_medium=social")).toBe("linkedin");
   });

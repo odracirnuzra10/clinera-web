@@ -345,6 +345,10 @@ export function clasificarLeadSource(s: LeadSourceSignals): string {
 
   const utm = (qs.get("utm_source") || "").toLowerCase();
   if (utm.includes("google") || utm.includes("adwords") || utm.includes("youtube")) return "google-ads";
+  // `an` es Audience Network y `msg` es Messenger: los rótulos con los que Meta
+  // marca sus propios anuncios. Van por igualdad y no por substring — «an» cae
+  // dentro de media lengua castellana («analytics» no es Meta).
+  if (utm === "an" || utm === "msg") return "meta-ads";
   if (utm.includes("facebook") || utm.includes("meta") || utm.includes("instagram") || utm.includes("ig")) return "meta-ads";
   if (utm) return utm;
   return "organico";
