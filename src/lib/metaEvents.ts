@@ -1,11 +1,14 @@
 // ============================================================================
-// Evento de Meta del wizard de /ventas — MQL (lead calificado)
+// Evento de Meta del wizard de /ventas — MQL (lead que agendó)
 // ----------------------------------------------------------------------------
-// FUENTE DE VERDAD de "califica": la función pura `evaluateQualification` del
-// wizard (VentasLanding.tsx). Este módulo NO reimplementa la regla ni conoce
-// los umbrales (QUALIFY_THRESHOLDS): sólo CONSUME el resultado `Qualification`
-// y gatea con `qual.califica`. Si mañana cambian los umbrales, estos eventos
-// siguen siendo correctos sin tocar este archivo.
+// `evaluateQualification` (VentasLanding.tsx) ya NO filtra por umbral: toda
+// clínica que completa el paso 2 "califica" (`califica: true` siempre) —
+// decisión ya tomada ahí, no un stub pendiente (hallazgo #5 de
+// auditoria-leads-clinera.md, PR #170; corregido acá el 2026-08-21, este
+// comentario decía lo contrario). El gate real de MQL es `MQL_TRIGGER`
+// más abajo: con "booking_confirmed", MQL = agendó, punto — un lead que deja
+// sus datos y no agenda no cuenta. `prioridadAlta`/`priority` sólo alimentan
+// la prioridad interna del equipo comercial, nunca el conteo de MQL.
 //
 // Envío doble con deduplicación de Meta:
 //   • Pixel (navegador) → fbq('track', <evento>, custom_data, { eventID })

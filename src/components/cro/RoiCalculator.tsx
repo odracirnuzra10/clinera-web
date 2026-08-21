@@ -124,10 +124,30 @@ export default function RoiCalculator() {
         String(payload.event_id),
       );
 
+      const eventId = String(payload.event_id ?? "");
       const params = new URLSearchParams({
         source: "calculadora-roi",
-        event_id: String(payload.event_id ?? ""),
+        event_id: eventId,
       });
+
+      // Token de corta duración para que /gracias sepa que este lead es real
+      // y dispare el Pixel — ver src/app/gracias/token.ts. Best-effort: si el
+      // mint falla, igual redirige (el lead ya se envió), solo sin el Pixel
+      // de CompleteRegistration.
+      try {
+        const tokenRes = await fetch("/api/gracias-token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ event_id: eventId, source: "calculadora-roi" }),
+        });
+        if (tokenRes.ok) {
+          const { token } = (await tokenRes.json()) as { token?: string };
+          if (token) params.set("token", token);
+        }
+      } catch (tokenErr) {
+        console.error("[RoiCalculator] gracias-token failed", tokenErr);
+      }
+
       window.location.href = `/gracias?${params.toString()}`;
     } catch (err) {
       setSubmitting(false);

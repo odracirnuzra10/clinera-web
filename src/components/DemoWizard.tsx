@@ -7,8 +7,10 @@ const DOW = ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"];
 const MON = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"];
 const DOW_LONG = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
 const MON_LONG = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-const WEBHOOK_URL =
-  "https://n8n.oacg.cl/webhook/088a2cfe-5c93-4a4b-a4e5-ac2617979ea5";
+// El navegador ya no le habla directo a n8n: /api/wizard es el proxy
+// server-side que conoce la URL real y el token compartido (hallazgo #1 de
+// auditoria-leads-clinera.md, PR #170).
+const WEBHOOK_URL = "/api/wizard";
 const STORAGE_KEY = "clinera_demo_v5_state";
 
 type Plan = {

@@ -86,7 +86,10 @@ const MIGRATION_LABELS: Record<MigrationIntent, string> = MIGRATION_OPTIONS.redu
   {} as Record<MigrationIntent, string>,
 );
 
-const WEBHOOK_URL = "https://n8n.oacg.cl/webhook/088a2cfe-5c93-4a4b-a4e5-ac2617979ea5";
+// El navegador ya no le habla directo a n8n: /api/wizard es el proxy
+// server-side que conoce la URL real y el token compartido (hallazgo #1 de
+// auditoria-leads-clinera.md, PR #170).
+const WEBHOOK_URL = "/api/wizard";
 const WA_NUMBER = "56985581524";
 
 type Form = { nombre: string; clinica: string; prefix: string; phone: string; email: string };
