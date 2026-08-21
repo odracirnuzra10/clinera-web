@@ -270,6 +270,10 @@ mismo correo, y cada uno es una etapa distinta del wizard:
 El primero no lleva correo y n8n lo descarta en su nodo "Tiene contacto?". Los
 otros dos entran los dos, así que **el segundo encuentra la fila que creó el
 primero un minuto antes**: eso NO es un lead recurrente, es el mismo lead
-terminando de agendar. El aviso de Google Chat lo daba por recurrente hasta
-agosto 2026; hoy se distingue por `lead_stage` (ver el repo `baserow`,
-`sales/n8n/wizard-aviso-chat.jsonbody.txt`).
+terminando de agendar. Hasta agosto 2026 cada uno producía su propio aviso de
+Google Chat —y el segundo anunciaba «lead recurrente»—; desde entonces n8n corta
+el envío de la reserva y manda **un solo aviso**, después de esperar y releer la
+ficha (ver el repo `baserow`, `sales/n8n/recablear_aviso_unico.py`).
+
+Si cambiás las claves `lead_stage` / `booking_status`, ese corte deja de
+funcionar y los avisos vuelven a duplicarse sin ningún error visible.
