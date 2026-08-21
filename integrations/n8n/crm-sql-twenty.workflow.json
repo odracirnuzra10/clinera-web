@@ -71,7 +71,7 @@
           "parameters": [
             {
               "name": "access_token",
-              "value": "__META_CAPI_ACCESS_TOKEN__"
+              "value": "EAAPNa3cv5RABRPWt9zWz8cW8ZAJMe94WbJ6AkGGufEWf2Xzsm7elkyTR22O4OWlCLl5eAJZAntIFoZA3ZCghZCSNtEgkvvNoX80y8AnwbPPBk6OzafrkUvZAZB9408RZC17VHXwnBXXWSgmFiVbMZBsD8o1l8opxMMGr3qyNASe5zgZBo7QMjmmJ01eBZBgPK1ZCIgZDZD"
             }
           ]
         },
@@ -174,6 +174,21 @@
           "timeout": 10000
         }
       }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Marca en Baserow 152 que este SQL se mandó, para que el feed nuevo de\n// Google Ads (Data Manager, \"enhanced conversions for leads\") lo recoja\n// después. Data Manager solo LEE un archivo por HTTPS — no acepta un push\n// por evento como Meta CAPI — así que Baserow 152 hace de cola compartida\n// entre el envío a Meta (que ya pasó, arriba en esta misma cadena) y ese\n// feed nuevo.\nconst fila = ((($('Baserow - Meta ids').first().json.results) || [])[0]) || null;\nif (!fila || !fila.id) {\n  return [{ json: { marcado: false, motivo: 'sin_fila_baserow' } }];\n}\n\nconst hoy = new Date().toISOString().slice(0, 10);\ntry {\n  await this.helpers.httpRequest({\n    method: 'PATCH',\n    url: 'https://core.oacg.cl/api/database/rows/table/152/' + fila.id + '/?user_field_names=true',\n    headers: { Authorization: 'Token __BASEROW_TOKEN__' },\n    body: { '🎯 SQL a Google': hoy },\n    json: true,\n    timeout: 15000,\n  });\n  return [{ json: { marcado: true, rowId: fila.id, fecha: hoy } }];\n} catch (e) {\n  // No bloquea nada: el envío a Meta ya pasó. Si esto falla, el respaldo de\n  // Baserow («OACG TECH | SQL Conversión Alto Valor») lo termina marcando\n  // igual en su próxima barrida.\n  return [{ json: { marcado: false, motivo: 'error_patch', error: String((e && e.message) || e) } }];\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        440
+      ],
+      "name": "Marcar SQL Google",
+      "onError": "continueRegularOutput",
+      "id": "882d7c30-6280-4691-a6b4-a69b1dd038d1"
     }
   ],
   "connections": {
@@ -233,6 +248,11 @@
         [
           {
             "node": "Responder SQL OK",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Marcar SQL Google",
             "type": "main",
             "index": 0
           }

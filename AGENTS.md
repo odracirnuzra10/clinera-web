@@ -162,7 +162,7 @@ renderizan las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
 - **Mes 2 en adelante:** el plan contratado (Vortex US$ 279 / Atlas US$ 379 /
   Summit US$ 479 al mes).
 
-# Embudo de Meta: qué evento vale cuánto, y dónde vive de verdad
+# Embudo de Meta Y Google Ads: qué evento vale cuánto, y dónde vive de verdad
 
 > [!WARNING]
 > **Leer solo este repo lleva a conclusiones falsas.** De los tres workflows
@@ -173,9 +173,17 @@ renderizan las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
-| `MQL` | el lead agenda en `/agenda` | — | `integrations/n8n/clinera-agenda-reserva.workflow.json` |
+| `MQL` | el lead agenda en `/agenda` | — (Meta) / US$10 (Google Ads) | `integrations/n8n/clinera-agenda-reserva.workflow.json` (Meta) · repo `baserow` (Google, ver abajo) |
 | `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
 | `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
+
+**Desde el 2026-08-21, Google Ads recibe el mismo embudo** (MQL/SQL/SQL+, mismos
+montos salvo MQL en 10 USD) — no por CAPI, sino porque los tres workflows de
+arriba marcan Baserow 152 y un feed nuevo en `baserow`
+(`sales/n8n/gads-conversiones-sql-csv.js`) se lo sirve a Google Ads Data
+Manager por HTTPS. El motivo (Data Manager no acepta push, sólo lee un
+archivo) y el diseño completo viven en `baserow/sales/HANDOFF.md` — no se
+duplican acá, sólo se apunta.
 
 `SQL` y `SQL_Plus` son eventos **distintos a propósito**: dos peldaños del
 embudo, no el mismo hecho contado dos veces. No los unifiques.

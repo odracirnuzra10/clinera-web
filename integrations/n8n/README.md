@@ -347,6 +347,15 @@ embudo mirando solo este repo.
 | `CRM · SQL+ → Meta CAPI` | `rWZDSfi8RJ780q76` | `SQL_Plus` | US$ 300 | sondeo cada 5 min a `stage=PROPOSAL` |
 | `OACG TECH \| SQL Conversión Alto Valor` | `1erGwPkeneXUkqzG` | `SQL` | US$ 100 | Baserow tabla 152 + backstop 24 h |
 
+Los dos últimos siguen sin exportarse completos —siguen siendo grafos que sólo
+existen en n8n—, pero el 2026-08-21 se les agregó lógica para Google Ads (ver
+sección siguiente), y esas piezas nuevas **sí** quedaron versionadas, como
+código suelto, en el repo `baserow` (`sales/n8n/nodo-sqlplus-*.js` y el
+`jsonBody` de "Baserow - Marcar SQL enviado", documentado en
+`sales/HANDOFF.md`). Bajarlos por la API antes de tocar cualquier nodo sigue
+siendo obligatorio — la regla de esta sección no cambió, sólo hay más piezas
+sueltas que antes.
+
 **`CRM · SQL+ → Meta CAPI`** sondea en vez de escuchar el webhook porque nació
 antes de que se confirmara que Twenty emite `opportunity.updated`. Lleva su
 propio ledger en la static data, que **solo confirma el nodo posterior al POST**:
@@ -384,7 +393,26 @@ deduplican entre sí: son dos peldaños del embudo, no el mismo hecho contado do
 veces.
 
 Además de los placeholders del workflow de reserva, este archivo lleva
-`__BASEROW_TOKEN__` en el nodo "Baserow - Meta ids".
+`__BASEROW_TOKEN__` en el nodo "Baserow - Meta ids" **y** en el nodo nuevo
+"Marcar SQL Google" (ver abajo).
+
+### Google Ads entró al mismo embudo (2026-08-21)
+
+Ricardo pidió alinear Google Ads al mismo vocabulario y montos que Meta ya usa
+acá (MQL=10 / SQL=100 / SQL+=300 USD). Google Ads no tiene un camino de push
+por evento sin developer token — a diferencia de Meta CAPI — así que en vez de
+un envío paralelo, los TRES workflows de esta página (este archivo y los dos
+"sólo en n8n" de abajo) ahora **además** marcan en Baserow 152 (`🎯 SQL a
+Google` / `🎯 SQL+ a Google`) justo después de mandar el evento a Meta. Un
+feed nuevo en el repo `baserow` (`sales/n8n/gads-conversiones-sql-csv.js`) lee
+esas marcas y se las sirve a Google Ads Data Manager por HTTPS.
+
+Este archivo ganó el nodo **"Marcar SQL Google"**, colgado de "GA4 - SQL":
+reusa la fila que "Baserow - Meta ids" ya había buscado por email, sin una
+segunda consulta. El detalle completo (por qué Data Manager y no push, el
+diseño de las dos columnas, los tres workflows, la verificación) vive en
+`baserow/sales/HANDOFF.md`, sección "SQL y SQL+ en Google Ads" — **no se
+copia acá** para no desincronizar los dos.
 
 ## Cambios en "OACG TECH | Wizard" (no vive en este repo)
 
