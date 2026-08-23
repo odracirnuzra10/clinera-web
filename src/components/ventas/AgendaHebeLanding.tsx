@@ -4,7 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { CLINERA_PLANS } from "@/content/pricing";
 import styles from "./AgendaHebeLanding.module.css";
 import {
+  detectLeadSource,
   evaluateQualification,
+  newLeadEventId,
   OPERATIONAL_PROFILES,
   StepClineraScheduler,
   submitBookingConfirmation,
@@ -17,7 +19,7 @@ import {
 const NEED_CARDS: { id: string; label: string; hint: string; features: FeatureId[] }[] = [
   { id: "comms", label: "Voz, texto y redes", hint: "WhatsApp, Instagram y llamadas", features: ["voz", "texto", "rrss"] },
   { id: "intelligence", label: "Clinera Intelligence", hint: "Ventas vs el mes anterior", features: ["intelligence"] },
-  { id: "fichas", label: "Fichas y odontograma", hint: "Consentimientos en la misma ficha", features: ["fichas", "consentimientos", "odontograma"] },
+  { id: "fichas", label: "Fichas, recetas y consentimientos", hint: "Ficha facial, ficha corporal, odontograma", features: ["fichas", "consentimientos", "odontograma"] },
 ] as const;
 
 const VOLUMES = [
@@ -184,7 +186,7 @@ export default function AgendaHebeLanding() {
   const clinicOk = clinica.trim().length >= 2 && website.trim().length >= 3 && city.trim().length >= 2 && tipo !== "";
   const personOk = nombre.trim().length >= 2 && cargo !== "" && phoneOk && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
-  async function goToScheduler() {
+  function goToScheduler() {
     if (!personOk) {
       setAttempted(true);
       return;
@@ -192,18 +194,23 @@ export default function AgendaHebeLanding() {
     const profile = OPERATIONAL_PROFILES.find((p) => p.id === volume) ?? null;
     const size = { profile };
     const qual = evaluateQualification(size);
-    const ctx =
-      leadCtx ??
-      (await submitSizeLead({
-        software: features[0] ?? null,
-        size,
-        qual,
-        sourcePath: SOURCE_PATH,
-        features,
-        form,
-      }));
-    if (ctx) setLeadCtx(ctx);
-    await submitContactLead({
+    const eventId = leadCtx?.eventId ?? newLeadEventId();
+    const ctx = leadCtx ?? { eventId, leadSource: detectLeadSource() };
+    if (!leadCtx) setLeadCtx(ctx);
+    // El calendario no espera a n8n: si el webhook se cuelga, se pierden leads.
+    go(5);
+    void submitSizeLead({
+      software: features[0] ?? null,
+      size,
+      qual,
+      eventId,
+      sourcePath: SOURCE_PATH,
+      features,
+      form,
+    }).then((next) => {
+      if (next) setLeadCtx(next);
+    });
+    void submitContactLead({
       form,
       software: features[0] ?? null,
       size,
@@ -211,8 +218,9 @@ export default function AgendaHebeLanding() {
       leadCtx: ctx,
       sourcePath: SOURCE_PATH,
       features,
+    }).then((next) => {
+      if (next) setLeadCtx(next);
     });
-    go(5);
   }
 
   return (
@@ -302,7 +310,7 @@ export default function AgendaHebeLanding() {
             })}
           </div>
 
-          <div className={styles.viewport}>
+          <div className={`${styles.viewport} ${step === 5 ? styles.viewportScheduler : ""}`}>
             <div className={`${styles.step} ${step === 1 ? styles.stepActive : ""}`} aria-hidden={step !== 1}>
               <div className={styles.viewers}>Más de 80 clínicas en LATAM unificaron sus operaciones con inteligencia artificial. ¿Qué esperas tú?</div>
               <div className={styles.reviews}>
@@ -361,6 +369,18 @@ export default function AgendaHebeLanding() {
                     className={`${styles.card} ${volume === v.id ? styles.cardSelected : ""}`}
                     onClick={() => {
                       setVolume(v.id);
+                      const profile = OPERATIONAL_PROFILES.find((p) => p.id === v.id) ?? null;
+                      const eventId = leadCtx?.eventId ?? newLeadEventId();
+                      const ctx = leadCtx ?? { eventId, leadSource: detectLeadSource() };
+                      if (!leadCtx) setLeadCtx(ctx);
+                      void submitSizeLead({
+                        software: features[0] ?? null,
+                        size: { profile },
+                        qual: evaluateQualification({ profile }),
+                        eventId,
+                        sourcePath: SOURCE_PATH,
+                        features,
+                      });
                       window.setTimeout(() => go(3), 280);
                     }}
                   >
@@ -486,13 +506,13 @@ export default function AgendaHebeLanding() {
                 <label>Email</label>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="tu@clinica.cl" />
               </div>
-              <button type="button" className={styles.cta} onClick={() => void goToScheduler()}>
+              <button type="button" className={styles.cta} onClick={goToScheduler}>
                 Agenda con tu ingeniero
               </button>
               <p className={styles.note}>Sin compromiso · 45 min por videollamada</p>
             </div>
 
-            <div className={`${styles.step} ${step === 5 ? styles.stepActive : ""}`} aria-hidden={step !== 5}>
+            <div className={`${styles.step} ${styles.stepScheduler} ${step === 5 ? styles.stepActive : ""}`} aria-hidden={step !== 5}>
               <StepClineraScheduler
                 form={form}
                 label={`Paso 5 de ${TOTAL}`}
