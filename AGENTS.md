@@ -197,9 +197,16 @@ aceptando, y el mismo lead se cuenta dos veces sin ningún error visible.
 
 Ids, disparos y el detalle completo: `integrations/n8n/README.md`.
 
+# `/agenda`: layout Hebe, agendador de siempre
+
+La página canónica es `AgendaHebeLanding` (50/50, carousel, 5 pasos). El
+calendario **no** es Cal.com: reusa `StepClineraScheduler` de
+`VentasLanding.tsx` (nativo primero, embed de `app.clinera.io` de respaldo).
+`/ventas` sigue con el wizard anterior. `/agenda-hebe` redirige a `/agenda`.
+
 # `/agenda`: la hora que se guarda es de Chile, siempre
 
-El paso 4 de `/agenda` (`StepClineraNativo` en
+El último paso de `/agenda` (`StepClineraNativo` en
 `src/components/ventas/VentasLanding.tsx`) recibe los bloques de la API de
 Clinera como texto plano en **hora de Chile** (`"10:00"`), sin zona.
 

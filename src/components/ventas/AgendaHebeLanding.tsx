@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { CLINERA_PLANS } from "@/content/pricing";
 import styles from "./AgendaHebeLanding.module.css";
 import {
@@ -93,6 +92,7 @@ function ChannelLogos() {
 }
 
 const TOTAL = 5;
+const SOURCE_PATH = "/agenda";
 
 function Check() {
   return (
@@ -198,7 +198,7 @@ export default function AgendaHebeLanding() {
         software: features[0] ?? null,
         size,
         qual,
-        sourcePath: "/agenda-hebe",
+        sourcePath: SOURCE_PATH,
         features,
         form,
       }));
@@ -209,7 +209,7 @@ export default function AgendaHebeLanding() {
       size,
       qual,
       leadCtx: ctx,
-      sourcePath: "/agenda-hebe",
+      sourcePath: SOURCE_PATH,
       features,
     });
     go(5);
@@ -218,9 +218,6 @@ export default function AgendaHebeLanding() {
   return (
     <div className={styles.page}>
       <h1 className={styles.srOnly}>Agenda una reunión con Clinera</h1>
-      <div className={styles.compare}>
-        Estructura Hebe · look Clinera · <Link href="/agenda">ver /agenda</Link>
-      </div>
 
       <aside className={styles.left}>
         <div className={styles.carouselWrap}>
@@ -511,7 +508,7 @@ export default function AgendaHebeLanding() {
                     qual,
                     leadCtx,
                     booking,
-                    sourcePath: "/agenda-hebe",
+                    sourcePath: SOURCE_PATH,
                     via,
                     confirmEventId,
                   });
