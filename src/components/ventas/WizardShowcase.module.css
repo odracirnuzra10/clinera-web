@@ -29,9 +29,9 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 34px 34px;
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 32px 32px;
   pointer-events: none;
 }
 
@@ -134,5 +134,14 @@
 @media (prefers-reduced-motion: reduce) {
   .panel {
     animation-duration: 0ms;
+  }
+}
+
+@media (min-width: 821px) {
+  :global(.ventas-hero-parejo) .panel {
+    flex: 1;
+    height: 100%;
+    min-height: 640px;
+    box-sizing: border-box;
   }
 }

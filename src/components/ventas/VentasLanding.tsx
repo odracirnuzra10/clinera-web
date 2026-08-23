@@ -27,16 +27,73 @@ type PhoneRule = {
 
 const PHONE_RULES: Record<string, PhoneRule> = {
   "+56": { name: "Chile", len: 9, placeholder: "9 1234 5678", pattern: /^9\d{8}$/, invalidHint: "Debe empezar con 9" },
+  "+51": { name: "Perú", len: 9, placeholder: "912 345 678", pattern: /^9\d{8}$/, invalidHint: "Debe empezar con 9" },
+  "+57": { name: "Colombia", len: 10, placeholder: "300 123 4567", pattern: /^3\d{9}$/, invalidHint: "Debe empezar con 3" },
   "+52": { name: "México", len: 10, placeholder: "55 1234 5678", pattern: /^[2-9]\d{9}$/, invalidHint: "Debe empezar con 2-9" },
-  "+54": { name: "Argentina", len: 10, placeholder: "11 1234 5678", pattern: /^\d{10}$/, invalidHint: "Debe tener 10 dígitos" },
   "+507": { name: "Panamá", len: 8, placeholder: "6123 4567", pattern: /^6\d{7}$/, invalidHint: "Debe empezar con 6" },
   "+506": { name: "Costa Rica", len: 8, placeholder: "8312 3456", pattern: /^[678]\d{7}$/, invalidHint: "Debe empezar con 6, 7 u 8" },
+  "+54": { name: "Argentina", len: 10, placeholder: "11 1234 5678", pattern: /^\d{10}$/, invalidHint: "Debe tener 10 dígitos" },
   "+595": { name: "Paraguay", len: 9, placeholder: "981 234 567", pattern: /^9[2-9]\d{7}$/, invalidHint: "Debe empezar con 92-99" },
   "+34": { name: "España", len: 9, placeholder: "612 345 678", pattern: /^[67]\d{8}$/, invalidHint: "Debe empezar con 6 o 7" },
-  "+51": { name: "Perú", len: 9, placeholder: "912 345 678", pattern: /^9\d{8}$/, invalidHint: "Debe empezar con 9" },
   "+593": { name: "Ecuador", len: 9, placeholder: "99 123 4567", pattern: /^9\d{8}$/, invalidHint: "Debe empezar con 9" },
   "+1": { name: "Puerto Rico", len: 10, placeholder: "787 123 4567", pattern: /^(787|939)\d{7}$/, invalidHint: "Debe empezar con 787 o 939" },
 };
+
+const AGENDA_PHONE_PREFIXES = [
+  { prefix: "+56", flag: "🇨🇱", label: "Chile" },
+  { prefix: "+51", flag: "🇵🇪", label: "Perú" },
+  { prefix: "+57", flag: "🇨🇴", label: "Colombia" },
+  { prefix: "+52", flag: "🇲🇽", label: "México" },
+  { prefix: "+507", flag: "🇵🇦", label: "Panamá" },
+  { prefix: "+506", flag: "🇨🇷", label: "Costa Rica" },
+] as const;
+
+function ChannelLogos() {
+  const item = (label: string, children: React.ReactNode) => (
+    <span
+      title={label}
+      aria-label={label}
+      style={{
+        width: 22,
+        height: 22,
+        borderRadius: 6,
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#fff",
+        border: "1px solid #E7EBF0",
+      }}
+    >
+      {children}
+    </span>
+  );
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginLeft: 4, verticalAlign: "middle" }}>
+      {item("WhatsApp", (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="#25D366" aria-hidden>
+          <path d="M12 2C6.5 2 2 6.3 2 11.6c0 1.9.5 3.7 1.5 5.3L2 22l5.3-1.4c1.5.8 3.2 1.3 4.7 1.3 5.5 0 10-4.3 10-9.6S17.5 2 12 2zm5.7 13.6c-.2.7-1.2 1.2-1.9 1.4-.5.1-1.1.2-3.6-.8-3.1-1.3-5.1-4.5-5.2-4.7-.2-.2-1.3-1.7-1.3-3.3s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.6.8 2 .8 2.1.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.7-.1.3.1 1.9.9 2.2 1.1.3.1.5.2.6.3.1.2.1.8-.1 1.5z" />
+        </svg>
+      ))}
+      {item("Facebook", (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="#1877F2" aria-hidden>
+          <path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v2H6v4h3v9h4v-9h3.2L17 11h-4V9c0-.6.4-1 1-1z" />
+        </svg>
+      ))}
+      {item("Instagram", (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <rect x="3" y="3" width="18" height="18" rx="5" stroke="#E1306C" strokeWidth="2" />
+          <circle cx="12" cy="12" r="4" stroke="#E1306C" strokeWidth="2" />
+          <circle cx="17.5" cy="6.5" r="1" fill="#E1306C" />
+        </svg>
+      ))}
+      {item("Llamada", (
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" strokeWidth="2" aria-hidden>
+          <path d="M6.5 3.5l3 2.2-1.6 2.4a14 14 0 007 7l2.4-1.6 2.2 3-2.1 1.2C15.2 19.2 5 16 4.2 7.6L5.4 5.5z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
 
 // ============== PASO 1 — SOFTWARE ACTUAL ==============
 // Toda clínica mediana ya usa algún sistema; el paso 1 identifica cuál para
@@ -95,9 +152,46 @@ const INTEREST_ID = "interes_implementar" as const;
 const INTEREST_LABEL = "Confirmó interés en implementar Clinera";
 
 /** Qué pregunta el paso 1. El resto del wizard es idéntico en los tres casos. */
-export type Question1 = "software" | "need" | "interest";
+export type Question1 = "software" | "need" | "interest" | "features";
 
-type Step1Id = SoftwareId | NeedId | typeof INTEREST_ID;
+// /agenda v2: chips de producto (multi-select), no el dolor ni el software.
+export type FeatureId =
+  | "voz"
+  | "texto"
+  | "intelligence"
+  | "rrss"
+  | "fichas"
+  | "consentimientos"
+  | "odontograma";
+
+const FEATURE_OPTIONS: { id: FeatureId; label: string }[] = [
+  { id: "voz", label: "Agente de voz" },
+  { id: "texto", label: "Agente de texto" },
+  { id: "intelligence", label: "Clinera Intelligence" },
+  { id: "rrss", label: "WhatsApp / FB / IG" },
+  { id: "fichas", label: "Fichas clínicas" },
+  { id: "consentimientos", label: "Consentimientos" },
+  { id: "odontograma", label: "Odontograma" },
+];
+
+const FEATURE_LABELS: Record<FeatureId, string> = FEATURE_OPTIONS.reduce(
+  (acc, o) => ({ ...acc, [o.id]: o.label }),
+  {} as Record<FeatureId, string>,
+);
+
+const FEATURE_IDS = new Set<string>(FEATURE_OPTIONS.map((o) => o.id));
+
+const CARGO_OPTIONS = [
+  "Dueño / Fundador",
+  "Gerente general",
+  "Gerente de operaciones",
+  "Administrador/a",
+  "Otro",
+] as const;
+
+type CargoId = (typeof CARGO_OPTIONS)[number] | "";
+
+type Step1Id = SoftwareId | NeedId | typeof INTEREST_ID | FeatureId;
 
 const NEED_IDS = new Set<string>(NEED_OPTIONS.map((o) => o.id));
 
@@ -106,18 +200,25 @@ const STEP1_LABELS: Record<string, string> = {
   ...SOFTWARE_LABELS,
   ...NEED_OPTIONS.reduce((acc, o) => ({ ...acc, [o.id]: o.label }), {}),
   [INTEREST_ID]: INTEREST_LABEL,
+  ...FEATURE_LABELS,
 };
 
 /** Campos del paso 1 para el webhook: se conservan las claves legacy. */
-function step1Fields(id: Step1Id | null) {
+function step1Fields(id: Step1Id | null, features: FeatureId[] = []) {
   const esInteres = id === INTEREST_ID;
+  const esFeatures = features.length > 0 || (!!id && FEATURE_IDS.has(id));
   const esNecesidad = !!id && NEED_IDS.has(id);
+  const featureIds = features.length > 0 ? features : esFeatures && id ? [id as FeatureId] : [];
   // `necesidad_principal` queda vacío en la variante de interés en vez de
   // inventarse un motivo, igual que el número de sedes en el paso 2.
   return {
-    paso1_pregunta: esInteres ? "interes" : esNecesidad ? "necesidad" : "software",
-    necesidad_principal: esNecesidad ? id : "",
-    necesidad_principal_label: esNecesidad ? STEP1_LABELS[id] : "",
+    paso1_pregunta: esInteres ? "interes" : esFeatures ? "necesidad" : esNecesidad ? "necesidad" : "software",
+    necesidad_principal: esFeatures ? featureIds.join(",") : esNecesidad ? id : "",
+    necesidad_principal_label: esFeatures
+      ? featureIds.map((f) => FEATURE_LABELS[f]).join(" · ")
+      : esNecesidad
+        ? STEP1_LABELS[id]
+        : "",
   };
 }
 
@@ -154,7 +255,7 @@ type OperationalProfile = {
 };
 
 // AJUSTA AQUÍ la prioridad comercial (único lugar del código).
-const OPERATIONAL_PROFILES: OperationalProfile[] = [
+export const OPERATIONAL_PROFILES: OperationalProfile[] = [
   {
     id: "vol_200_500",
     label: "Entre 200 a 500 pacientes al mes",
@@ -189,7 +290,7 @@ export type Qualification = { califica: boolean; prioridadAlta: boolean; priorit
 // Regla PURA — toda clínica que completa el filtro califica (el precio de entrada
 // auto-selecciona). prioridad_alta / priority = señal de tamaño para el equipo comercial.
 // FUENTE DE VERDAD única: el tracking (src/lib/metaEvents.ts) consume este resultado.
-function evaluateQualification(size: SizeAnswers): Qualification {
+export function evaluateQualification(size: SizeAnswers): Qualification {
   return {
     califica: true,
     prioridadAlta: size.profile?.prioridadAlta ?? false,
@@ -277,7 +378,42 @@ function readGaClientId(): string {
   return partes.length >= 4 ? partes.slice(-2).join(".") : "";
 }
 
-type Form = { nombre: string; clinica: string; tipoClinica: ClinicType | ""; prefix: string; phone: string; email: string };
+export type Form = {
+  nombre: string;
+  clinica: string;
+  tipoClinica: ClinicType | "";
+  prefix: string;
+  phone: string;
+  email: string;
+  website: string;
+  city: string;
+  cargo: CargoId;
+};
+
+function isValidWebsite(value: string) {
+  const v = value.trim();
+  if (v.length < 3) return false;
+  if (v.startsWith("@")) return v.length >= 4;
+  if (/instagram|facebook|tiktok|linkedin|wa\.me|whatsapp/i.test(v)) return v.length >= 5;
+  try {
+    const withProto = /^https?:\/\//i.test(v) ? v : `https://${v}`;
+    const u = new URL(withProto);
+    return u.hostname.includes(".");
+  } catch {
+    return false;
+  }
+}
+
+function clinicCrmFields(form: Form) {
+  return {
+    nombre_clinica: form.clinica.trim(),
+    tipo_clinica: form.tipoClinica || "",
+    tipo_clinica_label: form.tipoClinica ? CLINIC_TYPE_LABELS[form.tipoClinica] : "",
+    sitio_web: form.website.trim(),
+    ciudad: form.city.trim(),
+    cargo: form.cargo,
+  };
+}
 
 // ============== TRACKING HELPERS ==============
 function getCookie(name: string): string {
@@ -389,6 +525,7 @@ function sizeAttributes(
   software: Step1Id | null,
   size: SizeAnswers,
   qual: Qualification | null,
+  features: FeatureId[] = [],
 ) {
   const p = size.profile;
   return {
@@ -397,7 +534,7 @@ function sizeAttributes(
     // En /agenda el paso 1 pregunta la necesidad, no el software: se emite
     // además con clave propia para que el CRM no lea "necesidad" donde dice
     // "software". Las claves legacy de arriba se conservan igual.
-    ...step1Fields(software),
+    ...step1Fields(software, features),
     // Tamaño de operación — la clave que n8n mapea a la columna «Tamaño de
     // operación» de Baserow 152 y al campo homónimo del negocio en Twenty.
     tamano_operacion: p?.id ?? "",
@@ -472,6 +609,7 @@ export default function VentasLanding({
   investmentAfterContact = false,
   meetingMinutes = 30,
   showcase = false,
+  agendaV2 = false,
 }: {
   enableMigrationQualification?: boolean;
   /** Qué pregunta el paso 1: el software actual (default) o la necesidad. */
@@ -493,6 +631,8 @@ export default function VentasLanding({
    * Clinera sin salir de la página donde agenda. Ver WizardShowcase.
    */
   showcase?: boolean;
+  /** /agenda v2: necesidades en chips, clínica con web, cargo, doctores en móvil. */
+  agendaV2?: boolean;
 }) {
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -590,6 +730,61 @@ export default function VentasLanding({
           .ventas-volume-opt-text { font-size: 13px !important; }
           .ventas-form-note { margin-top: 8px !important; font-size: 11px !important; }
           .ventas-back-btn { min-height: 30px !important; margin-bottom: 2px !important; }
+          .ventas-showcase-desktop { display: none !important; }
+          .ventas-agenda-doctor { display: flex !important; }
+        }
+        .ventas-showcase-desktop { display: block; }
+        .ventas-agenda-doctor { display: none; }
+        @media (min-width: 821px) {
+          .ventas-hero-parejo { min-height: 100svh; align-items: stretch !important; }
+          .ventas-hero-parejo .ventas-hero-grid {
+            align-items: stretch !important;
+            min-height: calc(100svh - 24px);
+          }
+          .ventas-hero-parejo .ventas-parejo-col {
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            height: 100%;
+          }
+          .ventas-hero-parejo .ventas-hero-badge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
+            margin-bottom: 0 !important;
+          }
+          .ventas-hero-parejo .ventas-parejo-col { position: relative; }
+          .ventas-hero-parejo .ventas-showcase-desktop,
+          .ventas-hero-parejo .ventas-testi-desktop {
+            padding-top: 0;
+          }
+          .ventas-hero-parejo .ventas-integraciones { display: none !important; }
+          .ventas-hero-parejo .ventas-wizard {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 640px;
+            height: 100%;
+            box-sizing: border-box;
+          }
+          .ventas-hero-parejo .ventas-wizard > *:not(.ventas-wizard-progress) {
+            flex: 1;
+            min-height: 0;
+          }
+          .ventas-hero-parejo .ventas-showcase-desktop,
+          .ventas-hero-parejo .ventas-testi-desktop {
+            flex: 1;
+            display: flex !important;
+            flex-direction: column;
+            min-height: 0;
+            height: 100%;
+          }
+          .ventas-hero-parejo .ventas-testi-desktop > div:first-child {
+            flex: 1;
+            min-height: 0 !important;
+            height: auto !important;
+          }
         }
       `}</style>
       <ReunionHero
@@ -600,6 +795,7 @@ export default function VentasLanding({
         investmentAfterContact={investmentAfterContact}
         meetingMinutes={meetingMinutes}
         showcase={showcase}
+        agendaV2={agendaV2}
       />
     </>
   );
@@ -614,6 +810,7 @@ function ReunionHero({
   investmentAfterContact,
   meetingMinutes,
   showcase,
+  agendaV2,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
@@ -622,14 +819,26 @@ function ReunionHero({
   investmentAfterContact: boolean;
   meetingMinutes: number;
   showcase: boolean;
+  agendaV2: boolean;
 }) {
   // Espejo de solo lectura del paso del wizard, para que la columna de
   // argumento cambie con él. El wizard sigue siendo el dueño del estado.
   const [visibleStep, setVisibleStep] = useState(1);
   return (
     <section
-      className={showcase ? "ventas-hero ventas-hero-centrado" : "ventas-hero"}
-      style={{ position: "relative", overflow: "hidden", display: "flex", alignItems: "center" }}
+      className={
+        showcase
+          ? agendaV2
+            ? "ventas-hero ventas-hero-centrado ventas-hero-parejo"
+            : "ventas-hero ventas-hero-centrado"
+          : "ventas-hero"
+      }
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        display: "flex",
+        alignItems: agendaV2 ? "stretch" : "center",
+      }}
     >
       <div
         style={{
@@ -646,19 +855,16 @@ function ReunionHero({
           position: "relative",
           zIndex: 1,
           width: "100%",
-          maxWidth: 1200,
+          maxWidth: agendaV2 ? 1280 : 1200,
           margin: "0 auto",
-          padding: "20px 24px 28px",
+          padding: agendaV2 ? "16px 24px 20px" : "20px 24px 28px",
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap: 40,
-          // Con showcase las dos columnas tienen alturas distintas por paso, así
-          // que se centran entre sí en vez de estirarse: si no, la más corta
-          // queda pegada arriba y el conjunto se ve desbalanceado.
-          alignItems: showcase ? "center" : "stretch",
+          gap: agendaV2 ? 28 : 40,
+          alignItems: showcase && !agendaV2 ? "center" : "stretch",
         }}
       >
-        <div className="reveal" style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
+        <div className="reveal ventas-parejo-col" style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
           <span
             className="ventas-hero-badge"
             style={{
@@ -677,7 +883,7 @@ function ReunionHero({
               padding: "6px 12px",
               borderRadius: 999,
               boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
-              marginBottom: 20,
+              marginBottom: agendaV2 ? 0 : 20,
             }}
           >
             <span
@@ -701,14 +907,14 @@ function ReunionHero({
             <span style={{ color: "#10B981", textTransform: "none", letterSpacing: "0.08em" }}>reunión de {meetingMinutes} min</span>
           </span>
 
-          {/* La animación acompaña sólo a las dos primeras preguntas. Desde el
-              paso 3 vuelve el carrusel de doctores: en los datos y en la hora lo
-              que falta no es entender el producto sino confiar, y ahí la cara de
-              un colega que ya lo usa pesa más que un diagrama. */}
-          {showcase && visibleStep <= 2 ? (
-            <WizardShowcase step={visibleStep} />
+          {/* Pasos 1–3 (necesidad + clínica 1 y 2): producto en movimiento.
+              Desde contacto y calendario, cara de un colega. */}
+          {showcase && visibleStep <= 3 ? (
+            <div className="ventas-showcase-desktop">
+              <WizardShowcase step={visibleStep} />
+            </div>
           ) : (
-          <>
+          <div className={agendaV2 ? "ventas-showcase-desktop" : undefined}>
           <div style={{ flex: 1, display: "flex", minHeight: 0 }}>
             <TestimonialCarousel />
           </div>
@@ -765,11 +971,12 @@ function ReunionHero({
               </div>
             </div>
           </div>
-          </>
+          </div>
           )}
+          {agendaV2 && <AgendaStepDoctor step={visibleStep} />}
         </div>
 
-        <div className="reveal" style={{ display: "flex", minWidth: 0 }}>
+        <div className="reveal ventas-parejo-col" style={{ display: "flex", minWidth: 0 }}>
           <Wizard
             enableMigrationQualification={enableMigrationQualification}
             scheduler={scheduler}
@@ -778,11 +985,83 @@ function ReunionHero({
             investmentAfterContact={investmentAfterContact}
             meetingMinutes={meetingMinutes}
             showcase={showcase}
+            agendaV2={agendaV2}
             onStepChange={setVisibleStep}
           />
         </div>
       </div>
     </section>
+  );
+}
+
+const AGENDA_DOCTORS = [
+  {
+    img: "/images/home/flavio.jpeg",
+    name: "Dr. Flavio Rojas",
+    clinic: "infiltracion.cl · Los Ángeles",
+    uses: "Ficha corporal · agente IA de texto · agente IA de voz",
+    quote:
+      "Clinera Intelligence me permite saber cuánto he vendido y compararlo con el mes anterior para saber cuál es el tratamiento que más se vende.",
+    feature: "Clinera Intelligence",
+  },
+  {
+    img: "/images/home/yasna.jpg",
+    name: "Dra. Yasna Vásquez",
+    clinic: "Estética Facial · Talca",
+    uses: "Odontograma · agente IA de texto",
+    quote:
+      "Con el agente IA de Clinera puedo crecer en mis campañas de marketing en Facebook, Instagram y WhatsApp sin tener que contratar más secretarias.",
+    feature: "WhatsApp · Facebook · Instagram",
+  },
+  {
+    img: "/images/home/katherine.png",
+    name: "Katherine Meza",
+    clinic: "Clínica Estética · Santiago",
+    uses: "Ficha facial · agente IA de texto · Clinera Intelligence",
+    quote:
+      "En mi clínica le damos mucho uso a las distintas fichas clínicas que ofrece Clinera, como la ficha de estética facial, la de estética corporal y odontogramas. Es muy útil.",
+    feature: "Fichas clínicas · Odontograma",
+  },
+] as const;
+
+function AgendaStepDoctor({ step }: { step: number }) {
+  const idx = ((Math.max(step, 1) - 1) % AGENDA_DOCTORS.length);
+  const s = AGENDA_DOCTORS[idx];
+  return (
+    <div
+      className="ventas-agenda-doctor"
+      style={{
+        display: "none",
+        width: "100%",
+        background: "#141c25",
+        border: "1px solid rgba(255,255,255,.08)",
+        borderRadius: 14,
+        padding: 10,
+        gap: 12,
+        alignItems: "center",
+        boxShadow: "0 10px 24px rgba(0,0,0,.18)",
+        color: "#fff",
+      }}
+    >
+      <div style={{ flexShrink: 0, width: 72, height: 72, borderRadius: 10, overflow: "hidden", background: "#0A0A0A" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={s.img}
+          alt={s.name}
+          loading="eager"
+          decoding="async"
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+        />
+      </div>
+      <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
+        <div style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 700, color: "#fff", letterSpacing: "-.015em" }}>
+          {s.name}
+        </div>
+        <div style={{ fontFamily: "Inter", fontSize: 12, lineHeight: 1.35, color: "rgba(255,255,255,.78)" }}>
+          {s.uses}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -836,7 +1115,7 @@ function TestimonialCarousel() {
               alt={s.name}
               loading={idx === 0 ? "eager" : "lazy"}
               decoding="async"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 22%" }}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
             />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(14,20,26,0) 0%, rgba(14,20,26,.2) 45%, rgba(14,20,26,.95) 88%)" }} />
             <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "24px 26px 26px", color: "#fff" }}>
@@ -910,7 +1189,7 @@ function TestimonialCarousel() {
             alt={s.name}
             loading={idx === 0 ? "eager" : "lazy"}
             decoding="async"
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 22%", transition: "opacity .4s" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", transition: "opacity .4s" }}
           />
         </div>
         <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
@@ -971,6 +1250,7 @@ function Wizard({
   investmentAfterContact,
   meetingMinutes,
   showcase = false,
+  agendaV2 = false,
   onStepChange,
 }: {
   enableMigrationQualification: boolean;
@@ -981,13 +1261,25 @@ function Wizard({
   meetingMinutes: number;
   /** Con showcase, el precio y el descarte viven junto al paso 3 (ver WizardShowcase). */
   showcase?: boolean;
+  agendaV2?: boolean;
   onStepChange?: (step: number) => void;
 }) {
   const [step, setStep] = useState(1);
   const [software, setSoftware] = useState<Step1Id | null>(null);
+  const [features, setFeatures] = useState<FeatureId[]>([]);
   const [size, setSize] = useState<SizeAnswers>({ profile: null });
   const [qualification, setQualification] = useState<Qualification | null>(null);
-  const [form, setForm] = useState<Form>({ nombre: "", clinica: "", tipoClinica: "", prefix: "+56", phone: "", email: "" });
+  const [form, setForm] = useState<Form>({
+    nombre: "",
+    clinica: "",
+    tipoClinica: "",
+    prefix: "+56",
+    phone: "",
+    email: "",
+    website: "",
+    city: "",
+    cargo: "",
+  });
   const [leadCtx, setLeadCtx] = useState<{ eventId: string; leadSource: string } | null>(null);
   const [booking, setBooking] = useState<CalBooking | null>(null);
   const [submitted, setSubmitted] = useState(false);
@@ -995,11 +1287,12 @@ function Wizard({
   // El paso de software (paso 1) queda gateado por la misma prop de antes; ambas
   // páginas (/ventas y /hablar-con-ventas) lo activan → flujo de 4 pasos.
   const hasSoftwareStep = enableMigrationQualification;
-  const totalSteps = hasSoftwareStep ? 4 : 3;
+  const totalSteps = hasSoftwareStep ? (agendaV2 ? 5 : 4) : 3;
   const softwareStep = 1;
   const sizeStep = hasSoftwareStep ? 2 : 1;
-  const contactStep = hasSoftwareStep ? 3 : 2;
-  const calStep = hasSoftwareStep ? 4 : 3;
+  const clinicDetailsStep = agendaV2 && hasSoftwareStep ? 3 : -1;
+  const contactStep = hasSoftwareStep ? (agendaV2 ? 4 : 3) : 2;
+  const calStep = hasSoftwareStep ? (agendaV2 ? 5 : 4) : 3;
 
   // El paso se avisa hacia arriba en un efecto y no en cada setStep: así ninguna
   // de las transiciones existentes cambia, y la columna de argumento sigue al
@@ -1042,6 +1335,8 @@ function Wizard({
         boxShadow: "0 30px 80px rgba(15,10,30,.10), 0 8px 20px rgba(0,0,0,.04)",
         position: "relative",
         overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <div className="ventas-wizard-progress" style={{ display: "flex", gap: 6, marginBottom: 24 }}>
@@ -1067,6 +1362,22 @@ function Wizard({
             }}
             onNo={() => handleInteres("no")}
           />
+        ) : question1 === "features" ? (
+          <StepFeatures
+            features={features}
+            setFeatures={setFeatures}
+            label={`Paso ${softwareStep} de ${totalSteps}`}
+            onNext={() => {
+              const first = features[0] ?? null;
+              setSoftware(first);
+              pushDL("paso_1_completado", {
+                software_actual: first ?? "",
+                software_actual_label: first ? FEATURE_LABELS[first] : "",
+                ...step1Fields(first, features),
+              });
+              setStep(sizeStep);
+            }}
+          />
         ) : (
           <StepSoftware
             question1={question1}
@@ -1088,35 +1399,57 @@ function Wizard({
           showInvestment={!investmentAfterContact && !showcase}
           size={size}
           setSize={setSize}
+          agendaV2={agendaV2}
           onInteres={handleInteres}
           label={`Paso ${sizeStep} de ${totalSteps}`}
           onBack={hasSoftwareStep ? () => setStep(softwareStep) : undefined}
           onNext={() => {
+            if (agendaV2) {
+              setStep(clinicDetailsStep);
+              return;
+            }
             // Toda clínica que completa el filtro califica (el precio de entrada
             // auto-selecciona). No hay rama de lista de espera.
             const qual = evaluateQualification(size);
             setQualification(qual);
-            const attrs = sizeAttributes(software, size, qual);
+            const attrs = sizeAttributes(software, size, qual, features);
             pushDL("paso_2_completado", attrs);
             pushDL("calificado", attrs);
             if (typeof window !== "undefined" && typeof window.fbq === "function") {
               window.fbq("track", "ViewContent", { content_name: "Clinera Ventas", ...attrs });
             }
-            // event_id único del lead — compartido con el webhook n8n y, si
-            // MQL_TRIGGER === "qualified_step2", con el par Pixel+CAPI del MQL.
-            // Se reutiliza si el usuario ya pasó por acá (volver + avanzar de nuevo
-            // no debe abrir un lead nuevo).
             const eventId = leadCtx?.eventId ?? newLeadEventId();
-            // El contexto se fija AQUÍ, de forma síncrona. Antes solo se seteaba en
-            // el .then() del webhook: si el paso 3 se enviaba antes de que ese fetch
-            // resolviera, submitContactLead caía en su fallback y generaba un
-            // event_id distinto → n8n abría un segundo lead en vez de hacer upsert.
             if (!leadCtx) setLeadCtx({ eventId, leadSource: detectLeadSource() });
-            // Persistir el lead parcial YA (apenas se completa el paso 2): así queda
-            // capturado aunque el usuario abandone antes de dejar sus datos.
-            void submitSizeLead({ software, size, qual, eventId, sourcePath });
-            // MQL en el Paso 2 sólo si el equipo lo activó. Sin user_data:
-            // todavía no hay datos de contacto (email/teléfono).
+            void submitSizeLead({ software, size, qual, eventId, sourcePath, features, form });
+            if (MQL_TRIGGER === "qualified_step2") {
+              void fireMqlEvent({
+                eventId,
+                qual,
+                customData: qualCustomData(software, size, qual, ""),
+              });
+            }
+            setStep(contactStep);
+          }}
+        />
+      )}
+      {!submitted && !declined && agendaV2 && step === clinicDetailsStep && (
+        <StepClinicDetails
+          form={form}
+          setForm={setForm}
+          label={`Paso ${clinicDetailsStep} de ${totalSteps}`}
+          onBack={() => setStep(sizeStep)}
+          onNext={() => {
+            const qual = evaluateQualification(size);
+            setQualification(qual);
+            const attrs = sizeAttributes(software, size, qual, features);
+            pushDL("paso_2_completado", attrs);
+            pushDL("calificado", attrs);
+            if (typeof window !== "undefined" && typeof window.fbq === "function") {
+              window.fbq("track", "ViewContent", { content_name: "Clinera Ventas", ...attrs });
+            }
+            const eventId = leadCtx?.eventId ?? newLeadEventId();
+            if (!leadCtx) setLeadCtx({ eventId, leadSource: detectLeadSource() });
+            void submitSizeLead({ software, size, qual, eventId, sourcePath, features, form });
             if (MQL_TRIGGER === "qualified_step2") {
               void fireMqlEvent({
                 eventId,
@@ -1133,17 +1466,18 @@ function Wizard({
           meetingMinutes={meetingMinutes}
           form={form}
           setForm={setForm}
+          agendaV2={agendaV2}
           label={`Paso ${contactStep} de ${totalSteps}`}
           onInteres={showcase ? handleInteres : undefined}
-          onBack={() => setStep(sizeStep)}
+          onBack={() => setStep(agendaV2 ? clinicDetailsStep : sizeStep)}
           onNext={() => {
             if (typeof window !== "undefined" && typeof window.fbq === "function") {
               window.fbq("track", "InitiateCheckout", { content_name: "Clinera Ventas" });
             }
-            pushDL("lead_completo", sizeAttributes(software, size, qualification));
+            pushDL("lead_completo", sizeAttributes(software, size, qualification, features));
             // Enviar el lead completo en background — sin bloquear el avance al embed.
             // Reutiliza el event_id del lead parcial (paso 2) para que n8n haga upsert.
-            submitContactLead({ form, software, size, qual: qualification, leadCtx, sourcePath }).then((ctx) => {
+            submitContactLead({ form, software, size, qual: qualification, leadCtx, sourcePath, features }).then((ctx) => {
               if (ctx) setLeadCtx(ctx);
               // MQL (default): SOLO con submit OK del backend y lead CALIFICADO.
               // Idempotente por sesión → recarga/doble-click/atrás no lo redisparan.
@@ -1269,18 +1603,22 @@ async function postWebhook(payload: Record<string, unknown>, errLabel: string): 
 // (1) Lead parcial de TAMAÑO — se dispara apenas se completa el paso 2 si CALIFICA.
 // Aún no hay datos de contacto: guarda software + tamaño + calificación para que el
 // lead quede capturado incluso si el usuario abandona antes del paso 3.
-async function submitSizeLead({
+export async function submitSizeLead({
   software,
   size,
   qual,
   eventId,
   sourcePath = "/ventas",
+  features = [],
+  form,
 }: {
   software: Step1Id | null;
   size: SizeAnswers;
   qual: Qualification;
   eventId?: string;
   sourcePath?: string;
+  features?: FeatureId[];
+  form?: Form;
 }): Promise<{ eventId: string; leadSource: string } | null> {
   if (!qual.califica) return null;
 
@@ -1292,7 +1630,7 @@ async function submitSizeLead({
     lead_source: leadSource,
     event_id: resolvedEventId,
     booking_status: "pending",
-    ...sizeAttributes(software, size, qual),
+    ...sizeAttributes(software, size, qual, features),
   });
 
   const payload = {
@@ -1310,8 +1648,9 @@ async function submitSizeLead({
     booking_status: "pending",
     lead_source: leadSource,
     ...getAttributionPayload(),
-    ...sizeAttributes(software, size, qual),
+    ...sizeAttributes(software, size, qual, features),
     ...backCompatFields(software, size, qual),
+    ...(form ? clinicCrmFields(form) : {}),
     fuente: `Landing ${sourcePath} — Clinera (tamaño)`,
     landing_url: typeof window !== "undefined" ? location.href : "",
     referrer: typeof document !== "undefined" ? document.referrer : "",
@@ -1325,13 +1664,14 @@ async function submitSizeLead({
 
 // (2) Lead COMPLETO de contacto — se dispara al enviar el paso 3. Reutiliza el
 // event_id del lead de tamaño (paso 2) para que n8n upsertee el mismo lead.
-async function submitContactLead({
+export async function submitContactLead({
   form,
   software,
   size,
   qual,
   leadCtx,
   sourcePath = "/ventas",
+  features = [],
 }: {
   form: Form;
   software: Step1Id | null;
@@ -1339,6 +1679,7 @@ async function submitContactLead({
   qual: Qualification | null;
   leadCtx: { eventId: string; leadSource: string } | null;
   sourcePath?: string;
+  features?: FeatureId[];
 }): Promise<{ eventId: string; leadSource: string; ok: boolean } | null> {
   const eventId = leadCtx?.eventId ?? newLeadEventId();
   const leadSource = leadCtx?.leadSource ?? detectLeadSource();
@@ -1355,7 +1696,7 @@ async function submitContactLead({
     lead_source: leadSource,
     event_id: eventId,
     booking_status: "pending",
-    ...sizeAttributes(software, size, qual),
+    ...sizeAttributes(software, size, qual, features),
   });
 
   const payload = {
@@ -1373,12 +1714,10 @@ async function submitContactLead({
     booking_status: "pending",
     lead_source: leadSource,
     ...getAttributionPayload(),
-    ...sizeAttributes(software, size, qual),
+    ...sizeAttributes(software, size, qual, features),
     ...backCompatFields(software, size, qual),
     nombre: form.nombre.trim(),
-    nombre_clinica: form.clinica.trim(),
-    tipo_clinica: form.tipoClinica || "",
-    tipo_clinica_label: form.tipoClinica ? CLINIC_TYPE_LABELS[form.tipoClinica] : "",
+    ...clinicCrmFields(form),
     celular: (form.prefix + digits).trim(),
     celular_prefix: form.prefix,
     celular_digits: digits,
@@ -1396,7 +1735,7 @@ async function submitContactLead({
 }
 
 // (4) Confirmación de reserva — cuando Cal.com dispara `bookingSuccessful`.
-async function submitBookingConfirmation({
+export async function submitBookingConfirmation({
   form,
   software,
   size,
@@ -1639,6 +1978,88 @@ function StepSoftware({
   );
 }
 
+// ============== STEP 1 (agenda v2) — NECESIDADES DE PRODUCTO ==============
+function StepFeatures({
+  features,
+  setFeatures,
+  label,
+  onNext,
+}: {
+  features: FeatureId[];
+  setFeatures: (ids: FeatureId[]) => void;
+  label: string;
+  onNext: () => void;
+}) {
+  const [attempted, setAttempted] = useState(false);
+  const toggle = (id: FeatureId) => {
+    setFeatures(features.includes(id) ? features.filter((f) => f !== id) : [...features, id]);
+  };
+  return (
+    <div>
+      <StepHeader
+        label={label}
+        title={
+          <>
+            Hablemos de tus{" "}
+            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+              necesidades
+            </em>
+          </>
+        }
+        sub="Selecciona todo lo que te interesa. Puedes elegir varias."
+      />
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 8 }}>
+        {FEATURE_OPTIONS.map((opt) => {
+          const sel = features.includes(opt.id);
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              aria-pressed={sel}
+              onClick={() => toggle(opt.id)}
+              className="ventas-challenge-opt"
+              style={{
+                padding: "10px 14px",
+                border: "1.5px solid " + (sel ? "#0A0A0A" : "#E7EBF0"),
+                borderRadius: 999,
+                cursor: "pointer",
+                background: sel ? "#0A0A0A" : "#fff",
+                color: sel ? "#fff" : "#0A0A0A",
+                fontFamily: "Inter",
+                fontWeight: 600,
+                fontSize: 14,
+                letterSpacing: "-.01em",
+              }}
+            >
+              {opt.label}
+            </button>
+          );
+        })}
+      </div>
+      {attempted && features.length === 0 && (
+        <div style={{ fontFamily: "Inter", fontSize: 12.5, color: "#E74C3C", fontWeight: 600, margin: "8px 0" }}>
+          Elige al menos una necesidad.
+        </div>
+      )}
+      <SubmitBtn
+        enabled={features.length > 0}
+        onClick={() => {
+          if (features.length === 0) {
+            setAttempted(true);
+            return;
+          }
+          onNext();
+        }}
+      >
+        Siguiente
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </SubmitBtn>
+    </div>
+  );
+}
+
 // ============== STEP 1 (alt) — ¿TE INTERESA IMPLEMENTARLO? ==============
 // Un solo tap: Sí avanza, No cierra con StepDeclined. El "No" es un botón real y
 // no un enlace discreto porque acá la pregunta ES el filtro; en los otros pasos
@@ -1836,6 +2257,7 @@ function StepSize({
   onBack,
   onNext,
   showInvestment = true,
+  agendaV2 = false,
 }: {
   size: SizeAnswers;
   setSize: (s: SizeAnswers) => void;
@@ -1845,16 +2267,10 @@ function StepSize({
   onNext: () => void;
   /** Con false, el precio y el descarte se muestran recién en el paso 4. */
   showInvestment?: boolean;
+  agendaV2?: boolean;
 }) {
-  // Ya no hay gate de "¿te hace sentido?": el CTA principal ES la aceptación.
-  // Basta con haber elegido perfil operativo.
   const complete = sizeComplete(size);
 
-  // Sin precio de por medio (showInvestment=false, variante /agenda) elegir UN
-  // perfil YA es la respuesta completa del paso — igual que en StepSoftware — así
-  // que avanza sola en vez de esperar un click aparte en "Continuar". Con precio
-  // de por medio (/ventas) el click SIGUE siendo la aceptación explícita de la
-  // inversión, así que ahí no se toca nada.
   const advanceRef = useRef<number | null>(null);
   useEffect(() => {
     return () => {
@@ -1885,6 +2301,14 @@ function StepSize({
               </em>
               .
             </>
+          ) : agendaV2 ? (
+            <>
+              ¿Cuántos pacientes al{" "}
+              <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                mes
+              </em>
+              ?
+            </>
           ) : (
             <>
               ¿Qué{" "}
@@ -1898,7 +2322,14 @@ function StepSize({
         sub={
           showInvestment
             ? "Para que no haya sorpresas en la reunión."
-            : "Para preparar la reunión con datos de tu operación."
+            : agendaV2
+              ? (
+                <span style={{ display: "inline-flex", flexWrap: "wrap", alignItems: "center", gap: 6 }}>
+                  Clinera atiende pacientes con IA por WhatsApp, Facebook, Instagram y llamada telefónica.
+                  <ChannelLogos />
+                </span>
+              )
+              : "Para preparar la reunión con datos de tu operación."
         }
       />
 
@@ -1989,6 +2420,101 @@ function StepSize({
   );
 }
 
+function StepClinicDetails({
+  form,
+  setForm,
+  label,
+  onBack,
+  onNext,
+}: {
+  form: Form;
+  setForm: (f: Form) => void;
+  label: string;
+  onBack: () => void;
+  onNext: () => void;
+}) {
+  const [attempted, setAttempted] = useState(false);
+  const clinicOk = form.clinica.trim().length >= 2;
+  const webOk = isValidWebsite(form.website);
+  const cityOk = form.city.trim().length >= 2;
+  const typeOk = form.tipoClinica !== "";
+  const complete = clinicOk && webOk && cityOk && typeOk;
+
+  return (
+    <div>
+      <BackBtn onClick={onBack} />
+      <StepHeader
+        label={label}
+        title={
+          <>
+            Hablemos más de tu{" "}
+            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+              clínica
+            </em>
+          </>
+        }
+        sub="Nombre, web o redes y dónde opera — para preparar la reunión."
+      />
+      <Field label="Nombre de la clínica" required error={attempted && !clinicOk ? "Ingresa el nombre de tu clínica." : undefined}>
+        <Input value={form.clinica} onChange={(e) => setForm({ ...form, clinica: e.target.value })} placeholder="Ej: Clínica Sonríe" autoComplete="organization" error={attempted && !clinicOk} />
+      </Field>
+      <Field label="Sitio web o redes sociales" required error={attempted && !webOk ? "Ingresa un sitio o red social." : undefined}>
+        <Input value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })} placeholder="www.tuclinica.cl o @tuclinica" inputMode="url" autoComplete="url" error={attempted && !webOk} />
+      </Field>
+      <Field label="Ciudad" required error={attempted && !cityOk ? "Indica la ciudad." : undefined}>
+        <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="Ej: Santiago" autoComplete="address-level2" error={attempted && !cityOk} />
+      </Field>
+      <Field label="Tipo de clínica" required error={attempted && !typeOk ? "Selecciona el tipo de clínica." : undefined}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+          {CLINIC_TYPE_OPTIONS.map((opt) => {
+            const sel = form.tipoClinica === opt.id;
+            const showErr = attempted && !typeOk;
+            return (
+              <button
+                key={opt.id}
+                type="button"
+                onClick={() => setForm({ ...form, tipoClinica: opt.id })}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "13px 14px",
+                  border: "1.5px solid " + (sel ? "#0A0A0A" : showErr ? "#E74C3C" : "#E7EBF0"),
+                  borderRadius: 12,
+                  background: sel ? "#FAFBFD" : "#fff",
+                  cursor: "pointer",
+                  fontFamily: "Inter",
+                  fontWeight: 700,
+                  fontSize: 14.5,
+                  letterSpacing: "-.01em",
+                  color: "#0A0A0A",
+                }}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+      </Field>
+      <SubmitBtn
+        enabled={complete}
+        onClick={() => {
+          if (!complete) {
+            setAttempted(true);
+            return;
+          }
+          onNext();
+        }}
+      >
+        Siguiente
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </SubmitBtn>
+    </div>
+  );
+}
+
 // Pantalla "No me interesa" — cierre suave, sin lista de espera.
 function StepDeclined({ onBack }: { onBack: () => void }) {
   return (
@@ -2054,6 +2580,7 @@ function StepContact({
   onNext,
   onInteres,
   meetingMinutes = 30,
+  agendaV2 = false,
 }: {
   form: Form;
   setForm: (f: Form) => void;
@@ -2067,20 +2594,22 @@ function StepContact({
    * original el descarte vive junto al precio, en el paso 2 o en el 4.
    */
   onInteres?: (v: "si" | "no") => void;
+  agendaV2?: boolean;
 }) {
   const [attempted, setAttempted] = useState(false);
   const phoneFieldLabel = "Tu WhatsApp personal (dueño/a o gerente)";
-  const phoneHelper = "Te escribimos directo a quien decide, no a recepción.";
-  const rule = PHONE_RULES[form.prefix];
+  const phoneHelper = "Te escribimos directo a quien decide.";
+  const rule = PHONE_RULES[form.prefix] ?? PHONE_RULES["+56"];
   const digits = form.phone.replace(/\D/g, "");
   const nameOk = form.nombre.trim().length >= 2;
-  const clinicOk = form.clinica.trim().length >= 2;
-  const clinicTypeOk = form.tipoClinica !== "";
+  const clinicOk = agendaV2 || form.clinica.trim().length >= 2;
+  const clinicTypeOk = agendaV2 || form.tipoClinica !== "";
+  const cargoOk = !agendaV2 || form.cargo !== "";
   const phoneLengthOk = digits.length === rule.len;
   const phonePatternOk = rule.pattern.test(digits);
   const phoneOk = phoneLengthOk && phonePatternOk;
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
-  const allOk = nameOk && clinicOk && clinicTypeOk && phoneOk && emailOk;
+  const allOk = nameOk && clinicOk && clinicTypeOk && cargoOk && phoneOk && emailOk;
 
   function formatPhone(v: string, prefix: string) {
     const r = PHONE_RULES[prefix];
@@ -2103,6 +2632,11 @@ function StepContact({
       if (d.length <= 2) return d;
       if (d.length <= 5) return d.slice(0, 2) + " " + d.slice(2);
       return d.slice(0, 2) + " " + d.slice(2, 5) + " " + d.slice(5);
+    }
+    if (prefix === "+57") {
+      if (d.length <= 3) return d;
+      if (d.length <= 6) return d.slice(0, 3) + " " + d.slice(3);
+      return d.slice(0, 3) + " " + d.slice(3, 6) + " " + d.slice(6);
     }
     if (prefix === "+1") {
       if (d.length <= 3) return d;
@@ -2136,21 +2670,31 @@ function StepContact({
       <StepHeader
         label={label}
         title={
-          <>
-            Tus{" "}
-            <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>datos</em>{" "}
-            de contacto
-          </>
+          agendaV2 ? (
+            <>
+              Hablemos de{" "}
+              <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>ti</em>
+            </>
+          ) : (
+            <>
+              Tus{" "}
+              <em style={{ fontStyle: "normal", background: GRAD, WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>datos</em>{" "}
+              de contacto
+            </>
+          )
         }
-        sub="Te confirmamos por WhatsApp."
+        sub={agendaV2 ? "Para contactarte con la persona correcta." : "Te confirmamos por WhatsApp."}
       />
 
       <Field label="Nombre" required error={attempted && !nameOk ? "Ingresa tu nombre." : undefined}>
         <Input value={form.nombre} onChange={(e) => setForm({ ...form, nombre: e.target.value })} placeholder="Tu nombre completo" autoComplete="name" error={attempted && !nameOk} />
       </Field>
+      {!agendaV2 && (
       <Field label="Nombre de la clínica" required error={attempted && !clinicOk ? "Ingresa el nombre de tu clínica." : undefined}>
         <Input value={form.clinica} onChange={(e) => setForm({ ...form, clinica: e.target.value })} placeholder="Ej: Clínica Sonríe" autoComplete="organization" error={attempted && !clinicOk} />
       </Field>
+      )}
+      {!agendaV2 && (
       <Field label="Tipo de clínica" required error={attempted && !clinicTypeOk ? "Selecciona el tipo de clínica." : undefined}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
           {CLINIC_TYPE_OPTIONS.map((opt) => {
@@ -2184,6 +2728,33 @@ function StepContact({
           })}
         </div>
       </Field>
+      )}
+      {agendaV2 && (
+      <Field label="Cargo" required error={attempted && !cargoOk ? "Selecciona tu cargo." : undefined}>
+        <select
+          value={form.cargo}
+          onChange={(e) => setForm({ ...form, cargo: e.target.value as CargoId })}
+          style={{
+            ...baseInputStyle({ error: attempted && !cargoOk }),
+            width: "100%",
+            appearance: "none" as const,
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right .8rem center",
+            backgroundSize: "14px",
+            paddingRight: "2.2rem",
+          }}
+        >
+          <option value="">Selecciona…</option>
+          {CARGO_OPTIONS.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </Field>
+      )}
       <Field label={phoneFieldLabel} required>
         <div style={{ display: "flex", gap: 8 }}>
           <select
@@ -2208,6 +2779,14 @@ function StepContact({
               backgroundSize: "14px",
             }}
           >
+            {agendaV2
+              ? AGENDA_PHONE_PREFIXES.map((c) => (
+                  <option key={c.prefix} value={c.prefix}>
+                    {c.flag} {c.prefix}
+                  </option>
+                ))
+              : (
+                <>
             <option value="+56">🇨🇱 +56</option>
             <option value="+52">🇲🇽 +52</option>
             <option value="+54">🇦🇷 +54</option>
@@ -2218,6 +2797,8 @@ function StepContact({
             <option value="+51">🇵🇪 +51</option>
             <option value="+593">🇪🇨 +593</option>
             <option value="+1">🇵🇷 +1</option>
+                </>
+              )}
           </select>
           <Input
             style={{ flex: 1 }}
@@ -2674,7 +3255,7 @@ function StepClineraEmbed({
 // Prueba el webhook de config de n8n: si responde, reserva nativa (sin iframe,
 // con los datos del paso 3 precargados); si no (workflow inactivo, n8n caído,
 // timeout), cae al embed oficial. /agenda funciona igual aunque n8n no esté.
-function StepClineraScheduler({
+export function StepClineraScheduler({
   form,
   label,
   onBack,
@@ -3420,7 +4001,7 @@ function StepSuccess({
 
 
 // ============== SHARED ATOMS ==============
-function StepHeader({ label, title, sub }: { label: string; title: React.ReactNode; sub: string }) {
+function StepHeader({ label, title, sub }: { label: string; title: React.ReactNode; sub: React.ReactNode }) {
   return (
     <div className="ventas-step-header" style={{ marginBottom: 22 }}>
       <div

@@ -27,11 +27,11 @@ const srOnly: CSSProperties = {
 // contacto del paso 3 viajan en la URL del iframe y el cliente solo elige
 // profesional y fecha disponible.
 //
-// `showcase` es lo que la vuelve landing única: en los pasos 1 y 2 la columna
-// izquierda deja de mostrar testimonios y pasa a llevar el producto en
-// movimiento —la IA recibiendo datos y respondiendo; el chat que termina en una
-// hora tomada en la agenda—. Desde el paso 3 vuelven los doctores. El lead ya no
-// tiene que ir a otra página y volver para agendar.
+// `showcase` es lo que la vuelve landing única: en los pasos 1 a 3 la columna
+// izquierda (desktop) muestra el producto en movimiento. En móvil, /agenda v2
+// muestra foto+quote del doctor de ese paso (Flavio → Yasna → Katherine).
+// El flujo v2 parte necesidades, clínica 1 (volumen), clínica 2 (datos de
+// operación), persona y el widget de reserva de app.clinera.io.
 export default function AgendaPage() {
   return (
     <>
@@ -40,10 +40,11 @@ export default function AgendaPage() {
         enableMigrationQualification
         scheduler="clinera"
         sourcePath="/agenda"
-        question1="interest"
+        question1="features"
         investmentAfterContact
         meetingMinutes={45}
         showcase
+        agendaV2
       />
     </>
   );
