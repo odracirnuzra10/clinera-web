@@ -254,6 +254,12 @@ const nextConfig: NextConfig = {
         destination: '/blog/modo-agentic-agendamiento-ia-clinicas',
         permanent: true,
       },
+      // Comparación local: la estructura Hebe ya es /agenda.
+      {
+        source: '/agenda-hebe',
+        destination: '/agenda',
+        permanent: false,
+      },
       // El constructor de cotizaciones se movio a cotizacion.oacg.cl, que ya
       // cotiza las tres marcas (Clinera con su propio catalogo y checkout de
       // Stripe, ademas de Hebe y Lumina). La ruta local queda solo como
