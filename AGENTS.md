@@ -204,6 +204,11 @@ calendario **no** es Cal.com: reusa `StepClineraScheduler` de
 `VentasLanding.tsx` (nativo primero, embed de `app.clinera.io` de respaldo).
 `/ventas` sigue con el wizard anterior. `/agenda-hebe` redirige a `/agenda`.
 
+El aviso de Google Chat y Twenty los arma `OACG TECH | Wizard` (`A3wOPmhQjit8VswM`)
+en n8n: en `/agenda` ya no se anuncia «Software actual». Van necesidad, cargo,
+web/redes, ciudad, volumen y clínica. El botón «Agenda con tu ingeniero» abre
+el calendario **sin esperar** el webhook — si se vuelve a `await`, se pierden leads.
+
 # `/agenda`: la hora que se guarda es de Chile, siempre
 
 El último paso de `/agenda` (`StepClineraNativo` en

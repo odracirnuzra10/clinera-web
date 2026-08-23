@@ -405,8 +405,11 @@ function isValidWebsite(value: string) {
 }
 
 function clinicCrmFields(form: Form) {
+  const clinica = form.clinica.trim();
   return {
-    nombre_clinica: form.clinica.trim(),
+    // `clinica` es el alias que n8n → Twenty ya leía; `nombre_clinica` es el canónico.
+    clinica,
+    nombre_clinica: clinica,
     tipo_clinica: form.tipoClinica || "",
     tipo_clinica_label: form.tipoClinica ? CLINIC_TYPE_LABELS[form.tipoClinica] : "",
     sitio_web: form.website.trim(),
@@ -493,7 +496,7 @@ export function clasificarLeadSource(s: LeadSourceSignals): string {
   return "organico";
 }
 
-function detectLeadSource(): string {
+export function detectLeadSource(): string {
   if (typeof window === "undefined") return "organico";
   // Las mismas dos fuentes que ya viajan en el payload del webhook, para que el
   // `lead_source` no pueda contradecir al `gclid` que va tres líneas más abajo.
@@ -515,7 +518,7 @@ function pushDL(event: string, data: Record<string, unknown> = {}) {
 
 // event_id único del lead. Se comparte entre el webhook n8n (upsert del lead) y,
 // según MQL_TRIGGER, el par Pixel+CAPI del evento MQL → una sola señal deduplicada.
-function newLeadEventId(): string {
+export function newLeadEventId(): string {
   return "ventas_" + Date.now() + "_" + Math.random().toString(36).substring(2, 9);
 }
 

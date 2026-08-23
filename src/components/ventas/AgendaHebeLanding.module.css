@@ -336,6 +336,10 @@
   overflow: hidden;
 }
 
+.viewportScheduler {
+  height: min(820px, calc(100dvh - 48px));
+}
+
 .step {
   position: absolute;
   inset: 0;
@@ -354,6 +358,10 @@
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
+}
+
+.stepScheduler {
+  justify-content: flex-start;
 }
 
 .viewers,
@@ -432,13 +440,24 @@
 }
 
 .prefixSelect {
-  min-width: 118px;
-  padding: 0.8rem 0.5rem;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 92px;
+  min-width: 92px;
+  max-width: 92px;
+  flex: 0 0 92px;
+  padding: 0.8rem 1.55rem 0.8rem 0.55rem;
   border: 1.5px solid #e0e0e0;
   border-radius: 10px;
   font-family: var(--sans);
   font-size: 15px;
-  background: #fff;
+  font-weight: 600;
+  color: var(--text);
+  background-color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%236b7280' d='M1 1l5 5 5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
 }
 
 .doctorName {
@@ -542,20 +561,21 @@
 }
 
 .check {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1.5px solid #e0e0e0;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid #d4d4d4;
   margin-left: auto;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fff;
 }
 
 .cardSelected .check {
-  background: #0a0a0a;
-  border-color: #0a0a0a;
+  background: #111111;
+  border-color: #111111;
 }
 
 .check svg {
@@ -592,6 +612,23 @@
   color: var(--text);
   background: #fff;
   outline: none;
+}
+
+.group select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.2rem;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%236b7280' d='M1 1l5 5 5-5'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 10px;
+}
+
+.phone select.prefixSelect {
+  width: 92px;
+  min-width: 92px;
+  max-width: 92px;
+  flex: 0 0 92px;
 }
 
 .group input:focus,
