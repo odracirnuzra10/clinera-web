@@ -2446,8 +2446,7 @@
     .slide.active .blk-lead,
     .slide.active .cn-highlight,
     .slide.active .cn-body,
-    .slide.active .cn-seal,
-    .slide.active .mn-cta {
+    .slide.active .cn-seal {
       animation: enter .64s var(--ease) both;
       animation-delay: .1s;
     }
@@ -3141,31 +3140,7 @@
 
     /* --- El veredicto (#veredicto) --- */
     .mn-layout {
-      max-width: 800px;
-    }
-
-    .mn-icon {
-      margin: 0 0 20px;
-      font-size: clamp(38px, 4vw, 52px);
-      line-height: 1;
-    }
-
-    .mn-cta {
-      display: inline-flex;
-      margin: 34px 0 0;
-      padding: 17px 28px;
-      border-radius: var(--radius-md);
-      background: var(--grad-ia);
-      color: #ffffff;
-      font-family: var(--blk-mono);
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .slide.active .mn-icon {
-      animation: enter .64s var(--ease) both;
+      max-width: 700px;
     }
 
     /* Chrome del deck en modo oscuro (activo mientras se ve La condición) */
@@ -4028,10 +4003,9 @@
         aria-hidden="true"
       >
         <div class="slide-inner mn-layout">
-          <div class="mn-icon" aria-hidden="true">🏥</div>
           <div class="blk-eyebrow">ANTES DE PROBARLO</div>
           <h1 class="blk-h1">Nadie construyó una clínica grande <span class="blk-grad-text">contestando WhatsApp.</span></h1>
-          <p class="mn-cta">CONTRATA CLINERA O.S</p>
+          <p class="cn-seal">CONTRATA CLINERA O.S.</p>
         </div>
       </section>
 
