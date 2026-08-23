@@ -3,17 +3,8 @@
 import { AuraFlow, ChatToAgenda } from "./WizardAnimations";
 import styles from "./WizardShowcase.module.css";
 
-/* La columna izquierda de /agenda en los pasos 1 y 2.
- *
- * Sólo en esos dos: desde el paso 3 la columna vuelve al carrusel de doctores
- * (ver ReunionHero). La razón es de embudo — en las dos primeras preguntas el
- * visitante todavía está entendiendo qué es Clinera y la animación explica; al
- * llegar a los datos y a la hora lo que falta no es entender sino confiar, y
- * ahí la cara de un colega que ya lo usa pesa más que un diagrama.
- *
- * Las animaciones viven en WizardAnimations.tsx; acá va el escenario oscuro que
- * las enmarca y el copy. El fondo oscuro no es decoración: separa la mitad que
- * sólo se mira de la mitad blanca donde el visitante responde.
+/* Columna izquierda de /agenda en los pasos 1–3 (necesidad + clínica).
+ * Desde contacto y calendario vuelve el carrusel de doctores (ReunionHero).
  */
 
 function Panel({
@@ -69,6 +60,23 @@ function PasoMensajeria() {
   );
 }
 
+function PasoClinica() {
+  return (
+    <Panel
+      eyebrow="Operación · una sola ficha"
+      title={
+        <>
+          El volumen y la sede. <em>El sistema se arma alrededor.</em>
+        </>
+      }
+    >
+      <ChatToAgenda />
+    </Panel>
+  );
+}
+
 export default function WizardShowcase({ step }: { step: number }) {
-  return step <= 1 ? <PasoSistemaOperativo /> : <PasoMensajeria />;
+  if (step <= 1) return <PasoSistemaOperativo />;
+  if (step === 2) return <PasoMensajeria />;
+  return <PasoClinica />;
 }
