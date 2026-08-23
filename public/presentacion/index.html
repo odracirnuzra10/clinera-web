@@ -3140,7 +3140,32 @@
 
     /* --- El veredicto (#veredicto) --- */
     .mn-layout {
+      position: relative;
+      z-index: 0;
       max-width: 700px;
+    }
+
+    /* Comilla editorial de fondo: rompe el bloque cuadrado del titular sin
+       agregar un segundo color protagonista (mismo violeta del eyebrow y
+       del punto del sello). Elemento propio, no ::before: .mn-layout ya
+       es .slide-inner, que tiene su propio ::before (barra + "CLINERA"),
+       y un pseudo-elemento es único por elemento — compartirlo con ese
+       mezclaría ambas reglas en una sola caja en vez de crear dos.
+       z-index:-1 queda contenido por el stacking context de .mn-layout. */
+    .mn-quote {
+      position: absolute;
+      z-index: -1;
+      top: clamp(-64px, -7vw, -40px);
+      left: -4px;
+      color: rgba(124, 58, 237, .16);
+      font-size: clamp(140px, 15vw, 230px);
+      font-weight: 700;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .mn-seal {
+      border-radius: 999px;
     }
 
     /* Chrome del deck en modo oscuro (activo mientras se ve La condición) */
@@ -3532,6 +3557,21 @@
               </span>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide blk blk-dark"
+        id="veredicto"
+        data-name="El veredicto"
+        data-theme="dark"
+        aria-hidden="true"
+      >
+        <div class="slide-inner mn-layout">
+          <span class="mn-quote" aria-hidden="true">&ldquo;</span>
+          <div class="blk-eyebrow">EL VEREDICTO</div>
+          <h1 class="blk-h1">Nadie construyó una clínica grande <span class="blk-grad-text">contestando WhatsApp.</span></h1>
+          <p class="cn-seal mn-seal">CONTRATA CLINERA O.S.</p>
         </div>
       </section>
 
@@ -3992,20 +4032,6 @@
               <p>Con dos sistemas se digita todo dos veces y la IA decide con la mitad de la información. Preferimos decírtelo antes de firmar.</p>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section
-        class="slide blk blk-dark"
-        id="veredicto"
-        data-name="El veredicto"
-        data-theme="dark"
-        aria-hidden="true"
-      >
-        <div class="slide-inner mn-layout">
-          <div class="blk-eyebrow">ANTES DE PROBARLO</div>
-          <h1 class="blk-h1">Nadie construyó una clínica grande <span class="blk-grad-text">contestando WhatsApp.</span></h1>
-          <p class="cn-seal">CONTRATA CLINERA O.S.</p>
         </div>
       </section>
 
