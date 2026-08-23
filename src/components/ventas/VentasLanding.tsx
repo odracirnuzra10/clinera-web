@@ -1517,8 +1517,8 @@ function Wizard({
           onBack={() => setStep(contactStep)}
           onBooked={async (calBooking) => {
             setBooking(calBooking);
-            await submitBookingConfirmation({ form, software, size, qual: qualification, leadCtx, booking: calBooking, sourcePath });
             setSubmitted(true);
+            void submitBookingConfirmation({ form, software, size, qual: qualification, leadCtx, booking: calBooking, sourcePath });
           }}
         />
       )}
@@ -1533,7 +1533,8 @@ function Wizard({
             // Nativo: trae fecha/hora/profesional reales. Embed: viene {} y los
             // campos cal_* viajan en null. `via` distingue el agendador en n8n.
             setBooking(clineraBooking);
-            await submitBookingConfirmation({
+            setSubmitted(true);
+            void submitBookingConfirmation({
               form,
               software,
               size,
@@ -1544,7 +1545,6 @@ function Wizard({
               via,
               confirmEventId,
             });
-            setSubmitted(true);
           }}
         />
       )}
@@ -1566,7 +1566,7 @@ function Wizard({
 //                         paso 2 para que n8n haga upsert del mismo lead.
 // 3) submitBookingConfirmation — cuando Cal.com dispara `bookingSuccessful`.
 
-type CalBooking = {
+export type CalBooking = {
   booking?: { uid?: string; eventTypeId?: number; startTime?: string; endTime?: string };
   eventType?: { title?: string; slug?: string; length?: number };
   date?: string;
@@ -3654,10 +3654,13 @@ function StepClineraNativo({
           ...getClineraMetaIds(),
           ...getAttributionPayload(),
         }),
+        signal: AbortSignal.timeout(20_000),
       });
-      const json: { ok?: boolean } = res.ok ? await res.json() : { ok: false };
-      if (!json.ok) throw new Error("turno no creado");
-      await onBooked(
+      // n8n responde `{ success: true }`. Un `ok` suelto también vale.
+      const json: { ok?: boolean; success?: boolean } = res.ok ? await res.json() : {};
+      if (!(json.ok || json.success)) throw new Error("turno no creado");
+      // El CRM/Chat no puede dejar el botón en «Confirmando…».
+      void onBooked(
         {
           date: `${fechaEfectiva}T${slot.horaInicio}:00`,
           duration: slot.duracionMin ?? config.duracionMin,

@@ -12,6 +12,7 @@ import {
   submitBookingConfirmation,
   submitContactLead,
   submitSizeLead,
+  type CalBooking,
   type Form,
   type FeatureId,
 } from "./VentasLanding";
@@ -151,6 +152,7 @@ export default function AgendaHebeLanding() {
   const [prefix, setPrefix] = useState("+56");
   const [leadCtx, setLeadCtx] = useState<{ eventId: string; leadSource: string } | null>(null);
   const [attempted, setAttempted] = useState(false);
+  const [booking, setBooking] = useState<CalBooking | null>(null);
 
   useEffect(() => {
     const t = window.setInterval(() => setSlide((i) => (i + 1) % SLIDES.length), 4200);
@@ -513,27 +515,46 @@ export default function AgendaHebeLanding() {
             </div>
 
             <div className={`${styles.step} ${styles.stepScheduler} ${step === 5 ? styles.stepActive : ""}`} aria-hidden={step !== 5}>
-              <StepClineraScheduler
-                form={form}
-                label={`Paso 5 de ${TOTAL}`}
-                onBack={() => go(4)}
-                onBooked={async (booking, via, confirmEventId) => {
-                  const profile = OPERATIONAL_PROFILES.find((p) => p.id === volume) ?? null;
-                  const size = { profile };
-                  const qual = evaluateQualification(size);
-                  await submitBookingConfirmation({
-                    form,
-                    software: features[0] ?? null,
-                    size,
-                    qual,
-                    leadCtx,
-                    booking,
-                    sourcePath: SOURCE_PATH,
-                    via,
-                    confirmEventId,
-                  });
-                }}
-              />
+              {booking ? (
+                <div className={styles.success}>
+                  <div className={styles.successMark} aria-hidden>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <h2 className={styles.successTitle}>¡Reunión recibida!</h2>
+                  <p className={styles.sub}>Te llega el Meet por email. Sin compromiso · 45 min.</p>
+                  {booking.date && (
+                    <div className={styles.successWhen}>
+                      {booking.date.replace("T", " · ")}
+                      {booking.organizer?.name ? ` · ${booking.organizer.name}` : ""}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <StepClineraScheduler
+                  form={form}
+                  label={`Paso 5 de ${TOTAL}`}
+                  onBack={() => go(4)}
+                  onBooked={(next, via, confirmEventId) => {
+                    setBooking(next);
+                    const profile = OPERATIONAL_PROFILES.find((p) => p.id === volume) ?? null;
+                    const size = { profile };
+                    const qual = evaluateQualification(size);
+                    void submitBookingConfirmation({
+                      form,
+                      software: features[0] ?? null,
+                      size,
+                      qual,
+                      leadCtx,
+                      booking: next,
+                      sourcePath: SOURCE_PATH,
+                      via,
+                      confirmEventId,
+                    });
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
