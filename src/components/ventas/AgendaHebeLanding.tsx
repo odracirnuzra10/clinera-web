@@ -18,7 +18,7 @@ import {
 
 const NEED_CARDS: { id: string; label: string; hint: string; features: FeatureId[] }[] = [
   { id: "comms", label: "Voz, texto y redes", hint: "WhatsApp, Instagram y llamadas", features: ["voz", "texto", "rrss"] },
-  { id: "intelligence", label: "Clinera Intelligence", hint: "Ventas vs el mes anterior", features: ["intelligence"] },
+  { id: "intelligence", label: "Clinera Intelligence", hint: "Agente IA interno que interactúa con tus operaciones, ventas, agenda, marketing, etc.", features: ["intelligence"] },
   { id: "fichas", label: "Fichas, recetas y consentimientos", hint: "Ficha facial, ficha corporal, odontograma", features: ["fichas", "consentimientos", "odontograma"] },
 ] as const;
 
