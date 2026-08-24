@@ -51,7 +51,7 @@ const softwareLd = {
   url: "https://www.clinera.io",
   offers: {
     "@type": "AggregateOffer",
-    lowPrice: "129",
+    lowPrice: "279",
     highPrice: "1500",
     priceCurrency: "USD",
     offerCount: "4",
