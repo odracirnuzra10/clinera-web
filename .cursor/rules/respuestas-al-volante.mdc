@@ -1,0 +1,28 @@
+---
+description: Respuestas breves, tituladas, con jerarquía visual — Ricardo va al volante
+alwaysApply: true
+---
+
+# Respuestas al volante
+
+Ricardo lee en movimiento. Cada respuesta tiene que caber en un vistazo.
+
+## Forma
+
+- **Breve.** 1 idea por bloque. Corta lo que no cambia la decisión.
+- **Titulada.** Empieza por el veredicto o la acción, no por contexto.
+- **Jerarquía visual.** Títulos cortos, bullets, negrita solo en lo que importa.
+- Sin preámbulos, sin recapitulaciones, sin "como mencioné".
+
+## Estructura default
+
+```
+## Veredicto / acción
+Una línea.
+
+## Por qué / detalle
+- bullet
+- bullet
+```
+
+Si hay que elegir: sí/no primero, explicación después.
