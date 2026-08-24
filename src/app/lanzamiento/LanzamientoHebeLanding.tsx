@@ -8,22 +8,22 @@ const TOTAL = 5;
 
 const SLIDES = [
   {
-    img: "/images/flavio.jpeg",
-    caption: "Dr. Flavio Rojas · infiltracion.cl",
-    name: "Dr. Flavio Rojas",
-    uses: "Ficha corporal · agente IA de texto · agente IA de voz",
+    img: "/images/lanzamiento/cuadrado.jpg",
+    caption: `${evento.lugar.nombre} · ${evento.ciudad}`,
+    name: evento.nombre,
+    uses: `${evento.fechaLarga} · ${evento.hora}`,
   },
   {
-    img: "/images/yasna.jpg",
-    caption: "Yasna Vásquez · campañas sin más secretarias",
-    name: "Dra. Yasna Vásquez",
-    uses: "Odontograma · agente IA de texto",
+    img: "/images/lanzamiento/feed.jpg",
+    caption: "Cena privada · Solo doctores y dueños de clínica",
+    name: "Lanzamiento IA",
+    uses: "AURA · CAMILA · Clinera Intelligence en vivo",
   },
   {
-    img: "/images/katherine.png",
-    caption: "Katherine Meza · fichas y odontogramas",
-    name: "Katherine Meza",
-    uses: "Ficha facial · agente IA de texto · Clinera Intelligence",
+    img: "/images/lanzamiento/horizontal.jpg",
+    caption: evento.metadataMono,
+    name: `${evento.cupos.total} cupos`,
+    uses: "Postula y confirmamos por WhatsApp",
   },
 ];
 

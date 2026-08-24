@@ -8,3 +8,9 @@ body:has(.lanzamiento-hebe) {
 body:has(.lanzamiento-hebe) .skip-link {
   display: none;
 }
+
+/* Fotos del evento: centradas, no como retrato de doctor */
+.lanzamiento-hebe aside img {
+  object-fit: cover;
+  object-position: center;
+}
