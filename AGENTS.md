@@ -162,6 +162,24 @@ renderizan las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
 - **Mes 2 en adelante:** el plan contratado (Vortex US$ 279 / Atlas US$ 379 /
   Summit US$ 479 al mes).
 
+## El descuento de `/agencias` no tiene fuente única — vive repetido en 3 archivos
+
+El "X% descuento permanente" del programa partner para agencias (`/agencias`) no
+sale de `pricing.ts` ni de ningún content file — está tipeado a mano en tres
+lugares que hay que mantener sincronizados a mano:
+
+- `src/app/agencias/page.tsx` (meta description, OG description, pregunta del FAQ JSON-LD)
+- `src/components/agencias/AgenciasLanding.tsx` (`Stat` del hero, `BenefitCard` 01, FAQ visible)
+- `public/presentacion-agencia/index.html` (deck estático enlazado desde ambos CTA "Ver presentación técnica")
+
+Agosto 2026: Ricardo lo bajó de 20% a **15%**. Si cambia de nuevo, hay que tocar
+los 7 lugares de arriba — ninguno se actualiza solo.
+
+`public/reseller.html` es un "Programa Reseller" viejo y huérfano (50% de
+comisión + 10% de descuento) que **no** está enlazado desde `/agencias` ni desde
+ningún componente en `src/` — no es el programa vigente, no lo confundas con
+el de arriba ni lo actualices pensando que es el mismo.
+
 # Embudo de Meta Y Google Ads: qué evento vale cuánto, y dónde vive de verdad
 
 > [!WARNING]

@@ -6,13 +6,13 @@ import AgenciasLanding from "@/components/agencias/AgenciasLanding";
 export const metadata: Metadata = {
   title: "Programa Partner para Agencias — Clinera.io",
   description:
-    "El programa partner de Clinera para agencias de marketing en LATAM. 20% de descuento permanente para tus clientes, directorio de agencias recomendadas y capacitación 1:1. Conecta Meta Lead Ads, CRM y dashboards directo a la operación clínica vía API/Webhooks.",
+    "El programa partner de Clinera para agencias de marketing en LATAM. 15% de descuento permanente para tus clientes, directorio de agencias recomendadas y capacitación 1:1. Conecta Meta Lead Ads, CRM y dashboards directo a la operación clínica vía API/Webhooks.",
   alternates: { canonical: "https://www.clinera.io/agencias" },
   openGraph: {
     url: "https://www.clinera.io/agencias",
     title: "Programa Partner para Agencias — Clinera.io",
     description:
-      "20% descuento permanente, directorio recomendado y capacitación 1:1. Conecta Meta Ads y tu stack al WhatsApp de cada clínica.",
+      "15% descuento permanente, directorio recomendado y capacitación 1:1. Conecta Meta Ads y tu stack al WhatsApp de cada clínica.",
     type: "website",
     images: [
       {
@@ -40,7 +40,7 @@ const faqJsonLd = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "¿Cómo funciona el 20% de descuento del programa partner?",
+      name: "¿Cómo funciona el 15% de descuento del programa partner?",
       acceptedAnswer: {
         "@type": "Answer",
         text:
