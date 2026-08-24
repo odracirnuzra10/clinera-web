@@ -297,3 +297,42 @@ ficha (ver el repo `baserow`, `sales/n8n/recablear_aviso_unico.py`).
 
 Si cambiás las claves `lead_stage` / `booking_status`, ese corte deja de
 funcionar y los avisos vuelven a duplicarse sin ningún error visible.
+
+# `/lanzamiento` y `/qr`: cena privada Los Ángeles (sept 2026)
+
+Landing de postulación + invitación digital con QR para la cena de lanzamiento
+de las nuevas funciones de IA. Sistema de diseño aislado (Outfit + JetBrains
+Mono, light-first) en `src/app/lanzamiento/evento.css` — no mezclar con el
+resto del sitio.
+
+| Ruta | Qué es |
+|---|---|
+| `/lanzamiento` | Landing pública, 12 secciones, formulario de postulación |
+| `/qr` | Invitación imprimible con QR → `/lanzamiento` |
+
+**Fuente única de contenido:** `src/config/evento.ts`. Para bajar cupos restantes:
+`evento.cupos.restantes`.
+
+**Webhook:** el formulario postea directo desde el cliente a
+`NEXT_PUBLIC_EVENT_WEBHOOK_URL` → `https://n8n.oacg.cl/webhook/lanzamiento-los-angeles`
+(variable en Vercel). El workflow vive en
+`integrations/n8n/lanzamiento-los-angeles.workflow.json`.
+
+**Qué hace el webhook (en orden):**
+1. Valida nombre, clínica, email y WhatsApp.
+2. Crea o refresca persona + clínica + **negocio** en Twenty (`crm.oacg.cl`) con
+   etiqueta **`lanzamiento los angeles`** (`LANZAMIENTO_LOS_ANGELES`), etapa
+   `NEW`, dueño **Jorge Cheul**.
+3. Avisa a Google Chat: *«Nuevo invitado interesado en asistir al lanzamiento»*.
+
+Antes de importar el workflow, correr una vez
+`integrations/n8n/etiqueta-lanzamiento-los-angeles.py --aplicar` (requiere
+`TWENTY_API_KEY`) para crear la opción del multi-select `etiquetas`. Detalle de
+instalación: `integrations/n8n/README.md`.
+
+**Assets pendientes:** `public/og-evento.png` (OG 1200×630) y
+`public/host-ricardo.jpg` (retrato del host; hoy placeholder SVG en
+`Host.tsx`).
+
+**QR:** path SVG pregenerado en `src/app/qr/QrCode.tsx`. Si cambia la URL de
+destino, regenerar con segno (script en el README del proyecto evento).
