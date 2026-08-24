@@ -1,22 +1,10 @@
 import type { Metadata } from "next";
 import { evento } from "@/config/evento";
-
-import Nav from "./components/Nav";
-import Hero from "./components/Hero";
-import TrustBar from "./components/TrustBar";
-import Demos from "./components/Demos";
-import Programa from "./components/Programa";
-import Audiencia from "./components/Audiencia";
-import FormPostulacion from "./components/FormPostulacion";
-import Host from "./components/Host";
-import Ubicacion from "./components/Ubicacion";
-import Faq from "./components/Faq";
-import CtaFinal from "./components/CtaFinal";
-import Footer from "./components/Footer";
+import LanzamientoHebeLanding from "./LanzamientoHebeLanding";
 
 const TITULO = "Cena de lanzamiento IA · Los Ángeles | Clinera.io";
 const DESCRIPCION =
-  "Cena privada en Los Ángeles para 20 doctores y dueños de clínica: demo en vivo de AURA, CAMILA y Clinera Intelligence. Viernes 11 de septiembre de 2026, 19:00 hrs, Restaurante Camino Antuco. Postula a tu cupo.";
+  "Cena privada en Los Ángeles para 20 doctores y dueños de clínica: demo en vivo de AURA, CAMILA y Clinera Intelligence. Viernes 11 de septiembre de 2026, 19:00 hrs. Postula a tu cupo.";
 
 export const metadata: Metadata = {
   title: { absolute: TITULO },
@@ -82,20 +70,7 @@ export default function LanzamientoPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Nav />
-      <main id="contenido" className="min-h-[100dvh]">
-        <Hero />
-        <TrustBar />
-        <Demos />
-        <Programa />
-        <Audiencia />
-        <FormPostulacion />
-        <Host />
-        <Ubicacion />
-        <Faq />
-        <CtaFinal />
-      </main>
-      <Footer />
+      <LanzamientoHebeLanding />
     </>
   );
 }
