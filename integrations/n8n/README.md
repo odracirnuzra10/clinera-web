@@ -1,5 +1,68 @@
 # Workflows de n8n que consume el sitio
 
+## lanzamiento-los-angeles.workflow.json
+
+Recibe las postulaciones de `/lanzamiento` y las mete al CRM con etiqueta propia.
+
+| Webhook (producción) | Método | Rol |
+|---|---|---|
+| `https://n8n.oacg.cl/webhook/lanzamiento-los-angeles` | POST | Postulación del evento → Twenty + aviso Google Chat |
+
+### Instalación (una vez)
+
+1. **Etiqueta en Twenty** (si no existe todavía):
+
+   ```bash
+   export TWENTY_API_KEY=...
+   python3 integrations/n8n/etiqueta-lanzamiento-los-angeles.py --aplicar
+   ```
+
+   Crea la opción `lanzamiento los angeles` en el multi-select `etiquetas` de
+   Negocios. Sin esto, el nodo «Twenty - Crear Lead» falla al escribir la
+   etiqueta.
+
+2. n8n.oacg.cl → **Import from File** →
+   `integrations/n8n/lanzamiento-los-angeles.workflow.json`.
+
+3. Reemplazar placeholders en el JSON importado:
+   - `__GOOGLE_CHAT_WEBHOOK__` → webhook del espacio de ventas (mismo que usa
+     «Notify Google Chat» del wizard, salvo que Ricardo quiera uno distinto).
+   - `TWENTY_API_KEY` ya vive en el entorno de n8n (misma que el wizard).
+
+4. **Activar** el workflow. Id en producción (ago 2026): `PtHcOsZQeYUMVsXW`.
+
+5. En Vercel (www.clinera.io):
+
+   ```
+   NEXT_PUBLIC_EVENT_WEBHOOK_URL=https://n8n.oacg.cl/webhook/lanzamiento-los-angeles
+   ```
+
+### Qué escribe en Twenty
+
+| Qué | Valor |
+|---|---|
+| Etiqueta del negocio | `lanzamiento los angeles` |
+| Etapa | `NEW` (Nuevo) |
+| Dueño | Jorge Cheul |
+| Origen (`canalOrigen`) | `ORGANICO` |
+| `fechaDemo` | fecha del evento (11 sep 2026) |
+
+Si la persona ya tiene negocio, se refresca y se le suma la etiqueta — no
+duplica. El campo `pais` usa los valores de Twenty (`CHILE`, no `CL`).
+
+### Aviso Google Chat
+
+Texto fijo: **«Nuevo invitado interesado en asistir al lanzamiento»**, con
+nombre, clínica, especialidad, WhatsApp, email, perfil y link al negocio en CRM.
+
+Los nodos Code viven también como archivos sueltos (fuente de verdad del texto):
+
+- `lanzamiento-preparar-postulacion.js`
+- `lanzamiento-twenty-crear-lead.js`
+
+Para parchear un nodo vivo sin reimportar todo el JSON, usar
+`baserow/sales/n8n/aplicar_nodo.py` con el id del workflow una vez creado.
+
 ## clinera-agenda-reserva.workflow.json
 
 Motor del paso final de `/agenda`: reserva nativa contra la agenda real de

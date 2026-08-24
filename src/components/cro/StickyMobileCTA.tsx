@@ -24,14 +24,17 @@ export default function StickyMobileCTA() {
     pathname === "/software-medico" ||
     pathname === "/software-dental";
   // Páginas largas de conversión donde el CTA persistente ayuda en móvil.
+  const isEvento =
+    pathname === "/lanzamiento" || pathname === "/qr";
   const enabled =
-    isDemo ||
-    pathname === "/" ||
-    pathname === "/planes" ||
-    pathname === "/plataforma" ||
-    pathname === "/software-medico" ||
-    pathname === "/software-dental" ||
-    pathname?.startsWith("/comparativas") === true;
+    !isEvento &&
+    (isDemo ||
+      pathname === "/" ||
+      pathname === "/planes" ||
+      pathname === "/plataforma" ||
+      pathname === "/software-medico" ||
+      pathname === "/software-dental" ||
+      pathname?.startsWith("/comparativas") === true);
   const [show, setShow] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const agendaHref = useSyncExternalStore(

@@ -1,0 +1,206 @@
+{
+  "name": "Clinera — Lanzamiento Los Ángeles",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lanzamiento-los-angeles",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://www.clinera.io,https://clinera.io"
+        }
+      },
+      "id": "la-wh-001",
+      "name": "Webhook Postulación",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "lanzamiento-los-angeles"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Nodo Code «Preparar postulación» — workflow Clinera · Lanzamiento Los Ángeles.\n// Normaliza el POST de /lanzamiento y rechaza lo mínimo antes de tocar CRM.\n//\n// Modo: Run Once for All Items.\n\nconst wh = $input.first().json || {};\nconst body = wh.body || wh;\n\nconst trim = (v) => String(v == null ? '' : v).trim();\nconst email = trim(body.email).toLowerCase();\n\nif (!email || !/^[^\\s@]+@[^\\s@]+\\.[a-z]{2,}$/i.test(email)) {\n  return [{ json: { ok: false, motivo: 'email_invalido' } }];\n}\n\nconst nombre = trim(body.nombre);\nif (nombre.length < 3 || !nombre.includes(' ')) {\n  return [{ json: { ok: false, motivo: 'nombre_invalido' } }];\n}\n\nconst clinica = trim(body.clinica);\nif (clinica.length < 2) {\n  return [{ json: { ok: false, motivo: 'clinica_invalida' } }];\n}\n\nconst whatsapp = String(body.whatsapp || '').replace(/\\D/g, '');\nif (whatsapp.length < 10) {\n  return [{ json: { ok: false, motivo: 'whatsapp_invalido' } }];\n}\n\nconst partes = nombre.split(/\\s+/).filter(Boolean);\nconst firstName = partes[0] || 'Lead';\nconst lastName = partes.slice(1).join(' ') || '';\n\nconst PREFIJO = {\n  '+56': 'CL', '+52': 'MX', '+54': 'AR', '+57': 'CO', '+51': 'PE',\n  '+593': 'EC', '+591': 'BO', '+595': 'PY', '+598': 'UY', '+1': 'US', '+34': 'ES',\n};\nconst codigoPais = trim(body.codigo_pais || '+56');\nconst country = PREFIJO[codigoPais] || 'CL';\n\nconst linea = (etiqueta, valor) => (valor ? `*${etiqueta}:* ${valor}\\n` : '');\n\nconst textoChat =\n  '🎟️ *Nuevo invitado interesado en asistir al lanzamiento*\\n\\n' +\n  linea('Nombre', nombre) +\n  linea('Clínica', clinica) +\n  linea('Especialidad', trim(body.especialidad)) +\n  linea('WhatsApp', trim(body.whatsapp)) +\n  linea('Email', email) +\n  linea('Perfil', trim(body.perfil)) +\n  linea('Evento', 'Cena de lanzamiento IA · Los Ángeles · 11 sep 2026, 19:00') +\n  '\\n_Confirmar cupo por WhatsApp en menos de 24 hrs. No queda confirmado en la visita._';\n\nreturn [{\n  json: {\n    ok: true,\n    evento: trim(body.evento) || 'lanzamiento-los-angeles',\n    fechaEvento: trim(body.fecha_evento),\n    nombre,\n    firstName,\n    lastName,\n    clinica,\n    especialidad: trim(body.especialidad),\n    whatsapp: trim(body.whatsapp),\n    whatsappDigitos: whatsapp,\n    codigoPais,\n    country,\n    email,\n    perfil: trim(body.perfil),\n    origen: trim(body.origen) || 'https://clinera.io/lanzamiento',\n    enviadoEn: trim(body.enviado_en) || new Date().toISOString(),\n    textoChat,\n  },\n}];\n"
+      },
+      "id": "la-code-001",
+      "name": "Preparar postulación",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.ok }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "la-if-001",
+      "name": "¿Postulación válida?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "// Nodo Code «Twenty - Crear Lead» — workflow Clinera · Lanzamiento Los Ángeles.\n// Crea o refresca persona + clínica + negocio en crm.oacg.cl con la etiqueta\n// «lanzamiento los angeles». Dueño del negocio: Jorge Cheul (terreno LA).\n//\n// Modo: Run Once for All Items. Errores: Continue.\n\nconst KEY = $env.TWENTY_API_KEY;\nconst BASE = 'https://crm.oacg.cl';\nconst ETIQUETA = 'LANZAMIENTO_LOS_ANGELES';\nconst JORGE_CHEUL = '11b36cc3-b943-4499-8982-e2d16e2801a2';\n\nif (!KEY) {\n  throw new Error('Falta TWENTY_API_KEY en el entorno de n8n');\n}\n\nconst api = async (method, path, body) => {\n  return await this.helpers.httpRequest({\n    method,\n    url: BASE + path,\n    headers: { Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' },\n    body,\n    json: true,\n    timeout: 15000,\n  });\n};\n\nconst primero = (resp, objeto) => {\n  const arr = (resp && resp.data && resp.data[objeto]) || [];\n  return arr.length ? arr[0] : null;\n};\n\nconst crear = (resp) => {\n  const d = (resp && resp.data) || {};\n  const v = Object.values(d)[0];\n  return v && v.id ? v.id : null;\n};\n\nconst PREFIJO = {\n  CL: '+56', MX: '+52', AR: '+54', CO: '+57', PE: '+51', VE: '+58', EC: '+593',\n  BO: '+591', PY: '+595', UY: '+598', CR: '+506', PA: '+507', GT: '+502',\n  SV: '+503', HN: '+504', NI: '+505', ES: '+34', US: '+1', BR: '+55',\n};\n\nconst PAIS_TWENTY = {\n  CL: 'CHILE', MX: 'MEXICO', PE: 'PERU', CO: 'COLOMBIA', PA: 'PANAMA',\n  CR: 'COSTA_RICA', AR: 'ARGENTINA', EC: 'ECUADOR', PY: 'PARAGUAY', ES: 'ESPANA',\n};\n\nconst d = $('Preparar postulación').first().json;\nconst resultado = { twenty: {} };\n\ntry {\n  let companyId = null;\n  if (d.clinica) {\n    const nombre = String(d.clinica).trim();\n    const hallada = primero(\n      await api('GET', `/rest/companies?filter=name%5Beq%5D:${encodeURIComponent(nombre)}&limit=1`),\n      'companies',\n    );\n    companyId = hallada\n      ? hallada.id\n      : crear(await api('POST', '/rest/companies?disableDuplicateCheck=true', { name: nombre }));\n    resultado.twenty.companyId = companyId;\n    resultado.twenty.companyNueva = !hallada;\n  }\n\n  let personId = null;\n  const email = String(d.email || '').trim().toLowerCase();\n  if (email) {\n    const hallada = primero(\n      await api('GET', `/rest/people?filter=emails.primaryEmail%5Beq%5D:${encodeURIComponent(email)}&limit=1`),\n      'people',\n    );\n    if (hallada) {\n      personId = hallada.id;\n      resultado.twenty.personaExistia = true;\n    }\n  }\n\n  if (!personId) {\n    const persona = {\n      name: { firstName: d.firstName || d.nombre || 'Lead', lastName: d.lastName || '' },\n    };\n    if (email) persona.emails = { primaryEmail: email };\n    const bruto = String(d.whatsappDigitos || d.whatsapp || '').replace(/\\D/g, '');\n    if (bruto) {\n      const cc = PREFIJO[d.country] || d.codigoPais || '+56';\n      const nacional = cc && bruto.startsWith(cc.slice(1))\n        ? bruto.slice(cc.length - 1)\n        : bruto;\n      persona.phones = { primaryPhoneCallingCode: cc, primaryPhoneNumber: nacional };\n    }\n    if (companyId) persona.companyId = companyId;\n    try {\n      personId = crear(await api('POST', '/rest/people?disableDuplicateCheck=true', persona));\n    } catch (e) {\n      delete persona.phones;\n      personId = crear(await api('POST', '/rest/people?disableDuplicateCheck=true', persona));\n      resultado.twenty.sinTelefono = true;\n    }\n    resultado.twenty.personaNueva = true;\n  }\n  resultado.twenty.personId = personId;\n\n  const linea = (etiqueta, valor) => (valor ? `- **${etiqueta}:** ${valor}\\n` : '');\n  const cuerpo =\n    `**Postulación · Lanzamiento Los Ángeles** · ${new Date().toISOString().slice(0, 10)}\\n` +\n    linea('Nombre', d.nombre) +\n    linea('Clínica', d.clinica) +\n    linea('Especialidad', d.especialidad) +\n    linea('WhatsApp', d.whatsapp) +\n    linea('Email', d.email) +\n    linea('Perfil', d.perfil) +\n    linea('Fecha evento', d.fechaEvento) +\n    linea('Origen', d.origen) +\n    linea('Enviado', d.enviadoEn) +\n    '\\n_Confirmar asistencia por WhatsApp. El cupo no queda confirmado al postular._';\n\n  const noteId = crear(\n    await api('POST', '/rest/notes?disableDuplicateCheck=true', {\n      title: '🎟️ Postulación · Lanzamiento Los Ángeles',\n      bodyV2: { markdown: cuerpo },\n    }),\n  );\n  resultado.twenty.noteId = noteId;\n\n  if (noteId && personId) {\n    await api('POST', '/rest/noteTargets?disableDuplicateCheck=true', {\n      noteId,\n      targetPersonId: personId,\n    });\n  }\n  if (noteId && companyId) {\n    await api('POST', '/rest/noteTargets?disableDuplicateCheck=true', {\n      noteId,\n      targetCompanyId: companyId,\n    });\n  }\n\n  const demoIso = (() => {\n    const raw = String(d.fechaEvento || '');\n    if (!raw) return null;\n    const dt = new Date(raw);\n    return Number.isNaN(dt.getTime()) ? null : dt.toISOString();\n  })();\n\n  const etiquetasActuales = (opp) => {\n    const raw = opp && opp.etiquetas;\n    if (Array.isArray(raw)) return raw.filter(Boolean);\n    if (typeof raw === 'string' && raw) return [raw];\n    return [];\n  };\n\n  if (personId) {\n    const abierta = primero(\n      await api('GET', `/rest/opportunities?filter=pointOfContactId%5Beq%5D:${personId}&limit=1`),\n      'opportunities',\n    );\n\n    if (abierta) {\n      const tags = new Set(etiquetasActuales(abierta));\n      tags.add(ETIQUETA);\n      const refresco = {\n        ultimoContacto: new Date().toISOString(),\n        canalOrigen: 'ORGANICO',\n        etiquetas: [...tags],\n        ownerId: JORGE_CHEUL,\n      };\n      if (demoIso) refresco.fechaDemo = demoIso;\n      await api('PATCH', `/rest/opportunities/${abierta.id}`, refresco);\n      resultado.twenty.opportunityId = abierta.id;\n      resultado.twenty.opportunityExistia = true;\n      resultado.twenty.opportunityRefrescada = true;\n      resultado.twenty.crmUrl = `${BASE}/object/opportunity/${abierta.id}`;\n    } else {\n      const finDeMes = new Date();\n      finDeMes.setUTCMonth(finDeMes.getUTCMonth() + 1, 0);\n      const negocio = {\n        name: `${d.clinica || d.nombre} · Lanzamiento LA`,\n        stage: 'NEW',\n        amount: { amountMicros: 279000000, currencyCode: 'USD' },\n        planClinera: 'VORTEX',\n        closeDate: finDeMes.toISOString().slice(0, 10) + 'T12:00:00.000Z',\n        pointOfContactId: personId,\n        ultimoContacto: new Date().toISOString(),\n        canalOrigen: 'ORGANICO',\n        etiquetas: [ETIQUETA],\n        ownerId: JORGE_CHEUL,\n      };\n      const paisTwenty = PAIS_TWENTY[d.country];\n      if (paisTwenty) negocio.pais = paisTwenty;\n      if (companyId) negocio.companyId = companyId;\n      if (demoIso) negocio.fechaDemo = demoIso;\n      const oppId = crear(\n        await api('POST', '/rest/opportunities?disableDuplicateCheck=true', negocio),\n      );\n      resultado.twenty.opportunityId = oppId;\n      resultado.twenty.opportunityNueva = true;\n      resultado.twenty.crmUrl = oppId ? `${BASE}/object/opportunity/${oppId}` : '';\n    }\n  }\n\n  resultado.twenty.ok = true;\n} catch (e) {\n  resultado.twenty.ok = false;\n  resultado.twenty.error = String(e.message || e).slice(0, 300);\n}\n\nconst textoChatFinal = d.textoChat + (\n  resultado.twenty.crmUrl ? `\\n\\nVer en CRM: ${resultado.twenty.crmUrl}` : ''\n);\n\nreturn [{ json: { ...d, ...resultado, textoChat: textoChatFinal } }];\n"
+      },
+      "id": "la-code-002",
+      "name": "Twenty - Crear Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        220
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "__GOOGLE_CHAT_WEBHOOK__",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ text: $json.textoChat }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "la-chat-001",
+      "name": "Aviso Google Chat",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        220
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, evento: $('Preparar postulación').first().json.evento, twenty: $('Twenty - Crear Lead').first().json.twenty || {} }) }}"
+      },
+      "id": "la-resp-001",
+      "name": "Responder OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1340,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: false, motivo: $json.motivo || 'invalido' }) }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "id": "la-resp-002",
+      "name": "Responder Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        440
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Postulación": {
+      "main": [
+        [
+          {
+            "node": "Preparar postulación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar postulación": {
+      "main": [
+        [
+          {
+            "node": "¿Postulación válida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Postulación válida?": {
+      "main": [
+        [
+          {
+            "node": "Twenty - Crear Lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Twenty - Crear Lead": {
+      "main": [
+        [
+          {
+            "node": "Aviso Google Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aviso Google Chat": {
+      "main": [
+        [
+          {
+            "node": "Responder OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {}
+}
