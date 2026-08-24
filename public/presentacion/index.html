@@ -332,6 +332,22 @@
       opacity: .8;
     }
 
+    /* Excepción: una foto real de evento (no un isotipo plano) se
+       muestra a color y a sangre, sin el tratamiento gris del resto. */
+    .hero-client-logo.is-photo {
+      padding: 0;
+    }
+
+    .hero-client-logo.is-photo img {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      filter: none;
+      opacity: 1;
+    }
+
     .ai-head {
       display: grid;
       grid-template-columns: minmax(0, 1.16fr) minmax(320px, .84fr);
@@ -3550,6 +3566,9 @@
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/clustourmed.png" alt="Clustourmed" loading="lazy" decoding="async" />
+              </span>
+              <span class="hero-client-logo is-photo">
+                <img src="/presentacion/clientes/clustourmed-evento.jpg" alt="Equipo de Clinera con Clustourmed, UANL y World Trade Center Monterrey" loading="lazy" decoding="async" />
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/uanl.png" alt="Universidad Autónoma de Nuevo León" loading="lazy" decoding="async" />
