@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* /lanzamiento y /qr — sistema de diseño aislado del resto del sitio. */
 
 .evento-page {
