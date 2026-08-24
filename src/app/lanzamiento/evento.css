@@ -21,6 +21,22 @@
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  width: 100%;
+}
+
+/* globals.css aplica padding-top al primer section de main; el hero ya trae pt-32 */
+.evento-page main > section:first-child {
+  padding-top: 0;
+}
+
+/* Enlaces del evento: que manden las clases Tailwind, no el cyan del sitio */
+.evento-page a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.evento-page a:hover {
+  color: inherit;
 }
 
 .evento-page html {
