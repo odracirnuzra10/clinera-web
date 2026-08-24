@@ -120,7 +120,7 @@ function Hero() {
             borderTop: "1px solid #E5E7EB",
           }}
         >
-          <Stat label="Descuento permanente" value="20%" />
+          <Stat label="Descuento permanente" value="15%" />
           <Stat label="Setup automatización" value="≈ 30s" />
           <Stat label="Atribución de leads" value="Tiempo real" />
           <Stat label="Apps conectables" value="9.000+" />
@@ -339,7 +339,7 @@ function ProgramaPartner() {
         >
           <BenefitCard
             num="01"
-            title="20%"
+            title="15%"
             unit=" descuento"
             desc="Permanente para todos los clientes que traes. Aplica a Vortex, Atlas y Summit. Sin tope, sin vencimiento. Mejor margen para ti, mejor precio para la clínica."
           />
@@ -1106,7 +1106,7 @@ function ModoMini({
 function FaqAgencias() {
   const faq = [
     {
-      q: "¿Cómo funciona el 20% de descuento?",
+      q: "¿Cómo funciona el 15% de descuento?",
       a: "Aplica permanentemente a todas las cuentas activas que tu agencia traiga: Vortex, Atlas o Summit. Sin tope, sin vencimiento. Se descuenta directo del precio del plan que paga la clínica — tu agencia decide si lo absorbe como margen, si lo traslada, o si lo divide.",
     },
     {

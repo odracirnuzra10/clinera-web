@@ -313,6 +313,7 @@
     }
 
     .hero-client-logo {
+      position: relative;
       display: grid;
       place-items: center;
       height: 60px;
@@ -332,20 +333,22 @@
       opacity: .8;
     }
 
-    /* Excepción: una foto real de evento (no un isotipo plano) se
-       muestra a color y a sangre, sin el tratamiento gris del resto. */
-    .hero-client-logo.is-photo {
-      padding: 0;
+    .hero-client-flag {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 16px;
+      height: 11px;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px var(--line);
+      line-height: 0;
     }
 
-    .hero-client-logo.is-photo img {
+    .hero-client-flag svg {
+      display: block;
       width: 100%;
       height: 100%;
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: cover;
-      filter: none;
-      opacity: 1;
     }
 
     .ai-head {
@@ -3513,6 +3516,32 @@
   </style>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="flag-cl" viewBox="0 0 30 20">
+        <rect width="30" height="20" fill="#fff" />
+        <rect y="10" width="30" height="10" fill="#D52B1E" />
+        <rect width="10" height="10" fill="#0039A6" />
+        <path fill="#fff" d="M5 2.8l.62 1.66 1.78.06-1.4 1.1.52 1.7L5 6.3 3.48 7.32l.52-1.7-1.4-1.1 1.78-.06z" />
+      </symbol>
+      <symbol id="flag-mx" viewBox="0 0 30 20">
+        <rect width="10" height="20" fill="#006847" />
+        <rect x="10" width="10" height="20" fill="#fff" />
+        <rect x="20" width="10" height="20" fill="#CE1126" />
+        <circle cx="15" cy="10" r="2.4" fill="#8B5E3C" />
+      </symbol>
+      <symbol id="flag-pe" viewBox="0 0 30 20">
+        <rect width="10" height="20" fill="#D91023" />
+        <rect x="10" width="10" height="20" fill="#fff" />
+        <rect x="20" width="10" height="20" fill="#D91023" />
+      </symbol>
+      <symbol id="flag-co" viewBox="0 0 30 20">
+        <rect width="30" height="20" fill="#FCD116" />
+        <rect y="10" width="30" height="5" fill="#003893" />
+        <rect y="15" width="30" height="5" fill="#CE1126" />
+      </symbol>
+    </defs>
+  </svg>
   <div class="deck">
     <header class="topbar">
       <div class="brand" aria-label="Clinera.io">clinera<span class="brand-dot" aria-hidden="true"></span>io</div>
@@ -3545,51 +3574,63 @@
             <div class="hero-client-logos">
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/clc.png" alt="Clínica Las Condes" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/andes.png" alt="Andes Salud" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/everest.png" alt="Everest Clínicas Dentales" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/sanatorio.png" alt="Sanatorio Alemán" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/sonrie.png" alt="Sonríe" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/lumina.png" alt="Lumina Clínica Facial" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/hebe.png" alt="Método Hebe" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/clustourmed.png" alt="Clustourmed" loading="lazy" decoding="async" />
-              </span>
-              <span class="hero-client-logo is-photo">
-                <img src="/presentacion/clientes/clustourmed-evento.jpg" alt="Equipo de Clinera con Clustourmed, UANL y World Trade Center Monterrey" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/uanl.png" alt="Universidad Autónoma de Nuevo León" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/elcielo.png" alt="El Cielo Medical Center" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/taemm.png" alt="TAEMM" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/euroclinica.png" alt="Euroclínica" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-pe" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/clinicainternacional.png" alt="Clínica Internacional" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-pe" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/quironsalud.png" alt="Quirónsalud" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-co" /></svg></span>
               </span>
               <span class="hero-client-logo">
                 <img src="/presentacion/clientes/cirugiasplasticas.svg" alt="Elite Cirugía Plástica" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-co" /></svg></span>
               </span>
             </div>
           </aside>
