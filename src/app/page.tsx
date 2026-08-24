@@ -52,7 +52,7 @@ const softwareLd = {
   offers: {
     "@type": "AggregateOffer",
     lowPrice: "279",
-    highPrice: "1500",
+    highPrice: "479",
     priceCurrency: "USD",
     offerCount: "4",
   },
