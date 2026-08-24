@@ -231,6 +231,32 @@ al lead entre que elige la hora y confirma.
 
 Guardián: `tests/agenda-scheduler.spec.ts`.
 
+# `/presentacion`: archivo estático, no componente — y el grid de logos ya no tiene número mágico
+
+`/presentacion` (el deck de ventas) no es una ruta de Next.js: `next.config.ts` reescribe
+`/presentacion` → `/presentacion/index.html`, un único archivo HTML/CSS/JS de ~4.300 líneas
+en `public/presentacion/index.html`. No hay componente React que tocar ahí.
+
+La franja "Clínicas que ya operan con Clinera" (`.hero-clients`) vivía con
+`grid-template-columns: repeat(7, minmax(0, 1fr))` — un número mágico que sólo cuadraba
+porque había exactamente 7 logos (Chile). Agosto 2026: se sumaron 8 clínicas de
+México/Perú/Colombia (15 en total) y el grid pasó a
+`repeat(auto-fill, minmax(96px, 1fr))`, que se reacomoda solo según cuántos logos haya.
+Si alguien vuelve a fijar un número de columnas a mano, se rompe apenas cambie el conteo
+de logos otra vez — no hardcodear ese número.
+
+Los logos de clientes **no viven en un solo lugar** — hay tres listas independientes que
+no se sincronizan entre sí:
+- `public/presentacion/index.html` (`.hero-client-logos`): la completa, 15 logos.
+- `src/components/plataforma/PlataformaLanding.tsx` (`CLIENTS`, para `/plataforma`):
+  sólo 6, le falta CLC — no se tocó en este cambio, sigue desactualizada.
+- `src/components/home-v3/sections.tsx` (`Logos()`, para `/`): nombres de clínicas
+  **inventados** ("Hospital del Valle", "Dermaclinic"...), no son clientes reales.
+
+Los archivos de imagen viven en `public/presentacion/clientes/*.{png,svg}`. El filtro
+`grayscale(1)` en `.hero-client-logo img` ya los pasa a blanco/negro al vuelo — los PNG
+fuente están en color a propósito, igual que los 7 originales; no hay que preprocesarlos.
+
 # Landings `/software-medico` y `/software-dental`
 
 Dueñas de los clusters de Google Ads "Softwares" (software médico / software
