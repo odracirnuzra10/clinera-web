@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 
 const VIOLET = "#7C3AED";
@@ -13,6 +14,7 @@ export default function AgenciasLanding() {
       <Hero />
       <SellingPoints />
       <ProgramaPartner />
+      <PartnerInternacional />
       <StackConnection />
       <ModosCompact />
       <FaqAgencias />
@@ -435,6 +437,79 @@ function ProgramaPartner() {
           >
             Soporte y capacitación <span style={{ marginLeft: 2 }}>→</span>
           </CtaPrimary>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Presencia internacional ---------- */
+function PartnerInternacional() {
+  return (
+    <section
+      className="agencias-section"
+      style={{ padding: "72px 80px", background: "#fff" }}
+    >
+      <div
+        style={{
+          maxWidth: 1000,
+          margin: "0 auto",
+          display: "flex",
+          gap: 40,
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        <div
+          style={{
+            flex: "0 0 320px",
+            width: 320,
+            maxWidth: "100%",
+            borderRadius: 20,
+            overflow: "hidden",
+            border: "1px solid rgba(0,0,0,.08)",
+            boxShadow: "0 30px 70px -30px rgba(0,0,0,.35)",
+          }}
+        >
+          <Image
+            src="/images/partners/clustourmed-wtc-monterrey.png"
+            alt="Ricardo Oyarzún junto al equipo de Clustourmed, partner de Clinera en México, en el Foro WTC Américas — World Trade Center Monterrey"
+            width={1254}
+            height={1254}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            sizes="(max-width: 720px) 100vw, 320px"
+          />
+        </div>
+        <div style={{ flex: "1 1 340px" }}>
+          <Eyebrow style={{ color: CYAN }}>Partners en LATAM</Eyebrow>
+          <h3
+            style={{
+              fontFamily: "Inter",
+              fontSize: "clamp(22px, 2.6vw, 30px)",
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.15,
+              margin: "14px 0 12px",
+              color: "#0A0A0A",
+            }}
+          >
+            Clustourmed, nuestro partner en México.
+          </h3>
+          <p
+            style={{
+              fontFamily: "Inter",
+              fontSize: 15.5,
+              color: "#4B5563",
+              lineHeight: 1.6,
+              margin: 0,
+              maxWidth: 480,
+            }}
+          >
+            El programa partner ya opera fuera de Chile. La foto es del Foro
+            WTC Américas, en el World Trade Center Monterrey (con UANL y World
+            Trade Centers Association) — el mismo tipo de alianza regional que
+            este programa busca replicar con cada agencia nueva.
+          </p>
         </div>
       </div>
     </section>

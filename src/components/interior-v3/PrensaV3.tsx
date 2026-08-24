@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { CnnLogo, CtaPrimary, GRAD } from "@/components/brand-v3/Brand";
 import { useReveal } from "@/components/home-v3/sections";
 
@@ -89,6 +90,7 @@ export default function PrensaV3() {
       <PrensaHero />
       <FeaturedVideo item={FEATURED} />
       <Clips items={CLIPS} />
+      <PresenciaIndustria />
       <MasEnCamino />
       <PrensaCta />
     </>
@@ -376,6 +378,69 @@ function Clips({ items }: { items: Clip[] }) {
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Presencia en la industria ---------- */
+function PresenciaIndustria() {
+  return (
+    <section style={{ padding: "8px 80px 56px", background: "#fff" }}>
+      <div className="reveal" style={{ maxWidth: 640, margin: "0 auto" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 12,
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 11,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "#9CA3AF",
+            marginBottom: 24,
+          }}
+        >
+          <span style={{ width: 22, height: 1, background: "#E5E7EB" }} />
+          Presencia en la industria
+          <span style={{ width: 22, height: 1, background: "#E5E7EB" }} />
+        </div>
+
+        <div
+          style={{
+            borderRadius: 20,
+            overflow: "hidden",
+            border: "1px solid rgba(0,0,0,.08)",
+            boxShadow: "0 30px 70px -30px rgba(0,0,0,.35)",
+          }}
+        >
+          <Image
+            src="/images/partners/clustourmed-wtc-monterrey.png"
+            alt="Ricardo Oyarzún junto al equipo de Clustourmed, partner de Clinera en México, en el Foro WTC Américas — World Trade Center Monterrey"
+            width={1254}
+            height={1254}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            sizes="(max-width: 720px) 100vw, 640px"
+          />
+        </div>
+        <p
+          style={{
+            fontFamily: "Inter",
+            fontSize: 14.5,
+            color: "#6B7280",
+            lineHeight: 1.5,
+            margin: "16px 4px 0",
+            textAlign: "center",
+          }}
+        >
+          Ricardo Oyarzún, fundador de Clinera, junto al equipo de{" "}
+          <strong style={{ color: "#374151", fontWeight: 600 }}>
+            Clustourmed
+          </strong>{" "}
+          — partner de Clinera en México — en el Foro WTC Américas, World
+          Trade Center Monterrey.
+        </p>
       </div>
     </section>
   );
