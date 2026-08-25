@@ -85,7 +85,7 @@ export const MEDICO: SoftwareVerticalContent = {
     },
     {
       title: "Agente IA (AURA)",
-      body: "Atiende por WhatsApp 24/7: califica, agenda y confirma sobre tu agenda. En vivo en todos los planes. CAMILA (voz) pronto, desde Atlas.",
+      body: "Atiende por WhatsApp 24/7: califica, agenda y confirma sobre tu agenda. En vivo en todos los planes. CAMILA (voz) disponible desde Atlas.",
     },
     {
       title: "Clinera Intelligence",
@@ -111,7 +111,7 @@ export const MEDICO: SoftwareVerticalContent = {
   aura: {
     eyebrow: "Agente IA · en vivo",
     headline: "AURA atiende el WhatsApp de tu consultorio.",
-    body: "Responde precios y horarios, agenda en tu calendario y confirma la cita. Trabaja sobre la agenda de todo el equipo, 24/7. CAMILA (voz) llega pronto desde Atlas; LIA, en desarrollo en Summit.",
+    body: "Responde precios y horarios, agenda en tu calendario y confirma la cita. Trabaja sobre la agenda de todo el equipo, 24/7. CAMILA (voz) disponible desde Atlas; LIA disponible en Summit.",
     imageAlt: "AURA — agente IA de WhatsApp para clínicas médicas",
   },
   crm: {
@@ -123,7 +123,7 @@ export const MEDICO: SoftwareVerticalContent = {
   faqs: [
     {
       q: "¿Qué incluye el software médico de Clinera?",
-      a: "Agenda, ficha clínica (facial y corporal), agente IA por WhatsApp (AURA), Clinera Intelligence y un módulo de ventas/seguimiento. En Atlas y Summit se suman Webhooks + API. CAMILA (voz) pronto desde Atlas; LIA, en desarrollo en Summit.",
+      a: "Agenda, ficha clínica (facial y corporal), agente IA por WhatsApp (AURA), Clinera Intelligence y un módulo de ventas/seguimiento. En Atlas y Summit se suman Webhooks + API. CAMILA (voz) disponible desde Atlas; LIA disponible en Summit.",
     },
     {
       q: "¿Sirve para un consultorio chico?",
@@ -147,7 +147,7 @@ export const MEDICO: SoftwareVerticalContent = {
     },
     {
       q: "¿Qué hace el agente IA?",
-      a: "AURA (en vivo, todos los planes) atiende por WhatsApp, califica y agenda sola sobre tu calendario. CAMILA llama por teléfono — pronto, desde Atlas. LIA fiscaliza la operación — en desarrollo, en Summit.",
+      a: "AURA (en vivo, todos los planes) atiende por WhatsApp, califica y agenda sola sobre tu calendario. CAMILA llama por teléfono desde Atlas. LIA fiscaliza la operación en Summit.",
     },
   ],
   meta: {
@@ -196,7 +196,7 @@ export const DENTAL: SoftwareVerticalContent = {
     },
     {
       title: "Agente IA (AURA)",
-      body: "Atiende el WhatsApp de la clínica 24/7, confirma y llena huecos. En vivo. CAMILA (voz) pronto, desde Atlas.",
+      body: "Atiende el WhatsApp de la clínica 24/7, confirma y llena huecos. En vivo. CAMILA (voz) disponible desde Atlas.",
     },
     {
       title: "Clinera Intelligence",
@@ -222,7 +222,7 @@ export const DENTAL: SoftwareVerticalContent = {
   aura: {
     eyebrow: "Agente IA · en vivo",
     headline: "AURA llena los sillones por WhatsApp.",
-    body: "Confirma, reagenda y recupera pacientes sobre la agenda real de tus profesionales. Sin mandar links. CAMILA (voz) pronto desde Atlas; LIA, en desarrollo en Summit.",
+    body: "Confirma, reagenda y recupera pacientes sobre la agenda real de tus profesionales. Sin mandar links. CAMILA (voz) disponible desde Atlas; LIA disponible en Summit.",
     imageAlt: "AURA — agente IA de WhatsApp para clínicas dentales",
   },
   crm: {
@@ -254,7 +254,7 @@ export const DENTAL: SoftwareVerticalContent = {
     },
     {
       q: "¿Cómo agenda el agente IA?",
-      a: "AURA (en vivo) conversa por WhatsApp, consulta la disponibilidad real de tus sillones y deja la cita creada. Reagenda y cancela en la misma conversación. CAMILA, el agente de voz, llega pronto desde Atlas.",
+      a: "AURA (en vivo) conversa por WhatsApp, consulta la disponibilidad real de tus sillones y deja la cita creada. Reagenda y cancela en la misma conversación. CAMILA, el agente de voz, está disponible desde Atlas.",
     },
     {
       q: "¿Cómo es la implementación y la migración?",

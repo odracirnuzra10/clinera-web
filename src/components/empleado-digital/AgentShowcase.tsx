@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import styles from "@/app/empleado-digital/empleado-digital.module.css";
 
 type Props = {
-  id: "aura" | "lia";
+  id: "aura" | "lia" | "camila";
   eyebrow: string;
   headline: string;
   body: string;

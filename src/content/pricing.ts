@@ -96,7 +96,7 @@ export const CLINERA_PLANS = [
     branches: "2 sucursales",
     channel: "Texto + voz",
     consumptionReference:
-      "~1.233 conversaciones o ~189 agendamientos · ~320 min de voz (pronto)",
+      "~1.233 conversaciones o ~189 agendamientos · ~320 min de voz",
     description:
       "Para clínicas con alto volumen o 2+ sedes que necesitan estandarizar la atención.",
     headline: "Todo de Vortex, más",
@@ -122,7 +122,7 @@ export const CLINERA_PLANS = [
     branches: "Sucursales ilimitadas",
     channel: "Texto + voz + API",
     consumptionReference:
-      "~1.533 conversaciones o ~235 agendamientos · ~440 min de voz (pronto)",
+      "~1.533 conversaciones o ~235 agendamientos · ~440 min de voz",
     description:
       "Para grupos clínicos y clínicas de alto volumen —una o varias sedes— que necesitan control central de toda la operación.",
     headline: "Todo de Atlas, más",

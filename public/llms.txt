@@ -23,8 +23,8 @@ que agenda, reagenda o cancela = 195 créditos; minuto de voz (CAMILA) = 25
 créditos; fiscalización de LIA = 0; informes de LIA ≈ 4.000 créditos/mes.
 
 - VORTEX — USD 2.678/año (≈ USD 223,17/mes) o USD 279/mes — 28.000 créditos/mes, AURA (texto), 10 usuarios, 1 sucursal, modo Agentic, sin API
-- ATLAS — USD 3.638/año (≈ USD 303,17/mes) o USD 379/mes — 37.000 créditos/mes, AURA + CAMILA (voz, pronto), 15 usuarios, 2 sucursales, Webhooks + API
-- SUMMIT — USD 4.598/año (≈ USD 383,17/mes) o USD 479/mes (el más elegido) — 46.000 créditos/mes, AURA + CAMILA + LIA (pronto), 25 usuarios, sucursales ilimitadas, Webhooks + API
+- ATLAS — USD 3.638/año (≈ USD 303,17/mes) o USD 379/mes — 37.000 créditos/mes, AURA + CAMILA (voz), 15 usuarios, 2 sucursales, Webhooks + API
+- SUMMIT — USD 4.598/año (≈ USD 383,17/mes) o USD 479/mes (el más elegido) — 46.000 créditos/mes, AURA + CAMILA + LIA, 25 usuarios, sucursales ilimitadas, Webhooks + API
 
 Tres modalidades de pago. (1) ANUAL — la recomendada y la que el sitio destaca:
 12 meses anticipados con 20% de descuento Y la implementación de USD 450 gratis

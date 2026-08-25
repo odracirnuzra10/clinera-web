@@ -2,18 +2,20 @@ import type { Metadata } from "next";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import EmpleadoDigitalLanding from "@/components/empleado-digital/EmpleadoDigitalLanding";
+import { faqSchema } from "@/components/seo/schemas";
+import { EMPLEADO_DIGITAL_FAQ } from "@/content/empleado-digital-faq";
 import styles from "./empleado-digital.module.css";
 
 export const metadata: Metadata = {
-  title: "Empleado Digital IA para Clínicas — AURA y LIA | Clinera.io",
+  title: "Empleado Digital IA para Clínicas — CAMILA, AURA y LIA | Clinera.io",
   description:
-    "Agentes de IA (AURA y LIA) que ejecutan funciones sobre la agenda de todo tu equipo y todas tus sedes por WhatsApp 24/7: agendan, confirman, cobran y recuperan pacientes. Desde USD 279/mes hasta USD 479/mes.",
+    "Empleados digitales CAMILA (voz), AURA (WhatsApp) y LIA (orquestación) que ejecutan sobre la agenda de tu clínica 24/7: agendan, confirman, cobran y recuperan pacientes. Desde USD 279/mes hasta USD 479/mes.",
   alternates: { canonical: "https://www.clinera.io/empleado-digital" },
   openGraph: {
     url: "https://www.clinera.io/empleado-digital",
-    title: "Empleado Digital IA para Clínicas — AURA y LIA | Clinera.io",
+    title: "Empleado Digital IA para Clínicas — CAMILA, AURA y LIA | Clinera.io",
     description:
-      "AURA ejecuta sobre la agenda de todo tu equipo por WhatsApp 24/7. LIA mantiene tu vacancia en 0% y fiscaliza toda la operación. Desde USD 279/mes.",
+      "CAMILA llama, AURA atiende WhatsApp y LIA orquesta la operación. Tres empleados digitales con una sola memoria del paciente. Desde USD 279/mes.",
     type: "website",
     images: [
       {
@@ -31,7 +33,7 @@ const productJsonLd = {
   "@type": "Product",
   name: "Clinera.io — Empleado digital IA para clínicas",
   description:
-    "Plataforma con IA para clínicas con volumen y grupos multi-sede. Agentes que agendan, confirman, cobran y recuperan pacientes por WhatsApp 24/7, con visibilidad y control central. Planes desde USD 279/mes hasta USD 479/mes.",
+    "Plataforma con IA para clínicas con volumen y grupos multi-sede. Empleados digitales que agendan, confirman, cobran y recuperan pacientes por WhatsApp y voz 24/7. Planes desde USD 279/mes hasta USD 479/mes.",
   brand: { "@type": "Brand", name: "Clinera.io" },
   offers: {
     "@type": "AggregateOffer",
@@ -64,6 +66,8 @@ const breadcrumbJsonLd = {
   ],
 };
 
+const faqJsonLd = faqSchema(EMPLEADO_DIGITAL_FAQ);
+
 export default function EmpleadoDigitalPage() {
   return (
     <>
@@ -75,6 +79,10 @@ export default function EmpleadoDigitalPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <main className={styles.page}>
         <EmpleadoDigitalLanding />

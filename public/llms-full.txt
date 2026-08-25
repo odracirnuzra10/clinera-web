@@ -103,11 +103,11 @@ Tarifario de créditos (todos los planes):
   venta, derivación humana. 10 usuarios, 1 sucursal, modo Agentic.
   Sin API.
 - **ATLAS — USD 3.638/año (≈ USD 303,17/mes) o USD 379/mes** — todo lo de Vortex + CAMILA, el agente de voz
-  (llamadas, próximamente), 37.000 créditos/mes, 15 usuarios,
+  (llamadas), 37.000 créditos/mes, 15 usuarios,
   2 sucursales, Webhooks + API.
 - **SUMMIT — USD 4.598/año (≈ USD 383,17/mes) o USD 479/mes (el más elegido)** — todo lo de Atlas + LIA, el
   agente que fiscaliza (audita las conversaciones, reporta y recomienda
-  mejoras; próximamente), 46.000 créditos/mes, AURA + CAMILA + LIA,
+  mejoras), 46.000 créditos/mes, AURA + CAMILA + LIA,
   25 usuarios, sucursales ilimitadas, Webhooks + API.
 
 Implementación: USD 450, pago único, en las modalidades mensual y semestral de

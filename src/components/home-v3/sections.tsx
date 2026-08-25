@@ -713,7 +713,7 @@ export function Features() {
         ]}
       />
 
-      {/* CAMILA — small teaser card between agents */}
+      {/* CAMILA — disponible hoy, entre AURA y LIA */}
       <CamilaPeek />
 
       {/* LIA */}
@@ -727,9 +727,9 @@ export function Features() {
         accentBorder="#E5E7EB"
         sectionEyebrow="El cerebro"
         reverse
-        status={{ kind: "dev", label: "En desarrollo" }}
+        status={{ kind: "live", label: "En vivo" }}
         stat={{ value: "+21%", label: "cupos recuperados al mes" }}
-        cta={{ label: "Anotarme a la beta de LIA", href: "/contacto" }}
+        cta={{ label: "Ver a LIA en acción", href: "/demo" }}
         bg="#FAFBFC"
         features={[
           {
@@ -1325,7 +1325,7 @@ export function AgentSection({
 }
 
 /* ============================================================
-   CAMILA PEEK — small "coming next" card between AURA and LIA
+   CAMILA PEEK — disponible hoy, entre AURA y LIA
    ============================================================ */
 function CamilaPeek() {
   const [imgOk, setImgOk] = useState(true);
@@ -1421,9 +1421,9 @@ function CamilaPeek() {
                   textTransform: "uppercase",
                   padding: "3px 9px",
                   borderRadius: 999,
-                  background: "rgba(245,158,11,0.07)",
-                  color: "#B45309",
-                  border: "1px solid #FDE68A",
+                  background: "rgba(16,185,129,0.08)",
+                  color: "#047857",
+                  border: "1px solid #A7F3D0",
                 }}
               >
                 <span
@@ -1431,10 +1431,10 @@ function CamilaPeek() {
                     width: 5,
                     height: 5,
                     borderRadius: 999,
-                    background: "#F59E0B",
+                    background: "#10B981",
                   }}
                 />
-                Próximamente · agosto 2026
+                En vivo · desde Atlas
               </span>
             </div>
             <div
@@ -1467,13 +1467,14 @@ function CamilaPeek() {
                 maxWidth: 600,
               }}
             >
-              <b style={{ color: "#0A0A0A" }}>Contrata ahora y tendrás a CAMILA gratis</b> en tu plan cuando salga — sin pagar nada extra al lanzamiento.
+              <b style={{ color: "#0A0A0A" }}>Disponible hoy desde Atlas</b>
+              {" "}— llama para confirmar y reagendar, conectada a tu agenda. 25 créditos por minuto.
             </div>
           </div>
 
           {/* Action */}
           <Link
-            href="/planes"
+            href="/demo"
             style={{
               fontFamily: "'JetBrains Mono', ui-monospace, monospace",
               fontSize: 11,
@@ -1489,7 +1490,7 @@ function CamilaPeek() {
             }}
             className="camila-peek-cta"
           >
-            Asegurar acceso →
+            Ver demo →
           </Link>
         </div>
       </div>
@@ -3983,9 +3984,9 @@ function planFeatures(plan: (typeof CLINERA_PLANS)[number]): string[] {
     case "vortex":
       return ["AURA · IA por WhatsApp 24/7", consumo, "Agenda, fichas y pagos"];
     case "atlas":
-      return ["Todo lo de Vortex", "CAMILA · IA de voz (pronto)", consumo];
+      return ["Todo lo de Vortex", "CAMILA · IA de voz", consumo];
     case "summit":
-      return ["Todo lo de Atlas", "LIA · fiscalización (pronto)", consumo];
+      return ["Todo lo de Atlas", "LIA · fiscalización", consumo];
   }
 }
 

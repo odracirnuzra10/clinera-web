@@ -1,7 +1,7 @@
 import styles from "@/app/empleado-digital/empleado-digital.module.css";
 
 type Agent = {
-  id: "aura" | "lia";
+  id: "camila" | "aura" | "lia";
   name: string;
   accent: string;
   pill: string;
@@ -13,6 +13,17 @@ type Agent = {
 };
 
 const AGENTS: Agent[] = [
+  {
+    id: "camila",
+    name: "CAMILA",
+    accent: "#0891B2",
+    pill: "[live · desde Atlas]",
+    pillBg: "rgba(16,185,129,0.08)",
+    pillBorder: "#A7F3D0",
+    pillColor: "#047857",
+    role: "El call center IA: llama para confirmar y reagendar, con tool-calling sobre tu agenda.",
+    stat: "25 créditos por minuto · 5 acentos",
+  },
   {
     id: "aura",
     name: "AURA",
@@ -28,13 +39,13 @@ const AGENTS: Agent[] = [
     id: "lia",
     name: "LIA",
     accent: "#0A0A0A",
-    pill: "[beta · incluida en advanced]",
-    pillBg: "rgba(124,58,237,0.06)",
-    pillBorder: "#DDD6FE",
-    pillColor: "#7C3AED",
+    pill: "[live · Summit]",
+    pillBg: "rgba(16,185,129,0.08)",
+    pillBorder: "#A7F3D0",
+    pillColor: "#047857",
     role:
-      "Es la jefa. Detecta cupos vacíos, decide a qué paciente contactar y se lo indica a AURA. También responde, agenda y reagenda por su cuenta.",
-    stat: "Recupera ~21% de cupos perdidos al mes",
+      "La orquestadora: detecta cupos vacíos y morosos, elige el canal y despacha a CAMILA o AURA.",
+    stat: "Fiscalización 0 cr · informes ≈4.000 cr/mes",
   },
 ];
 
@@ -45,7 +56,7 @@ export default function DuoAgentes() {
         <div className={styles.duoHead}>
           <p className={styles.duoEyebrow}>Tu equipo IA</p>
           <h2 id="duo-agentes-h2" className={styles.duoH2}>
-            Dos roles, una sola memoria del paciente
+            Tres roles, una sola memoria del paciente
           </h2>
         </div>
 
