@@ -23,7 +23,8 @@ Confirmado por Ricardo: **Google Cloud Platform, región Santiago de Chile
 `recursos-templates`, `llms-full.txt` y esta página a la vez.
 
 Inferencia de IA: **Vertex AI (Google Cloud)** desde el 01-08-2026 — modelos
-GLM 5.2 y Gemini Flash 3.7. MFA: en despliegue, disponible la primera semana de
+GLM 5.2 y Gemini Flash 3.7. MFA: activo desde 2026-08-25. (Histórico: compromiso
+disponible la primera semana de
 septiembre de 2026 (publicado como compromiso, no como activo).
 
 ---

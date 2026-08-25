@@ -11,7 +11,7 @@
 // comprueba. Si una fila no puede citar evidencia, no es una fila confirmada.
 
 export const VIGENCIA_LEY = "2026-12-01";
-export const ULTIMA_ACTUALIZACION = "24 de agosto de 2026";
+export const ULTIMA_ACTUALIZACION = "25 de agosto de 2026";
 export const CONTACTO_PRIVACIDAD = "privacidad@clinera.io";
 
 /* ============================================================
@@ -126,10 +126,10 @@ export const CONTROLES: ControlRow[] = [
   },
   {
     control: "Autenticación multifactor (MFA)",
-    implementacion: "",
-    evidencia: "",
-    pendiente:
-      "En despliegue — no activo aún. Compromiso publicado el 2026-08-24: disponible para todas las clínicas la primera semana de septiembre de 2026. Esta fila pasará a implementacion+evidencia cuando el despliegue esté completo.",
+    implementacion:
+      "Activo para todas las clínicas. Autenticación multifactor disponible en el acceso a la plataforma.",
+    evidencia:
+      "Confirmado por Ricardo el 2026-08-25: MFA habilitado en producción.",
   },
   {
     control: "Gestión de vulnerabilidades",
