@@ -24,6 +24,16 @@ test.describe("atribución del partner en WhatsApp", () => {
   test("el link público de Katherine es /partner/km", () => {
     expect(getPartnerPublicUrl("katherine")).toBe("https://www.clinera.io/partner/km");
   });
+
+  test("el mensaje de Yasna lleva ref YASNA01 y su link es /partner/yv", () => {
+    const partner = getPartner("yasna");
+    expect(partner).toBeTruthy();
+    expect(getPartnerPublicUrl("yasna")).toBe("https://www.clinera.io/partner/yv");
+    const message = buildWhatsAppMessage(partner!);
+    expect(message).toContain("Yasna Vásquez");
+    expect(message).toContain("ref: YASNA01");
+    expect(buildWhatsAppUrl(partner!)).toContain(encodeURIComponent("ref: YASNA01"));
+  });
 });
 
 test.describe("landing /partner/km", () => {
@@ -62,9 +72,16 @@ test.describe("landing /partner/km", () => {
     expect((videoBox?.x ?? 0)).toBeGreaterThan((heroBox?.x ?? 0) + (heroBox?.width ?? 0) / 2);
   });
 
-  test("no publica precios ni planes", async ({ page }) => {
+  test("el titular es el 10% del referido, no el bono ni los planes", async ({
+    page,
+  }) => {
     await page.goto("/partner/km");
+    const hero = page.locator(".partner-hero");
+    await expect(hero.getByRole("heading", { level: 1 })).toContainText("10%");
+    await expect(hero.getByText("de descuento por 3 meses")).toBeVisible();
     const body = await page.locator("body").innerText();
+    expect(body).toMatch(/10%/);
+    expect(body).toMatch(/3 meses/);
     expect(body).not.toMatch(/USD\s*\d/);
     expect(body).not.toMatch(/US\$\s*\d/);
     expect(body).not.toMatch(/\bVortex\b/);
@@ -96,6 +113,27 @@ test.describe("landing /partner/km", () => {
     await expect(page.getByText("Toda tu operación la alimenta")).toBeVisible();
     await expect(page.getByText("Clinera O.S. actúa")).toBeVisible();
     await expect(page.getByRole("img", { name: /alimentan Clinera O\.S\./i })).toBeVisible();
+  });
+});
+
+test.describe("landing /partner/yv", () => {
+  test("es la landing de Yasna con foto, 10% y atribución YASNA01", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/partner/yv");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("10%");
+    await expect(page.getByText("Yasna Vásquez te recomienda Clinera")).toBeVisible();
+    await expect(page.getByRole("img", { name: "Yasna Vásquez" })).toBeVisible();
+    const cta = page.getByRole("link", { name: PARTNER_CTA_LABEL }).first();
+    await expect(cta).toBeVisible();
+    await expect(cta).toBeInViewport();
+    await expect(cta).toHaveAttribute("href", /YASNA01/);
+  });
+
+  test("/p/yasna redirige a /partner/yv", async ({ page }) => {
+    await page.goto("/p/yasna");
+    expect(new URL(page.url()).pathname).toBe("/partner/yv");
   });
 });
 
