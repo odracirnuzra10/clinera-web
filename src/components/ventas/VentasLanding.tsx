@@ -2468,36 +2468,28 @@ function StepClinicDetails({
         <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="Ej: Santiago" autoComplete="address-level2" error={attempted && !cityOk} />
       </Field>
       <Field label="Tipo de clínica" required error={attempted && !typeOk ? "Selecciona el tipo de clínica." : undefined}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-          {CLINIC_TYPE_OPTIONS.map((opt) => {
-            const sel = form.tipoClinica === opt.id;
-            const showErr = attempted && !typeOk;
-            return (
-              <button
-                key={opt.id}
-                type="button"
-                onClick={() => setForm({ ...form, tipoClinica: opt.id })}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "13px 14px",
-                  border: "1.5px solid " + (sel ? "#0A0A0A" : showErr ? "#E74C3C" : "#E7EBF0"),
-                  borderRadius: 12,
-                  background: sel ? "#FAFBFD" : "#fff",
-                  cursor: "pointer",
-                  fontFamily: "Inter",
-                  fontWeight: 700,
-                  fontSize: 14.5,
-                  letterSpacing: "-.01em",
-                  color: "#0A0A0A",
-                }}
-              >
-                {opt.label}
-              </button>
-            );
-          })}
-        </div>
+        <select
+          value={form.tipoClinica}
+          onChange={(e) => setForm({ ...form, tipoClinica: e.target.value as ClinicType | "" })}
+          style={{
+            ...baseInputStyle({ error: attempted && !typeOk }),
+            width: "100%",
+            appearance: "none" as const,
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right .8rem center",
+            backgroundSize: "14px",
+            paddingRight: "2.2rem",
+          }}
+        >
+          <option value="">Selecciona…</option>
+          {CLINIC_TYPE_OPTIONS.map((opt) => (
+            <option key={opt.id} value={opt.id}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
       </Field>
       <SubmitBtn
         enabled={complete}
@@ -2699,37 +2691,28 @@ function StepContact({
       )}
       {!agendaV2 && (
       <Field label="Tipo de clínica" required error={attempted && !clinicTypeOk ? "Selecciona el tipo de clínica." : undefined}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-          {CLINIC_TYPE_OPTIONS.map((opt) => {
-            const sel = form.tipoClinica === opt.id;
-            const showErr = attempted && !clinicTypeOk;
-            return (
-              <button
-                key={opt.id}
-                type="button"
-                onClick={() => setForm({ ...form, tipoClinica: opt.id })}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "13px 14px",
-                  border: "1.5px solid " + (sel ? "#0A0A0A" : showErr ? "#E74C3C" : "#E7EBF0"),
-                  borderRadius: 12,
-                  background: sel ? "#FAFBFD" : "#fff",
-                  cursor: "pointer",
-                  fontFamily: "Inter",
-                  fontWeight: 700,
-                  fontSize: 14.5,
-                  letterSpacing: "-.01em",
-                  color: "#0A0A0A",
-                  transition: "all .2s",
-                }}
-              >
-                {opt.label}
-              </button>
-            );
-          })}
-        </div>
+        <select
+          value={form.tipoClinica}
+          onChange={(e) => setForm({ ...form, tipoClinica: e.target.value as ClinicType | "" })}
+          style={{
+            ...baseInputStyle({ error: attempted && !clinicTypeOk }),
+            width: "100%",
+            appearance: "none" as const,
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right .8rem center",
+            backgroundSize: "14px",
+            paddingRight: "2.2rem",
+          }}
+        >
+          <option value="">Selecciona…</option>
+          {CLINIC_TYPE_OPTIONS.map((opt) => (
+            <option key={opt.id} value={opt.id}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
       </Field>
       )}
       {agendaV2 && (
