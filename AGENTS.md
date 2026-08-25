@@ -353,6 +353,7 @@ Decisiones consolidadas en la rama `feat/aeo-fase1-contenido` (agosto 2026):
   residen en Chile (Ley 21.719).
 - **CAMILA y LIA:** disponibles para contratar desde agosto 2026 — no usar
   "próximamente"/"beta" en copy nuevo.
+- **MFA:** activo desde 2026-08-25 (fila confirmada en `src/content/seguridad.ts`).
 - **Precio máximo publicado:** USD 479/mes (Summit). Plan Corporativo USD 1.900
   eliminado del sitio público.
 - **"Empleado digital":** término canónico de Clinera para AURA/CAMILA/LIA.
