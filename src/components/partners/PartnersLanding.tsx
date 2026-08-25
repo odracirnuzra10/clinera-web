@@ -4,12 +4,12 @@ import Link from "next/link";
 import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
 import {
+  PARTNERS_BENEFITS,
   PARTNERS_CTA_HREF,
   PARTNERS_FAQ,
   PARTNERS_FINAL_CTA,
   PARTNERS_HERO,
   PARTNERS_PRESENTATION_HREF,
-  PARTNERS_REFERRAL_FEE_LABEL,
   PARTNERS_REQUIREMENTS,
   PARTNERS_STATS,
 } from "@/content/partners-program";
@@ -50,7 +50,7 @@ export default function PartnersLanding() {
         @media (max-width: 720px) {
           .partners-section { padding-left: 28px !important; padding-right: 28px !important; }
         }
-        @media (max-width: 860px) {
+        @media (max-width: 960px) {
           .partners-deal { grid-template-columns: 1fr !important; }
         }
       `}</style>
@@ -197,17 +197,17 @@ function Deal() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Eyebrow>El acuerdo</Eyebrow>
         <h2 style={{ ...h2Style, maxWidth: 720 }}>
-          Lo que publicas. Lo que cobras.
+          Lo que publicas. Lo que cobras. Lo que gana tu referido.
         </h2>
-        <p style={{ ...leadStyle, maxWidth: 560 }}>
-          Tres requisitos de Instagram. Un bono cuando la clínica cierra.
+        <p style={{ ...leadStyle, maxWidth: 640 }}>
+          Tres requisitos de Instagram. Un bono para ti. Un descuento para la clínica que refieres.
         </p>
 
         <div
           className="partners-deal"
           style={{
             display: "grid",
-            gridTemplateColumns: "1.15fr 0.85fr",
+            gridTemplateColumns: "1.15fr 0.85fr 0.85fr",
             gap: 18,
             alignItems: "stretch",
           }}
@@ -289,81 +289,76 @@ function Deal() {
             </ol>
           </article>
 
-          <article
-            style={{
-              background: "#fff",
-              border: "1px solid rgba(124,58,237,.4)",
-              borderRadius: 16,
-              padding: "28px 26px",
-              boxShadow: "0 22px 60px -22px rgba(124,58,237,.22)",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <p
+          {PARTNERS_BENEFITS.map((item) => (
+            <article
+              key={item.kicker}
               style={{
-                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                fontSize: 10.5,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: VIOLET,
-                margin: "0 0 10px",
+                background: "#fff",
+                border: item.featured
+                  ? "1px solid rgba(124,58,237,.4)"
+                  : "1px solid #E5E7EB",
+                borderRadius: 16,
+                padding: "28px 26px",
+                boxShadow: item.featured
+                  ? "0 22px 60px -22px rgba(124,58,237,.22)"
+                  : "none",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              Beneficio
-            </p>
-            <h3
-              style={{
-                fontFamily: "Inter",
-                fontSize: 22,
-                fontWeight: 800,
-                letterSpacing: "-0.02em",
-                color: "#0A0A0A",
-                margin: "0 0 18px",
-              }}
-            >
-              Lo que cobras
-            </h3>
-            <p
-              style={{
-                fontFamily: "Inter",
-                fontSize: "clamp(40px, 5vw, 56px)",
-                fontWeight: 800,
-                letterSpacing: "-0.04em",
-                lineHeight: 1,
-                margin: "0 0 12px",
-                background: GRAD,
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              {PARTNERS_REFERRAL_FEE_LABEL}
-            </p>
-            <p
-              style={{
-                fontFamily: "Inter",
-                fontSize: 16,
-                fontWeight: 600,
-                color: "#0A0A0A",
-                margin: "0 0 12px",
-              }}
-            >
-              por cada clínica referida que cierre.
-            </p>
-            <p
-              style={{
-                fontFamily: "Inter",
-                fontSize: 14,
-                color: "#6B7280",
-                lineHeight: 1.55,
-                margin: 0,
-              }}
-            >
-              Un pago. Sin comisión sobre el plan. Sin descuento para el cliente.
-            </p>
-          </article>
+              <p
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 10.5,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: VIOLET,
+                  margin: "0 0 10px",
+                }}
+              >
+                {item.kicker}
+              </p>
+              <p
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: "clamp(40px, 5vw, 56px)",
+                  fontWeight: 800,
+                  letterSpacing: "-0.04em",
+                  lineHeight: 1,
+                  margin: "0 0 12px",
+                  background: GRAD,
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  color: "transparent",
+                }}
+              >
+                {item.title}
+              </p>
+              <p
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 16,
+                  fontWeight: 600,
+                  color: "#0A0A0A",
+                  margin: "0 0 12px",
+                }}
+              >
+                {item.subtitle}
+              </p>
+              <p
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 14,
+                  color: "#6B7280",
+                  lineHeight: 1.55,
+                  margin: 0,
+                }}
+              >
+                {item.desc}
+              </p>
+            </article>
+          ))}
         </div>
       </div>
     </section>

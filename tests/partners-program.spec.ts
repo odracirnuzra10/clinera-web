@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 import {
   PARTNERS_CANONICAL,
+  PARTNERS_CLIENT_DISCOUNT_MONTHS,
+  PARTNERS_CLIENT_DISCOUNT_PERCENT,
   PARTNERS_CTA_HREF,
   PARTNERS_PATH,
   PARTNERS_PRESENTATION_HREF,
@@ -10,9 +12,11 @@ import {
 } from "@/content/partners-program";
 
 test.describe("fuente de verdad del programa partner", () => {
-  test("el número público es US$ 150 de bono, sin comisión sobre el plan", () => {
+  test("el partner cobra US$ 150; el referido recibe 10% por 3 meses", () => {
     expect(PARTNERS_REFERRAL_FEE_USD).toBe(150);
     expect(PARTNERS_REFERRAL_FEE_LABEL).toBe("US$ 150");
+    expect(PARTNERS_CLIENT_DISCOUNT_PERCENT).toBe(10);
+    expect(PARTNERS_CLIENT_DISCOUNT_MONTHS).toBe(3);
     expect(PARTNERS_PATH).toBe("/partners");
     expect(PARTNERS_CANONICAL).toBe("https://www.clinera.io/partners");
     expect(PARTNERS_CTA_HREF).toBe("/reunion-comercial");
@@ -26,7 +30,9 @@ test.describe("fuente de verdad del programa partner", () => {
 });
 
 test.describe("landing /partners", () => {
-  test("publica el bono de US$ 150 y no el 10% ni el 15%", async ({ page }) => {
+  test("publica el bono, el 10% del referido y no el 15% de agencias", async ({
+    page,
+  }) => {
     await page.goto("/partners");
     await expect(page).toHaveTitle(/Programa Partner/i);
 
@@ -36,19 +42,22 @@ test.describe("landing /partners", () => {
     const hero = page.locator("section").first();
     await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(hero.getByText("US$ 150", { exact: true })).toBeVisible();
-    await expect(hero.getByText("10%", { exact: true })).toHaveCount(0);
+    await expect(hero.getByText("10%", { exact: true })).toBeVisible();
     await expect(hero.getByText("15%", { exact: true })).toHaveCount(0);
 
     const body = await page.locator("body").innerText();
-    expect(body).not.toMatch(/10%/);
+    expect(body).toMatch(/10%/);
+    expect(body).toMatch(/3 meses/);
     expect(body).not.toMatch(/15%/);
     expect(body).not.toMatch(/Permanente para todos los clientes/);
     expect(body).not.toMatch(/\bEficiente\b/);
     expect(body).not.toMatch(/Agentic Pro/);
+    expect(body).not.toMatch(/comisión del 10%/i);
     expect(body).toMatch(/US\$ 150/);
     expect(body).toMatch(/4 historias al mes/);
     expect(body).toMatch(/1 reel al mes/);
     expect(body).toMatch(/partner de clinera\.io/);
+    expect(body).toMatch(/closer/i);
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
@@ -74,7 +83,8 @@ test.describe("landing /partners", () => {
     await expect(page.locator("body")).toContainText("4 historias al mes");
     await expect(page.locator("body")).toContainText("1 reel al mes");
     await expect(page.locator("body")).toContainText("partner de clinera.io");
-    await expect(page.locator("body")).not.toContainText("10%");
+    await expect(page.locator("body")).toContainText("10%");
+    await expect(page.locator("body")).toContainText("3 meses");
     await expect(page.locator("body")).not.toContainText("15%");
   });
 
@@ -112,6 +122,7 @@ test.describe("redirect /presentacion-agencia → /presentacion-partners", () =>
     await page.goto("/presentacion-agencia");
     expect(new URL(page.url()).pathname).toBe("/presentacion-partners");
     await expect(page.locator(".slide.active")).toContainText("US$ 150");
-    await expect(page.locator("body")).not.toContainText("10%");
+    await expect(page.locator("body")).toContainText("10%");
+    await expect(page.locator("body")).not.toContainText("15%");
   });
 });
