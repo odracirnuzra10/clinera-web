@@ -2,31 +2,33 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import QRCode from "qrcode";
 import { PartnerKit } from "@/components/partner/PartnerKit";
-import { getPartner, getPartnerPublicUrl, listPartners } from "@/lib/partners";
+import { getPartnerByVanity, getPartnerPublicUrl, listPartners } from "@/lib/partners";
 import { partnerKitMetadata } from "@/lib/partner-seo";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return listPartners().map((partner) => ({ slug: partner.slug }));
+  return listPartners()
+    .filter((partner) => partner.vanity)
+    .map((partner) => ({ code: partner.vanity as string }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ code: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
-  return partnerKitMetadata(getPartner(slug));
+  const { code } = await params;
+  return partnerKitMetadata(getPartnerByVanity(code));
 }
 
-export default async function PartnerSlugKitPage({
+export default async function PartnerVanityKitPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ code: string }>;
 }) {
-  const { slug } = await params;
-  const partner = getPartner(slug);
+  const { code } = await params;
+  const partner = getPartnerByVanity(code);
   if (!partner) notFound();
 
   const url = getPartnerPublicUrl(partner.slug);

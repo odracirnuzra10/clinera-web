@@ -21,10 +21,8 @@ export function PartnerStickyCta({
   }, []);
 
   return (
-    <div
-      className={`partner-sticky md:hidden ${visible ? "is-visible" : ""}`}
-    >
-      <div className="px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))]">
+    <div className={`partner-sticky ${visible ? "is-visible" : ""}`}>
+      <div style={{ padding: "12px 16px max(12px, env(safe-area-inset-bottom))" }}>
         <a
           href={href}
           target="_blank"

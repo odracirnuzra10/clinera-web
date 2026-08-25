@@ -5,11 +5,11 @@ import { useState } from "react";
 export function CopyButton({
   value,
   label = "Copiar",
-  className = "",
+  ghost = false,
 }: {
   value: string;
   label?: string;
-  className?: string;
+  ghost?: boolean;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -35,7 +35,7 @@ export function CopyButton({
     <button
       type="button"
       onClick={() => void copy()}
-      className={`partner-btn ${className}`}
+      className={ghost ? "partner-btn partner-btn-ghost" : "partner-btn"}
     >
       {copied ? "Copiado" : label}
     </button>

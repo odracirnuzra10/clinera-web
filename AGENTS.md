@@ -365,11 +365,15 @@ Decisiones consolidadas en la rama `feat/aeo-fase1-contenido` (agosto 2026):
   `/mexico`, `/colombia`); city-pages siguen en `/recursos/mejor-software-clinicas-*`.
   Data tipada en `src/content/mejor-software.ts`.
 
-# Programa partners (`/p/[slug]`)
+# Programa partners (`/partner/{vanity}` y `/p/[slug]`)
 
 Un partner = una entrada en `src/lib/partners.ts`. La landing, el OG, el kit y
 el mensaje de WhatsApp se arman solos: no hay que tocar componentes para sumar
-al número 2 ni al 50.
+al número 2 ni al 50. Si el partner tiene `vanity`, la URL pública es
+`/partner/{vanity}` y `next.config.ts` redirige `/p/{slug}` ahí.
+
+Katherine Meza: vanity `km` → `https://www.clinera.io/partner/km`. El kit
+(privado, `noindex`) está en `/partner/km/kit`.
 
 **Por qué el `ref` va dentro del texto de WhatsApp.** El 90% del tráfico llega
 desde un sticker de Instagram o un DM. En WhatsApp no sobreviven cookies ni
@@ -378,5 +382,4 @@ UTMs. Si se acorta o se “limpia” el mensaje pre-llenado de
 viene el prospecto.
 
 La landing pública no muestra precios ni planes: los conversa ventas (hoy
-Rebeca). El kit (`/p/[slug]/kit`) es privado (`robots: noindex`) — es lo que se
-le manda al partner, no al prospecto.
+Rebeca). El kit es lo que se le manda al partner, no al prospecto.

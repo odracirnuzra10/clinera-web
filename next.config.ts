@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { getPartnerPublicPath, listPartners } from "./src/lib/partners";
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
@@ -373,6 +374,19 @@ const nextConfig: NextConfig = {
         destination: '/estructura',
         permanent: true,
       },
+      // Partners con vanity (`/partner/km`): el slug `/p/{slug}` redirige.
+      ...listPartners().flatMap((partner) => {
+        if (!partner.vanity) return [];
+        const dest = getPartnerPublicPath(partner);
+        return [
+          { source: `/p/${partner.slug}`, destination: dest, permanent: true },
+          {
+            source: `/p/${partner.slug}/kit`,
+            destination: `${dest}/kit`,
+            permanent: true,
+          },
+        ];
+      }),
     ];
   },
 };

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { allClinics } from '@/content/clinics';
-import { listPartners } from '@/lib/partners';
+import { getPartnerPublicPath, listPartners } from '@/lib/partners';
 import { allCruzadas } from '@/content/comparativas-cross';
 import { allPosts } from '@/content/posts';
 import { publishedRecursos } from '@/content/recursos';
@@ -118,9 +118,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
 
-    // Partners públicos (el kit /p/[slug]/kit es noindex y no entra)
+    // Partners públicos (el kit /partner/{vanity}/kit y /p/[slug]/kit son noindex)
     ...listPartners().map((p) => ({
-      url: `${baseUrl}/p/${p.slug}`,
+      url: `${baseUrl}${getPartnerPublicPath(p)}`,
       lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.6,

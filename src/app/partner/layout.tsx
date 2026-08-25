@@ -1,6 +1,6 @@
 import { PartnerShell } from "@/components/partner/PartnerShell";
 
-export default function PartnerSegmentLayout({
+export default function PartnerVanityLayout({
   children,
 }: {
   children: React.ReactNode;

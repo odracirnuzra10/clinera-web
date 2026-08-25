@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { getPartner } from "@/lib/partners";
+import { getPartner, getPartnerPublicUrl } from "@/lib/partners";
 import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 
 test.describe("atribución del partner en WhatsApp", () => {
@@ -15,12 +15,16 @@ test.describe("atribución del partner en WhatsApp", () => {
     expect(url).toContain(encodeURIComponent("ref: KATHE01"));
     expect(decodeURIComponent(url)).toContain(message);
   });
+
+  test("el link público de Katherine es /partner/km", () => {
+    expect(getPartnerPublicUrl("katherine")).toBe("https://www.clinera.io/partner/km");
+  });
 });
 
-test.describe("landing /p/katherine", () => {
+test.describe("landing /partner/km", () => {
   test("el CTA del hero se ve en iPhone SE sin hacer scroll", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
-    await page.goto("/p/katherine");
+    await page.goto("/partner/km");
     const cta = page.getByRole("link", { name: "Hablar con Rebeca por WhatsApp" }).first();
     await expect(cta).toBeVisible();
     await expect(cta).toBeInViewport();
@@ -31,7 +35,7 @@ test.describe("landing /p/katherine", () => {
   });
 
   test("no publica precios ni planes", async ({ page }) => {
-    await page.goto("/p/katherine");
+    await page.goto("/partner/km");
     const body = await page.locator("body").innerText();
     expect(body).not.toMatch(/USD\s*\d/);
     expect(body).not.toMatch(/US\$\s*\d/);
@@ -44,18 +48,30 @@ test.describe("landing /p/katherine", () => {
     expect(body).not.toMatch(/\b450\b/);
   });
 
+  test("/p/katherine redirige a /partner/km", async ({ page }) => {
+    await page.goto("/p/katherine");
+    expect(new URL(page.url()).pathname).toBe("/partner/km");
+  });
+
   test("un slug que no existe responde 404", async ({ request }) => {
     const res = await request.get("/p/no-existe");
     expect(res.status()).toBe(404);
   });
+
+  test("una vanity que no existe responde 404", async ({ request }) => {
+    const res = await request.get("/partner/no-existe");
+    expect(res.status()).toBe(404);
+  });
 });
 
-test.describe("kit /p/katherine/kit", () => {
+test.describe("kit /partner/km/kit", () => {
   test("no es indexable y trae el link, el ref y el QR", async ({ page }) => {
-    await page.goto("/p/katherine/kit");
+    await page.goto("/partner/km/kit");
     const robots = page.locator('meta[name="robots"]');
     await expect(robots).toHaveAttribute("content", /noindex/);
-    await expect(page.getByText("https://www.clinera.io/p/katherine", { exact: true })).toBeVisible();
+    await expect(
+      page.getByText("https://www.clinera.io/partner/km", { exact: true }),
+    ).toBeVisible();
     await expect(page.getByText("KATHE01")).toBeVisible();
     await expect(page.getByRole("img", { name: /QR del link de Katherine Meza/ })).toBeVisible();
   });

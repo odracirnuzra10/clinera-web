@@ -1,5 +1,7 @@
 export type Partner = {
   slug: string;
+  /** Vanity corta para la URL pública (`/partner/{vanity}`). */
+  vanity?: string;
   ref: string;
   name: string;
   role: string;
@@ -11,10 +13,13 @@ export type Partner = {
 /**
  * Fuente única de partners. Agregar uno = una entrada acá.
  * La landing, el OG, el kit y el mensaje de WhatsApp se arman solos.
+ * Si el partner tiene `vanity`, la URL pública es `/partner/{vanity}`
+ * y `/p/{slug}` redirige ahí (ver `next.config.ts`).
  */
 export const PARTNERS: Record<string, Partner> = {
   katherine: {
     slug: "katherine",
+    vanity: "km",
     ref: "KATHE01",
     name: "Katherine Meza",
     role: "", // TODO: confirmar
@@ -35,8 +40,23 @@ export function listPartners(): Partner[] {
   return Object.values(PARTNERS);
 }
 
+export function getPartnerByVanity(code: string): Partner | undefined {
+  const normalized = code.trim().toLowerCase();
+  return listPartners().find((partner) => partner.vanity === normalized);
+}
+
+export function getPartnerPublicPath(partner: Partner): string {
+  return partner.vanity ? `/partner/${partner.vanity}` : `/p/${partner.slug}`;
+}
+
 export function getPartnerPublicUrl(slug: string): string {
-  return `${PARTNER_SITE_ORIGIN}/p/${slug}`;
+  const partner = getPartner(slug);
+  const path = partner ? getPartnerPublicPath(partner) : `/p/${slug}`;
+  return `${PARTNER_SITE_ORIGIN}${path}`;
+}
+
+export function getPartnerKitPath(partner: Partner): string {
+  return `${getPartnerPublicPath(partner)}/kit`;
 }
 
 export function getPartnerInitials(name: string): string {

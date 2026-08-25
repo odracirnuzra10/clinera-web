@@ -10,24 +10,27 @@ import { WhatsAppCta } from "@/components/partner/WhatsAppCta";
 
 const FEATURES = [
   {
+    n: "01",
     title: "AURA responde y agenda por WhatsApp, 24/7",
     body: "Contesta consultas, agenda, confirma y reagenda sin que nadie del equipo esté conectado.",
   },
   {
+    n: "02",
     title: "Ficha, agenda y pacientes en un solo lugar",
     body: "Historial, tratamientos y consentimientos donde los necesitas, no en tres planillas distintas.",
   },
   {
+    n: "03",
     title: "Cobros y recordatorios automáticos",
     body: "Menos no-shows, menos plata que se pierde en el seguimiento manual.",
   },
 ] as const;
 
 const PROOF = [
-  "+52 clínicas activas",
-  "+500 profesionales",
-  "Meta Business Partner",
-  "WhatsApp Business API",
+  { label: "+52 clínicas activas", stat: true },
+  { label: "+500 profesionales", stat: true },
+  { label: "Meta Business Partner", stat: false },
+  { label: "WhatsApp Business API", stat: false },
 ] as const;
 
 export function PartnerLanding({
@@ -38,105 +41,95 @@ export function PartnerLanding({
   whatsappUrl: string;
 }) {
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-white text-[#111111]">
+    <div style={{ display: "flex", minHeight: "100dvh", flexDirection: "column" }}>
       <PartnerTracker partner={partner} />
       <PartnerNav />
 
-      <main id="contenido" className="flex-1 pb-24 md:pb-0">
-        <section className="px-5 pt-6 pb-8 md:px-8 md:pt-12 md:pb-14">
-          <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-            <p className="font-[family-name:var(--font-partner-mono)] text-[11px] font-medium uppercase tracking-[0.14em] text-[#6B6B6B]">
+      <main id="contenido" className="partner-main" style={{ flex: 1 }}>
+        <div className="partner-stack">
+          <section className="partner-card partner-hero">
+            <p className="partner-eyebrow">
+              <span className="partner-eyebrow-dot" aria-hidden="true" />
               Recomendación verificada
             </p>
-            <PartnerPhoto partner={partner} className="mt-3" />
-            <h1 className="mt-3 text-[1.75rem] font-semibold leading-[1.15] tracking-tight text-[#111111] md:mt-5 md:text-4xl">
-              <span className="block">{partner.name}</span>
-              <span className="block">te recomienda Clinera</span>
+            <div style={{ marginTop: 12 }}>
+              <PartnerPhoto partner={partner} />
+            </div>
+            <h1
+              style={{
+                margin: "12px 0 0",
+                fontSize: "1.6rem",
+                fontWeight: 600,
+                lineHeight: 1.15,
+                letterSpacing: "-0.035em",
+              }}
+            >
+              <span style={{ display: "block" }}>{partner.name}</span>
+              <span style={{ display: "block" }}>te recomienda Clinera</span>
             </h1>
             {partner.role ? (
-              <p className="mt-2 text-[13px] text-[#6B6B6B]">{partner.role}</p>
+              <p style={{ margin: "8px 0 0", fontSize: 13 }}>{partner.role}</p>
             ) : null}
-            <p className="mt-3 max-w-md text-[15px] leading-[1.6] text-[#6B6B6B] md:mt-4">
-              &ldquo;{partner.intro}&rdquo;
-            </p>
-            <WhatsAppCta partner={partner} href={whatsappUrl} className="mt-5 w-full md:mt-6" />
-          </div>
-        </section>
+            <blockquote className="partner-quote" style={{ marginTop: 12 }}>
+              “{partner.intro}”
+            </blockquote>
+            <WhatsAppCta partner={partner} href={whatsappUrl} className="partner-cta-full" />
+          </section>
 
-        <section className="px-5 py-16 md:px-8 md:py-24">
-          <div className="mx-auto max-w-2xl">
-            <PartnerReveal>
-              <h2 className="text-[1.35rem] font-semibold tracking-tight md:text-2xl">
-                Qué hace Clinera
-              </h2>
-            </PartnerReveal>
-            <ul className="mt-8">
-              {FEATURES.map((item, index) => (
-                <PartnerReveal
-                  key={item.title}
-                  as="li"
-                  delayMs={index * 60}
-                  className="border-t border-[#EAEAEA] py-6 last:pb-0"
-                >
-                  <h3 className="text-[16px] font-medium text-[#111111]">{item.title}</h3>
-                  <p className="mt-1.5 text-[15px] leading-[1.6] text-[#6B6B6B]">{item.body}</p>
-                </PartnerReveal>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="bg-[#F7F6F3] px-5 py-10 md:px-8 md:py-12">
           <PartnerReveal>
-            <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center">
-              {PROOF.map((item, index) => (
-                <span key={item} className="inline-flex items-center gap-6 text-[13px] text-[#6B6B6B]">
-                  {index > 0 ? (
-                    <span aria-hidden="true" className="hidden text-[#EAEAEA] sm:inline">
-                      ·
+            <section className="partner-card">
+              <p className="partner-eyebrow">Qué hace Clinera</p>
+              <h2 className="partner-section-title" style={{ marginTop: 8 }}>
+                Agenda, ficha y cobros en un solo sistema
+              </h2>
+              <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                {FEATURES.map((item) => (
+                  <li key={item.n} className="partner-feature">
+                    <span className="partner-feature-n" aria-hidden="true">
+                      {item.n}
                     </span>
-                  ) : null}
-                  <span
-                    className={
-                      item.startsWith("+")
-                        ? "font-[family-name:var(--font-partner-mono)] font-medium tracking-tight text-[#111111]"
-                        : ""
-                    }
-                  >
-                    {item}
-                  </span>
-                </span>
-              ))}
-            </div>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </PartnerReveal>
-        </section>
 
-        <section className="px-5 py-16 md:px-8 md:py-24">
-          <div className="mx-auto max-w-2xl">
-            <PartnerReveal>
-              <h2 className="text-[1.35rem] font-semibold tracking-tight md:text-2xl">
-                Preguntas cortas
-              </h2>
-            </PartnerReveal>
-            <PartnerReveal delayMs={60} className="mt-6">
+          <PartnerReveal delayMs={40}>
+            <section className="partner-card">
+              <div className="partner-pills">
+                {PROOF.map((item) => (
+                  <span key={item.label} className="partner-pill" data-stat={item.stat}>
+                    {item.label}
+                  </span>
+                ))}
+              </div>
+            </section>
+          </PartnerReveal>
+
+          <PartnerReveal delayMs={60}>
+            <section className="partner-card">
+              <h2 className="partner-section-title">Preguntas cortas</h2>
               <PartnerFaq partner={partner} />
-            </PartnerReveal>
-          </div>
-        </section>
+            </section>
+          </PartnerReveal>
 
-        <section className="border-t border-[#EAEAEA] px-5 py-16 md:px-8 md:py-24">
-          <PartnerReveal>
-            <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-              <h2 className="text-[1.35rem] font-semibold tracking-tight md:text-2xl">
+          <PartnerReveal delayMs={80}>
+            <section className="partner-card partner-close">
+              <h2 className="partner-section-title">
                 {partner.name} te lo recomienda. Conversa con {partner.sales.name}.
               </h2>
-              <p className="mt-3 max-w-md text-[15px] leading-[1.6] text-[#6B6B6B]">
-                En quince minutos ves si Clinera calza con tu clínica. Sin compromiso de contratar.
+              <p style={{ margin: "0 0 16px", fontSize: 15, lineHeight: 1.55 }}>
+                En quince minutos ves si Clinera calza con tu clínica. Sin compromiso de
+                contratar.
               </p>
-              <WhatsAppCta partner={partner} href={whatsappUrl} className="mt-6 w-full" />
-            </div>
+              <WhatsAppCta partner={partner} href={whatsappUrl} className="partner-cta-full" />
+            </section>
           </PartnerReveal>
-        </section>
+        </div>
       </main>
 
       <PartnerFooter />

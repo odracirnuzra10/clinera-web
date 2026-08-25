@@ -1,25 +1,31 @@
-export function SparkleMark({ className = "" }: { className?: string }) {
+import Link from "next/link";
+
+const SPARK =
+  "linear-gradient(135deg, #009FE3 0%, #7C3AED 50%, #C850C0 100%)";
+
+export function SparkleMark({ size = 22 }: { size?: number }) {
   return (
     <span
       aria-hidden="true"
-      className={`inline-block bg-gradient-to-br from-[#009FE3] via-[#7C3AED] to-[#C850C0] bg-clip-text text-transparent ${className}`}
+      className="partner-spark"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: Math.round(size * 0.27),
+        background: SPARK,
+        fontSize: Math.round(size * 0.55),
+      }}
     >
       ✦
     </span>
   );
 }
 
-export function PartnerWordmark({
-  className = "",
-}: {
-  className?: string;
-}) {
+export function PartnerWordmark({ href = "/" }: { href?: string }) {
   return (
-    <span
-      className={`inline-flex items-baseline gap-1.5 text-[15px] font-semibold tracking-tight text-[#111111] ${className}`}
-    >
+    <Link href={href} className="partner-wordmark">
+      <SparkleMark />
       clinera.io
-      <SparkleMark className="text-[13px]" />
-    </span>
+    </Link>
   );
 }

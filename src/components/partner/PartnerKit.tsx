@@ -15,97 +15,113 @@ export function PartnerKit({
 }) {
   const copy = getPartnerKitCopy(partner);
   const fileName = `clinera-${partner.slug}-qr.png`;
+  const firstName = partner.name.split(" ")[0] ?? partner.name;
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-white text-[#111111]">
+    <div style={{ display: "flex", minHeight: "100dvh", flexDirection: "column" }}>
       <PartnerNav />
 
-      <main id="contenido" className="flex-1 px-5 py-10 md:px-8 md:py-16">
-        <div className="mx-auto max-w-2xl">
-          <p className="font-[family-name:var(--font-partner-mono)] text-[11px] font-medium uppercase tracking-[0.14em] text-[#6B6B6B]">
-            Kit de partner
-          </p>
-          <h1 className="mt-3 text-[1.75rem] font-semibold tracking-tight md:text-4xl">
-            Hola, {partner.name.split(" ")[0]}
-          </h1>
-          <p className="mt-3 text-[15px] leading-[1.6] text-[#6B6B6B]">
-            Esta página es tuya. No la compartas con prospectos: ellos entran por tu link
-            público. Tú solo pegas, subes el QR o dictas tu código.
-          </p>
-
-          <section className="mt-10 rounded-xl border border-[#EAEAEA] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] md:p-8">
-            <h2 className="text-[16px] font-medium">Tu link</h2>
-            <p className="mt-2 break-all font-[family-name:var(--font-partner-mono)] text-[13px] text-[#6B6B6B]">
-              {url}
+      <main id="contenido" style={{ flex: 1 }}>
+        <div className="partner-stack partner-kit-stack">
+          <section className="partner-card">
+            <p className="partner-eyebrow">Kit de partner</p>
+            <h1
+              style={{
+                margin: "8px 0 0",
+                fontSize: "1.6rem",
+                fontWeight: 600,
+                letterSpacing: "-0.035em",
+                lineHeight: 1.15,
+              }}
+            >
+              Kit de {partner.name}
+            </h1>
+            <p style={{ margin: "8px 0 0", fontSize: 15, lineHeight: 1.55 }}>
+              Hola, {firstName}. Esta página es tuya. No la compartas con prospectos: ellos
+              entran por tu link público. Tú solo pegas, subes el QR o dictas tu código.
             </p>
-            <CopyButton value={url} className="mt-4" />
           </section>
 
-          <section className="mt-6 rounded-xl border border-[#EAEAEA] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] md:p-8">
-            <h2 className="text-[16px] font-medium">Tu QR</h2>
-            <p className="mt-2 text-[15px] leading-[1.6] text-[#6B6B6B]">
-              Negro sobre blanco, margen amplio. Se lee desde un delantal o una tarjeta.
-            </p>
-            <div className="mt-5 inline-block border border-[#EAEAEA] bg-white p-4">
+          <div className="partner-kit-top">
+            <section className="partner-card" style={{ textAlign: "center" }}>
+              <h2 className="partner-section-title">Tu QR</h2>
+              <p style={{ margin: "0 0 12px", fontSize: 14, lineHeight: 1.5 }}>
+                Negro sobre blanco. Se lee desde un delantal o una tarjeta.
+              </p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={qrDataUrl} alt={`QR del link de ${partner.name}`} width={240} height={240} />
-            </div>
-            <div className="mt-4">
-              <a
-                href={qrDataUrl}
-                download={fileName}
-                className="partner-btn"
-              >
-                Descargar PNG 1024px
-              </a>
-            </div>
-          </section>
+              <img
+                src={qrDataUrl}
+                alt={`QR del link de ${partner.name}`}
+                width={160}
+                height={160}
+                className="partner-qr"
+                style={{ margin: "0 auto" }}
+              />
+              <div style={{ marginTop: 14 }}>
+                <a href={qrDataUrl} download={fileName} className="partner-btn partner-btn-ghost">
+                  Descargar PNG 1024px
+                </a>
+              </div>
+            </section>
 
-          <section className="mt-6 rounded-xl border border-[#EAEAEA] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] md:p-8">
-            <h2 className="text-[16px] font-medium">Tu código</h2>
-            <p className="mt-2 font-[family-name:var(--font-partner-mono)] text-[22px] font-medium tracking-[0.08em] text-[#111111]">
-              {partner.ref}
-            </p>
-            <p className="mt-2 text-[15px] leading-[1.6] text-[#6B6B6B]">
-              Úsalo cuando alguien te pregunte de boca. Ventas lo busca igual que el link.
-            </p>
-            <CopyButton value={partner.ref} className="mt-4" />
-          </section>
+            <div className="partner-kit-side">
+              <section className="partner-card">
+                <h2 className="partner-section-title">Tu link</h2>
+                <p className="partner-kit-url">{url}</p>
+                <div style={{ marginTop: 12 }}>
+                  <CopyButton value={url} />
+                </div>
+              </section>
 
-          <section className="mt-10">
-            <h2 className="text-[1.35rem] font-semibold tracking-tight">Textos listos para copiar</h2>
-            <p className="mt-2 text-[15px] leading-[1.6] text-[#6B6B6B]">
+              <section className="partner-card">
+                <h2 className="partner-section-title">Tu código</h2>
+                <p className="partner-ref">{partner.ref}</p>
+                <p style={{ margin: "10px 0 0", fontSize: 14, lineHeight: 1.5 }}>
+                  Úsalo cuando alguien te pregunte de boca. Ventas lo busca igual que el link.
+                </p>
+                <div style={{ marginTop: 12 }}>
+                  <CopyButton value={partner.ref} />
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <section className="partner-card">
+            <h2 className="partner-section-title">Textos listos para copiar</h2>
+            <p style={{ margin: "0 0 18px", fontSize: 15, lineHeight: 1.55 }}>
               Tono de colega a colega. Pégalos tal cual.
             </p>
 
-            <article className="mt-6 rounded-xl border border-[#EAEAEA] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] md:p-8">
-              <p className="font-[family-name:var(--font-partner-mono)] text-[11px] font-medium uppercase tracking-[0.14em] text-[#6B6B6B]">
-                Historia de Instagram
-              </p>
-              <p className="mt-3 whitespace-pre-wrap text-[15px] leading-[1.6] text-[#111111]">
+            <article style={{ paddingBottom: 18, borderBottom: "1px solid #EAEAEA" }}>
+              <p className="partner-eyebrow">Historia de Instagram</p>
+              <p className="partner-copy-block" style={{ marginTop: 10 }}>
                 {copy.instagram}
               </p>
-              <CopyButton value={copy.instagram} className="mt-4" />
+              <div style={{ marginTop: 12 }}>
+                <CopyButton value={copy.instagram} />
+              </div>
             </article>
 
-            <article className="mt-6 rounded-xl border border-[#EAEAEA] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] md:p-8">
-              <p className="font-[family-name:var(--font-partner-mono)] text-[11px] font-medium uppercase tracking-[0.14em] text-[#6B6B6B]">
-                WhatsApp a una colega
-              </p>
-              <p className="mt-3 whitespace-pre-wrap text-[15px] leading-[1.6] text-[#111111]">
+            <article
+              style={{ padding: "18px 0", borderBottom: "1px solid #EAEAEA" }}
+            >
+              <p className="partner-eyebrow">WhatsApp a una colega</p>
+              <p className="partner-copy-block" style={{ marginTop: 10 }}>
                 {copy.whatsapp}
               </p>
-              <CopyButton value={copy.whatsapp} className="mt-4" />
+              <div style={{ marginTop: 12 }}>
+                <CopyButton value={copy.whatsapp} />
+              </div>
             </article>
 
-            <article className="mt-6 rounded-xl border border-[#EAEAEA] bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] md:p-8">
-              <p className="font-[family-name:var(--font-partner-mono)] text-[11px] font-medium uppercase tracking-[0.14em] text-[#6B6B6B]">
-                Comentario o DM
-              </p>
-              <p className="mt-3 whitespace-pre-wrap text-[15px] leading-[1.6] text-[#111111]">
+            <article style={{ paddingTop: 18 }}>
+              <p className="partner-eyebrow">Comentario o DM</p>
+              <p className="partner-copy-block" style={{ marginTop: 10 }}>
                 {copy.comentario}
               </p>
-              <CopyButton value={copy.comentario} className="mt-4" />
+              <div style={{ marginTop: 12 }}>
+                <CopyButton value={copy.comentario} />
+              </div>
             </article>
           </section>
         </div>

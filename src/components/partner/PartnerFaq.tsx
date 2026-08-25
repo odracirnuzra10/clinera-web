@@ -22,7 +22,7 @@ function faqsFor(partner: Partner) {
 
 function PlusIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
@@ -30,7 +30,7 @@ function PlusIcon() {
 
 function MinusIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
       <path d="M3 8h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
@@ -48,30 +48,22 @@ export function PartnerFaq({ partner }: { partner: Partner }) {
         const panelId = `${baseId}-panel-${index}`;
         const buttonId = `${baseId}-button-${index}`;
         return (
-          <div key={item.q} className="border-b border-[#EAEAEA]">
+          <div key={item.q} className="partner-faq-item">
             <button
               id={buttonId}
               type="button"
               aria-expanded={isOpen}
               aria-controls={panelId}
               onClick={() => setOpen(isOpen ? null : index)}
-              className="flex w-full items-center justify-between gap-4 py-5 text-left"
             >
-              <span className="text-[16px] font-medium text-[#111111]">{item.q}</span>
-              <span className="shrink-0 text-[#6B6B6B]">
-                {isOpen ? <MinusIcon /> : <PlusIcon />}
-              </span>
+              <span>{item.q}</span>
+              <span className="partner-faq-icon">{isOpen ? <MinusIcon /> : <PlusIcon />}</span>
             </button>
-            {isOpen && (
-              <p
-                id={panelId}
-                role="region"
-                aria-labelledby={buttonId}
-                className="pb-5 text-[15px] leading-[1.6] text-[#6B6B6B]"
-              >
+            {isOpen ? (
+              <p id={panelId} role="region" aria-labelledby={buttonId}>
                 {item.a}
               </p>
-            )}
+            ) : null}
           </div>
         );
       })}

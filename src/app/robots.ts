@@ -47,6 +47,7 @@ export default function robots(): MetadataRoute.Robots {
           '/firma',
           '/firma/',
           '/p/*/kit',
+          '/partner/*/kit',
           '/*?utm_*',
           '/*?gclid=*',
           '/*?fbclid=*',
