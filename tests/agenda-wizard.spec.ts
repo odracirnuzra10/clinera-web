@@ -56,7 +56,10 @@ test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
 
     await expect(page.getByRole("heading", { name: "Tus datos de contacto" })).toBeVisible();
     await page.getByPlaceholder("Tu nombre completo").fill(`[E2E TEST] ${id}`);
-    await page.getByLabel("Cargo").selectOption("Dueño / Fundador");
+    await page
+      .locator("select")
+      .filter({ has: page.locator('option[value="Dueño / Fundador"]') })
+      .selectOption("Dueño / Fundador");
     await page.getByPlaceholder("9 1234 5678").fill("912345678");
     await page.getByPlaceholder("tu@clinica.cl").fill(`${id}@e2e.clinera.io`);
 
