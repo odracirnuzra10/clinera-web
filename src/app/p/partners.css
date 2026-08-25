@@ -267,6 +267,31 @@
   flex-shrink: 0;
 }
 
+.partner-cnn-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.partner-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--partner-line);
+  border-radius: 10px;
+  background: #111111;
+}
+
+.partner-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .partner-helper {
   margin: 10px 0 0;
   text-align: center;

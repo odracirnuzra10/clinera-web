@@ -32,6 +32,13 @@ export const PARTNERS: Record<string, Partner> = {
 
 export const PARTNER_SITE_ORIGIN = "https://www.clinera.io";
 
+/** Label del CTA público. El href sigue siendo WhatsApp con `ref` en el mensaje. */
+export const PARTNER_CTA_LABEL = "Coordinar reunión con Clinera";
+
+/** El mismo clip de Ricardo en CNN que usa `/plataforma` (PressCNN). */
+export const PARTNER_CNN_VIMEO_SRC =
+  "https://player.vimeo.com/video/1205127087?badge=0&autopause=0&player_id=0&app_id=58479";
+
 export function getPartner(slug: string): Partner | undefined {
   return PARTNERS[slug];
 }

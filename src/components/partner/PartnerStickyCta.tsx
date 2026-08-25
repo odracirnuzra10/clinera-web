@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Partner } from "@/lib/partners";
+import { PARTNER_CTA_LABEL } from "@/lib/partners";
 import { trackPartnerLeadClick } from "@/components/partner/WhatsAppCta";
 
 export function PartnerStickyCta({
@@ -30,7 +31,7 @@ export function PartnerStickyCta({
           onClick={() => trackPartnerLeadClick(partner)}
           className="partner-cta partner-cta-full"
         >
-          Hablar con {partner.sales.name} por WhatsApp
+          {PARTNER_CTA_LABEL}
         </a>
       </div>
     </div>

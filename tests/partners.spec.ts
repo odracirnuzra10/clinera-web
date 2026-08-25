@@ -1,5 +1,10 @@
 import { expect, test } from "@playwright/test";
-import { getPartner, getPartnerPublicUrl } from "@/lib/partners";
+import {
+  getPartner,
+  getPartnerPublicUrl,
+  PARTNER_CNN_VIMEO_SRC,
+  PARTNER_CTA_LABEL,
+} from "@/lib/partners";
 import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 
 test.describe("atribución del partner en WhatsApp", () => {
@@ -25,13 +30,23 @@ test.describe("landing /partner/km", () => {
   test("el CTA del hero se ve en iPhone SE sin hacer scroll", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto("/partner/km");
-    const cta = page.getByRole("link", { name: "Hablar con Rebeca por WhatsApp" }).first();
+    const cta = page.getByRole("link", { name: PARTNER_CTA_LABEL }).first();
     await expect(cta).toBeVisible();
     await expect(cta).toBeInViewport();
     await expect(cta).toHaveAttribute("href", /wa\.me\/56965810649/);
     await expect(cta).toHaveAttribute("href", /KATHE01/);
     await expect(cta).toHaveAttribute("target", "_blank");
     await expect(cta).toHaveAttribute("rel", /noopener/);
+    await expect(page.getByRole("link", { name: PARTNER_CTA_LABEL })).toHaveCount(3);
+    await expect(page.getByText("Hablar con Rebeca por WhatsApp")).toHaveCount(0);
+  });
+
+  test("embebe el mismo clip de CNN que /plataforma", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/partner/km");
+    const iframe = page.locator('iframe[title="Reportaje de CNN sobre Clinera"]');
+    await expect(iframe).toHaveAttribute("src", PARTNER_CNN_VIMEO_SRC);
+    await expect(iframe).toHaveAttribute("src", /player\.vimeo\.com\/video\/1205127087/);
   });
 
   test("no publica precios ni planes", async ({ page }) => {

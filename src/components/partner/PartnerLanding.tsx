@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { Partner } from "@/lib/partners";
+import { PartnerCnnVideo } from "@/components/partner/PartnerCnnVideo";
 import { PartnerFaq } from "@/components/partner/PartnerFaq";
 import { PartnerFooter } from "@/components/partner/PartnerFooter";
 import { PartnerNav } from "@/components/partner/PartnerNav";
@@ -82,6 +83,8 @@ export function PartnerLanding({
             </blockquote>
             <WhatsAppCta partner={partner} href={whatsappUrl} className="partner-cta-full" />
           </section>
+
+          <PartnerCnnVideo />
 
           <section className="partner-card">
             <div className="partner-eyebrow">Qué hace Clinera</div>
