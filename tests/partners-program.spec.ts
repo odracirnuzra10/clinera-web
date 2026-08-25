@@ -7,6 +7,7 @@ import {
   PARTNERS_COMMISSION_PERCENT,
   PARTNERS_CTA_HREF,
   PARTNERS_PATH,
+  PARTNERS_PRESENTATION_HREF,
   PARTNERS_REFERRAL_FEE_LABEL,
   PARTNERS_REFERRAL_FEE_USD,
 } from "@/content/partners-program";
@@ -22,6 +23,7 @@ test.describe("fuente de verdad del programa partner", () => {
     expect(PARTNERS_PATH).toBe("/partners");
     expect(PARTNERS_CANONICAL).toBe("https://www.clinera.io/partners");
     expect(PARTNERS_CTA_HREF).toBe("/reunion-comercial");
+    expect(PARTNERS_PRESENTATION_HREF).toBe("/presentacion-partners");
   });
 });
 
@@ -51,6 +53,24 @@ test.describe("landing /partners", () => {
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
     await apply.click();
     await expect(page).toHaveURL(/\/reunion-comercial/);
+    await expect(page.getByRole("heading", { name: "Hablemos de tus necesidades" })).toBeVisible();
+  });
+
+  test("muestra el diagrama de Clinera O.S.", async ({ page }) => {
+    await page.goto("/partners");
+    await expect(page.getByText("Toda tu operación la alimenta")).toBeVisible();
+    await expect(page.getByText("Clinera O.S. actúa")).toBeVisible();
+    await expect(page.getByText("Contexto · decisiones · acción")).toBeVisible();
+  });
+
+  test("el botón Ver presentación abre el deck de partners", async ({ page }) => {
+    await page.goto("/partners");
+    const deck = page.getByRole("link", { name: /Ver presentación/ }).first();
+    await expect(deck).toHaveAttribute("href", PARTNERS_PRESENTATION_HREF);
+    await deck.click();
+    await expect(page).toHaveURL(/\/presentacion-partners/);
+    await expect(page.locator(".slide.active")).toContainText("US$ 150");
+    await expect(page.locator("body")).not.toContainText("15%");
   });
 
   test("el footer apunta a /partners, no a /agencias", async ({ page }) => {
@@ -75,5 +95,17 @@ test.describe("redirect /agencias → /partners", () => {
     await page.goto("/agencias");
     expect(new URL(page.url()).pathname).toBe("/partners");
     await expect(page.locator("h1")).toBeVisible();
+  });
+});
+
+test.describe("redirect /presentacion-agencia → /presentacion-partners", () => {
+  test("308 permanente hacia el deck nuevo", async ({ page, request }) => {
+    const res = await request.get("/presentacion-agencia", { maxRedirects: 0 });
+    expect(res.status()).toBe(308);
+    expect(res.headers()["location"]).toBe("/presentacion-partners");
+
+    await page.goto("/presentacion-agencia");
+    expect(new URL(page.url()).pathname).toBe("/presentacion-partners");
+    await expect(page.locator(".slide.active")).toContainText("US$ 150");
   });
 });

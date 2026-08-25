@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
+import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
 import {
   PARTNERS_COMPENSATION,
   PARTNERS_CTA_HREF,
@@ -24,6 +25,7 @@ export default function PartnersLanding() {
       <Functions />
       <Compensation />
       <Support />
+      <OsDiagram />
       <Product />
       <FaqPartners />
       <FinalCTA />
@@ -491,7 +493,7 @@ function Support() {
   );
 }
 
-function Product() {
+function OsDiagram() {
   return (
     <section
       className="partners-section"
@@ -499,6 +501,22 @@ function Product() {
         padding: "96px 80px",
         background: "#FAFAFA",
         borderTop: "1px solid #F0F0F0",
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <ClineraOsDiagram />
+      </div>
+    </section>
+  );
+}
+
+function Product() {
+  return (
+    <section
+      className="partners-section"
+      style={{
+        padding: "96px 80px",
+        background: "#FAFAFA",
         borderBottom: "1px solid #F0F0F0",
       }}
     >

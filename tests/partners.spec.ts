@@ -90,6 +90,13 @@ test.describe("landing /partner/km", () => {
     const res = await request.get("/partner/no-existe");
     expect(res.status()).toBe(404);
   });
+
+  test("muestra el diagrama de Clinera O.S.", async ({ page }) => {
+    await page.goto("/partner/km");
+    await expect(page.getByText("Toda tu operación la alimenta")).toBeVisible();
+    await expect(page.getByText("Clinera O.S. actúa")).toBeVisible();
+    await expect(page.getByRole("img", { name: /alimentan Clinera O\.S\./i })).toBeVisible();
+  });
 });
 
 test.describe("kit /partner/km/kit", () => {

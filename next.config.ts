@@ -172,6 +172,10 @@ const nextConfig: NextConfig = {
         destination: '/presentacion/index.html',
       },
       {
+        source: '/presentacion-partners',
+        destination: '/presentacion-partners/index.html',
+      },
+      {
         source: '/monterrey',
         destination: '/monterrey/index.html',
       },
@@ -252,6 +256,16 @@ const nextConfig: NextConfig = {
       {
         source: '/agencias',
         destination: '/partners',
+        permanent: true,
+      },
+      {
+        source: '/presentacion-agencia',
+        destination: '/presentacion-partners',
+        permanent: true,
+      },
+      {
+        source: '/presentacion-agencia/:path*',
+        destination: '/presentacion-partners',
         permanent: true,
       },
       // El modo Eficiente y el modo Agentic Pro dejaron de existir: Clinera

@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { Partner } from "@/lib/partners";
+import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
 import { PartnerCnnVideo } from "@/components/partner/PartnerCnnVideo";
 import { PartnerFaq } from "@/components/partner/PartnerFaq";
 import { PartnerFooter } from "@/components/partner/PartnerFooter";
@@ -114,6 +115,10 @@ export function PartnerLanding({
               <PartnerFaq partner={partner} />
             </section>
           </div>
+
+          <section className="partner-card partner-os" aria-label="Cómo opera Clinera O.S.">
+            <ClineraOsDiagram />
+          </section>
 
           <section className="partner-card partner-close">
             <div className="partner-close-copy">
