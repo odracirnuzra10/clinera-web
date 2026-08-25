@@ -10,6 +10,24 @@
   min-height: 100vh;
 }
 
+.definicionLink {
+  max-width: 1200px;
+  margin: -32px auto 0;
+  padding: 0 24px 16px;
+  text-align: center;
+}
+
+.definicionLink a {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--brand-cyan, #009fe3);
+  text-decoration: none;
+}
+
+.definicionLink a:hover {
+  text-decoration: underline;
+}
+
 .page :global(#aura),
 .page :global(#lia) {
   scroll-margin-top: 96px;

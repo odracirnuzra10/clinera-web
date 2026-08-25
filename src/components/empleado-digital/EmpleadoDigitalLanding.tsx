@@ -11,11 +11,19 @@ import CorporativoBanner from "./CorporativoBanner";
 import AdvancedCTA from "./AdvancedCTA";
 import StickyAdvancedCTA from "./StickyAdvancedCTA";
 import EmpleadoDigitalFaq from "./EmpleadoDigitalFaq";
+import Link from "next/link";
+import { EMPLEADO_DIGITAL_ARTICULO_SLUG } from "@/content/empleado-digital-definicion";
+import styles from "@/app/empleado-digital/empleado-digital.module.css";
 
 export default function EmpleadoDigitalLanding() {
   return (
     <>
       <HeroEquipo />
+      <p className={styles.definicionLink}>
+        <Link href={`/blog/${EMPLEADO_DIGITAL_ARTICULO_SLUG}`}>
+          ¿Qué es un empleado digital? — definición completa →
+        </Link>
+      </p>
       <DemoVideo />
       <RoiSection />
       <DuoAgentes />

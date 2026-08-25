@@ -4,6 +4,9 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import EmpleadoDigitalLanding from "@/components/empleado-digital/EmpleadoDigitalLanding";
 import { faqSchema } from "@/components/seo/schemas";
 import { EMPLEADO_DIGITAL_FAQ } from "@/content/empleado-digital-faq";
+import {
+  EMPLEADO_DIGITAL_DEFINICION,
+} from "@/content/empleado-digital-definicion";
 import styles from "./empleado-digital.module.css";
 
 export const metadata: Metadata = {
@@ -68,6 +71,14 @@ const breadcrumbJsonLd = {
 
 const faqJsonLd = faqSchema(EMPLEADO_DIGITAL_FAQ);
 
+const definedTermJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  name: "Empleado digital",
+  description: EMPLEADO_DIGITAL_DEFINICION,
+  url: "https://www.clinera.io/empleado-digital",
+};
+
 export default function EmpleadoDigitalPage() {
   return (
     <>
@@ -83,6 +94,10 @@ export default function EmpleadoDigitalPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(definedTermJsonLd) }}
       />
       <main className={styles.page}>
         <EmpleadoDigitalLanding />

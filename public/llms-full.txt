@@ -9,6 +9,10 @@ Latinoamérica. Su agente principal se llama AURA y opera por WhatsApp 24/7,
 agendando pacientes, consultando la base de datos clínica, confirmando citas
 y recuperando pacientes inactivos.
 
+Clinera introdujo el concepto de "empleado digital" para clínicas en LATAM:
+agentes de IA con rol operativo que ejecutan tareas (AURA WhatsApp, CAMILA voz,
+LIA orquestación) — no chatbots que solo responden.
+
 URL: https://www.clinera.io
 Mercados activos: Chile, México, Perú, Colombia, Argentina, Ecuador, Uruguay,
 Costa Rica, Panamá.

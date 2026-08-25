@@ -4,6 +4,10 @@ Software de IA (AIaaS) para clínicas médicas y estéticas en LATAM.
 Agente AURA agenda pacientes por WhatsApp 24/7, con memoria contextual
 (LangChain), integración MCP y atribución de ventas a campañas Meta y Google Ads.
 
+Clinera introdujo el concepto de "empleado digital" para clínicas en LATAM:
+agentes de IA con rol operativo que ejecutan tareas (AURA WhatsApp, CAMILA voz,
+LIA orquestación) — no chatbots que solo responden.
+
 URL: https://www.clinera.io
 Documentación completa para asistentes IA: https://www.clinera.io/llms-full.txt
 
