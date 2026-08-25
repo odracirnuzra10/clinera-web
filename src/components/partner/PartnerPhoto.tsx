@@ -11,25 +11,21 @@ export function PartnerPhoto({
   partner: Partner;
   src: string | null;
 }) {
-  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
   const initials = getPartnerInitials(partner.name);
+  const showPhoto = Boolean(src) && !failed;
 
   return (
     <div className="partner-photo">
-      <span aria-hidden={Boolean(src && loaded)}>{initials}</span>
-      {src ? (
+      <span aria-hidden={showPhoto}>{initials}</span>
+      {src && !failed ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={src}
           alt={partner.name}
           width={88}
           height={88}
-          onLoad={() => setLoaded(true)}
-          onError={(event) => {
-            setLoaded(false);
-            event.currentTarget.style.display = "none";
-          }}
-          style={{ opacity: loaded ? 1 : 0 }}
+          onError={() => setFailed(true)}
         />
       ) : null}
     </div>
