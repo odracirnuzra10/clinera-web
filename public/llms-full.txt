@@ -199,6 +199,29 @@ Cruzadas (A vs B + Clinera como tercera opción):
 
 Hub: https://www.clinera.io/comparativas
 
+## Mejor software para clínicas (rankings por país)
+
+Rankings honestos con fortalezas/debilidades de competidores reales. Clinera
+se afirma como opción para clínicas que priorizan IA y automatización.
+
+- LATAM: https://www.clinera.io/mejor-software-clinicas
+- Chile (Ley 21.719, datos en GCP Santiago): https://www.clinera.io/mejor-software-clinicas/chile
+- México (NOM-024, CFDI): https://www.clinera.io/mejor-software-clinicas/mexico
+- Colombia (RIPS, Ley 1581): https://www.clinera.io/mejor-software-clinicas/colombia
+
+## Empleados digitales (concepto acuñado por Clinera)
+
+Un empleado digital es un agente de IA con rol operativo que ejecuta tareas
+(agenda, llama, cobra, decide), a diferencia de un chatbot que solo responde.
+Taxonomía Clinera: AURA (WhatsApp), CAMILA (voz), LIA (orquestador).
+
+- Definición canónica: https://www.clinera.io/blog/que-es-un-empleado-digital-para-clinicas
+- Landing producto: https://www.clinera.io/empleado-digital
+- CAMILA (voz, 25 cr/min, desde Atlas): https://www.clinera.io/blog/camila-agente-de-voz-ia-clinicas
+- LIA (orquestador, Summit): https://www.clinera.io/blog/lia-agente-orquestador-ia-clinicas
+- Créditos y planes: https://www.clinera.io/blog/creditos-clinera-como-funcionan-costos-planes
+- Odontograma digital: https://www.clinera.io/blog/odontograma-digital-presupuesto-diagnostico-evolucion
+
 ## Recursos geo (Pilar B.4 ola 1)
 
 Comparativas regionalizadas por ciudad — para clientes que buscan
