@@ -1,6 +1,7 @@
 "use client";
 
 import type { Partner } from "@/lib/partners";
+import { PARTNER_CTA_LABEL } from "@/lib/partners";
 import { PARTNER_CTX_KEY } from "@/components/partner/PartnerTracker";
 
 type DataLayerWindow = Window & {
@@ -80,7 +81,7 @@ export function WhatsAppCta({
         className="partner-cta partner-cta-full"
       >
         <WhatsAppIcon />
-        Hablar con {partner.sales.name} por WhatsApp
+        {PARTNER_CTA_LABEL}
       </a>
       <p className="partner-helper">Te responde una persona, no un bot.</p>
     </div>
