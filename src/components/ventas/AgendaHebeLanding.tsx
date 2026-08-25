@@ -95,7 +95,7 @@ function ChannelLogos() {
 }
 
 const TOTAL = 5;
-const SOURCE_PATH = "/agenda";
+const DEFAULT_SOURCE_PATH = "/agenda";
 
 function Check() {
   return (
@@ -135,7 +135,11 @@ function TickerTrack() {
   );
 }
 
-export default function AgendaHebeLanding() {
+export default function AgendaHebeLanding({
+  sourcePath = DEFAULT_SOURCE_PATH,
+}: {
+  sourcePath?: string;
+} = {}) {
   const price = CLINERA_PLANS[0].monthlyPrice;
   const [step, setStep] = useState(1);
   const [slide, setSlide] = useState(1);
@@ -205,7 +209,7 @@ export default function AgendaHebeLanding() {
       size,
       qual,
       eventId,
-      sourcePath: SOURCE_PATH,
+      sourcePath,
       features,
       form,
     }).then((next) => {
@@ -217,7 +221,7 @@ export default function AgendaHebeLanding() {
       size,
       qual,
       leadCtx: ctx,
-      sourcePath: SOURCE_PATH,
+      sourcePath,
       features,
     }).then((next) => {
       if (next) setLeadCtx(next);
@@ -379,7 +383,7 @@ export default function AgendaHebeLanding() {
                         size: { profile },
                         qual: evaluateQualification({ profile }),
                         eventId,
-                        sourcePath: SOURCE_PATH,
+                        sourcePath,
                         features,
                       });
                       window.setTimeout(() => go(3), 280);
@@ -549,7 +553,7 @@ export default function AgendaHebeLanding() {
                       qual,
                       leadCtx,
                       booking: next,
-                      sourcePath: SOURCE_PATH,
+                      sourcePath,
                       via,
                       confirmEventId,
                     });

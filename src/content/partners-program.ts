@@ -2,12 +2,13 @@
  * Fuente única del programa partner público (`/partners`).
  *
  * Números, copy de comisión y FAQ viven acá. La landing, el metadata, el
- * JSON-LD y el deck `public/presentacion-agencia/index.html` tienen que
+ * JSON-LD y el deck `public/presentacion-partners/index.html` tienen que
  * leer o copiar desde este archivo — no reinventar US$ 150 / 10% / 6 meses
  * a mano en tres sitios (eso fue el bug del 15% de descuento permanente).
  *
  * `/agencias` redirige acá. `public/reseller.html` es un programa viejo y
- * huérfano: no es esta oferta.
+ * huérfano: no es esta oferta. `/presentacion-agencia` redirige al deck
+ * nuevo en `/presentacion-partners`.
  */
 
 export const PARTNERS_PATH = "/partners" as const;
@@ -15,7 +16,7 @@ export const PARTNERS_CANONICAL = `https://www.clinera.io${PARTNERS_PATH}` as co
 
 /** CTA comercial que ya usaba `/agencias`. No inventar un WhatsApp nuevo. */
 export const PARTNERS_CTA_HREF = "/reunion-comercial" as const;
-export const PARTNERS_PRESENTATION_HREF = "/presentacion-agencia" as const;
+export const PARTNERS_PRESENTATION_HREF = "/presentacion-partners" as const;
 
 /** Pago base inicial por cliente referido que cierra. */
 export const PARTNERS_REFERRAL_FEE_USD = 150;
@@ -45,7 +46,7 @@ export const PARTNERS_HERO = {
   h1Accent: "Ganas desde el primer cierre.",
   lead: `US$ ${PARTNERS_REFERRAL_FEE_USD} de pago base inicial por cada cliente referido, más el ${PARTNERS_COMMISSION_PERCENT}% del valor del plan durante ${PARTNERS_COMMISSION_MONTHS} meses. El equipo de ventas de Clinera cierra. Tú mantienes la comisión.`,
   cta: "Aplicar al programa",
-  ctaSecondary: "Ver presentación técnica",
+  ctaSecondary: "Ver presentación",
 } as const;
 
 export const PARTNERS_STATS = [
@@ -189,5 +190,5 @@ export const PARTNERS_FINAL_CTA = {
   h2Accent: "ya paga base.",
   lead: `US$ ${PARTNERS_REFERRAL_FEE_USD} al cierre, más el ${PARTNERS_COMMISSION_PERCENT}% del plan durante ${PARTNERS_COMMISSION_MONTHS} meses. Agendamos, revisamos tu red y te activamos.`,
   cta: "Aplicar al programa",
-  ctaSecondary: "Ver presentación técnica",
+  ctaSecondary: "Ver presentación",
 } as const;

@@ -649,6 +649,11 @@
     gap: 16px;
   }
 
+  .partner-os {
+    grid-column: 1 / -1;
+    padding: 28px 32px;
+  }
+
   .partner-close {
     grid-column: 1 / -1;
     display: flex;

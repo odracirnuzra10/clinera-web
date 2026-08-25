@@ -1,0 +1,4298 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Clinera — Presentación partners</title>
+  <meta
+    name="description"
+    content="Programa partner de Clinera: US$ 150 de pago base por cliente referido más el 10% del plan durante 6 meses. Ventas de Clinera cierra."
+  />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://www.clinera.io/presentacion-partners" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%236941C6'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Outfit:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --canvas: #ffffff;
+      --paper: #ffffff;
+      --ink: #111318;
+      --muted: #656a76;
+      --line: #e3e3df;
+      --line-strong: #c9c9c3;
+      --cyan: #6941c6;
+      --cyan-soft: #f1ecfb;
+      --violet: #6941c6;
+      --violet-dark: #5231a6;
+      --violet-soft: #f1ecfb;
+      --display: "Outfit", sans-serif;
+      --mono: "DM Mono", monospace;
+      --ease: cubic-bezier(.22, .8, .25, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    html {
+      background: var(--canvas);
+    }
+
+    body {
+      overflow: hidden;
+      color: var(--ink);
+      background: var(--canvas);
+      font-family: var(--display);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    a {
+      color: inherit;
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(105, 65, 198, .24);
+      outline-offset: 4px;
+    }
+
+    .deck {
+      position: relative;
+      width: 100vw;
+      min-height: 100dvh;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .topbar {
+      position: fixed;
+      z-index: 50;
+      inset: 0 0 auto;
+      height: 64px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+      padding: 0 clamp(22px, 4.2vw, 64px);
+      border-bottom: 1px solid rgba(227, 227, 223, .86);
+      color: var(--ink);
+      background: rgba(239, 239, 236, .86);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      justify-self: start;
+      display: inline-flex;
+      align-items: baseline;
+      font-size: 20px;
+      font-weight: 750;
+      letter-spacing: -.055em;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      margin: 0 6px 1px;
+      border-radius: 3px;
+      background: var(--violet);
+    }
+
+    .deck-name,
+    .chapter {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .deck-name {
+      justify-self: center;
+      color: #8b929e;
+    }
+
+    .chapter {
+      justify-self: end;
+      color: var(--muted);
+    }
+
+    .slides {
+      position: relative;
+      width: 100%;
+      min-height: 100dvh;
+    }
+
+    .slide {
+      --accent: var(--violet);
+      position: absolute;
+      inset: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: grid;
+      place-items: center;
+      min-height: 100dvh;
+      padding: 92px clamp(24px, 4.2vw, 64px) 92px;
+      background: var(--canvas);
+      opacity: 0;
+      visibility: hidden;
+      transform: translate3d(0, 14px, 0);
+      transition:
+        opacity .42s var(--ease),
+        visibility .42s,
+        transform .52s var(--ease);
+      pointer-events: none;
+    }
+
+    .slide.ai {
+      --accent: var(--violet);
+    }
+
+    .slide.active {
+      z-index: 2;
+      opacity: 1;
+      visibility: visible;
+      transform: translate3d(0, 0, 0);
+      pointer-events: auto;
+    }
+
+    .slide-inner {
+      position: relative;
+      width: min(1280px, 100%);
+      min-height: min(700px, calc(100dvh - 184px));
+      margin: auto;
+      padding: clamp(46px, 5vw, 74px) clamp(50px, 6vw, 92px);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      box-shadow: 0 18px 55px rgba(17, 19, 24, .055);
+    }
+
+    .slide-inner::before {
+      content: "";
+      position: absolute;
+      top: 32px;
+      bottom: 32px;
+      left: 26px;
+      width: 2px;
+      background: var(--violet);
+    }
+
+    .slide-inner::after {
+      content: "CLINERA";
+      position: absolute;
+      right: 17px;
+      bottom: 31px;
+      color: #aaaab2;
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .18em;
+      writing-mode: vertical-rl;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 0 24px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .display {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(52px, 6.3vw, 92px);
+      font-weight: 700;
+      letter-spacing: -.065em;
+      line-height: .94;
+      text-wrap: balance;
+    }
+
+    .display.medium {
+      font-size: clamp(44px, 4.8vw, 70px);
+      line-height: .98;
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 1.55vw, 22px);
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .lead strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .hero-slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(30px, 4vh, 50px);
+    }
+
+    .hero-copy {
+      max-width: 1000px;
+    }
+
+    .hero-copy .display {
+      font-size: clamp(40px, 4.7vw, 68px);
+    }
+
+    .hero-copy .display span {
+      color: var(--cyan);
+    }
+
+    /* Prueba social del slide de apertura: los mismos logos de clientes
+       que muestra /plataforma, en gris para que no compitan con el titular. */
+    .hero-clients {
+      display: grid;
+      grid-template-columns: 172px minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(22px, 2.8vw, 38px);
+      padding-top: clamp(22px, 2.8vh, 32px);
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-clients-label {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .hero-client-logos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      gap: 10px;
+    }
+
+    .hero-client-logo {
+      position: relative;
+      display: grid;
+      place-items: center;
+      height: 60px;
+      padding: 8px 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .hero-client-logo img {
+      width: auto;
+      max-width: 100%;
+      max-height: 36px;
+      object-fit: contain;
+      filter: grayscale(1) contrast(1.1);
+      opacity: .8;
+    }
+
+    .hero-client-flag {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 16px;
+      height: 11px;
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px var(--line);
+      line-height: 0;
+    }
+
+    .hero-client-flag svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ai-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.16fr) minmax(320px, .84fr);
+      align-items: end;
+      gap: 60px;
+      margin-bottom: 34px;
+    }
+
+    .ai-head .display {
+      font-size: clamp(38px, 4.1vw, 60px);
+      line-height: 1;
+    }
+
+    .ai-head .display span {
+      color: var(--violet);
+    }
+
+    .ai-head .lead {
+      margin: 0 0 4px;
+    }
+
+    .intelligence-map {
+      display: grid;
+      grid-template-columns: minmax(0, 1.36fr) minmax(190px, .58fr) minmax(0, 1fr);
+      border-block: 1px solid var(--line);
+    }
+
+    .intelligence-panel {
+      min-width: 0;
+      padding: 22px 28px 24px;
+    }
+
+    .intelligence-panel + .intelligence-panel {
+      border-left: 1px solid var(--line);
+    }
+
+    .intelligence-panel-label {
+      display: block;
+      margin-bottom: 14px;
+      color: #878e9a;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .intelligence-source-list,
+    .intelligence-action-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .intelligence-source-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 24px;
+    }
+
+    .intelligence-source-list li,
+    .intelligence-action-list li {
+      min-width: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .intelligence-source-list li {
+      min-height: 51px;
+      padding: 9px 0 8px;
+    }
+
+    .intelligence-action-list li {
+      min-height: 63px;
+      padding: 11px 0 10px;
+    }
+
+    .intelligence-source-list b,
+    .intelligence-source-list small,
+    .intelligence-action-list b,
+    .intelligence-action-list small {
+      display: block;
+    }
+
+    .intelligence-source-list b,
+    .intelligence-action-list b {
+      color: var(--ink);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .intelligence-source-list b {
+      font-size: 12px;
+    }
+
+    .intelligence-action-list b {
+      font-size: 13px;
+    }
+
+    .intelligence-source-list small,
+    .intelligence-action-list small {
+      margin-top: 3px;
+      color: var(--muted);
+      line-height: 1.3;
+    }
+
+    .intelligence-source-list small {
+      font-size: 9px;
+    }
+
+    .intelligence-action-list small {
+      font-size: 10px;
+    }
+
+    .ai-core {
+      display: grid;
+      place-items: center;
+      align-content: center;
+      min-height: 286px;
+      text-align: center;
+    }
+
+    .ai-core strong {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -.03em;
+      line-height: 1.2;
+    }
+
+    .ai-core small {
+      display: block;
+      margin-top: 8px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .09em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .ai-mark {
+      display: grid;
+      width: 76px;
+      height: 76px;
+      place-items: center;
+      margin-bottom: 18px;
+      border: 1px solid rgba(124, 58, 237, .35);
+      border-radius: 18px;
+      color: var(--violet);
+      background: var(--violet-soft);
+    }
+
+    .ai-mark svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .intelligence-sheet {
+      display: grid;
+      place-items: center;
+      padding: clamp(22px, 2.7vw, 38px) clamp(42px, 4.4vw, 66px);
+      overflow: hidden;
+    }
+
+    .intelligence-document {
+      width: 100%;
+      margin: 0;
+    }
+
+    .intelligence-document img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: calc(100dvh - 242px);
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .features-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, .64fr) minmax(0, 1.36fr);
+      align-items: start;
+      gap: clamp(56px, 8vw, 120px);
+    }
+
+    .features-intro {
+      position: sticky;
+      top: 108px;
+    }
+
+    .features-intro .lead {
+      max-width: 390px;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 42px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: feature;
+    }
+
+    .feature-list li {
+      counter-increment: feature;
+      position: relative;
+      min-height: 112px;
+      padding: 22px 0 22px 44px;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+      font-size: clamp(15px, 1.25vw, 18px);
+      font-weight: 550;
+      line-height: 1.35;
+    }
+
+    .feature-list li::before {
+      content: counter(feature, decimal-leading-zero);
+      position: absolute;
+      top: 25px;
+      left: 0;
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .05em;
+    }
+
+    .testimonial-layout {
+      display: grid;
+      grid-template-columns: minmax(320px, .86fr) minmax(0, 1.14fr);
+      align-items: stretch;
+      gap: clamp(58px, 7vw, 104px);
+    }
+
+    .testimonial-photo {
+      position: relative;
+      min-height: 500px;
+      margin: 0;
+      overflow: hidden;
+      background: #e9e8e3;
+    }
+
+    .testimonial-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(.85) contrast(.98);
+    }
+
+    .testimonial-photo::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 4px;
+      background: var(--violet);
+    }
+
+    .testimonial-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: clamp(8px, 2vw, 28px);
+    }
+
+    .testimonial-copy blockquote {
+      max-width: 680px;
+      margin: 8px 0 48px;
+      color: var(--ink);
+      font-size: clamp(46px, 5.2vw, 76px);
+      font-weight: 600;
+      letter-spacing: -.06em;
+      line-height: .98;
+      text-wrap: balance;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .testimonial-author::before {
+      content: "";
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--violet);
+    }
+
+    .testimonial-author strong,
+    .testimonial-author span {
+      display: block;
+    }
+
+    .testimonial-author strong {
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .testimonial-author span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .closing {
+      max-width: 1000px;
+    }
+
+    .closing .display {
+      max-width: 940px;
+    }
+
+    .closing-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+      margin-top: 42px;
+    }
+
+    .primary-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-height: 54px;
+      padding: 0 20px;
+      border-radius: 8px;
+      color: var(--paper);
+      background: var(--ink);
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform .15s ease, background .2s ease;
+    }
+
+    .primary-cta:hover {
+      background: #20232a;
+    }
+
+    .primary-cta:active {
+      transform: scale(.98);
+    }
+
+    .primary-cta svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .site-link {
+      padding: 12px 2px;
+      border-bottom: 1px solid var(--line-strong);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .05em;
+    }
+
+    .deck-footer {
+      position: fixed;
+      z-index: 50;
+      right: clamp(22px, 4.2vw, 64px);
+      bottom: max(22px, env(safe-area-inset-bottom));
+      left: clamp(22px, 4.2vw, 64px);
+      display: grid;
+      grid-template-columns: auto minmax(120px, 260px) 1fr auto;
+      align-items: center;
+      gap: 18px;
+      pointer-events: none;
+    }
+
+    .counter {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+    }
+
+    .progress {
+      height: 1px;
+      overflow: hidden;
+      background: var(--line-strong);
+    }
+
+    .progress-fill {
+      width: 20%;
+      height: 100%;
+      background: var(--cyan);
+      transform-origin: left center;
+      transition: width .42s var(--ease);
+    }
+
+    .footer-note {
+      color: #9ba1ab;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .control {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, .86);
+      cursor: pointer;
+      transition: border-color .2s ease, transform .15s ease, opacity .2s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .control:hover:not(:disabled) {
+      border-color: var(--line-strong);
+    }
+
+    .control:active:not(:disabled) {
+      transform: scale(.96);
+    }
+
+    .control:disabled {
+      opacity: .34;
+      cursor: default;
+    }
+
+    .control svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .slide.active .eyebrow,
+    .slide.active .display,
+    .slide.active .lead,
+    .slide.active .reveal {
+      animation: enter .64s var(--ease) both;
+    }
+
+    .slide.active .display {
+      animation-delay: .05s;
+    }
+
+    .slide.active .lead {
+      animation-delay: .1s;
+    }
+
+    .slide.active .reveal {
+      animation-delay: .16s;
+    }
+
+    .slide.active .ai-mark svg {
+      animation: spark 2.8s ease-in-out infinite;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes spark {
+      0%, 100% {
+        transform: scale(.9) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.08) rotate(7deg);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .ai-head,
+      .features-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .features-layout {
+        gap: 48px;
+      }
+
+      .hero-slide {
+        gap: 30px;
+      }
+
+      .hero-clients {
+        grid-template-columns: 1fr;
+        gap: 13px;
+        padding-top: 22px;
+      }
+
+      .ai-head {
+        gap: 24px;
+        margin-bottom: 30px;
+      }
+
+      .ai-head .lead {
+        margin: 0;
+      }
+
+      .features-intro {
+        position: static;
+      }
+
+      .intelligence-map {
+        grid-template-columns: 1fr;
+      }
+
+      .intelligence-panel + .intelligence-panel {
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+
+      .ai-core {
+        min-height: 190px;
+      }
+
+      .feature-list {
+        column-gap: 28px;
+      }
+
+      .testimonial-layout {
+        grid-template-columns: minmax(260px, .8fr) minmax(0, 1.2fr);
+        gap: 44px;
+      }
+
+      .testimonial-photo {
+        min-height: 440px;
+      }
+
+      .testimonial-copy blockquote {
+        font-size: clamp(40px, 6vw, 58px);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        height: 64px;
+        grid-template-columns: 1fr auto;
+        padding-inline: 18px;
+      }
+
+      .deck-name {
+        display: none;
+      }
+
+      .chapter {
+        font-size: 8px;
+      }
+
+      .slide {
+        display: block;
+        padding: 94px 18px 96px;
+      }
+
+      .slide-inner {
+        min-height: calc(100dvh - 190px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 40px 32px 42px;
+      }
+
+      .slide-inner::before {
+        top: 22px;
+        bottom: 22px;
+        left: 14px;
+      }
+
+      .slide-inner::after {
+        right: 8px;
+        bottom: 21px;
+      }
+
+      .display {
+        font-size: clamp(47px, 13vw, 60px);
+      }
+
+      .display.medium {
+        font-size: clamp(40px, 10.6vw, 50px);
+      }
+
+      .lead {
+        margin-top: 20px;
+        font-size: 16px;
+      }
+
+      .hero-copy .display {
+        font-size: clamp(33px, 8.7vw, 44px);
+      }
+
+      .hero-slide {
+        gap: 30px;
+      }
+
+      .hero-client-logos {
+        gap: 8px;
+      }
+
+      .hero-client-logo {
+        height: 56px;
+      }
+
+      .hero-client-logo img {
+        max-height: 32px;
+      }
+
+      .ai-head {
+        margin-bottom: 32px;
+      }
+
+      .intelligence-sheet {
+        display: grid;
+        min-height: calc(100dvh - 190px);
+        padding: 18px 28px;
+      }
+
+      .intelligence-document {
+        width: 100%;
+        overflow: visible;
+      }
+
+      .intelligence-document img {
+        width: 100%;
+        max-width: 100%;
+        max-height: none;
+      }
+
+      .intelligence-panel {
+        padding: 22px 0;
+      }
+
+      .intelligence-source-list {
+        grid-template-columns: 1fr;
+      }
+
+      .ai-core {
+        min-height: 0;
+        justify-items: start;
+        text-align: left;
+      }
+
+      .ai-mark {
+        width: 62px;
+        height: 62px;
+      }
+
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-list li {
+        min-height: 0;
+        padding-block: 18px;
+        font-size: 16px;
+      }
+
+      .feature-list li::before {
+        top: 21px;
+      }
+
+      .testimonial-layout {
+        display: flex;
+        gap: 36px;
+        justify-content: flex-start;
+      }
+
+      .testimonial-photo {
+        min-height: 0;
+        aspect-ratio: 1.08;
+      }
+
+      .testimonial-copy {
+        padding-right: 0;
+      }
+
+      .testimonial-copy blockquote {
+        margin: 4px 0 34px;
+        font-size: clamp(40px, 11vw, 52px);
+      }
+
+      .closing-actions {
+        align-items: stretch;
+        flex-direction: column;
+        margin-top: 34px;
+      }
+
+      .primary-cta,
+      .site-link {
+        width: 100%;
+      }
+
+      .site-link {
+        text-align: center;
+      }
+
+      .deck-footer {
+        right: 18px;
+        bottom: max(18px, env(safe-area-inset-bottom));
+        left: 18px;
+        grid-template-columns: auto minmax(64px, 1fr) auto;
+        gap: 11px;
+      }
+
+      .footer-note {
+        display: none;
+      }
+
+      .control {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 981px) {
+      .slide {
+        padding-top: 90px;
+        padding-bottom: 86px;
+      }
+
+      .display {
+        font-size: clamp(48px, 5.5vw, 78px);
+      }
+
+      .display.medium {
+        font-size: clamp(40px, 4.2vw, 62px);
+      }
+
+      .ai-head {
+        margin-bottom: 36px;
+      }
+
+      .intelligence-panel {
+        padding-block: 22px;
+      }
+
+      .intelligence-source-list li {
+        min-height: 45px;
+        padding-block: 7px;
+      }
+
+      .feature-list li {
+        min-height: 88px;
+        padding-block: 16px;
+      }
+
+      .feature-list li::before {
+        top: 19px;
+      }
+    }
+
+    /* White presentation canvas */
+    .topbar {
+      background: rgba(255, 255, 255, .9);
+    }
+
+    .slide {
+      padding: 82px clamp(28px, 4.8vw, 74px) 76px;
+      background: #ffffff;
+    }
+
+    .slide-inner {
+      width: min(1320px, 100%);
+      min-height: min(720px, calc(100dvh - 158px));
+      padding: clamp(44px, 4.7vw, 70px) clamp(44px, 5.6vw, 82px);
+      border: 0;
+      background: #ffffff;
+      box-shadow: none;
+    }
+
+    .slide-inner::before,
+    .slide-inner::after {
+      display: none;
+    }
+
+    .control {
+      background: #ffffff;
+    }
+
+    /* Clinera Intelligence — native HTML/CSS composition */
+    .intelligence-composition {
+      display: block;
+      width: min(1360px, 100%);
+      padding: 28px clamp(22px, 3.2vw, 48px) 54px;
+      overflow: visible;
+    }
+
+    .intelligence-heading {
+      max-width: 940px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .intelligence-heading .eyebrow {
+      margin-bottom: 13px;
+    }
+
+    .intelligence-heading .eyebrow::before {
+      display: none;
+    }
+
+    .intelligence-heading h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(34px, 3.25vw, 50px);
+      font-weight: 700;
+      letter-spacing: -.055em;
+      line-height: .98;
+      text-wrap: balance;
+    }
+
+    .intelligence-heading h2 span {
+      color: var(--violet);
+    }
+
+    .intelligence-heading p {
+      max-width: 720px;
+      margin: 15px auto 0;
+      color: var(--muted);
+      font-size: clamp(14px, 1.2vw, 17px);
+      line-height: 1.45;
+      text-wrap: balance;
+    }
+
+    .intelligence-system {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(380px, 1.25fr) minmax(190px, .62fr) minmax(300px, .96fr);
+      align-items: center;
+      gap: clamp(22px, 2.6vw, 38px);
+      margin-top: 28px;
+      padding-bottom: 30px;
+    }
+
+    .system-sources,
+    .system-actions,
+    .system-core {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+
+    .system-label {
+      display: block;
+      margin: 0 0 10px;
+      color: #7c8290;
+      font-family: var(--mono);
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .system-source-grid,
+    .system-action-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .system-source-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .system-source-grid li,
+    .system-action-list li {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .system-source-grid li {
+      min-height: 47px;
+      padding: 7px 10px;
+      border: 1px solid #eaeaea;
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 1px 2px rgba(17, 17, 17, .035);
+    }
+
+    .system-source-grid li > span:last-child,
+    .system-action-list li > span:last-child {
+      min-width: 0;
+    }
+
+    .system-source-grid b,
+    .system-source-grid small,
+    .system-action-list b,
+    .system-action-list small {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .system-source-grid b {
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 650;
+      line-height: 1.2;
+    }
+
+    .system-source-grid small {
+      margin-top: 2px;
+      color: #808591;
+      font-size: 8px;
+      line-height: 1.2;
+    }
+
+    .system-icon,
+    .system-action-icon {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      color: var(--violet);
+    }
+
+    .system-icon {
+      width: 29px;
+      height: 29px;
+      border: 1px solid #e8e0fb;
+      border-radius: 8px;
+      background: #f7f4fd;
+    }
+
+    .system-icon svg,
+    .system-action-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .system-core {
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .system-core::before,
+    .system-core::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 74px;
+      width: 58%;
+      height: 1px;
+      background: #ddd4f3;
+    }
+
+    .system-core::before {
+      right: 82%;
+    }
+
+    .system-core::after {
+      left: 82%;
+    }
+
+    .core-orbit {
+      display: grid;
+      width: 138px;
+      height: 138px;
+      place-items: center;
+      border: 1px solid rgba(105, 65, 198, .24);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 9px rgba(105, 65, 198, .045),
+        0 12px 30px rgba(105, 65, 198, .1);
+    }
+
+    .core-disc {
+      display: grid;
+      width: 112px;
+      height: 112px;
+      place-items: center;
+      border-radius: 50%;
+      color: #ffffff;
+      background: var(--violet);
+      animation: core-breathe 3.8s ease-in-out infinite;
+    }
+
+    .core-disc svg {
+      width: 48px;
+      height: 48px;
+      fill: currentColor;
+    }
+
+    .system-core strong {
+      margin-top: 13px;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -.035em;
+    }
+
+    .system-core small {
+      margin-top: 6px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .system-action-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .system-action-list li {
+      min-height: 56px;
+      padding: 9px 13px;
+      border: 1px solid #22252d;
+      border-radius: 10px;
+      color: #ffffff;
+      background: #111318;
+    }
+
+    .system-action-icon {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(156, 116, 238, .45);
+      border-radius: 8px;
+      color: #b894ff;
+      background: rgba(105, 65, 198, .2);
+    }
+
+    .system-action-list b {
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .system-action-list small {
+      margin-top: 2px;
+      color: #a7aab2;
+      font-size: 9px;
+      line-height: 1.2;
+    }
+
+    .system-action-list li.action-multiline small {
+      white-space: normal;
+    }
+
+    .stefani-float {
+      position: absolute;
+      z-index: 3;
+      bottom: -20px;
+      left: 50%;
+      width: min(390px, 42%);
+      min-height: 68px;
+      display: grid;
+      grid-template-columns: 46px minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      align-items: center;
+      column-gap: 12px;
+      padding: 10px 15px 10px 10px;
+      border: 1px solid #e4e4e1;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 10px 28px rgba(17, 19, 24, .1);
+      transform: translateX(-50%);
+      backdrop-filter: blur(12px);
+    }
+
+    .stefani-float img {
+      grid-row: 1 / 3;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 24%;
+    }
+
+    .stefani-float blockquote {
+      align-self: end;
+      margin: 0;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -.015em;
+      line-height: 1.2;
+    }
+
+    .stefani-float > span {
+      align-self: start;
+      margin-top: 3px;
+      color: #858a95;
+      font-family: var(--mono);
+      font-size: 7px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    @keyframes core-breathe {
+      0%,
+      100% {
+        transform: scale(.96);
+      }
+      50% {
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .intelligence-composition {
+        padding: 30px 42px 54px;
+      }
+
+      .intelligence-heading {
+        text-align: left;
+      }
+
+      .intelligence-heading .eyebrow::before {
+        display: block;
+      }
+
+      .intelligence-heading p {
+        margin-left: 0;
+      }
+
+      .intelligence-system {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-top: 36px;
+        padding-bottom: 0;
+      }
+
+      .system-core::before,
+      .system-core::after {
+        display: none;
+      }
+
+      .stefani-float {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        width: min(100%, 440px);
+        margin: 0 auto;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar {
+        background: rgba(255, 255, 255, .94);
+      }
+
+      .slide {
+        padding: 84px 18px 88px;
+      }
+
+      .slide-inner {
+        min-height: calc(100dvh - 172px);
+        padding: 34px 18px 38px;
+      }
+
+      .intelligence-composition {
+        display: block;
+        padding: 22px 0 42px;
+      }
+
+      .intelligence-heading h2 {
+        font-size: clamp(34px, 10.2vw, 44px);
+      }
+
+      .system-source-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .system-source-grid li {
+        min-height: 54px;
+      }
+
+      .system-source-grid b {
+        font-size: 13px;
+      }
+
+      .system-source-grid small {
+        font-size: 10px;
+      }
+
+      .system-action-list li {
+        min-height: 62px;
+      }
+
+      .system-action-list b {
+        font-size: 14px;
+      }
+
+      .system-action-list small {
+        font-size: 10px;
+      }
+
+      .stefani-float {
+        width: 100%;
+      }
+    }
+
+    /* Laptops de 768px de alto: el slide de apertura ahora carga titular,
+       retrato y franja de logos, así que se compacta para no pedir scroll. */
+    @media (max-height: 820px) and (min-width: 981px) {
+      .hero-slide {
+        gap: 28px;
+      }
+
+      .hero-copy .display {
+        font-size: clamp(36px, 3.6vw, 52px);
+      }
+
+      .hero-client-logo {
+        height: 54px;
+      }
+
+      .hero-client-logo img {
+        max-height: 31px;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 981px) {
+      .slide {
+        padding-top: 72px;
+        padding-bottom: 68px;
+      }
+
+      .slide-inner {
+        min-height: calc(100dvh - 140px);
+      }
+
+      .hero-slide {
+        gap: 26px;
+      }
+
+      .hero-copy .display {
+        font-size: clamp(36px, 3.5vw, 50px);
+      }
+
+      .hero-client-logo {
+        height: 52px;
+      }
+
+      .hero-client-logo img {
+        max-height: 30px;
+      }
+
+      .intelligence-composition {
+        padding-top: 16px;
+        padding-bottom: 40px;
+      }
+
+      .intelligence-heading h2 {
+        font-size: clamp(30px, 3vw, 42px);
+      }
+
+      .intelligence-heading p {
+        margin-top: 10px;
+      }
+
+      .intelligence-system {
+        margin-top: 20px;
+      }
+
+      .system-source-grid li {
+        min-height: 41px;
+        padding-block: 5px;
+      }
+
+      .system-action-list li {
+        min-height: 48px;
+        padding-block: 6px;
+      }
+
+      .core-orbit {
+        width: 116px;
+        height: 116px;
+      }
+
+      .core-disc {
+        width: 94px;
+        height: 94px;
+      }
+
+      .system-core::before,
+      .system-core::after {
+        top: 61px;
+      }
+    }
+
+    /* Final slide — live AI test */
+    .try-ai-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(310px, .88fr);
+      align-items: center;
+      gap: clamp(70px, 9vw, 140px);
+      max-width: 1180px;
+    }
+
+    .try-ai-copy .display {
+      max-width: 720px;
+      font-size: clamp(58px, 6vw, 86px);
+    }
+
+    .try-ai-copy .display span {
+      color: var(--violet);
+    }
+
+    .try-ai-copy .lead {
+      max-width: 610px;
+    }
+
+    .try-ai-note {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .try-ai-note::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--violet);
+      box-shadow: 0 0 0 5px var(--violet-soft);
+    }
+
+    .qr-panel {
+      justify-self: end;
+      width: min(100%, 360px);
+      padding-left: clamp(34px, 4vw, 58px);
+      border-left: 1px solid var(--line);
+    }
+
+    .qr-link {
+      display: block;
+    }
+
+    .qr-kicker {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .qr-frame {
+      position: relative;
+      width: min(292px, 100%);
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      transition: border-color .2s ease, transform .2s ease;
+    }
+
+    .qr-link:hover .qr-frame {
+      border-color: rgba(105, 65, 198, .55);
+      transform: translateY(-2px);
+    }
+
+    .qr-frame::before,
+    .qr-frame::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      width: 26px;
+      height: 26px;
+      pointer-events: none;
+    }
+
+    .qr-frame::before {
+      top: -1px;
+      left: -1px;
+      border-top: 2px solid var(--violet);
+      border-left: 2px solid var(--violet);
+    }
+
+    .qr-frame::after {
+      right: -1px;
+      bottom: -1px;
+      border-right: 2px solid var(--violet);
+      border-bottom: 2px solid var(--violet);
+    }
+
+    .qr-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .qr-link strong,
+    .qr-link > span:last-child {
+      display: block;
+    }
+
+    .qr-link strong {
+      margin-top: 18px;
+      color: var(--ink);
+      font-size: 19px;
+      font-weight: 650;
+      letter-spacing: -.025em;
+    }
+
+    .qr-link > span:last-child {
+      margin-top: 5px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .08em;
+    }
+
+    .qr-panel > p {
+      margin: 16px 0 0;
+      color: #8a8f99;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 820px) {
+      .try-ai-layout {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 54px;
+      }
+
+      .try-ai-copy .display {
+        font-size: clamp(50px, 10vw, 70px);
+      }
+
+      .qr-panel {
+        justify-self: start;
+        width: min(100%, 360px);
+        padding: 0;
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .try-ai-layout {
+        gap: 42px;
+      }
+
+      .try-ai-copy .display {
+        font-size: clamp(44px, 13vw, 58px);
+      }
+
+      .qr-frame {
+        width: min(284px, 100%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition-duration: .001ms !important;
+      }
+    }
+    /* ------------------------------------------------------------
+       Chat de Clinera Intelligence — el mockup animado de la razón 05.
+       Antes vivía en un slide propio; al fusionarse con la razón 05 el
+       marco se alinea con el de los otros cuatro mockups (.mock).
+       ------------------------------------------------------------ */
+    .agent-chat {
+      justify-self: end;
+      width: min(100%, 500px);
+      overflow: hidden;
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .agent-chat-bar {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 38px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border-sterile);
+      background: var(--bg-cloud);
+    }
+
+    .agent-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .agent-dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .agent-dots i:nth-child(1) { background: #ff5f57; }
+    .agent-dots i:nth-child(2) { background: #febc2e; }
+    .agent-dots i:nth-child(3) { background: #28c840; }
+
+    .agent-chat-title {
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .agent-chat-body {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      padding: 20px 16px;
+      background: #fafaf8;
+    }
+
+    .agent-user-msg {
+      align-self: flex-end;
+      max-width: 86%;
+      padding: 10px 14px;
+      border-radius: 12px 12px 4px 12px;
+      background: var(--violet);
+      color: #ffffff;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .agent-ai-msg {
+      align-self: flex-start;
+      width: 100%;
+      padding: 14px 16px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px 12px 12px 4px;
+      background: #ffffff;
+    }
+
+    .agent-ai-msg > p {
+      margin: 9px 0 0;
+      color: var(--ink);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .agent-ai-head {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 8.5px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .agent-ai-head svg {
+      width: 11px;
+      height: 11px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.3;
+      stroke-linejoin: round;
+    }
+
+    .agent-stats {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+
+    .agent-stats li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .agent-stats b,
+    .agent-ai-msg p b {
+      color: var(--ink);
+      font-weight: 650;
+    }
+
+    .agent-stats i {
+      flex: 0 0 auto;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+    }
+
+    .agent-stats i.violet { background: var(--violet); }
+    .agent-stats i.gray { background: #d1d5db; }
+
+    .agent-bars {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .agent-bars > div {
+      display: grid;
+      grid-template-columns: 68px minmax(0, 1fr) 54px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .agent-bars span {
+      color: var(--muted);
+      font-size: 11.5px;
+    }
+
+    .agent-bars b {
+      display: block;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #efefec;
+    }
+
+    .agent-bars b i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--violet);
+    }
+
+    .agent-bars b i.gray { background: #d1d5db; }
+
+    .agent-bars small {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 10px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .agent-chat-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    .agent-chat-input span {
+      color: #9a9fa8;
+      font-size: 13px;
+    }
+
+    .agent-chat-input i {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--violet);
+      color: #ffffff;
+    }
+
+    .agent-chat-input i svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    /* Chat animado (mismo loop que el home y /plataforma):
+       la copia estática invisible fija la altura de la ventana y la
+       conversación animada se dibuja encima, así el loop no mueve el slide. */
+    .agent-chat-vivo {
+      position: relative;
+    }
+
+    .agent-sizer {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      visibility: hidden;
+    }
+
+    .agent-capa {
+      position: absolute;
+      inset: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .agent-caret {
+      display: inline-block;
+      width: 2px;
+      height: .95em;
+      margin-left: 3px;
+      vertical-align: -.12em;
+      background: currentColor;
+      animation: agParpadeo 900ms steps(2, start) infinite;
+    }
+
+    .agent-user-entra {
+      animation: agEntra 300ms cubic-bezier(.2, .7, .25, 1) both;
+    }
+
+    .agent-pensando {
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 12px 12px 12px 4px;
+      background: #ffffff;
+      animation: agEntra 300ms cubic-bezier(.2, .7, .25, 1) both;
+    }
+
+    .agent-pensando i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #a78bfa;
+      animation: agBote 1.1s ease-in-out infinite;
+    }
+
+    .agent-pensando i:nth-child(2) { animation-delay: .15s; }
+    .agent-pensando i:nth-child(3) { animation-delay: .3s; }
+
+    .agent-ai-entra {
+      animation: agEntra 420ms cubic-bezier(.2, .7, .25, 1) both;
+    }
+
+    .agent-anima > p {
+      animation: agAparece 380ms 140ms both;
+    }
+
+    .agent-anima .agent-stats li {
+      animation-name: agAparece;
+      animation-duration: 380ms;
+      animation-fill-mode: both;
+    }
+
+    .agent-anima .agent-bars {
+      animation: agAparece 420ms 460ms both;
+    }
+
+    .agent-anima .agent-bars b i {
+      transform-origin: left center;
+      animation: agCreceX 850ms 680ms cubic-bezier(.2, .7, .25, 1) both;
+    }
+
+    .agent-chart {
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .agent-chart-label {
+      display: block;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .agent-chart svg {
+      display: block;
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      margin-top: 10px;
+    }
+
+    .agent-anima .agent-chart {
+      animation: agAparece 420ms 460ms both;
+    }
+
+    .agent-anima .agent-barra {
+      transform-box: fill-box;
+      transform-origin: 50% 100%;
+      animation-name: agCreceY;
+      animation-duration: 750ms;
+      animation-timing-function: cubic-bezier(.2, .7, .25, 1);
+      animation-fill-mode: both;
+    }
+
+    .agent-anima .agent-barra-dato {
+      animation-name: agAparece;
+      animation-duration: 360ms;
+      animation-fill-mode: both;
+    }
+
+    @keyframes agEntra {
+      from { opacity: 0; transform: translateY(8px) scale(.98); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes agAparece {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes agParpadeo {
+      50% { opacity: 0; }
+    }
+
+    @keyframes agBote {
+      0%, 70%, 100% { transform: translateY(0); opacity: .45; }
+      35% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    @keyframes agCreceX {
+      from { transform: scaleX(0); }
+    }
+
+    @keyframes agCreceY {
+      from { transform: scaleY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .agent-caret,
+      .agent-user-entra,
+      .agent-pensando,
+      .agent-pensando i,
+      .agent-ai-entra,
+      .agent-anima > p,
+      .agent-anima .agent-stats li,
+      .agent-anima .agent-bars,
+      .agent-anima .agent-bars b i,
+      .agent-anima .agent-chart,
+      .agent-anima .agent-barra,
+      .agent-anima .agent-barra-dato {
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .agent-chat {
+        justify-self: start;
+      }
+    }
+
+    /* ============================================================
+       Bloque nuevo — sistema visual de la home (clinera.io)
+       Secciones: #para-quien, #razones y #migracion (La condición).
+       Tipografía: Plus Jakarta Sans + Source Code Pro, los mismos
+       archivos self-hosted que sirve el sitio (src/app/fonts.css).
+       ============================================================ */
+
+    /* latin-ext */
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(/fonts/plusjakartasans-LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko40yygg_vbd-E.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(/fonts/plusjakartasans-LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yygg_vb.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(/fonts/plusjakartasans-LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko40yygg_vbd-E.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(/fonts/plusjakartasans-LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yygg_vb.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(/fonts/plusjakartasans-LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko40yygg_vbd-E.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(/fonts/plusjakartasans-LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yygg_vb.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Source Code Pro';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(/fonts/sourcecodepro-HI_SiYsKILxRpg3hIP6sJ7fM7PqlM-vWnsUnxlC9.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Source Code Pro';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(/fonts/sourcecodepro-HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevWnsUnxg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Source Code Pro';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(/fonts/sourcecodepro-HI_SiYsKILxRpg3hIP6sJ7fM7PqlM-vWnsUnxlC9.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Source Code Pro';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(/fonts/sourcecodepro-HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevWnsUnxg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    /* latin-ext */
+    @font-face {
+      font-family: 'Source Code Pro';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(/fonts/sourcecodepro-HI_SiYsKILxRpg3hIP6sJ7fM7PqlM-vWnsUnxlC9.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* latin */
+    @font-face {
+      font-family: 'Source Code Pro';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(/fonts/sourcecodepro-HI_SiYsKILxRpg3hIP6sJ7fM7PqlPevWnsUnxg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* Tokens de la home, con alcance limitado a las secciones del bloque */
+    .blk {
+      --bg-white: #ffffff;
+      --bg-ice: #fafbfc;
+      --bg-cloud: #f4f5f7;
+      --bg-steel: #eceef1;
+      --ink: #111318;
+      --ink-soft: #3d4250;
+      --ink-muted: #9ca3af;
+      --ink-light: #d1d5db;
+      --brand-cyan: #009fe3;
+      --brand-violet: #7c3aed;
+      --brand-magenta: #c850c0;
+      --brand-mint: #10b981;
+      --grad-ia: linear-gradient(135deg, #009fe3 0%, #7c3aed 50%, #c850c0 100%);
+      --grad-ia-soft: linear-gradient(135deg, #009fe30f, #7c3aed0a, #c850c008);
+      --border-sterile: #0000000f;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --max-width: 1200px;
+      --shadow-sm: 0 1px 2px 0 #0000000d;
+      --shadow-md: 0 4px 6px -1px #0000000d;
+      --shadow-lg: 0 10px 15px -3px #00000014;
+      --shadow-xl: 0 20px 40px -8px #0000001f;
+      --blk-sans: 'Plus Jakarta Sans', sans-serif;
+      --blk-mono: 'Source Code Pro', monospace;
+      font-family: var(--blk-sans);
+    }
+
+    .blk-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 22px;
+      color: var(--brand-violet);
+      font-family: var(--blk-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .blk-eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 2px;
+      flex: 0 0 auto;
+      background: currentColor;
+    }
+
+    .blk-h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(38px, 4.7vw, 68px);
+      font-weight: 700;
+      letter-spacing: -.035em;
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+
+    .blk-h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.05;
+      text-wrap: balance;
+    }
+
+    .blk-lead {
+      margin: 22px 0 0;
+      color: var(--ink-soft);
+      font-size: 19px;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+
+    .blk-grad-text {
+      background: var(--grad-ia);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .slide.active .blk-eyebrow {
+      animation: enter .64s var(--ease) both;
+    }
+
+    .slide.active .blk-h1,
+    .slide.active .blk-h2 {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .05s;
+    }
+
+    .slide.active .blk-lead,
+    .slide.active .cn-highlight,
+    .slide.active .cn-body,
+    .slide.active .cn-seal {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .1s;
+    }
+
+    .fg-copy > .fg-detail {
+      margin-top: clamp(22px, 3vh, 34px);
+    }
+
+    /* --- La fuga (#la-fuga) --- */
+    .fg-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(330px, .98fr);
+      align-items: center;
+      align-content: center;
+      gap: clamp(44px, 5.4vw, 88px);
+      max-width: 1220px;
+    }
+
+    .fg-copy .blk-h2,
+    .fg-copy .blk-lead {
+      max-width: 540px;
+    }
+
+    .fg-copy .blk-lead strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* Prueba: logo del cliente y la cifra que recuperó. */
+    .fg-proof {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: clamp(16px, 1.9vw, 24px);
+      margin: 0;
+      padding: clamp(14px, 1.8vh, 19px) clamp(18px, 2vw, 24px);
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-lg);
+      background: var(--grad-ia-soft);
+    }
+
+    /* El PNG del cliente trae el tagline "Somos tu clínica" debajo de la
+       marca, que a este tamaño no se lee. El aspect-ratio recorta a la parte
+       superior del archivo —icono y logotipo— sin tener que generar otro
+       asset: cover escala por ancho y object-position deja fuera el resto. */
+    .fg-proof-logo {
+      display: block;
+      width: clamp(100px, 8.4vw, 116px);
+      height: auto;
+      aspect-ratio: 573 / 145;
+      object-fit: cover;
+      object-position: left top;
+    }
+
+    .fg-proof-body strong {
+      display: block;
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: clamp(16px, 1.4vw, 20px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+    }
+
+    .fg-proof-body span {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink-soft);
+      font-size: 13.5px;
+      line-height: 1.4;
+      text-wrap: pretty;
+    }
+
+    .slide.active .fg-proof {
+      animation: enter .64s var(--ease) .2s both;
+    }
+
+    .fg-panel {
+      justify-self: end;
+      width: min(100%, 470px);
+      padding: clamp(22px, 2.6vw, 30px);
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .fg-panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .fg-panel-tag {
+      color: var(--brand-violet);
+    }
+
+    /* Tres pasos de diez leads: entran, escriben fuera de horario, se pierden.
+       El alto del punto va en vh para que la cadena completa entre en
+       laptops bajas. */
+    .fg-chain {
+      display: grid;
+      gap: clamp(13px, 1.8vh, 20px);
+    }
+
+    .fg-step-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .fg-step-label b {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .fg-dots {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: clamp(5px, .7vw, 8px);
+    }
+
+    .fg-dots i {
+      display: block;
+      height: clamp(16px, 2.5vh, 28px);
+      border-radius: 3px;
+      background: var(--bg-steel);
+    }
+
+    .fg-dots i.on {
+      background: var(--ink-muted);
+    }
+
+    .fg-dots i.hour {
+      background: var(--brand-violet);
+    }
+
+    .fg-dots i.wait {
+      background: var(--brand-mint);
+    }
+
+    .fg-dots i.lost {
+      background: var(--grad-ia);
+    }
+
+    .slide.active .fg-chain {
+      animation: enter .6s var(--ease) both;
+      animation-delay: .12s;
+    }
+
+    .fg-result {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: clamp(16px, 2vh, 22px);
+      padding-top: clamp(14px, 1.8vh, 20px);
+      border-top: 1px solid var(--border-sterile);
+    }
+
+    .fg-result-text {
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      line-height: 1.4;
+      text-wrap: pretty;
+    }
+
+    .fg-result-figure {
+      flex: 0 0 auto;
+      font-family: var(--blk-mono);
+      font-size: clamp(26px, 2.3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1;
+    }
+
+    .fg-cash {
+      margin: clamp(13px, 1.7vh, 18px) 0 0;
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .fg-cash b {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* --- Las cinco razones, una por diapositiva (#razon-1 … #razon-5) --- */
+    .rzs-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(330px, .96fr);
+      align-items: center;
+      align-content: center;
+      gap: clamp(40px, 5vw, 82px);
+      max-width: 1240px;
+    }
+
+    .rzs-copy .blk-h2 {
+      max-width: 560px;
+    }
+
+    .rzs-copy .blk-lead {
+      max-width: 490px;
+    }
+
+    .rzs-points {
+      display: grid;
+      gap: 10px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .rzs-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      text-wrap: pretty;
+    }
+
+    .rzs-points li::before {
+      content: "";
+      flex: 0 0 auto;
+      width: 6px;
+      height: 6px;
+      margin-top: 8px;
+      border-radius: 2px;
+      background: var(--brand-violet);
+    }
+
+    .slide.active .rzs-points {
+      animation: enter .64s var(--ease) both;
+      animation-delay: .14s;
+    }
+
+    /* --- El rostro de AURA (#aura) --- */
+    .aura-face {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: clamp(20px, 2.6vh, 30px);
+    }
+
+    .aura-face img {
+      width: clamp(72px, 8.2vh, 104px);
+      height: clamp(72px, 8.2vh, 104px);
+      flex: 0 0 auto;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 12%;
+      box-shadow: 0 0 0 1px var(--border-sterile), 0 12px 30px rgba(17, 19, 24, .14);
+    }
+
+    .aura-face-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 11px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 999px;
+      color: var(--brand-mint);
+      font-family: var(--blk-mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .aura-face-tag i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .slide.active .aura-face-tag i {
+      animation: auraLatido 2.2s infinite;
+    }
+
+    @keyframes auraLatido {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, .45); }
+      70% { box-shadow: 0 0 0 9px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .slide.active .aura-face {
+      animation: enter .64s var(--ease) both;
+    }
+
+    /* --- Tus herramientas (#herramientas) --- */
+    .hr-layout {
+      display: grid;
+      /* auto auto y no 1fr: con 1fr el grid se estira y reparte el sobrante
+         entre las filas, separando los módulos con huecos enormes. */
+      grid-template-rows: auto auto;
+      align-content: center;
+      gap: clamp(26px, 3.8vh, 46px);
+      max-width: 1080px;
+    }
+
+    .hr-head .blk-h2 {
+      max-width: 820px;
+    }
+
+    .hr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      /* Sin start, el item se estira a la altura de la fila y la barra de la
+         izquierda queda colgando bajo el texto. */
+      align-items: start;
+      gap: clamp(26px, 4.2vh, 48px) clamp(20px, 2.6vw, 34px);
+    }
+
+    .hr-item {
+      padding-left: clamp(14px, 1.6vw, 20px);
+      border-left: 2px solid var(--brand-violet);
+    }
+
+    .hr-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(16px, 1.4vw, 20px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    .hr-item span {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink-soft);
+      font-size: 13.5px;
+      line-height: 1.4;
+      text-wrap: pretty;
+    }
+
+    /* Diapositiva "Clinera y la norma": reusa hr-layout con una tercera fila
+       para la linea de medidas, y la grilla en 2x2 porque son cuatro paises. */
+    .nr-layout {
+      grid-template-rows: auto auto auto;
+    }
+
+    .hr-grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .nr-measures {
+      margin: 0;
+      padding-top: clamp(14px, 2vh, 22px);
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--blk-mono);
+      font-size: 12px;
+      letter-spacing: .06em;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    .nr-status {
+      display: block;
+      margin-top: 8px;
+      color: var(--ink-soft);
+      font-size: 11px;
+      letter-spacing: .1em;
+    }
+
+    .slide.active .hr-grid {
+      animation: enter .64s var(--ease) .14s both;
+    }
+
+    /* ---- Slide empleados digitales (tres tarjetas con retrato) ---- */
+    .ed-agents {
+      align-items: stretch;
+    }
+
+    .ed-agent {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: clamp(16px, 2vh, 22px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.55);
+    }
+
+    .ed-agent-face {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .ed-agent strong {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(15px, 1.3vw, 18px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    .ed-agent span {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 13.5px;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    /* ---- Ventana de producto compartida por los mockups ---- */
+    .mock {
+      justify-self: end;
+      width: min(100%, 500px);
+      overflow: hidden;
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      box-shadow: var(--shadow-xl);
+    }
+
+    .mock-bar {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 38px;
+      padding: 0 14px;
+      border-bottom: 1px solid var(--border-sterile);
+      background: var(--bg-cloud);
+    }
+
+    .mock-dots {
+      display: flex;
+      flex: 0 0 auto;
+      gap: 5px;
+    }
+
+    .mock-dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .mock-dots i:nth-child(1) { background: #ff5f57; }
+    .mock-dots i:nth-child(2) { background: #febc2e; }
+    .mock-dots i:nth-child(3) { background: #28c840; }
+
+    .mock-title {
+      overflow: hidden;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .mock-body {
+      display: grid;
+      gap: 9px;
+      padding: 15px 14px;
+      background: var(--bg-ice);
+    }
+
+    /* Las piezas entran en secuencia. El selector exige .slide.active, así
+       la animación sólo corre en la diapositiva visible y se reinicia cada
+       vez que se vuelve a ella. */
+    .slide.active .mock-step {
+      animation: mockIn .5s var(--ease) both;
+    }
+
+    @keyframes mockIn {
+      from { opacity: 0; transform: translateY(9px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ---- Burbujas de chat (razones 1, 4 y 5) ---- */
+    .mock-msg {
+      max-width: 90%;
+      padding: 9px 13px;
+      border-radius: 12px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    .mock-msg.in {
+      justify-self: start;
+      border: 1px solid var(--border-sterile);
+      border-bottom-left-radius: 4px;
+      color: var(--ink);
+      background: #ffffff;
+    }
+
+    .mock-msg.out {
+      justify-self: end;
+      border-bottom-right-radius: 4px;
+      color: #ffffff;
+      background: var(--brand-violet);
+    }
+
+    .mock-msg span {
+      display: block;
+      margin-bottom: 5px;
+      font-family: var(--blk-mono);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .mock-msg.out span {
+      color: #ffffffb8;
+    }
+
+    .mock-msg.in span {
+      color: var(--ink-muted);
+    }
+
+    /* ---- Tarjeta de llamada con onda (razón 1) ---- */
+    .mock-call {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 13px;
+      border: 1px solid var(--border-sterile);
+      border-radius: var(--radius-md);
+      background: #ffffff;
+    }
+
+    .mock-icon {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid #7c3aed26;
+      border-radius: var(--radius-md);
+      color: var(--brand-violet);
+      background: #7c3aed0f;
+    }
+
+    .mock-icon svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .mock-call b,
+    .mock-call small {
+      display: block;
+    }
+
+    .mock-call b {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .mock-call small {
+      margin-top: 2px;
+      color: var(--ink-muted);
+      font-family: var(--blk-mono);
+      font-size: 8.5px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .mock-wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 18px;
+      margin-left: auto;
+    }
+
+    .mock-wave i {
+      width: 3px;
+      height: 5px;
+      border-radius: 2px;
+      background: var(--brand-violet);
+    }
+
+    .slide.active .mock-wave i {
+      animation: mockWave 1s ease-in-out infinite;
+    }
+
+    .slide.active .mock-wave i:nth-child(2) { animation-delay: .12s; }
+    .slide.active .mock-wave i:nth-child(3) { animation-delay: .24s; }
+    .slide.active .mock-wave i:nth-child(4) { animation-delay: .36s; }
+    .slide.active .mock-wave i:nth-child(5) { animation-delay: .48s; }
+
+    @keyframes mockWave {
+      0%, 100% { height: 5px; }
+      50% { height: 17px; }
+    }
+
+    /* --- La condición (#migracion) — la única sección oscura --- */
+    .slide.blk-dark {
+      background: #111318;
+    }
+
+    .slide.blk-dark .slide-inner {
+      background: transparent;
+    }
+
+    .blk-dark .blk-eyebrow {
+      color: #b79bf5;
+    }
+
+    .blk-dark .blk-h1 {
+      color: #ffffff;
+    }
+
+    .cn-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.06fr) minmax(320px, .94fr);
+      align-items: center;
+      align-content: center;
+      gap: clamp(52px, 6vw, 96px);
+      max-width: 1220px;
+    }
+
+    .cn-highlight {
+      max-width: 560px;
+      margin: 26px 0 0;
+      color: #f4f5f7;
+      font-size: clamp(21px, 1.9vw, 26px);
+      font-weight: 600;
+      letter-spacing: -.02em;
+      line-height: 1.35;
+      text-wrap: pretty;
+    }
+
+    .cn-body {
+      max-width: 560px;
+      margin: 18px 0 0;
+      color: #c4c8d1;
+      font-size: 19px;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+
+    .cn-seal {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 34px;
+      padding: 13px 18px;
+      border: 1px solid #3a2f55;
+      border-radius: var(--radius-md);
+      color: #b79bf5;
+      font-family: var(--blk-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .cn-seal::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      flex: 0 0 auto;
+      background: #7c3aed;
+    }
+
+    .cn-cards {
+      display: grid;
+      gap: 14px;
+    }
+
+    .cn-card {
+      padding: 24px 26px;
+      border: 1px solid #2a2d35;
+      border-radius: var(--radius-lg);
+      background: #171a20;
+    }
+
+    .cn-card h3 {
+      margin: 0;
+      color: #ffffff;
+      font-family: var(--blk-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .cn-card p {
+      margin: 10px 0 0;
+      color: #c4c8d1;
+      font-size: 15px;
+      line-height: 1.6;
+      text-wrap: pretty;
+    }
+
+    .cn-card.cn-card-accent {
+      border-color: #3a2f55;
+      background: #1a1626;
+    }
+
+    .cn-card.cn-card-accent h3 {
+      color: #b79bf5;
+    }
+
+    /* --- El veredicto (#veredicto) --- */
+    .mn-layout {
+      position: relative;
+      z-index: 0;
+      max-width: 700px;
+    }
+
+    /* Comilla editorial de fondo: rompe el bloque cuadrado del titular sin
+       agregar un segundo color protagonista (mismo violeta del eyebrow y
+       del punto del sello). Elemento propio, no ::before: .mn-layout ya
+       es .slide-inner, que tiene su propio ::before (barra + "CLINERA"),
+       y un pseudo-elemento es único por elemento — compartirlo con ese
+       mezclaría ambas reglas en una sola caja en vez de crear dos.
+       z-index:-1 queda contenido por el stacking context de .mn-layout. */
+    .mn-quote {
+      position: absolute;
+      z-index: -1;
+      top: clamp(-64px, -7vw, -40px);
+      left: -4px;
+      color: rgba(124, 58, 237, .16);
+      font-size: clamp(140px, 15vw, 230px);
+      font-weight: 700;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .mn-seal {
+      border-radius: 999px;
+    }
+
+    /* Chrome del deck en modo oscuro (activo mientras se ve La condición) */
+    body {
+      transition: background-color .4s ease;
+    }
+
+    .topbar,
+    .chapter,
+    .counter,
+    .footer-note {
+      transition: color .4s ease, background-color .4s ease, border-color .4s ease;
+    }
+
+    .progress {
+      transition: background-color .4s ease;
+    }
+
+    .progress-fill {
+      transition: width .42s var(--ease), background-color .4s ease;
+    }
+
+    .control {
+      transition: border-color .3s ease, transform .15s ease, opacity .2s ease, background-color .4s ease, color .4s ease;
+    }
+
+    body.deck-dark {
+      background: #111318;
+    }
+
+    body.deck-dark .topbar {
+      border-bottom-color: #2a2d35;
+      color: #ffffff;
+      background: rgba(17, 19, 24, .86);
+    }
+
+    body.deck-dark .chapter {
+      color: #c4c8d1;
+    }
+
+    body.deck-dark .counter {
+      color: #ffffff;
+    }
+
+    body.deck-dark .progress {
+      background: #2a2d35;
+    }
+
+    body.deck-dark .progress-fill {
+      background: #b79bf5;
+    }
+
+    body.deck-dark .footer-note {
+      color: #8b929e;
+    }
+
+    body.deck-dark .control {
+      border-color: #2a2d35;
+      color: #ffffff;
+      background: rgba(23, 26, 32, .86);
+    }
+
+    body.deck-dark .control:hover:not(:disabled) {
+      border-color: #8b929e;
+    }
+
+    body.deck-dark :focus-visible {
+      outline-color: rgba(183, 155, 245, .5);
+    }
+
+    /* Responsive del bloque nuevo */
+    @media (max-width: 960px) {
+      .rzs-layout,
+      .fg-layout,
+      .cn-layout {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 40px;
+      }
+
+    .rzs-copy .blk-lead,
+      .rzs-copy .blk-h2,
+      .fg-copy .blk-h2 {
+        max-width: 640px;
+      }
+
+      .mock {
+        justify-self: start;
+        width: min(100%, 520px);
+      }
+
+      .fg-panel {
+        justify-self: start;
+        width: min(100%, 520px);
+        order: 2;
+      }
+
+      .fg-copy {
+        display: contents;
+      }
+
+      .fg-head {
+        order: 1;
+      }
+
+      .fg-detail {
+        order: 3;
+      }
+
+      .fg-copy > .fg-detail {
+        margin-top: 0;
+      }
+
+      .cn-cards {
+        max-width: 640px;
+      }
+    }
+
+    /* Bajo ~760px la tabla deja de ser tabla y pasa a ser una tarjeta por
+       volumen: el volumen y la plata arriba, en grande y lado a lado, y los
+       dos datos de apoyo debajo. El encabezado de cada columna se repite como
+       etiqueta (data-label). La fila del umbral queda como separador. */
+    /* En teléfono el gráfico necesita más alto para que las etiquetas no se
+       pisen, el eje se queda con los dos extremos y las tres cifras pasan a
+       una columna. */
+    @media (max-width: 760px) {
+
+      /* Nueve módulos en tres columnas no entran en un teléfono. */
+      .hr-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px 18px;
+      }
+
+      .hr-item strong {
+        font-size: 15px;
+      }
+
+      .hr-item span {
+        margin-top: 4px;
+        font-size: 12.5px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .blk-lead {
+        font-size: 17px;
+      }
+
+      .fg-cash {
+        margin-top: 14px;
+        font-size: 14px;
+      }
+
+      .fg-result-figure {
+        font-size: 30px;
+      }
+
+      .rzs-points {
+        margin-top: 20px;
+        font-size: 15px;
+      }
+
+      .mock {
+        width: 100%;
+      }
+
+      .mock-msg {
+        max-width: 94%;
+        font-size: 13px;
+      }
+
+      .cn-body {
+        font-size: 17px;
+      }
+
+      .cn-seal {
+        font-size: 11px;
+      }
+
+      .cn-card {
+        padding: 20px 22px;
+      }
+
+      .fg-dots i {
+        height: 18px;
+      }
+    }
+
+    /* ------------------------------------------------------------
+       Pantallas chicas: laptops de 1024x640 y tablet en vertical.
+       Todo este bloque va al final por la misma razón que el anterior:
+       a igual especificidad gana la última regla.
+       ------------------------------------------------------------ */
+
+    /* El diagrama de Clinera O.S. tiene anchos mínimos de columna que
+       suman más que el ancho disponible bajo ~1180px, y como un ítem de
+       grid no baja de su min-content, el slide terminaba con scroll
+       horizontal. Se estrechan los mínimos en vez de apilar las columnas,
+       que en pantallas bajas dispararía el alto. */
+    @media (min-width: 961px) and (max-width: 1180px) {
+      .intelligence-system {
+        grid-template-columns: minmax(300px, 1.25fr) minmax(160px, .62fr) minmax(250px, .96fr);
+        gap: 18px;
+      }
+    }
+
+    @media (max-height: 820px) and (min-width: 961px) {
+
+      .cn-highlight {
+        margin-top: 20px;
+        font-size: clamp(19px, 1.7vw, 23px);
+      }
+
+      .cn-body {
+        margin-top: 14px;
+        font-size: 16px;
+      }
+
+      .cn-seal {
+        margin-top: 24px;
+        padding: 11px 15px;
+      }
+
+      .cn-cards {
+        gap: 11px;
+      }
+
+      .cn-card {
+        padding: 17px 19px;
+      }
+
+      .cn-card p {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .fg-copy .blk-h2 {
+        font-size: clamp(24px, 2.5vw, 36px);
+      }
+
+      .fg-copy .rzs-points {
+        margin-top: 18px;
+        gap: 8px;
+        font-size: 15px;
+      }
+
+      .fg-panel {
+        padding: 22px;
+      }
+    }
+
+    @media (max-height: 720px) and (min-width: 961px) {
+
+      .fg-copy .blk-h2 {
+        font-size: clamp(22px, 2.2vw, 31px);
+      }
+
+      .fg-copy .rzs-points {
+        margin-top: 14px;
+        font-size: 14px;
+      }
+
+      .fg-panel {
+        padding: 18px;
+      }
+
+      .cn-body {
+        margin-top: 12px;
+        font-size: 15px;
+      }
+
+      .cn-seal {
+        margin-top: 20px;
+      }
+
+      .cn-cards {
+        gap: 9px;
+      }
+
+      .cn-card {
+        padding: 13px 16px;
+      }
+
+      .cn-card p {
+        margin-top: 6px;
+        font-size: 13px;
+      }
+    }
+
+    /* Seis filas de tabla más encabezado y cierre no caben en un portátil de
+       1366x640: acá se aprieta lo justo para que la tabla completa siga
+       entrando en pantalla sin scroll. */
+    @media (max-height: 680px) and (min-width: 961px) {
+      .aura-face {
+        margin-bottom: 14px;
+      }
+
+      .aura-face img {
+        width: 62px;
+        height: 62px;
+        border-width: 2px;
+      }
+
+      /* La fuga: la lista de checks y el panel de la cadena también aprietan. */
+      .fg-copy > .fg-detail {
+        margin-top: 16px;
+      }
+    }
+
+    /* Tablet en vertical: una columna, pero con alto de sobra sólo en
+       apariencia — "La condición" apila copy y tres tarjetas. */
+    @media (min-width: 621px) and (max-width: 960px) {
+      .cn-layout {
+        gap: 32px;
+      }
+
+      .cn-cards {
+        gap: 11px;
+      }
+
+      .cn-card {
+        padding: 18px 20px;
+      }
+
+      .cn-card p {
+        margin-top: 8px;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .cn-seal {
+        margin-top: 24px;
+      }
+    }
+
+    .partner-cta-row { display:flex; gap:14px; flex-wrap:wrap; margin-top:28px; }
+    .partner-cta-row a {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:14px 22px; border-radius:12px;
+      font-weight:600; font-size:16px; letter-spacing:-0.02em;
+    }
+    .partner-cta-primary { background:#6941c6; color:#fff !important; }
+    .partner-cta-secondary { border:1px solid var(--line); background:#fff; }
+    .partner-pay-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:28px; }
+    .partner-pay-card {
+      background:#fff; border:1px solid var(--line); border-radius:16px; padding:28px 26px;
+    }
+    .partner-pay-card.featured { background:#111318; color:#fff; border-color:#241f34; }
+    .partner-pay-card .num {
+      font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#6941c6;
+    }
+    .partner-pay-card.featured .num { color:#c4b5fd; }
+    .partner-pay-card h3 { margin:10px 0 8px; font-size:clamp(36px,4vw,52px); letter-spacing:-0.04em; }
+    .partner-pay-card p { margin:0; color:var(--muted); font-size:15px; line-height:1.55; }
+    .partner-pay-card.featured p { color:rgba(255,255,255,.7); }
+    @media (max-width:720px) { .partner-pay-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="flag-cl" viewBox="0 0 30 20">
+        <rect width="30" height="20" fill="#fff" />
+        <rect y="10" width="30" height="10" fill="#D52B1E" />
+        <rect width="10" height="10" fill="#0039A6" />
+        <path fill="#fff" d="M5 2.8l.62 1.66 1.78.06-1.4 1.1.52 1.7L5 6.3 3.48 7.32l.52-1.7-1.4-1.1 1.78-.06z" />
+      </symbol>
+      <symbol id="flag-mx" viewBox="0 0 30 20">
+        <rect width="10" height="20" fill="#006847" />
+        <rect x="10" width="10" height="20" fill="#fff" />
+        <rect x="20" width="10" height="20" fill="#CE1126" />
+        <circle cx="15" cy="10" r="2.4" fill="#8B5E3C" />
+      </symbol>
+      <symbol id="flag-pe" viewBox="0 0 30 20">
+        <rect width="10" height="20" fill="#D91023" />
+        <rect x="10" width="10" height="20" fill="#fff" />
+        <rect x="20" width="10" height="20" fill="#D91023" />
+      </symbol>
+      <symbol id="flag-co" viewBox="0 0 30 20">
+        <rect width="30" height="20" fill="#FCD116" />
+        <rect y="10" width="30" height="5" fill="#003893" />
+        <rect y="15" width="30" height="5" fill="#CE1126" />
+      </symbol>
+    </defs>
+  </svg>
+  <div class="deck">
+    <header class="topbar">
+      <div class="brand" aria-label="Clinera.io">clinera<span class="brand-dot" aria-hidden="true"></span>io</div>
+      <div class="deck-name">Partners</div>
+      <div class="chapter" id="chapter">Clinera O.S.</div>
+    </header>
+
+    <main class="slides" id="slides">
+      <section
+        class="slide active"
+        id="partners"
+        data-name="Programa partner"
+        aria-hidden="false"
+      >
+        <div class="slide-inner hero-slide">
+          <div class="hero-copy">
+            <div class="eyebrow">Programa partner</div>
+            <h1 class="display">
+              Refiere clínicas. <span>Ganas desde el primer cierre.</span>
+            </h1>
+            <p class="lead">
+              <strong>US$ 150</strong> de pago base inicial por cada cliente referido,
+              más el <strong>10% del valor del plan durante 6 meses</strong>.
+              El equipo de ventas de Clinera cierra. Tú mantienes la comisión.
+            </p>
+          </div>
+          <aside class="hero-clients reveal" aria-label="Clínicas que ya operan con Clinera">
+            <span class="hero-clients-label">Clínicas que ya operan con Clinera</span>
+            <div class="hero-client-logos">
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/clc.png" alt="Clínica Las Condes" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/andes.png" alt="Andes Salud" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/everest.png" alt="Everest Clínicas Dentales" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/sanatorio.png" alt="Sanatorio Alemán" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/sonrie.png" alt="Sonríe" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/lumina.png" alt="Lumina Clínica Facial" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/hebe.png" alt="Método Hebe" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/clustourmed.png" alt="Clustourmed" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/uanl.png" alt="Universidad Autónoma de Nuevo León" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/elcielo.png" alt="El Cielo Medical Center" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/taemm.png" alt="TAEMM" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/euroclinica.png" alt="Euroclínica" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-pe" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/clinicainternacional.png" alt="Clínica Internacional" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-pe" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/quironsalud.png" alt="Quirónsalud" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-co" /></svg></span>
+              </span>
+              <span class="hero-client-logo">
+                <img src="/presentacion/clientes/cirugiasplasticas.svg" alt="Elite Cirugía Plástica" loading="lazy" decoding="async" />
+                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-co" /></svg></span>
+              </span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="ganas"
+        data-name="Lo que ganas"
+        aria-hidden="true"
+      >
+        <div class="slide-inner">
+          <div class="blk-eyebrow">LO QUE GANAS TÚ</div>
+          <h2 class="blk-h2">Un pago base que no existía, más <span class="blk-grad-text">comisión sobre el plan.</span></h2>
+          <p class="blk-lead">Dos números. Nada de descuentos eternos ni porcentajes inventados en el camino.</p>
+          <div class="partner-pay-grid">
+            <article class="partner-pay-card featured">
+              <div class="num">01 · Pago base inicial</div>
+              <h3>US$ 150</h3>
+              <p>Pago inicial por cada cliente referido que cierra. Cobras al inicio, no solo si el plan se mantiene.</p>
+            </article>
+            <article class="partner-pay-card">
+              <div class="num">02 · Comisión del plan</div>
+              <h3>10%</h3>
+              <p>El 10% del valor del plan durante 6 meses. Se calcula sobre el plan que contrata la clínica.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="hace"
+        data-name="Qué hace un partner"
+        aria-hidden="true"
+      >
+        <div class="slide-inner cn-layout">
+          <div class="cn-copy">
+            <div class="blk-eyebrow">QUÉ HACE UN PARTNER</div>
+            <h1 class="blk-h1">Tú abres la puerta. <span class="blk-grad-text">Clinera cierra.</span></h1>
+            <p class="cn-body">No te pedimos un equipo comercial propio ni pelear el contrato. La comisión se mantiene aunque el cierre lo hagamos nosotros.</p>
+          </div>
+          <div class="cn-cards reveal">
+            <article class="cn-card">
+              <h3>01 · Subir historias</h3>
+              <p>Muestra Clinera en tus redes. Una historia bien puesta abre la conversación con clínicas que ya te siguen.</p>
+            </article>
+            <article class="cn-card">
+              <h3>02 · Crear contenido</h3>
+              <p>Posts, reels o notas que expliquen cómo opera un empleado digital. No hace falta ser media company.</p>
+            </article>
+            <article class="cn-card">
+              <h3>03 · Referir clientes</h3>
+              <p>Presentas la clínica. Nosotros calificamos y cerramos. Tu comisión no se diluye.</p>
+            </article>
+            <article class="cn-card cn-card-accent">
+              <h3>04 · Eventos y webinars</h3>
+              <p>Armas un evento para vender la solución. El equipo de Clinera se sienta a cerrar con quien llegue de ahí.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide ai"
+        id="intelligence"
+        data-name="Clinera O.S."
+        aria-hidden="true"
+      >
+        <div class="slide-inner intelligence-composition">
+          <header class="intelligence-heading">
+            <div class="eyebrow">Clinera O.S. · núcleo operativo</div>
+            <h2>
+              Clinera O.S., <span>el sistema con IA por el que opera tu clínica.</span>
+            </h2>
+            <p>
+              Toda tu operación entrega contexto. Clinera O.S. entiende, decide y actúa.
+            </p>
+          </header>
+
+          <div
+            class="intelligence-system reveal"
+            role="img"
+            aria-label="Los módulos de agenda, sedes, fichas, tratamientos, ventas, pagos, marketing, WhatsApp, consentimientos y exámenes alimentan Clinera O.S. para agendar, responder, llamar con su call center IA para cobros y recordatorios con CAMILA, cobrar y automatizar."
+          >
+            <section class="system-sources" aria-label="Módulos que alimentan Clinera O.S.">
+              <span class="system-label">Toda tu operación la alimenta</span>
+              <ul class="system-source-grid">
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg>
+                  </span>
+                  <span><b>Agenda</b><small>Horas y bloqueos</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m4 10 8-6 8 6v10H4V10ZM9 20v-6h6v6"/></svg>
+                  </span>
+                  <span><b>Sedes</b><small>Toda tu operación</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3Zm7 0v5h5M10 12h5M10 16h5"/></svg>
+                  </span>
+                  <span><b>Fichas</b><small>Historial de pacientes</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3c.8 4.9 3.1 7.2 8 8-4.9.8-7.2 3.1-8 8-.8-4.9-3.1-7.2-8-8 4.9-.8 7.2-3.1 8-8Z"/></svg>
+                  </span>
+                  <span><b>Tratamientos</b><small>Precios y protocolos</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5 20V5M5 20h15M8 16l4-5 3 2 4-6"/></svg>
+                  </span>
+                  <span><b>Ventas</b><small>Qué se vende y cuánto</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M3 7h18v12H3V7Zm0 4h18"/></svg>
+                  </span>
+                  <span><b>Pagos</b><small>Cobros y conciliación</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m4 11 15-6v14L4 13v-2Zm4 3v5"/></svg>
+                  </span>
+                  <span><b>Marketing</b><small>Campañas y difusión</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
+                  </span>
+                  <span><b>WhatsApp</b><small>Toda la conversación</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M7 3h10v18H7V3Zm3 11 2 2 4-5"/></svg>
+                  </span>
+                  <span><b>Consentimientos</b><small>Firmados y archivados</small></span>
+                </li>
+                <li>
+                  <span class="system-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M3 13h4l2-7 4 13 2-7h6"/></svg>
+                  </span>
+                  <span><b>Exámenes</b><small>Resultados y controles</small></span>
+                </li>
+              </ul>
+            </section>
+
+            <section class="system-core" aria-label="Clinera O.S.">
+              <div class="core-orbit" aria-hidden="true">
+                <div class="core-disc">
+                  <svg viewBox="0 0 64 64">
+                    <path d="M32 7c2.8 13.8 11.2 22.2 25 25-13.8 2.8-22.2 11.2-25 25C29.2 43.2 20.8 34.8 7 32 20.8 29.2 29.2 20.8 32 7Z"/>
+                  </svg>
+                </div>
+              </div>
+              <strong>Clinera O.S.</strong>
+              <small>Contexto · decisiones · acción</small>
+            </section>
+
+            <section class="system-actions" aria-label="Acciones de Clinera O.S.">
+              <span class="system-label">Clinera O.S. actúa</span>
+              <ul class="system-action-list">
+                <li>
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Zm4 9 2 2 4-4"/></svg>
+                  </span>
+                  <span><b>Agenda y reagenda</b><small>Reserva y mueve horas sola</small></span>
+                </li>
+                <li>
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 1-11.7 7L4 20l1.5-4A8 8 0 1 1 20 11Z"/></svg>
+                  </span>
+                  <span><b>Responde 24/7</b><small>Por WhatsApp, sin descanso</small></span>
+                </li>
+                <li class="action-multiline">
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0M4 13h3v5H4v-5ZM17 13h3v5h-3v-5Zm3 5a4 4 0 0 1-4 3h-3"/></svg>
+                  </span>
+                  <span><b>Call center IA</b><small>Cobros y recordatorios por voz, con acento local</small></span>
+                </li>
+                <li>
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c-1-1-2.4-1.5-4-1.5-2.2 0-4 1.1-4 3s1.8 3 4 3 4 1.1 4 3-1.8 3-4 3c-1.6 0-3-.5-4-1.5"/></svg>
+                  </span>
+                  <span><b>Cobra y recupera</b><small>Confirma pagos y reactiva</small></span>
+                </li>
+                <li>
+                  <span class="system-action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m13 2-8 12h6l-1 8 9-13h-6V2Z"/></svg>
+                  </span>
+                  <span><b>Automatiza</b><small>Flujos que se disparan solos</small></span>
+                </li>
+              </ul>
+            </section>
+
+            <aside class="stefani-float" aria-label="Testimonio de la Dra. Stefani">
+              <img
+                src="/images/testimonials/stefani-michailiszen.webp"
+                alt="Dra. Stefani, clienta de Clinera"
+                loading="lazy"
+                decoding="async"
+              />
+              <blockquote>“Clinera es el corazón de mi clínica.”</blockquote>
+              <span>Dra. Stefani</span>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="empleados-digitales"
+        data-name="Tus empleados digitales"
+        aria-hidden="true"
+      >
+        <div class="slide-inner hr-layout">
+          <header class="hr-head">
+            <div class="blk-eyebrow">TU EQUIPO IA</div>
+            <h2 class="blk-h2">Un equipo completo de <span class="blk-grad-text">empleados digitales</span>.</h2>
+            <p class="blk-lead">Tres roles, una sola memoria del paciente. Disponibles hoy.</p>
+          </header>
+
+          <div class="hr-grid ed-agents reveal">
+            <article class="ed-agent">
+              <img class="ed-agent-face" src="/agents/camila.jpg" alt="CAMILA" loading="lazy" decoding="async" />
+              <strong>CAMILA · voz</strong>
+              <span>Llama, confirma y reagenda. Cinco acentos: CL, CO, PE, MX y ES.</span>
+            </article>
+            <article class="ed-agent">
+              <img class="ed-agent-face" src="/agents/aura.jpg" alt="AURA" loading="lazy" decoding="async" />
+              <strong>AURA · WhatsApp</strong>
+              <span>Responde, agenda y cobra 24/7 sobre la agenda real de tu clínica.</span>
+            </article>
+            <article class="ed-agent">
+              <img class="ed-agent-face" src="/agents/lia.jpg" alt="LIA" loading="lazy" decoding="async" />
+              <strong>LIA · orquestadora</strong>
+              <span>Vigila la operación y despacha a CAMILA o AURA según el paciente.</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="inteligencia"
+        data-name="Clinera Intelligence"
+        aria-hidden="true"
+      >
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="blk-eyebrow">CLINERA INTELLIGENCE</div>
+            <h2 class="blk-h2">Clinera Intelligence, tu <span class="blk-grad-text">agente interno con IA</span>.</h2>
+            <p class="blk-lead">Le preguntas a tu clínica en español y te responde con lo que realmente pasó.</p>
+            <ul class="rzs-points">
+              <li>Ventas, cobros, citas y tratamientos en un chat</li>
+              <li>Respuestas en segundos, con gráficos al momento</li>
+              <li>Sin exportar nada ni esperar el cierre de mes</li>
+            </ul>
+          </div>
+
+          <aside class="agent-chat reveal" aria-label="Vista del chat Clinera Intelligence">
+            <div class="agent-chat-bar">
+              <span class="agent-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="agent-chat-title">Clinera Intelligence</span>
+            </div>
+            <div class="agent-chat-body">
+              <div class="agent-user-msg">¿Cuánto vendí el mes pasado?</div>
+              <div class="agent-ai-msg">
+                <span class="agent-ai-head">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                  Clinera Intelligence
+                </span>
+                <p>En julio vendiste <b>$101.293.919</b> en 63 ventas.</p>
+                <ul class="agent-stats">
+                  <li><i class="violet"></i>Cobrado: <b>$92.505.165</b> · 54 pagadas</li>
+                  <li><i class="gray"></i>Pendiente: <b>$8.788.754</b> · 9 parciales</li>
+                </ul>
+                <div class="agent-bars" aria-hidden="true">
+                  <div><span>Cobrado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>
+                  <div><span>Pendiente</span><b><i class="gray" style="width: 9%"></i></b><small>$8,8 M</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="agent-chat-input">
+              <span>Pregúntale a tu clínica…</span>
+              <i aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="M8 13V3M3.8 7.2 8 3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </i>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide blk blk-dark"
+        id="aplicar"
+        data-name="Aplicar"
+        data-theme="dark"
+        aria-hidden="true"
+      >
+        <div class="slide-inner mn-layout">
+          <div class="blk-eyebrow">PROGRAMA PARTNER · 2026</div>
+          <h1 class="blk-h1">El primer cliente que refieras <span class="blk-grad-text">ya paga base.</span></h1>
+          <p class="cn-body" style="color:rgba(255,255,255,.72)">US$ 150 al cierre, más el 10% del plan durante 6 meses. Agendamos, revisamos tu red y te activamos — incluida tu landing.</p>
+          <div class="partner-cta-row">
+            <a class="partner-cta-primary" href="/reunion-comercial">Aplicar al programa →</a>
+            <a class="partner-cta-secondary" href="/partners" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.2)">Volver a /partners</a>
+          </div>
+          <p class="cn-seal mn-seal">VENTAS DE CLINERA CIERRA · TÚ MANTIENES LA COMISIÓN</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="deck-footer" aria-label="Navegación de la presentación">
+      <div class="counter" aria-live="polite">
+        <span id="currentCount">01</span> / <span id="totalCount">10</span>
+      </div>
+      <div class="progress" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="footer-note">Flechas para navegar</div>
+      <div class="controls">
+        <button class="control" id="previousButton" type="button" aria-label="Diapositiva anterior" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="m15 18-6-6 6-6"></path>
+          </svg>
+        </button>
+        <button class="control" id="nextButton" type="button" aria-label="Siguiente diapositiva">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const chapter = document.getElementById("chapter");
+      const currentCount = document.getElementById("currentCount");
+      const totalCount = document.getElementById("totalCount");
+      const progressFill = document.getElementById("progressFill");
+      const previousButton = document.getElementById("previousButton");
+      const nextButton = document.getElementById("nextButton");
+      const hashIndex = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
+      let current = hashIndex >= 0 ? hashIndex : 0;
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      totalCount.textContent = String(slides.length).padStart(2, "0");
+
+      const updateControlState = () => {
+        previousButton.disabled = current === 0;
+        nextButton.disabled = current === slides.length - 1;
+      };
+
+      const render = (next, updateHash = true) => {
+        current = Math.max(0, Math.min(next, slides.length - 1));
+
+        slides.forEach((slide, index) => {
+          const active = index === current;
+          slide.classList.toggle("active", active);
+          slide.setAttribute("aria-hidden", String(!active));
+          if (active) slide.scrollTop = 0;
+        });
+
+        const activeSlide = slides[current];
+        document.body.classList.toggle("deck-dark", activeSlide.dataset.theme === "dark");
+        chapter.textContent = activeSlide.dataset.name;
+        currentCount.textContent = String(current + 1).padStart(2, "0");
+        progressFill.style.width = `${((current + 1) / slides.length) * 100}%`;
+        updateControlState();
+
+        if (updateHash) {
+          window.history.replaceState(null, "", `#${activeSlide.id}`);
+        }
+      };
+
+      const goPrevious = () => render(current - 1);
+      const goNext = () => render(current + 1);
+
+      previousButton.addEventListener("click", goPrevious);
+      nextButton.addEventListener("click", goNext);
+
+      document.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "PageDown", " "].includes(event.key)) {
+          if (event.key === " " && event.target.closest("button")) return;
+          event.preventDefault();
+          goNext();
+        }
+
+        if (["ArrowLeft", "PageUp"].includes(event.key)) {
+          event.preventDefault();
+          goPrevious();
+        }
+
+        if (event.key === "Home") {
+          event.preventDefault();
+          render(0);
+        }
+
+        if (event.key === "End") {
+          event.preventDefault();
+          render(slides.length - 1);
+        }
+      });
+
+      document.addEventListener(
+        "touchstart",
+        (event) => {
+          touchStartX = event.changedTouches[0].clientX;
+          touchStartY = event.changedTouches[0].clientY;
+        },
+        { passive: true }
+      );
+
+      document.addEventListener(
+        "touchend",
+        (event) => {
+          const deltaX = event.changedTouches[0].clientX - touchStartX;
+          const deltaY = event.changedTouches[0].clientY - touchStartY;
+          if (Math.abs(deltaX) < 54 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+          if (deltaX < 0) goNext();
+          if (deltaX > 0) goPrevious();
+        },
+        { passive: true }
+      );
+
+      window.addEventListener("hashchange", () => {
+        const index = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
+        if (index >= 0 && index !== current) {
+          render(index, false);
+        }
+      });
+
+      render(current, hashIndex < 0);
+    })();
+  </script>
+  <script>
+    // Chat animado de Clinera Intelligence — mismo loop que el home y
+    // /plataforma: la pregunta se tipea, aparecen los puntos de "pensando",
+    // la respuesta entra en cascada con los gráficos creciendo y, tras una
+    // pausa de lectura, cambia a la otra pregunta y repite. Corre solo
+    // mientras el slide está activo; con prefers-reduced-motion o sin JS
+    // queda la vista estática del HTML.
+    (() => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const slide = document.getElementById("inteligencia");
+      const cuerpo = slide && slide.querySelector(".agent-chat-body");
+      if (!cuerpo) return;
+
+      const PREGUNTA = {
+        ventas: "¿Cuánto vendí el mes pasado?",
+        citas: "¿Cuántos pacientes agendaron y cuántos llegaron a tratamiento?",
+      };
+      const OTRO = { ventas: "citas", citas: "ventas" };
+      const MS_LETRA = 26;
+      const MS_ANTES_PENSAR = 380;
+      const MS_PENSANDO = 1250;
+      const MS_LECTURA = 5800;
+
+      const cabezaIa =
+        '<span class="agent-ai-head">' +
+        '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>' +
+        "Clinera Intelligence</span>";
+
+      const respuestaVentas = (anima) => {
+        const d = (ms) => (anima ? ' style="animation-delay:' + ms + 'ms"' : "");
+        return (
+          '<div class="agent-ai-msg' + (anima ? " agent-ai-entra agent-anima" : "") + '">' +
+          cabezaIa +
+          "<p>En julio vendiste <b>$101.293.919</b> en 63 ventas.</p>" +
+          '<ul class="agent-stats">' +
+          "<li" + d(240) + '><i class="violet"></i>Cobrado: <b>$92.505.165</b> · 54 pagadas</li>' +
+          "<li" + d(360) + '><i class="gray"></i>Pendiente: <b>$8.788.754</b> · 9 parciales</li>' +
+          "</ul>" +
+          '<div class="agent-bars" aria-hidden="true">' +
+          '<div><span>Cobrado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>' +
+          '<div><span>Pendiente</span><b><i class="gray" style="width: 9%"></i></b><small>$8,8 M</small></div>' +
+          "</div></div>"
+        );
+      };
+
+      const respuestaCitas = (anima) => {
+        const barras = [
+          { x: 16, y: 20, h: 84, v: "2.046", t: "Agendadas", f: "#F3F4F6", s: "#E5E7EB" },
+          { x: 90, y: 56, h: 48, v: "1.176", t: "Asistieron", f: "#6941C6", s: "" },
+          { x: 164, y: 82, h: 22, v: "541", t: "Canceladas", f: "#D1D5DB", s: "" },
+          { x: 238, y: 93, h: 11, v: "273", t: "Ausentes", f: "#D1D5DB", s: "" },
+        ];
+        const grupos = barras
+          .map((b, i) => {
+            const d1 = anima ? ' style="animation-delay:' + (520 + i * 140) + 'ms"' : "";
+            const d2 = anima ? ' style="animation-delay:' + (720 + i * 140) + 'ms"' : "";
+            return (
+              "<g>" +
+              '<rect class="agent-barra"' + d1 + ' x="' + b.x + '" y="' + b.y +
+              '" width="46" height="' + b.h + '" rx="3" fill="' + b.f + '"' +
+              (b.s ? ' stroke="' + b.s + '"' : "") + "></rect>" +
+              '<text class="agent-barra-dato"' + d2 + ' x="' + (b.x + 23) + '" y="' + (b.y - 7) +
+              '" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" font-weight="600" fill="#111318">' +
+              b.v + "</text>" +
+              '<text x="' + (b.x + 23) + '" y="120" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#656a76">' +
+              b.t.toUpperCase() + "</text></g>"
+            );
+          })
+          .join("");
+        return (
+          '<div class="agent-ai-msg' + (anima ? " agent-ai-entra agent-anima" : "") + '">' +
+          cabezaIa +
+          "<p>Se agendaron <b>2.046 citas</b> y <b>1.176 pacientes</b> llegaron a su tratamiento (57% de asistencia).</p>" +
+          '<div class="agent-chart"><span class="agent-chart-label">Citas por estado</span>' +
+          '<svg viewBox="0 0 300 132" aria-hidden="true">' + grupos +
+          '<line x1="8" y1="104" x2="292" y2="104" stroke="#E5E7EB"></line></svg>' +
+          "</div></div>"
+        );
+      };
+
+      const RESPUESTA = { ventas: respuestaVentas, citas: respuestaCitas };
+      const burbuja = (esc) => '<div class="agent-user-msg">' + PREGUNTA[esc] + "</div>";
+
+      cuerpo.classList.add("agent-chat-vivo");
+      cuerpo.innerHTML =
+        '<div class="agent-sizer" aria-hidden="true"></div><div class="agent-capa"></div>';
+      const sizer = cuerpo.querySelector(".agent-sizer");
+      const capa = cuerpo.querySelector(".agent-capa");
+
+      let escenario = "ventas";
+      let timers = [];
+      const limpiar = () => {
+        timers.forEach((t) => clearTimeout(t));
+        timers = [];
+      };
+      const en = (fn, ms) => timers.push(setTimeout(fn, ms));
+
+      const pintarEstatico = () => {
+        sizer.innerHTML = burbuja(escenario) + RESPUESTA[escenario](false);
+        capa.innerHTML = burbuja(escenario) + RESPUESTA[escenario](false);
+      };
+
+      const cicloTipeo = () => {
+        sizer.innerHTML = burbuja(escenario) + RESPUESTA[escenario](false);
+        capa.innerHTML =
+          '<div class="agent-user-msg agent-user-entra"><span></span><i class="agent-caret" aria-hidden="true"></i></div>';
+        const texto = capa.querySelector("span");
+        const pregunta = PREGUNTA[escenario];
+        let n = 0;
+        const teclear = () => {
+          n += 1;
+          texto.textContent = pregunta.slice(0, n);
+          if (n < pregunta.length) en(teclear, MS_LETRA);
+          else en(cicloPensando, MS_ANTES_PENSAR);
+        };
+        en(teclear, MS_LETRA);
+      };
+
+      const cicloPensando = () => {
+        capa.innerHTML =
+          burbuja(escenario) +
+          '<div class="agent-pensando" aria-hidden="true"><i></i><i></i><i></i></div>';
+        en(cicloRespuesta, MS_PENSANDO);
+      };
+
+      const cicloRespuesta = () => {
+        capa.innerHTML = burbuja(escenario) + RESPUESTA[escenario](true);
+        en(() => {
+          escenario = OTRO[escenario];
+          cicloTipeo();
+        }, MS_LECTURA);
+      };
+
+      const activo = () => slide.classList.contains("active");
+      let corriendo = false;
+      const evaluar = () => {
+        if (activo() && !corriendo) {
+          corriendo = true;
+          limpiar();
+          escenario = "ventas";
+          cicloTipeo();
+        } else if (!activo() && corriendo) {
+          corriendo = false;
+          limpiar();
+          pintarEstatico();
+        }
+      };
+
+      pintarEstatico();
+      new MutationObserver(evaluar).observe(slide, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+      evaluar();
+    })();
+  </script>
+</body>
+</html>
