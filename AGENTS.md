@@ -341,3 +341,34 @@ ficha (ver el repo `baserow`, `sales/n8n/recablear_aviso_unico.py`).
 
 Si cambiás las claves `lead_stage` / `booking_status`, ese corte deja de
 funcionar y los avisos vuelven a duplicarse sin ningún error visible.
+
+## Cursor Cloud specific instructions
+
+Sitio de marketing Next.js 16 (App Router, Turbopack). Gestor de paquetes:
+**pnpm** (hay `pnpm-lock.yaml`; no uses npm/yarn — `package-lock.json` está en
+`.gitignore` a propósito). Comandos estándar en `package.json`: `pnpm dev`
+(servidor de desarrollo en `localhost:3000`), `pnpm lint`, `pnpm build`,
+`pnpm test:e2e`.
+
+- **No hace falta ningún secret/env var para desarrollar.** Las API routes que
+  tocan terceros (`/api/meta/capi` → Meta CAPI, Stripe, `@vercel/blob`,
+  nodemailer) tienen fallbacks, así que el sitio arranca y navega sin
+  credenciales; simplemente no pegan contra los servicios reales. El agendador
+  de `/agenda` muestra "no hay tratamientos disponibles" porque no hay backend
+  de reservas — es esperado en local, no un error.
+- **E2E (Playwright):** el `playwright.config.ts` por defecto levanta
+  `npm run dev` con `reuseExistingServer: true`, así que reusa un dev server ya
+  corriendo. Requiere el navegador Chromium de Playwright instalado
+  (`pnpm exec playwright install --with-deps chromium`). **No uses
+  `playwright.sandbox.config.ts`**: apunta a un binario fijo
+  (`/opt/pw-browsers/chromium-1194/...`) de otro sandbox que no existe en el VM
+  del Cloud Agent.
+- **Tests que ya fallan en esta rama (no son del entorno):** 7 de ~54 e2e
+  fallan por copy/comportamiento, no por setup — el wizard de `/ventas` no
+  dispara el evento Meta `MQL` dentro del timeout (`ventas-meta-events.spec.ts`,
+  `ventas-lead.spec.ts`) y `cotizacion-price.spec.ts` busca texto de `/planes`
+  que no está en el DOM actual. El resto pasa. Verifica contra este baseline
+  antes de culpar a un cambio tuyo.
+- **`pnpm lint` sale con errores preexistentes** (~38, p. ej.
+  `react/no-unescaped-entities`, `react-hooks/set-state-in-effect`). La
+  herramienta funciona; los errores son de código existente.
