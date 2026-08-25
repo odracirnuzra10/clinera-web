@@ -37,10 +37,10 @@ test.describe("landing /partners", () => {
 
     const hero = page.locator("section").first();
     await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(hero.getByText("US$ 150")).toBeVisible();
-    await expect(hero.getByText("10%")).toBeVisible();
-    await expect(hero.getByText("6 meses")).toBeVisible();
-    await expect(hero.getByText("15%")).toHaveCount(0);
+    await expect(hero.getByText("US$ 150", { exact: true })).toBeVisible();
+    await expect(hero.getByText("10%", { exact: true })).toBeVisible();
+    await expect(hero.getByText("6 meses", { exact: true })).toBeVisible();
+    await expect(hero.getByText("15%", { exact: true })).toHaveCount(0);
 
     const body = await page.locator("body").innerText();
     expect(body).not.toMatch(/Permanente para todos los clientes/);
@@ -49,6 +49,8 @@ test.describe("landing /partners", () => {
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
+    await apply.click();
+    await expect(page).toHaveURL(/\/reunion-comercial/);
   });
 
   test("el footer apunta a /partners, no a /agencias", async ({ page }) => {
