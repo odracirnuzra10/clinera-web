@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import QRCode from "qrcode";
 import { PartnerKit } from "@/components/partner/PartnerKit";
-import { getPartner, getPartnerPublicUrl, listPartners } from "@/lib/partners";
+import {
+  getPartner,
+  getPartnerKitPath,
+  getPartnerPublicUrl,
+  listPartners,
+} from "@/lib/partners";
 import { partnerKitMetadata } from "@/lib/partner-seo";
 
 export const dynamicParams = false;
@@ -28,6 +33,7 @@ export default async function PartnerSlugKitPage({
   const { slug } = await params;
   const partner = getPartner(slug);
   if (!partner) notFound();
+  if (partner.vanity) redirect(getPartnerKitPath(partner));
 
   const url = getPartnerPublicUrl(partner.slug);
   const qrDataUrl = await QRCode.toDataURL(url, {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { PartnerLanding } from "@/components/partner/PartnerLanding";
-import { getPartner, listPartners } from "@/lib/partners";
+import { getPartner, getPartnerPublicPath, listPartners } from "@/lib/partners";
 import { partnerLandingMetadata } from "@/lib/partner-seo";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -30,6 +30,7 @@ export default async function PartnerSlugPage({
   const { slug } = await params;
   const partner = getPartner(slug);
   if (!partner) notFound();
+  if (partner.vanity) redirect(getPartnerPublicPath(partner));
 
   return <PartnerLanding partner={partner} whatsappUrl={buildWhatsAppUrl(partner)} />;
 }

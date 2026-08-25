@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import type { Partner } from "@/lib/partners";
 import { PartnerFaq } from "@/components/partner/PartnerFaq";
 import { PartnerFooter } from "@/components/partner/PartnerFooter";
@@ -33,6 +35,11 @@ const PROOF = [
   { label: "WhatsApp Business API", stat: false },
 ] as const;
 
+function partnerPhotoSrc(partner: Partner): string | null {
+  const rel = partner.photo.replace(/^\//, "");
+  return existsSync(join(process.cwd(), "public", rel)) ? partner.photo : null;
+}
+
 export function PartnerLanding({
   partner,
   whatsappUrl,
@@ -40,6 +47,7 @@ export function PartnerLanding({
   partner: Partner;
   whatsappUrl: string;
 }) {
+  const photoSrc = partnerPhotoSrc(partner);
   return (
     <div style={{ display: "flex", minHeight: "100dvh", flexDirection: "column" }}>
       <PartnerTracker partner={partner} />
@@ -53,7 +61,7 @@ export function PartnerLanding({
               Recomendación verificada
             </p>
             <div style={{ marginTop: 12 }}>
-              <PartnerPhoto partner={partner} />
+              <PartnerPhoto partner={partner} src={photoSrc} />
             </div>
             <h1
               style={{
