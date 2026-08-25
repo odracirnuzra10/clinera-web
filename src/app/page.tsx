@@ -23,6 +23,16 @@ const organizationLd = {
   name: "Clinera.io",
   url: "https://www.clinera.io",
   logo: "https://www.clinera.io/images/brand/clinera-icon-512.png",
+  // Señal de tema para AI Overviews / LLMs — categorías ya vendidas en el sitio, no claims nuevas.
+  knowsAbout: [
+    "Inteligencia Artificial para Clínicas",
+    "Agendamiento Automático por WhatsApp",
+    "Fichas Clínicas Electrónicas",
+    "Automatización de Recepción Médica",
+    "Gestión de Pacientes con IA",
+    "CRM para Clínicas Médicas y Estéticas",
+    "Recuperación de Pacientes con Agentes de IA",
+  ],
   sameAs: [
     "https://cl.linkedin.com/company/clinera-io",
     "https://www.instagram.com/clinera.io",
@@ -41,8 +51,8 @@ const softwareLd = {
   url: "https://www.clinera.io",
   offers: {
     "@type": "AggregateOffer",
-    lowPrice: "129",
-    highPrice: "1500",
+    lowPrice: "279",
+    highPrice: "479",
     priceCurrency: "USD",
     offerCount: "4",
   },
