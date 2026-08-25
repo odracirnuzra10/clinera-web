@@ -3,7 +3,7 @@ import { PARTNER_CNN_VIMEO_SRC } from "@/lib/partners";
 
 export function PartnerCnnVideo() {
   return (
-    <section className="partner-card" aria-labelledby="partner-cnn-title">
+    <section className="partner-card partner-cnn" aria-labelledby="partner-cnn-title">
       <div className="partner-cnn-head">
         <CnnLogo height={22} color="#F03A47" />
         <p className="partner-eyebrow" style={{ margin: 0 }}>

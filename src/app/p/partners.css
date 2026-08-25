@@ -170,6 +170,20 @@
   padding: 20px 20px 18px;
 }
 
+.partner-hero-title {
+  margin: 12px 0 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.partner-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .partner-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -422,6 +436,10 @@
   text-align: center;
 }
 
+.partner-close-copy .partner-section-title {
+  margin-bottom: 8px;
+}
+
 .partner-btn {
   display: inline-flex;
   align-items: center;
@@ -535,6 +553,17 @@
   background: #fff;
 }
 
+.partner-footer-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .partner-footer a {
   color: var(--partner-mute) !important;
 }
@@ -553,6 +582,11 @@
     display: none;
   }
 
+  .partner-kit-stack {
+    max-width: 880px;
+    padding: 28px 24px 48px;
+  }
+
   .partner-kit-top {
     display: grid;
     grid-template-columns: 200px 1fr;
@@ -569,6 +603,99 @@
   .partner-photo {
     width: 88px;
     height: 88px;
+  }
+}
+
+@media (min-width: 960px) {
+  .partner-nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+    height: 56px;
+  }
+
+  .partner-stack {
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: stretch;
+    gap: 16px;
+    padding: 28px 32px 56px;
+  }
+
+  .partner-hero {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 28px 28px 24px;
+  }
+
+  .partner-hero-title {
+    font-size: 2rem;
+  }
+
+  .partner-cnn {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .partner-cnn .partner-video {
+    margin-top: auto;
+  }
+
+  .partner-features {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .partner-side {
+    grid-column: 2;
+    grid-row: 2;
+    gap: 16px;
+  }
+
+  .partner-close {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    text-align: left;
+    padding: 28px 32px;
+  }
+
+  .partner-close-copy {
+    flex: 1;
+    min-width: 0;
+    max-width: 580px;
+  }
+
+  .partner-close-copy .partner-section-title {
+    margin-bottom: 6px;
+    font-size: 1.35rem;
+  }
+
+  .partner-close-cta {
+    width: auto !important;
+    min-width: 300px;
+    margin-top: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .partner-photo {
+    width: 104px;
+    height: 104px;
+  }
+
+  .partner-pills {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .partner-footer-inner {
+    max-width: 1100px;
+    padding: 24px 32px;
   }
 }
 

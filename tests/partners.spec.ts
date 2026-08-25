@@ -49,6 +49,19 @@ test.describe("landing /partner/km", () => {
     await expect(iframe).toHaveAttribute("src", /player\.vimeo\.com\/video\/1205127087/);
   });
 
+  test("en escritorio el hero y el video quedan lado a lado", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/partner/km");
+    const hero = page.locator(".partner-hero");
+    const video = page.locator(".partner-cnn");
+    const heroBox = await hero.boundingBox();
+    const videoBox = await video.boundingBox();
+    expect(heroBox).toBeTruthy();
+    expect(videoBox).toBeTruthy();
+    expect(Math.abs((heroBox?.y ?? 0) - (videoBox?.y ?? 0))).toBeLessThan(24);
+    expect((videoBox?.x ?? 0)).toBeGreaterThan((heroBox?.x ?? 0) + (heroBox?.width ?? 0) / 2);
+  });
+
   test("no publica precios ni planes", async ({ page }) => {
     await page.goto("/partner/km");
     const body = await page.locator("body").innerText();
