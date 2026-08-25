@@ -364,3 +364,19 @@ Decisiones consolidadas en la rama `feat/aeo-fase1-contenido` (agosto 2026):
 - **Landings "mejor software":** pilares en `/mejor-software-clinicas` (+ `/chile`,
   `/mexico`, `/colombia`); city-pages siguen en `/recursos/mejor-software-clinicas-*`.
   Data tipada en `src/content/mejor-software.ts`.
+
+# Programa partners (`/p/[slug]`)
+
+Un partner = una entrada en `src/lib/partners.ts`. La landing, el OG, el kit y
+el mensaje de WhatsApp se arman solos: no hay que tocar componentes para sumar
+al número 2 ni al 50.
+
+**Por qué el `ref` va dentro del texto de WhatsApp.** El 90% del tráfico llega
+desde un sticker de Instagram o un DM. En WhatsApp no sobreviven cookies ni
+UTMs. Si se acorta o se “limpia” el mensaje pre-llenado de
+`src/lib/whatsapp.ts`, se pierde la atribución y el closer no sabe de quién
+viene el prospecto.
+
+La landing pública no muestra precios ni planes: los conversa ventas (hoy
+Rebeca). El kit (`/p/[slug]/kit`) es privado (`robots: noindex`) — es lo que se
+le manda al partner, no al prospecto.

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { allClinics } from '@/content/clinics';
+import { listPartners } from '@/lib/partners';
 import { allCruzadas } from '@/content/comparativas-cross';
 import { allPosts } from '@/content/posts';
 import { publishedRecursos } from '@/content/recursos';
@@ -115,6 +116,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: r.updatedAt ? new Date(r.updatedAt) : new Date(r.publishedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
+    })),
+
+    // Partners públicos (el kit /p/[slug]/kit es noindex y no entra)
+    ...listPartners().map((p) => ({
+      url: `${baseUrl}/p/${p.slug}`,
+      lastModified: now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
     })),
 
     // Posts del blog (auto desde MDX) — prioridad mayor para fichas-clinicas
