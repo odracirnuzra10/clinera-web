@@ -28,6 +28,17 @@ export const PARTNERS: Record<string, Partner> = {
       "Te lo recomiendo si la agenda, los cobros y el seguimiento de pacientes te están comiendo el día.",
     sales: { name: "Rebeca", phone: "56965810649" },
   },
+  yasna: {
+    slug: "yasna",
+    vanity: "yv",
+    ref: "YASNA01",
+    name: "Yasna Vásquez",
+    role: "Estética Facial · Talca",
+    photo: "/partners/yasna.jpg",
+    intro:
+      "Para que las campañas y la agenda no dependan de más secretarias. Si el WhatsApp de la clínica te está comiendo el día, míralo.",
+    sales: { name: "Rebeca", phone: "56965810649" },
+  },
 };
 
 export const PARTNER_SITE_ORIGIN = "https://www.clinera.io";

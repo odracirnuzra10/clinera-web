@@ -178,6 +178,41 @@
   letter-spacing: -0.035em;
 }
 
+.partner-discount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 12px 0 0;
+}
+
+.partner-discount-num {
+  font-size: 2.7rem;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  background: var(--partner-spark);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.partner-discount-copy {
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--partner-ink);
+  line-height: 1.25;
+}
+
+.partner-discount-why {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--partner-mute);
+  max-width: 28ch;
+}
+
 .partner-side {
   display: flex;
   flex-direction: column;
@@ -631,6 +666,14 @@
 
   .partner-hero-title {
     font-size: 2rem;
+  }
+
+  .partner-discount-num {
+    font-size: 3.4rem;
+  }
+
+  .partner-discount-copy {
+    font-size: 1.1rem;
   }
 
   .partner-cnn {

@@ -383,12 +383,13 @@ al número 2 ni al 50. Si el partner tiene `vanity`, la URL pública es
 `/partner/{vanity}` y `next.config.ts` redirige `/p/{slug}` ahí.
 
 Katherine Meza: vanity `km` → `https://www.clinera.io/partner/km`. El kit
-(privado, `noindex`) está en `/partner/km/kit`.
+(privado, `noindex`) está en `/partner/km/kit`. Yasna Vásquez: vanity `yv` →
+`/partner/yv`, ref `YASNA01`.
 
 El CTA público dice **«Coordinar reunión con Clinera»** (`PARTNER_CTA_LABEL` en
 `src/lib/partners.ts`): hero, cierre y sticky. Sigue yendo a WhatsApp con el
-mensaje de `src/lib/whatsapp.ts` (incluye `ref: KATHE01`). El helper «Te
-responde una persona, no un bot.» se queda. No volver a «Hablar con Rebeca
+mensaje de `src/lib/whatsapp.ts` (incluye `ref: KATHE01` / `YASNA01`). El helper
+«Te responde una persona, no un bot.» se queda. No volver a «Hablar con Rebeca
 por WhatsApp».
 
 El clip de CNN es el mismo de `/plataforma` (`PressCNN`): Vimeo
@@ -396,11 +397,18 @@ El clip de CNN es el mismo de `/plataforma` (`PressCNN`): Vimeo
 `public/partners/<slug>.jpg` (ver `public/partners/README.md`); si falta, las
 iniciales — nunca un img roto.
 
+**El dato de cara al referido es el 10% × 3 meses**, no el bono de US$ 150.
+El US$ 150 es lo que cobra el partner; vive en `/partners`. En
+`/partner/{vanity}` el titular es el descuento de la clínica (lo aplica el
+closer al cierre). Sigue sin publicarse precio de plan (Vortex/Atlas/Summit,
+279/379/479/450).
+
 **Por qué el `ref` va dentro del texto de WhatsApp.** El 90% del tráfico llega
 desde un sticker de Instagram o un DM. En WhatsApp no sobreviven cookies ni
 UTMs. Si se acorta o se “limpia” el mensaje pre-llenado de
 `src/lib/whatsapp.ts`, se pierde la atribución y el closer no sabe de quién
 viene el prospecto.
 
-La landing pública no muestra precios ni planes: los conversa ventas (hoy
-Rebeca). El kit es lo que se le manda al partner, no al prospecto.
+La landing pública no muestra precios de plan: eso lo conversa ventas (hoy
+Rebeca). El 10% × 3 meses sí se publica: es el beneficio del referido. El kit
+es lo que se le manda al partner, no al prospecto.
