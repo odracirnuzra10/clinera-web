@@ -636,12 +636,6 @@
   .partner-cnn {
     grid-column: 2;
     grid-row: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .partner-cnn .partner-video {
-    margin-top: auto;
   }
 
   .partner-features {
