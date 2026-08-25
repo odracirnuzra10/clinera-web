@@ -51,8 +51,7 @@ test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
     await expect(page.getByRole("heading", { name: "Hablemos más de tu clínica" })).toBeVisible();
     await page.getByPlaceholder("Ej: Clínica Sonríe").fill(`[E2E TEST] Clinica ${id}`);
     await page.getByPlaceholder("www.tuclinica.cl o @tuclinica").fill("www.e2e-clinera.cl");
-    await page.getByPlaceholder("Santiago").fill("Santiago");
-    await page.getByRole("button", { name: "Médica", exact: true }).click();
+    await page.getByLabel("Tipo de clínica").selectOption("medica");
     await page.getByRole("button", { name: /^Continuar$/ }).filter({ visible: true }).click();
 
     await expect(page.getByRole("heading", { name: "Tus datos de contacto" })).toBeVisible();
@@ -78,7 +77,7 @@ test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
     expect(contact?.tamano_operacion).toBe("vol_200_500");
     expect(contact?.cargo).toBe("Dueño / Fundador");
     expect(contact?.sitio_web).toContain("e2e-clinera");
-    expect(contact?.ciudad).toBe("Santiago");
+    expect(contact?.ciudad ?? "").toBe("");
     expect(contact?.necesidad_principal).toMatch(/fichas|consentimientos|odontograma/);
     expect(contact?.fuente).toContain("/agenda");
   });

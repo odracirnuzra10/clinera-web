@@ -224,7 +224,8 @@ calendario **no** es Cal.com: reusa `StepClineraScheduler` de
 
 El aviso de Google Chat y Twenty los arma `OACG TECH | Wizard` (`A3wOPmhQjit8VswM`)
 en n8n: en `/agenda` ya no se anuncia «Software actual». Van necesidad, cargo,
-web/redes, ciudad, volumen y clínica. El botón «Agenda con tu ingeniero» abre
+web/redes, volumen y clínica (ciudad se dejó de pedir en el paso 3 — el
+webhook sigue mandando `ciudad: ""`). El botón «Agenda con tu ingeniero» abre
 el calendario **sin esperar** el webhook — si se vuelve a `await`, se pierden leads.
 
 # `/agenda`: la hora que se guarda es de Chile, siempre
