@@ -1,10 +1,6 @@
 import { expect, test } from "@playwright/test";
 import {
   PARTNERS_CANONICAL,
-  PARTNERS_COMMISSION_DURATION_LABEL,
-  PARTNERS_COMMISSION_LABEL,
-  PARTNERS_COMMISSION_MONTHS,
-  PARTNERS_COMMISSION_PERCENT,
   PARTNERS_CTA_HREF,
   PARTNERS_PATH,
   PARTNERS_PRESENTATION_HREF,
@@ -13,13 +9,9 @@ import {
 } from "@/content/partners-program";
 
 test.describe("fuente de verdad del programa partner", () => {
-  test("los números públicos son US$ 150 + 10% por 6 meses", () => {
+  test("el número público es US$ 150 de bono, sin comisión sobre el plan", () => {
     expect(PARTNERS_REFERRAL_FEE_USD).toBe(150);
-    expect(PARTNERS_COMMISSION_PERCENT).toBe(10);
-    expect(PARTNERS_COMMISSION_MONTHS).toBe(6);
     expect(PARTNERS_REFERRAL_FEE_LABEL).toBe("US$ 150");
-    expect(PARTNERS_COMMISSION_LABEL).toBe("10%");
-    expect(PARTNERS_COMMISSION_DURATION_LABEL).toBe("6 meses");
     expect(PARTNERS_PATH).toBe("/partners");
     expect(PARTNERS_CANONICAL).toBe("https://www.clinera.io/partners");
     expect(PARTNERS_CTA_HREF).toBe("/reunion-comercial");
@@ -28,9 +20,7 @@ test.describe("fuente de verdad del programa partner", () => {
 });
 
 test.describe("landing /partners", () => {
-  test("publica el modelo de comisión y no el 15% de descuento permanente", async ({
-    page,
-  }) => {
+  test("publica el bono de US$ 150 y no el 10% ni el 15%", async ({ page }) => {
     await page.goto("/partners");
     await expect(page).toHaveTitle(/Programa Partner/i);
 
@@ -40,14 +30,16 @@ test.describe("landing /partners", () => {
     const hero = page.locator("section").first();
     await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(hero.getByText("US$ 150", { exact: true })).toBeVisible();
-    await expect(hero.getByText("10%", { exact: true })).toBeVisible();
-    await expect(hero.getByText("6 meses", { exact: true })).toBeVisible();
+    await expect(hero.getByText("10%", { exact: true })).toHaveCount(0);
     await expect(hero.getByText("15%", { exact: true })).toHaveCount(0);
 
     const body = await page.locator("body").innerText();
+    expect(body).not.toMatch(/10%/);
+    expect(body).not.toMatch(/15%/);
     expect(body).not.toMatch(/Permanente para todos los clientes/);
     expect(body).not.toMatch(/\bEficiente\b/);
     expect(body).not.toMatch(/Agentic Pro/);
+    expect(body).toMatch(/US\$ 150/);
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
@@ -70,6 +62,7 @@ test.describe("landing /partners", () => {
     await deck.click();
     await expect(page).toHaveURL(/\/presentacion-partners/);
     await expect(page.locator(".slide.active")).toContainText("US$ 150");
+    await expect(page.locator("body")).not.toContainText("10%");
     await expect(page.locator("body")).not.toContainText("15%");
   });
 
@@ -107,5 +100,6 @@ test.describe("redirect /presentacion-agencia → /presentacion-partners", () =>
     await page.goto("/presentacion-agencia");
     expect(new URL(page.url()).pathname).toBe("/presentacion-partners");
     await expect(page.locator(".slide.active")).toContainText("US$ 150");
+    await expect(page.locator("body")).not.toContainText("10%");
   });
 });

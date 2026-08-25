@@ -1,10 +1,10 @@
 /**
  * Fuente única del programa partner público (`/partners`).
  *
- * Números, copy de comisión y FAQ viven acá. La landing, el metadata, el
- * JSON-LD y el deck `public/presentacion-partners/index.html` tienen que
- * leer o copiar desde este archivo — no reinventar US$ 150 / 10% / 6 meses
- * a mano en tres sitios (eso fue el bug del 15% de descuento permanente).
+ * Números, copy y FAQ viven acá. La landing, el metadata, el JSON-LD y el
+ * deck `public/presentacion-partners/index.html` tienen que leer o copiar
+ * desde este archivo — no reinventar el bono a mano (eso fue el bug del
+ * 15% de descuento y, después, del 10% de comisión).
  *
  * `/agencias` redirige acá. `public/reseller.html` es un programa viejo y
  * huérfano: no es esta oferta. `/presentacion-agencia` redirige al deck
@@ -18,49 +18,41 @@ export const PARTNERS_CANONICAL = `https://www.clinera.io${PARTNERS_PATH}` as co
 export const PARTNERS_CTA_HREF = "/reunion-comercial" as const;
 export const PARTNERS_PRESENTATION_HREF = "/presentacion-partners" as const;
 
-/** Pago base inicial por cliente referido que cierra. */
+/** Bono único por cliente referido que cierra. No hay comisión sobre el plan. */
 export const PARTNERS_REFERRAL_FEE_USD = 150;
 
-/** Comisión sobre el valor del plan, en porcentaje. */
-export const PARTNERS_COMMISSION_PERCENT = 10;
-
-/** Duración pública de la comisión. El mail a Frine usa otro wording a propósito. */
-export const PARTNERS_COMMISSION_MONTHS = 6;
-
 export const PARTNERS_REFERRAL_FEE_LABEL = `US$ ${PARTNERS_REFERRAL_FEE_USD}`;
-export const PARTNERS_COMMISSION_LABEL = `${PARTNERS_COMMISSION_PERCENT}%`;
-export const PARTNERS_COMMISSION_DURATION_LABEL = `${PARTNERS_COMMISSION_MONTHS} meses`;
 
 export const PARTNERS_META_TITLE =
-  "Programa Partner — US$ 150 + 10% del plan por 6 meses | Clinera.io";
+  "Programa Partner — US$ 150 por cada cliente referido | Clinera.io";
 
 export const PARTNERS_META_DESCRIPTION =
-  "Programa partner de Clinera: US$ 150 de pago base inicial por cada cliente referido, más el 10% del valor del plan durante 6 meses. El equipo de ventas cierra; tú mantienes la comisión. Cada partner tiene su landing.";
+  "Programa partner de Clinera: US$ 150 de bono por cada cliente referido que cierra. El equipo de ventas cierra. Tú recibes el bono. Cada partner tiene su landing.";
 
 export const PARTNERS_OG_DESCRIPTION =
-  "US$ 150 de pago base por cliente referido + 10% del plan durante 6 meses. Ventas de Clinera cierra. Tú mantienes la comisión.";
+  "US$ 150 de bono por cada cliente referido que cierra. Ventas de Clinera cierra. Tú recibes el bono.";
 
 export const PARTNERS_HERO = {
   eyebrow: "Programa partner",
   h1Before: "Refiere clínicas.",
   h1Accent: "Ganas desde el primer cierre.",
-  lead: `US$ ${PARTNERS_REFERRAL_FEE_USD} de pago base inicial por cada cliente referido, más el ${PARTNERS_COMMISSION_PERCENT}% del valor del plan durante ${PARTNERS_COMMISSION_MONTHS} meses. El equipo de ventas de Clinera cierra. Tú mantienes la comisión.`,
+  lead: `US$ ${PARTNERS_REFERRAL_FEE_USD} de bono por cada cliente referido que cierra. El equipo de ventas de Clinera cierra. Tú recibes el bono.`,
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
 } as const;
 
 export const PARTNERS_STATS = [
   {
-    label: "Pago base inicial",
+    label: "Bono por cierre",
     value: PARTNERS_REFERRAL_FEE_LABEL,
   },
   {
     label: "Comisión del plan",
-    value: PARTNERS_COMMISSION_LABEL,
+    value: "No",
   },
   {
-    label: "Duración de la comisión",
-    value: PARTNERS_COMMISSION_DURATION_LABEL,
+    label: "Cuándo se paga",
+    value: "Al cierre",
   },
   {
     label: "Quién cierra",
@@ -82,7 +74,7 @@ export const PARTNERS_FUNCTIONS = [
   {
     num: "03",
     title: "Referir clientes",
-    desc: "Presentas la clínica. Nosotros tomamos el lead, calificamos y cerramos. Tu comisión no se diluye porque el cierre lo haga Clinera.",
+    desc: "Presentas la clínica. Nosotros tomamos el lead, calificamos y cerramos. El bono es tuyo aunque el cierre lo haga Clinera.",
   },
   {
     num: "04",
@@ -93,34 +85,27 @@ export const PARTNERS_FUNCTIONS = [
 
 export const PARTNERS_COMPENSATION = {
   eyebrow: "Lo que ganas tú",
-  h2: "Un pago base que no existía, más comisión sobre el plan.",
-  lead: "Dos números. Nada de descuentos eternos ni porcentajes inventados en el camino.",
+  h2: "Un bono de US$ 150 por cada cliente que cierra.",
+  lead: "Un solo número. Sin comisión recurrente sobre el plan.",
   items: [
     {
       num: "01",
       title: PARTNERS_REFERRAL_FEE_LABEL,
-      unit: " pago base",
-      desc: "Pago inicial por cada cliente referido que cierra. Es la base que el programa anterior no tenía: cobras al inicio, no solo si el plan se mantiene.",
+      unit: " de bono",
+      desc: "Pago único por cada cliente referido que cierra. Se paga al cierre. No hay comisión recurrente sobre el plan.",
       featured: true,
-    },
-    {
-      num: "02",
-      title: PARTNERS_COMMISSION_LABEL,
-      unit: ` · ${PARTNERS_COMMISSION_DURATION_LABEL}`,
-      desc: `El ${PARTNERS_COMMISSION_PERCENT}% del valor del plan durante ${PARTNERS_COMMISSION_MONTHS} meses. Se calcula sobre el plan que contrata la clínica, no sobre un pack paralelo.`,
-      featured: false,
     },
   ],
 } as const;
 
 export const PARTNERS_SUPPORT = {
   eyebrow: "Cómo operamos juntos",
-  h2: "Tú abres la puerta. Clinera cierra. La comisión es tuya.",
+  h2: "Tú abres la puerta. Clinera cierra. El bono es tuyo.",
   lead: "No te pedimos que armes un equipo comercial propio ni que pelees el contrato.",
   points: [
     {
       title: "Ventas de Clinera cierra",
-      desc: "Cuentas con el equipo de ventas de Clinera para calificar y cerrar cada referido. La comisión se mantiene aunque el cierre lo hagamos nosotros.",
+      desc: "Cuentas con el equipo de ventas de Clinera para calificar y cerrar cada referido. El bono de US$ 150 se paga igual aunque el cierre lo hagamos nosotros.",
     },
     {
       title: "Landing propia dentro de Clinera",
@@ -160,11 +145,15 @@ export const PARTNERS_PRODUCT = {
 export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
   {
     q: "¿Cuánto gano por cada cliente referido?",
-    a: `US$ ${PARTNERS_REFERRAL_FEE_USD} de pago base inicial cuando el cliente cierra, más el ${PARTNERS_COMMISSION_PERCENT}% del valor del plan durante ${PARTNERS_COMMISSION_MONTHS} meses. No hay un tercer número: esos son los dos que publica el programa.`,
+    a: `US$ ${PARTNERS_REFERRAL_FEE_USD} de bono cuando el cliente cierra. Un solo pago. No hay comisión sobre el plan ni un segundo número.`,
   },
   {
     q: "¿Quién cierra la venta?",
-    a: "El equipo de ventas de Clinera. Tú refieres; nosotros calificamos y cerramos. La comisión se mantiene igual: no se recorta porque el cierre lo haga Clinera.",
+    a: "El equipo de ventas de Clinera. Tú refieres; nosotros calificamos y cerramos. El bono se paga igual: no se recorta porque el cierre lo haga Clinera.",
+  },
+  {
+    q: "¿Hay comisión mensual sobre el plan?",
+    a: "No. El programa publica un solo número: US$ 150 de bono por cierre. No hay comisión recurrente sobre el plan.",
   },
   {
     q: "¿Qué se espera de un partner?",
@@ -175,10 +164,6 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
     a: "Sí. Cada partner tiene su landing dentro de Clinera, con su atribución. El lead que entra por ahí queda marcado a tu nombre.",
   },
   {
-    q: "¿Sigue el descuento del programa anterior para agencias?",
-    a: "No. El descuento permanente se reemplazó por el pago base de US$ 150 más el 10% del plan durante 6 meses. Si ves un 15% de descuento en algún lado, es residuo de una versión anterior.",
-  },
-  {
     q: "¿Cómo aplico al programa?",
     a: "Agenda una reunión comercial con el equipo de Clinera. Vemos tu audiencia, el tipo de clínicas que puedes referir y te activamos — incluida tu landing — en cuanto calce.",
   },
@@ -187,8 +172,8 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
 export const PARTNERS_FINAL_CTA = {
   kicker: "Programa partner · 2026",
   h2Before: "El primer cliente que refieras",
-  h2Accent: "ya paga base.",
-  lead: `US$ ${PARTNERS_REFERRAL_FEE_USD} al cierre, más el ${PARTNERS_COMMISSION_PERCENT}% del plan durante ${PARTNERS_COMMISSION_MONTHS} meses. Agendamos, revisamos tu red y te activamos.`,
+  h2Accent: "ya paga el bono.",
+  lead: `US$ ${PARTNERS_REFERRAL_FEE_USD} al cierre. Agendamos, revisamos tu red y te activamos.`,
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
 } as const;
