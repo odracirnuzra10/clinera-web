@@ -5,7 +5,6 @@ import { PartnerFaq } from "@/components/partner/PartnerFaq";
 import { PartnerFooter } from "@/components/partner/PartnerFooter";
 import { PartnerNav } from "@/components/partner/PartnerNav";
 import { PartnerPhoto } from "@/components/partner/PartnerPhoto";
-import { PartnerReveal } from "@/components/partner/PartnerReveal";
 import { PartnerStickyCta } from "@/components/partner/PartnerStickyCta";
 import { PartnerTracker } from "@/components/partner/PartnerTracker";
 import { WhatsAppCta } from "@/components/partner/WhatsAppCta";
@@ -56,10 +55,10 @@ export function PartnerLanding({
       <main id="contenido" className="partner-main" style={{ flex: 1 }}>
         <div className="partner-stack">
           <section className="partner-card partner-hero">
-            <p className="partner-eyebrow">
+            <div className="partner-eyebrow">
               <span className="partner-eyebrow-dot" aria-hidden="true" />
               Recomendación verificada
-            </p>
+            </div>
             <div style={{ marginTop: 12 }}>
               <PartnerPhoto partner={partner} src={photoSrc} />
             </div>
@@ -84,59 +83,51 @@ export function PartnerLanding({
             <WhatsAppCta partner={partner} href={whatsappUrl} className="partner-cta-full" />
           </section>
 
-          <PartnerReveal>
-            <section className="partner-card">
-              <p className="partner-eyebrow">Qué hace Clinera</p>
-              <h2 className="partner-section-title" style={{ marginTop: 8 }}>
-                Agenda, ficha y cobros en un solo sistema
-              </h2>
-              <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                {FEATURES.map((item) => (
-                  <li key={item.n} className="partner-feature">
-                    <span className="partner-feature-n" aria-hidden="true">
-                      {item.n}
-                    </span>
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p>{item.body}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </PartnerReveal>
-
-          <PartnerReveal delayMs={40}>
-            <section className="partner-card">
-              <div className="partner-pills">
-                {PROOF.map((item) => (
-                  <span key={item.label} className="partner-pill" data-stat={item.stat}>
-                    {item.label}
+          <section className="partner-card">
+            <div className="partner-eyebrow">Qué hace Clinera</div>
+            <h2 className="partner-section-title" style={{ marginTop: 8 }}>
+              Agenda, ficha y cobros en un solo sistema
+            </h2>
+            <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+              {FEATURES.map((item) => (
+                <li key={item.n} className="partner-feature">
+                  <span className="partner-feature-n" aria-hidden="true">
+                    {item.n}
                   </span>
-                ))}
-              </div>
-            </section>
-          </PartnerReveal>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-          <PartnerReveal delayMs={60}>
-            <section className="partner-card">
-              <h2 className="partner-section-title">Preguntas cortas</h2>
-              <PartnerFaq partner={partner} />
-            </section>
-          </PartnerReveal>
+          <section className="partner-card">
+            <div className="partner-pills">
+              {PROOF.map((item) => (
+                <span key={item.label} className="partner-pill" data-stat={item.stat}>
+                  {item.label}
+                </span>
+              ))}
+            </div>
+          </section>
 
-          <PartnerReveal delayMs={80}>
-            <section className="partner-card partner-close">
-              <h2 className="partner-section-title">
-                {partner.name} te lo recomienda. Conversa con {partner.sales.name}.
-              </h2>
-              <p style={{ margin: "0 0 16px", fontSize: 15, lineHeight: 1.55 }}>
-                En quince minutos ves si Clinera calza con tu clínica. Sin compromiso de
-                contratar.
-              </p>
-              <WhatsAppCta partner={partner} href={whatsappUrl} className="partner-cta-full" />
-            </section>
-          </PartnerReveal>
+          <section className="partner-card">
+            <h2 className="partner-section-title">Preguntas cortas</h2>
+            <PartnerFaq partner={partner} />
+          </section>
+
+          <section className="partner-card partner-close">
+            <h2 className="partner-section-title">
+              {partner.name} te lo recomienda. Conversa con {partner.sales.name}.
+            </h2>
+            <p style={{ margin: "0 0 16px", fontSize: 15, lineHeight: 1.55 }}>
+              En quince minutos ves si Clinera calza con tu clínica. Sin compromiso de
+              contratar.
+            </p>
+            <WhatsAppCta partner={partner} href={whatsappUrl} className="partner-cta-full" />
+          </section>
         </div>
       </main>
 

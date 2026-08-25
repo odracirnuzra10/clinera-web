@@ -24,7 +24,7 @@ export function PartnerKit({
       <main id="contenido" style={{ flex: 1 }}>
         <div className="partner-stack partner-kit-stack">
           <section className="partner-card">
-            <p className="partner-eyebrow">Kit de partner</p>
+            <div className="partner-eyebrow">Kit de partner</div>
             <h1
               style={{
                 margin: "8px 0 0",
@@ -67,7 +67,7 @@ export function PartnerKit({
             <div className="partner-kit-side">
               <section className="partner-card">
                 <h2 className="partner-section-title">Tu link</h2>
-                <p className="partner-kit-url">{url}</p>
+                <div className="partner-kit-url">{url}</div>
                 <div style={{ marginTop: 12 }}>
                   <CopyButton value={url} />
                 </div>
@@ -75,7 +75,7 @@ export function PartnerKit({
 
               <section className="partner-card">
                 <h2 className="partner-section-title">Tu código</h2>
-                <p className="partner-ref">{partner.ref}</p>
+                <div className="partner-ref">{partner.ref}</div>
                 <p style={{ margin: "10px 0 0", fontSize: 14, lineHeight: 1.5 }}>
                   Úsalo cuando alguien te pregunte de boca. Ventas lo busca igual que el link.
                 </p>
@@ -93,7 +93,7 @@ export function PartnerKit({
             </p>
 
             <article style={{ paddingBottom: 18, borderBottom: "1px solid #EAEAEA" }}>
-              <p className="partner-eyebrow">Historia de Instagram</p>
+              <div className="partner-eyebrow">Historia de Instagram</div>
               <p className="partner-copy-block" style={{ marginTop: 10 }}>
                 {copy.instagram}
               </p>
@@ -105,7 +105,7 @@ export function PartnerKit({
             <article
               style={{ padding: "18px 0", borderBottom: "1px solid #EAEAEA" }}
             >
-              <p className="partner-eyebrow">WhatsApp a una colega</p>
+              <div className="partner-eyebrow">WhatsApp a una colega</div>
               <p className="partner-copy-block" style={{ marginTop: 10 }}>
                 {copy.whatsapp}
               </p>
@@ -115,7 +115,7 @@ export function PartnerKit({
             </article>
 
             <article style={{ paddingTop: 18 }}>
-              <p className="partner-eyebrow">Comentario o DM</p>
+              <div className="partner-eyebrow">Comentario o DM</div>
               <p className="partner-copy-block" style={{ marginTop: 10 }}>
                 {copy.comentario}
               </p>
