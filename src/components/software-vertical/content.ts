@@ -234,7 +234,7 @@ export const DENTAL: SoftwareVerticalContent = {
   faqs: [
     {
       q: "¿Clinera tiene odontograma?",
-      a: "Sí. Odontograma FDI con hallazgos por pieza y por cara (caries, obturado, corona, ausente) e integrado a la ficha. Desde ahí sales al presupuesto por WhatsApp. No tiene periodontograma ni módulo de ortodoncia a la profundidad de Dentalink — esa comparativa está en /comparativas/dentalink.",
+      a: "Sí. Odontograma FDI con hallazgos por pieza y por cara (caries, obturado, corona, ausente) e integrado a la ficha. Desde ahí sales al presupuesto por WhatsApp. Detalle del presupuestador, la evolución y el permiso de IA: https://www.clinera.io/blog/odontograma-digital-presupuesto-diagnostico-evolucion. No tiene periodontograma ni módulo de ortodoncia a la profundidad de Dentalink — esa comparativa está en /comparativas/dentalink.",
     },
     {
       q: "¿Reemplaza a Dentalink?",

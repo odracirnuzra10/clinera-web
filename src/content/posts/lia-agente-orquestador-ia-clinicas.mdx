@@ -1,0 +1,133 @@
+---
+title: "LIA: el agente orquestador que vigila tu clínica y decide qué empleado digital actúa"
+description: "LIA es el empleado digital orquestador de Clinera: detecta morosos y citas sin confirmar, y despacha a AURA o CAMILA según el historial del paciente. Fiscalización 0 créditos; informes ≈4.000/mes. En Summit."
+slug: lia-agente-orquestador-ia-clinicas
+publishedAt: "2026-08-25"
+category: "Operaciones"
+tags: ["ia", "operaciones", "ltv"]
+author: "Equipo Clinera"
+wordsApprox: 1500
+faq:
+  - q: "¿Qué hace LIA exactamente?"
+    a: "Vigila la operación en tiempo continuo: morosos, pacientes sin confirmar y huecos de agenda. Elige el empleado digital (AURA o CAMILA) según el historial del paciente y le asigna la acción."
+  - q: "¿LIA diagnostica o decide clínicamente?"
+    a: "No. No diagnostica, no indica tratamientos y no toma decisiones clínicas. Opera sobre agenda, pagos y contacto con el paciente."
+  - q: "¿Cuánto cuesta LIA?"
+    a: "La fiscalización consume 0 créditos. Los informes consumen ≈4.000 créditos al mes. LIA está disponible en el plan Summit (USD 479/mes)."
+  - q: "¿Cómo elige entre AURA y CAMILA?"
+    a: "Por el historial de interacción del paciente. Si responde más por WhatsApp, despacha a AURA. Si históricamente atiende mejor por teléfono, ordena a CAMILA que llame."
+  - q: "¿LIA reemplaza a AURA o CAMILA?"
+    a: "No. Las orquesta. AURA ejecuta en WhatsApp, CAMILA en voz; LIA decide quién actúa y sobre qué caso."
+---
+
+## Qué es LIA
+
+LIA es el empleado digital orquestador de Clinera: un agente que verifica de forma continua morosos, pacientes sin confirmar y huecos de agenda, y decide qué otro empleado digital actúa —AURA por WhatsApp o CAMILA por teléfono— según el historial del paciente. No responde al paciente como canal principal: **asigna el trabajo**.
+
+Está disponible en Summit. La fiscalización cuesta 0 créditos; los informes ≈4.000 créditos al mes. AURA y CAMILA siguen siendo los ejecutores; LIA es quien decide cuándo y por qué canal.
+
+## Por qué importa el historial de canal (el paciente que odia las llamadas)
+
+No todos los pacientes responden igual. Hay quien deja el teléfono en silencio y contesta WhatsApp en minutos. Hay quien ignora el chat y solo atiende si suena el celular. Hay quien se molesta si lo llaman en horario laboral, y quien se molesta si le escriben “otra vez el bot”.
+
+Sin historial de canal, la clínica suele aplicar una regla única: “a todos por WhatsApp” o “a todos por teléfono”. Esa regla desperdicia créditos y paciencia. LIA lee cómo interactuó ese paciente antes y despacha al empleado digital del medio donde ya demostró que responde.
+
+Ejemplo concreto: un paciente que históricamente cuelga confirmaciones telefónicas pero responde “sí, voy” por WhatsApp no debería recibir una llamada de CAMILA a las 19:00 solo porque “así lo hacemos siempre”. LIA prioriza AURA. Al revés: si el chat nunca abre y las únicas confirmaciones exitosas fueron por voz, LIA ordena la llamada.
+
+Eso no es “personalización mágica”. Es usar la evidencia de contacto que tu propia operación ya generó, para no empujar el canal equivocado otra vez.
+
+## Anti-colisión: no escribir y llamar el mismo minuto
+
+Orquestar también significa **no pisarse**. Un error clásico de automatizaciones sueltas es disparar WhatsApp y llamada casi al mismo tiempo: el paciente recibe el mensaje, el teléfono suena, se confunde, y la clínica gasta créditos dos veces por el mismo caso.
+
+LIA evita ese choque al ser el punto que asigna la acción. No es “AURA y CAMILA cada uno por su lado mirando el mismo tablero”. Es un orquestador que elige un canal, despacha, y registra el resultado antes del siguiente paso. Si el WhatsApp no responde, el reintento o el cambio a voz ocurre según la lógica de seguimiento —no como un doble disparo simultáneo.
+
+Para multi-sede el mismo principio aplica: no quieres que dos reglas locales contacten al mismo paciente por motivos distintos sin coordinación. Summit incluye sucursales ilimitadas precisamente porque el orquestador tiene más sentido cuando la operación crece y el riesgo de mensajes cruzados sube.
+
+## El mecanismo de decisión (el corazón del producto)
+
+La mayoría de las “IAs para clínicas” se detienen en responder. LIA se detiene en **priorizar y despachar**.
+
+El flujo típico:
+
+1. **Detecta una anomalía** en la operación (ejemplo: paciente con cuotas morosas, cita sin confirmar a 24 horas, sillón vacío por cancelación de última hora).
+2. **Lee el historial de canal** de ese paciente: ¿interactuó más por WhatsApp o por teléfono?
+3. **Elige el empleado digital**:
+   - Si el historial es de WhatsApp → despacha a **AURA** con el mensaje y el contexto (deuda, cita, hueco).
+   - Si el historial es telefónico → ordena a **CAMILA** que llame y ejecute la acción (recordar pago, confirmar, ofrecer el cupo).
+4. **Registra el resultado** para que el siguiente paso no parta de cero.
+
+Eso es orquestación: una sola memoria del paciente, dos ejecutores, un cerebro que evita pisarse y evita el canal equivocado.
+
+## Tres ejemplos concretos
+
+### Moroso
+
+LIA detecta cuotas vencidas. Si ese paciente siempre respondió por WhatsApp, AURA manda el recordatorio con el contexto de saldo. Si históricamente solo atiende llamadas, CAMILA llama. No es “mandar el mismo mensaje a todos”: es elegir el canal donde ese paciente ya demostró que responde.
+
+### Cita sin confirmar
+
+Quedan horas para la sesión y no hay confirmación. LIA prioriza por cercanía y por valor del cupo, y asigna a AURA o CAMILA. El objetivo es bajar no-shows sin que recepción disque lista por lista. Tampoco inventamos un porcentaje único de reducción: el valor está en la cobertura y en no dejar la lista a medias.
+
+### Hueco de agenda
+
+Una cancelación deja un bloque libre. LIA arma la cohorte de candidatos (lista de espera, pacientes dormidos del mismo tratamiento, leads tibios) y activa al empleado digital del canal correcto para llenar el hueco. La recuperación operativa sale de este tipo de acción coordinada —no de un chatbot que solo dice “¿quieres agendar?” sin mirar quién responde por qué medio.
+
+## Qué aproximan los informes (sin inventar métricas)
+
+Los informes de LIA consumen ≈4.000 créditos al mes. Su rol es dar visibilidad operativa: qué casos se detectaron, qué se despachó, qué quedó pendiente. No sustituyen la contabilidad de la clínica ni publicamos aquí un “tablero con KPIs inventados” (conversión mágica, ROI garantizado, porcentaje único de no-show).
+
+Lo útil de los informes es la lectura de trabajo: cuántas anomalías se vigilaron, qué canal se usó, dónde el equipo humano todavía tiene que intervenir. Si alguien te promete un número de “+X% recuperado” como verdad universal para tu clínica, pide el contexto de tu volumen —no un claim genérico. En esta página nos ceñimos a lo que el producto hace: fiscalizar, informar y orquestar.
+
+## Qué vigila LIA vs qué sigue siendo de recepción
+
+**LIA vigila y despacha** (operación, no clínica):
+
+- Morosidad y recordatorios de pago según reglas.
+- Citas sin confirmar y seguimiento de confirmación.
+- Huecos de agenda y activación de candidatos.
+- Elección de canal (AURA vs CAMILA) por historial.
+- Registro del resultado para no duplicar contactos.
+
+**Recepción (y el equipo humano) sigue dueña de:**
+
+- Excepciones de agenda que el protocolo no cubre.
+- Negociación de precios, descuentos o planes de pago especiales.
+- Casos clínicos delicados, urgencias y “quiero hablar con mi doctor/a”.
+- Pacientes VIP o situaciones familiares que requieren criterio humano.
+- La relación presencial del día a día en sillón y en mostrador.
+
+LIA reduce el trabajo repetitivo de vigilancia; no se apropia del juicio clínico ni del trato humano cuando el caso se sale del riel. Si el empleado digital llega al borde del protocolo, el handoff a recepción es la salida correcta —no pelear la conversación.
+
+## Summit y el encaje multi-sede
+
+LIA está en **Summit (USD 479/mes)**: 46.000 créditos (~1.533 conversaciones o ~235 agendamientos), 25 usuarios, sucursales ilimitadas, y el trio AURA + CAMILA + LIA.
+
+Para una sola sede con volumen contenido, a veces Atlas (voz + texto) alcanza. Para un grupo con varias sucursales, listas de confirmación largas y riesgo de reglas locales que se pisan, el orquestador tiene más sentido: una sola lógica de despacho, historial de canal compartido, y menos “cada sede inventó su automatización”.
+
+La fiscalización a 0 créditos es deliberada: quieres que LIA mire siempre. Lo que pesa en la bolsa son los informes (≈4.000/mes) y, sobre todo, las acciones que disparan AURA (30 o 195 créditos según si agenda) y CAMILA (25 créditos/min).
+
+## Qué NO hace LIA
+
+Hay que decirlo sin adornos:
+
+- **No diagnostica.**
+- **No decide clínicamente** (ni indica tratamientos, ni interpreta imágenes, ni sustituye al profesional).
+- **No inventa precios ni descuentos** fuera de lo registrado en el sistema.
+- **No reemplaza** a AURA ni a CAMILA: las coordina.
+
+Si el caso se sale del protocolo, el camino correcto sigue siendo el humano de tu clínica.
+
+## Cómo encaja con el resto del equipo
+
+Roles del equipo de empleados digitales:
+
+- **AURA (texto / WhatsApp):** responde, agenda, cobra por chat.
+- **CAMILA (voz):** confirma y reagenda en llamada, con tool-calling sobre la agenda.
+- **LIA (orquestador interno):** detecta, prioriza y despacha a AURA o CAMILA.
+
+Sin LIA, AURA y CAMILA siguen siendo útiles. Con LIA, dejan de depender de que alguien en recepción “se acuerde de mirar el tablero”.
+
+## Cómo verlo en tu operación
+
+Si quieres ver a LIA priorizar un moroso o un hueco real de tu agenda y despachar a AURA o CAMILA sin colisiones de canal, [agenda una reunión](/agenda). En Summit el circuito completo —detección, historial, canal, ejecución— queda a la vista, con los créditos reales de tu volumen.
