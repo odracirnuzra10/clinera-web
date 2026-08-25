@@ -143,7 +143,6 @@ export default function AgendaHebeLanding() {
   const [volume, setVolume] = useState("");
   const [clinica, setClinica] = useState("");
   const [website, setWebsite] = useState("");
-  const [city, setCity] = useState("");
   const [tipo, setTipo] = useState("");
   const [nombre, setNombre] = useState("");
   const [cargo, setCargo] = useState("");
@@ -172,10 +171,10 @@ export default function AgendaHebeLanding() {
       phone,
       email,
       website,
-      city,
+      city: "",
       cargo: cargo as Form["cargo"],
     }),
-    [nombre, clinica, tipo, prefix, phone, email, website, city, cargo],
+    [nombre, clinica, tipo, prefix, phone, email, website, cargo],
   );
 
   const features: FeatureId[] = needs.flatMap((id) => NEED_CARDS.find((c) => c.id === id)?.features ?? []);
@@ -185,7 +184,7 @@ export default function AgendaHebeLanding() {
     setStep(n);
   }
 
-  const clinicOk = clinica.trim().length >= 2 && website.trim().length >= 3 && city.trim().length >= 2 && tipo !== "";
+  const clinicOk = clinica.trim().length >= 2 && website.trim().length >= 3 && tipo !== "";
   const personOk = nombre.trim().length >= 2 && cargo !== "" && phoneOk && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
   function goToScheduler() {
@@ -407,7 +406,7 @@ export default function AgendaHebeLanding() {
               <h2 className={styles.title}>
                 Hablemos más de tu <em>clínica</em>
               </h2>
-              <p className={styles.sub}>Nombre, web o redes y dónde opera.</p>
+              <p className={styles.sub}>Nombre, web o redes y tipo de clínica.</p>
               <div className={styles.group}>
                 <label>Nombre de la clínica</label>
                 <input className={attempted && clinica.trim().length < 2 ? styles.err : undefined} value={clinica} onChange={(e) => setClinica(e.target.value)} placeholder="Ej: Clínica Sonríe" />
@@ -417,12 +416,9 @@ export default function AgendaHebeLanding() {
                 <input className={attempted && website.trim().length < 3 ? styles.err : undefined} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="www.tuclinica.cl o @tuclinica" />
               </div>
               <div className={styles.group}>
-                <label>Ciudad</label>
-                <input className={attempted && city.trim().length < 2 ? styles.err : undefined} value={city} onChange={(e) => setCity(e.target.value)} placeholder="Santiago" />
-              </div>
-              <div className={styles.group}>
-                <label>Tipo de clínica</label>
+                <label htmlFor="agenda-tipo-clinica">Tipo de clínica</label>
                 <select
+                  id="agenda-tipo-clinica"
                   className={attempted && !tipo ? styles.err : undefined}
                   value={tipo}
                   onChange={(e) => setTipo(e.target.value)}

@@ -2439,9 +2439,8 @@ function StepClinicDetails({
   const [attempted, setAttempted] = useState(false);
   const clinicOk = form.clinica.trim().length >= 2;
   const webOk = isValidWebsite(form.website);
-  const cityOk = form.city.trim().length >= 2;
   const typeOk = form.tipoClinica !== "";
-  const complete = clinicOk && webOk && cityOk && typeOk;
+  const complete = clinicOk && webOk && typeOk;
 
   return (
     <div>
@@ -2456,16 +2455,13 @@ function StepClinicDetails({
             </em>
           </>
         }
-        sub="Nombre, web o redes y dónde opera — para preparar la reunión."
+        sub="Nombre, web o redes y tipo de clínica — para preparar la reunión."
       />
       <Field label="Nombre de la clínica" required error={attempted && !clinicOk ? "Ingresa el nombre de tu clínica." : undefined}>
         <Input value={form.clinica} onChange={(e) => setForm({ ...form, clinica: e.target.value })} placeholder="Ej: Clínica Sonríe" autoComplete="organization" error={attempted && !clinicOk} />
       </Field>
       <Field label="Sitio web o redes sociales" required error={attempted && !webOk ? "Ingresa un sitio o red social." : undefined}>
         <Input value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })} placeholder="www.tuclinica.cl o @tuclinica" inputMode="url" autoComplete="url" error={attempted && !webOk} />
-      </Field>
-      <Field label="Ciudad" required error={attempted && !cityOk ? "Indica la ciudad." : undefined}>
-        <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="Ej: Santiago" autoComplete="address-level2" error={attempted && !cityOk} />
       </Field>
       <Field label="Tipo de clínica" required error={attempted && !typeOk ? "Selecciona el tipo de clínica." : undefined}>
         <select
