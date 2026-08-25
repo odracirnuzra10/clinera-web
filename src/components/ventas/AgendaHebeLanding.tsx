@@ -458,8 +458,8 @@ export default function AgendaHebeLanding() {
                 <input value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Tu nombre completo" />
               </div>
               <div className={styles.group}>
-                <label>Cargo</label>
-                <select value={cargo} onChange={(e) => setCargo(e.target.value)}>
+                <label htmlFor="agenda-cargo">Cargo</label>
+                <select id="agenda-cargo" value={cargo} onChange={(e) => setCargo(e.target.value)}>
                   <option value="">Selecciona…</option>
                   {CARGOS.map((c) => (
                     <option key={c} value={c}>

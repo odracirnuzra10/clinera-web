@@ -56,20 +56,17 @@ test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
 
     await expect(page.getByRole("heading", { name: "Tus datos de contacto" })).toBeVisible();
     await page.getByPlaceholder("Tu nombre completo").fill(`[E2E TEST] ${id}`);
-    await page.locator("select").nth(0).selectOption("Dueño / Fundador");
+    await page
+      .locator("select")
+      .filter({ has: page.locator('option[value="Dueño / Fundador"]') })
+      .selectOption("Dueño / Fundador");
     await page.getByPlaceholder("9 1234 5678").fill("912345678");
     await page.getByPlaceholder("tu@clinica.cl").fill(`${id}@e2e.clinera.io`);
 
     await page.getByRole("button", { name: /Agenda con tu ingeniero/i }).click();
 
-    const scheduler = page.getByRole("heading", { name: /profesional|horario/i }).or(
-      page.locator("iframe[src*='app.clinera.io']"),
-    );
-    await expect(scheduler.first()).toBeVisible({ timeout: 12000 });
-
-    const names = page.getByText(/Rebeca|Nohelymar/i);
-    const iframe = page.locator("iframe[src*='app.clinera.io']");
-    await expect(names.or(iframe).first()).toBeVisible({ timeout: 15000 });
+    await expect(page.getByRole("heading", { name: /Elige el día y la hora/i })).toBeVisible({ timeout: 12000 });
+    await expect(page.getByRole("button", { name: /Confirmar reunión/i })).toBeVisible();
 
     await expect.poll(() => hits.some((h) => h.lead_stage === "contact"), { timeout: 12000 }).toBeTruthy();
     const contact = hits.find((h) => h.lead_stage === "contact");
