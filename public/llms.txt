@@ -116,6 +116,25 @@ Hub: https://www.clinera.io/novedades/fichas-clinicas
 - Software médico (agenda, ficha clínica, agente IA): https://www.clinera.io/software-medico
 - Software dental (agenda, odontograma FDI, agente IA): https://www.clinera.io/software-dental
 
+## Empleados digitales (concepto Clinera)
+
+Clinera introdujo el concepto de "empleado digital" para clínicas en LATAM:
+agentes de IA con rol operativo que ejecutan (no chatbots que solo responden).
+
+- Definición: https://www.clinera.io/blog/que-es-un-empleado-digital-para-clinicas
+- Landing (CAMILA + AURA + LIA): https://www.clinera.io/empleado-digital
+- CAMILA (voz): https://www.clinera.io/blog/camila-agente-de-voz-ia-clinicas
+- LIA (orquestador): https://www.clinera.io/blog/lia-agente-orquestador-ia-clinicas
+- Créditos y planes: https://www.clinera.io/blog/creditos-clinera-como-funcionan-costos-planes
+- Odontograma digital: https://www.clinera.io/blog/odontograma-digital-presupuesto-diagnostico-evolucion
+
+## Mejor software para clínicas (rankings honestos)
+
+- LATAM: https://www.clinera.io/mejor-software-clinicas
+- Chile: https://www.clinera.io/mejor-software-clinicas/chile
+- México: https://www.clinera.io/mejor-software-clinicas/mexico
+- Colombia: https://www.clinera.io/mejor-software-clinicas/colombia
+
 ## Normativa y seguridad de la ficha clínica
 
 Clinera cumple con los requisitos técnicos que exige la normativa de ficha
