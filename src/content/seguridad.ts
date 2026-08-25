@@ -126,10 +126,10 @@ export const CONTROLES: ControlRow[] = [
   },
   {
     control: "Autenticación multifactor (MFA)",
-    implementacion:
-      "En despliegue: disponible para todas las clínicas la primera semana de septiembre de 2026.",
-    evidencia:
-      "Compromiso publicado el 2026-08-24; esta fila se actualizará a 'activo' al completar el despliegue.",
+    implementacion: "",
+    evidencia: "",
+    pendiente:
+      "En despliegue — no activo aún. Compromiso publicado el 2026-08-24: disponible para todas las clínicas la primera semana de septiembre de 2026. Esta fila pasará a implementacion+evidencia cuando el despliegue esté completo.",
   },
   {
     control: "Gestión de vulnerabilidades",
