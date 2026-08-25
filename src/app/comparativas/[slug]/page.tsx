@@ -840,7 +840,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Clinera cumple con la Ley 1581 (Habeas Data) colombiana?",
-        a: "Cifrado en reposo y en tránsito, hosting AWS São Paulo, acuerdos de confidencialidad y minimización de datos según buenas prácticas internacionales. Para auditoría formal de Habeas Data te entregamos toda la documentación técnica al activar el plan. Para RIPS/DIAN el sistema autoritativo sigue siendo Medifolios (o equivalente).",
+        a: "Cifrado en reposo y en tránsito, hosting en Google Cloud Platform región Santiago de Chile (southamerica-west1) — los datos clínicos residen en Chile —, acuerdos de confidencialidad y minimización de datos según buenas prácticas internacionales. Para auditoría formal de Habeas Data te entregamos toda la documentación técnica al activar el plan. Para RIPS/DIAN el sistema autoritativo sigue siendo Medifolios (o equivalente).",
       },
       {
         q: "¿Pierdo mis datos si migro de Medifolios a Clinera?",
@@ -926,7 +926,7 @@ const competitors: Record<Slug, Competitor> = {
       },
       {
         q: "¿Clinera cumple con Habeas Data colombiano?",
-        a: "Cifrado en reposo y en tránsito, hosting AWS São Paulo, acuerdos de confidencialidad y minimización de datos. Para auditoría formal te entregamos la documentación técnica al activar el plan. Para RIPS/DIAN el sistema autoritativo sigue siendo Saludtools (o equivalente).",
+        a: "Cifrado en reposo y en tránsito, hosting en Google Cloud Platform región Santiago de Chile (southamerica-west1) — los datos clínicos residen en Chile —, acuerdos de confidencialidad y minimización de datos. Para auditoría formal te entregamos la documentación técnica al activar el plan. Para RIPS/DIAN el sistema autoritativo sigue siendo Saludtools (o equivalente).",
       },
       {
         q: "¿En qué planes de Clinera está la IA?",

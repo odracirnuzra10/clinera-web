@@ -2848,6 +2848,47 @@
       animation: enter .64s var(--ease) .14s both;
     }
 
+    /* ---- Slide empleados digitales (tres tarjetas con retrato) ---- */
+    .ed-agents {
+      align-items: stretch;
+    }
+
+    .ed-agent {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: clamp(16px, 2vh, 22px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.55);
+    }
+
+    .ed-agent-face {
+      width: 72px;
+      height: 72px;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .ed-agent strong {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(15px, 1.3vw, 18px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    .ed-agent span {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 13.5px;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
     /* ---- Ventana de producto compartida por los mockups ---- */
     .mock {
       justify-self: end;
@@ -3930,6 +3971,39 @@
               </div>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="empleados-digitales"
+        data-name="Tus empleados digitales"
+        aria-hidden="true"
+      >
+        <div class="slide-inner hr-layout">
+          <header class="hr-head">
+            <div class="blk-eyebrow">TU EQUIPO IA</div>
+            <h2 class="blk-h2">Un equipo completo de <span class="blk-grad-text">empleados digitales</span>.</h2>
+            <p class="blk-lead">Tres roles, una sola memoria del paciente. Disponibles hoy.</p>
+          </header>
+
+          <div class="hr-grid ed-agents reveal">
+            <article class="ed-agent">
+              <img class="ed-agent-face" src="/agents/camila.jpg" alt="CAMILA" loading="lazy" decoding="async" />
+              <strong>CAMILA · voz</strong>
+              <span>Llama, confirma y reagenda. Cinco acentos: CL, CO, PE, MX y ES.</span>
+            </article>
+            <article class="ed-agent">
+              <img class="ed-agent-face" src="/agents/aura.jpg" alt="AURA" loading="lazy" decoding="async" />
+              <strong>AURA · WhatsApp</strong>
+              <span>Responde, agenda y cobra 24/7 sobre la agenda real de tu clínica.</span>
+            </article>
+            <article class="ed-agent">
+              <img class="ed-agent-face" src="/agents/lia.jpg" alt="LIA" loading="lazy" decoding="async" />
+              <strong>LIA · orquestadora</strong>
+              <span>Vigila la operación y despacha a CAMILA o AURA según el paciente.</span>
+            </article>
+          </div>
         </div>
       </section>
 

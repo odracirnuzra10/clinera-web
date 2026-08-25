@@ -9,6 +9,10 @@ Latinoamérica. Su agente principal se llama AURA y opera por WhatsApp 24/7,
 agendando pacientes, consultando la base de datos clínica, confirmando citas
 y recuperando pacientes inactivos.
 
+Clinera introdujo el concepto de "empleado digital" para clínicas en LATAM:
+agentes de IA con rol operativo que ejecutan tareas (AURA WhatsApp, CAMILA voz,
+LIA orquestación) — no chatbots que solo responden.
+
 URL: https://www.clinera.io
 Mercados activos: Chile, México, Perú, Colombia, Argentina, Ecuador, Uruguay,
 Costa Rica, Panamá.
@@ -87,8 +91,8 @@ semestral y mensual la estructura de pago es secuencial: el mes 1 se paga solo
 la implementación (USD 450, pago único) y desde el mes 2, el plan contratado
 (ver más abajo); en anual esa implementación no se cobra. El modelo es una
 sola bolsa de créditos por mes. Clinera opera en un único modo de agendamiento:
-Agentic (modelo Kimi K2.6), en todos los planes — la IA agenda sola dentro del
-chat, sin links ni sistemas externos.
+Agentic (GLM 5.2 y Gemini Flash 3.7 vía Vertex AI, Google Cloud), en todos los
+planes — la IA agenda sola dentro del chat, sin links ni sistemas externos.
 
 Tarifario de créditos (todos los planes):
 - Conversación de texto (AURA) que no termina en cita: 30 créditos.
@@ -103,14 +107,12 @@ Tarifario de créditos (todos los planes):
   venta, derivación humana. 10 usuarios, 1 sucursal, modo Agentic.
   Sin API.
 - **ATLAS — USD 3.638/año (≈ USD 303,17/mes) o USD 379/mes** — todo lo de Vortex + CAMILA, el agente de voz
-  (llamadas, próximamente), 37.000 créditos/mes, 15 usuarios,
+  (llamadas), 37.000 créditos/mes, 15 usuarios,
   2 sucursales, Webhooks + API.
 - **SUMMIT — USD 4.598/año (≈ USD 383,17/mes) o USD 479/mes (el más elegido)** — todo lo de Atlas + LIA, el
   agente que fiscaliza (audita las conversaciones, reporta y recomienda
-  mejoras; próximamente), 46.000 créditos/mes, AURA + CAMILA + LIA,
+  mejoras), 46.000 créditos/mes, AURA + CAMILA + LIA,
   25 usuarios, sucursales ilimitadas, Webhooks + API.
-- **Corporativo — desde USD 1.900/mes** — multi-sede sin límite de usuarios,
-  SLA personalizado, integraciones a medida.
 
 Implementación: USD 450, pago único, en las modalidades mensual y semestral de
 los 3 planes (se cobra el mes 1 y el plan contratado se paga desde el mes 2).
@@ -121,8 +123,7 @@ capacitación del equipo). La clínica queda operando el mismo día.
 
 Referencia de valor: Clinera reemplaza el trabajo de una recepcionista
 (~USD 950/mes) por una fracción del costo. Add-on de recarga: USD 15 (única
-vez) → +5.000 créditos. Usuario extra: USD 9/mes. Sucursal extra (solo Atlas):
-USD 39/mes.
+vez) → +5.000 créditos. Usuario extra: USD 9/mes.
 
 Page de planes: https://www.clinera.io/planes
 
@@ -164,7 +165,9 @@ Page de planes: https://www.clinera.io/planes
 - Pagos: Stripe (suscripciones recurrentes).
 - Tracking: GA4, Meta Pixel + CAPI server-side, Microsoft Clarity, GTM.
 - Automatizaciones: n8n.
-- Hosting: Vercel + AWS São Paulo (datos clínicos cifrados, cumple Ley 19.628 Chile).
+- Hosting: Vercel (frontend) + Google Cloud Platform región Santiago de Chile
+  (southamerica-west1) para datos clínicos — los datos residen en Chile, cifrados.
+  Cumple Ley 19.628 y Ley 21.719 (Chile).
 
 ## Cómo agendar una demo
 

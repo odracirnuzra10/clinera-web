@@ -185,6 +185,24 @@ export default function BlogEfectividadPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <main>
+        <p
+          style={{
+            maxWidth: 760,
+            margin: "24px auto 0",
+            padding: "12px 16px",
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: 14,
+            lineHeight: 1.55,
+            color: "#374151",
+            background: "#F3F4F6",
+            borderRadius: 8,
+          }}
+        >
+          Actualización 08/2026: desde el 1 de agosto de 2026 la inferencia de
+          Clinera corre en Vertex AI (Google Cloud, región Santiago de Chile).
+          Las cifras de este estudio corresponden al stack vigente en su fecha
+          de publicación.
+        </p>
         <EfectividadArticle />
       </main>
       <FooterV3 />

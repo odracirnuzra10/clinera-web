@@ -83,7 +83,6 @@ const planOffers = {
     { "@type": "Offer", name: "Vortex", price: "279", priceCurrency: "USD", url: URL },
     { "@type": "Offer", name: "Atlas", price: "379", priceCurrency: "USD", url: URL },
     { "@type": "Offer", name: "Summit", price: "479", priceCurrency: "USD", url: URL },
-    { "@type": "Offer", name: "Corporativo", price: "1900", priceCurrency: "USD", url: "https://www.clinera.io/hablar-con-ventas" },
   ],
 };
 

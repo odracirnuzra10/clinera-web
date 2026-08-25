@@ -6,14 +6,13 @@ import { SETUP_FEE_USD } from "@/content/pricing";
 
 // ── Tarifario de créditos ──
 // Clinera opera en un único modo: Agentic. Toda conversación pasa por el
-// modelo agéntico, por eso la conversación simple ya no vale 10 cr.
+// modelo agéntico; la conversación simple ya no usa la tarifa antigua de texto.
 const CR_TEXTO = 30; // por conversación de texto sin agendamiento (promedio Agentic)
 const CR_AGENDA = 195; // por conversación que termina en agendamiento
 const CR_VOZ = 25; // por minuto de voz (CAMILA)
 const CR_LIA = 4000; // fiscalización + informes (LIA), por mes
 
 const IMPL = SETUP_FEE_USD; // implementación (mes 1), pago único
-const CORP_FROM = 1900; // Corporativo desde USD/mes
 
 type Plan = {
   id: "vortex" | "atlas" | "summit";
@@ -577,8 +576,8 @@ export default function ConsumptionCalculator() {
                 Necesitas ~{fmt(result.creditsNeeded)} créditos, más de los 46.000 de SUMMIT.
               </div>
               <p style={{ fontSize: 14.5, lineHeight: 1.55, color: "#0A0A0A", margin: "16px 0 0" }}>
-                A tu volumen conviene el <strong>Plan Corporativo</strong> (desde USD ${fmt(CORP_FROM)}/mes,
-                créditos a medida).{" "}
+                A tu volumen Summit (46.000 créditos) no alcanza: habla con ventas para
+                armar una bolsa a medida.{" "}
                 <a href="/hablar-con-ventas" style={{ color: "#7C3AED", fontWeight: 600 }}>
                   Habla con ventas →
                 </a>
@@ -858,7 +857,7 @@ export default function ConsumptionCalculator() {
             }}
           >
             Clinera opera en modo Agentic: un agendamiento automático consume ~195 cr y una conversación que no agenda ~30 cr. En mensual y semestral los planes suman USD ${fmt(IMPL)} de implementación (pago único); en el plan anual va gratis.
-            Sobre 46.000 créditos → Plan Corporativo (desde USD ${fmt(CORP_FROM)}/mes).
+            Sobre 46.000 créditos → habla con ventas para una bolsa a medida.
           </p>
         </div>
       </div>

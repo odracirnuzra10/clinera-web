@@ -596,7 +596,7 @@ function getFaqs(
       },
       {
         q: `¿Cumplen con la Ley 29733 de protección de datos peruana?`,
-        a: `Clinera cumple con cifrado en reposo y en tránsito, hosting AWS São Paulo (datos clínicos cifrados), acuerdos de confidencialidad firmados con el equipo y minimización de datos según buenas prácticas internacionales. Para auditoría formal de tu DPO o consulta legal, te entregamos toda la documentación técnica al activar el plan.`,
+        a: `Clinera cumple con cifrado en reposo y en tránsito, hosting en Google Cloud Platform región Santiago de Chile (southamerica-west1; los datos clínicos residen en Chile, cifrados), acuerdos de confidencialidad firmados con el equipo y minimización de datos según buenas prácticas internacionales. Para auditoría formal de tu DPO o consulta legal, te entregamos toda la documentación técnica al activar el plan.`,
       },
       {
         q: `¿Hay versión gratuita?`,
@@ -624,7 +624,7 @@ function getFaqs(
       },
       {
         q: `¿Cumplen con la Ley 1581 (Habeas Data) colombiana?`,
-        a: `Clinera cumple con cifrado en reposo y en tránsito, hosting AWS São Paulo (datos clínicos cifrados), acuerdos de confidencialidad y minimización de datos. Para auditoría formal de Habeas Data o consulta con tu oficial de protección de datos, te entregamos toda la documentación técnica al activar el plan.`,
+        a: `Clinera cumple con cifrado en reposo y en tránsito, hosting en Google Cloud Platform región Santiago de Chile (southamerica-west1; los datos clínicos residen en Chile, cifrados), acuerdos de confidencialidad y minimización de datos. Para auditoría formal de Habeas Data o consulta con tu oficial de protección de datos, te entregamos toda la documentación técnica al activar el plan.`,
       },
       {
         q: `¿Hay versión gratuita?`,

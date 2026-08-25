@@ -168,6 +168,13 @@ function ArticleBody() {
         }}
       >
         <Callout>
+          <strong>Actualización 08/2026:</strong> desde el 1 de agosto de 2026 la
+          inferencia de Clinera corre en Vertex AI (Google Cloud, región Santiago
+          de Chile). Las cifras de este estudio corresponden al stack vigente en
+          su fecha de publicación.
+        </Callout>
+
+        <Callout>
           Esta es la versión extendida de nuestra{" "}
           <Link href="/efectividad" style={{ color: "#7C3AED", fontWeight: 600 }}>
             página institucional de Efectividad

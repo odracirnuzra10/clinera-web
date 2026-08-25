@@ -350,7 +350,7 @@ function FeaturesList() {
           num="04"
           eyebrow="Ficha clínica digital"
           title="Historial completo, accesible en segundos."
-          body="Campos personalizables por especialidad, evolución clínica ordenada en timeline, firma digital y adjuntos sin límite. Cumple Ley 19.628 con cifrado en AWS Sao Paulo."
+          body="Campos personalizables por especialidad, evolución clínica ordenada en timeline, firma digital y adjuntos sin límite. Cumple Ley 19.628 y Ley 21.719 con cifrado en Google Cloud Platform, región Santiago de Chile — los datos clínicos residen en Chile."
           bullets={[
             "Plantillas por especialidad (dental, estética, médica)",
             "Evolución clínica con timeline",

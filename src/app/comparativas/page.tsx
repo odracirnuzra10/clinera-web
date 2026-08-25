@@ -193,6 +193,110 @@ export default function ComparativasHub() {
           </div>
         </section>
 
+        {/* Rankings por país — mejor software para clínicas */}
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+              <div style={{ marginBottom: 28 }}>
+                <span
+                  style={{
+                    fontFamily: "var(--font-tech)",
+                    fontSize: "0.72rem",
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "var(--ink-tertiary)",
+                  }}
+                >
+                  MEJOR SOFTWARE PARA CLÍNICAS
+                </span>
+                <h2
+                  style={{
+                    fontSize: "1.7rem",
+                    margin: "8px 0 8px",
+                    color: "var(--ink-primary)",
+                  }}
+                >
+                  Rankings honestos por país
+                </h2>
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    color: "var(--ink-secondary)",
+                    margin: 0,
+                    maxWidth: 720,
+                  }}
+                >
+                  Comparativas con fortalezas y debilidades reales de cada
+                  competidor — LATAM, Chile, México y Colombia.
+                </p>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                  gap: 14,
+                }}
+              >
+                {[
+                  { href: "/mejor-software-clinicas", label: "LATAM", desc: "Ranking regional completo" },
+                  { href: "/mejor-software-clinicas/chile", label: "Chile", desc: "Ley 21.719, SII, datos en Chile" },
+                  { href: "/mejor-software-clinicas/mexico", label: "México", desc: "NOM-024, CFDI, WhatsApp" },
+                  { href: "/mejor-software-clinicas/colombia", label: "Colombia", desc: "RIPS, DIAN, habeas data" },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    style={{
+                      display: "block",
+                      background: "#fff",
+                      border: "1px solid var(--divider-subtle)",
+                      borderRadius: 14,
+                      padding: "20px 22px",
+                      textDecoration: "none",
+                      color: "inherit",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "var(--font-tech)",
+                        fontSize: "0.7rem",
+                        letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: "var(--ink-tertiary)",
+                        marginBottom: 6,
+                      }}
+                    >
+                      Ranking 2026
+                    </div>
+                    <h3
+                      style={{
+                        fontSize: "1.05rem",
+                        fontWeight: 700,
+                        letterSpacing: "-0.015em",
+                        color: "var(--ink-primary)",
+                        margin: "0 0 8px",
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      Mejor software — {item.label}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "0.9rem",
+                        color: "var(--ink-secondary)",
+                        margin: 0,
+                        lineHeight: 1.45,
+                      }}
+                    >
+                      {item.desc}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Otras comparativas útiles — cruzadas */}
         <section className="section" style={{ paddingTop: 0 }}>
           <div className="container">

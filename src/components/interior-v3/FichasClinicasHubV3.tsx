@@ -759,7 +759,7 @@ function Body() {
             </tr>
             <tr>
               <td>Adjuntos (fotos, exámenes)</td>
-              <td>Sin tope mensual, almacenamiento cifrado en LATAM (AWS São Paulo o similar)</td>
+              <td>Sin tope mensual, almacenamiento cifrado en Chile (Google Cloud, región Santiago)</td>
             </tr>
             <tr>
               <td>API e integraciones</td>

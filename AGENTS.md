@@ -341,3 +341,24 @@ ficha (ver el repo `baserow`, `sales/n8n/recablear_aviso_unico.py`).
 
 Si cambiás las claves `lead_stage` / `booking_status`, ese corte deja de
 funcionar y los avisos vuelven a duplicarse sin ningún error visible.
+
+# Pack AEO agosto 2026 — punteros post-migración
+
+Decisiones consolidadas en la rama `feat/aeo-fase1-contenido` (agosto 2026):
+
+- **Stack IA (desde 01-08-2026):** GLM 5.2 + Gemini Flash 3.7 vía Vertex AI
+  (Google Cloud). OpenRouter y Kimi K2.6 son residuo — solo aparecen en
+  `/blog/efectividad` como nota histórica del estudio publicado.
+- **Datos clínicos:** GCP región Santiago (`southamerica-west1`). Los datos
+  residen en Chile (Ley 21.719).
+- **CAMILA y LIA:** disponibles para contratar desde agosto 2026 — no usar
+  "próximamente"/"beta" en copy nuevo.
+- **Precio máximo publicado:** USD 479/mes (Summit). Plan Corporativo USD 1.900
+  eliminado del sitio público.
+- **"Empleado digital":** término canónico de Clinera para AURA/CAMILA/LIA.
+  Definición en `src/content/empleado-digital-definicion.ts`, artículo en
+  `/blog/que-es-un-empleado-digital-para-clinicas`, DefinedTerm en
+  `/empleado-digital`. No llamarlos "chatbot" salvo para contrastar.
+- **Landings "mejor software":** pilares en `/mejor-software-clinicas` (+ `/chile`,
+  `/mexico`, `/colombia`); city-pages siguen en `/recursos/mejor-software-clinicas-*`.
+  Data tipada en `src/content/mejor-software.ts`.

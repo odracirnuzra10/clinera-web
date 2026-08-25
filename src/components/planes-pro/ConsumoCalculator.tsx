@@ -19,13 +19,12 @@ const BORDER = "#E5E7EB";
 
 // ── Tarifario de créditos ──
 // Clinera opera en un único modo: Agentic. Toda conversación pasa por el
-// modelo agéntico, por eso la conversación simple ya no vale 10 cr.
+// modelo agéntico; la conversación simple ya no usa la tarifa antigua de texto.
 const CR_TEXTO = 30; // por conversación de texto sin agendamiento (promedio Agentic)
 const CR_AGENDA = 195; // por conversación que termina en agendamiento
 const CR_VOZ = 25; // por minuto de voz (CAMILA)
 const CR_LIA = 4000; // fiscalización + informes (LIA), por mes
 const IMPL = SETUP_FEE_USD; // implementación (mes 1), pago único
-const CORP_FROM = 1900; // Corporativo desde USD/mes
 
 type Plan = { id: string; name: string; price: number; credits: number; tier: 1 | 2 | 3; includes: string };
 const PLANS: Plan[] = [
@@ -334,12 +333,12 @@ export default function ConsumoCalculator() {
                   Plan recomendado
                 </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-                  <span style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.03em" }}>Corporativo</span>
-                  <span style={{ fontFamily: MONO, fontSize: 15, color: MUTED }}>desde USD ${fmt(CORP_FROM)} / mes</span>
+                  <span style={{ fontSize: 32, fontWeight: 700, letterSpacing: "-0.03em" }}>A medida</span>
+                  <span style={{ fontFamily: MONO, fontSize: 15, color: MUTED }}>sobre Summit</span>
                 </div>
                 <p style={{ fontSize: 14, lineHeight: 1.55, marginTop: 16 }}>
-                  Necesitas ~{fmt(r.necesarios)} créditos, más de los 46.000 de Summit. A tu volumen conviene el{" "}
-                  <strong>plan Corporativo</strong> (créditos a medida).{" "}
+                  Necesitas ~{fmt(r.necesarios)} créditos, más de los 46.000 de Summit. A tu volumen{" "}
+                  <strong>habla con ventas</strong> para armar una bolsa a medida.{" "}
                   <a href="/hablar-con-ventas" style={{ color: ACCENT, fontWeight: 600 }}>Hablar con el equipo →</a>
                 </p>
               </div>
@@ -449,7 +448,7 @@ export default function ConsumoCalculator() {
             <p style={{ fontFamily: MONO, fontSize: 12.5, color: FAINT, lineHeight: 1.6, marginTop: 18 }}>
               Clinera opera en modo Agentic: un agendamiento automático consume ~195 cr y una conversación que no agenda ~30 cr. En mensual y semestral los planes suman USD ${fmt(IMPL)} de implementación (pago único); en el plan anual va gratis.
               <br />
-              Sobre 46.000 créditos → Plan Corporativo (desde USD ${fmt(CORP_FROM)}/mes, créditos a medida).
+              Sobre 46.000 créditos → habla con ventas para una bolsa a medida.
             </p>
           </div>
         </div>

@@ -208,14 +208,14 @@ export default function CalculadoraDeConsumoPage() {
             <ModeCard
               name="Conversación"
               consumption="~30"
-              model="Kimi K2.6"
+              model="GLM 5.2 / Gemini Flash 3.7"
               available="VORTEX"
               description="La IA responde dudas, informa precios y horarios, confirma o recuerda una cita ya existente. Razona, pero no crea ni mueve citas."
             />
             <ModeCard
               name="Agendamiento"
               consumption="~195"
-              model="Kimi K2.6"
+              model="GLM 5.2 / Gemini Flash 3.7"
               available="VORTEX"
               description="La IA hace todo sola: pregunta, consulta la disponibilidad real de tu agenda y deja la hora agendada, reagendada o cancelada."
               recommended
@@ -322,7 +322,7 @@ export default function CalculadoraDeConsumoPage() {
           >
             <ConvoExample
               title="Conversación sin agendamiento"
-              meta="Kimi K2.6 · solo texto, no crea cita"
+              meta="GLM 5.2 / Gemini Flash 3.7 · solo texto, no crea cita"
               total={30}
               accent="#009FE3"
               turns={[
@@ -340,7 +340,7 @@ export default function CalculadoraDeConsumoPage() {
             />
             <ConvoExample
               title="Conversación con agendamiento"
-              meta="Kimi K2.6 · agenda y cobra, con tool calls"
+              meta="GLM 5.2 / Gemini Flash 3.7 · agenda y cobra, con tool calls"
               total={195}
               accent="#7C3AED"
               turns={[

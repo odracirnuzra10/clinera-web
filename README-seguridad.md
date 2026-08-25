@@ -15,59 +15,44 @@ tabla de abajo.
 
 ---
 
-## Lo primero: hay una contradicción publicada sobre dónde viven los datos
+## Infraestructura y región — RESUELTO (2026-08-24)
 
-**Esto bloquea el mayor diferenciador de la página y hay que resolverlo antes que
-cualquier otro pendiente.**
+Confirmado por Ricardo: **Google Cloud Platform, región Santiago de Chile
+(southamerica-west1)**. Los datos clínicos residen en Chile. Actualizado en
+`/privacidad`, FAQ de home, `/funciones`, fichas clínicas, comparativas,
+`recursos-templates`, `llms-full.txt` y esta página a la vez.
 
-El sitio hoy declara **AWS São Paulo** en seis lugares públicos:
-
-| Archivo | Qué dice |
-|---|---|
-| `src/app/privacidad/page.tsx:355` | "Proveedores de infraestructura cloud (AWS São Paulo)" |
-| `src/content/home-faq.ts:30` | "Servidores en AWS (Sao Paulo), con cifrado en tránsito y reposo" |
-| `src/components/interior-v3/FuncionesV3.tsx:353` | "cifrado en AWS Sao Paulo" |
-| `src/components/interior-v3/FichasClinicasHubV3.tsx:762` | "almacenamiento cifrado en LATAM (AWS São Paulo o similar)" |
-| `src/app/comparativas/[slug]/page.tsx:843,929` | "hosting AWS São Paulo" |
-| `src/content/recursos-templates.ts:599` | "hosting AWS São Paulo (datos clínicos cifrados)" |
-
-El proyecto de esta landing, en cambio, asumía **Google Cloud** con región a
-confirmar, y `/ley20584` menciona "Cloud KMS", que es nomenclatura de Google.
-
-Son respuestas distintas y sólo una puede ir en un contrato firmado. Además, la
-diferencia no es cosmética: **AWS São Paulo está en Brasil**, así que el
-argumento de que los datos de pacientes chilenos no salen de Chile no se sostiene
-sobre la infraestructura declarada hoy. Por eso la página no lo afirma.
-
-Al cerrarlo hay que actualizar **las seis referencias de arriba y esta página a
-la vez**, o el sitio queda contradiciéndose solo.
+Inferencia de IA: **Vertex AI (Google Cloud)** desde el 01-08-2026 — modelos
+GLM 5.2 y Gemini Flash 3.7. MFA: activo desde 2026-08-25. (Histórico: compromiso
+disponible la primera semana de
+septiembre de 2026 (publicado como compromiso, no como activo).
 
 ---
 
 ## Inventario de pendientes
 
-| # | Pendiente | Dónde aparece | Responde |
-|---|---|---|---|
-| 1 | Proveedor de nube y sus certificaciones vigentes (ISO 27001 / 27017 / 27018, SOC 2) | Resumen, tabla de infraestructura, tabla de subencargados | Lopez |
-| 2 | Región exacta de alojamiento y si hay transferencia internacional de datos | Resumen, infraestructura, bloque destacado de región, FAQ | Lopez |
-| 3 | Proveedor de IA definitivo: OpenRouter con Zero Data Retention frente a Vertex AI | Subencargados, sección de IA, FAQ | Lopez |
-| 4 | Qué campos se envían al modelo en cada conversación y cuáles nunca salen | Sección de IA | Lopez + equipo técnico |
-| 5 | Ventana de retención del proveedor de IA y si ZDR queda activo en producción | Sección de IA | Lopez |
-| 6 | Si la clínica puede desactivar AURA, CAMILA y LIA conservando agenda, fichas y pagos, y si es autoservicio | Sección de IA | Equipo de producto |
-| 7 | Proveedor de voz de CAMILA: nombre, región y retención del audio | Subencargados | Lopez |
-| 8 | Pasarela de pago activa. `/privacidad` nombra Stripe, MercadoPago y Webpay/Transbank; `package.json` sólo trae `stripe` | Subencargados | Lopez |
-| 9 | Roles y permisos dentro de la clínica: cuáles existen, qué ve cada uno, quién los administra | Infraestructura | Equipo de producto |
-| 10 | MFA: si existe hoy en `app.clinera.io`, si es opcional u obligatorio, qué segundo factor admite | Infraestructura | Equipo técnico |
-| 11 | Gestión de vulnerabilidades: cadencia de parcheo, escaneo de dependencias, pentest, canal de reporte responsable | Infraestructura | Equipo técnico |
-| 12 | Si el agendamiento sin RUT ya está en producción | Minimización | Equipo de producto |
-| 13 | Plazo comprometido para notificar un incidente a la clínica, y canal del aviso | Incidentes | Lopez |
-| 14 | Publicar el anexo DPA como PDF descargable | Hero y cierre | Lopez |
+| # | Pendiente | Dónde aparece | Responde | Estado |
+|---|---|---|---|---|
+| 1 | Proveedor de nube y región | Resumen, tabla de infraestructura, tabla de subencargados, FAQ | Lopez | **Resuelto 2026-08-24** — GCP Santiago |
+| 2 | Región exacta / transferencia internacional | Resumen, infraestructura, bloque de región, FAQ | Lopez | **Resuelto 2026-08-24** — southamerica-west1, sin salida en reposo |
+| 3 | Proveedor de IA definitivo | Subencargados, sección de IA, FAQ | Lopez | **Resuelto 2026-08-24** — Vertex AI (GLM 5.2 + Gemini Flash 3.7) |
+| 4 | Qué campos se envían al modelo en cada conversación y cuáles nunca salen | Sección de IA | Lopez + equipo técnico | Abierto (reescrito sin intermediario; inventario pendiente) |
+| 5 | Ventana de retención del proveedor de IA | Sección de IA | Lopez | Abierto (reescrito en términos de Vertex) |
+| 6 | Si la clínica puede desactivar AURA, CAMILA y LIA conservando agenda, fichas y pagos, y si es autoservicio | Sección de IA | Equipo de producto | Abierto |
+| 7 | Proveedor de voz de CAMILA: nombre, región y retención del audio | Subencargados | Lopez | Abierto |
+| 8 | Pasarela de pago activa. `/privacidad` nombra Stripe, MercadoPago y Webpay/Transbank; `package.json` sólo trae `stripe` | Subencargados | Lopez | Abierto |
+| 9 | Roles y permisos dentro de la clínica: cuáles existen, qué ve cada uno, quién los administra | Infraestructura | Equipo de producto | Abierto |
+| 10 | MFA | Infraestructura | Equipo técnico | **Abierto (compromiso 2026-08-24)** — en despliegue, 1ª semana sept 2026; queda como `<Pendiente>` hasta que esté activo |
+| 11 | Gestión de vulnerabilidades: cadencia de parcheo, escaneo de dependencias, pentest, canal de reporte responsable | Infraestructura | Equipo técnico | Abierto |
+| 12 | Si el agendamiento sin RUT ya está en producción | Minimización | Equipo de producto | Abierto |
+| 13 | Plazo comprometido para notificar un incidente a la clínica, y canal del aviso | Incidentes | Lopez | Abierto |
+| 14 | Publicar el anexo DPA como PDF descargable | Hero y cierre | Lopez | Abierto |
 
-**Nota sobre los pendientes 9, 10 y 11:** no es que falte confirmarlos, es que
-*no existe ninguna mención* a roles, permisos, MFA ni gestión de
-vulnerabilidades en todo el repositorio ni en el sitio público. Si la
-funcionalidad no existe todavía, la fila se elimina de la tabla en vez de
-publicarse; si existe, hay que documentarla.
+**Nota sobre los pendientes 9 y 11:** no es que falte confirmarlos, es que
+*no existe ninguna mención* a roles, permisos ni gestión de vulnerabilidades en
+todo el repositorio ni en el sitio público. Si la funcionalidad no existe
+todavía, la fila se elimina de la tabla en vez de publicarse; si existe, hay
+que documentarla.
 
 ---
 
@@ -77,6 +62,9 @@ Cada fila confirmada de la página cita su evidencia. No entró nada sin ella.
 
 | Afirmación | De dónde sale |
 |---|---|
+| Google Cloud Platform, región Santiago (southamerica-west1); datos clínicos en Chile | Confirmado por Ricardo 2026-08-24; publicado en `/privacidad` |
+| Vertex AI (GLM 5.2 + Gemini Flash 3.7) desde 01-08-2026; sin entrenamiento de modelos fundacionales | Confirmado por Ricardo 2026-08-24; `/privacidad` |
+| MFA en despliegue, disponible 1ª semana de septiembre 2026 | Compromiso 2026-08-24 — sigue como pendiente amarillo hasta el go-live |
 | AES-256-GCM sobre el 100% del contenido clínico, con envelope encryption | Ya publicado en `/ley20584` |
 | Una llave de cifrado por clínica, aislamiento criptográfico entre clínicas | Ya publicado en `/ley20584` |
 | Llave maestra en KMS gestionado, IAM mínimo, rotación cada 90 días | Ya publicado en `/ley20584` |
@@ -84,7 +72,7 @@ Cada fila confirmada de la página cita su evidencia. No entró nada sin ella.
 | Respaldos automáticos con recuperación punto en el tiempo, ventana de 7 días | Ya publicado en `/ley20584` |
 | HSTS 2 años + includeSubDomains + preload, upgrade-insecure-requests | `next.config.ts`, verificable con `curl -sI https://www.clinera.io` |
 | CSP, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy | `next.config.ts`, verificable con `curl -sI` |
-| Los datos no se usan para entrenar modelos | Ya declarado en `/privacidad` |
+| Los datos no se usan para entrenar modelos | Declarado en `/privacidad` + compromiso contractual de Google Cloud |
 | WABA de la clínica vía Meta Embedded Signup, Clinera como Tech Provider | Confirmado en el encargo de esta página |
 | Timeline de retención: día 0 / 0-60 / 60 / 95, con avisos al 0, 30 y 55 | Confirmado en el encargo de esta página |
 | Plazo interno de 5 días hábiles para entregar datos a la clínica | Confirmado en el encargo de esta página |

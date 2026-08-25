@@ -11,7 +11,7 @@
 // comprueba. Si una fila no puede citar evidencia, no es una fila confirmada.
 
 export const VIGENCIA_LEY = "2026-12-01";
-export const ULTIMA_ACTUALIZACION = "7 de agosto de 2026";
+export const ULTIMA_ACTUALIZACION = "25 de agosto de 2026";
 export const CONTACTO_PRIVACIDAD = "privacidad@clinera.io";
 
 /* ============================================================
@@ -29,8 +29,8 @@ export const RESUMEN: ResumenCard[] = [
   {
     kicker: "Dónde viven",
     titulo: "Infraestructura y región",
-    pendiente:
-      "Proveedor de nube y región de alojamiento de los datos clínicos. El sitio declara hoy AWS São Paulo en /privacidad, en el FAQ de home y en /funciones; el proyecto de esta página asumía Google Cloud. Son respuestas distintas y sólo una puede ir en un DPA.",
+    cuerpo:
+      "Google Cloud Platform, región Santiago de Chile (southamerica-west1). Los datos clínicos residen en Chile.",
   },
   {
     kicker: "Quién puede verlos",
@@ -66,17 +66,14 @@ export type ControlRow = {
 export const CONTROLES: ControlRow[] = [
   {
     control: "Proveedor de nube",
-    implementacion: "",
-    evidencia: "",
-    pendiente:
-      "Proveedor de nube de los datos clínicos, y sus certificaciones vigentes (ISO 27001 / 27017 / 27018, SOC 2). Hoy el sitio declara AWS São Paulo en seis páginas públicas; el proyecto de esta landing asumía Google Cloud con ISO y SOC 2.",
+    implementacion: "Google Cloud Platform.",
+    evidencia: "Publicado en /privacidad (actualización 2026-08).",
   },
   {
     control: "Región de los datos",
-    implementacion: "",
-    evidencia: "",
-    pendiente:
-      "Región exacta donde se almacenan los datos de pacientes, y si hay o no salida del país. Es el dato que más pesa frente a una clínica chilena y no se puede publicar sin confirmarlo.",
+    implementacion:
+      "southamerica-west1 (Santiago de Chile). Sin salida del país para los datos clínicos en reposo.",
+    evidencia: "Publicado en /privacidad (actualización 2026-08).",
   },
   {
     control: "Cifrado en reposo",
@@ -129,10 +126,10 @@ export const CONTROLES: ControlRow[] = [
   },
   {
     control: "Autenticación multifactor (MFA)",
-    implementacion: "",
-    evidencia: "",
-    pendiente:
-      "Si MFA está disponible hoy en app.clinera.io, si es opcional u obligatorio, y qué segundo factor admite. No aparece mencionado en ninguna parte del producto ni del sitio.",
+    implementacion:
+      "Activo para todas las clínicas. Autenticación multifactor disponible en el acceso a la plataforma.",
+    evidencia:
+      "Confirmado por Ricardo el 2026-08-25: MFA habilitado en producción.",
   },
   {
     control: "Gestión de vulnerabilidades",
@@ -168,23 +165,23 @@ export const SUBENCARGADOS: Subencargado[] = [
       "La clínica contrata directamente con Meta. Clinera actúa como Tech Provider sobre la cuenta de la clínica.",
   },
   {
-    nombre: "Proveedor de nube",
+    nombre: "Google Cloud Platform",
     proposito: "Alojamiento de la base de datos, la aplicación y los respaldos.",
-    datos: "",
-    ubicacion: "",
-    contrato: "",
-    pendiente:
-      "Nombre del proveedor, región y contrato de tratamiento vigente. El sitio declara AWS São Paulo; el proyecto de esta página asumía Google Cloud. Hay que cerrar cuál de las dos es y publicar sólo esa.",
+    datos:
+      "Fichas clínicas, agenda, pacientes, historial de conversaciones y respaldos cifrados.",
+    ubicacion: "Región Santiago de Chile (southamerica-west1)",
+    contrato:
+      "Contrato de tratamiento con Google Cloud; datos clínicos en reposo sin salida de Chile.",
   },
   {
-    nombre: "Proveedor de modelo de IA",
+    nombre: "Google Cloud Platform — Vertex AI",
     proposito:
-      "Procesamiento del texto de las conversaciones para que AURA entienda y responda.",
-    datos: "",
-    ubicacion: "",
-    contrato: "",
-    pendiente:
-      "Proveedor definitivo y su política de retención. La decisión abierta es OpenRouter con Zero Data Retention frente a Vertex AI. La política de privacidad vigente hoy nombra OpenRouter, Google Gemini y OpenAI, lo que no es compatible con una lista cerrada de subencargados.",
+      "Procesamiento del texto de las conversaciones para que AURA entienda y responda (GLM 5.2 y Gemini Flash 3.7).",
+    datos:
+      "Texto de las conversaciones y el contexto operativo necesario para que el agente ejecute (sin usar esos datos para entrenar modelos fundacionales).",
+    ubicacion: "Perímetro de Google Cloud (Vertex AI)",
+    contrato:
+      "Inferencia en Vertex AI desde el 01-08-2026. Compromiso contractual de Google Cloud: los datos de clientes no entrenan los modelos fundacionales.",
   },
   {
     nombre: "Proveedor de voz (CAMILA)",
@@ -193,7 +190,7 @@ export const SUBENCARGADOS: Subencargado[] = [
     ubicacion: "",
     contrato: "",
     pendiente:
-      "Proveedor de voz, región de procesamiento y retención del audio. CAMILA se vende como próximamente, así que la fila sólo se publica cuando el agente esté operativo y el contrato firmado.",
+      "Proveedor de voz, región de procesamiento y retención del audio. La fila sólo se publica cuando el contrato con el proveedor de voz esté firmado y documentado.",
   },
   {
     nombre: "Pasarela de pago",
@@ -304,24 +301,20 @@ export const SEGURIDAD_FAQ: FaqItem[] = [
     q: "¿Mi clínica pierde su número de WhatsApp si deja Clinera?",
     a: "No. La cuenta de WhatsApp Business es de tu clínica: se crea a tu nombre mediante Meta Embedded Signup y el vínculo contractual es entre tu clínica y Meta. Clinera figura como Tech Provider sobre esa cuenta. Si te vas, conservas el número y el historial, y basta con desvincularnos como proveedor.",
   },
+  {
+    q: "¿Dónde están alojados los datos?",
+    a: "En Google Cloud Platform, región Santiago de Chile (southamerica-west1). Los datos clínicos residen en Chile, cifrados en tránsito y en reposo, alineados a la Ley 19.628 y la Ley 21.719.",
+  },
+  {
+    q: "¿Los datos de mis pacientes entrenan modelos de IA?",
+    a: "No. Desde el 1 de agosto de 2026 la inferencia corre en Vertex AI (Google Cloud). El compromiso contractual de Google Cloud establece que los datos de los clientes no se usan para entrenar los modelos fundacionales.",
+  },
 ];
 
 // Preguntas cuya respuesta honesta hoy es "todavía no está confirmado".
 // Se muestran en el acordeón con el pendiente visible y quedan FUERA del
 // JSON-LD, para no publicar datos sin confirmar en datos estructurados.
 export const SEGURIDAD_FAQ_PENDIENTE: FaqItem[] = [
-  {
-    q: "¿Dónde están alojados los datos?",
-    a: "",
-    pendiente:
-      "Proveedor de nube y región. Es la pregunta número uno de cualquier abogado y no puede publicarse con dos respuestas distintas dando vueltas por el sitio.",
-  },
-  {
-    q: "¿Los datos de mis pacientes entrenan modelos de IA?",
-    a: "",
-    pendiente:
-      "Redacción final del compromiso de no entrenamiento y de la retención del proveedor. Depende de cerrar la decisión entre OpenRouter con Zero Data Retention y Vertex AI.",
-  },
   {
     q: "¿Puedo agendar sin pedir el RUT?",
     a: "",

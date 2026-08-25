@@ -156,17 +156,18 @@ export default function PrivacidadPage() {
               </p>
               <ul style={ul}>
                 <li>
-                  <strong>OpenRouter</strong> (
+                  <strong>Google Cloud Platform — Vertex AI</strong> (
                   <a
-                    href="https://openrouter.ai/privacy"
+                    href="https://cloud.google.com/terms/cloud-privacy-notice"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    openrouter.ai
+                    cloud.google.com
                   </a>
-                  ) — servicio de enrutamiento de modelos de IA que actúa como
-                  intermediario para acceder a{" "}
-                  <strong>Google Gemini</strong> y <strong>OpenAI GPT</strong>.
+                  ) — plataforma de inferencia de modelos de IA donde Clinera
+                  ejecuta <strong>GLM 5.2</strong> y{" "}
+                  <strong>Gemini Flash 3.7</strong> dentro del perímetro de
+                  Google Cloud.
                 </li>
               </ul>
 
@@ -236,11 +237,11 @@ export default function PrivacidadPage() {
               <ul style={ul}>
                 <li>
                   <a
-                    href="https://openrouter.ai/privacy"
+                    href="https://cloud.google.com/terms/cloud-privacy-notice"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Política de Privacidad de OpenRouter
+                    Aviso de Privacidad de Google Cloud
                   </a>
                 </li>
                 <li>
@@ -250,15 +251,6 @@ export default function PrivacidadPage() {
                     rel="noopener noreferrer"
                   >
                     Política de Privacidad de Google
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://openai.com/policies/privacy-policy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Política de Privacidad de OpenAI
                   </a>
                 </li>
               </ul>
@@ -352,14 +344,16 @@ export default function PrivacidadPage() {
               </p>
               <ul style={ul}>
                 <li>
-                  Proveedores de infraestructura cloud (AWS São Paulo) para el
-                  almacenamiento cifrado de la información.
+                  Proveedores de infraestructura cloud (Google Cloud Platform,
+                  región Santiago de Chile — southamerica-west1) para el
+                  almacenamiento cifrado de la información. Los datos clínicos
+                  residen en Chile.
                 </li>
                 <li>
-                  Proveedores de IA (OpenRouter / Google Gemini / OpenAI),
-                  exclusivamente para las funciones descritas en la sección 4
-                  y bajo cláusulas contractuales que prohíben el uso de los
-                  datos para entrenar modelos.
+                  Proveedores de IA (Google Cloud Platform — Vertex AI: GLM 5.2
+                  y Gemini Flash 3.7), exclusivamente para las funciones
+                  descritas en la sección 4 y bajo cláusulas contractuales que
+                  prohíben el uso de los datos para entrenar modelos.
                 </li>
                 <li>
                   Procesadores de pago (Stripe, MercadoPago, Webpay/Transbank)
