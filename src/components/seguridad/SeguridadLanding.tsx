@@ -218,14 +218,11 @@ export default function SeguridadLanding() {
           <div style={{ marginTop: 40 }} data-reveal>
             <h3 className={styles.h3}>Región de alojamiento</h3>
             <p className={`${styles.body} ${styles.read}`}>
-              Es el dato que más pesa cuando una clínica chilena compara proveedores, y por
-              eso no lo vamos a publicar hasta tenerlo cerrado. Hoy el sitio declara una cosa
-              en unas páginas y el proyecto de esta suponía otra. Sólo una de las dos puede ir
-              en un contrato firmado.
+              Los datos clínicos de Clinera viven en Google Cloud Platform, región Santiago
+              de Chile (southamerica-west1). Sin salida del país para los datos clínicos en
+              reposo: es el dato que más pesa cuando una clínica chilena compara proveedores
+              frente a la Ley 21.719.
             </p>
-            <div className={styles.read}>
-              <Pendiente texto="Proveedor de nube, región exacta y si existe o no transferencia internacional de datos. Mientras no esté confirmado, la afirmación de que los datos de pacientes chilenos permanecen en Chile no se publica." />
-            </div>
           </div>
         </div>
       </section>
@@ -317,12 +314,23 @@ export default function SeguridadLanding() {
 
               <div data-reveal style={d(60)}>
                 <h3 className={styles.h3}>Qué se le envía al modelo y qué no</h3>
-                <Pendiente texto="Detalle de los campos que salen hacia el proveedor de IA en cada conversación y de los que nunca salen. Depende de cerrar la decisión entre OpenRouter con Zero Data Retention y Vertex AI, porque cambia el diagrama de flujo de datos que va en el DPA." />
+                <p className={styles.bodyTight}>
+                  Desde el 1 de agosto de 2026 la inferencia corre en Vertex AI (Google
+                  Cloud), con GLM 5.2 y Gemini Flash 3.7. El diagrama exacto de campos que
+                  salen en cada conversación —y los que nunca salen— todavía se documenta
+                  para el DPA.
+                </p>
+                <Pendiente texto="Detalle de los campos que salen hacia Vertex AI en cada conversación y de los que nunca salen. Sin ese inventario cerrado no se publica el diagrama de flujo de datos del DPA." />
               </div>
 
               <div data-reveal style={d(120)}>
                 <h3 className={styles.h3}>Cuánto retiene el proveedor</h3>
-                <Pendiente texto="Ventana de retención del proveedor de IA y si el modo Zero Data Retention queda activo en producción. Sin ese dato no se puede prometer una retención determinada." />
+                <p className={styles.bodyTight}>
+                  La inferencia ocurre dentro del perímetro de Vertex AI (Google Cloud). La
+                  ventana de retención exacta del proveedor para logs de inferencia todavía
+                  se confirma antes de publicarla como compromiso contractual.
+                </p>
+                <Pendiente texto="Ventana de retención de Vertex AI para logs de inferencia. Sin ese dato no se puede prometer una retención determinada en el DPA." />
               </div>
 
               <div data-reveal style={d(180)}>

@@ -7,7 +7,7 @@ import styles from "./empleado-digital.module.css";
 export const metadata: Metadata = {
   title: "Empleado Digital IA para Clínicas — AURA y LIA | Clinera.io",
   description:
-    "Agentes de IA (AURA y LIA) que ejecutan funciones sobre la agenda de todo tu equipo y todas tus sedes por WhatsApp 24/7: agendan, confirman, cobran y recuperan pacientes. Desde USD 279/mes; Corporativo desde USD 1.900/mes.",
+    "Agentes de IA (AURA y LIA) que ejecutan funciones sobre la agenda de todo tu equipo y todas tus sedes por WhatsApp 24/7: agendan, confirman, cobran y recuperan pacientes. Desde USD 279/mes hasta USD 479/mes.",
   alternates: { canonical: "https://www.clinera.io/empleado-digital" },
   openGraph: {
     url: "https://www.clinera.io/empleado-digital",
@@ -31,14 +31,14 @@ const productJsonLd = {
   "@type": "Product",
   name: "Clinera.io — Empleado digital IA para clínicas",
   description:
-    "Plataforma con IA para clínicas con volumen y grupos multi-sede. Agentes que agendan, confirman, cobran y recuperan pacientes por WhatsApp 24/7, con visibilidad y control central. Planes desde USD 279/mes; Corporativo desde USD 1.900/mes.",
+    "Plataforma con IA para clínicas con volumen y grupos multi-sede. Agentes que agendan, confirman, cobran y recuperan pacientes por WhatsApp 24/7, con visibilidad y control central. Planes desde USD 279/mes hasta USD 479/mes.",
   brand: { "@type": "Brand", name: "Clinera.io" },
   offers: {
     "@type": "AggregateOffer",
     lowPrice: "279",
-    highPrice: "1900",
+    highPrice: "479",
     priceCurrency: "USD",
-    offerCount: 4,
+    offerCount: 3,
     availability: "https://schema.org/InStock",
     url: "https://www.clinera.io/empleado-digital",
     seller: { "@type": "Organization", name: "Clinera.io" },

@@ -9,7 +9,7 @@ const BULLETS = [
   "Una sola bolsa para texto, voz y agendamiento",
   "3 agentes de IA: AURA (texto) + CAMILA (voz) + LIA (fiscaliza)",
   "Agendamiento agéntico: la IA agenda sola dentro del chat",
-  "Modelo orquestador de tools: Kimi K2.6",
+  "Modelos orquestadores de tools: GLM 5.2 y Gemini Flash 3.7 (Vertex AI)",
   "Módulo clínico completo (agenda + fichas + Vault)",
   "Sucursales ilimitadas + panel de atribución",
   "Webhooks + API pública (integraciones a medida)",

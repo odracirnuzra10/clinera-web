@@ -112,27 +112,26 @@ export default function CorporativoBanner() {
                 color: "rgba(255,255,255,.55)",
               }}
             >
-              Desde
+              Sobre Summit
             </span>
             <span
               style={{
                 fontFamily: "Inter",
-                fontSize: 44,
+                fontSize: 28,
                 fontWeight: 800,
                 color: "#fff",
-                letterSpacing: "-0.035em",
-                lineHeight: 1,
+                letterSpacing: "-0.03em",
+                lineHeight: 1.15,
               }}
             >
-              $1.900
+              A medida
             </span>
-            <span style={{ fontSize: 14, color: "rgba(255,255,255,.55)" }}>USD/mes</span>
           </div>
           <Link
             href="/hablar-con-ventas"
-            data-plan="corporativo"
-            data-plan-value="1900"
-            data-plan-name="Corporativo from empleado-digital"
+            data-plan="ventas"
+            data-plan-value="479"
+            data-plan-name="Hablar con ventas from empleado-digital"
             style={{
               background: "#fff",
               color: "#0E1014",

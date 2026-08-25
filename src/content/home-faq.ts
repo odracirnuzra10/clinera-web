@@ -23,10 +23,10 @@ export const HOME_FAQ = [
   },
   {
     q: "¿Funciona para clínicas con varios profesionales?",
-    a: "Sí. Vortex incluye 10 usuarios, Atlas 15 y Summit hasta 25 profesionales. Para cadenas multi-sede y sin límite de usuarios está el plan Corporativo.",
+    a: "Sí. Vortex incluye 10 usuarios, Atlas 15 y Summit hasta 25 profesionales con sucursales ilimitadas.",
   },
   {
     q: "¿Dónde se guardan los datos de mis pacientes?",
-    a: "Servidores en AWS (Sao Paulo), con cifrado en tránsito y reposo. Cumplimos Ley N° 19.628 de protección de datos en Chile.",
+    a: "En Google Cloud Platform, región Santiago de Chile (southamerica-west1): los datos clínicos residen en Chile, cifrados en tránsito y en reposo. Cumplimos Ley N° 19.628 y Ley N° 21.719 de protección de datos en Chile.",
   },
 ];

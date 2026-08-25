@@ -44,7 +44,7 @@ const PLANS = [
       "1 sucursal",
       "Modo Agentic",
     ],
-    models: ["Kimi K2.6"],
+    models: ["GLM 5.2", "Gemini Flash 3.7"],
     agents: [{ id: "aura", name: "AURA" }] as DemoAgent[],
   },
   {
@@ -61,7 +61,7 @@ const PLANS = [
       "2 sucursales",
       "Webhooks + API pública",
     ],
-    models: ["Kimi K2.6"],
+    models: ["GLM 5.2", "Gemini Flash 3.7"],
     agents: [
       { id: "aura", name: "AURA" },
       { id: "camila", name: "CAMILA" },
@@ -81,7 +81,7 @@ const PLANS = [
       "Sucursales ilimitadas",
       "Webhooks + API pública",
     ],
-    models: ["Kimi K2.6"],
+    models: ["GLM 5.2", "Gemini Flash 3.7"],
     agents: [
       { id: "aura", name: "AURA" },
       { id: "camila", name: "CAMILA" },
@@ -850,22 +850,22 @@ function PlansSection() {
               <span
                 style={{
                   fontFamily: "Inter",
-                  fontSize: 38,
+                  fontSize: 22,
                   fontWeight: 800,
                   color: "#fff",
-                  letterSpacing: "-0.03em",
-                  lineHeight: 1,
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.2,
                 }}
               >
-                $1.900
+                A medida
               </span>
-              <span style={{ fontSize: 14, color: "rgba(255,255,255,.55)" }}>USD/mes</span>
+              <span style={{ fontSize: 14, color: "rgba(255,255,255,.55)" }}>sobre Summit</span>
             </div>
             <Link
               href="/hablar-con-ventas"
-              data-plan="corporativo"
-              data-plan-value="1900"
-              data-plan-name="Corporativo talk-to-sales"
+              data-plan="ventas"
+              data-plan-value="479"
+              data-plan-name="Hablar con ventas (sobre Summit)"
               style={{
                 background: "#fff",
                 color: "#0E1014",

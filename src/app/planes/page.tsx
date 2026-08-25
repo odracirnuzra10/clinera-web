@@ -43,7 +43,6 @@ const jsonLd = {
       priceCurrency: "USD",
       url: "https://www.clinera.io/planes",
     })),
-    { "@type": "Offer", name: "Corporativo", price: "1900", priceCurrency: "USD", url: "https://www.clinera.io/planes", availability: "https://schema.org/PreOrder", description: "Plan personalizado desde USD 1.900/mes" },
   ],
 };
 

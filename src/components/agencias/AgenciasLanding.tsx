@@ -184,7 +184,7 @@ function SellingPoints() {
     {
       num: "04",
       title: "Una sola bolsa de créditos",
-      desc: "Cada plan trae su bolsa mensual de créditos. Texto de AURA = 10 cr; un agendamiento automático (Agentic) consume más, y un minuto de voz de CAMILA = 25 cr.",
+      desc: "Cada plan trae su bolsa mensual de créditos. Texto de AURA = 30 cr; un agendamiento automático (Agentic) consume más, y un minuto de voz de CAMILA = 25 cr.",
     },
   ];
   return (
@@ -919,7 +919,7 @@ function ModosCompact() {
             <b style={{ color: "#0A0A0A", fontWeight: 600 }}>
               Un agendamiento automático (Agentic) consume más que una conversación simple.
             </b>{" "}
-            Texto de AURA = 10 cr · minuto de voz de CAMILA = 25 cr.
+            Texto de AURA = 30 cr · minuto de voz de CAMILA = 25 cr.
           </p>
         </div>
 

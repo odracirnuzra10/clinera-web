@@ -4306,7 +4306,7 @@ export function Pricing({
   const isComparisonIntro = intro === "comparison";
   // "none": la página ya trae su propio hero (p. ej. /planes) — sin header duplicado.
   const hideHeader = intro === "none";
-  const IA_MODELS = ["Kimi K2.6"];
+  const IA_MODELS = ["GLM 5.2", "Gemini Flash 3.7"];
   const plans = CLINERA_PLANS.map((plan) => ({
     id: plan.id,
     name: plan.name,

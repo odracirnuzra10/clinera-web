@@ -5,7 +5,7 @@ const CARDS = [
     icon: "💬",
     title: "Mensaje de texto (AURA)",
     desc: "Cada respuesta que AURA envía por WhatsApp — precios, ubicación, horarios o servicios, con el contexto de tu clínica.",
-    creditos: "10 créditos",
+    creditos: "30 créditos",
   },
   {
     icon: "📅",
@@ -173,7 +173,7 @@ export default function AtencionesExplainer() {
           }}
         >
           <strong style={{ color: "#0A0A0A" }}>Tu plan incluye una bolsa mensual de créditos: 28.000 (Vortex) · 37.000 (Atlas) · 46.000 (Summit).</strong>{" "}
-          El texto simple de AURA consume ~10 créditos, un agendamiento automático (Agentic) ~195
+          El texto simple de AURA consume ~30 créditos, un agendamiento automático (Agentic) ~195
           y un minuto de voz de CAMILA 25. Los cupos se dimensionaron con margen para que nunca te
           quedes corto ni pases por sorpresa del cupo.
         </p>

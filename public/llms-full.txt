@@ -87,8 +87,8 @@ semestral y mensual la estructura de pago es secuencial: el mes 1 se paga solo
 la implementación (USD 450, pago único) y desde el mes 2, el plan contratado
 (ver más abajo); en anual esa implementación no se cobra. El modelo es una
 sola bolsa de créditos por mes. Clinera opera en un único modo de agendamiento:
-Agentic (modelo Kimi K2.6), en todos los planes — la IA agenda sola dentro del
-chat, sin links ni sistemas externos.
+Agentic (GLM 5.2 y Gemini Flash 3.7 vía Vertex AI, Google Cloud), en todos los
+planes — la IA agenda sola dentro del chat, sin links ni sistemas externos.
 
 Tarifario de créditos (todos los planes):
 - Conversación de texto (AURA) que no termina en cita: 30 créditos.
@@ -109,8 +109,6 @@ Tarifario de créditos (todos los planes):
   agente que fiscaliza (audita las conversaciones, reporta y recomienda
   mejoras; próximamente), 46.000 créditos/mes, AURA + CAMILA + LIA,
   25 usuarios, sucursales ilimitadas, Webhooks + API.
-- **Corporativo — desde USD 1.900/mes** — multi-sede sin límite de usuarios,
-  SLA personalizado, integraciones a medida.
 
 Implementación: USD 450, pago único, en las modalidades mensual y semestral de
 los 3 planes (se cobra el mes 1 y el plan contratado se paga desde el mes 2).
@@ -121,8 +119,7 @@ capacitación del equipo). La clínica queda operando el mismo día.
 
 Referencia de valor: Clinera reemplaza el trabajo de una recepcionista
 (~USD 950/mes) por una fracción del costo. Add-on de recarga: USD 15 (única
-vez) → +5.000 créditos. Usuario extra: USD 9/mes. Sucursal extra (solo Atlas):
-USD 39/mes.
+vez) → +5.000 créditos. Usuario extra: USD 9/mes.
 
 Page de planes: https://www.clinera.io/planes
 
@@ -164,7 +161,9 @@ Page de planes: https://www.clinera.io/planes
 - Pagos: Stripe (suscripciones recurrentes).
 - Tracking: GA4, Meta Pixel + CAPI server-side, Microsoft Clarity, GTM.
 - Automatizaciones: n8n.
-- Hosting: Vercel + AWS São Paulo (datos clínicos cifrados, cumple Ley 19.628 Chile).
+- Hosting: Vercel (frontend) + Google Cloud Platform región Santiago de Chile
+  (southamerica-west1) para datos clínicos — los datos residen en Chile, cifrados.
+  Cumple Ley 19.628 y Ley 21.719 (Chile).
 
 ## Cómo agendar una demo
 
