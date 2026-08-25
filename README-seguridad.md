@@ -23,9 +23,8 @@ Confirmado por Ricardo: **Google Cloud Platform, región Santiago de Chile
 `recursos-templates`, `llms-full.txt` y esta página a la vez.
 
 Inferencia de IA: **Vertex AI (Google Cloud)** desde el 01-08-2026 — modelos
-GLM 5.2 y Gemini Flash 3.7. MFA: activo desde 2026-08-25. (Histórico: compromiso
-disponible la primera semana de
-septiembre de 2026 (publicado como compromiso, no como activo).
+GLM 5.2 y Gemini Flash 3.7. MFA: **activo** desde 2026-08-25 (confirmado por
+Ricardo).
 
 ---
 
@@ -42,7 +41,7 @@ septiembre de 2026 (publicado como compromiso, no como activo).
 | 7 | Proveedor de voz de CAMILA: nombre, región y retención del audio | Subencargados | Lopez | Abierto |
 | 8 | Pasarela de pago activa. `/privacidad` nombra Stripe, MercadoPago y Webpay/Transbank; `package.json` sólo trae `stripe` | Subencargados | Lopez | Abierto |
 | 9 | Roles y permisos dentro de la clínica: cuáles existen, qué ve cada uno, quién los administra | Infraestructura | Equipo de producto | Abierto |
-| 10 | MFA | Infraestructura | Equipo técnico | **Abierto (compromiso 2026-08-24)** — en despliegue, 1ª semana sept 2026; queda como `<Pendiente>` hasta que esté activo |
+| 10 | MFA | Infraestructura | Ricardo | **Resuelto 2026-08-25** — activo en producción |
 | 11 | Gestión de vulnerabilidades: cadencia de parcheo, escaneo de dependencias, pentest, canal de reporte responsable | Infraestructura | Equipo técnico | Abierto |
 | 12 | Si el agendamiento sin RUT ya está en producción | Minimización | Equipo de producto | Abierto |
 | 13 | Plazo comprometido para notificar un incidente a la clínica, y canal del aviso | Incidentes | Lopez | Abierto |
@@ -64,7 +63,7 @@ Cada fila confirmada de la página cita su evidencia. No entró nada sin ella.
 |---|---|
 | Google Cloud Platform, región Santiago (southamerica-west1); datos clínicos en Chile | Confirmado por Ricardo 2026-08-24; publicado en `/privacidad` |
 | Vertex AI (GLM 5.2 + Gemini Flash 3.7) desde 01-08-2026; sin entrenamiento de modelos fundacionales | Confirmado por Ricardo 2026-08-24; `/privacidad` |
-| MFA en despliegue, disponible 1ª semana de septiembre 2026 | Compromiso 2026-08-24 — sigue como pendiente amarillo hasta el go-live |
+| MFA activo para todas las clínicas | Confirmado por Ricardo 2026-08-25 |
 | AES-256-GCM sobre el 100% del contenido clínico, con envelope encryption | Ya publicado en `/ley20584` |
 | Una llave de cifrado por clínica, aislamiento criptográfico entre clínicas | Ya publicado en `/ley20584` |
 | Llave maestra en KMS gestionado, IAM mínimo, rotación cada 90 días | Ya publicado en `/ley20584` |
