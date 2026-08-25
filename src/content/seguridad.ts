@@ -10,6 +10,8 @@
 // Cada afirmación confirmada lleva su `evidencia`: de dónde sale y cómo se
 // comprueba. Si una fila no puede citar evidencia, no es una fila confirmada.
 
+import { VERTEX_IA_MODELS_PROSE } from "@/content/ia-stack";
+
 export const VIGENCIA_LEY = "2026-12-01";
 export const ULTIMA_ACTUALIZACION = "25 de agosto de 2026";
 export const CONTACTO_PRIVACIDAD = "privacidad@clinera.io";
@@ -176,7 +178,7 @@ export const SUBENCARGADOS: Subencargado[] = [
   {
     nombre: "Google Cloud Platform — Vertex AI",
     proposito:
-      "Procesamiento del texto de las conversaciones para que AURA entienda y responda (GLM 5.2 y Gemini Flash 3.7).",
+      `Procesamiento del texto de las conversaciones para que AURA entienda y responda (${VERTEX_IA_MODELS_PROSE}).`,
     datos:
       "Texto de las conversaciones y el contexto operativo necesario para que el agente ejecute (sin usar esos datos para entrenar modelos fundacionales).",
     ubicacion: "Perímetro de Google Cloud (Vertex AI)",

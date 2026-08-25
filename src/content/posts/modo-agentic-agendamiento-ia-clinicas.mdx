@@ -1,9 +1,9 @@
 ---
 title: "El modo Agentic de Clinera: cómo la IA agenda sola y cuánto consume"
-description: "Clinera opera en un único modo de agendamiento: Agentic, sobre GLM 5.2 y Gemini Flash 3.7 en Vertex AI. Qué significa que un modelo sea agéntico, qué tool calls ejecuta contra tu agenda, cuántos créditos consume conversar (~30) frente a agendar (~195) y por qué ya no existen links de agendamiento."
+description: "Clinera opera en un único modo de agendamiento: Agentic, sobre GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8 y Claude Sonnet 5 en Vertex AI. Qué significa que un modelo sea agéntico, qué tool calls ejecuta contra tu agenda, cuántos créditos consume conversar (~30) frente a agendar (~195) y por qué ya no existen links de agendamiento."
 slug: modo-agentic-agendamiento-ia-clinicas
 publishedAt: "2026-05-20"
-updatedAt: "2026-08-24"
+updatedAt: "2026-08-25"
 category: "Tecnología"
 tags: ["ia", "operaciones"]
 heroImage: "/images/blog/modo-agentic-agendamiento-ia-clinicas.png"
@@ -13,7 +13,7 @@ faq:
   - q: "¿Qué significa que un modelo sea agéntico?"
     a: "Un modelo agéntico no solo responde texto: ejecuta acciones reales contra tu sistema. Crear una cita, reagendarla, consultar el historial clínico de un paciente, revisar pagos pendientes o cancelar una sesión son tool calls. El modo Agentic de Clinera hace todo eso solo, dentro de la conversación de WhatsApp, sin que el paciente tenga que abrir nada."
   - q: "¿Cuántos modos de agendamiento tiene Clinera?"
-    a: "Uno solo: Agentic, sobre GLM 5.2 y Gemini Flash 3.7 vía Vertex AI (Google Cloud), disponible desde el Plan Vortex (USD 279/mes) y en todos los planes superiores. No hay modos que elegir ni configurar: toda cuenta opera con la IA agendando de forma autónoma."
+    a: "Uno solo: Agentic, sobre GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8 y Claude Sonnet 5 vía Vertex AI (Google Cloud), disponible desde el Plan Vortex (USD 279/mes) y en todos los planes superiores. No hay modos que elegir ni configurar: toda cuenta opera con la IA agendando de forma autónoma."
   - q: "¿Cuántos créditos consume el modo Agentic?"
     a: "Depende de si la conversación termina o no en una cita. Una conversación que solo informa —precios, horarios, profesionales, confirmar o recordar una hora ya existente— consume ~30 créditos. Una que crea, reagenda o cancela una cita consume ~195 créditos, porque la IA consulta la disponibilidad real de tu agenda y encadena varios tool calls."
   - q: "¿Por qué Clinera ya no manda links de agendamiento?"
@@ -24,7 +24,7 @@ faq:
 
 ## TL;DR
 
-- Clinera tiene **un solo modo de agendamiento: Agentic**, sobre **GLM 5.2 y Gemini Flash 3.7** en Vertex AI (Google Cloud), activo en todos los planes desde Vortex.
+- Clinera tiene **un solo modo de agendamiento: Agentic**, sobre **GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8 y Claude Sonnet 5** en Vertex AI (Google Cloud), activo en todos los planes desde Vortex.
 - Agéntico significa que la IA **ejecuta acciones reales** contra tu agenda —crear, reagendar, cancelar, cobrar, recordar— y no solo escribe texto.
 - **No hay links de agendamiento.** La cita se cierra dentro de la conversación de WhatsApp.
 - Consumo: **~30 créditos** una conversación que solo informa; **~195 créditos** una que termina en cita creada, reagendada o cancelada.
@@ -55,9 +55,9 @@ Todo dentro del mismo chat, sin que el paciente salga de WhatsApp:
 
 ---
 
-## Por qué GLM 5.2 y Gemini Flash 3.7 en Vertex AI
+## Por qué GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8 y Claude Sonnet 5 en Vertex AI
 
-Desde el 1 de agosto de 2026 Clinera corre la inferencia en **Vertex AI (Google Cloud)**, con **GLM 5.2** y **Gemini Flash 3.7**. El stack selecciona el modelo óptimo por tarea: no es un LLM conversacional al que se le agregaron tools encima, sino modelos orquestadores que **deciden cuándo llamar qué función, con qué argumentos y en qué orden**, dentro del mismo perímetro GCP donde residen los datos clínicos.
+Desde el 1 de agosto de 2026 Clinera corre la inferencia en **Vertex AI (Google Cloud)**, con **GLM 5.2**, **Gemini 3.7 Flash**, **Claude Opus 4.8** y **Claude Sonnet 5**. El stack selecciona el modelo óptimo por tarea: no es un LLM conversacional al que se le agregaron tools encima, sino modelos orquestadores que **deciden cuándo llamar qué función, con qué argumentos y en qué orden**, dentro del mismo perímetro GCP donde residen los datos clínicos.
 
 Las características que sostienen el modo Agentic:
 

@@ -91,8 +91,9 @@ semestral y mensual la estructura de pago es secuencial: el mes 1 se paga solo
 la implementación (USD 450, pago único) y desde el mes 2, el plan contratado
 (ver más abajo); en anual esa implementación no se cobra. El modelo es una
 sola bolsa de créditos por mes. Clinera opera en un único modo de agendamiento:
-Agentic (GLM 5.2 y Gemini Flash 3.7 vía Vertex AI, Google Cloud), en todos los
-planes — la IA agenda sola dentro del chat, sin links ni sistemas externos.
+Agentic (GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8 y Claude Sonnet 5 vía
+Vertex AI, Google Cloud), en todos los planes — la IA agenda sola dentro del
+chat, sin links ni sistemas externos.
 
 Tarifario de créditos (todos los planes):
 - Conversación de texto (AURA) que no termina en cita: 30 créditos.

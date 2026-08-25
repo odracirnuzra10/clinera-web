@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
+import { VERTEX_IA_MODELS_PROSE } from "@/content/ia-stack";
 
 export const metadata: Metadata = {
   title: "Política de Privacidad — Clinera.io",
@@ -165,8 +166,7 @@ export default function PrivacidadPage() {
                     cloud.google.com
                   </a>
                   ) — plataforma de inferencia de modelos de IA donde Clinera
-                  ejecuta <strong>GLM 5.2</strong> y{" "}
-                  <strong>Gemini Flash 3.7</strong> dentro del perímetro de
+                  ejecuta <strong>{VERTEX_IA_MODELS_PROSE}</strong> dentro del perímetro de
                   Google Cloud.
                 </li>
               </ul>
@@ -350,8 +350,8 @@ export default function PrivacidadPage() {
                   residen en Chile.
                 </li>
                 <li>
-                  Proveedores de IA (Google Cloud Platform — Vertex AI: GLM 5.2
-                  y Gemini Flash 3.7), exclusivamente para las funciones
+                  Proveedores de IA (Google Cloud Platform — Vertex AI:{" "}
+                  {VERTEX_IA_MODELS_PROSE}), exclusivamente para las funciones
                   descritas en la sección 4 y bajo cláusulas contractuales que
                   prohíben el uso de los datos para entrenar modelos.
                 </li>

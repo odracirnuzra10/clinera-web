@@ -23,8 +23,8 @@ Confirmado por Ricardo: **Google Cloud Platform, región Santiago de Chile
 `recursos-templates`, `llms-full.txt` y esta página a la vez.
 
 Inferencia de IA: **Vertex AI (Google Cloud)** desde el 01-08-2026 — modelos
-GLM 5.2 y Gemini Flash 3.7. MFA: **activo** desde 2026-08-25 (confirmado por
-Ricardo).
+GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8 y Claude Sonnet 5. MFA: **activo**
+desde 2026-08-25 (confirmado por Ricardo).
 
 ---
 
@@ -34,7 +34,7 @@ Ricardo).
 |---|---|---|---|---|
 | 1 | Proveedor de nube y región | Resumen, tabla de infraestructura, tabla de subencargados, FAQ | Lopez | **Resuelto 2026-08-24** — GCP Santiago |
 | 2 | Región exacta / transferencia internacional | Resumen, infraestructura, bloque de región, FAQ | Lopez | **Resuelto 2026-08-24** — southamerica-west1, sin salida en reposo |
-| 3 | Proveedor de IA definitivo | Subencargados, sección de IA, FAQ | Lopez | **Resuelto 2026-08-24** — Vertex AI (GLM 5.2 + Gemini Flash 3.7) |
+| 3 | Proveedor de IA definitivo | Subencargados, sección de IA, FAQ | Lopez | **Resuelto 2026-08-24** — Vertex AI (GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8, Claude Sonnet 5) |
 | 4 | Qué campos se envían al modelo en cada conversación y cuáles nunca salen | Sección de IA | Lopez + equipo técnico | Abierto (reescrito sin intermediario; inventario pendiente) |
 | 5 | Ventana de retención del proveedor de IA | Sección de IA | Lopez | Abierto (reescrito en términos de Vertex) |
 | 6 | Si la clínica puede desactivar AURA, CAMILA y LIA conservando agenda, fichas y pagos, y si es autoservicio | Sección de IA | Equipo de producto | Abierto |
@@ -62,7 +62,7 @@ Cada fila confirmada de la página cita su evidencia. No entró nada sin ella.
 | Afirmación | De dónde sale |
 |---|---|
 | Google Cloud Platform, región Santiago (southamerica-west1); datos clínicos en Chile | Confirmado por Ricardo 2026-08-24; publicado en `/privacidad` |
-| Vertex AI (GLM 5.2 + Gemini Flash 3.7) desde 01-08-2026; sin entrenamiento de modelos fundacionales | Confirmado por Ricardo 2026-08-24; `/privacidad` |
+| Vertex AI (GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8, Claude Sonnet 5) desde 01-08-2026; sin entrenamiento de modelos fundacionales | Confirmado por Ricardo 2026-08-24; `/privacidad` |
 | MFA activo para todas las clínicas | Confirmado por Ricardo 2026-08-25 |
 | AES-256-GCM sobre el 100% del contenido clínico, con envelope encryption | Ya publicado en `/ley20584` |
 | Una llave de cifrado por clínica, aislamiento criptográfico entre clínicas | Ya publicado en `/ley20584` |

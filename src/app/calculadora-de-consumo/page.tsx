@@ -4,6 +4,7 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import ConsumptionCalculator from "@/components/cro/ConsumptionCalculator";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, orgSchema } from "@/components/seo/schemas";
+import { VERTEX_IA_MODELS_SLASH } from "@/content/ia-stack";
 
 const URL = "https://www.clinera.io/calculadora-de-consumo";
 
@@ -208,14 +209,14 @@ export default function CalculadoraDeConsumoPage() {
             <ModeCard
               name="Conversación"
               consumption="~30"
-              model="GLM 5.2 / Gemini Flash 3.7"
+              model={VERTEX_IA_MODELS_SLASH}
               available="VORTEX"
               description="La IA responde dudas, informa precios y horarios, confirma o recuerda una cita ya existente. Razona, pero no crea ni mueve citas."
             />
             <ModeCard
               name="Agendamiento"
               consumption="~195"
-              model="GLM 5.2 / Gemini Flash 3.7"
+              model={VERTEX_IA_MODELS_SLASH}
               available="VORTEX"
               description="La IA hace todo sola: pregunta, consulta la disponibilidad real de tu agenda y deja la hora agendada, reagendada o cancelada."
               recommended
@@ -322,7 +323,7 @@ export default function CalculadoraDeConsumoPage() {
           >
             <ConvoExample
               title="Conversación sin agendamiento"
-              meta="GLM 5.2 / Gemini Flash 3.7 · solo texto, no crea cita"
+              meta={`${VERTEX_IA_MODELS_SLASH} · solo texto, no crea cita`}
               total={30}
               accent="#009FE3"
               turns={[
@@ -340,7 +341,7 @@ export default function CalculadoraDeConsumoPage() {
             />
             <ConvoExample
               title="Conversación con agendamiento"
-              meta="GLM 5.2 / Gemini Flash 3.7 · agenda y cobra, con tool calls"
+              meta={`${VERTEX_IA_MODELS_SLASH} · agenda y cobra, con tool calls`}
               total={195}
               accent="#7C3AED"
               turns={[
