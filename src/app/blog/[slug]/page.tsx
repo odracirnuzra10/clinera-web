@@ -7,6 +7,7 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import PostCTA from "@/components/blog/PostCTA";
 import VimeoEmbed from "@/components/blog/VimeoEmbed";
 import DownloadCTA from "@/components/blog/DownloadCTA";
+import HeroCarousel, { type HeroViewId } from "@/components/plataforma/HeroCarousel";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   blogPostingSchema,
@@ -172,7 +173,11 @@ export default async function BlogPostPage({
                 )}
               </div>
             </div>
-            {post.heroImage && (
+            {post.heroCarousel && post.heroCarousel.length > 0 ? (
+              <div className={styles.postHeaderCarousel}>
+                <HeroCarousel only={post.heroCarousel as HeroViewId[]} />
+              </div>
+            ) : post.heroImage ? (
               <div className={styles.postHeaderImage}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -186,7 +191,7 @@ export default async function BlogPostPage({
                   }}
                 />
               </div>
-            )}
+            ) : null}
           </header>
 
           {/* MDX content */}

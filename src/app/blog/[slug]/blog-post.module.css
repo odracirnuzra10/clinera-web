@@ -91,6 +91,16 @@
   width: 100%;
 }
 
+.postHeaderCarousel {
+  width: 100%;
+  min-width: 0;
+}
+
+.postHeaderCarousel :global([class*="frame"]) {
+  /* El carrusel ya trae sombra propia; alinear con el ritmo del blog. */
+  max-width: 100%;
+}
+
 .postMainImage {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -457,6 +467,10 @@
     margin-bottom: 48px;
   }
   .postHeaderImage {
+    max-width: 100%;
+    order: -1;
+  }
+  .postHeaderCarousel {
     max-width: 100%;
     order: -1;
   }

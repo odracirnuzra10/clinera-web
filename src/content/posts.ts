@@ -12,6 +12,11 @@ export type PostFrontmatter = {
   category?: string;
   tags?: string[];
   heroImage?: string;
+  // Carrusel animado de /plataforma (mismas vistas del hero). Si está, el
+  // blog lo renderiza en el header; heroImage sigue usándose para OG/Twitter.
+  heroCarousel?: Array<
+    "aura" | "intelligence" | "red" | "ficha" | "odonto" | "corporal"
+  >;
   author?: string;
   wordsApprox?: number;
   featured?: boolean;
