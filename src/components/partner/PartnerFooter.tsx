@@ -6,18 +6,7 @@ export function PartnerFooter() {
 
   return (
     <footer className="partner-footer">
-      <div
-        style={{
-          maxWidth: 720,
-          margin: "0 auto",
-          padding: "20px",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 12,
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+      <div className="partner-footer-inner">
         <div>
           <PartnerWordmark />
           <p style={{ margin: "6px 0 0", fontSize: 13, color: "#6B6B6B" }}>

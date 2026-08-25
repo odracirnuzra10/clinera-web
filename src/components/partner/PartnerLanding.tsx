@@ -63,15 +63,7 @@ export function PartnerLanding({
             <div style={{ marginTop: 12 }}>
               <PartnerPhoto partner={partner} src={photoSrc} />
             </div>
-            <h1
-              style={{
-                margin: "12px 0 0",
-                fontSize: "1.6rem",
-                fontWeight: 600,
-                lineHeight: 1.15,
-                letterSpacing: "-0.035em",
-              }}
-            >
+            <h1 className="partner-hero-title">
               <span style={{ display: "block" }}>{partner.name}</span>
               <span style={{ display: "block" }}>te recomienda Clinera</span>
             </h1>
@@ -86,7 +78,7 @@ export function PartnerLanding({
 
           <PartnerCnnVideo />
 
-          <section className="partner-card">
+          <section className="partner-card partner-features">
             <div className="partner-eyebrow">Qué hace Clinera</div>
             <h2 className="partner-section-title" style={{ marginTop: 8 }}>
               Agenda, ficha y cobros en un solo sistema
@@ -106,30 +98,38 @@ export function PartnerLanding({
             </ul>
           </section>
 
-          <section className="partner-card">
-            <div className="partner-pills">
-              {PROOF.map((item) => (
-                <span key={item.label} className="partner-pill" data-stat={item.stat}>
-                  {item.label}
-                </span>
-              ))}
-            </div>
-          </section>
+          <div className="partner-side">
+            <section className="partner-card partner-proof">
+              <div className="partner-pills">
+                {PROOF.map((item) => (
+                  <span key={item.label} className="partner-pill" data-stat={item.stat}>
+                    {item.label}
+                  </span>
+                ))}
+              </div>
+            </section>
 
-          <section className="partner-card">
-            <h2 className="partner-section-title">Preguntas cortas</h2>
-            <PartnerFaq partner={partner} />
-          </section>
+            <section className="partner-card partner-faq-card">
+              <h2 className="partner-section-title">Preguntas cortas</h2>
+              <PartnerFaq partner={partner} />
+            </section>
+          </div>
 
           <section className="partner-card partner-close">
-            <h2 className="partner-section-title">
-              {partner.name} te lo recomienda. Conversa con {partner.sales.name}.
-            </h2>
-            <p style={{ margin: "0 0 16px", fontSize: 15, lineHeight: 1.55 }}>
-              En quince minutos ves si Clinera calza con tu clínica. Sin compromiso de
-              contratar.
-            </p>
-            <WhatsAppCta partner={partner} href={whatsappUrl} className="partner-cta-full" />
+            <div className="partner-close-copy">
+              <h2 className="partner-section-title">
+                {partner.name} te lo recomienda. Conversa con {partner.sales.name}.
+              </h2>
+              <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55 }}>
+                En quince minutos ves si Clinera calza con tu clínica. Sin compromiso de
+                contratar.
+              </p>
+            </div>
+            <WhatsAppCta
+              partner={partner}
+              href={whatsappUrl}
+              className="partner-cta-full partner-close-cta"
+            />
           </section>
         </div>
       </main>
