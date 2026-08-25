@@ -13,6 +13,12 @@ Ejemplo: Katherine Meza → `katherine.jpg`
 - JPG o PNG
 - Color de origen: no hace falta preprocesar a blanco y negro
 
+El avatar de la landing es un círculo sobre `object-fit: cover`: recorta el
+**centro** del cuadrado. Si la cara queda en la mitad de abajo (banner de
+evento arriba), el círculo muestra la frente y el letrero. Yasna en
+`/partner/yv` ya falló así — recortar desde `public/images/home/yasna.jpg`
+con la cara en el centro, no reusar un cuadrado “amplio”.
+
 Si el archivo no está, la landing y la imagen OG muestran las iniciales sobre `#F7F6F3`. Nunca un ícono roto.
 
 La ruta pública es `/partners/<slug>.jpg` y coincide con el campo `photo` en `src/lib/partners.ts`.

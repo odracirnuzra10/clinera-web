@@ -395,7 +395,9 @@ por WhatsApp».
 El clip de CNN es el mismo de `/plataforma` (`PressCNN`): Vimeo
 `1205127087`, src en `PARTNER_CNN_VIMEO_SRC`. Foto del partner:
 `public/partners/<slug>.jpg` (ver `public/partners/README.md`); si falta, las
-iniciales — nunca un img roto.
+iniciales — nunca un img roto. El círculo recorta el centro del cuadrado: la
+cara tiene que ir al medio, no abajo. El primer recorte de Yasna mostró la
+frente y el letrero QUALITY/VITALITY.
 
 **El dato de cara al referido es el 10% × 3 meses**, no el bono de US$ 150.
 El US$ 150 es lo que cobra el partner; vive en `/partners`. En
