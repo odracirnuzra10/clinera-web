@@ -22,11 +22,7 @@ export function PartnerStickyCta({
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 border-t border-[#EAEAEA] bg-white/80 backdrop-blur-xl md:hidden ${
-        visible
-          ? "translate-y-0 opacity-100"
-          : "pointer-events-none translate-y-full opacity-0"
-      } motion-safe:transition-[transform,opacity] motion-safe:duration-[400ms] motion-safe:ease-out`}
+      className={`partner-sticky md:hidden ${visible ? "is-visible" : ""}`}
     >
       <div className="px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))]">
         <a
@@ -34,7 +30,7 @@ export function PartnerStickyCta({
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackPartnerLeadClick(partner)}
-          className="inline-flex w-full items-center justify-center rounded-lg bg-[#111111] px-5 py-3.5 text-center text-[15px] font-medium text-white transition-transform duration-150 active:scale-[0.98]"
+          className="partner-cta partner-cta-full"
         >
           Hablar con {partner.sales.name} por WhatsApp
         </a>

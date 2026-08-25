@@ -21,7 +21,7 @@ export default function PartnerLayout({
 }) {
   return (
     <div
-      className={`${outfit.className} ${jetbrainsMono.variable} bg-white text-[#111111] antialiased`}
+      className={`${outfit.className} ${jetbrainsMono.variable} partner-page bg-white text-[#111111] antialiased`}
       style={{ lineHeight: 1.6 }}
     >
       {children}

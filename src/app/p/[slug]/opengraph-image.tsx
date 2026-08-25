@@ -10,7 +10,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 async function loadFont(): Promise<ArrayBuffer | null> {
-  const file = join(process.cwd(), "src/app/p/fonts/Outfit-SemiBold.ttf");
+  const file = join(process.cwd(), "src/app/p/fonts/Outfit-600.ttf");
   if (!existsSync(file)) return null;
   try {
     const buf = await readFile(file);
@@ -73,15 +73,21 @@ export default async function PartnerOpengraphImage({
           }}
         >
           clinera.io
-          <span
-            style={{
-              marginLeft: 8,
-              color: "#7C3AED",
-              fontSize: 22,
-            }}
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            style={{ marginLeft: 8 }}
           >
-            ✦
-          </span>
+            <defs>
+              <linearGradient id="spark" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor="#009FE3" />
+                <stop offset="0.5" stopColor="#7C3AED" />
+                <stop offset="1" stopColor="#C850C0" />
+              </linearGradient>
+            </defs>
+            <polygon points="11,1.5 20.5,11 11,20.5 1.5,11" fill="url(#spark)" />
+          </svg>
         </div>
 
         {photo ? (

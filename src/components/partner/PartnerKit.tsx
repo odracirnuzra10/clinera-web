@@ -54,7 +54,7 @@ export function PartnerKit({
               <a
                 href={qrDataUrl}
                 download={fileName}
-                className="inline-flex rounded-lg border border-[#EAEAEA] bg-white px-4 py-2 text-[13px] font-medium text-[#111111] transition-colors duration-200 hover:bg-[#F7F6F3]"
+                className="partner-btn"
               >
                 Descargar PNG 1024px
               </a>

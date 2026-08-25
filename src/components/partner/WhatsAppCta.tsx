@@ -61,11 +61,11 @@ export function WhatsAppCta({
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => trackPartnerLeadClick(partner)}
-        className="inline-flex w-full items-center justify-center rounded-lg bg-[#111111] px-5 py-3.5 text-center text-[15px] font-medium text-white transition-transform duration-150 active:scale-[0.98] md:w-auto md:min-w-[280px]"
+        className="partner-cta"
       >
         Hablar con {partner.sales.name} por WhatsApp
       </a>
-      <p className="mt-2.5 text-center text-[13px] text-[#6B6B6B] md:text-left">
+      <p className="mt-2.5 text-center text-[13px] text-[#6B6B6B]">
         Te responde una persona, no un bot.
       </p>
     </div>

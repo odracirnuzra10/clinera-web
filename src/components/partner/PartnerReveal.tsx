@@ -1,17 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react";
 
 export function PartnerReveal({
   children,
   delayMs = 0,
   className = "",
+  as: Tag = "div",
 }: {
   children: ReactNode;
   delayMs?: number;
   className?: string;
+  as?: ElementType;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement | null>(null);
+  const [mounted, setMounted] = useState(false);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -19,8 +22,10 @@ export function PartnerReveal({
     if (!node) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setShown(true);
+      setMounted(true);
       return;
     }
+    setMounted(true);
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
@@ -34,19 +39,21 @@ export function PartnerReveal({
     return () => observer.disconnect();
   }, []);
 
+  const visible = !mounted || shown;
+
   return (
-    <div
+    <Tag
       ref={ref}
       className={className}
       style={{
-        opacity: shown ? 1 : 0,
-        transform: shown ? "translateY(0)" : "translateY(1rem)",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(1rem)",
         transition: shown
           ? `opacity 600ms ease-out ${delayMs}ms, transform 600ms ease-out ${delayMs}ms`
           : undefined,
       }}
     >
       {children}
-    </div>
+    </Tag>
   );
 }

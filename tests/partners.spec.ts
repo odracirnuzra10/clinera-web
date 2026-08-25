@@ -55,7 +55,7 @@ test.describe("kit /p/katherine/kit", () => {
     await page.goto("/p/katherine/kit");
     const robots = page.locator('meta[name="robots"]');
     await expect(robots).toHaveAttribute("content", /noindex/);
-    await expect(page.getByText("https://www.clinera.io/p/katherine")).toBeVisible();
+    await expect(page.getByText("https://www.clinera.io/p/katherine", { exact: true })).toBeVisible();
     await expect(page.getByText("KATHE01")).toBeVisible();
     await expect(page.getByRole("img", { name: /QR del link de Katherine Meza/ })).toBeVisible();
   });

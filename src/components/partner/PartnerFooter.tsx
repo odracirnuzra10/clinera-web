@@ -5,7 +5,7 @@ export function PartnerFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#EAEAEA] bg-white">
+    <footer className="partner-footer border-t border-[#EAEAEA] bg-white">
       <div className="mx-auto flex max-w-5xl flex-col gap-3 px-5 py-8 md:flex-row md:items-center md:justify-between md:px-8">
         <div className="flex flex-col gap-1">
           <PartnerWordmark />

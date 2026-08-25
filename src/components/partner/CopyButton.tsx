@@ -35,7 +35,7 @@ export function CopyButton({
     <button
       type="button"
       onClick={() => void copy()}
-      className={`rounded-lg border border-[#EAEAEA] bg-white px-4 py-2 text-[13px] font-medium text-[#111111] transition-colors duration-200 hover:bg-[#F7F6F3] ${className}`}
+      className={`partner-btn ${className}`}
     >
       {copied ? "Copiado" : label}
     </button>

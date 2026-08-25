@@ -5,6 +5,129 @@
 @source "../../components/partner/**/*.tsx";
 @source "./**/*.tsx";
 
-.partner-mono {
-  font-family: var(--font-partner-mono), "JetBrains Mono", ui-monospace, monospace;
+/*
+  globals.css declara `a { color: cyan }` y `h1 { font-family: sans }`
+  fuera de @layer, así que le gana a las utilities de Tailwind.
+  Estas reglas viven sin layer a propósito.
+*/
+.partner-page,
+.partner-page h1,
+.partner-page h2,
+.partner-page h3,
+.partner-page p,
+.partner-page button,
+.partner-page a {
+  font-family: inherit;
+}
+
+.partner-page h1,
+.partner-page h2,
+.partner-page h3 {
+  color: #111111;
+  font-weight: 600;
+}
+
+.partner-page p {
+  color: #6b6b6b;
+}
+
+.partner-page a {
+  color: inherit;
+}
+
+.partner-page a:hover {
+  color: inherit;
+}
+
+.partner-cta {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background: #111111;
+  color: #ffffff !important;
+  padding: 0.875rem 1.25rem;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  transition: transform 150ms;
+}
+
+.partner-cta:hover,
+.partner-cta:focus-visible {
+  color: #ffffff !important;
+}
+
+.partner-cta:active {
+  transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+  .partner-page .partner-cta:not(.partner-cta-full) {
+    width: auto;
+    min-width: 280px;
+  }
+}
+
+.partner-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px solid #eaeaea;
+  background: #ffffff;
+  color: #111111 !important;
+  padding: 0.5rem 1rem;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 200ms;
+}
+
+.partner-btn:hover,
+.partner-btn:focus-visible {
+  background: #f7f6f3;
+  color: #111111 !important;
+}
+
+.partner-sticky {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 40;
+  border-top: 1px solid #eaeaea;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transform: translateY(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 400ms ease-out, opacity 400ms ease-out;
+}
+
+.partner-sticky.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  .partner-sticky {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-sticky {
+    transition: none;
+  }
+}
+
+.partner-footer a {
+  color: #6b6b6b !important;
+}
+
+.partner-footer a:hover {
+  color: #111111 !important;
 }

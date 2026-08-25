@@ -72,11 +72,14 @@ export function PartnerLanding({
             </PartnerReveal>
             <ul className="mt-8">
               {FEATURES.map((item, index) => (
-                <PartnerReveal key={item.title} delayMs={index * 60}>
-                  <li className="border-t border-[#EAEAEA] py-6 first:border-t last:pb-0">
-                    <h3 className="text-[16px] font-medium text-[#111111]">{item.title}</h3>
-                    <p className="mt-1.5 text-[15px] leading-[1.6] text-[#6B6B6B]">{item.body}</p>
-                  </li>
+                <PartnerReveal
+                  key={item.title}
+                  as="li"
+                  delayMs={index * 60}
+                  className="border-t border-[#EAEAEA] py-6 last:pb-0"
+                >
+                  <h3 className="text-[16px] font-medium text-[#111111]">{item.title}</h3>
+                  <p className="mt-1.5 text-[15px] leading-[1.6] text-[#6B6B6B]">{item.body}</p>
                 </PartnerReveal>
               ))}
             </ul>
