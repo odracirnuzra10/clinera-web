@@ -11,6 +11,7 @@ import {
   SUBENCARGADOS,
   ULTIMA_ACTUALIZACION,
 } from "@/content/seguridad";
+import { VERTEX_IA_MODELS_PROSE } from "@/content/ia-stack";
 import Countdown from "./Countdown";
 import Faq from "./Faq";
 import Pendiente from "./Pendiente";
@@ -316,7 +317,7 @@ export default function SeguridadLanding() {
                 <h3 className={styles.h3}>Qué se le envía al modelo y qué no</h3>
                 <p className={styles.bodyTight}>
                   Desde el 1 de agosto de 2026 la inferencia corre en Vertex AI (Google
-                  Cloud), con GLM 5.2 y Gemini Flash 3.7. El diagrama exacto de campos que
+                  Cloud), con {VERTEX_IA_MODELS_PROSE}. El diagrama exacto de campos que
                   salen en cada conversación —y los que nunca salen— todavía se documenta
                   para el DPA.
                 </p>

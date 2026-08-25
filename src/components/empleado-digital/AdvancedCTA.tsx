@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "@/app/empleado-digital/empleado-digital.module.css";
 import { stripeLink } from "@/content/pricing";
+import { VERTEX_IA_MODELS_PROSE } from "@/content/ia-stack";
 
 const STRIPE_SUMMIT = stripeLink("summit");
 
@@ -9,7 +10,7 @@ const BULLETS = [
   "Una sola bolsa para texto, voz y agendamiento",
   "3 agentes de IA: AURA (texto) + CAMILA (voz) + LIA (fiscaliza)",
   "Agendamiento agéntico: la IA agenda sola dentro del chat",
-  "Modelos orquestadores de tools: GLM 5.2 y Gemini Flash 3.7 (Vertex AI)",
+  `Modelos orquestadores de tools: ${VERTEX_IA_MODELS_PROSE} (Vertex AI)`,
   "Módulo clínico completo (agenda + fichas + Vault)",
   "Sucursales ilimitadas + panel de atribución",
   "Webhooks + API pública (integraciones a medida)",

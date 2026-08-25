@@ -15,6 +15,7 @@ import {
   annualFirstYearSavings,
   type Billing,
 } from "@/content/pricing";
+import { VERTEX_IA_MODELS } from "@/content/ia-stack";
 
 /* ============================================================
    Reveal-on-scroll helper
@@ -4307,7 +4308,7 @@ export function Pricing({
   const isComparisonIntro = intro === "comparison";
   // "none": la página ya trae su propio hero (p. ej. /planes) — sin header duplicado.
   const hideHeader = intro === "none";
-  const IA_MODELS = ["GLM 5.2", "Gemini Flash 3.7"];
+  const IA_MODELS = VERTEX_IA_MODELS;
   const plans = CLINERA_PLANS.map((plan) => ({
     id: plan.id,
     name: plan.name,
@@ -4855,21 +4856,17 @@ export function Pricing({
           </div>
         </div>
 
-        <div className="reveal home-ia-strip" style={{ marginTop: 34, borderTop: "1px solid #EEECEA", borderBottom: "1px solid #EEECEA", padding: "14px 0", display: "flex", alignItems: "stretch" }}>
+        <div className="reveal home-ia-strip" style={{ marginTop: 34, borderTop: "1px solid #EEECEA", borderBottom: "1px solid #EEECEA", padding: "14px 0", display: "flex", flexWrap: "wrap", alignItems: "center", rowGap: 10, columnGap: 4 }}>
           <div className="home-ia-label" style={{ flexShrink: 0, padding: "4px 18px 4px 0", borderRight: "1px solid #EEECEA", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, fontWeight: 600, letterSpacing: ".13em", textTransform: "uppercase", color: "#6B7280", display: "flex", alignItems: "center", whiteSpace: "nowrap", lineHeight: 1.3 }}>
             Modelo activo · todos los planes
           </div>
-          <div style={{ flex: 1, minWidth: 0, overflow: "hidden", position: "relative", WebkitMaskImage: "linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent)", maskImage: "linear-gradient(to right, transparent, #000 24px, #000 calc(100% - 24px), transparent)" }}>
-            <div style={{ display: "flex", whiteSpace: "nowrap", width: "max-content", paddingLeft: 14 }}>
-              {IA_MODELS.map((m) => (
-                <span key={m} style={{ display: "inline-flex", alignItems: "center" }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "0 22px", fontFamily: "Inter", fontSize: 14, fontWeight: 600, color: "#0A0A0A" }}>
-                    <span style={{ width: 6, height: 6, borderRadius: "50%", background: GRAD, display: "inline-block" }} />
-                    {m}
-                  </span>
-                </span>
-              ))}
-            </div>
+          <div className="home-ia-models" style={{ flex: "1 1 220px", minWidth: 0, display: "flex", flexWrap: "wrap", alignItems: "center", rowGap: 6 }}>
+            {IA_MODELS.map((m) => (
+              <span key={m} style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "2px 18px", fontFamily: "Inter", fontSize: 14, fontWeight: 600, color: "#0A0A0A" }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: GRAD, display: "inline-block", flexShrink: 0 }} />
+                {m}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -4914,8 +4911,15 @@ export function Pricing({
           :global(.billing-toggle) { grid-template-columns: 1fr 1fr !important; }
           :global(.billing-toggle > button:first-child) { grid-column: 1 / -1 !important; }
         }
-        @media (max-width: 600px) {
-          :global(.home-ia-label) { display: none !important; }
+        @media (max-width: 720px) {
+          :global(.home-ia-strip) { align-items: flex-start !important; }
+          :global(.home-ia-label) {
+            border-right: none !important;
+            border-bottom: 1px solid #EEECEA;
+            padding: 0 0 10px 0 !important;
+            width: 100%;
+            white-space: normal !important;
+          }
         }
         @media (max-width: 560px) {
           :global(.home-h2-big) { font-size: 32px !important; }

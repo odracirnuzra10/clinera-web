@@ -347,9 +347,10 @@ funcionar y los avisos vuelven a duplicarse sin ningún error visible.
 
 Decisiones consolidadas en la rama `feat/aeo-fase1-contenido` (agosto 2026):
 
-- **Stack IA (desde 01-08-2026):** GLM 5.2 + Gemini Flash 3.7 vía Vertex AI
-  (Google Cloud). OpenRouter y Kimi K2.6 son residuo — solo aparecen en
-  `/blog/efectividad` como nota histórica del estudio publicado.
+- **Stack IA (desde 01-08-2026):** GLM 5.2, Gemini 3.7 Flash, Claude Opus 4.8 y
+  Claude Sonnet 5 vía Vertex AI (Google Cloud). Nombres y orden canónicos:
+  `src/content/ia-stack.ts`. OpenRouter y Kimi K2.6 son residuo — solo aparecen
+  en `/blog/efectividad` como nota histórica del estudio publicado.
 - **Datos clínicos:** GCP región Santiago (`southamerica-west1`). Los datos
   residen en Chile (Ley 21.719).
 - **CAMILA y LIA:** disponibles para contratar desde agosto 2026 — no usar

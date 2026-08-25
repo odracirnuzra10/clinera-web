@@ -10,6 +10,7 @@ import {
   type ClineraPlan,
   stripeLink,
 } from "@/content/pricing";
+import { VERTEX_IA_MODELS } from "@/content/ia-stack";
 
 type DemoAgent = { id: "aura" | "lia" | "camila"; name: string };
 
@@ -44,7 +45,7 @@ const PLANS = [
       "1 sucursal",
       "Modo Agentic",
     ],
-    models: ["GLM 5.2", "Gemini Flash 3.7"],
+    models: [...VERTEX_IA_MODELS],
     agents: [{ id: "aura", name: "AURA" }] as DemoAgent[],
   },
   {
@@ -61,7 +62,7 @@ const PLANS = [
       "2 sucursales",
       "Webhooks + API pública",
     ],
-    models: ["GLM 5.2", "Gemini Flash 3.7"],
+    models: [...VERTEX_IA_MODELS],
     agents: [
       { id: "aura", name: "AURA" },
       { id: "camila", name: "CAMILA" },
@@ -81,7 +82,7 @@ const PLANS = [
       "Sucursales ilimitadas",
       "Webhooks + API pública",
     ],
-    models: ["GLM 5.2", "Gemini Flash 3.7"],
+    models: [...VERTEX_IA_MODELS],
     agents: [
       { id: "aura", name: "AURA" },
       { id: "camila", name: "CAMILA" },

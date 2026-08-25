@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { useReveal } from "@/components/home-v3/sections";
+import { VERTEX_IA_MODELS_PROSE } from "@/content/ia-stack";
 
 const ARTICLE_FAQS: Array<{ q: string; a: string }> = [
   {
@@ -170,8 +171,8 @@ function ArticleBody() {
         <Callout>
           <strong>Actualización 08/2026:</strong> desde el 1 de agosto de 2026 la
           inferencia de Clinera corre en Vertex AI (Google Cloud, región Santiago
-          de Chile). Las cifras de este estudio corresponden al stack vigente en
-          su fecha de publicación.
+          de Chile), con {VERTEX_IA_MODELS_PROSE}. Las cifras de este estudio
+          corresponden al stack vigente en su fecha de publicación.
         </Callout>
 
         <Callout>

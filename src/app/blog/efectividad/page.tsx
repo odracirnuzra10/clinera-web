@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import EfectividadArticle from "@/components/interior-v3/EfectividadArticle";
+import { VERTEX_IA_MODELS_PROSE } from "@/content/ia-stack";
 
 export const metadata: Metadata = {
   title: "Estudio de Efectividad 2026: 100% de agendamientos en ≤3 intentos",
@@ -199,9 +200,9 @@ export default function BlogEfectividadPage() {
           }}
         >
           Actualización 08/2026: desde el 1 de agosto de 2026 la inferencia de
-          Clinera corre en Vertex AI (Google Cloud, región Santiago de Chile).
-          Las cifras de este estudio corresponden al stack vigente en su fecha
-          de publicación.
+          Clinera corre en Vertex AI (Google Cloud, región Santiago de Chile),
+          con {VERTEX_IA_MODELS_PROSE}. Las cifras de este estudio corresponden
+          al stack vigente en su fecha de publicación.
         </p>
         <EfectividadArticle />
       </main>
