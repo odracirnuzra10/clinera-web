@@ -1,10 +1,11 @@
 /**
  * Fuente única del programa partner público (`/partners`).
  *
- * Números, copy y FAQ viven acá. La landing, el metadata, el JSON-LD y el
- * deck `public/presentacion-partners/index.html` tienen que leer o copiar
- * desde este archivo — no reinventar el bono a mano (eso fue el bug del
- * 15% de descuento y, después, del 10% de comisión).
+ * Números, requisitos de contenido y FAQ viven acá. La landing, el
+ * metadata, el JSON-LD y el deck `public/presentacion-partners/index.html`
+ * tienen que leer o copiar desde este archivo — no reinventar el bono a
+ * mano (eso fue el bug del 15% de descuento y, después, del 10% de
+ * comisión).
  *
  * `/agencias` redirige acá. `public/reseller.html` es un programa viejo y
  * huérfano: no es esta oferta. `/presentacion-agencia` redirige al deck
@@ -24,156 +25,71 @@ export const PARTNERS_REFERRAL_FEE_USD = 150;
 export const PARTNERS_REFERRAL_FEE_LABEL = `US$ ${PARTNERS_REFERRAL_FEE_USD}`;
 
 export const PARTNERS_META_TITLE =
-  "Programa Partner — US$ 150 por cada cliente referido | Clinera.io";
+  "Programa Partner — US$ 150 por referido | Clinera.io";
 
 export const PARTNERS_META_DESCRIPTION =
-  "Programa partner de Clinera: US$ 150 de bono por cada cliente referido que cierra. El equipo de ventas cierra. Tú recibes el bono. Cada partner tiene su landing.";
+  "Programa partner de Clinera: 4 historias al mes con mención, 1 reel mensual en colaboración y partner de clinera.io en la bio. Beneficio: US$ 150 por cada referido que cierra.";
 
 export const PARTNERS_OG_DESCRIPTION =
-  "US$ 150 de bono por cada cliente referido que cierra. Ventas de Clinera cierra. Tú recibes el bono.";
+  "4 historias al mes, 1 reel en colaboración, bio de Instagram como partner de clinera.io. US$ 150 por cada referido que cierra.";
 
 export const PARTNERS_HERO = {
   eyebrow: "Programa partner",
-  h1Before: "Refiere clínicas.",
-  h1Accent: "Ganas desde el primer cierre.",
-  lead: `US$ ${PARTNERS_REFERRAL_FEE_USD} de bono por cada cliente referido que cierra. El equipo de ventas de Clinera cierra. Tú recibes el bono.`,
+  h1Before: "Tres requisitos.",
+  h1Accent: "US$ 150 por referido.",
+  lead: "Publicas Clinera en tu Instagram. Por cada clínica que cierre, cobras el bono. Sin comisión sobre el plan.",
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
 } as const;
 
 export const PARTNERS_STATS = [
-  {
-    label: "Bono por cierre",
-    value: PARTNERS_REFERRAL_FEE_LABEL,
-  },
-  {
-    label: "Comisión del plan",
-    value: "No",
-  },
-  {
-    label: "Cuándo se paga",
-    value: "Al cierre",
-  },
-  {
-    label: "Quién cierra",
-    value: "Ventas Clinera",
-  },
+  { label: "Historias al mes, con mención", value: "4" },
+  { label: "Reel mensual en colaboración", value: "1" },
+  { label: "Bono por referido que cierra", value: PARTNERS_REFERRAL_FEE_LABEL },
 ] as const;
 
-export const PARTNERS_FUNCTIONS = [
+export const PARTNERS_REQUIREMENTS = [
   {
     num: "01",
-    title: "Subir historias",
-    desc: "Muestra Clinera en tus redes. Una historia bien puesta abre la conversación con clínicas que ya te siguen.",
+    title: "4 historias al mes",
+    desc: "Historias de Instagram con mención a Clinera.",
   },
   {
     num: "02",
-    title: "Crear contenido",
-    desc: "Idealmente: posts, reels o notas que expliquen cómo opera un empleado digital en una clínica. No hace falta ser media company.",
+    title: "1 reel al mes",
+    desc: "Un reel mensual en colaboración con Clinera.",
   },
   {
     num: "03",
-    title: "Referir clientes",
-    desc: "Presentas la clínica. Nosotros tomamos el lead, calificamos y cerramos. El bono es tuyo aunque el cierre lo haga Clinera.",
-  },
-  {
-    num: "04",
-    title: "Eventos y webinars",
-    desc: "Armas un evento o un webinar para vender la solución. El equipo de Clinera se sienta a cerrar con quien llegue de ahí.",
+    title: "Bio de Instagram",
+    desc: "En la descripción del perfil: partner de clinera.io.",
   },
 ] as const;
 
-export const PARTNERS_COMPENSATION = {
-  eyebrow: "Lo que ganas tú",
-  h2: "Un bono de US$ 150 por cada cliente que cierra.",
-  lead: "Un solo número. Sin comisión recurrente sobre el plan.",
-  items: [
-    {
-      num: "01",
-      title: PARTNERS_REFERRAL_FEE_LABEL,
-      unit: " de bono",
-      desc: "Pago único por cada cliente referido que cierra. Se paga al cierre. No hay comisión recurrente sobre el plan.",
-      featured: true,
-    },
-  ],
-} as const;
-
-export const PARTNERS_SUPPORT = {
-  eyebrow: "Cómo operamos juntos",
-  h2: "Tú abres la puerta. Clinera cierra. El bono es tuyo.",
-  lead: "No te pedimos que armes un equipo comercial propio ni que pelees el contrato.",
-  points: [
-    {
-      title: "Ventas de Clinera cierra",
-      desc: "Cuentas con el equipo de ventas de Clinera para calificar y cerrar cada referido. El bono de US$ 150 se paga igual aunque el cierre lo hagamos nosotros.",
-    },
-    {
-      title: "Landing propia dentro de Clinera",
-      desc: "Cada partner tiene su landing en clinera.io, con su nombre y su atribución. El lead llega marcado: no se pierde en el genérico.",
-    },
-  ],
-} as const;
-
-export const PARTNERS_PRODUCT = {
-  eyebrow: "Lo que refieres",
-  h2: "Un empleado digital que opera la clínica, no un chatbot.",
-  lead: "AURA atiende por WhatsApp, CAMILA llama y LIA orquesta. Clinera corre sobre su propia agenda, fichas clínicas y pagos. La migración del software anterior se hace en el onboarding.",
-  items: [
-    {
-      num: "01",
-      title: "Agenda, cobra y confirma",
-      desc: "El empleado digital agenda, reagenda y cancela sobre la agenda de Clinera. No es un bot que manda links a un calendario de terceros.",
-    },
-    {
-      num: "02",
-      title: "WhatsApp 24/7",
-      desc: "AURA responde, cotiza y mueve la cita por WhatsApp a cualquier hora. La clínica deja de perder leads fuera de horario.",
-    },
-    {
-      num: "03",
-      title: "Onboarding con el equipo",
-      desc: "Configuración asistida. Si hay que migrar fichas y pacientes desde el software actual, lo hace Clinera en el onboarding.",
-    },
-    {
-      num: "04",
-      title: "Webhooks y API",
-      desc: "En Atlas y Summit hay webhooks y API pública hacia n8n, Make y Zapier. Eso no es integración con agendas de terceros: es para el stack de marketing y CRM del partner.",
-    },
-  ],
-} as const;
-
 export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
   {
-    q: "¿Cuánto gano por cada cliente referido?",
-    a: `US$ ${PARTNERS_REFERRAL_FEE_USD} de bono cuando el cliente cierra. Un solo pago. No hay comisión sobre el plan ni un segundo número.`,
+    q: "¿Cuánto se paga por un referido?",
+    a: `${PARTNERS_REFERRAL_FEE_LABEL} cuando la clínica cierra. Un pago, no una comisión mensual.`,
   },
   {
-    q: "¿Quién cierra la venta?",
-    a: "El equipo de ventas de Clinera. Tú refieres; nosotros calificamos y cerramos. El bono se paga igual: no se recorta porque el cierre lo haga Clinera.",
+    q: "¿Qué hay que publicar?",
+    a: "Cuatro historias al mes con mención a Clinera, un reel mensual en colaboración, y en la bio de Instagram: partner de clinera.io.",
   },
   {
-    q: "¿Hay comisión mensual sobre el plan?",
-    a: "No. El programa publica un solo número: US$ 150 de bono por cierre. No hay comisión recurrente sobre el plan.",
+    q: "¿Hay comisión sobre el plan o descuento al cliente?",
+    a: "No. El programa es el bono por referido. El cliente paga el plan de Clinera; tú no llevas un porcentaje ni un descuento para entregar.",
   },
   {
-    q: "¿Qué se espera de un partner?",
-    a: "Subir historias, idealmente crear contenido, referir clientes, y armar eventos o webinars para vender la solución. No hay cuota mínima de clínicas para entrar.",
-  },
-  {
-    q: "¿Tengo una landing propia?",
-    a: "Sí. Cada partner tiene su landing dentro de Clinera, con su atribución. El lead que entra por ahí queda marcado a tu nombre.",
-  },
-  {
-    q: "¿Cómo aplico al programa?",
-    a: "Agenda una reunión comercial con el equipo de Clinera. Vemos tu audiencia, el tipo de clínicas que puedes referir y te activamos — incluida tu landing — en cuanto calce.",
+    q: "¿Cómo se atribuye el referido?",
+    a: "Con un código o enlace tuyo. La clínica tiene que entrar por ahí para que el cierre cuente. Agenda una reunión y te activamos.",
   },
 ];
 
 export const PARTNERS_FINAL_CTA = {
-  kicker: "Programa partner · 2026",
-  h2Before: "El primer cliente que refieras",
-  h2Accent: "ya paga el bono.",
-  lead: `US$ ${PARTNERS_REFERRAL_FEE_USD} al cierre. Agendamos, revisamos tu red y te activamos.`,
+  kicker: "Programa partner",
+  h2Before: "Tres requisitos.",
+  h2Accent: "El bono es tuyo.",
+  lead: `${PARTNERS_REFERRAL_FEE_LABEL} por cada clínica referida que cierre. Coordinamos en una reunión.`,
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
 } as const;

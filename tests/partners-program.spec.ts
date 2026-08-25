@@ -6,6 +6,7 @@ import {
   PARTNERS_PRESENTATION_HREF,
   PARTNERS_REFERRAL_FEE_LABEL,
   PARTNERS_REFERRAL_FEE_USD,
+  PARTNERS_REQUIREMENTS,
 } from "@/content/partners-program";
 
 test.describe("fuente de verdad del programa partner", () => {
@@ -16,6 +17,11 @@ test.describe("fuente de verdad del programa partner", () => {
     expect(PARTNERS_CANONICAL).toBe("https://www.clinera.io/partners");
     expect(PARTNERS_CTA_HREF).toBe("/reunion-comercial");
     expect(PARTNERS_PRESENTATION_HREF).toBe("/presentacion-partners");
+    expect(PARTNERS_REQUIREMENTS.map((r) => r.title)).toEqual([
+      "4 historias al mes",
+      "1 reel al mes",
+      "Bio de Instagram",
+    ]);
   });
 });
 
@@ -40,6 +46,9 @@ test.describe("landing /partners", () => {
     expect(body).not.toMatch(/\bEficiente\b/);
     expect(body).not.toMatch(/Agentic Pro/);
     expect(body).toMatch(/US\$ 150/);
+    expect(body).toMatch(/4 historias al mes/);
+    expect(body).toMatch(/1 reel al mes/);
+    expect(body).toMatch(/partner de clinera\.io/);
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
@@ -62,6 +71,9 @@ test.describe("landing /partners", () => {
     await deck.click();
     await expect(page).toHaveURL(/\/presentacion-partners/);
     await expect(page.locator(".slide.active")).toContainText("US$ 150");
+    await expect(page.locator("body")).toContainText("4 historias al mes");
+    await expect(page.locator("body")).toContainText("1 reel al mes");
+    await expect(page.locator("body")).toContainText("partner de clinera.io");
     await expect(page.locator("body")).not.toContainText("10%");
     await expect(page.locator("body")).not.toContainText("15%");
   });

@@ -4,34 +4,54 @@ import Link from "next/link";
 import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
 import {
-  PARTNERS_COMPENSATION,
   PARTNERS_CTA_HREF,
   PARTNERS_FAQ,
   PARTNERS_FINAL_CTA,
-  PARTNERS_FUNCTIONS,
   PARTNERS_HERO,
   PARTNERS_PRESENTATION_HREF,
-  PARTNERS_PRODUCT,
+  PARTNERS_REFERRAL_FEE_LABEL,
+  PARTNERS_REQUIREMENTS,
   PARTNERS_STATS,
-  PARTNERS_SUPPORT,
 } from "@/content/partners-program";
 
 const VIOLET = "#7C3AED";
+
+const sectionPad = {
+  padding: "96px 80px",
+} as const;
+
+const h2Style = {
+  fontFamily: "Inter",
+  fontSize: "clamp(28px, 3.6vw, 44px)",
+  fontWeight: 800,
+  letterSpacing: "-0.03em",
+  lineHeight: 1.08,
+  margin: "14px 0 12px",
+  color: "#0A0A0A",
+} as const;
+
+const leadStyle = {
+  fontFamily: "Inter",
+  fontSize: 16,
+  color: "#4B5563",
+  lineHeight: 1.6,
+  margin: "0 0 40px",
+} as const;
 
 export default function PartnersLanding() {
   return (
     <>
       <Hero />
-      <Functions />
-      <Compensation />
-      <Support />
+      <Deal />
       <OsDiagram />
-      <Product />
       <FaqPartners />
       <FinalCTA />
       <style jsx global>{`
         @media (max-width: 720px) {
           .partners-section { padding-left: 28px !important; padding-right: 28px !important; }
+        }
+        @media (max-width: 860px) {
+          .partners-deal { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </>
@@ -93,7 +113,7 @@ function Hero() {
             color: "#4B5563",
             lineHeight: 1.6,
             margin: "0 0 32px",
-            maxWidth: 720,
+            maxWidth: 640,
           }}
         >
           {PARTNERS_HERO.lead}
@@ -165,328 +185,185 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Functions() {
+function Deal() {
   return (
     <section
       className="partners-section"
       style={{
-        padding: "96px 80px",
+        ...sectionPad,
         background: "#fff",
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Eyebrow>Qué hace un partner</Eyebrow>
-        <h2
-          style={{
-            fontFamily: "Inter",
-            fontSize: "clamp(28px, 3.6vw, 44px)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.08,
-            margin: "14px 0 12px",
-            color: "#0A0A0A",
-            maxWidth: 760,
-          }}
-        >
-          Cuatro formas de mover Clinera. Ninguna exige que vendas tú.
+        <Eyebrow>El acuerdo</Eyebrow>
+        <h2 style={{ ...h2Style, maxWidth: 720 }}>
+          Lo que publicas. Lo que cobras.
         </h2>
-        <p
-          style={{
-            fontFamily: "Inter",
-            fontSize: 16,
-            color: "#4B5563",
-            lineHeight: 1.6,
-            margin: "0 0 40px",
-            maxWidth: 640,
-          }}
-        >
-          Abres la conversación. El equipo de ventas de Clinera toma el cierre.
-        </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: 18,
-          }}
-        >
-          {PARTNERS_FUNCTIONS.map((it) => (
-            <div
-              key={it.num}
-              style={{
-                background: "#FAFAFA",
-                border: "1px solid #E5E7EB",
-                borderRadius: 14,
-                padding: "22px 22px 24px",
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                  fontSize: 10.5,
-                  letterSpacing: "0.14em",
-                  color: VIOLET,
-                  marginBottom: 14,
-                }}
-              >
-                · {it.num}
-              </div>
-              <h3
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 17,
-                  fontWeight: 700,
-                  letterSpacing: "-0.015em",
-                  color: "#0A0A0A",
-                  margin: "0 0 10px",
-                  lineHeight: 1.25,
-                }}
-              >
-                {it.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 13.5,
-                  color: "#6B7280",
-                  lineHeight: 1.55,
-                  margin: 0,
-                }}
-              >
-                {it.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Compensation() {
-  return (
-    <section
-      className="partners-section"
-      style={{
-        padding: "96px 80px",
-        background: "#FAFAFA",
-        borderTop: "1px solid #F0F0F0",
-        borderBottom: "1px solid #F0F0F0",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Eyebrow style={{ color: VIOLET }}>{PARTNERS_COMPENSATION.eyebrow}</Eyebrow>
-        <h2
-          style={{
-            fontFamily: "Inter",
-            fontSize: "clamp(28px, 3.6vw, 44px)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.08,
-            margin: "14px 0 12px",
-            color: "#0A0A0A",
-            maxWidth: 780,
-          }}
-        >
-          {PARTNERS_COMPENSATION.h2}
-        </h2>
-        <p
-          style={{
-            fontFamily: "Inter",
-            fontSize: 16,
-            color: "#4B5563",
-            lineHeight: 1.6,
-            margin: "0 0 40px",
-            maxWidth: 660,
-          }}
-        >
-          {PARTNERS_COMPENSATION.lead}
+        <p style={{ ...leadStyle, maxWidth: 560 }}>
+          Tres requisitos de Instagram. Un bono cuando la clínica cierra.
         </p>
 
         <div
+          className="partners-deal"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gridTemplateColumns: "1.15fr 0.85fr",
             gap: 18,
+            alignItems: "stretch",
           }}
         >
-          {PARTNERS_COMPENSATION.items.map((it) => (
-            <BenefitCard
-              key={it.num}
-              num={it.num}
-              title={it.title}
-              unit={it.unit}
-              desc={it.desc}
-              featured={it.featured}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BenefitCard({
-  num,
-  title,
-  unit,
-  desc,
-  featured,
-}: {
-  num: string;
-  title: string;
-  unit: string;
-  desc: string;
-  featured?: boolean;
-}) {
-  return (
-    <div
-      style={{
-        background: "#fff",
-        border: featured ? "1px solid rgba(124,58,237,.4)" : "1px solid #E5E7EB",
-        borderRadius: 16,
-        padding: "26px 24px 22px",
-        boxShadow: featured
-          ? "0 22px 60px -22px rgba(124,58,237,.22)"
-          : "0 4px 24px rgba(0,0,0,.03)",
-        position: "relative",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-          fontSize: 10.5,
-          letterSpacing: "0.14em",
-          color: featured ? VIOLET : "#9CA3AF",
-          marginBottom: 18,
-        }}
-      >
-        · {num} · Condición
-      </div>
-      <h3
-        style={{
-          fontFamily: "Inter",
-          fontSize: "clamp(28px, 3.2vw, 40px)",
-          fontWeight: 800,
-          letterSpacing: "-0.035em",
-          lineHeight: 1,
-          margin: "0 0 14px",
-          background: GRAD,
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
-          color: "transparent",
-        }}
-      >
-        {title}
-        {unit && (
-          <span
+          <article
             style={{
-              fontSize: "0.55em",
-              fontWeight: 700,
-              color: "#0A0A0A",
-              WebkitTextFillColor: "#0A0A0A",
-              background: "none",
+              background: "#FAFAFA",
+              border: "1px solid #E5E7EB",
+              borderRadius: 16,
+              padding: "28px 26px",
             }}
           >
-            {unit}
-          </span>
-        )}
-      </h3>
-      <p
-        style={{
-          fontFamily: "Inter",
-          fontSize: 13.5,
-          color: "#6B7280",
-          lineHeight: 1.55,
-          margin: 0,
-        }}
-      >
-        {desc}
-      </p>
-    </div>
-  );
-}
-
-function Support() {
-  return (
-    <section
-      className="partners-section"
-      style={{
-        padding: "96px 80px",
-        background: "#fff",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Eyebrow style={{ color: VIOLET }}>{PARTNERS_SUPPORT.eyebrow}</Eyebrow>
-        <h2
-          style={{
-            fontFamily: "Inter",
-            fontSize: "clamp(28px, 3.6vw, 44px)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.08,
-            margin: "14px 0 12px",
-            color: "#0A0A0A",
-            maxWidth: 800,
-          }}
-        >
-          {PARTNERS_SUPPORT.h2}
-        </h2>
-        <p
-          style={{
-            fontFamily: "Inter",
-            fontSize: 16,
-            color: "#4B5563",
-            lineHeight: 1.6,
-            margin: "0 0 40px",
-            maxWidth: 680,
-          }}
-        >
-          {PARTNERS_SUPPORT.lead}
-        </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 18,
-          }}
-        >
-          {PARTNERS_SUPPORT.points.map((p) => (
-            <div
-              key={p.title}
+            <p
               style={{
-                background: "#FAFAFA",
-                border: "1px solid #E5E7EB",
-                borderRadius: 16,
-                padding: "26px 24px",
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 10.5,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: VIOLET,
+                margin: "0 0 10px",
               }}
             >
-              <h3
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 20,
-                  fontWeight: 700,
-                  letterSpacing: "-0.02em",
-                  color: "#0A0A0A",
-                  margin: "0 0 10px",
-                }}
-              >
-                {p.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 14.5,
-                  color: "#4B5563",
-                  lineHeight: 1.6,
-                  margin: 0,
-                }}
-              >
-                {p.desc}
-              </p>
-            </div>
-          ))}
+              Requisitos
+            </p>
+            <h3
+              style={{
+                fontFamily: "Inter",
+                fontSize: 22,
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
+                color: "#0A0A0A",
+                margin: "0 0 22px",
+              }}
+            >
+              Lo que publicas
+            </h3>
+            <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 18 }}>
+              {PARTNERS_REQUIREMENTS.map((item) => (
+                <li key={item.num} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                  <span
+                    style={{
+                      fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                      fontSize: 11,
+                      letterSpacing: "0.08em",
+                      color: VIOLET,
+                      paddingTop: 3,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {item.num}
+                  </span>
+                  <div>
+                    <h4
+                      style={{
+                        fontFamily: "Inter",
+                        fontSize: 16,
+                        fontWeight: 700,
+                        letterSpacing: "-0.015em",
+                        color: "#0A0A0A",
+                        margin: "0 0 4px",
+                      }}
+                    >
+                      {item.title}
+                    </h4>
+                    <p
+                      style={{
+                        fontFamily: "Inter",
+                        fontSize: 14,
+                        color: "#6B7280",
+                        lineHeight: 1.5,
+                        margin: 0,
+                      }}
+                    >
+                      {item.desc}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </article>
+
+          <article
+            style={{
+              background: "#fff",
+              border: "1px solid rgba(124,58,237,.4)",
+              borderRadius: 16,
+              padding: "28px 26px",
+              boxShadow: "0 22px 60px -22px rgba(124,58,237,.22)",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 10.5,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: VIOLET,
+                margin: "0 0 10px",
+              }}
+            >
+              Beneficio
+            </p>
+            <h3
+              style={{
+                fontFamily: "Inter",
+                fontSize: 22,
+                fontWeight: 800,
+                letterSpacing: "-0.02em",
+                color: "#0A0A0A",
+                margin: "0 0 18px",
+              }}
+            >
+              Lo que cobras
+            </h3>
+            <p
+              style={{
+                fontFamily: "Inter",
+                fontSize: "clamp(40px, 5vw, 56px)",
+                fontWeight: 800,
+                letterSpacing: "-0.04em",
+                lineHeight: 1,
+                margin: "0 0 12px",
+                background: GRAD,
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              {PARTNERS_REFERRAL_FEE_LABEL}
+            </p>
+            <p
+              style={{
+                fontFamily: "Inter",
+                fontSize: 16,
+                fontWeight: 600,
+                color: "#0A0A0A",
+                margin: "0 0 12px",
+              }}
+            >
+              por cada clínica referida que cierre.
+            </p>
+            <p
+              style={{
+                fontFamily: "Inter",
+                fontSize: 14,
+                color: "#6B7280",
+                lineHeight: 1.55,
+                margin: 0,
+              }}
+            >
+              Un pago. Sin comisión sobre el plan. Sin descuento para el cliente.
+            </p>
+          </article>
         </div>
       </div>
     </section>
@@ -498,111 +375,14 @@ function OsDiagram() {
     <section
       className="partners-section"
       style={{
-        padding: "96px 80px",
+        ...sectionPad,
         background: "#FAFAFA",
         borderTop: "1px solid #F0F0F0",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <ClineraOsDiagram />
-      </div>
-    </section>
-  );
-}
-
-function Product() {
-  return (
-    <section
-      className="partners-section"
-      style={{
-        padding: "96px 80px",
-        background: "#FAFAFA",
         borderBottom: "1px solid #F0F0F0",
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Eyebrow>{PARTNERS_PRODUCT.eyebrow}</Eyebrow>
-        <h2
-          style={{
-            fontFamily: "Inter",
-            fontSize: "clamp(28px, 3.6vw, 44px)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.08,
-            margin: "14px 0 12px",
-            color: "#0A0A0A",
-            maxWidth: 760,
-          }}
-        >
-          {PARTNERS_PRODUCT.h2}
-        </h2>
-        <p
-          style={{
-            fontFamily: "Inter",
-            fontSize: 16,
-            color: "#4B5563",
-            lineHeight: 1.6,
-            margin: "0 0 40px",
-            maxWidth: 680,
-          }}
-        >
-          {PARTNERS_PRODUCT.lead}
-        </p>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: 18,
-          }}
-        >
-          {PARTNERS_PRODUCT.items.map((it) => (
-            <div
-              key={it.num}
-              style={{
-                background: "#fff",
-                border: "1px solid #E5E7EB",
-                borderRadius: 14,
-                padding: "22px 22px 24px",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                  fontSize: 10.5,
-                  letterSpacing: "0.14em",
-                  color: VIOLET,
-                  marginBottom: 14,
-                }}
-              >
-                · {it.num}
-              </div>
-              <h3
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 17,
-                  fontWeight: 700,
-                  letterSpacing: "-0.015em",
-                  color: "#0A0A0A",
-                  margin: "0 0 10px",
-                  lineHeight: 1.25,
-                }}
-              >
-                {it.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "Inter",
-                  fontSize: 13.5,
-                  color: "#6B7280",
-                  lineHeight: 1.55,
-                  margin: 0,
-                }}
-              >
-                {it.desc}
-              </p>
-            </div>
-          ))}
-        </div>
+        <ClineraOsDiagram />
       </div>
     </section>
   );
@@ -613,25 +393,13 @@ function FaqPartners() {
     <section
       className="partners-section"
       style={{
-        padding: "96px 80px",
+        ...sectionPad,
         background: "#fff",
       }}
     >
-      <div style={{ maxWidth: 860, margin: "0 auto" }}>
-        <Eyebrow>Preguntas frecuentes</Eyebrow>
-        <h2
-          style={{
-            fontFamily: "Inter",
-            fontSize: "clamp(28px, 3.6vw, 44px)",
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.08,
-            margin: "14px 0 40px",
-            color: "#0A0A0A",
-          }}
-        >
-          Lo que preguntan antes de entrar.
-        </h2>
+      <div style={{ maxWidth: 720, margin: "0 auto" }}>
+        <Eyebrow>Preguntas</Eyebrow>
+        <h2 style={{ ...h2Style, marginBottom: 32 }}>En corto</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {PARTNERS_FAQ.map((f) => (
             <details
@@ -751,7 +519,7 @@ function FinalCTA() {
               color: "#9CA3AF",
               lineHeight: 1.6,
               margin: "0 auto 32px",
-              maxWidth: 600,
+              maxWidth: 520,
             }}
           >
             {PARTNERS_FINAL_CTA.lead}
