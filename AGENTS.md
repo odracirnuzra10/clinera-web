@@ -168,13 +168,18 @@ La URL pública del programa es **`/partners`**. `/agencias` redirige permanente
 (308) ahí — no reabrir esa ruta ni volver a publicar el 15% de "descuento
 permanente" de agencias: ese modelo se reemplazó en agosto 2026.
 
-Números y copy (pago base US$ 150 + 10% del plan por 6 meses, funciones del
-partner, FAQ) viven en `src/content/partners-program.ts`. La landing
-(`src/app/partners/page.tsx` + `src/components/partners/PartnersLanding.tsx`)
-los consume. El deck `public/presentacion-partners/index.html` no puede importar
-TS: si cambian las cifras, hay que tocar esa slide a mano para que no
-contradiga la landing. `/presentacion-agencia` redirige a ese deck (el archivo
-viejo quedó huérfano: no lo actualices pensando que es el vigente).
+Números y copy viven en `src/content/partners-program.ts`: **bono único US$ 150
+por referido que cierra** (sin comisión sobre el plan); **10% de descuento por
+3 meses para la clínica referida** (lo aplica el closer de Clinera, no el
+partner); requisitos de contenido (4 historias/mes con mención, 1 reel/mes en
+colaboración, bio de Instagram como partner de clinera.io). No confundir el
+10% × 3 meses con el 15% permanente de agencias (muerto) ni con una comisión
+del partner. La landing (`src/app/partners/page.tsx` +
+`src/components/partners/PartnersLanding.tsx`) los consume. El deck
+`public/presentacion-partners/index.html` no puede importar TS: si cambia el
+bono, el descuento o los requisitos, hay que tocar esas slides a mano.
+`/presentacion-agencia` redirige a ese deck (el archivo viejo quedó huérfano:
+no lo actualices pensando que es el vigente).
 
 `public/reseller.html` es un "Programa Reseller" viejo y huérfano (50% de
 comisión + 10% de descuento) que **no** está enlazado desde `/partners` ni
