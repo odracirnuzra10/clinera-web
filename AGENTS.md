@@ -162,23 +162,26 @@ renderizan las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
 - **Mes 2 en adelante:** el plan contratado (Vortex US$ 279 / Atlas US$ 379 /
   Summit US$ 479 al mes).
 
-## El descuento de `/agencias` no tiene fuente única — vive repetido en 3 archivos
+## Programa partner: `/partners` (antes `/agencias`)
 
-El "X% descuento permanente" del programa partner para agencias (`/agencias`) no
-sale de `pricing.ts` ni de ningún content file — está tipeado a mano en tres
-lugares que hay que mantener sincronizados a mano:
+La URL pública del programa es **`/partners`**. `/agencias` redirige permanente
+(308) ahí — no reabrir esa ruta ni volver a publicar el 15% de "descuento
+permanente" de agencias: ese modelo se reemplazó en agosto 2026.
 
-- `src/app/agencias/page.tsx` (meta description, OG description, pregunta del FAQ JSON-LD)
-- `src/components/agencias/AgenciasLanding.tsx` (`Stat` del hero, `BenefitCard` 01, FAQ visible)
-- `public/presentacion-agencia/index.html` (deck estático enlazado desde ambos CTA "Ver presentación técnica")
-
-Agosto 2026: Ricardo lo bajó de 20% a **15%**. Si cambia de nuevo, hay que tocar
-los 7 lugares de arriba — ninguno se actualiza solo.
+Números y copy (pago base US$ 150 + 10% del plan por 6 meses, funciones del
+partner, FAQ) viven en `src/content/partners-program.ts`. La landing
+(`src/app/partners/page.tsx` + `src/components/partners/PartnersLanding.tsx`)
+los consume. El deck `public/presentacion-agencia/index.html` no puede importar
+TS: si cambian las cifras, hay que tocar esa slide a mano para que no
+contradiga la landing.
 
 `public/reseller.html` es un "Programa Reseller" viejo y huérfano (50% de
-comisión + 10% de descuento) que **no** está enlazado desde `/agencias` ni desde
-ningún componente en `src/` — no es el programa vigente, no lo confundas con
-el de arriba ni lo actualices pensando que es el mismo.
+comisión + 10% de descuento) que **no** está enlazado desde `/partners` ni
+desde ningún componente en `src/` — no es el programa vigente, no lo revivas.
+
+Las microlandings individuales (`/partner/{vanity}`, p.ej. `/partner/km`) son
+otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
++ `src/components/partner/`.
 
 # Embudo de Meta Y Google Ads: qué evento vale cuánto, y dónde vive de verdad
 

@@ -247,6 +247,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Programa partner: la URL pública es /partners. /agencias queda
+      // como redirect permanente para no romper links, OG y menús viejos.
+      {
+        source: '/agencias',
+        destination: '/partners',
+        permanent: true,
+      },
       // El modo Eficiente y el modo Agentic Pro dejaron de existir: Clinera
       // opera solo en modo Agentic. El post de los 3 modos se reescribio con
       // slug nuevo, este redirect preserva el link equity del anterior.
