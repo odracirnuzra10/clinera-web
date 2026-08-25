@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./HeroCarousel.module.css";
 
-/* Carrusel del hero: seis vistas del producto rotando en la misma ventana (o el
+/* Carrusel del hero: siete vistas del producto rotando en la misma ventana (o el
    subconjunto que pida `only`).
    Muestra qué es Clinera O.S. en vez de describirlo.
 
@@ -16,6 +16,7 @@ import styles from "./HeroCarousel.module.css";
 const VIEWS = [
   { id: "aura", label: "WhatsApp con IA", url: "app.clinera.io / conversaciones", hold: 9200 },
   { id: "intelligence", label: "Intelligence", url: "app.clinera.io / intelligence", hold: 6200 },
+  { id: "creditos", label: "Créditos", url: "app.clinera.io / consumo", hold: 7200 },
   { id: "red", label: "Consolidado", url: "app.clinera.io / consolidado-red", hold: 6000 },
   { id: "ficha", label: "Ficha clínica", url: "app.clinera.io / pacientes / ficha", hold: 6400 },
   { id: "odonto", label: "Odontograma", url: "app.clinera.io / pacientes / odontograma", hold: 6000 },
@@ -34,7 +35,15 @@ function Check() {
 
 /* El total de Intelligence sube desde cero cada vez que la vista entra: es el
    dato que el ojo persigue y quieto se ve como una captura. */
-function CountUp({ value, run }: { value: number; run: number }) {
+function CountUp({
+  value,
+  run,
+  prefix = "$",
+}: {
+  value: number;
+  run: number;
+  prefix?: string;
+}) {
   const [shown, setShown] = useState(value);
 
   useEffect(() => {
@@ -53,7 +62,12 @@ function CountUp({ value, run }: { value: number; run: number }) {
     return () => cancelAnimationFrame(frame);
   }, [value, run]);
 
-  return <>${shown.toLocaleString("es-CL")}</>;
+  return (
+    <>
+      {prefix}
+      {shown.toLocaleString("es-CL")}
+    </>
+  );
 }
 
 function NetworkView() {
@@ -265,6 +279,72 @@ function IntelligenceView({ run }: { run: number }) {
   );
 }
 
+/* ---------- Créditos / consumo ---------- */
+
+function CreditsView({ run }: { run: number }) {
+  return (
+    <div className={styles.view}>
+      <div className={styles.viewHead}>
+        <div>
+          <span className={styles.eyebrow}>Consumo · Atlas</span>
+          <strong>Bolsa de créditos · este mes</strong>
+        </div>
+        <span className={styles.livePill}><i />En vivo</span>
+      </div>
+
+      <div className={styles.creditsBag}>
+        <div className={styles.creditsRemain}>
+          <span>Disponibles</span>
+          <strong>
+            <CountUp value={11840} run={run} prefix="" />
+          </strong>
+          <small>de 37.000 · Atlas</small>
+        </div>
+        <div className={styles.creditsMeter} aria-hidden="true">
+          <div className={styles.creditsMeterTrack}>
+            <i className={styles.creditsMeterFill} style={{ width: "68%" }} />
+            <span className={styles.creditsMeterMark} style={{ left: "80%" }} title="Aviso 80%" />
+          </div>
+          <div className={styles.creditsMeterLabels}>
+            <span>0</span>
+            <span>80% aviso</span>
+            <span>100%</span>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.creditTariffs}>
+        <div><span>Texto</span><strong>30</strong><small>sin cita</small></div>
+        <div><span>Agenda</span><strong>195</strong><small>cita</small></div>
+        <div><span>Voz</span><strong>25</strong><small>/ min</small></div>
+        <div><span>LIA</span><strong>0</strong><small>fiscaliza</small></div>
+      </div>
+
+      <ul className={styles.creditFeed}>
+        <li>
+          <span className={styles.creditFeedWho}>AURA</span>
+          <span>Agendó Dra. Meza · 10:00</span>
+          <b>−195</b>
+        </li>
+        <li>
+          <span className={styles.creditFeedWhoCam}>CAMILA</span>
+          <span>Confirmación · 2 min</span>
+          <b>−50</b>
+        </li>
+        <li>
+          <span className={styles.creditFeedWho}>AURA</span>
+          <span>Consulta de horario</span>
+          <b>−30</b>
+        </li>
+      </ul>
+
+      <div className={styles.result}>
+        <Check />Aviso al 80% y al 100% · sin corte silencioso
+      </div>
+    </div>
+  );
+}
+
 /* `only` recorta el carrusel a un subconjunto de vistas, en el orden pedido: el
    wizard de /agenda muestra sólo las vistas del paso en que va el visitante. Sin
    la prop se ven las seis, que es lo que hace /plataforma. */
@@ -343,6 +423,7 @@ export default function HeroCarousel({ only }: { only?: readonly HeroViewId[] } 
             {v.id === "odonto" && <OdontogramView />}
             {v.id === "corporal" && <BodyChartView />}
             {v.id === "intelligence" && <IntelligenceView run={playing ? run : -1} />}
+            {v.id === "creditos" && <CreditsView run={playing ? run : -1} />}
           </div>
         ))}
       </div>

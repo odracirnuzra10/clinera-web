@@ -510,6 +510,168 @@
   font-size: 10.5px;
 }
 
+/* ---- Vista: Créditos / consumo ---- */
+
+.creditsBag {
+  display: grid;
+  gap: 12px;
+  border: 1px solid #eeecf1;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.creditsRemain span {
+  display: block;
+  color: #858b95;
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.creditsRemain strong {
+  display: block;
+  margin-top: 2px;
+  color: #111318;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+.creditsRemain small {
+  display: block;
+  margin-top: 2px;
+  color: #7c8089;
+  font-size: 11px;
+}
+
+.creditsMeterTrack {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: #f0eef4;
+  overflow: hidden;
+}
+
+.creditsMeterFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7c3aed, #009fe3);
+  transform-origin: left center;
+}
+
+.creditsMeterMark {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  margin-left: -1px;
+  background: #f59e0b;
+  border-radius: 1px;
+}
+
+.creditsMeterLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  color: #9aa0aa;
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+}
+
+.creditTariffs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid #eeecf1;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.creditTariffs > div {
+  padding: 10px 8px;
+  border-right: 1px solid #eeecf1;
+  text-align: center;
+}
+
+.creditTariffs > div:last-child {
+  border-right: 0;
+}
+
+.creditTariffs span {
+  display: block;
+  color: #858b95;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.creditTariffs strong {
+  display: block;
+  margin-top: 3px;
+  color: #111318;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.creditTariffs small {
+  display: block;
+  margin-top: 1px;
+  color: #9aa0aa;
+  font-size: 9.5px;
+}
+
+.creditFeed {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.creditFeed li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #eeecf1;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 11.5px;
+  color: #40454e;
+}
+
+.creditFeed b {
+  color: #7c3aed;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.creditFeedWho,
+.creditFeedWhoCam {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  border-radius: 999px;
+  padding: 3px 7px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.creditFeedWho {
+  background: rgba(124, 58, 237, 0.1);
+  color: #6d28d9;
+}
+
+.creditFeedWhoCam {
+  background: rgba(0, 159, 227, 0.12);
+  color: #0369a1;
+}
+
 /* ---- Tabs ---- */
 
 .tabs {
@@ -647,6 +809,29 @@
 .playing .slideOn .bars > div:nth-child(1) b i { animation-delay: 420ms; }
 .playing .slideOn .bars > div:nth-child(2) b i { animation-delay: 520ms; }
 .playing .slideOn .bars > div:nth-child(3) b i { animation-delay: 620ms; }
+
+/* Créditos: medidor + tarifas + feed */
+.playing .slideOn .creditsMeterFill {
+  transform-origin: left;
+  animation: growBar 900ms cubic-bezier(0.16, 1, 0.3, 1) 280ms both;
+}
+
+.playing .slideOn .creditTariffs > div {
+  animation: riseIn 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.playing .slideOn .creditTariffs > div:nth-child(1) { animation-delay: 200ms; }
+.playing .slideOn .creditTariffs > div:nth-child(2) { animation-delay: 270ms; }
+.playing .slideOn .creditTariffs > div:nth-child(3) { animation-delay: 340ms; }
+.playing .slideOn .creditTariffs > div:nth-child(4) { animation-delay: 410ms; }
+
+.playing .slideOn .creditFeed li {
+  animation: riseIn 440ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.playing .slideOn .creditFeed li:nth-child(1) { animation-delay: 480ms; }
+.playing .slideOn .creditFeed li:nth-child(2) { animation-delay: 580ms; }
+.playing .slideOn .creditFeed li:nth-child(3) { animation-delay: 680ms; }
 
 /* KPIs uno a uno */
 .playing .slideOn .kpiGrid > div {
@@ -946,6 +1131,9 @@
   .playing .slideOn .result,
   .playing .slideOn .branchList b i,
   .playing .slideOn .bars b i,
+  .playing .slideOn .creditsMeterFill,
+  .playing .slideOn .creditTariffs > div,
+  .playing .slideOn .creditFeed li,
   .tooth,
   .progressFill,
   .upNextDot {
@@ -968,6 +1156,10 @@
 
   .branchList > div { grid-template-columns: 96px 1fr 32px; }
   .bars > div { grid-template-columns: 92px 1fr 68px; }
+
+  .creditTariffs { grid-template-columns: repeat(2, 1fr); }
+  .creditTariffs > div:nth-child(2n) { border-right: 0; }
+  .creditTariffs > div:nth-child(-n + 2) { border-bottom: 1px solid #eeecf1; }
 }
 
 @media (max-width: 640px) {
