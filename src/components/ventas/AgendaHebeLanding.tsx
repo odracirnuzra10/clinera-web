@@ -422,13 +422,18 @@ export default function AgendaHebeLanding() {
               </div>
               <div className={styles.group}>
                 <label>Tipo de clínica</label>
-                <div className={styles.types}>
+                <select
+                  className={attempted && !tipo ? styles.err : undefined}
+                  value={tipo}
+                  onChange={(e) => setTipo(e.target.value)}
+                >
+                  <option value="">Selecciona…</option>
                   {TYPES.map((t) => (
-                    <button key={t.id} type="button" className={`${styles.typeBtn} ${tipo === t.id ? styles.typeOn : ""}`} onClick={() => setTipo(t.id)}>
+                    <option key={t.id} value={t.id}>
                       {t.label}
-                    </button>
+                    </option>
                   ))}
-                </div>
+                </select>
               </div>
               <button
                 type="button"
