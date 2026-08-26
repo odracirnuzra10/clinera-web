@@ -28,5 +28,7 @@ test.describe("CAMILA y LIA próximamente octubre 2026", () => {
     await expect(slide).toHaveClass(/active/);
     await expect(slide.getByText("Próximamente · octubre 2026")).toHaveCount(2);
     await expect(slide.getByText("Disponible hoy", { exact: true })).toBeVisible();
+    await expect(slide.locator(".ed-agent-now")).toHaveCount(1);
+    await expect(slide.locator(".ed-agent-soon")).toHaveCount(2);
   });
 });
