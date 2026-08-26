@@ -2458,7 +2458,8 @@
     .slide.active .blk-lead,
     .slide.active .cn-highlight,
     .slide.active .cn-body,
-    .slide.active .cn-seal {
+    .slide.active .cn-seal,
+    .slide.active .ch-note {
       animation: enter .64s var(--ease) both;
       animation-delay: .1s;
     }
@@ -2887,6 +2888,119 @@
       font-size: 13.5px;
       line-height: 1.45;
       text-wrap: pretty;
+    }
+
+    /* --- Los canales (#canales): 1 cuenta = 1 WA + 1 IG + 1 FB --- */
+    .ch-layout {
+      grid-template-rows: auto auto auto;
+      max-width: 1120px;
+    }
+
+    .ch-layout .blk-h2 {
+      max-width: 920px;
+    }
+
+    .ch-layout .blk-lead {
+      max-width: 640px;
+    }
+
+    .ch-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: clamp(10px, 1.5vw, 18px);
+    }
+
+    .ch-card {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: clamp(18px, 2.4vh, 26px) clamp(16px, 1.8vw, 24px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .55);
+    }
+
+    .ch-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ch-icon {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+      border: 1px solid #e8e0fb;
+      border-radius: 8px;
+      background: #f7f4fd;
+      color: var(--violet);
+    }
+
+    .ch-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ch-card b {
+      display: block;
+      margin-top: 8px;
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: clamp(44px, 5.2vw, 68px);
+      font-weight: 700;
+      letter-spacing: -.08em;
+      line-height: .9;
+      background: var(--grad-ia);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ch-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(16px, 1.4vw, 20px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    .ch-card span {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .ch-plus {
+      align-self: center;
+      color: var(--brand-violet);
+      font-family: var(--blk-mono);
+      font-size: clamp(22px, 2.2vw, 32px);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .ch-note {
+      margin: 0;
+      padding-top: clamp(4px, .8vh, 10px);
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+
+    .ch-note b {
+      color: var(--ink);
+      font-weight: 700;
     }
 
     /* ---- Ventana de producto compartida por los mockups ---- */
@@ -3352,6 +3466,24 @@
         gap: 16px 18px;
       }
 
+      .ch-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .ch-plus {
+        display: none;
+      }
+
+      .ch-card {
+        padding: 16px 18px;
+      }
+
+      .ch-card b {
+        margin-top: 4px;
+        font-size: 32px;
+      }
+
       .hr-item strong {
         font-size: 15px;
       }
@@ -3507,6 +3639,14 @@
         margin-top: 6px;
         font-size: 13px;
       }
+
+      .ch-card b {
+        font-size: 36px;
+      }
+
+      .ch-note {
+        font-size: 14px;
+      }
     }
 
     /* Seis filas de tabla más encabezado y cierre no caben en un portátil de
@@ -3521,6 +3661,14 @@
         width: 62px;
         height: 62px;
         border-width: 2px;
+      }
+
+      .ch-card {
+        padding: 14px 16px;
+      }
+
+      .ch-card b {
+        font-size: 32px;
       }
 
       /* La fuga: la lista de checks y el panel de la cadena también aprietan. */
@@ -3806,7 +3954,7 @@
                   <span class="system-action-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 1-11.7 7L4 20l1.5-4A8 8 0 1 1 20 11Z"/></svg>
                   </span>
-                  <span><b>Responde 24/7</b><small>Por WhatsApp, sin descanso</small></span>
+                  <span><b>Responde 24/7</b><small>WhatsApp, Instagram y Facebook</small></span>
                 </li>
                 <li class="action-multiline">
                   <span class="system-action-icon" aria-hidden="true">
@@ -3928,7 +4076,7 @@
             </div>
             <div class="blk-eyebrow">TU NUEVO SOFTWARE</div>
             <h2 class="blk-h2">Te presento a <span class="blk-grad-text">AURA</span>, tu empleado digital.</h2>
-            <p class="blk-lead">Responde, agenda, confirma, reagenda y cobra. Por WhatsApp y por llamada, las 24 horas.</p>
+            <p class="blk-lead">Responde, agenda, confirma, reagenda y cobra. Por WhatsApp, Instagram, Facebook y por llamada, las 24 horas.</p>
             <ul class="rzs-points">
               <li>Atiende de noche, fines de semana y feriados</li>
               <li>Confirma la hora sola: recepción deja de perseguir a nadie</li>
@@ -3976,6 +4124,64 @@
 
       <section
         class="slide blk"
+        id="canales"
+        data-name="Los canales"
+        aria-hidden="true"
+      >
+        <div class="slide-inner hr-layout ch-layout">
+          <header class="hr-head">
+            <div class="blk-eyebrow">LOS CANALES</div>
+            <h2 class="blk-h2">1 cuenta Clinera = <span class="blk-grad-text">1 WhatsApp, 1 Instagram y 1 Facebook</span>.</h2>
+            <p class="blk-lead">Los tres vienen en la cuenta. No se conectan números ni perfiles extra.</p>
+          </header>
+
+          <div
+            class="ch-grid reveal"
+            aria-label="Una cuenta Clinera incluye un número de WhatsApp, una cuenta de Instagram y una cuenta de Facebook"
+          >
+            <article class="ch-card">
+              <div class="ch-card-head">
+                <span class="ch-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
+                </span>
+              </div>
+              <b>1</b>
+              <strong>WhatsApp</strong>
+              <span>Un número</span>
+            </article>
+            <span class="ch-plus" aria-hidden="true">+</span>
+            <article class="ch-card">
+              <div class="ch-card-head">
+                <span class="ch-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>
+                </span>
+              </div>
+              <b>1</b>
+              <strong>Instagram</strong>
+              <span>Una cuenta</span>
+            </article>
+            <span class="ch-plus" aria-hidden="true">+</span>
+            <article class="ch-card">
+              <div class="ch-card-head">
+                <span class="ch-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v3H6v4h3v8h4v-8h3.2L17 12h-4V9c0-.6.4-1 1-1Z"/></svg>
+                </span>
+              </div>
+              <b>1</b>
+              <strong>Facebook</strong>
+              <span>Una cuenta</span>
+            </article>
+          </div>
+
+          <p class="ch-note">
+            Si tu clínica opera con más de un número o más de un perfil,
+            se contrata <b>una cuenta Clinera por cada uno</b>.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
         id="empleados-digitales"
         data-name="Tus empleados digitales"
         aria-hidden="true"
@@ -3995,7 +4201,7 @@
             </article>
             <article class="ed-agent">
               <img class="ed-agent-face" src="/agents/aura.jpg" alt="AURA" loading="lazy" decoding="async" />
-              <strong>AURA · WhatsApp</strong>
+              <strong>AURA · WhatsApp, Instagram y Facebook</strong>
               <span>Responde, agenda y cobra 24/7 sobre la agenda real de tu clínica.</span>
             </article>
             <article class="ed-agent">
@@ -4230,7 +4436,7 @@
 
     <footer class="deck-footer" aria-label="Navegación de la presentación">
       <div class="counter" aria-live="polite">
-        <span id="currentCount">01</span> / <span id="totalCount">10</span>
+        <span id="currentCount">01</span> / <span id="totalCount">11</span>
       </div>
       <div class="progress" aria-hidden="true">
         <div class="progress-fill" id="progressFill"></div>
