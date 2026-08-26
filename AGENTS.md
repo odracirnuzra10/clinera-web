@@ -302,7 +302,10 @@ porque en la demo se asume mal. Guardián: `tests/presentacion-canales.spec.ts`.
 
 **CAMILA y LIA en el deck:** próximamente octubre 2026. AURA es la disponible
 hoy. El lead de `#empleados-digitales` no puede volver a decir "Disponibles hoy"
-sobre las tres. Guardián: `tests/presentacion-empleados.spec.ts`.
+sobre las tres. Visualmente AURA es la tarjeta protagonista (`.ed-agent-now`);
+CAMILA y LIA van apagadas (`.ed-agent-soon`, foto en gris). No dejar las tres
+al mismo peso: en la demo se lee como que las tres se contratan hoy.
+Guardián: `tests/presentacion-empleados.spec.ts`.
 
 La franja "Clínicas que ya operan con Clinera" (`.hero-clients`) vivía con
 `grid-template-columns: repeat(7, minmax(0, 1fr))` — un número mágico que sólo cuadraba
