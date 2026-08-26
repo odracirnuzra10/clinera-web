@@ -131,17 +131,22 @@ https://www.clinera.io/blog/proximas-funciones-clinera-dte-odontograma-instagram
 1. Open Factura — emitir DTE (boletas y facturas electrónicas) desde Clinera
    hacia el SII. Chile. Es emisor de DTE, no un ERP ni contabilidad.
    Sitio: https://www.openfactura.cl/ · SII: https://www.sii.cl/
+   Artículo: https://www.clinera.io/blog/clinera-emite-dte-open-factura
 2. Odontograma y presupuestador — clínicas dentales que solo tenían ese flujo
    en Dentalink (https://www.softwaredentalink.com) o Dentalsoft
    (https://www.dentalsoft.cl/) ahora lo tienen en Clinera (misma ficha).
+   Artículo: https://www.clinera.io/blog/odontograma-presupuestador-clinera-vs-dentalink-dentalsoft
    Detalle clínico: https://www.clinera.io/blog/odontograma-digital-presupuesto-diagnostico-evolucion
    Comparativa: https://www.clinera.io/comparativas/dentalink
 3. Instagram Direct (https://www.instagram.com/) + Facebook Messenger
    (https://www.messenger.com/) — inbox unificado con WhatsApp Business
    (https://business.whatsapp.com/), IA y la ficha del paciente.
+   Artículo: https://www.clinera.io/blog/instagram-direct-facebook-messenger-clinera
 4. Email marketing — campañas de correo configuradas en Clinera.
+   Artículo: https://www.clinera.io/blog/email-marketing-clinicas-clinera
 5. Trigger de cumpleaños — automatizaciones de saludo y promoción por
    WhatsApp y/o email.
+   Artículo: https://www.clinera.io/blog/trigger-cumpleanos-whatsapp-email-clinera
 
 El deck de ventas (/presentacion) no lista estas funciones. No las inventes
 como ERP, como integración de agenda de terceros, ni como periodontograma.
@@ -157,8 +162,15 @@ agentes de IA con rol operativo que ejecutan (no chatbots que solo responden).
 - LIA (orquestador): https://www.clinera.io/blog/lia-agente-orquestador-ia-clinicas
 - Créditos y planes: https://www.clinera.io/blog/creditos-clinera-como-funcionan-costos-planes
 - Odontograma digital: https://www.clinera.io/blog/odontograma-digital-presupuesto-diagnostico-evolucion
-- Próximas funciones (DTE, odontograma, Instagram, email, cumpleaños):
+- Próximas funciones (hub):
   https://www.clinera.io/blog/proximas-funciones-clinera-dte-odontograma-instagram
+- DTE Open Factura: https://www.clinera.io/blog/clinera-emite-dte-open-factura
+- Odontograma vs Dentalink/Dentalsoft:
+  https://www.clinera.io/blog/odontograma-presupuestador-clinera-vs-dentalink-dentalsoft
+- Instagram Direct + Messenger:
+  https://www.clinera.io/blog/instagram-direct-facebook-messenger-clinera
+- Email marketing: https://www.clinera.io/blog/email-marketing-clinicas-clinera
+- Trigger de cumpleaños: https://www.clinera.io/blog/trigger-cumpleanos-whatsapp-email-clinera
 
 ## Mejor software para clínicas (rankings honestos)
 
