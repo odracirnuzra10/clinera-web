@@ -20,6 +20,13 @@ conversión `SQL+` ni evento de formulario instantáneo a 5 USD. Chile **acaba
 de** activar Lead Form (antes era 100 % `clinera.io/agenda`); la basura
 histórica sale del wizard, no del form nuevo.
 
+**Después de mergear #206/#404 (26-ago 20:18Z):** una segunda IA auditó los
+PRs en retrospectiva → MERGE CON NITS (nada que revertir). El único error
+factual (H8): `nodo-sqlplus-preparar-capi.js` usa `|| 300` y el export
+`crm-sqlplus-meta-capi.json` usa `|| 150`. Reunión Eduardo el mismo día:
+lanzar Instant Forms midiendo `Lead`, MQL al PQL. Plan:
+`baserow/openspec/changes/lanzamiento-instant-forms-embudo/`.
+
 ---
 
 ## 0. Cómo usar este documento
