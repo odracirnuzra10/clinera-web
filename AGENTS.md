@@ -200,13 +200,13 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
-| `MQL` | el lead agenda en `/agenda` | — (Meta) / US$10 (Google Ads) | `integrations/n8n/clinera-agenda-reserva.workflow.json` (Meta) · repo `baserow` (Google, ver abajo) |
+| `MQL` | el lead agenda en `/agenda` **o** la IA de Clinera agenda por WhatsApp | — (Meta) / US$10 (Google Ads) | wizard: `integrations/n8n/clinera-agenda-reserva.workflow.json` · IA: `integrations/n8n/clinera-meet-por-profesional.workflow.json` · Google (solo wizard): repo `baserow` |
 | `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
 | `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
 
 **Desde el 2026-08-21, Google Ads recibe el mismo embudo** (MQL/SQL/SQL+, mismos
-montos salvo MQL en 10 USD) — no por CAPI, sino porque los tres workflows de
-arriba marcan Baserow 152 y un feed nuevo en `baserow`
+montos salvo MQL en 10 USD) — no por CAPI, sino porque los workflows de SQL y
+SQL+ (no el de MQL) marcan Baserow 152 y un feed nuevo en `baserow`
 (`sales/n8n/gads-conversiones-sql-csv.js`) se lo sirve a Google Ads Data
 Manager por HTTPS. El motivo (Data Manager no acepta push, sólo lee un
 archivo) y el diseño completo viven en `baserow/sales/HANDOFF.md` — no se

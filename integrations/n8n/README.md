@@ -31,7 +31,7 @@ ocurre:
 
 | Evento | Cuándo | Dónde vive | Valor |
 |---|---|---|---|
-| **MQL** | alguien agenda en `www.clinera.io/agenda` | este workflow | — |
+| **MQL** | alguien agenda en `www.clinera.io/agenda` **o** la IA agenda por WhatsApp | este workflow (wizard) · `clinera-meet-por-profesional.workflow.json` (IA) | — (Meta) / US$ 10 |
 | **SQL** | el closer lo marca calificado en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 100 |
 | **SQL_Plus** | el closer lo sube a propuesta en `crm.oacg.cl` | **solo en n8n**, ver abajo | US$ 300 |
 
@@ -90,6 +90,11 @@ Hoy mapea a Nohe y Rebe; sumar a alguien más es agregar una línea al array
 
 Webhook: `POST https://n8n.oacg.cl/webhook/clinera-meet`
 
+El JSON de este repo es el re-export sanitizado del vivo
+(`FZvyK42lkQdKWcIl`, 2026-08-26, post `--aplicar`): incluye
+`Twenty - Agendó (Meet)` y la rama MQL IA. Tokens →
+`__BASEROW_TOKEN__` / `$env`.
+
 Acepta dos formatos de payload:
 
 1. **El del workflow de reserva de `/agenda`** — ya conectado: el nodo
@@ -138,6 +143,52 @@ columna se comparte entre los dos agendadores.
 > El token de Baserow del workspace no tiene permiso para crear columnas, así
 > que se reusó una existente. Si algún día se agrega una columna propia
 > (p. ej. `Meet eventId`), conviene mover esto ahí.
+
+### Segundo emisor MQL: citas del agente IA (WhatsApp)
+
+Desde agosto 2026 el mismo evento `MQL` del pixel `1104567405156111` tiene
+**dos disparos**. El de `/agenda` sigue arriba (este archivo, workflow de
+reserva). El segundo vive **acá**, en el Meet, y solo corre cuando la
+automatización de Clinera manda `metadata.origen === "agente-ia"`.
+
+**Por qué no se cuenta dos veces.** La misma cita del wizard llega DOS veces
+al webhook `clinera-meet` (Avisar Meet + eco `appointment_created` ~1 s
+después). El eco viaja con `metadata.origen: "web"`. La compuerta es una
+allowlist: payload de automatización AND `origen === "agente-ia"` AND no
+es prueba. El wizard plano se reconoce por
+`notas: 'Turno solicitado desde www.clinera.io/agenda'`. Embed/reagenda
+(`origen: "web"`) sigue **sin** emitir MQL.
+
+**`event_id`** (determinista por cita; un re-disparo dentro de 48 h
+deduplica en Meta):
+
+```
+mql_ + sha256(email || telefono).slice(0, 12) + _ + fecha + _ + hora
+```
+
+Email: `trim().toLowerCase()`. Teléfono: solo dígitos con país. Misma
+forma que el fallback del MQL del wizard, con el fallback a teléfono del
+SQL. Una reagenda (otra fecha/hora) es un segundo MQL — aceptado, igual
+que hoy en el wizard.
+
+**Valores:** `action_source: system_generated`, `value: 10`,
+`currency: USD`, `lead_source: clinera_agente_ia`. Token CAPI:
+`$env.META_CAPI_ACCESS_TOKEN`. El `api_secret` de GA4 se copia del nodo
+vivo `GA4 - MQL` del workflow de reserva al aplicar; no viaja por el repo.
+
+**Mapa del payload de la automatización** (envuelto, a veces bajo clave
+`""`): `patient{email,phone,full_name}`, `booking{id,date_time}` (ISO
+Chile), `metadata{origen,estado,createdAt}`. `origenCita` y `bookingId`
+los calcula `Normalizar Reserva` una sola vez.
+
+**Twenty:** el nodo `Twenty - Agendó (Meet)` hace upsert **solo** para
+`agente-ia` (contrato del wizard: `SCREENING`, Vortex US$ 279). Wizard/web
+siguen igual: solo refresco. Aplicador:
+`baserow/sales/n8n/aplicar_mql_agente_ia.py`. Spec:
+`baserow/openspec/changes/medir-mql-agente-ia/`.
+
+Este emisor **no marca Baserow 152**. La frase de que «los tres workflows
+marcan la 152» era de SQL/SQL+ y del feed de Google Ads, no de este MQL.
 
 ## Por qué falló la llamada (en "OACG TECH | Vapi Outbound Trigger")
 
@@ -405,9 +456,9 @@ Además de los placeholders del workflow de reserva, este archivo lleva
 Ricardo pidió alinear Google Ads al mismo vocabulario y montos que Meta ya usa
 acá (MQL=10 / SQL=100 / SQL+=300 USD). Google Ads no tiene un camino de push
 por evento sin developer token — a diferencia de Meta CAPI — así que en vez de
-un envío paralelo, los TRES workflows de esta página (este archivo y los dos
-"sólo en n8n" de abajo) ahora **además** marcan en Baserow 152 (`🎯 SQL a
-Google` / `🎯 SQL+ a Google`) justo después de mandar el evento a Meta. Un
+un envío paralelo, los workflows de SQL y SQL+ de esta página (no el de MQL) ahora **además**
+marcan en Baserow 152 (`🎯 SQL a Google` / `🎯 SQL+ a Google`) justo después
+de mandar el evento a Meta. Un
 feed nuevo en el repo `baserow` (`sales/n8n/gads-conversiones-sql-csv.js`) lee
 esas marcas y se las sirve a Google Ads Data Manager por HTTPS.
 
