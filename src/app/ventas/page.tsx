@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
 import VentasLanding from "@/components/ventas/VentasLanding";
+import { timezoneIpDelRequest } from "@/lib/timezone-ip";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Agenda una reunión comercial — Clinera.io",
@@ -22,11 +25,12 @@ const srOnly: CSSProperties = {
   borderWidth: 0,
 };
 
-export default function VentasPage() {
+export default async function VentasPage() {
+  const tzIp = await timezoneIpDelRequest();
   return (
     <>
       <h1 style={srOnly}>Agenda una reunión con el equipo de Clinera</h1>
-      <VentasLanding enableMigrationQualification />
+      <VentasLanding enableMigrationQualification tzIp={tzIp} />
     </>
   );
 }

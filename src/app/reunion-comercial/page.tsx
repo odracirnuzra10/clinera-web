@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import AgendaHebeLanding from "@/components/ventas/AgendaHebeLanding";
+import { timezoneIpDelRequest } from "@/lib/timezone-ip";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Reunión comercial — Clinera.io",
@@ -15,6 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ReunionComercialPage() {
-  return <AgendaHebeLanding sourcePath="/reunion-comercial" />;
+export default async function ReunionComercialPage() {
+  const tzIp = await timezoneIpDelRequest();
+  return <AgendaHebeLanding sourcePath="/reunion-comercial" tzIp={tzIp} />;
 }
