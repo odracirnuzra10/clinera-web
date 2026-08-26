@@ -284,6 +284,12 @@ Guardián: `tests/agenda-scheduler.spec.ts`.
 `/presentacion` → `/presentacion/index.html`, un único archivo HTML/CSS/JS de ~4.300 líneas
 en `public/presentacion/index.html`. No hay componente React que tocar ahí.
 
+**1 cuenta Clinera = 1 número de WhatsApp, 1 cuenta de Instagram y 1 cuenta de Facebook.**
+Es el recorte comercial de canales, no un detalle de onboarding. Si la clínica opera con
+más de un número o más de un perfil, son más cuentas (y más planes). Vive en la
+diapositiva `#canales` de ese HTML. No diluirlo en un bullet de AURA: tiene slide propio
+porque en la demo se asume mal. Guardián: `tests/presentacion-canales.spec.ts`.
+
 La franja "Clínicas que ya operan con Clinera" (`.hero-clients`) vivía con
 `grid-template-columns: repeat(7, minmax(0, 1fr))` — un número mágico que sólo cuadraba
 porque había exactamente 7 logos (Chile). Agosto 2026: se sumaron 8 clínicas de
