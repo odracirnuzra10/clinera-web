@@ -13,6 +13,7 @@ import {
   fireMqlEvent,
   type QualCustomData,
 } from "@/lib/metaEvents";
+import { zonaMostrada } from "@/lib/timezone";
 
 // ============== SHARED CONSTANTS ==============
 const GRAD = "linear-gradient(135deg,#3B82F6 0%,#7C3AED 50%,#D946EF 100%)";
@@ -613,6 +614,7 @@ export default function VentasLanding({
   meetingMinutes = 30,
   showcase = false,
   agendaV2 = false,
+  tzIp = "",
 }: {
   enableMigrationQualification?: boolean;
   /** Qué pregunta el paso 1: el software actual (default) o la necesidad. */
@@ -636,6 +638,8 @@ export default function VentasLanding({
   showcase?: boolean;
   /** /agenda v2: necesidades en chips, clínica con web, cargo, doctores en móvil. */
   agendaV2?: boolean;
+  /** Zona IANA de la IP (`x-vercel-ip-timezone`). Gana sobre el reloj del OS. */
+  tzIp?: string;
 }) {
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -799,6 +803,7 @@ export default function VentasLanding({
         meetingMinutes={meetingMinutes}
         showcase={showcase}
         agendaV2={agendaV2}
+        tzIp={tzIp}
       />
     </>
   );
@@ -814,6 +819,7 @@ function ReunionHero({
   meetingMinutes,
   showcase,
   agendaV2,
+  tzIp,
 }: {
   enableMigrationQualification: boolean;
   scheduler: SchedulerId;
@@ -823,6 +829,7 @@ function ReunionHero({
   meetingMinutes: number;
   showcase: boolean;
   agendaV2: boolean;
+  tzIp: string;
 }) {
   // Espejo de solo lectura del paso del wizard, para que la columna de
   // argumento cambie con él. El wizard sigue siendo el dueño del estado.
@@ -989,6 +996,7 @@ function ReunionHero({
             meetingMinutes={meetingMinutes}
             showcase={showcase}
             agendaV2={agendaV2}
+            tzIp={tzIp}
             onStepChange={setVisibleStep}
           />
         </div>
@@ -1254,6 +1262,7 @@ function Wizard({
   meetingMinutes,
   showcase = false,
   agendaV2 = false,
+  tzIp = "",
   onStepChange,
 }: {
   enableMigrationQualification: boolean;
@@ -1265,6 +1274,7 @@ function Wizard({
   /** Con showcase, el precio y el descarte viven junto al paso 3 (ver WizardShowcase). */
   showcase?: boolean;
   agendaV2?: boolean;
+  tzIp?: string;
   onStepChange?: (step: number) => void;
 }) {
   const [step, setStep] = useState(1);
@@ -1525,6 +1535,7 @@ function Wizard({
       {!submitted && !declined && step === calStep && scheduler === "clinera" && (
         <StepClineraScheduler
           form={form}
+          tzIp={tzIp}
           showInvestment={investmentAfterContact && !showcase}
           onInteres={handleInteres}
           label={`Paso ${calStep} de ${totalSteps}`}
@@ -1553,7 +1564,7 @@ function Wizard({
           onBack={() => setDeclined(false)}
         />
       )}
-      {submitted && <StepSuccess form={form} software={software} size={size} booking={booking} sourcePath={sourcePath} />}
+      {submitted && <StepSuccess form={form} software={software} size={size} booking={booking} sourcePath={sourcePath} tzIp={tzIp} />}
     </div>
   );
 }
@@ -3244,6 +3255,7 @@ export function StepClineraScheduler({
   onBooked,
   showInvestment = false,
   onInteres,
+  tzIp = "",
 }: {
   form: Form;
   label?: string;
@@ -3252,6 +3264,7 @@ export function StepClineraScheduler({
   onInteres?: (v: "si" | "no") => void;
   onBack: () => void;
   onBooked: (b: CalBooking, via: string, confirmEventId?: string) => void | Promise<void>;
+  tzIp?: string;
 }) {
   const [mode, setMode] = useState<"checking" | "nativo" | "embed">("checking");
   const [config, setConfig] = useState<ClineraAgendaConfig | null>(null);
@@ -3297,6 +3310,7 @@ export function StepClineraScheduler({
       <StepClineraNativo
         form={form}
         config={config ?? { ok: true }}
+        tzIp={tzIp}
         showInvestment={showInvestment}
         onInteres={onInteres}
         label={label}
@@ -3422,12 +3436,27 @@ export function instanteEnChile(ymd: string, hhmm: string): Date {
 }
 
 export function horaEnZona(instante: Date, tz: string): string {
-  return new Intl.DateTimeFormat("es-CL", {
+  return new Intl.DateTimeFormat("en-GB", {
     timeZone: tz,
     hour: "2-digit",
     minute: "2-digit",
-    hour12: false,
+    hourCycle: "h23",
   }).format(instante);
+}
+
+/** Lo que el visitante lee en cada bloque: su hora local, y Chile si no coincide. */
+export function rotuloSlot(
+  horaChile: string,
+  ymd: string,
+  tzVisitante: string,
+): { local: string; chile: string; otraZona: boolean } {
+  const inst = instanteEnChile(ymd, horaChile);
+  const tz = zonaMostrada(tzVisitante, "");
+  return {
+    local: horaEnZona(inst, tz),
+    chile: horaChile,
+    otraZona: offsetZona(tz, inst) !== offsetZona(TZ_CLINICA, inst),
+  };
 }
 
 /** Rótulo GMT±H de una zona para ese instante ("GMT-6", "GMT+5:30"). */
@@ -3516,6 +3545,7 @@ function StepClineraNativo({
   onFallback,
   showInvestment = false,
   onInteres,
+  tzIp = "",
 }: {
   form: Form;
   config: ClineraAgendaConfig;
@@ -3525,6 +3555,7 @@ function StepClineraNativo({
   onBack: () => void;
   onBooked: (b: CalBooking, confirmEventId: string) => void | Promise<void>;
   onFallback: () => void;
+  tzIp?: string;
 }) {
   // Hábil siguiente en Chile, sin el día UTC en curso (la API de "hoy"
   // arma la grilla desde ahora y de madrugada aparecen las 01:45).
@@ -3608,16 +3639,14 @@ function StepClineraNativo({
     [slots],
   );
 
-  // Zona del visitante. Va por useSyncExternalStore y no por useState porque el
-  // servidor no tiene navegador: el snapshot de servidor es "" y el de cliente
-  // la zona real, así que el primer render coincide en los dos lados y no hay
-  // error de hidratación. La zona no cambia durante la vida de la página, así
-  // que la suscripción no tiene nada que hacer.
-  const tzVisitante = useSyncExternalStore(
+  // Zona del visitante: gana la IP. El snapshot de servidor es la IP (o "")
+  // y el de cliente suma el reloj del OS sólo si no hubo header.
+  const tzNavegador = useSyncExternalStore(
     () => () => {},
     zonaVisitante,
     () => "",
   );
+  const tzVisitante = zonaMostrada(tzIp, tzNavegador);
 
   // Instante de referencia del día visible, para comparar offsets y rotular.
   const refInstante = useMemo(() => instanteEnChile(fechaEfectiva, "12:00"), [fechaEfectiva]);
@@ -3626,7 +3655,7 @@ function StepClineraNativo({
   // GMT-4 igual que Chile en invierno, y mostrarle dos horas iguales sería
   // ruido. Alguien en Punta Arenas sí difiere aunque también sea Chile.
   const otraZona =
-    !!tzVisitante && offsetZona(tzVisitante, refInstante) !== offsetZona(TZ_CLINICA, refInstante);
+    offsetZona(tzVisitante, refInstante) !== offsetZona(TZ_CLINICA, refInstante);
 
   // La hora elegida solo vale si sigue existiendo en el día visible.
   const selectedSlot = visibleSlots.find((s) => s.horaInicio === hora) ?? null;
@@ -3772,14 +3801,20 @@ function StepClineraNativo({
           </div>
         )}
         {!loadingSlots && !slotsError && visibleSlots.length > 0 && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(84px, 1fr))", gap: 8 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(96px, 1fr))", gap: 8 }}>
             {visibleSlots.map((s) => {
               const sel = hora === s.horaInicio;
+              const rotulo = rotuloSlot(s.horaInicio, fechaEfectiva, tzVisitante);
               return (
                 <button
                   key={s.horaInicio}
                   type="button"
                   onClick={() => setHora(s.horaInicio)}
+                  aria-label={
+                    rotulo.otraZona
+                      ? `${rotulo.local} tu hora, ${rotulo.chile} en Chile`
+                      : `${rotulo.local} hora de Chile`
+                  }
                   style={{
                     padding: "11px 6px",
                     border: "1.5px solid " + (sel ? "#0A0A0A" : "#E7EBF0"),
@@ -3793,11 +3828,9 @@ function StepClineraNativo({
                     transition: "all .2s",
                   }}
                 >
-                  {otraZona ? (
+                  {rotulo.otraZona ? (
                     <>
-                      <span style={{ display: "block" }}>
-                        {horaEnZona(instanteEnChile(fechaEfectiva, s.horaInicio), tzVisitante)}
-                      </span>
+                      <span style={{ display: "block" }}>{rotulo.local}</span>
                       <span
                         style={{
                           display: "block",
@@ -3807,11 +3840,11 @@ function StepClineraNativo({
                           opacity: sel ? 0.7 : 0.5,
                         }}
                       >
-                        {s.horaInicio} CL
+                        {rotulo.chile} Chile
                       </span>
                     </>
                   ) : (
-                    s.horaInicio
+                    rotulo.local
                   )}
                 </button>
               );
@@ -3830,8 +3863,8 @@ function StepClineraNativo({
             }}
           >
             {otraZona
-              ? `Horarios en tu hora local (${etiquetaGmt(tzVisitante, refInstante)}). La clínica atiende en hora de Chile (${etiquetaGmt(TZ_CLINICA, refInstante)}).`
-              : `Horarios en hora de Chile (${etiquetaGmt(TZ_CLINICA, refInstante)}).`}
+              ? `Horarios en tu hora local (${etiquetaGmt(tzVisitante, refInstante)}). Debajo va la hora en Chile (${etiquetaGmt(TZ_CLINICA, refInstante)}), que es cuando se hace la reunión.`
+              : `Horarios en tu hora local — Chile (${etiquetaGmt(TZ_CLINICA, refInstante)}).`}
           </div>
         )}
       </div>
@@ -3887,21 +3920,37 @@ function StepClineraNativo({
 }
 
 // ============== SUCCESS ==============
-function formatBookingDate(iso?: string | null): string {
-  if (!iso) return "";
-  try {
-    const d = new Date(iso);
-    return d.toLocaleString("es-CL", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
-  } catch {
-    return "";
+function formatBookingDate(iso?: string | null, tzVisitante = TZ_CLINICA): string {
+  return textoReserva(iso, tzVisitante);
+}
+
+export function textoReserva(dateIso: string | undefined | null, tzVisitante: string): string {
+  if (!dateIso) return "";
+  const m = dateIso.match(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2})/);
+  if (!m) {
+    try {
+      return new Date(dateIso).toLocaleString("es-CL", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+    } catch {
+      return "";
+    }
   }
+  const inst = instanteEnChile(m[1], m[2]);
+  const rotulo = rotuloSlot(m[2], m[1], tzVisitante);
+  const dia = new Intl.DateTimeFormat("es-CL", {
+    timeZone: TZ_CLINICA,
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  }).format(inst);
+  if (rotulo.otraZona) return `${dia} · ${rotulo.local} tu hora · ${rotulo.chile} Chile`;
+  return `${dia} · ${rotulo.local}`;
 }
 
 function StepSuccess({
@@ -3910,14 +3959,16 @@ function StepSuccess({
   size,
   booking,
   sourcePath = "/ventas",
+  tzIp = "",
 }: {
   form: Form;
   software: Step1Id | null;
   size: SizeAnswers;
   booking: CalBooking | null;
   sourcePath?: string;
+  tzIp?: string;
 }) {
-  const bookingLabel = formatBookingDate(booking?.date);
+  const bookingLabel = formatBookingDate(booking?.date, zonaMostrada(tzIp, ""));
   const softwareLabel = software ? STEP1_LABELS[software] : "";
   const sizeLabel = sizeSummaryLabel(size);
   const msg = encodeURIComponent(

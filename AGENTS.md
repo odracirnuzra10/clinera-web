@@ -243,9 +243,10 @@ El último paso de `/agenda` (`StepClineraNativo` en
 `src/components/ventas/VentasLanding.tsx`) recibe los bloques de la API de
 Clinera como texto plano en **hora de Chile** (`"10:00"`), sin zona.
 
-- **Lo que se muestra** se convierte a la zona del visitante. Un dueño de
-  clínica en México veía "10:00" y llegaba a una reunión que para él era a las
-  08:00; ya pasó con un lead real.
+- **Lo que se muestra** es la hora **local de la IP** (`x-vercel-ip-timezone`
+  de Vercel), no el reloj del sistema. Un dueño en México con la laptop en
+  hora Chile veía "10:00" y creía que era su 10:00. Si el offset no es el de
+  Chile, cada bloque muestra las dos: `14:00` tu hora + `17:00 Chile`.
 - **Lo que se manda al webhook no se toca**: sigue siendo la hora de Chile.
   Clinera, el turno y el Meet dependen de eso.
 - **El offset de Chile sale de `Intl`, nunca de una constante.** Chile pasa a

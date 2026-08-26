@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import AgendaHebeLanding from "@/components/ventas/AgendaHebeLanding";
+import { timezoneIpDelRequest } from "@/lib/timezone-ip";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Clinera O.S. — agenda tu reunión y conoce la plataforma",
@@ -9,6 +12,7 @@ export const metadata: Metadata = {
   openGraph: { url: "https://www.clinera.io/agenda" },
 };
 
-export default function AgendaPage() {
-  return <AgendaHebeLanding />;
+export default async function AgendaPage() {
+  const tzIp = await timezoneIpDelRequest();
+  return <AgendaHebeLanding tzIp={tzIp} />;
 }

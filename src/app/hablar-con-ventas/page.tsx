@@ -3,6 +3,9 @@ import type { CSSProperties } from "react";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import VentasLanding from "@/components/ventas/VentasLanding";
+import { timezoneIpDelRequest } from "@/lib/timezone-ip";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Hablar con ventas — Clinera.io",
@@ -24,13 +27,14 @@ const srOnly: CSSProperties = {
   borderWidth: 0,
 };
 
-export default function HablarConVentasPage() {
+export default async function HablarConVentasPage() {
+  const tzIp = await timezoneIpDelRequest();
   return (
     <>
       <NavV3 />
       <main>
         <h1 style={srOnly}>Hablemos: ¿cómo te puede ayudar Clinera?</h1>
-        <VentasLanding enableMigrationQualification />
+        <VentasLanding enableMigrationQualification tzIp={tzIp} />
       </main>
       <FooterV3 />
     </>

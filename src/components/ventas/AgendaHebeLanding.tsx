@@ -12,10 +12,12 @@ import {
   submitBookingConfirmation,
   submitContactLead,
   submitSizeLead,
+  textoReserva,
   type CalBooking,
   type Form,
   type FeatureId,
 } from "./VentasLanding";
+import { zonaMostrada } from "@/lib/timezone";
 
 const NEED_CARDS: { id: string; label: string; hint: string; features: FeatureId[] }[] = [
   { id: "comms", label: "Voz, texto y redes", hint: "WhatsApp, Instagram y llamadas", features: ["voz", "texto", "rrss"] },
@@ -137,8 +139,10 @@ function TickerTrack() {
 
 export default function AgendaHebeLanding({
   sourcePath = DEFAULT_SOURCE_PATH,
+  tzIp = "",
 }: {
   sourcePath?: string;
+  tzIp?: string;
 } = {}) {
   const price = CLINERA_PLANS[0].monthlyPrice;
   const [step, setStep] = useState(1);
@@ -531,7 +535,7 @@ export default function AgendaHebeLanding({
                   <p className={styles.sub}>Te llega el Meet por email. Sin compromiso · 45 min.</p>
                   {booking.date && (
                     <div className={styles.successWhen}>
-                      {booking.date.replace("T", " · ")}
+                      {textoReserva(booking.date, zonaMostrada(tzIp, ""))}
                       {booking.organizer?.name ? ` · ${booking.organizer.name}` : ""}
                     </div>
                   )}
@@ -539,6 +543,7 @@ export default function AgendaHebeLanding({
               ) : (
                 <StepClineraScheduler
                   form={form}
+                  tzIp={tzIp}
                   label={`Paso 5 de ${TOTAL}`}
                   onBack={() => go(4)}
                   onBooked={(next, via, confirmEventId) => {

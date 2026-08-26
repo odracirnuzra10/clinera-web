@@ -17,8 +17,10 @@ import {
   TZ_CLINICA,
   diasCandidatosAgenda,
   esBloqueHabil,
+  rotuloSlot,
   type DispoSlot,
 } from "@/components/ventas/VentasLanding";
+import { zonaMostrada } from "@/lib/timezone";
 import fixture from "./fixtures-agenda-20ago.json";
 
 const SLOTS = fixture as DispoSlot[];
@@ -124,6 +126,26 @@ test.describe("horarios en la zona del visitante", () => {
   test("etiqueta husos con media hora", () => {
     const inst = instanteEnChile("2026-08-20", "10:00");
     expect(etiquetaGmt("Asia/Kolkata", inst)).toBe("GMT+5:30");
+  });
+
+  test("la IP gana al reloj del sistema (México con laptop en hora Chile)", () => {
+    expect(zonaMostrada("America/Mexico_City", "America/Santiago")).toBe("America/Mexico_City");
+    expect(zonaMostrada("", "America/Mexico_City")).toBe("America/Mexico_City");
+    expect(zonaMostrada("no-es-zona", "America/Bogota")).toBe("America/Bogota");
+  });
+
+  test("México ve su hora y Chile debajo — el 14:00 / 17:00 de septiembre", () => {
+    // Chile GMT-3 desde el 6-sep; México City GMT-6. 17:00 Chile = 14:00 México.
+    const r = rotuloSlot("17:00", "2026-09-09", "America/Mexico_City");
+    expect(r.local).toBe("14:00");
+    expect(r.chile).toBe("17:00");
+    expect(r.otraZona).toBe(true);
+  });
+
+  test("en agosto (Chile GMT-4) 10:00 Chile es 08:00 en México", () => {
+    const r = rotuloSlot("10:00", "2026-08-20", "America/Mexico_City");
+    expect(r.local).toBe("08:00");
+    expect(r.chile).toBe("10:00");
   });
 });
 
