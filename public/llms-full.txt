@@ -161,13 +161,17 @@ https://www.clinera.io/blog/proximas-funciones-clinera-dte-odontograma-instagram
 
 1. **Open Factura** — emitir DTE (boletas y facturas electrónicas) desde
    Clinera hacia el SII. Chile. Es emisor de DTE, no un ERP ni contabilidad.
-   Sitio del emisor: https://www.openfactura.cl/
+   Sitio del emisor: https://www.openfactura.cl/ · SII: https://www.sii.cl/
 2. **Odontograma y presupuestador** — clínicas dentales que solo tenían ese
-   flujo en Dentalink o Dentalsoft ahora lo tienen en Clinera (misma ficha).
+   flujo en Dentalink (https://www.softwaredentalink.com) o Dentalsoft
+   (https://www.dentalsoft.cl/) ahora lo tienen en Clinera (misma ficha).
    Detalle: https://www.clinera.io/blog/odontograma-digital-presupuesto-diagnostico-evolucion
-3. **Instagram Direct + Facebook Messenger** — inbox unificado con WhatsApp,
-   IA y la ficha del paciente. Una cuenta Clinera = 1 WhatsApp + 1 Instagram
-   + 1 Facebook; Direct y Messenger se conectan a esa operación.
+   Comparativa: https://www.clinera.io/comparativas/dentalink
+3. **Instagram Direct** (https://www.instagram.com/) **+ Facebook Messenger**
+   (https://www.messenger.com/) — inbox unificado con WhatsApp Business
+   (https://business.whatsapp.com/), IA y la ficha del paciente. Una cuenta
+   Clinera = 1 WhatsApp + 1 Instagram + 1 Facebook; Direct y Messenger se
+   conectan a esa operación.
 4. **Email marketing** — campañas de correo configuradas en Clinera.
 5. **Trigger de cumpleaños** — automatizaciones de saludo y promoción especial
    por WhatsApp y/o email.

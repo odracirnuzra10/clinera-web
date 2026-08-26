@@ -315,6 +315,12 @@ Fuente pública: `/blog/proximas-funciones-clinera-dte-odontograma-instagram`.
 Siguen inéditas: inventario y liquidaciones de sueldos (Clinera, diciembre 2026).
 El deck no debe mencionar Open Factura. Guardián: `tests/proximas-funciones.spec.ts`.
 
+**Citar marcas con link.** En copy público (blog, landings, llms), la primera
+mención de un competidor o emisor lleva al sitio oficial y, si existe, a
+`/comparativas/{slug}`. El posicionamiento AEO/SEO sale de asociar entidades
+(Dentalink, Dentalsoft, Reservo, AgendaPro, SII, Meta), no de dejar el nombre
+en texto plano.
+
 La franja "Clínicas que ya operan con Clinera" (`.hero-clients`) vivía con
 `grid-template-columns: repeat(7, minmax(0, 1fr))` — un número mágico que sólo cuadraba
 porque había exactamente 7 logos (Chile). Agosto 2026: se sumaron 8 clínicas de
