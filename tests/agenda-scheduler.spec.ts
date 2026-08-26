@@ -15,6 +15,8 @@ import {
   etiquetaGmt,
   offsetZona,
   TZ_CLINICA,
+  diasCandidatosAgenda,
+  esBloqueHabil,
   type DispoSlot,
 } from "@/components/ventas/VentasLanding";
 import fixture from "./fixtures-agenda-20ago.json";
@@ -122,5 +124,40 @@ test.describe("horarios en la zona del visitante", () => {
   test("etiqueta husos con media hora", () => {
     const inst = instanteEnChile("2026-08-20", "10:00");
     expect(etiquetaGmt("Asia/Kolkata", inst)).toBe("GMT+5:30");
+  });
+});
+
+test.describe("días candidatos y bloques hábiles", () => {
+  // Caso real (ago-2026): a las 22:30 en Chile ya es "mañana" local, pero
+  // sigue siendo hoy en UTC. La API arma esa grilla desde la hora UTC actual
+  // (01:45, 02:45…) y el picker las mostraba como si fueran de Chile.
+  test("después de las 20:00 Chile no ofrece el día UTC en curso", () => {
+    const dias = diasCandidatosAgenda(new Date("2026-08-26T02:33:00.000Z"));
+    expect(dias.map((d) => d.ymd)).not.toContain("2026-08-26");
+    expect(dias[0].ymd).toBe("2026-08-27");
+  });
+
+  test("de día en Chile arranca en el hábil siguiente, no en hoy", () => {
+    const dias = diasCandidatosAgenda(new Date("2026-08-26T14:00:00.000Z"));
+    expect(dias.map((d) => d.ymd)).not.toContain("2026-08-26");
+    expect(dias[0].ymd).toBe("2026-08-27");
+  });
+
+  test("salta el fin de semana", () => {
+    const dias = diasCandidatosAgenda(new Date("2026-08-28T14:00:00.000Z"));
+    expect(dias[0].ymd).toBe("2026-08-31");
+    expect(dias.map((d) => d.ymd)).not.toContain("2026-08-29");
+    expect(dias.map((d) => d.ymd)).not.toContain("2026-08-30");
+  });
+
+  test("rechaza la madrugada que arma la API de hoy UTC", () => {
+    expect(esBloqueHabil("01:45")).toBe(false);
+    expect(esBloqueHabil("02:45")).toBe(false);
+    expect(esBloqueHabil("07:15")).toBe(false);
+    expect(esBloqueHabil("10:00")).toBe(true);
+    expect(esBloqueHabil("16:45")).toBe(true);
+    expect(esBloqueHabil("19:00")).toBe(false);
+    expect(esBloqueHabil("")).toBe(false);
+    expect(esBloqueHabil("10:00:00")).toBe(false);
   });
 });

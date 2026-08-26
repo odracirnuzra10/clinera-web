@@ -66,12 +66,16 @@ actualizar esas constantes.
 
 ### El día en curso no se ofrece
 
-Para **hoy**, la API de Clinera arma la grilla desde la hora **UTC** actual en
-vez del horario de atención del profesional. Chile va cuatro horas atrás, así
-que a las 16:30 de la tarde el servidor ya está en 20:30 y devuelve cero horas
-aunque queden bloques libres; más temprano devuelve horas que no corresponden.
-Por eso el picker parte en mañana. Cuando Clinera lo corrija se puede volver a
-incluir el día en curso.
+Para **hoy UTC**, la API de Clinera arma la grilla desde la hora **UTC** actual
+en vez del horario de atención del profesional. Chile va cuatro horas atrás,
+así que a las 16:30 de la tarde el servidor ya está en 20:30 y devuelve cero
+horas aunque queden bloques libres; más temprano (y sobre todo de madrugada
+UTC, que en Chile todavía es el día anterior) devuelve bloques tipo `01:45`.
+
+El picker parte en el hábil siguiente **y además salta el `YYYY-MM-DD` UTC
+actual**: después de las 20:00 en Chile, "mañana" local sigue siendo hoy en
+UTC. `diasCandidatosAgenda` + `esBloqueHabil` en `VentasLanding.tsx`. Cuando
+Clinera corrija la grilla de hoy se puede volver a incluir el día en curso.
 
 ## clinera-meet-por-profesional.workflow.json
 

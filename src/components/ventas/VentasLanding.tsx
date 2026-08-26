@@ -3321,12 +3321,6 @@ export function StepClineraScheduler({
 // solo elige día, profesional y hora. Disponibilidad y creación del turno van
 // por los webhooks de n8n.oacg.cl (integrations/n8n/), que llaman a la API
 // pública de app.clinera.io — el turno queda en la agenda real de Clinera.
-function toYMD(d: Date): string {
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${d.getFullYear()}-${m}-${day}`;
-}
-
 // ---------------------------------------------------------------------------
 // La API de disponibilidad manda las horas como TEXTO PLANO en hora de Chile
 // ("10:00"), sin zona. Un dueño de clínica en México leía ese 10:00 como suyo,
@@ -3337,6 +3331,54 @@ function toYMD(d: Date): string {
 // Chile. Esto es sólo lo que el visitante lee.
 // ---------------------------------------------------------------------------
 export const TZ_CLINICA = "America/Santiago";
+
+export function ymdEnZona(tz: string, instante: Date): string {
+  const partes = new Intl.DateTimeFormat("en-US", {
+    timeZone: tz,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(instante);
+  const p: Record<string, string> = {};
+  for (const parte of partes) p[parte.type] = parte.value;
+  return `${p.year}-${p.month}-${p.day}`;
+}
+
+function addCalendarDays(ymd: string, days: number): string {
+  const [Y, M, D] = ymd.split("-").map(Number);
+  return new Date(Date.UTC(Y, (M || 1) - 1, (D || 1) + days)).toISOString().slice(0, 10);
+}
+
+function weekdayYmd(ymd: string): number {
+  const [Y, M, D] = ymd.split("-").map(Number);
+  return new Date(Date.UTC(Y, (M || 1) - 1, D || 1)).getUTCDay();
+}
+
+/**
+ * Días que el picker puede ofrecer. Arranca en el hábil siguiente al de Chile
+ * y además salta el día UTC en curso: la API arma esa grilla desde la hora
+ * actual, no desde el horario de atención. Después de las 20:00 en Chile,
+ * "mañana" local sigue siendo hoy en UTC y aparecen bloques tipo 01:45.
+ */
+export function diasCandidatosAgenda(now: Date = new Date()): { ymd: string; date: Date }[] {
+  const chileHoy = ymdEnZona(TZ_CLINICA, now);
+  const utcHoy = now.toISOString().slice(0, 10);
+  const out: { ymd: string; date: Date }[] = [];
+  for (let i = 1; out.length < 14 && i < 28; i++) {
+    const ymd = addCalendarDays(chileHoy, i);
+    const dow = weekdayYmd(ymd);
+    if (dow === 0 || dow === 6) continue;
+    if (ymd === utcHoy) continue;
+    const [Y, M, D] = ymd.split("-").map(Number);
+    out.push({ ymd, date: new Date(Y, (M || 1) - 1, D || 1) });
+  }
+  return out;
+}
+
+/** Reuniones de lun–vie en horario de oficina Chile. La madrugada UTC no pasa. */
+export function esBloqueHabil(horaInicio: string): boolean {
+  return /^([01]\d|2[0-3]):[0-5]\d$/.test(horaInicio) && horaInicio >= "08:00" && horaInicio <= "18:00";
+}
 
 /** Offset de una zona para un instante dado, en minutos (-240 = GMT-4). */
 export function offsetZona(tz: string, instante: Date): number {
@@ -3484,22 +3526,9 @@ function StepClineraNativo({
   onBooked: (b: CalBooking, confirmEventId: string) => void | Promise<void>;
   onFallback: () => void;
 }) {
-  // Días candidatos: los próximos hábiles, a partir de mañana. La clínica
-  // atiende de lunes a viernes, así que ofrecer el fin de semana solo lleva a
-  // "sin horas". Hoy tampoco se ofrece: para el día en curso la API arma la
-  // grilla desde la hora actual en UTC, no desde el horario de atención, y a
-  // media tarde en Chile ya devuelve cero.
-  const candidateDays = useMemo(() => {
-    const base = new Date();
-    const out: { ymd: string; date: Date }[] = [];
-    for (let i = 1; out.length < 14 && i < 28; i++) {
-      const d = new Date(base.getFullYear(), base.getMonth(), base.getDate() + i);
-      const dow = d.getDay();
-      if (dow === 0 || dow === 6) continue;
-      out.push({ ymd: toYMD(d), date: d });
-    }
-    return out;
-  }, []);
+  // Hábil siguiente en Chile, sin el día UTC en curso (la API de "hoy"
+  // arma la grilla desde ahora y de madrugada aparecen las 01:45).
+  const candidateDays = useMemo(() => diasCandidatosAgenda(), []);
 
   // Cuántas horas tiene cada día, en una sola llamada. Sirve para no ofrecer
   // un día que va a responder "sin horas disponibles": el visitante lo
@@ -3574,7 +3603,10 @@ function StepClineraNativo({
   // Ahora gana quien tenga MÁS bloques libres ese día: más libres = menos
   // agendado, así que el reparto se equilibra solo, sin llevar cuenta entre
   // visitas (cada visitante reserva una vez y no sabe nada de los demás).
-  const visibleSlots = useMemo(() => repartirSlots(slots), [slots]);
+  const visibleSlots = useMemo(
+    () => repartirSlots(slots.filter((s) => esBloqueHabil(s.horaInicio))),
+    [slots],
+  );
 
   // Zona del visitante. Va por useSyncExternalStore y no por useState porque el
   // servidor no tiene navegador: el snapshot de servidor es "" y el de cliente
