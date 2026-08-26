@@ -213,7 +213,12 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > Ese sub crea contacto en Clinera (funnel 890), fila Baserow 152, negocio
 > Twenty y CAPI `MQL` US$ 5 con `lead_id`. Spec:
 > `baserow/openspec/changes/lanzamiento-instant-forms-embudo/`. SQL 100 /
-> SQL+ 300 no cambian. En anuncios no prometer CAMILA/LIA.
+> SQL+ 300 no cambian. En anuncios no prometer CAMILA/LIA. Graph del form
+> en español usa `correo_electrónico` / `nombre_y_apellidos` /
+> `número_de_teléfono` (no los nombres en inglés) — el mapeo vive en
+> `baserow/sales/n8n/leadgen-preparar.js`. Si el HUB no ejecuta, el
+> callback del app Meta no está pegando a `/webhook/meta-leadads` (la
+> página sí está suscrita a `leadgen`).
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
