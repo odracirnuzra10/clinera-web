@@ -90,10 +90,10 @@ Hoy mapea a Nohe y Rebe; sumar a alguien más es agregar una línea al array
 
 Webhook: `POST https://n8n.oacg.cl/webhook/clinera-meet`
 
-El JSON de este repo incluye `Twenty - Agendó (Meet)` y la rama MQL IA
-(construido con `aplicar_mql_agente_ia.py` sobre el export previo;
-tokens → `__BASEROW_TOKEN__` / `$env`). Tras `--aplicar` se re-exporta
-del vivo para alinear ids.
+El JSON de este repo es el re-export sanitizado del vivo
+(`FZvyK42lkQdKWcIl`, 2026-08-26, post `--aplicar`): incluye
+`Twenty - Agendó (Meet)` y la rama MQL IA. Tokens →
+`__BASEROW_TOKEN__` / `$env`.
 
 Acepta dos formatos de payload:
 

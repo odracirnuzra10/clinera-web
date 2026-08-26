@@ -169,7 +169,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "__BASEROW_TOKEN__"
+              "value": "Token __BASEROW_TOKEN__"
             }
           ]
         },
@@ -244,7 +244,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "__BASEROW_TOKEN__"
+              "value": "Token __BASEROW_TOKEN__"
             }
           ]
         },
@@ -269,12 +269,12 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1140,
-        140
+        1120,
+        440
       ],
       "name": "Twenty - Agendó (Meet)",
       "onError": "continueRegularOutput",
-      "id": "b2d1a8f0-000a-4c00-8000-00000000000a"
+      "id": "974d0cb4-e698-4f09-bf11-48e3aa203ee4"
     },
     {
       "parameters": {
@@ -289,7 +289,7 @@
       ],
       "name": "Preparar MQL Agente IA",
       "onError": "continueRegularOutput",
-      "id": "b2d1a8f0-000b-4c00-8000-00000000000b"
+      "id": "0b7bbee9-adc1-44d6-8aea-4d956b2c4384"
     },
     {
       "parameters": {
@@ -327,7 +327,7 @@
       "retryOnFail": true,
       "maxTries": 2,
       "waitBetweenTries": 1000,
-      "id": "b2d1a8f0-000c-4c00-8000-00000000000c"
+      "id": "8d25e52c-42cf-4693-9af3-ed4a5017e0df"
     },
     {
       "parameters": {
@@ -342,7 +342,7 @@
       ],
       "name": "Confirmar MQL IA",
       "onError": "continueRegularOutput",
-      "id": "b2d1a8f0-000d-4c00-8000-00000000000d"
+      "id": "aee40488-4a70-4ae9-a27c-1ee69bf38bc2"
     },
     {
       "parameters": {
@@ -368,7 +368,7 @@
       ],
       "name": "GA4 - MQL (IA)",
       "onError": "continueRegularOutput",
-      "id": "b2d1a8f0-000e-4c00-8000-00000000000e"
+      "id": "10d6170c-d062-4fdb-92bf-26034dc7592c"
     }
   ],
   "connections": {
