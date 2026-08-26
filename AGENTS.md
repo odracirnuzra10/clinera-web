@@ -197,6 +197,12 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > versionados acá**. En agosto de 2026 se diseñó un cambio entero sobre la
 > premisa —falsa— de que SQL+ no generaba ninguna señal, porque el repo no lo
 > mostraba. Antes de tocar el embudo, mira la instancia de n8n.
+>
+> Auditoría Graph API del 2026-08-26 (valores, custom conversions, campañas
+> Chile/LATAM, por qué el MQL de WhatsApp no entrena): 
+> `docs/auditoria-meta-eventos-2026-08-26.md`. El “— (Meta)” de MQL abajo
+> no es la tarifa canónica (US$ 10): es el CAPI del wizard mandando `value: 0`
+> y la custom conversion `1562704878613075` con default 0.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
