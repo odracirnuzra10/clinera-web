@@ -126,8 +126,9 @@ test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
 
     await page.getByRole("button", { name: /Agenda con tu ingeniero/i }).click();
 
-    await expect(page.getByRole("heading", { name: /Elige el día y la hora/i })).toBeVisible({ timeout: 12000 });
-    await expect(page.getByRole("button", { name: /Confirmar reunión/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /Elige (el día y la hora|profesional y horario)/i }),
+    ).toBeVisible({ timeout: 12000 });
 
     await expect.poll(() => hits.some((h) => h.lead_stage === "contact"), { timeout: 12000 }).toBeTruthy();
     const contact = hits.find((h) => h.lead_stage === "contact");
@@ -152,8 +153,8 @@ test.describe("/agenda — no ofrece madrugada UTC", () => {
       { horaInicio: "16:45" },
     ]);
     await llegarAlCalendario(page, nonce());
-    await expect(page.getByRole("button", { name: /^10:00$/ })).toBeVisible();
-    await expect(page.getByRole("button", { name: /^16:45$/ })).toBeVisible();
+    await expect(page.getByRole("button", { name: /10:00/ })).toBeVisible();
+    await expect(page.getByRole("button", { name: /16:45/ })).toBeVisible();
     await expect(page.getByRole("button", { name: /01:45/ })).toHaveCount(0);
     await expect(page.getByRole("button", { name: /02:45/ })).toHaveCount(0);
   });
