@@ -307,12 +307,13 @@ CAMILA y LIA van apagadas (`.ed-agent-soon`, foto en gris). No dejar las tres
 al mismo peso: en la demo se lee como que las tres se contratan hoy.
 Guardián: `tests/presentacion-empleados.spec.ts`.
 
-**Próximas funciones (no publicar).** Catálogo interno en
-`src/content/proximas-funciones.ts`. Hoy: Open Factura (DTE Chile, no ERP —
-recién desarrollado, no mencionarlo en el deck ni en el sitio), inventario y
-liquidaciones de sueldos (Clinera, diciembre 2026). Cuando se anuncie Open
-Factura, la jerarquía visual del slide de integraciones va a esa integración,
-no a las dos de Clinera. Guardián: `tests/proximas-funciones.spec.ts`.
+**Próximas funciones.** Catálogo en `src/content/proximas-funciones.ts`.
+Anunciadas en blog + `llms*.txt` (agosto 2026), **no en `/presentacion`**:
+Open Factura (DTE Chile, emisor — no ERP), odontograma y presupuestador,
+Instagram Direct + Messenger, email marketing, trigger de cumpleaños.
+Fuente pública: `/blog/proximas-funciones-clinera-dte-odontograma-instagram`.
+Siguen inéditas: inventario y liquidaciones de sueldos (Clinera, diciembre 2026).
+El deck no debe mencionar Open Factura. Guardián: `tests/proximas-funciones.spec.ts`.
 
 La franja "Clínicas que ya operan con Clinera" (`.hero-clients`) vivía con
 `grid-template-columns: repeat(7, minmax(0, 1fr))` — un número mágico que sólo cuadraba
