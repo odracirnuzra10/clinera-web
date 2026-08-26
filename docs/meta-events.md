@@ -45,7 +45,7 @@ endpoint agrega `client_ip_address` y `client_user_agent` del request.
 
 | | |
 |---|---|
-| **Trigger (default)** | Lead completa el **Paso 3** (submit OK del backend n8n). |
+| **Trigger (default)** | Lead **confirma la hora** en `/agenda` (`booking_confirmed`). El submit del Paso 3 ya no dispara MQL. |
 | **Envío** | Pixel + CAPI (dedup por `event_id` del lead, compartido con el webhook n8n). |
 | **`user_data`** | `em`, `ph` (SHA-256 de email y teléfono E.164), `fbp`, `fbc`, `client_ip_address`, `client_user_agent`. |
 | **`custom_data`** | `software_actual`, `sucursales`, `pacientes_mes`, `prioridad_alta`, `pais`, `value: 10`, `currency: "USD"`. |
@@ -61,12 +61,13 @@ endpoint agrega `client_ip_address` y `client_user_agent` del request.
 En [`src/lib/metaEvents.ts`](../src/lib/metaEvents.ts):
 
 ```ts
-export const MQL_TRIGGER: MqlTrigger = "contact_submitted";
+export const MQL_TRIGGER: MqlTrigger = "booking_confirmed";
 ```
 
 | Valor | Cuándo dispara MQL | `user_data` |
 |---|---|---|
-| `"contact_submitted"` **(default)** | Al completar el Paso 3 con submit OK del backend. | email + teléfono hasheados. |
+| `"booking_confirmed"` **(actual)** | Al confirmar la hora en `/agenda`. | email + teléfono hasheados. |
+| `"contact_submitted"` | Al completar el Paso 3 con submit OK del backend. | email + teléfono hasheados. |
 | `"qualified_step2"` | Al completar el Paso 2 (más volumen de señal para ads). | **Sin** email/teléfono (aún no existen). |
 
 Ambos caminos están implementados; sólo el default está activo. Cambiar el valor
@@ -100,7 +101,7 @@ un webhook de n8n que haga el forward si el equipo lo prefiere.
 
 | # | Escenario | Esperado |
 |---|---|---|
-| 1 | Lead completa Paso 3 | **Un** solo `MQL` (Pixel+CAPI deduplicados), `custom_data` correcto, `user_data` hasheado (`em`/`ph`). |
+| 1 | Lead confirma la hora en `/agenda` | **Un** solo `MQL` (Pixel+CAPI deduplicados), `custom_data` correcto, `user_data` hasheado (`em`/`ph`). |
 | 2 | Recargar tras el submit o volver-atrás | **No** hay segundo `MQL` (flag `cl_mql_fired`). |
 | 3 | `MQL_TRIGGER = "qualified_step2"` | El `MQL` se mueve al Paso 2, sin `user_data` de contacto. |
 

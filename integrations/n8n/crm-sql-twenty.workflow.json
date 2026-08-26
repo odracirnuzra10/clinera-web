@@ -71,7 +71,7 @@
           "parameters": [
             {
               "name": "access_token",
-              "value": "EAAPNa3cv5RABRPWt9zWz8cW8ZAJMe94WbJ6AkGGufEWf2Xzsm7elkyTR22O4OWlCLl5eAJZAntIFoZA3ZCghZCSNtEgkvvNoX80y8AnwbPPBk6OzafrkUvZAZB9408RZC17VHXwnBXXWSgmFiVbMZBsD8o1l8opxMMGr3qyNASe5zgZBo7QMjmmJ01eBZBgPK1ZCIgZDZD"
+              "value": "__META_CAPI_ACCESS_TOKEN__"
             }
           ]
         },
