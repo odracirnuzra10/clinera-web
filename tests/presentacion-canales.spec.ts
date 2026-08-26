@@ -32,6 +32,9 @@ test.describe("1 cuenta Clinera = 1 canal de cada red", () => {
       slide.getByRole("heading", { name: /1 cuenta Clinera/i }),
     ).toBeVisible();
     await expect(slide.getByText("Un número", { exact: true })).toBeVisible();
-    await expect(slide.getByText("Una cuenta")).toHaveCount(2);
+    await expect(slide.getByText("Una cuenta", { exact: true })).toHaveCount(2);
+    await expect(
+      slide.getByText(/una cuenta Clinera por cada uno/i),
+    ).toBeVisible();
   });
 });

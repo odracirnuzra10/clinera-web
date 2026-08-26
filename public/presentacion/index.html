@@ -3468,20 +3468,44 @@
 
       .ch-grid {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 10px;
       }
 
       .ch-plus {
         display: none;
       }
 
+      .ch-layout {
+        gap: 16px;
+      }
+
       .ch-card {
-        padding: 16px 18px;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+      }
+
+      .ch-card-head {
+        flex: 0 0 auto;
       }
 
       .ch-card b {
-        margin-top: 4px;
-        font-size: 32px;
+        display: none;
+      }
+
+      .ch-card strong {
+        flex: 0 1 auto;
+        font-size: 16px;
+      }
+
+      .ch-card span {
+        margin-left: auto;
+        font-size: 13px;
+      }
+
+      .ch-note {
+        font-size: 14.5px;
       }
 
       .hr-item strong {
@@ -4436,7 +4460,7 @@
 
     <footer class="deck-footer" aria-label="Navegación de la presentación">
       <div class="counter" aria-live="polite">
-        <span id="currentCount">01</span> / <span id="totalCount">11</span>
+        <span id="currentCount">01</span> / <span id="totalCount">12</span>
       </div>
       <div class="progress" aria-hidden="true">
         <div class="progress-fill" id="progressFill"></div>
