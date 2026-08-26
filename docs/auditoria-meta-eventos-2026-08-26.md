@@ -16,9 +16,9 @@ Hechos medidos el 2026-08-26 contra Graph API `v21.0` (cuenta `act_7747162239701
 
 **Veredicto en una línea:** el pixel recibe `MQL` y `SQL`, las campañas
 optimizan una custom conversion **MQL con valor 0 y filtro de URL**, no existe
-conversión `SQL+` ni evento de formulario instantáneo a 5 USD, y
-**Conversión+ Chile ya está en sitio + formulario instantáneo** (fuente
-probable de leads basura).
+conversión `SQL+` ni evento de formulario instantáneo a 5 USD. Chile **acaba
+de** activar Lead Form (antes era 100 % `clinera.io/agenda`); la basura
+histórica sale del wizard, no del form nuevo.
 
 ---
 
@@ -27,6 +27,8 @@ probable de leads basura).
 1. Tratar las tablas de §2–§4 como **fuente de verdad de ese día**. Si pasaron
    >48 h, re-leer custom conversions y adsets: los IDs no cambian, los
    `last_fired_time` sí.
+   Ricardo corrigió el 26-ago noche: el Lead Form de Chile **se activó ese
+   día**; no usarlo para explicar leads basura anteriores.
 2. No mezclar **evento crudo del pixel** (`event_name: MQL`) con **custom
    conversion** (objeto de Ads Manager con regla). Las campañas no optimizan el
    evento crudo: optimizan `custom_conversion_id = 1562704878613075`.
@@ -35,6 +37,10 @@ probable de leads basura).
 4. No mandar POST de prueba al webhook `clinera-meet` (lección fila Baserow 1635).
 5. Tokens que Ricardo pegó en chat (CAPI, n8n API, user Graph) **deben rotarse**.
    No reusarlos desde el historial.
+6. Esto es memoria del proyecto **cuando está en `main`**, porque
+   `AGENTS.md` apunta acá y cada sesión de agente carga ese archivo. Un PR
+   **abierto** no se consulta solo: hay que mergearlo. Un MD pegado en un
+   chat muere con el hilo.
 
 ---
 
@@ -79,7 +85,7 @@ Ads Manager *debería* mostrar.
 | D | CAPI n8n, closer → SQL | `SQL` | `system_generated` | **100** (`VALOR_SQL`) | sin URL; fbc/fbp si la 152 los tiene | `crm-sql-twenty.workflow.json` |
 | E | CAPI n8n, segundo SQL (Baserow 152) | `SQL` | `system_generated` | 100 | mismo contrato de `event_id` hasheado | `1erGwPkeneXUkqzG` (no en este repo) |
 | F | CAPI n8n, closer → SQL+ | `SQL_Plus` | `system_generated` (esperado) | **300** (`META_CAPI_VALUE_SQL_PLUS` o default 300) | sin URL | `rWZDSfi8RJ780q76` |
-| G | Formulario instantáneo Meta | `Lead` nativo / leadgen | onsite Lead Ads | **no implementado a 5** | `leadgen_id` de Meta | Chile `destination_type = WEBSITE_AND_LEAD_FORM`. Workflows `Meta Leads Clinera` A/B/HUB: **0 ejecuciones** el 2026-08-26 |
+| G | Formulario instantáneo Meta | `Lead` nativo / leadgen | onsite Lead Ads | **no implementado a 5** | `leadgen_id` de Meta | Chile `destination_type = WEBSITE_AND_LEAD_FORM` **recién activado el 26-ago** (Ricardo: hasta hoy las campañas eran 100 % wizard `/agenda`). Workflows `Meta Leads Clinera` A/B/HUB: **0 ejecuciones** ese día — el form nuevo aún no está enganchado a n8n |
 | H | Pixel `Schedule` | `Schedule` | website | (histórico) | URL | aparece en stats de agosto 1, no en las últimas 24 h como evento dominante |
 
 Deduplicación A+B: mismo `event_id` (lo manda el sitio en el body del webhook y
@@ -175,12 +181,14 @@ con URL `clinera.io`. Atribución: clic 7 días + engaged video view 1 día.
 | Conversión+ Chile | `destination_type: WEBSITE_AND_LEAD_FORM` | vacío (campaña nueva / duplicado del 26-ago) |
 | Conversión LATAM | `destination_type: UNDEFINED` (sitio) | spend **511 747 CLP**, 1373 link clicks, **10** `offsite_conversion.custom.1562704878613075` (MQL), **sin** `action_values`. También 2 `messaging_conversation_started_7d` |
 
-Chile **ya tiene formulario instantáneo mezclado con el sitio**. Eso no es el
-botón de WhatsApp del modal: es Lead Ads nativo + landing. Los workflows
-`YmauqyDqrZNKIYlg` / `JR6Nb7mWHVBhD6H8` / `qOGjfU1AgubcOHvt` (Meta Leads
-Clinera) tuvieron **0 ejecuciones** ese día → esos instant forms **no están
-cayendo a n8n/Twenty por esos flujos** (o el form no está enganchado al
-webhook). El lead igual existe en Ads Manager y ensucia el costo.
+Chile **recién activó** Lead Form el 26-ago (Ricardo: hasta entonces las
+campañas iban 100 % a `clinera.io/agenda`). El `destination_type` que leímos
+es ese cambio, no el histórico. Los workflows `YmauqyDqrZNKIYlg` /
+`JR6Nb7mWHVBhD6H8` / `qOGjfU1AgubcOHvt` (Meta Leads Clinera) tuvieron **0
+ejecuciones** ese día → el form nuevo **aún no** está cayendo a n8n/Twenty.
+Cuando empiece a caer, esos leads viven en Ads Manager y **no** son MQL
+salvo que alguien los agende. Hay que emitirles el evento a US$ 5
+(distinto de MQL) o van a contaminar el costo sin tarifa.
 
 LATAM 7 d: ~CLP 51 175 por MQL custom si se atribuyen los 10 (511747/10).
 Eso es ~US$ 50+/MQL al dólar de agosto, sobre un evento con valor 0.
@@ -218,25 +226,27 @@ landing `/agenda`.
 
 ## 7. Leads “asquerosos” / bots / competencia
 
-**Hecho:** el volumen sucio está **antes** del MQL (clic → `/agenda` → abandono
-en paso 2). El MQL IA de WhatsApp **no** está inundando: no hubo cita
+**Hecho:** la basura que ya se veía **antes** de activar el form sale del
+wizard: clic Meta → `/agenda` → abandono en paso 2 (`size_captured` sin
+contacto). El MQL IA de WhatsApp **no** está inundando: no hubo cita
 `agente-ia` post-apply al momento de la muestra (última IA real = ejec. Meet
 72994, *antes* del cambio).
 
+**Corrección de Ricardo (26-ago noche):** el Lead Form nativo **no** explica
+esos leads. Las campañas eran 100 % `clinera.io/agenda` hasta hoy.
+
 **Más probable que un rival llenando formularios:**
 
-1. **Lead Form nativo en Chile** (`WEBSITE_AND_LEAD_FORM`) — fricción cero,
-   nombres/teléfonos basura, no pasan por el wizard de Clinera.
-2. Inventario Meta (Advantage+, Audience Network, in-app) mandando clics a
-   `/agenda` que no son dueños de clínica.
-3. LATAM filtrándose (hubo booking `pais=CO` con `fbclid` de campaña LATAM
+1. Inventario Meta (Advantage+, Audience Network, in-app) mandando clics a
+   `/agenda` que no son dueños de clínica — el wizard se empieza y se abandona.
+2. LATAM filtrándose (hubo booking `pais=CO` con `fbclid` de campaña LATAM
    en el mismo wizard).
+3. **A partir de ahora**, el Lead Form de Chile *sí* puede sumar basura
+   nueva (fricción cero, sin wizard). Aún no se veía en n8n el 26-ago.
 
 Un competidor suele quemar presupuesto en clics, no completar agenda + mail +
-hora. Las granjas de Lead Ads sí parecen “delincuentes”.
-
-El MQL que se acaba de cablear **no crea** esos leads: avisa cuando alguien
-**agenda**.
+hora. El MQL que se acaba de cablear **no crea** esos leads: avisa cuando
+alguien **agenda**.
 
 ---
 
@@ -293,12 +303,12 @@ No POST al webhook Meet. No purgar git history sin orden.
 2. En n8n vivo **y** en `clinera-agenda-reserva.workflow.json`:
    `custom_data.value` del CAPI MQL wizard **0 → 10**, y el `value`/`price`
    del gemelo GA4 en `Preparar Tracking`.
-3. Chile: decidir si `WEBSITE_AND_LEAD_FORM` se queda. Si se quiere el
-   wizard como único pozo, volver destino a **website only**. Si se quieren
-   instant forms, hay que: (a) enganchar el form al webhook Meta Leads que
-   hoy no corre, (b) emitir un evento valorado a **5 USD** (custom `Lead`
-   o evento propio, **distinto de MQL**), (c) no optimizar la campaña de
-   MQL contra ese form.
+3. Chile **recién** activó `WEBSITE_AND_LEAD_FORM`. No es la causa de la
+   basura previa (era wizard). Si el form se queda: (a) engancharlo al
+   webhook Meta Leads que hoy no corre, (b) emitir un evento valorado a
+   **5 USD** (custom `Lead` o evento propio, **distinto de MQL**), (c) no
+   optimizar la campaña de MQL contra ese form. Si no se quiere ese pozo,
+   volver destino a website only.
 
 ### P1 — SQL / SQL+ visibles y valorados
 
