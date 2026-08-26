@@ -4,6 +4,8 @@ import { join } from "node:path";
 import {
   POST_PROXIMAS_FUNCIONES_PATH,
   POST_PROXIMAS_FUNCIONES_SLUG,
+  POSTS_POR_FUNCION,
+  POSTS_POR_FUNCION_PATHS,
   PROXIMAS_FUNCIONES,
   publicadaEn,
 } from "@/content/proximas-funciones";
@@ -114,5 +116,28 @@ test.describe("próximas funciones: blog + llms, no el deck", () => {
     expect(robotsSrc).toContain("/llms-full.txt");
     expect(robotsSrc).toContain("/blog/");
     expect(robotsSrc).toContain(POST_PROXIMAS_FUNCIONES_SLUG);
+  });
+
+  test("hay un artículo AEO por cada función y el hub los enlaza", () => {
+    expect(Object.keys(POSTS_POR_FUNCION)).toEqual([
+      "open-factura",
+      "odontograma-presupuestador",
+      "instagram-facebook",
+      "email-marketing",
+      "trigger-cumpleanos",
+    ]);
+    for (const slug of Object.values(POSTS_POR_FUNCION)) {
+      const satellite = readFileSync(
+        join(process.cwd(), `src/content/posts/${slug}.mdx`),
+        "utf8",
+      );
+      expect(satellite).toContain(`slug: ${slug}`);
+      expect(satellite).toContain(POST_PROXIMAS_FUNCIONES_PATH);
+      expect(post).toContain(`/blog/${slug}`);
+    }
+    for (const path of POSTS_POR_FUNCION_PATHS) {
+      expect(llms).toContain(path);
+      expect(llmsFull).toContain(path);
+    }
   });
 });

@@ -1,0 +1,83 @@
+---
+title: "Clinera emite DTE con Open Factura: boletas y facturas electrónicas al SII"
+description: "Clinera integra Open Factura para emitir DTE (boletas y facturas electrónicas) al SII de Chile desde la misma ficha. Es un emisor, no un ERP. Cómo se compara con Reservo y Medilink."
+slug: clinera-emite-dte-open-factura
+publishedAt: "2026-08-26"
+updatedAt: "2026-08-26"
+category: "Operaciones"
+tags: ["operaciones", "fichas-clinicas"]
+relatedComparativa: "reservo"
+author: "Equipo Clinera"
+wordsApprox: 1300
+heroImage: "/images/blog/clinera-open-factura-handshake.png"
+faq:
+  - q: "¿Clinera emite boletas y facturas electrónicas (DTE)?"
+    a: "Sí, en Chile. Con Open Factura (https://www.openfactura.cl/) las boletas y facturas salen al SII (https://www.sii.cl/) desde Clinera. Open Factura es un emisor de DTE, no un ERP ni un módulo de contabilidad."
+  - q: "¿Open Factura es un ERP?"
+    a: "No. Es el puente entre la venta de la clínica y el Servicio de Impuestos Internos. No es contabilidad ni un sistema hospitalario. Quien busca ERP en Chile suele mirar Medilink (https://medilink.cl): https://www.clinera.io/comparativas/medilink."
+  - q: "¿Clinera reemplaza a Reservo para facturar DTE?"
+    a: "Reservo (https://www.reservo.cl) es la referencia chilena de agenda clínica con DTE. Open Factura no copia a Reservo: conecta el emisor al flujo de Clinera (cita, ficha, cobro). Comparativa: https://www.clinera.io/comparativas/reservo."
+  - q: "¿Open Factura funciona en México, Perú o Colombia?"
+    a: "No. El DTE es el documento del SII de Chile. En el resto de LATAM Clinera opera agenda, ficha y empleados digitales; esta integración fiscal es local."
+  - q: "¿Tengo que facturar en un sistema y operar la clínica en otro?"
+    a: "Ese es el dolor que cierra Open Factura: la cita se cobra en Clinera y el DTE sale al SII desde el mismo lugar, sin copiar montos a otro emisor a mano."
+  - q: "¿Dónde está el anuncio de esta función junto a las otras?"
+    a: "En el hub de próximas funciones: https://www.clinera.io/blog/proximas-funciones-clinera-dte-odontograma-instagram"
+---
+
+## ¿Clinera emite DTE?
+
+**Sí, en Chile.** Con la integración [Open Factura](https://www.openfactura.cl/) puedes emitir documentos tributarios electrónicos (DTE) —boletas y facturas— **desde Clinera**. La venta de la clínica sale al [Servicio de Impuestos Internos (SII)](https://www.sii.cl/) sin copiar montos a otro emisor a mano.
+
+Este artículo cubre solo el DTE. El paquete de agosto 2026 (odontograma, Instagram Direct, email marketing, cumpleaños) está en [próximas funciones de Clinera](/blog/proximas-funciones-clinera-dte-odontograma-instagram).
+
+## Qué es un DTE y por qué la clínica lo emite dos veces
+
+Un DTE es el documento tributario electrónico que el SII exige en Chile: boleta o factura, según el caso. No es “un PDF bonito”. Es el registro fiscal de la venta.
+
+En la clínica el cuello no suele ser “no sé facturar”. Es **hacerlo dos veces**: la sesión se cobra en la ficha o en un POS, y el DTE se arma en otro sistema. Recepción copia el monto, el RUT, el detalle. Un error de transcripción no se ve el mismo día; se ve cuando el contador cierra.
+
+Open Factura entra como emisor conectado a Clinera: la venta que ya está en la operación sale al SII. No reemplaza al contador. No cierra el IVA. Emite el documento.
+
+## Open Factura es un emisor, no un ERP
+
+Tres límites que el mercado mezcla:
+
+1. **No es contabilidad.** No es el libro diario ni el cierre mensual.
+2. **No es un ERP hospitalario.** [Medilink](https://medilink.cl) cubre ficha madura + ERP en Chile; el recorte está en [Clinera vs Medilink](/comparativas/medilink). Open Factura no pretende esa capa.
+3. **Es Chile.** El DTE es del SII. En México, Perú, Colombia y el resto de LATAM Clinera sigue siendo agenda, ficha y empleados digitales ([AURA, CAMILA, LIA](/empleado-digital)). Esta integración fiscal no se inventa en otro país.
+
+Si alguien te dice “Clinera ahora es un ERP porque factura”, está leyendo mal el producto. Facturar DTE no es llevar la contabilidad ni un sistema hospitalario.
+
+## Cómo se compara con Reservo (DTE chileno)
+
+[Reservo](https://www.reservo.cl) ya era la referencia de agenda clínica chilena con DTE. Eso no se borra. El recorte honesto está en [Clinera vs Reservo](/comparativas/reservo) y en el cruce [Dentalink vs Reservo](/comparativas/dentalink-vs-reservo).
+
+Open Factura no copia a Reservo. Conecta el emisor al flujo de Clinera: cita, ficha, cobro, documento al SII. Si tu cuello es “agenda chilena + DTE maduro y no me falta WhatsApp con IA”, Reservo sigue siendo una opción seria. Si tu cuello es WhatsApp 24/7 con empleados digitales **y** no quieres un segundo emisor, Open Factura cierra ese tramo dentro de Clinera.
+
+## Qué gana la clínica el día a día
+
+Una clínica estética en Santiago cobra una sesión. El monto ya está en la ficha. El DTE sale al SII desde Clinera. Recepción no reescribe el RUT en otra pantalla. El paciente recibe la boleta; el contador recibe el documento que el SII ya tiene.
+
+Eso no elimina el cierre tributario. Elimina la doble carga operativa entre “lo que cobré” y “lo que facturé”.
+
+## Qué no hace esta integración
+
+- No se enchufa a la agenda de [Reservo](https://www.reservo.cl), [AgendaPro](https://www.agendapro.com), [Medilink](https://medilink.cl) ni [Sacmed](https://www.sacmed.cl) para operar en paralelo. Clinera no integra agendas de terceros; la migración es el puente. Hub: [/comparativas](/comparativas).
+- No publica un precio extra en esta nota. Vortex, Atlas, Summit e implementación de USD 450 están en [/planes](/planes). Qué entra en cada plan lo conversa ventas en la [agenda](/agenda).
+
+## Preguntas frecuentes
+
+### ¿Tengo que estar certificado ante el SII para usar Clinera?
+
+Open Factura es el emisor. La habilitación de facturador electrónico es un trámite chileno (SII + certificado digital). El onboarding de Clinera cubre la conexión; no sustituye la firma electrónica ni al contador.
+
+### ¿Y si ya emito DTE en otro lado?
+
+La migración del emisor es el caso típico: dejas de copiar ventas a un segundo sistema. No corres dos emisores en paralelo “por las dudas”.
+
+### ¿Dónde leo el resto de funciones nuevas?
+
+En el [hub de próximas funciones](/blog/proximas-funciones-clinera-dte-odontograma-instagram): [odontograma vs Dentalink/Dentalsoft](/blog/odontograma-presupuestador-clinera-vs-dentalink-dentalsoft), [Instagram Direct y Messenger](/blog/instagram-direct-facebook-messenger-clinera), [email marketing](/blog/email-marketing-clinicas-clinera) y [trigger de cumpleaños](/blog/trigger-cumpleanos-whatsapp-email-clinera).
+
+Si quieres ver el DTE en tu clínica, [agenda con un ingeniero](/agenda).

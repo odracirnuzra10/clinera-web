@@ -312,8 +312,10 @@ Guardián: `tests/presentacion-empleados.spec.ts`.
 Anunciadas en blog + `llms*.txt` (agosto 2026), **no en `/presentacion`**:
 Open Factura (DTE Chile, emisor — no ERP), odontograma y presupuestador,
 Instagram Direct + Messenger, email marketing, trigger de cumpleaños.
-Fuente pública: `/blog/proximas-funciones-clinera-dte-odontograma-instagram`.
-Siguen inéditas: inventario y liquidaciones de sueldos (Clinera, diciembre 2026).
+Fuente pública: `/blog/proximas-funciones-clinera-dte-odontograma-instagram`
+(hub) + un artículo por función en `POSTS_POR_FUNCION`
+(`src/content/proximas-funciones.ts`). Siguen inéditas: inventario y
+liquidaciones de sueldos (Clinera, diciembre 2026).
 El deck no debe mencionar Open Factura. Guardián: `tests/proximas-funciones.spec.ts`.
 
 **Citar marcas con link.** En copy público (blog, landings, llms), la primera

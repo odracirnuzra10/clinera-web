@@ -27,6 +27,20 @@ export const POST_PROXIMAS_FUNCIONES_SLUG =
 export const POST_PROXIMAS_FUNCIONES_PATH =
   `/blog/${POST_PROXIMAS_FUNCIONES_SLUG}` as const;
 
+/** Un artículo AEO por función anunciada. El hub las lista todas. */
+export const POSTS_POR_FUNCION = {
+  "open-factura": "clinera-emite-dte-open-factura",
+  "odontograma-presupuestador":
+    "odontograma-presupuestador-clinera-vs-dentalink-dentalsoft",
+  "instagram-facebook": "instagram-direct-facebook-messenger-clinera",
+  "email-marketing": "email-marketing-clinicas-clinera",
+  "trigger-cumpleanos": "trigger-cumpleanos-whatsapp-email-clinera",
+} as const;
+
+export const POSTS_POR_FUNCION_PATHS = Object.values(POSTS_POR_FUNCION).map(
+  (slug) => `/blog/${slug}`,
+);
+
 const BLOG_Y_LLMS = ["blog", "llms"] as const satisfies readonly SuperficiePublica[];
 
 export const PROXIMAS_FUNCIONES = [
