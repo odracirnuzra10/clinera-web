@@ -1,5 +1,16 @@
 import type { MetadataRoute } from 'next';
 
+// Preferencia AEO: crawlers de IA deben leer llms.txt / llms-full.txt y el blog.
+// Fuente de anuncios de producto: /blog/proximas-funciones-clinera-dte-odontograma-instagram
+const aeoAllow = [
+  '/',
+  '/llms.txt',
+  '/llms-full.txt',
+  '/blog/',
+  '/novedades/',
+  '/sitemap.xml',
+];
+
 // AI crawlers (allow — critical for AEO in 2026)
 const aiCrawlers = [
   'GPTBot',
@@ -11,6 +22,8 @@ const aiCrawlers = [
   'PerplexityBot',
   'Perplexity-User',
   'Google-Extended',
+  'GoogleOther',
+  'Google-CloudVertexBot',
   'Applebot-Extended',
   'CCBot',
   'Meta-ExternalAgent',
@@ -24,6 +37,8 @@ const aiCrawlers = [
   'cohere-ai',
   'cohere-training-data-crawler',
   'Diffbot',
+  'DuckAssistBot',
+  'AI2Bot',
 ];
 
 // SEO measurement tools — allowed (Ricardo confirmó 2026-04-24)
@@ -37,7 +52,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: aeoAllow,
         disallow: [
           '/api/',
           '/_next/',
@@ -56,12 +71,12 @@ export default function robots(): MetadataRoute.Robots {
       },
       ...aiCrawlers.map((agent) => ({
         userAgent: agent,
-        allow: '/',
+        allow: aeoAllow,
         disallow: ['/admin/', '/api/'],
       })),
       ...seoTools.map((agent) => ({
         userAgent: agent,
-        allow: '/',
+        allow: aeoAllow,
         disallow: ['/admin/', '/api/'],
       })),
       ...scrapers.map((agent) => ({ userAgent: agent, disallow: '/' })),

@@ -68,6 +68,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/novedades/fichas-clinicas`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/ayuda`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
+    { url: `${baseUrl}/llms.txt`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/llms-full.txt`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
 
     // Future dedicated pages (stubs / planned)
     { url: `${baseUrl}/casos-de-exito`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
@@ -126,12 +128,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     })),
 
-    // Posts del blog (auto desde MDX) — prioridad mayor para fichas-clinicas
+    // Posts del blog (auto desde MDX) — featured y fichas-clinicas primero
     ...allPosts.map((p) => ({
       url: `${baseUrl}/blog/${p.slug}`,
       lastModified: p.updatedAt ? new Date(p.updatedAt) : new Date(p.publishedAt),
       changeFrequency: 'monthly' as const,
-      priority: p.tags?.includes('fichas-clinicas') ? 0.8 : 0.6,
+      priority: p.featured
+        ? 0.85
+        : p.tags?.includes('fichas-clinicas')
+          ? 0.8
+          : 0.6,
     })),
   ];
 
