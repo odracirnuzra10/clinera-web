@@ -200,28 +200,24 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 >
 > Auditoría Graph API del 2026-08-26 (valores, custom conversions, campañas
 > Chile/LATAM, por qué el MQL de WhatsApp no entrena):
-> `docs/auditoria-meta-eventos-2026-08-26.md`. El “— (Meta)” de MQL abajo
-> no es la tarifa canónica (US$ 10): es el CAPI del wizard mandando `value: 0`
-> y la custom conversion `1562704878613075` con default 0.
+> `docs/auditoria-meta-eventos-2026-08-26.md`. El CAPI del wizard mandaba
+> `value: 0` y la custom `1562704878613075` default 0. Ricardo (26-ago noche):
+> **MQL = US$ 5** para wizard **e** Instant Form (misma conversión).
 >
 > Instant Form de Chile se activó el **26-ago noche**. Hasta entonces las
 > campañas iban 100 % a `clinera.io/agenda`. La basura histórica (abandono
 > en paso 2, `size_captured` sin contacto) es del wizard, no de Lead Ads.
-> No diagnosticar el tráfico de agosto como formulario nativo.
 >
-> **Reunión Ricardo/Eduardo (26-ago, decisión final):** campaña nueva de
-> Instant Forms midiendo el evento `Lead`; el lead bueno pasa al CRM como
-> MQL US$ 10 (etapa **PQL** en Twenty — no hay etapa «MQL») y sigue SQL
-> 100 / SQL+ 300. Eso habilita **Conversion Leads** (`leadgen_id`), que
-> el wizard nunca pudo. Spec:
-> `baserow/openspec/changes/lanzamiento-instant-forms-embudo/`. Nit de la
-> auditoría: SQL+ en repo dice 150 **y** 300 — confirmar el vivo antes de
-> crear la custom. En anuncios no prometer CAMILA/LIA (foco de mensaje;
-> el sitio no se toca en ese change). No aplicar n8n a mano.
+> **Intake Instant Form:** el HUB `qOGjfU1AgubcOHvt` (`/webhook/meta-leadads`)
+> enruta el page_id Clinera `697874326752777` a Sub A `YmauqyDqrZNKIYlg`.
+> Ese sub crea contacto en Clinera (funnel 890), fila Baserow 152, negocio
+> Twenty y CAPI `MQL` US$ 5 con `lead_id`. Spec:
+> `baserow/openspec/changes/lanzamiento-instant-forms-embudo/`. SQL 100 /
+> SQL+ 300 no cambian. En anuncios no prometer CAMILA/LIA.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
-| `MQL` | el lead agenda en `/agenda` **o** la IA de Clinera agenda por WhatsApp | — (Meta) / US$10 (Google Ads) | wizard: `integrations/n8n/clinera-agenda-reserva.workflow.json` · IA: `integrations/n8n/clinera-meet-por-profesional.workflow.json` · Google (solo wizard): repo `baserow` |
+| `MQL` | agendó en `/agenda`, **o** rellenó Instant Form, **o** la IA agendó por WhatsApp | US$ 5 (Meta) / US$10 (Google Ads, solo wizard) | form: n8n Sub A · wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` |
 | `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
 | `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
 
