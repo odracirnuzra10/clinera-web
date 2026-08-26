@@ -2890,6 +2890,27 @@
       text-wrap: pretty;
     }
 
+    .ed-agent .ed-agent-when {
+      display: inline-flex;
+      align-self: start;
+      margin-top: -2px;
+      padding: 4px 9px;
+      border: 1px solid var(--border-sterile);
+      border-radius: 999px;
+      color: var(--brand-violet);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      line-height: 1.2;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ed-agent .ed-agent-when-now {
+      color: var(--brand-mint);
+    }
+
     /* --- Los canales (#canales): 1 cuenta = 1 WA + 1 IG + 1 FB --- */
     .ch-layout {
       grid-template-rows: auto auto auto;
@@ -4214,23 +4235,26 @@
           <header class="hr-head">
             <div class="blk-eyebrow">TU EQUIPO IA</div>
             <h2 class="blk-h2">Un equipo completo de <span class="blk-grad-text">empleados digitales</span>.</h2>
-            <p class="blk-lead">Tres roles, una sola memoria del paciente. Disponibles hoy.</p>
+            <p class="blk-lead">Tres roles, una sola memoria del paciente. AURA disponible hoy; CAMILA y LIA, octubre 2026.</p>
           </header>
 
           <div class="hr-grid ed-agents reveal">
             <article class="ed-agent">
               <img class="ed-agent-face" src="/agents/camila.jpg" alt="CAMILA" loading="lazy" decoding="async" />
               <strong>CAMILA · voz</strong>
+              <span class="ed-agent-when">Próximamente · octubre 2026</span>
               <span>Llama, confirma y reagenda. Cinco acentos: CL, CO, PE, MX y ES.</span>
             </article>
             <article class="ed-agent">
               <img class="ed-agent-face" src="/agents/aura.jpg" alt="AURA" loading="lazy" decoding="async" />
               <strong>AURA · WhatsApp, Instagram y Facebook</strong>
+              <span class="ed-agent-when ed-agent-when-now">Disponible hoy</span>
               <span>Responde, agenda y cobra 24/7 sobre la agenda real de tu clínica.</span>
             </article>
             <article class="ed-agent">
               <img class="ed-agent-face" src="/agents/lia.jpg" alt="LIA" loading="lazy" decoding="async" />
               <strong>LIA · orquestadora</strong>
+              <span class="ed-agent-when">Próximamente · octubre 2026</span>
               <span>Vigila la operación y despacha a CAMILA o AURA según el paciente.</span>
             </article>
           </div>

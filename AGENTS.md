@@ -290,6 +290,10 @@ más de un número o más de un perfil, son más cuentas (y más planes). Vive e
 diapositiva `#canales` de ese HTML. No diluirlo en un bullet de AURA: tiene slide propio
 porque en la demo se asume mal. Guardián: `tests/presentacion-canales.spec.ts`.
 
+**CAMILA y LIA en el deck:** próximamente octubre 2026. AURA es la disponible
+hoy. El lead de `#empleados-digitales` no puede volver a decir "Disponibles hoy"
+sobre las tres. Guardián: `tests/presentacion-empleados.spec.ts`.
+
 La franja "Clínicas que ya operan con Clinera" (`.hero-clients`) vivía con
 `grid-template-columns: repeat(7, minmax(0, 1fr))` — un número mágico que sólo cuadraba
 porque había exactamente 7 logos (Chile). Agosto 2026: se sumaron 8 clínicas de
@@ -387,8 +391,10 @@ Decisiones consolidadas en la rama `feat/aeo-fase1-contenido` (agosto 2026):
   en `/blog/efectividad` como nota histórica del estudio publicado.
 - **Datos clínicos:** GCP región Santiago (`southamerica-west1`). Los datos
   residen en Chile (Ley 21.719).
-- **CAMILA y LIA:** disponibles para contratar desde agosto 2026 — no usar
-  "próximamente"/"beta" en copy nuevo.
+- **CAMILA y LIA:** en el sitio público siguen listadas en Atlas/Summit. En el
+  deck de ventas (`/presentacion`, `#empleados-digitales`) van **próximamente
+  octubre 2026**; AURA es la que está disponible hoy. No volver a poner
+  "Disponibles hoy" sobre las tres — en la demo se vende lo que aún no opera.
 - **MFA:** activo desde 2026-08-25 (fila confirmada en `src/content/seguridad.ts`).
 - **Precio máximo publicado:** USD 479/mes (Summit). Plan Corporativo USD 1.900
   eliminado del sitio público.
