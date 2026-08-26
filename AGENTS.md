@@ -197,6 +197,17 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > versionados acá**. En agosto de 2026 se diseñó un cambio entero sobre la
 > premisa —falsa— de que SQL+ no generaba ninguna señal, porque el repo no lo
 > mostraba. Antes de tocar el embudo, mira la instancia de n8n.
+>
+> Auditoría Graph API del 2026-08-26 (valores, custom conversions, campañas
+> Chile/LATAM, por qué el MQL de WhatsApp no entrena):
+> `docs/auditoria-meta-eventos-2026-08-26.md`. El “— (Meta)” de MQL abajo
+> no es la tarifa canónica (US$ 10): es el CAPI del wizard mandando `value: 0`
+> y la custom conversion `1562704878613075` con default 0.
+>
+> Instant Form de Chile se activó el **26-ago noche**. Hasta entonces las
+> campañas iban 100 % a `clinera.io/agenda`. La basura histórica (abandono
+> en paso 2, `size_captured` sin contacto) es del wizard, no de Lead Ads.
+> No diagnosticar el tráfico de agosto como formulario nativo.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
