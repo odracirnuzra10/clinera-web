@@ -257,6 +257,13 @@ de forma **determinista**. Nada de `Math.random()` ahí — el cálculo corre en
 `useMemo` que se recalcula varias veces, y el azar le cambiaría el profesional
 al lead entre que elige la hora y confirma.
 
+**No ofrecer el día UTC en curso.** La API arma esa grilla desde la hora
+actual, no desde el horario de atención: de día faltan horas y de noche
+aparecen madrugadas (`01:45`, `02:45`…). El picker ya partía en "mañana", pero
+"mañana" del visitante (o de Chile) **sigue siendo hoy en UTC después de las
+20:00 Chile**. Hay que saltar los dos calendarios (`diasCandidatosAgenda`) y
+filtrar bloques fuera de oficina (`esBloqueHabil`).
+
 Guardián: `tests/agenda-scheduler.spec.ts`.
 
 # `/presentacion`: archivo estático, no componente — y el grid de logos ya no tiene número mágico
