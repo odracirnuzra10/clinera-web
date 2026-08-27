@@ -244,10 +244,12 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > rebota a Meta» — falso, y costó medio día. Un GET sin `hub.verify_token` a un
 > webhook de verificación de Meta *tiene* que dar 403; con el token bueno
 > devuelve el challenge, y el POST (lo que Meta usa para entregar) siempre dio
-> 200. El HUB está completo y no hay que tocarlo. Como no registra ninguna
-> ejecución que no sea nuestra, **Meta nunca llamó**: el corte está en el App
-> Dashboard (suscripción `leadgen`, callback, modo Live). Diagnóstico en un
-> comando: `baserow/sales/n8n/verificar_hub_meta.py`.
+> 200. El HUB está completo y no hay que tocarlo.
+>
+> **La causa raíz:** `GET /697874326752777/subscribed_apps` devuelve `{"data":[]}`
+> — ningún app suscrito a la página, así que nadie recibía los `leadgen`. Hebe y
+> Lumina están igual: el intake nunca estuvo cableado para ninguna marca.
+> Diagnóstico en un comando: `baserow/sales/n8n/verificar_hub_meta.py`.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
