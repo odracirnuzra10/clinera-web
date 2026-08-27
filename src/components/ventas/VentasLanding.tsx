@@ -1759,6 +1759,7 @@ export async function submitBookingConfirmation({
   sourcePath = "/ventas",
   via = "Cal.com confirm",
   confirmEventId: confirmEventIdProp,
+  leadgenId = "",
 }: {
   form: Form;
   software: Step1Id | null;
@@ -1774,6 +1775,14 @@ export async function submitBookingConfirmation({
    * que el Schedule del Pixel y el de CAPI se dedupliquen en Meta.
    */
   confirmEventId?: string;
+  /**
+   * `leadgen_id` del Instant Form de Meta, cuando el lead llegó por ahí
+   * (`/reserva-tu-hora`). Viaja hasta el campo `leadgenId` del negocio en
+   * Twenty, que es lo que después permite mandar `lead_id` en los eventos
+   * SQL/SQL+ y usar «maximizar clientes cualificados» en Meta Ads. Vacío en
+   * el wizard: ese lead no nació de un formulario nativo.
+   */
+  leadgenId?: string;
 }) {
   const confirmEventId =
     confirmEventIdProp ??
@@ -1862,6 +1871,7 @@ export async function submitBookingConfirmation({
     celular_digits: digits,
     celular_pais: rule?.name,
     email: form.email.trim(),
+    leadgen_id: leadgenId.trim(),
     fuente: `Landing ${sourcePath} — Clinera (${via})`,
     landing_url: typeof window !== "undefined" ? location.href : "",
     created_at: new Date().toISOString(),

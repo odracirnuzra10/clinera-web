@@ -200,9 +200,11 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 >
 > Auditoría Graph API del 2026-08-26 (valores, custom conversions, campañas
 > Chile/LATAM, por qué el MQL de WhatsApp no entrena):
-> `docs/auditoria-meta-eventos-2026-08-26.md`. El CAPI del wizard mandaba
-> `value: 0` y la custom `1562704878613075` default 0. Ricardo (26-ago noche):
-> **MQL = US$ 5** para wizard **e** Instant Form (misma conversión).
+> `docs/auditoria-meta-eventos-2026-08-26.md`. Embudo vigente (Ricardo,
+> 27-ago): **`Lead` US$ 5 al enviar el Instant Form → `MQL` US$ 10 al ganarse
+> la calidad (wizard/IA: al agendar; lead de formulario: al pasar a PQL en
+> Twenty) → SQL 100 → SQL+ 300.** El «MQL US$ 5 para wizard e Instant Form»
+> del 26-ago duró un día; si aparece en otro doc, es residuo.
 >
 > Instant Form de Chile se activó el **26-ago noche**. Hasta entonces las
 > campañas iban 100 % a `clinera.io/agenda`. La basura histórica (abandono
@@ -211,23 +213,28 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > **Intake Instant Form:** el HUB `qOGjfU1AgubcOHvt` (`/webhook/meta-leadads`)
 > enruta el page_id Clinera `697874326752777` a Sub A `YmauqyDqrZNKIYlg`.
 > Ese sub crea contacto en Clinera (funnel 890), fila Baserow 152, negocio
-> Twenty y CAPI `MQL` US$ 5 con `lead_id`. Spec:
-> `baserow/openspec/changes/lanzamiento-instant-forms-embudo/`. SQL 100 /
-> SQL+ 300 no cambian. En anuncios no prometer CAMILA/LIA. Graph del form
-> en español usa `correo_electrónico` / `nombre_y_apellidos` /
-> `número_de_teléfono` (no los nombres en inglés) — el mapeo vive en
-> `baserow/sales/n8n/leadgen-preparar.js`. Si el HUB no ejecuta, el
-> callback del app Meta no está pegando a `/webhook/meta-leadads` (la
-> página sí está suscrita a `leadgen`).
+> Twenty y CAPI `Lead` US$ 5 con `lead_id`. Spec:
+> `baserow/openspec/changes/lanzamiento-instant-forms-embudo/`. En anuncios
+> no prometer CAMILA/LIA. Graph del form en español usa `correo_electrónico`
+> / `nombre_y_apellidos` / `número_de_teléfono` (no los nombres en inglés) —
+> el mapeo vive en `baserow/sales/n8n/leadgen-preparar.js`.
+>
+> **Por qué el HUB estaba en 0 ejecuciones (diagnóstico 2026-08-27):** el
+> nodo Webhook del HUB rechazaba a todo llamador externo con `403 Forbidden`
+> (la página SÍ estaba suscrita a `leadgen`; la puerta era n8n, no Meta).
+> Un webhook de n8n con allowlist/auth deja a Meta afuera **sin ningún
+> error visible** — el lead queda solo en el Centro de clientes potenciales.
+> El arreglo y la verificación viven en `baserow/sales/HANDOFF.md` §27.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
-| `MQL` | agendó en `/agenda`, **o** rellenó Instant Form, **o** la IA agendó por WhatsApp | US$ 5 (Meta) / US$10 (Google Ads, solo wizard) | form: n8n Sub A · wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` |
+| `Lead` | rellenó el Instant Form de Meta | US$ 5 | n8n Sub A (aplicador: `baserow/sales/n8n/aplicar_instant_form_mql.py`) |
+| `MQL` | agendó en `/agenda`, **o** la IA agendó por WhatsApp, **o** (pendiente) un lead de formulario pasó a PQL en Twenty | US$ 10 | wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` · PQL: emisor pendiente |
 | `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
 | `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
 
 **Desde el 2026-08-21, Google Ads recibe el mismo embudo** (MQL/SQL/SQL+, mismos
-montos salvo MQL en 10 USD) — no por CAPI, sino porque los workflows de SQL y
+montos) — no por CAPI, sino porque los workflows de SQL y
 SQL+ (no el de MQL) marcan Baserow 152 y un feed nuevo en `baserow`
 (`sales/n8n/gads-conversiones-sql-csv.js`) se lo sirve a Google Ads Data
 Manager por HTTPS. El motivo (Data Manager no acepta push, sólo lee un
@@ -245,6 +252,37 @@ uno rompe la colisión en silencio: los eventos siguen saliendo, Meta los sigue
 aceptando, y el mismo lead se cuenta dos veces sin ningún error visible.
 
 Ids, disparos y el detalle completo: `integrations/n8n/README.md`.
+
+# `/reserva-tu-hora`: el destino del Instant Form, solo calendario
+
+Creada el 27-ago-2026. Es la URL que el Instant Form de Meta abre sola al
+enviarse (destino «Reservar cita» → enlace personalizado). **Antes apuntaba a
+`/demo`, que es una página de video sin calendario**: el lead completaba el
+formulario y no tenía dónde agendar — el embudo se cortaba ahí.
+
+- **No duplica el calendario**: importa `StepClineraScheduler` de
+  `VentasLanding.tsx`, igual que `/agenda`. Sus piezas internas (BackBtn,
+  reparto determinista de profesional, doble hora local/Chile) no están
+  exportadas; copiar el JSX sería mantener dos calendarios que se
+  desincronizan.
+- **Dos modos, y el segundo no es raro**: Meta no garantiza prellenar un enlace
+  «Personalizado» (sí lo hace con Calendly/HubSpot). Con
+  `?nombre=&email=&telefono=` va directo al calendario; sin ellos pide esos tres
+  campos, que el webhook del turno necesita sí o sí.
+- **`leadgen_id` decide si se da de alta el lead.** Con él, el lead YA existe
+  (lo creó n8n al recibir el formulario) y esta página sólo agrega la reserva:
+  volver a darlo de alta sería una segunda llamada de la IA al mismo teléfono.
+  Sin él, la página lo crea. Ese id viaja en el payload hasta el campo
+  `leadgenId` del negocio en Twenty, que es lo que habilita Conversion Leads.
+- Al confirmar la hora sale el **`MQL` US$ 10**, el mismo que `/agenda`: el lead
+  de formulario gana su MQL agendando, no por cambiar de etapa en el CRM.
+- `noindex` en tres capas (metadata, `robots.ts`, fuera del sitemap): es un paso
+  de un anuncio, no contenido, y no debe competir con `/agenda`.
+- Para que la atribución no salga `organico`, la URL del anuncio debe llevar
+  `?lead_source=meta-ads` — `clasificarLeadSource()` le da prioridad a la query,
+  y un Instant Form no deja `fbclid`.
+
+Guardián: `tests/reserva-tu-hora.spec.ts`.
 
 # `/agenda`: layout Hebe, agendador de siempre
 

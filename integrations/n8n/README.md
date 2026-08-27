@@ -26,12 +26,13 @@ widget embebido).
 
 ### Tracking de conversión (Meta CAPI + GA4)
 
-El embudo tiene tres eventos, y cada uno se dispara desde donde realmente
-ocurre:
+El embudo tiene cuatro eventos (valores fijados por Ricardo el 27-ago-2026),
+y cada uno se dispara desde donde realmente ocurre:
 
 | Evento | Cuándo | Dónde vive | Valor |
 |---|---|---|---|
-| **MQL** | alguien agenda en `www.clinera.io/agenda` **o** la IA agenda por WhatsApp | este workflow (wizard) · `clinera-meet-por-profesional.workflow.json` (IA) | — (Meta) / US$ 10 |
+| **Lead** | alguien envía el **Instant Form** de Meta Ads | HUB `qOGjfU1AgubcOHvt` → Sub A en n8n (aplicador en repo `baserow`, `sales/n8n/aplicar_instant_form_mql.py`) | US$ 5 |
+| **MQL** | alguien agenda en `www.clinera.io/agenda` **o** la IA agenda por WhatsApp **o** un lead de formulario pasa a PQL en `crm.oacg.cl` (emisor PQL: pendiente) | este workflow (wizard) · `clinera-meet-por-profesional.workflow.json` (IA) | US$ 10 |
 | **SQL** | el closer lo marca calificado en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 100 |
 | **SQL_Plus** | el closer lo sube a propuesta en `crm.oacg.cl` | **solo en n8n**, ver abajo | US$ 300 |
 

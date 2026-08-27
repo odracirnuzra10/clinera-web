@@ -1,0 +1,163 @@
+/* /reserva-tu-hora — destino del Instant Form de Meta.
+   Se abre casi siempre dentro del navegador embebido de Instagram/Facebook:
+   una sola columna, sin nav ni footer, y nada que empuje el calendario abajo
+   del pliegue. */
+
+.page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px 48px;
+  background: #f7f8fb;
+}
+
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: #fff;
+  border: 1px solid #e7e9f0;
+  border-radius: 20px;
+  padding: 28px 22px 26px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.head {
+  margin-bottom: 22px;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+.sub {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #5b6478;
+}
+
+.formBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #344054;
+  margin: 14px 0 6px;
+}
+
+.input {
+  width: 100%;
+  /* 16px o iOS hace zoom al enfocar el campo y descuadra la vista dentro del
+     navegador de Instagram. */
+  font-size: 16px;
+  padding: 12px 14px;
+  border: 1px solid #d5d9e3;
+  border-radius: 12px;
+  background: #fff;
+  color: #0f172a;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.14);
+}
+
+.phoneRow {
+  display: flex;
+  gap: 8px;
+}
+
+.select {
+  font-size: 16px;
+  padding: 12px 10px;
+  border: 1px solid #d5d9e3;
+  border-radius: 12px;
+  background: #fff;
+  color: #0f172a;
+  flex: 0 0 auto;
+}
+
+.error {
+  margin: 12px 0 0;
+  font-size: 13px;
+  color: #b42318;
+}
+
+.cta {
+  margin-top: 20px;
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 15px 18px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #3b82f6 0%, #7c3aed 50%, #d946ef 100%);
+}
+
+.note {
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: #7a8296;
+}
+
+/* El scheduler trae su propio botón «volver» (`.ventas-back-btn`) y no se puede
+   apagar por props. Cuando los datos vinieron prellenados desde el formulario
+   de Meta no hay paso anterior al que volver: ese botón sería una salida en
+   falso justo antes de convertir. Cuando esta página SÍ pidió los datos, el
+   botón se deja, porque ahí vuelve a algo real.
+
+   El `!important` es obligatorio: `BackBtn` trae `display:inline-flex` como
+   estilo INLINE, y un estilo inline le gana a cualquier clase. */
+.sinVolver :global(.ventas-back-btn) {
+  display: none !important;
+}
+
+.check {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ecfdf3;
+  color: #10b981;
+}
+
+.check svg {
+  width: 26px;
+  height: 26px;
+}
+
+.when {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f4f5f9;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 22px 16px 20px;
+    border-radius: 16px;
+  }
+  .title {
+    font-size: 22px;
+  }
+}
