@@ -72,7 +72,11 @@ test.describe("venta en dos reuniones — contrato del deck", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(page.locator("#calificacion")).toHaveClass(/active/);
-    await expect(page.getByText(/Todos van a/i)).toBeVisible();
-    await expect(page.getByText(/Una sola, solo si el cliente lo pide/)).toBeVisible();
+    await expect(
+      page.locator("#calificacion").getByRole("heading", { name: /Todos van a/i }),
+    ).toBeVisible();
+    await expect(
+      page.locator("#calificacion").getByText("Una sola, solo si el cliente lo pide."),
+    ).toBeVisible();
   });
 });
