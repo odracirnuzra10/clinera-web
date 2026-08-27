@@ -170,16 +170,15 @@ sin texto chico: se proyecta, no se lee. La URL corta es la que se le
 manda al equipo.
 
 El modelo viejo tiraba todo el software en una sola reunión y quemaba el
-interés. El nuevo divide: **R1** (30 min) diagnostica y muestra 2–3 funciones
-del dolor; **R2** (45 min) trae el número calculado de esa clínica, la
-propuesta y el cierre. El gancho para que vuelva no es “te muestro más
-software”: es el dato que se levantó en R1. El precio exacto **nunca** sale
-en R1 — solo el rango Vortex–Summit (USD 279–479/mes, `pricing.ts`); la
-implementación se detalla en R2.
+interés. El nuevo divide: **R1** es la reunión inicial de exploración
+(2–3 funciones del dolor); **R2** es la reunión de cierre, idealmente con
+el gerente de operaciones. El precio exacto **nunca** sale en R1 — solo el
+rango Vortex–Summit (USD 279–479/mes, `pricing.ts`); la implementación se
+detalla en R2.
 
-No todas van a dos reuniones. Una sola si es una sucursal, la dueña decide
-sola y está en la call, ticket bajo, o lead caliente (referido / pidió demo).
-Si ya estaba lista para comprar, no se alarga. Guardián:
+**Por defecto todos van a dos reuniones.** Una sola solo si el cliente lo
+pide expresamente. No se recorta por sucursal, ticket ni lead caliente:
+esa excepción vieja hacía que se saltara la exploración. Guardián:
 `tests/presentacion-venta-2-reuniones.spec.ts`.
 
 ## Programa partner: `/partners` (antes `/agencias`)
