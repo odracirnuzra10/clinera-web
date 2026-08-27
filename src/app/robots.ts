@@ -58,6 +58,8 @@ export default function robots(): MetadataRoute.Robots {
           '/_next/',
           '/admin/',
           '/internal/',
+          '/nueva-reunion',
+          '/nueva-reunion/',
           '/triage',
           '/firma',
           '/firma/',

@@ -176,7 +176,7 @@ const nextConfig: NextConfig = {
         destination: '/presentacion-partners/index.html',
       },
       {
-        source: '/presentacion-venta-2-reuniones',
+        source: '/nueva-reunion',
         destination: '/presentacion-venta-2-reuniones.html',
       },
       {
@@ -270,6 +270,13 @@ const nextConfig: NextConfig = {
       {
         source: '/presentacion-agencia/:path*',
         destination: '/presentacion-partners',
+        permanent: true,
+      },
+      // Playbook interno de venta en dos reuniones. La URL corta es la
+      // que se le manda al equipo; el path largo nunca se publicó.
+      {
+        source: '/presentacion-venta-2-reuniones',
+        destination: '/nueva-reunion',
         permanent: true,
       },
       // El modo Eficiente y el modo Agentic Pro dejaron de existir: Clinera

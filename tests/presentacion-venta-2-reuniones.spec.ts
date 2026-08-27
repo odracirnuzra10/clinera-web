@@ -18,6 +18,7 @@ test.describe("venta en dos reuniones — contrato del deck", () => {
     expect(slideCount).toBeGreaterThanOrEqual(10);
     expect(slideCount).toBeLessThanOrEqual(12);
     expect(html).toContain("noindex");
+    expect(html).toContain("https://www.clinera.io/nueva-reunion");
     expect(html).not.toMatch(/font-family:\s*['"]?Inter/);
     expect(html).not.toMatch(/\b(hacé|agendá|confirmá|volvé|mostrá|tenés|sos |podés)\b/i);
   });
@@ -54,7 +55,7 @@ test.describe("venta en dos reuniones — contrato del deck", () => {
   });
 
   test("abre, pinta la portada y navega con el teclado", async ({ page }) => {
-    await page.goto("/presentacion-venta-2-reuniones", {
+    await page.goto("/nueva-reunion", {
       waitUntil: "domcontentloaded",
     });
     const cover = page.locator("#portada");
@@ -66,7 +67,7 @@ test.describe("venta en dos reuniones — contrato del deck", () => {
     await page.keyboard.press("ArrowRight");
     await expect(page.locator("#problema")).toHaveClass(/active/);
 
-    await page.goto("/presentacion-venta-2-reuniones#calificacion", {
+    await page.goto("/nueva-reunion#calificacion", {
       waitUntil: "domcontentloaded",
     });
     await expect(page.locator("#calificacion")).toHaveClass(/active/);
