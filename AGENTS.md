@@ -165,8 +165,9 @@ renderizan las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
 ## Modelo de venta en dos reuniones
 
 Deck interno del equipo comercial: `public/presentacion-venta-2-reuniones.html`
-(`/nueva-reunion`). No es el deck de ventas al dueño. La URL corta es la
-que se le manda al equipo.
+(`/nueva-reunion`). No es el deck de ventas al dueño. Titulares grandes,
+sin texto chico: se proyecta, no se lee. La URL corta es la que se le
+manda al equipo.
 
 El modelo viejo tiraba todo el software en una sola reunión y quemaba el
 interés. El nuevo divide: **R1** (30 min) diagnostica y muestra 2–3 funciones
