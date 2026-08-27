@@ -244,17 +244,30 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > / `nombre_y_apellidos` / `número_de_teléfono` (no los nombres en inglés) —
 > el mapeo vive en `baserow/sales/n8n/leadgen-preparar.js`.
 >
-> **Por qué el HUB está en 0 ejecuciones (2026-08-27):** no es n8n. Un `GET`
-> pelado a `/webhook/meta-leadads` devuelve **403**, y eso se leyó como «n8n
-> rebota a Meta» — falso, y costó medio día. Un GET sin `hub.verify_token` a un
-> webhook de verificación de Meta *tiene* que dar 403; con el token bueno
+> **Por qué el HUB no tiene ejecuciones de Meta (2026-08-27):** no es n8n. Un
+> `GET` pelado a `/webhook/meta-leadads` devuelve **403**, y eso se leyó como
+> «n8n rebota a Meta» — falso, y costó medio día. Un GET sin `hub.verify_token`
+> a un webhook de verificación de Meta *tiene* que dar 403; con el token bueno
 > devuelve el challenge, y el POST (lo que Meta usa para entregar) siempre dio
 > 200. El HUB está completo y no hay que tocarlo.
 >
-> **La causa raíz:** `GET /697874326752777/subscribed_apps` devuelve `{"data":[]}`
-> — ningún app suscrito a la página, así que nadie recibía los `leadgen`. Hebe y
-> Lumina están igual: el intake nunca estuvo cableado para ninguna marca.
-> Diagnóstico en un comando: `baserow/sales/n8n/verificar_hub_meta.py`.
+> **`subscribed_apps` vacío tampoco es la causa.** Esa arista está acotada al
+> app dueño del token: un `{"data":[]}` preguntado con el token de otro app
+> significa «*este* app no está suscrito», no «nadie lo está». Con un token
+> del app de n8n (`1239051817789232`) las tres páginas (Clinera, Hebe, Lumina)
+> aparecen suscritas con `leadgen`. `verificar_hub_meta.py` ahora corre
+> `debug_token` primero y se niega a responder si el token es de otro app.
+>
+> **Lo que sigue vivo:** Meta nunca llamó. Las ~50 ejecuciones del HUB son
+> Python/curl nuestras (backfill, sondeo, `verificar_hub_meta.py`); cero con
+> `User-Agent` `facebookexternalua`. El corte está en el **callback a nivel
+> de app** (App Dashboard → Webhooks → objeto Página →
+> `https://n8n.oacg.cl/webhook/meta-leadads`). Leerlo o dejarlo puesto pide
+> el app secret: `GET/POST /1239051817789232/subscriptions` con
+> `app_id|app_secret`. Mientras tanto el sondeo `5VVMqgLPJDX88IVS` (cada 5
+> min, vía `/{ad_id}/leads`) mete los leads por el mismo HUB. Diagnóstico:
+> `baserow/sales/n8n/verificar_hub_meta.py`. Detalle y trampas:
+> `baserow/sales/HANDOFF.md` §26–§27 y `baserow/CLAUDE.md`.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|

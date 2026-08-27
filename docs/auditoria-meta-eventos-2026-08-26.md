@@ -5,6 +5,13 @@ Hechos medidos el 2026-08-26 contra Graph API `v21.0` (cuenta `act_7747162239701
 **OAGC - TECH**, pixel `1104567405156111`) y contra repos `www.clinera.io` +
 `baserow` + n8n vivo. No hay tokens en este archivo.
 
+> **Addendum 27-ago:** la causa «página sin `subscribed_apps`» de ese día era
+> la trampa #2 — la arista está acotada al app dueño del token. Las tres
+> páginas sí están suscritas al app de n8n con `leadgen`. Meta igual no
+> entrega: el corte vivo es el callback a nivel de app. Diagnóstico vigente
+> en `AGENTS.md` (sección Embudo) y `baserow/sales/HANDOFF.md` §26–§27. Este
+> archivo sigue siendo la foto del 26-ago (valores, customs, campañas).
+
 **Pedido de Ricardo (valores canónicos):**
 
 | Peldaño | Valor USD |
