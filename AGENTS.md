@@ -251,10 +251,20 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > devuelve el challenge, y el POST (lo que Meta usa para entregar) siempre dio
 > 200. El HUB está completo y no hay que tocarlo.
 >
-> **La causa raíz:** `GET /697874326752777/subscribed_apps` devuelve `{"data":[]}`
-> — ningún app suscrito a la página, así que nadie recibía los `leadgen`. Hebe y
-> Lumina están igual: el intake nunca estuvo cableado para ninguna marca.
-> Diagnóstico en un comando: `baserow/sales/n8n/verificar_hub_meta.py`.
+> **Y después falló un segundo diagnóstico, por la misma clase de error.**
+> `GET /697874326752777/subscribed_apps` devolvió `{"data":[]}` y se concluyó
+> «ningún app suscrito a la página». Falso: esa respuesta está **acotada al app
+> dueño del token**, y se preguntó con el de un conector. Con un token del app
+> de n8n (`1239051817789232`) las tres páginas —Clinera, Hebe y Lumina—
+> aparecen suscritas con `leadgen`. Un `[]` de un token ajeno no es un
+> diagnóstico; `verificar_hub_meta.py` ahora se niega a responder si el token
+> no es del app auditado.
+>
+> **Lo que sigue roto (27-ago):** con la suscripción puesta y el webhook sano,
+> Meta igual no entrega. De los 6 leads del día, los 6 llegaron al CRM porque
+> se inyectaron a mano. El corte está en la otra mitad, la que
+> `subscribed_apps` no ve: el **callback a nivel de app** (App Dashboard →
+> Webhooks → objeto «Página»). Detalle en `baserow/sales/HANDOFF.md` §27.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
