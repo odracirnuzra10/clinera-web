@@ -17,7 +17,7 @@ test.describe("CAMILA y LIA próximamente octubre 2026", () => {
     expect(html.match(/Próximamente · octubre 2026/g)?.length).toBe(2);
     expect(html).toContain("Disponible hoy");
     expect(html).toMatch(/Advertencia/);
-    expect(html).toMatch(/#fecaca/);
+    expect(html).toMatch(/#f87171/);
     expect(html).toMatch(/#dc2626/);
     expect(html).toMatch(/no reemplaza las ventas ni las recepcionistas/);
   });
