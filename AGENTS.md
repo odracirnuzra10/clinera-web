@@ -162,6 +162,24 @@ renderizan las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
 - **Mes 2 en adelante:** el plan contratado (Vortex US$ 279 / Atlas US$ 379 /
   Summit US$ 479 al mes).
 
+## Modelo de venta en dos reuniones
+
+Deck interno del equipo comercial: `public/presentacion-venta-2-reuniones.html`
+(`/presentacion-venta-2-reuniones`). No es el deck de ventas al dueño.
+
+El modelo viejo tiraba todo el software en una sola reunión y quemaba el
+interés. El nuevo divide: **R1** (30 min) diagnostica y muestra 2–3 funciones
+del dolor; **R2** (45 min) trae el número calculado de esa clínica, la
+propuesta y el cierre. El gancho para que vuelva no es “te muestro más
+software”: es el dato que se levantó en R1. El precio exacto **nunca** sale
+en R1 — solo el rango Vortex–Summit (USD 279–479/mes, `pricing.ts`); la
+implementación se detalla en R2.
+
+No todas van a dos reuniones. Una sola si es una sucursal, la dueña decide
+sola y está en la call, ticket bajo, o lead caliente (referido / pidió demo).
+Si ya estaba lista para comprar, no se alarga. Guardián:
+`tests/presentacion-venta-2-reuniones.spec.ts`.
+
 ## Programa partner: `/partners` (antes `/agencias`)
 
 La URL pública del programa es **`/partners`**. `/agencias` redirige permanente

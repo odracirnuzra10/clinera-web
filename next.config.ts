@@ -176,6 +176,10 @@ const nextConfig: NextConfig = {
         destination: '/presentacion-partners/index.html',
       },
       {
+        source: '/presentacion-venta-2-reuniones',
+        destination: '/presentacion-venta-2-reuniones.html',
+      },
+      {
         source: '/monterrey',
         destination: '/monterrey/index.html',
       },
