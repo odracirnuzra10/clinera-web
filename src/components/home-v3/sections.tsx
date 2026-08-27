@@ -16,6 +16,7 @@ import {
   type Billing,
 } from "@/content/pricing";
 import { VERTEX_IA_MODELS } from "@/content/ia-stack";
+import AvisoNoReemplaza from "@/components/empleado-digital/AvisoNoReemplaza";
 
 /* ============================================================
    Reveal-on-scroll helper
@@ -652,6 +653,7 @@ export function Features() {
             >
               AURA agenda por WhatsApp. CAMILA llama por teléfono. LIA decide qué hacer y por dónde. No responden — <b style={{ color: "#0A0A0A" }}>ejecutan</b>: crean citas, re-agendan, consultan pagos. Misma memoria del paciente, distinto canal.
             </p>
+            <AvisoNoReemplaza />
           </div>
         </div>
       </section>

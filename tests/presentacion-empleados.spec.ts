@@ -16,6 +16,8 @@ test.describe("CAMILA y LIA próximamente octubre 2026", () => {
     expect(html).not.toMatch(/Disponibles hoy/);
     expect(html.match(/Próximamente · octubre 2026/g)?.length).toBe(2);
     expect(html).toContain("Disponible hoy");
+    expect(html).toMatch(/no reemplaza las ventas ni las recepcionistas/);
+    expect(html).toMatch(/aprovechar oportunidades que antes perdías/);
   });
 
   test("la diapositiva #empleados-digitales marca el recorte", async ({
@@ -30,5 +32,23 @@ test.describe("CAMILA y LIA próximamente octubre 2026", () => {
     await expect(slide.getByText("Disponible hoy", { exact: true })).toBeVisible();
     await expect(slide.locator(".ed-agent-now")).toHaveCount(1);
     await expect(slide.locator(".ed-agent-soon")).toHaveCount(2);
+  });
+
+  test("el aviso aclara que la IA no reemplaza ventas ni recepción", async ({
+    page,
+  }) => {
+    await page.goto("/presentacion#empleados-digitales", {
+      waitUntil: "domcontentloaded",
+    });
+    const slide = page.locator("#empleados-digitales");
+    await expect(slide.getByRole("note")).toContainText(
+      "no reemplaza las ventas ni las recepcionistas",
+    );
+    await expect(slide.getByRole("note")).toContainText(
+      "aprovechar oportunidades que antes perdías",
+    );
+    await expect(slide.locator(".ed-flujo")).toContainText("Leads");
+    await expect(slide.locator(".ed-flujo")).toContainText("Clinera");
+    await expect(slide.locator(".ed-flujo")).toContainText("Paciente");
   });
 });

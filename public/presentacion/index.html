@@ -2988,6 +2988,79 @@
       animation: auraLatido 2.2s infinite;
     }
 
+    .ed-layout {
+      grid-template-rows: auto auto auto;
+      gap: clamp(18px, 2.4vh, 32px);
+    }
+
+    .ed-aviso {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(240px, .95fr);
+      gap: clamp(12px, 1.6vw, 22px);
+      align-items: center;
+      padding: clamp(12px, 1.6vh, 16px) clamp(14px, 1.6vw, 20px);
+      border: 1px solid #e8e0fb;
+      border-radius: 16px;
+      background: #f7f4fd;
+    }
+
+    .ed-aviso p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 14.5px;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    .ed-aviso b {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .ed-flujo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .ed-flujo li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ed-flujo span {
+      display: block;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      line-height: 1.2;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ed-flujo li:nth-child(2) span {
+      border-color: #d7c8f6;
+      color: var(--brand-violet);
+    }
+
+    .ed-flujo li:not(:last-child)::after {
+      content: "→";
+      color: var(--brand-violet);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
     /* --- Los canales (#canales): 1 cuenta = 1 WA + 1 IG + 1 FB --- */
     .ch-layout {
       grid-template-rows: auto auto auto;
@@ -3567,6 +3640,15 @@
       .hr-grid.ed-agents {
         grid-template-columns: 1fr;
         gap: 12px;
+      }
+
+      .ed-aviso {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .ed-flujo {
+        justify-content: flex-start;
       }
 
       .ed-agent-now {
@@ -4317,7 +4399,7 @@
         data-name="Tus empleados digitales"
         aria-hidden="true"
       >
-        <div class="slide-inner hr-layout">
+        <div class="slide-inner hr-layout ed-layout">
           <header class="hr-head">
             <div class="blk-eyebrow">TU EQUIPO IA</div>
             <h2 class="blk-h2">Un equipo completo de <span class="blk-grad-text">empleados digitales</span>.</h2>
@@ -4344,6 +4426,17 @@
               <span>Vigila la operación y despacha a CAMILA o AURA según el paciente.</span>
             </article>
           </div>
+
+          <aside class="ed-aviso reveal" role="note">
+            <p>
+              <b>Aviso.</b> La inteligencia artificial no reemplaza las ventas ni las recepcionistas, pero sí permite optimizar procesos y aprovechar oportunidades que antes perdías.
+            </p>
+            <ol class="ed-flujo" aria-label="Leads, Clinera, paciente">
+              <li><span>Leads</span></li>
+              <li><span>Clinera</span></li>
+              <li><span>Paciente</span></li>
+            </ol>
+          </aside>
         </div>
       </section>
 
