@@ -1,3 +1,4 @@
+import AvisoNoReemplaza from "./AvisoNoReemplaza";
 import styles from "@/app/empleado-digital/empleado-digital.module.css";
 
 type Agent = {
@@ -83,6 +84,7 @@ export default function DuoAgentes() {
             </a>
           ))}
         </div>
+        <AvisoNoReemplaza />
       </div>
     </section>
   );

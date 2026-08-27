@@ -2988,6 +2988,104 @@
       animation: auraLatido 2.2s infinite;
     }
 
+    .ed-layout {
+      grid-template-rows: auto auto auto;
+      gap: clamp(18px, 2.4vh, 32px);
+    }
+
+    .ed-aviso {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(240px, .95fr);
+      gap: clamp(12px, 1.6vw, 22px);
+      align-items: center;
+      padding: clamp(12px, 1.6vh, 16px) clamp(14px, 1.6vw, 20px);
+      border: 2px solid #991b1b;
+      border-radius: 16px;
+      background: #dc2626;
+    }
+
+    .ed-aviso-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .ed-aviso-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 10px 5px 8px;
+      border-radius: 999px;
+      background: #7f1d1d;
+      color: #fff;
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .ed-aviso-badge svg {
+      width: 13px;
+      height: 13px;
+      flex: 0 0 auto;
+    }
+
+    .ed-aviso p {
+      margin: 0;
+      color: #fff;
+      font-size: 14.5px;
+      line-height: 1.45;
+      text-wrap: pretty;
+    }
+
+    .ed-flujo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .ed-flujo li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ed-flujo span {
+      display: block;
+      padding: 7px 11px;
+      border: 1px solid #fecaca;
+      border-radius: 10px;
+      background: #fff;
+      color: #991b1b;
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      line-height: 1.2;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .ed-flujo li:nth-child(2) span {
+      background: #fff;
+      border-color: #fff;
+      color: #dc2626;
+    }
+
+    .ed-flujo li:not(:last-child)::after {
+      content: "→";
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
     /* --- Los canales (#canales): 1 cuenta = 1 WA + 1 IG + 1 FB --- */
     .ch-layout {
       grid-template-rows: auto auto auto;
@@ -3567,6 +3665,15 @@
       .hr-grid.ed-agents {
         grid-template-columns: 1fr;
         gap: 12px;
+      }
+
+      .ed-aviso {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .ed-flujo {
+        justify-content: flex-start;
       }
 
       .ed-agent-now {
@@ -4317,7 +4424,7 @@
         data-name="Tus empleados digitales"
         aria-hidden="true"
       >
-        <div class="slide-inner hr-layout">
+        <div class="slide-inner hr-layout ed-layout">
           <header class="hr-head">
             <div class="blk-eyebrow">TU EQUIPO IA</div>
             <h2 class="blk-h2">Un equipo completo de <span class="blk-grad-text">empleados digitales</span>.</h2>
@@ -4344,6 +4451,21 @@
               <span>Vigila la operación y despacha a CAMILA o AURA según el paciente.</span>
             </article>
           </div>
+
+          <aside class="ed-aviso reveal" role="note">
+            <div class="ed-aviso-copy">
+              <span class="ed-aviso-badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.2 2.4 20.4h19.2L12 3.2Zm0 5.3c.5 0 .9.4.9.9v4.2a.9.9 0 1 1-1.8 0V9.4c0-.5.4-.9.9-.9Zm0 8.6a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z"/></svg>
+                Advertencia
+              </span>
+              <p>La inteligencia artificial no reemplaza las ventas ni las recepcionistas, pero sí permite optimizar procesos y aprovechar oportunidades que antes perdías.</p>
+            </div>
+            <ol class="ed-flujo" aria-label="Leads, Clinera, paciente">
+              <li><span>Leads</span></li>
+              <li><span>Clinera</span></li>
+              <li><span>Paciente</span></li>
+            </ol>
+          </aside>
         </div>
       </section>
 
