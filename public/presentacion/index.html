@@ -2998,22 +2998,23 @@
       grid-template-columns: minmax(0, 1.4fr) minmax(240px, .95fr);
       gap: clamp(12px, 1.6vw, 22px);
       align-items: center;
-      padding: clamp(12px, 1.6vh, 16px) clamp(14px, 1.6vw, 20px);
-      border: 1px solid #e8e0fb;
+      padding: clamp(12px, 1.6vh, 16px) clamp(14px, 1.6vw, 20px) clamp(12px, 1.6vh, 16px) clamp(12px, 1.4vw, 16px);
+      border: 1px solid #f3d089;
       border-radius: 16px;
-      background: #f7f4fd;
+      background: #fff8e8;
+      box-shadow: inset 4px 0 0 #f59e0b;
     }
 
     .ed-aviso p {
       margin: 0;
-      color: var(--ink-soft);
+      color: #6b5344;
       font-size: 14.5px;
       line-height: 1.45;
       text-wrap: pretty;
     }
 
     .ed-aviso b {
-      color: var(--ink);
+      color: #b45309;
       font-weight: 700;
     }
 
@@ -3049,13 +3050,13 @@
     }
 
     .ed-flujo li:nth-child(2) span {
-      border-color: #d7c8f6;
-      color: var(--brand-violet);
+      border-color: #f3d089;
+      color: #b45309;
     }
 
     .ed-flujo li:not(:last-child)::after {
       content: "→";
-      color: var(--brand-violet);
+      color: #d97706;
       font-size: 14px;
       font-weight: 700;
       line-height: 1;

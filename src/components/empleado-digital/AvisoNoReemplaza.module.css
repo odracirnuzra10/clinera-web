@@ -4,15 +4,16 @@
   gap: 20px 28px;
   align-items: center;
   margin-top: 28px;
-  padding: 18px 22px;
-  border: 1px solid #e8e0fb;
+  padding: 18px 22px 18px 20px;
+  border: 1px solid #f3d089;
   border-radius: 16px;
-  background: #f7f4fd;
+  background: #fff8e8;
+  box-shadow: inset 4px 0 0 #f59e0b;
 }
 
 .aviso p {
   margin: 0;
-  color: #4b5563;
+  color: #6b5344;
   font-family: Inter, system-ui, sans-serif;
   font-size: 15.5px;
   line-height: 1.5;
@@ -20,7 +21,7 @@
 }
 
 .aviso strong {
-  color: #0a0a0a;
+  color: #b45309;
   font-weight: 700;
 }
 
@@ -57,13 +58,13 @@
 }
 
 .flujo li:nth-child(2) span {
-  border-color: #d7c8f6;
-  color: #7c3aed;
+  border-color: #f3d089;
+  color: #b45309;
 }
 
 .flujo li:not(:last-child)::after {
   content: "→";
-  color: #7c3aed;
+  color: #d97706;
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
