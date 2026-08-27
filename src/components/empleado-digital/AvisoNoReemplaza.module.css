@@ -5,9 +5,9 @@
   align-items: center;
   margin-top: 28px;
   padding: 16px 20px;
-  border: 2px solid #b91c1c;
+  border: 2px solid #991b1b;
   border-radius: 16px;
-  background: #f87171;
+  background: #dc2626;
 }
 
 .copy {
@@ -23,7 +23,7 @@
   gap: 7px;
   padding: 5px 10px 5px 8px;
   border-radius: 999px;
-  background: #dc2626;
+  background: #7f1d1d;
   color: #fff;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px;
@@ -35,7 +35,7 @@
 
 .aviso p {
   margin: 0;
-  color: #7f1d1d;
+  color: #fff;
   font-family: Inter, system-ui, sans-serif;
   font-size: 15.5px;
   line-height: 1.5;
@@ -61,10 +61,10 @@
 .flujo li span {
   display: block;
   padding: 8px 12px;
-  border: 1px solid #dc2626;
+  border: 1px solid #fecaca;
   border-radius: 10px;
   background: #fff;
-  color: #7f1d1d;
+  color: #991b1b;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 11px;
   font-weight: 700;
@@ -76,13 +76,13 @@
 
 .flujo li:nth-child(2) span {
   background: #fff;
-  border-color: #b91c1c;
+  border-color: #fff;
   color: #dc2626;
 }
 
 .flujo li:not(:last-child)::after {
   content: "→";
-  color: #dc2626;
+  color: #fff;
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
