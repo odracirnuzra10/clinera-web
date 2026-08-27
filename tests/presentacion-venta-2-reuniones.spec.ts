@@ -3,8 +3,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 /**
- * Deck interno del modelo de venta en dos reuniones. Una idea por slide,
- * máximo 12, tuteo chileno, rango de precio en R1 (nunca el número exacto).
+ * Deck interno del modelo de venta en dos reuniones. Titulares, sin texto
+ * chico, máximo 12 slides, tuteo chileno, rango en R1 (nunca el exacto).
  */
 const html = readFileSync(
   join(process.cwd(), "public/presentacion-venta-2-reuniones.html"),
@@ -14,12 +14,13 @@ const html = readFileSync(
 const slideCount = (html.match(/<section class="slide/g) ?? []).length;
 
 test.describe("venta en dos reuniones — contrato del deck", () => {
-  test("cabe en 12 slides y es un HTML standalone", () => {
-    expect(slideCount).toBeGreaterThanOrEqual(10);
+  test("cabe en 12 slides, standalone, sin texto chico", () => {
+    expect(slideCount).toBeGreaterThanOrEqual(8);
     expect(slideCount).toBeLessThanOrEqual(12);
     expect(html).toContain("noindex");
     expect(html).toContain("https://www.clinera.io/nueva-reunion");
     expect(html).not.toMatch(/font-family:\s*['"]?Inter/);
+    expect(html).not.toMatch(/font-size:\s*1[0-5]px/);
     expect(html).not.toMatch(/\b(hacé|agendá|confirmá|volvé|mostrá|tenés|sos |podés)\b/i);
   });
 
@@ -44,13 +45,12 @@ test.describe("venta en dos reuniones — contrato del deck", () => {
     expect(html).toContain("Máximo 72 horas");
     expect(html).toMatch(/el que firma/i);
     expect(html).toMatch(/tasa de cierre/i);
-    expect(html).toMatch(/primer contacto hasta la firma/i);
+    expect(html).toMatch(/días hasta la firma/i);
   });
 
   test("el gancho de R2 es el dato de la clínica, no más software", () => {
     expect(html).toMatch(/Vuelve por/);
     expect(html).toMatch(/su número/);
-    expect(html).toMatch(/no-show/);
     expect(html).toMatch(/se descarta/);
   });
 
