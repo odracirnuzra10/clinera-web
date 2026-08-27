@@ -2998,24 +2998,47 @@
       grid-template-columns: minmax(0, 1.4fr) minmax(240px, .95fr);
       gap: clamp(12px, 1.6vw, 22px);
       align-items: center;
-      padding: clamp(12px, 1.6vh, 16px) clamp(14px, 1.6vw, 20px) clamp(12px, 1.6vh, 16px) clamp(12px, 1.4vw, 16px);
-      border: 1px solid #f3d089;
+      padding: clamp(12px, 1.6vh, 16px) clamp(14px, 1.6vw, 20px);
+      border: 2px solid #f59e0b;
       border-radius: 16px;
-      background: #fff8e8;
-      box-shadow: inset 4px 0 0 #f59e0b;
+      background: #fde68a;
+    }
+
+    .ed-aviso-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .ed-aviso-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 10px 5px 8px;
+      border-radius: 999px;
+      background: #d97706;
+      color: #fff;
+      font-family: var(--blk-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .ed-aviso-badge svg {
+      width: 13px;
+      height: 13px;
+      flex: 0 0 auto;
     }
 
     .ed-aviso p {
       margin: 0;
-      color: #6b5344;
+      color: #78350f;
       font-size: 14.5px;
       line-height: 1.45;
       text-wrap: pretty;
-    }
-
-    .ed-aviso b {
-      color: #b45309;
-      font-weight: 700;
     }
 
     .ed-flujo {
@@ -3036,10 +3059,10 @@
     .ed-flujo span {
       display: block;
       padding: 7px 11px;
-      border: 1px solid var(--line);
+      border: 1px solid #f59e0b;
       border-radius: 10px;
-      background: #fff;
-      color: var(--ink);
+      background: #fffbeb;
+      color: #78350f;
       font-family: var(--blk-mono);
       font-size: 10px;
       font-weight: 700;
@@ -3050,13 +3073,14 @@
     }
 
     .ed-flujo li:nth-child(2) span {
-      border-color: #f3d089;
+      background: #fff;
+      border-color: #d97706;
       color: #b45309;
     }
 
     .ed-flujo li:not(:last-child)::after {
       content: "→";
-      color: #d97706;
+      color: #b45309;
       font-size: 14px;
       font-weight: 700;
       line-height: 1;
@@ -4429,9 +4453,13 @@
           </div>
 
           <aside class="ed-aviso reveal" role="note">
-            <p>
-              <b>Aviso.</b> La inteligencia artificial no reemplaza las ventas ni las recepcionistas, pero sí permite optimizar procesos y aprovechar oportunidades que antes perdías.
-            </p>
+            <div class="ed-aviso-copy">
+              <span class="ed-aviso-badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.2 2.4 20.4h19.2L12 3.2Zm0 5.3c.5 0 .9.4.9.9v4.2a.9.9 0 1 1-1.8 0V9.4c0-.5.4-.9.9-.9Zm0 8.6a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z"/></svg>
+                Advertencia
+              </span>
+              <p>La inteligencia artificial no reemplaza las ventas ni las recepcionistas, pero sí permite optimizar procesos y aprovechar oportunidades que antes perdías.</p>
+            </div>
             <ol class="ed-flujo" aria-label="Leads, Clinera, paciente">
               <li><span>Leads</span></li>
               <li><span>Clinera</span></li>

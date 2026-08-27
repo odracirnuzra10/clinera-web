@@ -16,8 +16,10 @@ test.describe("CAMILA y LIA próximamente octubre 2026", () => {
     expect(html).not.toMatch(/Disponibles hoy/);
     expect(html.match(/Próximamente · octubre 2026/g)?.length).toBe(2);
     expect(html).toContain("Disponible hoy");
+    expect(html).toMatch(/Advertencia/);
+    expect(html).toMatch(/#fde68a/);
+    expect(html).toMatch(/#f59e0b/);
     expect(html).toMatch(/no reemplaza las ventas ni las recepcionistas/);
-    expect(html).toMatch(/aprovechar oportunidades que antes perdías/);
   });
 
   test("la diapositiva #empleados-digitales marca el recorte", async ({
@@ -41,9 +43,7 @@ test.describe("CAMILA y LIA próximamente octubre 2026", () => {
       waitUntil: "domcontentloaded",
     });
     const slide = page.locator("#empleados-digitales");
-    await expect(slide.getByRole("note")).toContainText(
-      "no reemplaza las ventas ni las recepcionistas",
-    );
+    await expect(slide.getByRole("note")).toContainText("Advertencia");
     await expect(slide.getByRole("note")).toContainText(
       "aprovechar oportunidades que antes perdías",
     );
