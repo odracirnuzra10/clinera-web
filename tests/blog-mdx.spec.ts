@@ -34,7 +34,7 @@ test.describe("blog MDX: tablas GFM y logos de canal", () => {
     const table = page.locator("article table");
     await expect(table).toBeVisible();
     await expect(page.getByRole("columnheader", { name: "Sistema" })).toBeVisible();
-    await expect(page.getByRole("cell", { name: "Dentalink" })).toBeVisible();
+    await expect(page.getByRole("cell", { name: "Dentalink", exact: true })).toBeVisible();
     await expect(page.locator("article")).not.toContainText("|---|");
   });
 
