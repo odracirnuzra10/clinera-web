@@ -1,12 +1,15 @@
+import type { ComponentPropsWithoutRef } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import PostCTA from "@/components/blog/PostCTA";
 import VimeoEmbed from "@/components/blog/VimeoEmbed";
 import DownloadCTA from "@/components/blog/DownloadCTA";
+import ChannelMarks from "@/components/blog/ChannelMarks";
 import HeroCarousel, { type HeroViewId } from "@/components/plataforma/HeroCarousel";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
@@ -18,6 +21,14 @@ import {
 } from "@/components/seo/schemas";
 import { allPosts, getPostBySlug, getRelatedPosts } from "@/content/posts";
 import styles from "./blog-post.module.css";
+
+function BlogTable(props: ComponentPropsWithoutRef<"table">) {
+  return (
+    <div className={styles.tableWrap}>
+      <table {...props} />
+    </div>
+  );
+}
 
 export function generateStaticParams() {
   return allPosts.map((p) => ({ slug: p.slug }));
@@ -149,6 +160,7 @@ export default async function BlogPostPage({
               )}
               <h1 className={styles.postTitle}>{post.title}</h1>
               <p className={styles.postExcerptBlock}>{post.description}</p>
+              {post.heroChannels ? <ChannelMarks /> : null}
               <div
                 className={styles.postMeta}
                 style={{
@@ -198,7 +210,8 @@ export default async function BlogPostPage({
           <article className={styles.richContent}>
             <MDXRemote
               source={post.content}
-              components={{ VimeoEmbed, DownloadCTA }}
+              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+              components={{ VimeoEmbed, DownloadCTA, ChannelMarks, table: BlogTable }}
             />
           </article>
 
