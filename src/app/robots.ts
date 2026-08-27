@@ -63,6 +63,9 @@ export default function robots(): MetadataRoute.Robots {
           '/firma/',
           '/p/*/kit',
           '/partner/*/kit',
+          // Destino del Instant Form de Meta: es un paso de un anuncio, no
+          // contenido. Indexarla la pondría a competir con /agenda.
+          '/reserva-tu-hora',
           '/*?utm_*',
           '/*?gclid=*',
           '/*?fbclid=*',
