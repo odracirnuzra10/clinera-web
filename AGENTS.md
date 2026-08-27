@@ -220,10 +220,16 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > Auditoría Graph API del 2026-08-26 (valores, custom conversions, campañas
 > Chile/LATAM, por qué el MQL de WhatsApp no entrena):
 > `docs/auditoria-meta-eventos-2026-08-26.md`. Embudo vigente (Ricardo,
-> 27-ago): **`Lead` US$ 5 al enviar el Instant Form → `MQL` US$ 10 al ganarse
-> la calidad (wizard/IA: al agendar; lead de formulario: al pasar a PQL en
-> Twenty) → SQL 100 → SQL+ 300.** El «MQL US$ 5 para wizard e Instant Form»
-> del 26-ago duró un día; si aparece en otro doc, es residuo.
+> 27-ago): **`Lead` US$ 5 al enviar el Instant Form → `MQL` US$ 10 al agendar
+> → SQL 100 → SQL+ 300.** El «MQL US$ 5 para wizard e Instant Form» del
+> 26-ago duró un día; si aparece en otro doc, es residuo.
+>
+> **El MQL se gana agendando, en los tres caminos**, y ninguno lo gana
+> cambiando de etapa en Twenty. La versión anterior de esta línea decía «lead
+> de formulario: al pasar a PQL en Twenty» y era un error: en ese workspace
+> `PQL` está rotulado «PQL · No contesta» y va en rojo, así que ese emisor le
+> habría enseñado a Meta a buscar gente que no contesta. Se canceló; el lead
+> de formulario gana su MQL en `/reserva-tu-hora`.
 >
 > Instant Form de Chile se activó el **26-ago noche**. Hasta entonces las
 > campañas iban 100 % a `clinera.io/agenda`. La basura histórica (abandono
@@ -253,7 +259,7 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
 | `Lead` | rellenó el Instant Form de Meta | US$ 5 | n8n Sub A (aplicador: `baserow/sales/n8n/aplicar_instant_form_mql.py`) |
-| `MQL` | agendó en `/agenda`, **o** la IA agendó por WhatsApp, **o** (pendiente) un lead de formulario pasó a PQL en Twenty | US$ 10 | wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` · PQL: emisor pendiente |
+| `MQL` | agendó en `/agenda`, **o** la IA agendó por WhatsApp, **o** un lead de formulario agendó en `/reserva-tu-hora` | US$ 10 | wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` · formulario: `/reserva-tu-hora` (este repo) |
 | `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
 | `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
 
