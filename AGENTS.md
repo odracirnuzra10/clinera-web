@@ -219,12 +219,15 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > / `nombre_y_apellidos` / `número_de_teléfono` (no los nombres en inglés) —
 > el mapeo vive en `baserow/sales/n8n/leadgen-preparar.js`.
 >
-> **Por qué el HUB estaba en 0 ejecuciones (diagnóstico 2026-08-27):** el
-> nodo Webhook del HUB rechazaba a todo llamador externo con `403 Forbidden`
-> (la página SÍ estaba suscrita a `leadgen`; la puerta era n8n, no Meta).
-> Un webhook de n8n con allowlist/auth deja a Meta afuera **sin ningún
-> error visible** — el lead queda solo en el Centro de clientes potenciales.
-> El arreglo y la verificación viven en `baserow/sales/HANDOFF.md` §27.
+> **Por qué el HUB está en 0 ejecuciones (2026-08-27):** no es n8n. Un `GET`
+> pelado a `/webhook/meta-leadads` devuelve **403**, y eso se leyó como «n8n
+> rebota a Meta» — falso, y costó medio día. Un GET sin `hub.verify_token` a un
+> webhook de verificación de Meta *tiene* que dar 403; con el token bueno
+> devuelve el challenge, y el POST (lo que Meta usa para entregar) siempre dio
+> 200. El HUB está completo y no hay que tocarlo. Como no registra ninguna
+> ejecución que no sea nuestra, **Meta nunca llamó**: el corte está en el App
+> Dashboard (suscripción `leadgen`, callback, modo Live). Diagnóstico en un
+> comando: `baserow/sales/n8n/verificar_hub_meta.py`.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
