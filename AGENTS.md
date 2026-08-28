@@ -334,8 +334,11 @@ calendario **no** es Cal.com: reusa `StepClineraScheduler` de
 El aviso de Google Chat y Twenty los arma `OACG TECH | Wizard` (`A3wOPmhQjit8VswM`)
 en n8n: en `/agenda` ya no se anuncia «Software actual». Van necesidad, cargo,
 web/redes, volumen y clínica (ciudad se dejó de pedir en el paso 3 — el
-webhook sigue mandando `ciudad: ""`). El botón «Agenda con tu ingeniero» abre
-el calendario **sin esperar** el webhook — si se vuelve a `await`, se pierden leads.
+webhook sigue mandando `ciudad: ""`). El Chat del paso 3 sale **al crear el
+lead**, inmediato; el del agendamiento lo manda el workflow de Meet cuando
+ya existe el evento (no el segundo POST del wizard). El botón «Agenda con tu
+ingeniero» abre el calendario **sin esperar** el webhook — si se vuelve a
+`await`, se pierden leads.
 
 # `/agenda`: la hora que se guarda es de Chile, siempre
 
@@ -477,6 +480,46 @@ n8n lo copia al crear o refrescar el lead (Sub A, Wizard y Meet). El SQL
 de Meta sigue hasheando el número desde la Persona, no desde esta columna.
 Aplicador: `integrations/n8n/aplicar_telefono_contacto.py`.
 
+# Vista de Negocios: la hora exacta no sale de `createdAt`
+
+El campo de sistema `createdAt` de la Opportunity (`6921350c-ee3c-46e9-a541-70130b735229`)
+tiene `displayFormat: RELATIVE` («hace 3 horas») y Twenty responde **403**
+si se intenta cambiarlo: es de sistema. Por eso el negocio tiene el campo
+custom `horaRegistro` (DATE_TIME, label «Hora de registro»,
+`ccc038cb-b161-4c94-a625-24289b63d266`, formato `USER_SETTINGS` — el mismo
+absoluto que Fecha demo). n8n lo escribe **solo al crear** el negocio (Sub A,
+Wizard, Meet); un agendamiento posterior no lo pisa. Las columnas de INDEX
+y «Leads del día» muestran este campo; `createdAt` volvió a quedar oculto.
+
+**«Leads del día» filtra `createdAt` IS_TODAY**, no `ultimoContacto`. Hasta
+el 28-ago el filtro era último contacto = hoy, y el tablero mostraba ~10
+filas el día que Meta Ads Manager tenía 5 resultados y Twenty había **creado**
+4 Instant Forms. Último contacto se mueve al agendar, al refrescar el lead
+y al tocarlo a mano — no es «llegó hoy».
+
+Aplicador: `integrations/n8n/aplicar_hora_registro_aviso_chat.py`.
+
+# Google Chat: un aviso al crear el lead y otro al agendar
+
+El espacio es el de siempre (`spaces/AAQAY5jOsuA`). El webhook vive en el
+nodo «Notify Google Chat» del Wizard — **no versionar key/token**; el
+aplicador lo clona al Sub A y al Meet.
+
+| Cuándo | Quién avisa |
+|---|---|
+| Instant Form de Meta | Sub A, en paralelo a CAPI, desde `Prepare Lead Data` |
+| Paso 3 de `/agenda` o `/ventas` (contacto) | Wizard, desde `Solo etapa de contacto` (**inmediato**; ya no espera 60 s) |
+| Agendó (Meet de `/agenda` nativo o agente IA) | Meet, después de `Crear Evento + Meet` (anti-dup 10 min; salta `esPrueba`) |
+
+`Solo etapa de contacto` sigue cortando el `booking_confirmed` del wizard,
+así que el segundo POST de `/agenda` no manda otro aviso de «lead». El de
+la reserva lo manda Meet cuando el calendario ya existe. El wait de 60 s +
+relectura de Baserow **ya no alimenta Chat**; sigue ahí para crear el
+contacto Clinera @744 si agendó. El recableo viejo
+(`baserow/sales/n8n/recablear_aviso_unico.py`) no hay que reaplicarlo
+encima: volvería a colgar Chat del wait y Instant Form / Meet quedarían
+mudos otra vez.
+
 # El wizard manda VARIOS webhooks por lead, no uno
 
 `/agenda` postea al mismo webhook de n8n (`088a2cfe-…`) hasta tres veces con el
@@ -491,13 +534,13 @@ mismo correo, y cada uno es una etapa distinta del wizard:
 El primero no lleva correo y n8n lo descarta en su nodo "Tiene contacto?". Los
 otros dos entran los dos, así que **el segundo encuentra la fila que creó el
 primero un minuto antes**: eso NO es un lead recurrente, es el mismo lead
-terminando de agendar. Hasta agosto 2026 cada uno producía su propio aviso de
-Google Chat —y el segundo anunciaba «lead recurrente»—; desde entonces n8n corta
-el envío de la reserva y manda **un solo aviso**, después de esperar y releer la
-ficha (ver el repo `baserow`, `sales/n8n/recablear_aviso_unico.py`).
+terminando de agendar. `Solo etapa de contacto` sigue descartando el POST de
+`booking_confirmed` para no avisar «lead» dos veces ni recrear el contacto
+Clinera. El aviso de **agendamiento** ya no espera esos 60 s: lo manda el
+workflow de Meet. Ver la sección de Google Chat arriba.
 
 Si cambiás las claves `lead_stage` / `booking_status`, ese corte deja de
-funcionar y los avisos vuelven a duplicarse sin ningún error visible.
+funcionar y el Wizard vuelve a avisar el mismo lead al confirmar la hora.
 
 # Pack AEO agosto 2026 — punteros post-migración
 

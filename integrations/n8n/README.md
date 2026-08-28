@@ -187,9 +187,18 @@ los calcula `Normalizar Reserva` una sola vez.
 siguen igual: solo refresco. Al crear o refrescar copia el teléfono del
 contacto a `telefonoContacto` del negocio — es lo que se ve en la tabla
 de Negocios, porque Twenty no muestra el de la Persona como columna de
-la Opportunity. Aplicador: `integrations/n8n/aplicar_telefono_contacto.py`.
+la Opportunity. Al **crear** (no al refrescar) escribe `horaRegistro`, la
+hora exacta que se ve en la columna: el `createdAt` de sistema es RELATIVE
+y Twenty no deja cambiarle el formato. Aplicador del teléfono:
+`integrations/n8n/aplicar_telefono_contacto.py`. Aplicador de la hora y
+del aviso a Chat: `integrations/n8n/aplicar_hora_registro_aviso_chat.py`.
 El de MQL IA sigue en `baserow/sales/n8n/aplicar_mql_agente_ia.py`. Spec:
 `baserow/openspec/changes/medir-mql-agente-ia/`.
+
+**Google Chat:** después de `Crear Evento + Meet` (y solo si no es prueba)
+manda un aviso al mismo espacio del Wizard. Cubre `/agenda` nativo y el
+agente IA. El webhook se clona del nodo vivo; el JSON de este repo lleva
+`__GOOGLE_CHAT_WEBHOOK__`.
 
 Este emisor **no marca Baserow 152**. La frase de que «los tres workflows
 marcan la 152» era de SQL/SQL+ y del feed de Google Ads, no de este MQL.
@@ -509,6 +518,16 @@ cosas suyas:
   copiado del número de la Persona. Sin eso la tabla de negocios no tiene
   columna de teléfono: Twenty no proyecta el de `pointOfContact`. Aplicador:
   `integrations/n8n/aplicar_telefono_contacto.py`.
+- **Hora exacta de registro.** "Twenty - Crear Lead" escribe `horaRegistro`
+  solo al crear el negocio. El `createdAt` de sistema se ve como «hace 3
+  horas» y no se puede cambiar (403). Aplicador:
+  `integrations/n8n/aplicar_hora_registro_aviso_chat.py`.
+- **Aviso a Google Chat en el acto.** "Solo etapa de contacto" dispara
+  "Notify Google Chat" al llegar el contacto (paso 3), sin esperar 60 s.
+  El Instant Form avisa desde el Sub A. El agendamiento avisa desde Meet.
+  El wait de 60 s ya no alimenta Chat — sigue para Clinera @744. No
+  reaplicar `recablear_aviso_unico.py` encima.
 - **Qué cambia cuando un lead que ya existe agenda.** Solo la fecha de la demo y
   el responsable (el profesional con quien quedó el Meet). La etapa no baja
   nunca y tampoco sube: si ventas ya lo había marcado SQL, ahí se queda.
+  `horaRegistro` no se pisa.
