@@ -467,6 +467,16 @@ repo. Ese nodo lee el `lead_source` que le manda el sitio, pero sólo después d
 sus propias reglas. El reemplazo revisado está en el repo `baserow`
 (`sales/n8n/wizard-classify-origin.js`).
 
+# Vista de Negocios en Twenty: el teléfono no sale de la Persona
+
+La tabla de Opportunities **no puede** mostrar el teléfono de
+`pointOfContact` como columna: vive en otro objeto. Por eso el negocio
+tiene el campo denormalizado `telefonoContacto` (tipo PHONES, label
+«Teléfono del contacto»), pegado al contacto en «Todas las oportunidades».
+n8n lo copia al crear o refrescar el lead (Sub A, Wizard y Meet). El SQL
+de Meta sigue hasheando el número desde la Persona, no desde esta columna.
+Aplicador: `integrations/n8n/aplicar_telefono_contacto.py`.
+
 # El wizard manda VARIOS webhooks por lead, no uno
 
 `/agenda` postea al mismo webhook de n8n (`088a2cfe-…`) hasta tres veces con el

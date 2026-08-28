@@ -184,8 +184,11 @@ los calcula `Normalizar Reserva` una sola vez.
 
 **Twenty:** el nodo `Twenty - Agendó (Meet)` hace upsert **solo** para
 `agente-ia` (contrato del wizard: `SCREENING`, Vortex US$ 279). Wizard/web
-siguen igual: solo refresco. Aplicador:
-`baserow/sales/n8n/aplicar_mql_agente_ia.py`. Spec:
+siguen igual: solo refresco. Al crear o refrescar copia el teléfono del
+contacto a `telefonoContacto` del negocio — es lo que se ve en la tabla
+de Negocios, porque Twenty no muestra el de la Persona como columna de
+la Opportunity. Aplicador: `integrations/n8n/aplicar_telefono_contacto.py`.
+El de MQL IA sigue en `baserow/sales/n8n/aplicar_mql_agente_ia.py`. Spec:
 `baserow/openspec/changes/medir-mql-agente-ia/`.
 
 Este emisor **no marca Baserow 152**. La frase de que «los tres workflows
@@ -369,10 +372,14 @@ se ve en el tablero. El mapa del workspace OACG es:
 
 ### De dónde salen el contacto y los identificadores de Meta
 
-La oportunidad de Twenty no lleva email ni teléfono encima: solo
-`pointOfContactId`. El nodo "Validar SQL" resuelve la persona con
+La oportunidad de Twenty **sí** lleva teléfono de cara al tablero
+(`telefonoContacto`, tipo PHONES, label «Teléfono del contacto»): n8n lo
+copia desde la Persona al crear o refrescar el negocio, para que la vista
+de Negocios lo muestre junto al contacto. El email **no** se denormaliza.
+El nodo "Validar SQL" sigue resolviendo la persona con
 `GET crm.oacg.cl/rest/people/{id}` (token en `$env.TWENTY_API_KEY`) y de ahí
-saca email, teléfono y nombre para hashearlos.
+saca email, teléfono y nombre para hashearlos — la columna de la tabla no
+es la fuente del CAPI.
 
 Es una conversión **offline**: va con `action_source: system_generated` y el
 match lo hace Meta por email y teléfono hasheados (SHA-256). El `fbc` / `fbp`
@@ -497,6 +504,11 @@ cosas suyas:
   SQL+ es decisión de ventas (Nohe, Rebe o Cheul) en el CRM: ni el formulario ni
   el agendamiento lo hacen solos. Antes el agendamiento subía a `MEETING` (SQL)
   y el embudo se saltaba el paso del closer.
+- **Teléfono en la vista de Negocios.** "Twenty - Crear Lead" (Wizard y Sub A)
+  y "Twenty - Agendó (Meet)" escriben `telefonoContacto` en la Opportunity,
+  copiado del número de la Persona. Sin eso la tabla de negocios no tiene
+  columna de teléfono: Twenty no proyecta el de `pointOfContact`. Aplicador:
+  `integrations/n8n/aplicar_telefono_contacto.py`.
 - **Qué cambia cuando un lead que ya existe agenda.** Solo la fecha de la demo y
   el responsable (el profesional con quien quedó el Meet). La etapa no baja
   nunca y tampoco sube: si ventas ya lo había marcado SQL, ahí se queda.
