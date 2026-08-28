@@ -68,6 +68,9 @@ test.describe("hora de registro y aviso a Google Chat", () => {
     expect(aplicador).toContain("horaRegistro IS_TODAY");
     expect(aplicador).toContain("phones.primaryPhoneNumber");
     expect(aplicador).toContain("opportunityReintentada");
+    expect(aplicador).toContain("personaYaExistia");
+    expect(aplicador).toContain("CAMPO_NOTAS");
+    expect(aplicador).toContain("CAMPO_SITIO_WEB");
     expect(aplicador).toContain("webhook_del_wizard");
     expect(aplicador).toContain("Prepare Lead Data");
     expect(aplicador).toContain("Solo etapa de contacto");
@@ -89,6 +92,8 @@ test.describe("hora de registro y aviso a Google Chat", () => {
     expect(agents).toContain("IS_TODAY");
     expect(agents).toContain("Ya había cotizado");
     expect(agents).toMatch(/Leads del día[\s\S]*horaRegistro` IS_TODAY/);
+    expect(agents).toContain("columna **Notas**");
+    expect(agents).toContain("Web / Instagram");
     expect(agents).not.toMatch(
       /n8n corta el envío de la reserva y manda \*\*un solo aviso\*\*, después de esperar/,
     );

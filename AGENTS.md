@@ -497,9 +497,12 @@ del negocio hace GET; el 28-ago un alta devolvió id y el GET era 404, y
 
 **«Leads del día» filtra `horaRegistro` IS_TODAY.** Así un lead que cotizó
 ayer y reenvía el form hoy reaparece en la vista de hoy, con una nota
-`🔁 Ya había cotizado` (envío anterior + este envío, hora Chile). No se
-filtra por `ultimoContacto`: ese campo se mueve también al agendar y al
-tocarlo a mano, y el 28-ago infló el tablero (10 filas vs 5 de Meta).
+`🔁 Ya había cotizado` (envío anterior + este envío, hora Chile). La
+columna **Notas** (campo texto `notas`, no la relación Notes de Twenty,
+que no se puede renombrar). Web / Instagram, Ciudad y Cargo están ocultas: el Instant Form no las
+trae y el wizard ya no pide ciudad. No se filtra por `ultimoContacto`:
+ese campo se mueve también al agendar y al tocarlo a mano, y el 28-ago
+infló el tablero (10 filas vs 5 de Meta).
 
 Aplicador: `integrations/n8n/aplicar_hora_registro_aviso_chat.py`.
 

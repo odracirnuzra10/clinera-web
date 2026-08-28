@@ -523,11 +523,13 @@ cosas suyas:
 - **Hora exacta de registro.** "Twenty - Crear Lead" escribe `horaRegistro`
   al crear **y al reenviar el formulario**, para que «Leads del día»
   (filtro `horaRegistro` IS_TODAY) muestre también a quien cotizó ayer y
-  volvió hoy. En ese caso deja la nota `🔁 Ya había cotizado`. Un
-  agendamiento no pisa la hora. Busca a la persona por email y, si no
-  está, por teléfono (un reenvío con otro correo no debe abrir un segundo
-  contacto). Tras el POST del negocio hace GET; el 28-ago un alta devolvió
-  id y el GET era 404, y «Leads del día» se quedó en 4 de 5. Aplicador:
+  volvió hoy. En ese caso deja la nota `🔁 Ya había cotizado` (columna
+  **Notas**). Un agendamiento no pisa la hora. Busca a la persona por
+  email y, si no está, por teléfono (un reenvío con otro correo no debe
+  abrir un segundo contacto). Tras el POST del negocio hace GET; el
+  28-ago un alta devolvió id y el GET era 404, y «Leads del día» se quedó
+  en 4 de 5. Web / Instagram, Ciudad y Cargo están ocultas en esa vista:
+  el Instant Form no las trae. Aplicador:
   `integrations/n8n/aplicar_hora_registro_aviso_chat.py`.
 - **Aviso a Google Chat en el acto.** "Solo etapa de contacto" dispara
   "Notify Google Chat" al llegar el contacto (paso 3), sin esperar 60 s.
