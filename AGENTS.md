@@ -258,16 +258,16 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > aparecen suscritas con `leadgen`. `verificar_hub_meta.py` ahora corre
 > `debug_token` primero y se niega a responder si el token es de otro app.
 >
-> **Lo que sigue vivo:** Meta nunca llamó. Las ~50 ejecuciones del HUB son
-> Python/curl nuestras (backfill, sondeo, `verificar_hub_meta.py`); cero con
-> `User-Agent` `facebookexternalua`. El corte está en el **callback a nivel
-> de app** (App Dashboard → Webhooks → objeto Página →
-> `https://n8n.oacg.cl/webhook/meta-leadads`). Leerlo o dejarlo puesto pide
-> el app secret: `GET/POST /1239051817789232/subscriptions` con
-> `app_id|app_secret`. Mientras tanto el sondeo `5VVMqgLPJDX88IVS` (cada 5
-> min, vía `/{ad_id}/leads`) mete los leads por el mismo HUB. Diagnóstico:
-> `baserow/sales/n8n/verificar_hub_meta.py`. Detalle y trampas:
-> `baserow/sales/HANDOFF.md` §26–§27 y `baserow/CLAUDE.md`.
+> **Causa raíz (cerrada 28-ago 01:26Z):** el callback a nivel de app **sí
+> estaba puesto y activo** con `leadgen`, pero apuntaba a
+> `https://clinerasoftware.app.n8n.cloud/webhook/meta-leadads` (n8n Cloud
+> viejo, hoy 404). Meta entregaba a un agujero: el HUB de
+> `n8n.oacg.cl` nunca vio un `User-Agent` de Facebook. Se dejó puesto
+> `https://n8n.oacg.cl/webhook/meta-leadads`; Meta verificó al instante
+> (HUB `76890`, UA `facebookplatform/1.0`, challenge 200). La prueba que
+> vale: el próximo lead real del Instant Form aparece solo en Baserow 152.
+> El sondeo `5VVMqgLPJDX88IVS` puede convivir (dedupe por correo) hasta
+> confirmar ese lead. Diagnóstico: `baserow/sales/n8n/verificar_hub_meta.py`.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
