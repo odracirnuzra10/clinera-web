@@ -66,6 +66,8 @@ test.describe("hora de registro y aviso a Google Chat", () => {
     expect(aplicador).toContain("refresco.horaRegistro");
     expect(aplicador).toContain("Ya había cotizado");
     expect(aplicador).toContain("horaRegistro IS_TODAY");
+    expect(aplicador).toContain("phones.primaryPhoneNumber");
+    expect(aplicador).toContain("opportunityReintentada");
     expect(aplicador).toContain("webhook_del_wizard");
     expect(aplicador).toContain("Prepare Lead Data");
     expect(aplicador).toContain("Solo etapa de contacto");
@@ -80,6 +82,8 @@ test.describe("hora de registro y aviso a Google Chat", () => {
     expect(readme).toContain("aplicar_hora_registro_aviso_chat.py");
     expect(readme).toContain("Instant Form");
     expect(readme).toContain("Ya había cotizado");
+    expect(readme).toContain("por teléfono");
+    expect(readme).toContain("el GET era 404");
     expect(agents).toContain("horaRegistro");
     expect(agents).toContain("USER_SETTINGS");
     expect(agents).toContain("IS_TODAY");

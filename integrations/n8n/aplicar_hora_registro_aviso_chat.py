@@ -119,6 +119,42 @@ NOTA_RECOTIZO = """        resultado.twenty.opportunityRefrescada = true;
       } else {
 """
 
+ANCLA_PERSONA = "    if (!personId) {\n      const persona = {\n"
+PHONE_LOOKUP = """    if (!personId && d.phone) {
+      const ccTelBusca = PREFIJO[d.country] || '';
+      const brutoBusca = String(d.phone).replace(/\\D/g, '');
+      const nacionalBusca = ccTelBusca && brutoBusca.startsWith(ccTelBusca.slice(1))
+        ? brutoBusca.slice(ccTelBusca.length - 1)
+        : brutoBusca;
+      if (nacionalBusca) {
+        const porTel = primero(
+          await api('GET', `/rest/people?filter=phones.primaryPhoneNumber%5Beq%5D:${encodeURIComponent(nacionalBusca)}&limit=1`),
+          'people'
+        );
+        if (porTel) personId = porTel.id;
+      }
+    }
+
+    if (!personId) {
+      const persona = {
+"""
+
+ANCLA_NUEVA = "        resultado.twenty.opportunityNueva = true;\n      }\n    }\n\n"
+VERIFY_NUEVA = """        if (resultado.twenty.opportunityId) {
+          try {
+            await api('GET', '/rest/opportunities/' + resultado.twenty.opportunityId);
+          } catch (e) {
+            resultado.twenty.opportunityId = crear(
+              await api('POST', '/rest/opportunities?disableDuplicateCheck=true', negocio)
+            );
+            resultado.twenty.opportunityReintentada = true;
+          }
+        }
+        resultado.twenty.opportunityNueva = true;
+      }
+    }
+
+"""
 VISTA_LEADS_DIA = "ea158c82-c823-403b-91ac-7c3240815525"
 CAMPO_HORA_REGISTRO = "ccc038cb-b161-4c94-a625-24289b63d266"
 CAMPO_CREATED_AT = "6921350c-ee3c-46e9-a541-70130b735229"
@@ -310,6 +346,28 @@ def inject_nota_recotizo(w: dict, etiqueta: str) -> list[str]:
         raise SystemExit(f"{etiqueta}: no encuentro ancla opportunityRefrescada")
     n["parameters"]["jsCode"] = code.replace(ANCLA_NOTA, NOTA_RECOTIZO, 1)
     return [f"{etiqueta} Twenty: nota Ya había cotizado"]
+
+
+def inject_phone_lookup(w: dict, etiqueta: str) -> list[str]:
+    n = node(w, "Twenty - Crear Lead")
+    code = n["parameters"]["jsCode"]
+    if "phones.primaryPhoneNumber" in code:
+        return []
+    if ANCLA_PERSONA not in code:
+        raise SystemExit(f"{etiqueta}: no encuentro ancla if (!personId)")
+    n["parameters"]["jsCode"] = code.replace(ANCLA_PERSONA, PHONE_LOOKUP, 1)
+    return [f"{etiqueta} Twenty: busca persona también por teléfono"]
+
+
+def inject_verify_opp(w: dict, etiqueta: str) -> list[str]:
+    n = node(w, "Twenty - Crear Lead")
+    code = n["parameters"]["jsCode"]
+    if "opportunityReintentada" in code:
+        return []
+    if ANCLA_NUEVA not in code:
+        raise SystemExit(f"{etiqueta}: no encuentro ancla opportunityNueva")
+    n["parameters"]["jsCode"] = code.replace(ANCLA_NUEVA, VERIFY_NUEVA, 1)
+    return [f"{etiqueta} Twenty: GET tras crear el negocio"]
 
 
 def inject_hora_meet(w: dict) -> list[str]:
@@ -544,6 +602,8 @@ def main() -> int:
             inject_hora_crear(suba, "Sub A")
             + inject_hora_refresco(suba, "Sub A")
             + inject_nota_recotizo(suba, "Sub A")
+            + inject_phone_lookup(suba, "Sub A")
+            + inject_verify_opp(suba, "Sub A")
             + ensure_suba_chat(suba, url),
         ),
         WIZARD: (
@@ -551,6 +611,8 @@ def main() -> int:
             inject_hora_crear(wiz, "Wizard")
             + inject_hora_refresco(wiz, "Wizard")
             + inject_nota_recotizo(wiz, "Wizard")
+            + inject_phone_lookup(wiz, "Wizard")
+            + inject_verify_opp(wiz, "Wizard")
             + recable_wizard_chat(wiz),
         ),
         MEET: (meet, inject_hora_meet(meet) + ensure_meet_chat(meet, url)),

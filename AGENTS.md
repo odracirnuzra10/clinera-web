@@ -489,9 +489,11 @@ custom `horaRegistro` (DATE_TIME, label «Hora de registro»,
 `ccc038cb-b161-4c94-a625-24289b63d266`, formato `USER_SETTINGS` — el mismo
 absoluto que Fecha demo). n8n lo escribe al **crear** y lo **pisa** cuando
 el mismo lead vuelve a enviar el formulario (Instant Form o paso 3 del
-wizard). Un agendamiento (Meet / `booking_confirmed`) no lo toca: agendar
-no es recotizar. Las columnas de INDEX y «Leads del día» muestran este
-campo; `createdAt` volvió a quedar oculto.
+wizard). Busca a la persona por email y, si no está, por teléfono: un
+reenvío con otro correo no debe crear un segundo contacto. Tras el POST
+del negocio hace GET; el 28-ago un alta devolvió id y el GET era 404, y
+«Leads del día» se quedó en 4 de 5. Un agendamiento (Meet /
+`booking_confirmed`) no toca `horaRegistro`.
 
 **«Leads del día» filtra `horaRegistro` IS_TODAY.** Así un lead que cotizó
 ayer y reenvía el form hoy reaparece en la vista de hoy, con una nota
