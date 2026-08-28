@@ -264,10 +264,13 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > viejo, hoy 404). Meta entregaba a un agujero: el HUB de
 > `n8n.oacg.cl` nunca vio un `User-Agent` de Facebook. Se dejó puesto
 > `https://n8n.oacg.cl/webhook/meta-leadads`; Meta verificó al instante
-> (HUB `76890`, UA `facebookplatform/1.0`, challenge 200). La prueba que
-> vale: el próximo lead real del Instant Form aparece solo en Baserow 152.
-> El sondeo `5VVMqgLPJDX88IVS` puede convivir (dedupe por correo) hasta
-> confirmar ese lead. Diagnóstico: `baserow/sales/n8n/verificar_hub_meta.py`.
+> (HUB `76890`, UA `facebookplatform/1.0`, challenge 200). **E2E real 13
+> min después:** POST `Webhooks/1.0 (https://fb.me/webhooks)` al form de
+> Chile `2308483543331305` (HUB `76917` → Sub A `76918` success: CAPI 1,
+> Clinera, Loops, Baserow 1745, Twenty). El sondeo `5VVMqgLPJDX88IVS` puede
+> convivir (dedupe por correo) pero Sub A **no** deduplica: un lead que el
+> sondeo ya inyectó y Meta reentrega crea otra fila 152 — marcar `No llamar`.
+> Diagnóstico: `baserow/sales/n8n/verificar_hub_meta.py`.
 
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
