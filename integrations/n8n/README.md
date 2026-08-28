@@ -29,12 +29,12 @@ widget embebido).
 El embudo tiene cuatro eventos (valores fijados por Ricardo el 27-ago-2026),
 y cada uno se dispara desde donde realmente ocurre:
 
-| Evento | Cuándo | Dónde vive | Valor |
-|---|---|---|---|
-| **Lead** | alguien envía el **Instant Form** de Meta Ads | HUB `qOGjfU1AgubcOHvt` → Sub A en n8n (aplicador en repo `baserow`, `sales/n8n/aplicar_instant_form_mql.py`) | US$ 5 |
-| **MQL** | alguien agenda en `www.clinera.io/agenda` **o** la IA agenda por WhatsApp **o** un lead de formulario pasa a PQL en `crm.oacg.cl` (emisor PQL: pendiente) | este workflow (wizard) · `clinera-meet-por-profesional.workflow.json` (IA) | US$ 10 |
-| **SQL** | el closer lo marca calificado en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 100 |
-| **SQL_Plus** | el closer lo sube a propuesta en `crm.oacg.cl` | **solo en n8n**, ver abajo | US$ 300 |
+| Evento | Cuándo | Dónde vive | Valor | Twenty |
+|---|---|---|---|---|
+| **Lead** | completó el formulario y **no** agendó | Instant Form: HUB → Sub A. `/ventas`: CAPI del wizard. Aplicador `integrations/n8n/aplicar_etapas_lead_mql.py` | US$ 5 | `NEW` (Nuevo) |
+| **MQL** | completó el formulario **y** agendó (`/agenda`, WhatsApp IA o `/reserva-tu-hora`) | este workflow (wizard) · `clinera-meet-por-profesional.workflow.json` (IA) · `/reserva-tu-hora` | US$ 10 | `SCREENING` (MQL) |
+| **SQL** | el closer lo marca calificado en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 100 | `MEETING` (SQL) |
+| **SQL_Plus** | el closer lo sube a propuesta en `crm.oacg.cl` | **solo en n8n**, ver abajo | US$ 300 | `PROPOSAL` (SQL+) |
 
 Al crear la cita, el workflow dispara **en paralelo** a la respuesta del
 navegador (nunca la demora ni la rompe):
@@ -183,8 +183,9 @@ Chile), `metadata{origen,estado,createdAt}`. `origenCita` y `bookingId`
 los calcula `Normalizar Reserva` una sola vez.
 
 **Twenty:** el nodo `Twenty - Agendó (Meet)` hace upsert **solo** para
-`agente-ia` (contrato del wizard: `SCREENING`, Vortex US$ 279). Wizard/web
-siguen igual: solo refresco. Aplicador:
+`agente-ia` (nace en `NEW` si no había negocio; si ya existía, sube a
+`SCREENING` = MQL, Vortex US$ 279). Wizard/web siguen igual: solo refresco
+y suben a `SCREENING` si venían más abajo. Aplicador:
 `baserow/sales/n8n/aplicar_mql_agente_ia.py`. Spec:
 `baserow/openspec/changes/medir-mql-agente-ia/`.
 
@@ -341,15 +342,15 @@ a esa URL y suscrito a `opportunity.updated` / `opportunity.created`.
 Twenty manda en el webhook el **valor** del enum de etapa, no la etiqueta que
 se ve en el tablero. El mapa del workspace OACG es:
 
-| Valor en el webhook | Etiqueta en el tablero |
-|---|---|
-| `NEW` | Nuevo |
-| `SCREENING` | **MQL** |
-| `PQL` | PQL · No contesta |
-| `MEETING` | **SQL** |
-| `PROPOSAL` | **SQL+** |
-| `CUSTOMER` | Contrata |
-| `NQL` | NQL · No califica |
+| Valor en el webhook | Etiqueta en el tablero | Evento Meta |
+|---|---|---|
+| `NEW` | Nuevo | **Lead** US$ 5 |
+| `SCREENING` | **MQL** | **MQL** US$ 10 |
+| `PQL` | PQL · No contesta | (no dispara: esa columna es «no contesta») |
+| `MEETING` | **SQL** | **SQL** US$ 100 |
+| `PROPOSAL` | **SQL+** | **SQL+** US$ 300 |
+| `CUSTOMER` | Contrata | — |
+| `NQL` | NQL · No califica | — |
 
 `ETAPAS_SQL` acepta `meeting` y `proposal` (y también las etiquetas `sql` /
 `sql+`, por si el webhook llegara desde otra vista).
@@ -477,11 +478,12 @@ es el que escribe en Baserow y en Twenty. No se versiona acá porque lleva
 credenciales inline y sirve a más flujos, pero `/agenda` depende de cuatro
 cosas suyas:
 
-- **Un solo MQL.** El nodo "No es booking confirmado?" ahora exige además que
-  `landing_url` **no** contenga `/agenda`. En `/agenda` el MQL lo emite el
-  workflow de reserva en el momento del agendamiento, con el mismo `event_id`
-  que el Pixel; sin este filtro el lead contaba dos MQL con `event_id`
-  distintos y Meta no los deduplicaba. `/ventas` sigue igual.
+- **Lead al dejar contacto, MQL al agendar.** El nodo "No es booking
+  confirmado?" (ahora CAPI `Lead` US$ 5) exige que `booking_status` no sea
+  `confirmed` y que `landing_url` **no** contenga `/reserva-tu-hora` — ahí el
+  Lead ya lo mandó Sub A. En `/agenda` el contacto sí cuenta como Lead; el MQL
+  lo emite el workflow de reserva al confirmar la hora, con el mismo `event_id`
+  que el Pixel.
 - **Fecha de la demo.** "Prepare Sales Lead Data" ahora deriva `fecha` / `hora`
   de `cal_date` / `cal_start_time` cuando el formulario no las trae. La reserva
   nativa manda la hora local de Chile sin zona (`2026-08-17T13:00:00`) y
@@ -492,11 +494,12 @@ cosas suyas:
   `cal_organizer_name` y pone el negocio a su nombre (Rebeca, Nohelymar), en
   vez del sorteo de encargada. Se aplica también cuando el negocio ya existía;
   si no hay profesional, no se reasigna a nadie.
-- **Todo lead entra como MQL.** "Twenty - Crear Lead" y "Twenty - Agendó
-  (Cal.com)" dejan el negocio en `SCREENING` (MQL), siempre. Subirlo a SQL o
-  SQL+ es decisión de ventas (Nohe, Rebe o Cheul) en el CRM: ni el formulario ni
-  el agendamiento lo hacen solos. Antes el agendamiento subía a `MEETING` (SQL)
-  y el embudo se saltaba el paso del closer.
-- **Qué cambia cuando un lead que ya existe agenda.** Solo la fecha de la demo y
-  el responsable (el profesional con quien quedó el Meet). La etapa no baja
-  nunca y tampoco sube: si ventas ya lo había marcado SQL, ahí se queda.
+- **Mismo idioma que Meta.** "Twenty - Crear Lead" deja el negocio en `NEW`
+  (Lead) si no agendó y en `SCREENING` (MQL) si `booking_status=confirmed`.
+  "Twenty - Agendó (Meet)" sube a `SCREENING` al crear el Meet. Subirlo a SQL
+  o SQL+ es decisión de ventas (Nohe, Rebe o Cheul) en el CRM. Antes todo
+  formulario nacía en `SCREENING` y el tablero decía MQL sin cita. Aplicador:
+  `integrations/n8n/aplicar_etapas_lead_mql.py`.
+- **Qué cambia cuando un lead que ya existe agenda.** Sube de Lead a MQL si
+  todavía estaba en `NEW`, más la fecha de la demo y el responsable. La etapa
+  no baja nunca: si ventas ya lo había marcado SQL, ahí se queda.

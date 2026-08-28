@@ -224,6 +224,20 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > → SQL 100 → SQL+ 300.** El «MQL US$ 5 para wizard e Instant Form» del
 > 26-ago duró un día; si aparece en otro doc, es residuo.
 >
+> **Mismo idioma en Meta y en Twenty (28-ago).** El tablero no puede decir
+> MQL si todavía no hay cita. Contrato:
+>
+> | Hecho | Meta | Twenty (enum → tablero) |
+> |---|---|---|
+> | Completó el formulario, no agendó | `Lead` US$ 5 | `NEW` → Nuevo |
+> | Completó el formulario **y** agendó | `MQL` US$ 10 | `SCREENING` → MQL |
+> | Closer calificó a mano | `SQL` US$ 100 | `MEETING` → SQL |
+> | Closer lo subió a propuesta | `SQL+` US$ 300 | `PROPOSAL` → SQL+ |
+>
+> Sub A (Instant Form) nace en `NEW`. El wizard nace en `NEW` si no agendó y
+> sube a `SCREENING` al confirmar la hora. Las etapas solo suben: un SQL no
+> vuelve a Lead. Aplicador: `integrations/n8n/aplicar_etapas_lead_mql.py`.
+>
 > **El MQL se gana agendando, en los tres caminos**, y ninguno lo gana
 > cambiando de etapa en Twenty. La versión anterior de esta línea decía «lead
 > de formulario: al pasar a PQL en Twenty» y era un error: en ese workspace
@@ -238,7 +252,7 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > **Intake Instant Form:** el HUB `qOGjfU1AgubcOHvt` (`/webhook/meta-leadads`)
 > enruta el page_id Clinera `697874326752777` a Sub A `YmauqyDqrZNKIYlg`.
 > Ese sub crea contacto en Clinera (funnel 890), fila Baserow 152, negocio
-> Twenty y CAPI `Lead` US$ 5 con `lead_id`. Spec:
+> Twenty en `NEW` (Lead) y CAPI `Lead` US$ 5 con `lead_id`. Spec:
 > `baserow/openspec/changes/lanzamiento-instant-forms-embudo/`. En anuncios
 > no prometer CAMILA/LIA. Graph del form en español usa `correo_electrónico`
 > / `nombre_y_apellidos` / `número_de_teléfono` (no los nombres en inglés) —
@@ -266,12 +280,12 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 > `subscribed_apps` no ve: el **callback a nivel de app** (App Dashboard →
 > Webhooks → objeto «Página»). Detalle en `baserow/sales/HANDOFF.md` §27.
 
-| Evento | Cuándo | Valor | Dónde vive |
-|---|---|---|---|
-| `Lead` | rellenó el Instant Form de Meta | US$ 5 | n8n Sub A (aplicador: `baserow/sales/n8n/aplicar_instant_form_mql.py`) |
-| `MQL` | agendó en `/agenda`, **o** la IA agendó por WhatsApp, **o** un lead de formulario agendó en `/reserva-tu-hora` | US$ 10 | wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` · formulario: `/reserva-tu-hora` (este repo) |
-| `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
-| `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
+| Evento | Cuándo | Valor | Twenty | Dónde vive |
+|---|---|---|---|---|
+| `Lead` | rellenó el Instant Form (o el contacto de `/ventas`) y **no** agendó | US$ 5 | `NEW` | n8n Sub A · CAPI del wizard en `/ventas` (aplicador: `integrations/n8n/aplicar_etapas_lead_mql.py`) |
+| `MQL` | agendó en `/agenda`, **o** la IA agendó por WhatsApp, **o** un lead de formulario agendó en `/reserva-tu-hora` | US$ 10 | `SCREENING` | wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` · formulario: `/reserva-tu-hora` (este repo) |
+| `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `MEETING` | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
+| `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | `PROPOSAL` | sólo en n8n |
 
 **Desde el 2026-08-21, Google Ads recibe el mismo embudo** (MQL/SQL/SQL+, mismos
 montos) — no por CAPI, sino porque los workflows de SQL y

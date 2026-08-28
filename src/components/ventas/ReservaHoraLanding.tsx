@@ -10,11 +10,11 @@
 // que es una página de video SIN calendario: el lead completaba el formulario y
 // no tenía dónde agendar. Esta página es ese destino.
 //
-// Con esto el embudo queda parejo en los tres caminos:
-//   Instant Form enviado ......... `Lead`  US$ 5   (lo manda n8n, Sub A)
-//   agenda acá / en /agenda / IA .. `MQL`   US$ 10  (lo manda esta página)
-//   el closer lo califica ........ `SQL`   US$ 100
-//   lo sube a propuesta .......... `SQL+`  US$ 300
+// Con esto el embudo queda parejo en Meta y en Twenty:
+//   Instant Form enviado ......... `Lead`  US$ 5   Twenty `NEW`
+//   agenda acá / en /agenda / IA .. `MQL`   US$ 10  Twenty `SCREENING`
+//   el closer lo califica ........ `SQL`   US$ 100 Twenty `MEETING`
+//   lo sube a propuesta .......... `SQL+`  US$ 300 Twenty `PROPOSAL`
 // El MQL se GANA agendando, en los tres. Por eso acá no hay wizard: el lead ya
 // dejó sus datos en el formulario de Meta y volvérselos a pedir sería la forma
 // más cara de perderlo.

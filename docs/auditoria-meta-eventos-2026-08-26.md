@@ -14,6 +14,12 @@ Hechos medidos el 2026-08-26 contra Graph API `v21.0` (cuenta `act_7747162239701
 | SQL (closer califica en Twenty, etapa `MEETING`) | 100 |
 | SQL+ (closer sube a propuesta, etapa `PROPOSAL`) | 300 |
 
+> **Addendum 28-ago:** Meta y Twenty hablan el mismo idioma. Instant Form /
+> formulario sin cita = `Lead` US$ 5 y Twenty `NEW`. Agendó = `MQL` US$ 10 y
+> Twenty `SCREENING`. SQL/SQL+ siguen siendo movimiento manual del closer.
+> Aplicador: `integrations/n8n/aplicar_etapas_lead_mql.py`. La foto del 26-ago
+> (customs, campañas, valores del pixel) sigue siendo la de ese día.
+
 **Veredicto en una línea:** el pixel recibe `MQL` y `SQL`, las campañas
 optimizan una custom conversion **MQL con valor 0 y filtro de URL**, no existe
 conversión `SQL+` ni evento de formulario instantáneo a 5 USD. Chile **acaba
