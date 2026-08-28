@@ -5,7 +5,10 @@ Ricardo, 28-ago-2026: el `createdAt` de sistema de la Opportunity se muestra
 como «hace 3 horas» (`displayFormat: RELATIVE`) y Twenty responde 403 si se
 intenta cambiarlo. El negocio tiene el campo custom `horaRegistro` (DATE_TIME,
 label «Hora de registro») con el mismo formato absoluto que Fecha demo.
-n8n lo escribe solo al CREAR el negocio — un agendamiento posterior no lo pisa.
+n8n lo escribe al CREAR el negocio y lo PISA cuando el mismo lead vuelve a
+enviar el formulario (Instant Form o paso 3 del wizard), para que reaparezca
+en «Leads del día» con una nota «Ya había cotizado». Un agendamiento (Meet
+o booking_confirmed) no lo pisa: agendar no es recotizar.
 
 Al mismo tiempo, cada lead nuevo y cada agendamiento avisan al espacio de
 Google Chat que ya usa el Wizard (`spaces/AAQAY5jOsuA`):
@@ -29,6 +32,8 @@ from __future__ import annotations
 import json
 import os
 import sys
+import time
+import uuid
 import urllib.error
 import urllib.request
 
@@ -52,6 +57,71 @@ HORA_MEET = (
 ANCLA_MEET = (
     "    if (patch.enlaceDemo) negocioNuevo.enlaceDemo = patch.enlaceDemo;\n"
 )
+
+# Refresh: el lead VOLVIÓ a enviar el formulario.
+ANCLA_ANTES_PATCH = (
+    "        if ((ORDEN[abierta.stage] ?? 0) < ORDEN[etapaDestino]) "
+    "refresco.stage = etapaDestino;\n"
+    "        await api('PATCH', `/rest/opportunities/${abierta.id}`, refresco);\n"
+)
+HORA_ANTES_PATCH = (
+    "        if ((ORDEN[abierta.stage] ?? 0) < ORDEN[etapaDestino]) "
+    "refresco.stage = etapaDestino;\n"
+    "        if (String(d.booking_status || '').trim().toLowerCase() !== 'confirmed') {\n"
+    "          refresco.horaRegistro = new Date().toISOString();\n"
+    "        }\n"
+    "        await api('PATCH', `/rest/opportunities/${abierta.id}`, refresco);\n"
+)
+
+ANCLA_NOTA = (
+    "        resultado.twenty.opportunityRefrescada = true;\n"
+    "      } else {\n"
+)
+NOTA_RECOTIZO = """        resultado.twenty.opportunityRefrescada = true;
+        if (refresco.horaRegistro) {
+          const previa = abierta.horaRegistro || abierta.createdAt;
+          const fmt = (iso) => {
+            try {
+              return new Intl.DateTimeFormat('es-CL', {
+                timeZone: 'America/Santiago',
+                dateStyle: 'medium',
+                timeStyle: 'short',
+              }).format(new Date(iso));
+            } catch (e) { return String(iso || ''); }
+          };
+          try {
+            const recotizo = crear(await api('POST', '/rest/notes?disableDuplicateCheck=true', {
+              title: '🔁 Ya había cotizado',
+              bodyV2: { markdown:
+                '**Ya había cotizado** · volvió a enviar el formulario.\\n' +
+                (previa ? '- **Envío anterior:** ' + fmt(previa) + '\\n' : '') +
+                '- **Este envío:** ' + fmt(refresco.horaRegistro) + '\\n'
+              },
+            }));
+            if (recotizo && abierta.id) {
+              try {
+                await api('POST', '/rest/noteTargets?disableDuplicateCheck=true', {
+                  noteId: recotizo,
+                  targetOpportunityId: abierta.id,
+                });
+              } catch (e2) {
+                if (personId) {
+                  await api('POST', '/rest/noteTargets?disableDuplicateCheck=true', {
+                    noteId: recotizo,
+                    targetPersonId: personId,
+                  });
+                }
+              }
+            }
+            resultado.twenty.notaRecotizo = recotizo;
+          } catch (e) { /* la nota no debe tumbar el PATCH */ }
+        }
+      } else {
+"""
+
+VISTA_LEADS_DIA = "ea158c82-c823-403b-91ac-7c3240815525"
+CAMPO_HORA_REGISTRO = "ccc038cb-b161-4c94-a625-24289b63d266"
+CAMPO_CREATED_AT = "6921350c-ee3c-46e9-a541-70130b735229"
 
 SUBA_CHAT_BODY = (
     "={{ JSON.stringify({ text: (() => {\n"
@@ -220,6 +290,28 @@ def inject_hora_crear(w: dict, etiqueta: str) -> list[str]:
     return [f"{etiqueta} Twenty: negocio.horaRegistro"]
 
 
+def inject_hora_refresco(w: dict, etiqueta: str) -> list[str]:
+    n = node(w, "Twenty - Crear Lead")
+    code = n["parameters"]["jsCode"]
+    if "refresco.horaRegistro" in code:
+        return []
+    if ANCLA_ANTES_PATCH not in code:
+        raise SystemExit(f"{etiqueta}: no encuentro ancla del PATCH de refresco")
+    n["parameters"]["jsCode"] = code.replace(ANCLA_ANTES_PATCH, HORA_ANTES_PATCH, 1)
+    return [f"{etiqueta} Twenty: refresco.horaRegistro"]
+
+
+def inject_nota_recotizo(w: dict, etiqueta: str) -> list[str]:
+    n = node(w, "Twenty - Crear Lead")
+    code = n["parameters"]["jsCode"]
+    if "Ya había cotizado" in code:
+        return []
+    if ANCLA_NOTA not in code:
+        raise SystemExit(f"{etiqueta}: no encuentro ancla opportunityRefrescada")
+    n["parameters"]["jsCode"] = code.replace(ANCLA_NOTA, NOTA_RECOTIZO, 1)
+    return [f"{etiqueta} Twenty: nota Ya había cotizado"]
+
+
 def inject_hora_meet(w: dict) -> list[str]:
     n = node(w, "Twenty - Agendó (Meet)")
     code = n["parameters"]["jsCode"]
@@ -347,6 +439,90 @@ def recable_wizard_chat(w: dict) -> list[str]:
     return cambios
 
 
+def retarget_leads_del_dia(dry: bool) -> list[str]:
+    """«Leads del día» mira horaRegistro (último formulario), no createdAt."""
+    js = f"""
+const KEY = $env.TWENTY_API_KEY;
+const api = async (method, path, body) => this.helpers.httpRequest({{
+  method, url: 'https://crm.oacg.cl' + path,
+  headers: {{ Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' }},
+  json: true, timeout: 20000, body,
+}});
+const VIEW = '{VISTA_LEADS_DIA}';
+const HORA = '{CAMPO_HORA_REGISTRO}';
+const v = await api('GET', '/rest/metadata/views/' + VIEW);
+const f = (v.viewFilters || []).find((x) => x.operand === 'IS_TODAY');
+if (!f) return [{{ json: {{ ok: false, motivo: 'sin filtro IS_TODAY' }} }}];
+if (f.fieldMetadataId === HORA) return [{{ json: {{ ok: true, ya: true, id: f.id }} }}];
+await api('PATCH', '/rest/metadata/viewFilters/' + f.id, {{ fieldMetadataId: HORA }});
+return [{{ json: {{ ok: true, from: f.fieldMetadataId, to: HORA, id: f.id }} }}];
+"""
+    if dry:
+        return ["dry-run: vista Leads del día → horaRegistro IS_TODAY"]
+    path = "tmp-vista-leads-" + uuid.uuid4().hex[:8]
+    wf = {
+        "name": "tmp-vista-leads-dia-640b",
+        "nodes": [
+            {
+                "parameters": {
+                    "httpMethod": "GET",
+                    "path": path,
+                    "responseMode": "lastNode",
+                    "options": {},
+                },
+                "id": "wh",
+                "name": "Webhook",
+                "type": "n8n-nodes-base.webhook",
+                "typeVersion": 2,
+                "position": [0, 0],
+                "webhookId": path,
+            },
+            {
+                "parameters": {"mode": "runOnceForAllItems", "jsCode": js},
+                "id": "code",
+                "name": "Peek",
+                "type": "n8n-nodes-base.code",
+                "typeVersion": 2,
+                "position": [220, 0],
+            },
+        ],
+        "connections": {
+            "Webhook": {"main": [[{"node": "Peek", "type": "main", "index": 0}]]}
+        },
+        "settings": {"executionOrder": "v1"},
+    }
+    created = api("POST", "/workflows", wf)
+    wid = created.get("id")
+    if not wid:
+        raise SystemExit("no pude crear el workflow temporal de la vista")
+    try:
+        api("POST", f"/workflows/{wid}/activate")
+        time.sleep(1.5)
+        req = urllib.request.Request(
+            f"https://n8n.oacg.cl/webhook/{path}",
+            headers={"Accept": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            out = json.loads(resp.read().decode() or "{}")
+    except urllib.error.HTTPError as e:
+        detalle = e.read().decode("utf-8", "replace")[:400]
+        raise SystemExit(f"vista Leads del día → {e.code}: {detalle}") from e
+    finally:
+        try:
+            api("POST", f"/workflows/{wid}/deactivate")
+        except SystemExit:
+            pass
+        try:
+            api("DELETE", f"/workflows/{wid}")
+        except SystemExit:
+            pass
+    if out.get("ya"):
+        return []
+    if not out.get("ok"):
+        raise SystemExit(f"vista Leads del día: {out}")
+    return ["vista Leads del día: IS_TODAY ahora es horaRegistro"]
+
+
 def activar(wid: str) -> None:
     api("POST", f"/workflows/{wid}/activate")
 
@@ -363,15 +539,26 @@ def main() -> int:
     url = webhook_del_wizard(wiz)
 
     por_wf = {
-        SUB_A: (suba, inject_hora_crear(suba, "Sub A") + ensure_suba_chat(suba, url)),
+        SUB_A: (
+            suba,
+            inject_hora_crear(suba, "Sub A")
+            + inject_hora_refresco(suba, "Sub A")
+            + inject_nota_recotizo(suba, "Sub A")
+            + ensure_suba_chat(suba, url),
+        ),
         WIZARD: (
             wiz,
-            inject_hora_crear(wiz, "Wizard") + recable_wizard_chat(wiz),
+            inject_hora_crear(wiz, "Wizard")
+            + inject_hora_refresco(wiz, "Wizard")
+            + inject_nota_recotizo(wiz, "Wizard")
+            + recable_wizard_chat(wiz),
         ),
         MEET: (meet, inject_hora_meet(meet) + ensure_meet_chat(meet, url)),
     }
 
     cambios = [c for _, cs in por_wf.values() for c in cs]
+    vista = retarget_leads_del_dia(dry)
+    cambios.extend(vista)
     if not cambios:
         print("Ya estaba aplicado. Nada que escribir.")
         return 0

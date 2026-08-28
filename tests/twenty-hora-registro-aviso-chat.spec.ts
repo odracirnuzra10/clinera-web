@@ -63,6 +63,9 @@ test.describe("hora de registro y aviso a Google Chat", () => {
   test("el aplicador clona el webhook y no lo imprime", () => {
     expect(aplicador).toContain("negocio.horaRegistro");
     expect(aplicador).toContain("negocioNuevo.horaRegistro");
+    expect(aplicador).toContain("refresco.horaRegistro");
+    expect(aplicador).toContain("Ya había cotizado");
+    expect(aplicador).toContain("horaRegistro IS_TODAY");
     expect(aplicador).toContain("webhook_del_wizard");
     expect(aplicador).toContain("Prepare Lead Data");
     expect(aplicador).toContain("Solo etapa de contacto");
@@ -76,9 +79,12 @@ test.describe("hora de registro y aviso a Google Chat", () => {
     expect(readme).toContain("horaRegistro");
     expect(readme).toContain("aplicar_hora_registro_aviso_chat.py");
     expect(readme).toContain("Instant Form");
+    expect(readme).toContain("Ya había cotizado");
     expect(agents).toContain("horaRegistro");
     expect(agents).toContain("USER_SETTINGS");
     expect(agents).toContain("IS_TODAY");
+    expect(agents).toContain("Ya había cotizado");
+    expect(agents).toMatch(/Leads del día[\s\S]*horaRegistro` IS_TODAY/);
     expect(agents).not.toMatch(
       /n8n corta el envío de la reserva y manda \*\*un solo aviso\*\*, después de esperar/,
     );

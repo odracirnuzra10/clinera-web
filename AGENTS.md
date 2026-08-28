@@ -487,15 +487,17 @@ tiene `displayFormat: RELATIVE` («hace 3 horas») y Twenty responde **403**
 si se intenta cambiarlo: es de sistema. Por eso el negocio tiene el campo
 custom `horaRegistro` (DATE_TIME, label «Hora de registro»,
 `ccc038cb-b161-4c94-a625-24289b63d266`, formato `USER_SETTINGS` — el mismo
-absoluto que Fecha demo). n8n lo escribe **solo al crear** el negocio (Sub A,
-Wizard, Meet); un agendamiento posterior no lo pisa. Las columnas de INDEX
-y «Leads del día» muestran este campo; `createdAt` volvió a quedar oculto.
+absoluto que Fecha demo). n8n lo escribe al **crear** y lo **pisa** cuando
+el mismo lead vuelve a enviar el formulario (Instant Form o paso 3 del
+wizard). Un agendamiento (Meet / `booking_confirmed`) no lo toca: agendar
+no es recotizar. Las columnas de INDEX y «Leads del día» muestran este
+campo; `createdAt` volvió a quedar oculto.
 
-**«Leads del día» filtra `createdAt` IS_TODAY**, no `ultimoContacto`. Hasta
-el 28-ago el filtro era último contacto = hoy, y el tablero mostraba ~10
-filas el día que Meta Ads Manager tenía 5 resultados y Twenty había **creado**
-4 Instant Forms. Último contacto se mueve al agendar, al refrescar el lead
-y al tocarlo a mano — no es «llegó hoy».
+**«Leads del día» filtra `horaRegistro` IS_TODAY.** Así un lead que cotizó
+ayer y reenvía el form hoy reaparece en la vista de hoy, con una nota
+`🔁 Ya había cotizado` (envío anterior + este envío, hora Chile). No se
+filtra por `ultimoContacto`: ese campo se mueve también al agendar y al
+tocarlo a mano, y el 28-ago infló el tablero (10 filas vs 5 de Meta).
 
 Aplicador: `integrations/n8n/aplicar_hora_registro_aviso_chat.py`.
 

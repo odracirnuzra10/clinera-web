@@ -187,9 +187,11 @@ los calcula `Normalizar Reserva` una sola vez.
 siguen igual: solo refresco. Al crear o refrescar copia el teléfono del
 contacto a `telefonoContacto` del negocio — es lo que se ve en la tabla
 de Negocios, porque Twenty no muestra el de la Persona como columna de
-la Opportunity. Al **crear** (no al refrescar) escribe `horaRegistro`, la
-hora exacta que se ve en la columna: el `createdAt` de sistema es RELATIVE
-y Twenty no deja cambiarle el formato. Aplicador del teléfono:
+la Opportunity. Al crear **y al reenviar el formulario** escribe
+`horaRegistro`, la hora exacta que se ve en «Leads del día». Un
+agendamiento no la pisa. El `createdAt` de sistema es RELATIVE y Twenty
+no deja cambiarle el formato. Si el negocio ya existía, deja la nota
+«Ya había cotizado». Aplicador del teléfono:
 `integrations/n8n/aplicar_telefono_contacto.py`. Aplicador de la hora y
 del aviso a Chat: `integrations/n8n/aplicar_hora_registro_aviso_chat.py`.
 El de MQL IA sigue en `baserow/sales/n8n/aplicar_mql_agente_ia.py`. Spec:
@@ -519,8 +521,10 @@ cosas suyas:
   columna de teléfono: Twenty no proyecta el de `pointOfContact`. Aplicador:
   `integrations/n8n/aplicar_telefono_contacto.py`.
 - **Hora exacta de registro.** "Twenty - Crear Lead" escribe `horaRegistro`
-  solo al crear el negocio. El `createdAt` de sistema se ve como «hace 3
-  horas» y no se puede cambiar (403). Aplicador:
+  al crear **y al reenviar el formulario**, para que «Leads del día»
+  (filtro `horaRegistro` IS_TODAY) muestre también a quien cotizó ayer y
+  volvió hoy. En ese caso deja la nota `🔁 Ya había cotizado`. Un
+  agendamiento no pisa la hora. Aplicador:
   `integrations/n8n/aplicar_hora_registro_aviso_chat.py`.
 - **Aviso a Google Chat en el acto.** "Solo etapa de contacto" dispara
   "Notify Google Chat" al llegar el contacto (paso 3), sin esperar 60 s.
