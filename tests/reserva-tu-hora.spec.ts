@@ -229,7 +229,7 @@ test.describe("/reserva-tu-hora — destino del Instant Form", () => {
     // Por texto: Next monta su propio `role="alert"` (el anunciador de rutas),
     // así que `getByRole("alert")` matchea dos elementos, y para `role=alert`
     // el nombre accesible no sale del contenido.
-    await expect(page.getByText(/Revisa tu nombre/i)).toBeVisible();
+    await expect(page.getByText(/Revisa tu nombre|Ingresa tu WhatsApp|dígito/i)).toBeVisible();
     await expect(page.getByRole("heading", { name: /Elige el día y la hora/i })).toHaveCount(0);
 
     await page.getByLabel("Tu nombre").fill(`[E2E TEST] ${id}`);
@@ -243,6 +243,40 @@ test.describe("/reserva-tu-hora — destino del Instant Form", () => {
     await page.waitForTimeout(400);
 
     // Este lead NO vino del Instant Form, así que acá sí hay que darlo de alta.
-    expect(wizard.filter((w) => w.lead_stage === "contact")).toHaveLength(1);
+    const contactos = wizard.filter((w) => w.lead_stage === "contact");
+    expect(contactos).toHaveLength(1);
+    // Chile por defecto → E.164 +569…
+    expect(contactos[0].celular).toBe("+56912345678");
+  });
+
+  test("valida largo por país: CL 9, MX 10; rechaza dígitos de menos", async ({ page }) => {
+    const id = nonce();
+    await mockRed(page);
+
+    await page.goto("/reserva-tu-hora", { waitUntil: "domcontentloaded" });
+    await page.getByLabel("Tu nombre").fill(`[E2E TEST] ${id}`);
+    await page.getByLabel("Correo").fill(`${id}@e2e.clinera.io`);
+
+    // Chile: 8 dígitos no alcanza.
+    await page.getByLabel("WhatsApp").fill("91234567");
+    await page.getByRole("button", { name: /Ver horas disponibles/i }).click();
+    await expect(page.getByText(/Faltan 1 dígito.*Chile/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Elige el día y la hora/i })).toHaveCount(0);
+
+    // Pegar con +56 → normaliza a 9 locales y pasa.
+    await page.getByLabel("WhatsApp").fill("+56912345678");
+    await expect(page.getByLabel("WhatsApp")).toHaveValue("9 1234 5678");
+
+    // México: cambiar prefijo y exigir 10.
+    await page.getByLabel("Código de país").selectOption("+52");
+    await page.getByLabel("WhatsApp").fill("551234567");
+    await page.getByRole("button", { name: /Ver horas disponibles/i }).click();
+    await expect(page.getByText(/Faltan 1 dígito.*México/i)).toBeVisible();
+
+    await page.getByLabel("WhatsApp").fill("5512345678");
+    await page.getByRole("button", { name: /Ver horas disponibles/i }).click();
+    await expect(page.getByRole("heading", { name: /Elige el día y la hora/i })).toBeVisible({
+      timeout: 15000,
+    });
   });
 });

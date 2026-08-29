@@ -93,6 +93,14 @@
   color: #b42318;
 }
 
+.phoneHint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #b42318;
+  letter-spacing: 0.01em;
+}
+
 .cta {
   margin-top: 20px;
   width: 100%;
