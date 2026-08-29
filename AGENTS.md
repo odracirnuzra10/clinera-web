@@ -321,8 +321,11 @@ formulario y no tenía dónde agendar — el embudo se cortaba ahí.
 - Para que la atribución no salga `organico`, la URL del anuncio debe llevar
   `?lead_source=meta-ads` — `clasificarLeadSource()` le da prioridad a la query,
   y un Instant Form no deja `fbclid`.
+- **WhatsApp por país:** la validación vive en `src/lib/telefono.ts` (CL = 9
+  dígitos `9XXXXXXXX`; MX/CO = 10; etc.). Si pegan `+56`/`56` se normaliza al
+  local; el webhook recibe E.164. No reaplicar la regla de Chile a todos.
 
-Guardián: `tests/reserva-tu-hora.spec.ts`.
+Guardián: `tests/reserva-tu-hora.spec.ts` + `tests/telefono.spec.ts`.
 
 # `/agenda`: layout Hebe, agendador de siempre
 

@@ -52,50 +52,22 @@ import {
   type Form,
 } from "./VentasLanding";
 import { zonaMostrada } from "@/lib/timezone";
+import {
+  RESERVA_PHONE_PREFIXES,
+  aE164,
+  digitosTelefono,
+  formatearTelefono,
+  mensajeErrorTelefono,
+  reglaTelefono,
+  separarTelefono,
+  telefonoLocalValido,
+} from "@/lib/telefono";
 import styles from "./ReservaHoraLanding.module.css";
 
 const SOURCE_PATH = "/reserva-tu-hora";
 
-/**
- * Prefijos que acepta la validación de `/api/wizard`. Si un teléfono llega con
- * uno que no está acá, el POST se cae con 400 y el lead se pierde en silencio,
- * así que el que no calza se muestra en el campo para que lo corrija la persona
- * en vez de mandarlo igual.
- */
-const PREFIJOS = [
-  { prefix: "+56", flag: "🇨🇱", label: "Chile" },
-  { prefix: "+52", flag: "🇲🇽", label: "México" },
-  { prefix: "+57", flag: "🇨🇴", label: "Colombia" },
-  { prefix: "+51", flag: "🇵🇪", label: "Perú" },
-  { prefix: "+54", flag: "🇦🇷", label: "Argentina" },
-  { prefix: "+593", flag: "🇪🇨", label: "Ecuador" },
-  { prefix: "+507", flag: "🇵🇦", label: "Panamá" },
-  { prefix: "+506", flag: "🇨🇷", label: "Costa Rica" },
-  { prefix: "+595", flag: "🇵🇾", label: "Paraguay" },
-  { prefix: "+34", flag: "🇪🇸", label: "España" },
-] as const;
-
-/**
- * Parte un teléfono E.164 en (prefijo, dígitos). Prueba los prefijos de más
- * largo a más corto: `+595` tiene que ganarle a `+59`, y `+507` a `+50`.
- * Devuelve el prefijo por defecto si no reconoce ninguno — el número queda
- * completo en el campo para que la persona lo arregle, nunca truncado.
- */
-export function separarTelefono(
-  crudo: string,
-  porDefecto = "+56",
-): { prefix: string; phone: string } {
-  const limpio = String(crudo || "").replace(/[^\d+]/g, "");
-  if (!limpio) return { prefix: porDefecto, phone: "" };
-  const conMas = limpio.startsWith("+") ? limpio : "+" + limpio;
-  const ordenados = [...PREFIJOS].sort((a, b) => b.prefix.length - a.prefix.length);
-  for (const { prefix } of ordenados) {
-    if (conMas.startsWith(prefix)) {
-      return { prefix, phone: conMas.slice(prefix.length) };
-    }
-  }
-  return { prefix: porDefecto, phone: limpio.replace(/^\+/, "") };
-}
+/** Re-export para tests / callers que importaban desde este módulo. */
+export { separarTelefono };
 
 /**
  * El tramo de pacientes/mes que el Instant Form ya preguntó. Se acepta tanto el
@@ -162,14 +134,18 @@ export default function ReservaHoraLanding({
     () =>
       (prefill.nombre ?? "").trim().length >= 2 &&
       EMAIL_OK.test((prefill.email ?? "").trim()) &&
-      telefonoInicial.phone.replace(/\D/g, "").length >= 8,
-    [prefill.nombre, prefill.email, telefonoInicial.phone],
+      telefonoLocalValido(telefonoInicial.prefix, digitosTelefono(telefonoInicial.phone)),
+    [prefill.nombre, prefill.email, telefonoInicial.prefix, telefonoInicial.phone],
   );
   const [pidiendoDatos, setPidiendoDatos] = useState(() => !vinoPrellenado);
 
-  const digitos = phone.replace(/\D/g, "");
-  const datosOk =
-    nombre.trim().length >= 2 && EMAIL_OK.test(email.trim()) && digitos.length >= 8;
+  const digitos = digitosTelefono(phone);
+  const phoneError = mensajeErrorTelefono(prefix, digitos);
+  const phoneOk = phoneError === null;
+  const nombreOk = nombre.trim().length >= 2;
+  const emailOk = EMAIL_OK.test(email.trim());
+  const datosOk = nombreOk && emailOk && phoneOk;
+  const rule = reglaTelefono(prefix);
 
   const form: Form = useMemo(
     () => ({
@@ -177,6 +153,8 @@ export default function ReservaHoraLanding({
       clinica,
       tipoClinica: "",
       prefix,
+      // El wizard arma E.164 con prefix + dígitos; guardamos solo nacionales
+      // formateados en el input y los dígitos limpios vía replace en submit*.
       phone,
       email,
       website: "",
@@ -207,7 +185,12 @@ export default function ReservaHoraLanding({
     // Sin `leadgenId` la persona llegó por otra vía y sí hay que crearla.
     if (!leadgenId) {
       void submitContactLead({
-        form,
+        form: {
+          ...form,
+          // Asegura que el payload lleve dígitos limpios; submitContactLead
+          // ya hace replace(/\D/g) y concatena prefix → E.164.
+          phone: digitos,
+        },
         software: null,
         size,
         qual,
@@ -218,6 +201,14 @@ export default function ReservaHoraLanding({
         if (siguiente) setLeadCtx(siguiente);
       });
     }
+  }
+
+  function mensajeFormError(): string {
+    if (!phoneOk && phoneError) return phoneError;
+    if (!nombreOk || !emailOk) {
+      return "Revisa tu nombre, correo y teléfono para poder agendarte.";
+    }
+    return "Revisa tu nombre, correo y teléfono para poder agendarte.";
   }
 
   if (booking) {
@@ -292,10 +283,14 @@ export default function ReservaHoraLanding({
               <select
                 className={styles.select}
                 value={prefix}
-                onChange={(e) => setPrefix(e.target.value)}
+                onChange={(e) => {
+                  const next = e.target.value;
+                  setPrefix(next);
+                  setPhone(formatearTelefono(phone, next));
+                }}
                 aria-label="Código de país"
               >
-                {PREFIJOS.map((p) => (
+                {RESERVA_PHONE_PREFIXES.map((p) => (
                   <option key={p.prefix} value={p.prefix}>
                     {p.flag} {p.prefix}
                   </option>
@@ -305,17 +300,24 @@ export default function ReservaHoraLanding({
                 id="rh-phone"
                 className={styles.input}
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => setPhone(formatearTelefono(e.target.value, prefix))}
                 type="tel"
                 inputMode="tel"
                 autoComplete="tel"
-                placeholder="9 1234 5678"
+                placeholder={rule.placeholder}
+                aria-invalid={intentado && !phoneOk}
+                data-e164={phoneOk ? aE164(prefix, digitos) : undefined}
               />
             </div>
 
             {intentado && !datosOk && (
               <p className={styles.error} role="alert">
-                Revisa tu nombre, correo y teléfono para poder agendarte.
+                {mensajeFormError()}
+              </p>
+            )}
+            {!intentado && digitos.length > 0 && phoneError && (
+              <p className={styles.phoneHint} role="status">
+                {phoneError}
               </p>
             )}
 
@@ -337,7 +339,7 @@ export default function ReservaHoraLanding({
               onBooked={(next, via, confirmEventId) => {
                 setBooking(next);
                 void submitBookingConfirmation({
-                  form,
+                  form: { ...form, phone: digitos },
                   software: null,
                   size,
                   qual,
