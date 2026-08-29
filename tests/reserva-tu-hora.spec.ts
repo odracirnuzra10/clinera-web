@@ -260,7 +260,7 @@ test.describe("/reserva-tu-hora — destino del Instant Form", () => {
     // Chile: 8 dígitos no alcanza.
     await page.getByLabel("WhatsApp").fill("91234567");
     await page.getByRole("button", { name: /Ver horas disponibles/i }).click();
-    await expect(page.getByText(/Faltan 1 dígito.*Chile/i)).toBeVisible();
+    await expect(page.getByText(/Falta 1 dígito.*Chile/i)).toBeVisible();
     await expect(page.getByRole("heading", { name: /Elige el día y la hora/i })).toHaveCount(0);
 
     // Pegar con +56 → normaliza a 9 locales y pasa.
@@ -271,7 +271,7 @@ test.describe("/reserva-tu-hora — destino del Instant Form", () => {
     await page.getByLabel("Código de país").selectOption("+52");
     await page.getByLabel("WhatsApp").fill("551234567");
     await page.getByRole("button", { name: /Ver horas disponibles/i }).click();
-    await expect(page.getByText(/Faltan 1 dígito.*México/i)).toBeVisible();
+    await expect(page.getByText(/Falta 1 dígito.*México/i)).toBeVisible();
 
     await page.getByLabel("WhatsApp").fill("5512345678");
     await page.getByRole("button", { name: /Ver horas disponibles/i }).click();

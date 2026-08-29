@@ -218,7 +218,7 @@ export function mensajeErrorTelefono(prefix: string, digitos: string): string | 
   }
   if (d.length < rule.len) {
     const faltan = rule.len - d.length;
-    return `Faltan ${faltan} dígito${faltan === 1 ? "" : "s"} para ${rule.name} (debe tener ${rule.len})`;
+    return `Falta${faltan === 1 ? "" : "n"} ${faltan} dígito${faltan === 1 ? "" : "s"} para ${rule.name} (debe tener ${rule.len})`;
   }
   if (d.length > rule.len) {
     return `Demasiados dígitos para ${rule.name} (debe tener ${rule.len})`;

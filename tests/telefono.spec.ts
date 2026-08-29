@@ -59,8 +59,9 @@ test.describe("validación por país", () => {
 
 test.describe("mensajes de error en español", () => {
   test("dice cuántos dígitos faltan o sobran", () => {
-    expect(mensajeErrorTelefono("+56", "91234567")).toMatch(/Faltan 1 dígito.*Chile.*9/);
-    expect(mensajeErrorTelefono("+52", "551234567")).toMatch(/Faltan 1 dígito.*México.*10/);
+    expect(mensajeErrorTelefono("+56", "91234567")).toMatch(/Falta 1 dígito.*Chile.*9/);
+    expect(mensajeErrorTelefono("+52", "551234567")).toMatch(/Falta 1 dígito.*México.*10/);
+    expect(mensajeErrorTelefono("+56", "9123456")).toMatch(/Faltan 2 dígitos.*Chile.*9/);
     expect(mensajeErrorTelefono("+57", "")).toMatch(/10 dígitos para Colombia/);
     expect(mensajeErrorTelefono("+56", "812345678")).toMatch(/Debe empezar con 9.*Chile/);
   });
