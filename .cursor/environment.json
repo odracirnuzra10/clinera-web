@@ -1,0 +1,10 @@
+{
+  "name": "clinera-www",
+  "install": "bash scripts/cloud-agent-install.sh",
+  "terminals": [
+    {
+      "name": "next-dev",
+      "command": "pnpm dev"
+    }
+  ]
+}
