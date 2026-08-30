@@ -269,7 +269,17 @@ otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
 | Evento | Cuándo | Valor | Dónde vive |
 |---|---|---|---|
 | `Lead` | rellenó el Instant Form de Meta | US$ 5 | n8n Sub A (aplicador: `baserow/sales/n8n/aplicar_instant_form_mql.py`) |
-| `MQL` | agendó en `/agenda`, **o** la IA agendó por WhatsApp, **o** un lead de formulario agendó en `/reserva-tu-hora` | US$ 10 | wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` · formulario: `/reserva-tu-hora` (este repo) |
+| `MQL` | agendó en `/agenda`, **o** la IA agendó por WhatsApp **o por teléfono (Camila)**, **o** un lead de formulario agendó en `/reserva-tu-hora` | US$ 10 | wizard: `clinera-agenda-reserva` · IA: `clinera-meet-por-profesional` · formulario: `/reserva-tu-hora` (este repo) |
+
+> [!WARNING]
+> **Las demos que Camila agenda por teléfono NO emitían MQL hasta el
+> 2026-08-30.** Reservaban en **Cal.com**, cuyo webhook manda `Schedule` —que no
+> es peldaño del embudo— y desde el 16-ago dejó de escribir en el CRM: el
+> negocio se quedaba en `Nuevo`, sin fecha ni enlace. Hoy Camila entra por el
+> mismo webhook que `/agenda` (`clinera-meet`) y emite el MQL como todos.
+> Causa raíz con el log de n8n, contratos y el riesgo asumido:
+> `baserow/sales/HANDOFF.md` §28 y `baserow/CLAUDE.md`, sección «Camila agenda
+> en Google Calendar».
 | `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
 | `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
 
