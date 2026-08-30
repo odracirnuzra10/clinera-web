@@ -1,0 +1,17 @@
+{
+  "name": "Clinera (Next.js)",
+  "install": "pnpm install --frozen-lockfile && pnpm exec playwright install --with-deps chromium",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "pnpm run dev",
+      "description": "Next.js dev server (Turbopack) on http://localhost:3000"
+    }
+  ],
+  "ports": [
+    {
+      "name": "web",
+      "port": 3000
+    }
+  ]
+}
