@@ -3,7 +3,6 @@
 import TrialBanner from "@/components/cro/TrialBanner";
 import ModosAgendamiento from "@/components/empleado-digital/ModosAgendamiento";
 import { IntelligenceHomeSection } from "@/components/IntelligenceSection";
-import WhatsAppFloat from "./WhatsAppFloat";
 import {
   DarkBreak,
   EcosistemaIA,
@@ -24,7 +23,6 @@ export default function HomeV3() {
   useReveal();
   return (
     <>
-      <WhatsAppFloat />
       <style jsx global>{`
         .reveal {
           opacity: 0;
