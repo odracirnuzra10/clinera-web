@@ -3940,6 +3940,138 @@
         margin-top: 24px;
       }
     }
+
+    /* --- Rediseño Rebeca (ago 2026): hero de impacto sin logos --- */
+    .hero-impact {
+      gap: clamp(36px, 5vh, 64px);
+    }
+    .blk-dark .hero-copy .eyebrow {
+      color: #b79bf5;
+    }
+    .blk-dark .hero-copy .display {
+      color: #ffffff;
+    }
+    .blk-dark .hero-copy .display span {
+      background: linear-gradient(135deg, #009FE3, #7C3AED 55%, #C850C0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .blk-dark .hero-copy .lead {
+      color: rgba(244, 245, 247, .78);
+      max-width: 720px;
+    }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(14px, 1.8vw, 22px);
+      max-width: 980px;
+    }
+    .hero-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: clamp(18px, 2.2vw, 26px);
+      border: 1px solid rgba(183, 155, 245, .22);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .03);
+    }
+    .hero-metric-accent {
+      border-color: rgba(124, 58, 237, .55);
+      background: linear-gradient(160deg, rgba(124, 58, 237, .22), rgba(0, 159, 227, .08));
+      box-shadow: 0 0 40px -12px rgba(124, 58, 237, .65);
+    }
+    .hero-metric-figure {
+      color: #fff;
+      font-size: clamp(28px, 3.4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1;
+    }
+    .hero-metric-accent .hero-metric-figure {
+      background: linear-gradient(135deg, #E9D5FF, #A78BFA 40%, #009FE3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero-metric-label {
+      color: rgba(244, 245, 247, .62);
+      font-size: clamp(12.5px, 1.1vw, 14px);
+      line-height: 1.35;
+      font-weight: 500;
+    }
+    @media (max-width: 720px) {
+      .hero-metrics { grid-template-columns: 1fr; }
+    }
+
+    /* AURA channel logos */
+    .aura-channels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+    .aura-ch {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+    .aura-ch svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Módulos en 3 categorías */
+    .system-cats {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .system-cat-label {
+      display: block;
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    .system-source-grid-cat {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .system-cat:last-child .system-source-grid-cat {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* La fuga: dinero perdido como ancla visual */
+    .fg-cash-hero {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .fg-cash-figure {
+      display: block;
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+
   </style>
 </head>
 <body>
@@ -3978,12 +4110,13 @@
 
     <main class="slides" id="slides">
       <section
-        class="slide active"
+        class="slide active blk blk-dark"
         id="clinera"
+        data-theme="dark"
         data-name="Clinera O.S."
         aria-hidden="false"
       >
-        <div class="slide-inner hero-slide">
+        <div class="slide-inner hero-slide hero-impact">
           <div class="hero-copy">
             <div class="eyebrow">Clinera O.S.</div>
             <h1 class="display">
@@ -3991,95 +4124,102 @@
               redes de clínicas.
             </h1>
             <p class="lead">
-              300 leads calificados al mes: hoy pierdes 60 porque escriben cuando ya cerraste.
-              Clinera los recupera — <strong>US$ 1.500 al mes sólo en evaluaciones</strong>.
+              Nadie construyó una clínica grande contestando WhatsApp.
+              Clinera recupera los leads que escriben cuando ya cerraste.
             </p>
           </div>
 
-          <aside class="hero-clients reveal" aria-label="Clínicas que ya operan con Clinera">
-            <span class="hero-clients-label">Clínicas que ya operan con Clinera</span>
-            <div class="hero-client-logos">
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/clc.png" alt="Clínica Las Condes" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/andes.png" alt="Andes Salud" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/everest.png" alt="Everest Clínicas Dentales" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/sanatorio.png" alt="Sanatorio Alemán" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/sonrie.png" alt="Sonríe" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/lumina.png" alt="Lumina Clínica Facial" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/hebe.png" alt="Método Hebe" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-cl" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/clustourmed.png" alt="Clustourmed" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/uanl.png" alt="Universidad Autónoma de Nuevo León" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/elcielo.png" alt="El Cielo Medical Center" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/taemm.png" alt="TAEMM" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-mx" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/euroclinica.png" alt="Euroclínica" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-pe" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/clinicainternacional.png" alt="Clínica Internacional" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-pe" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/quironsalud.png" alt="Quirónsalud" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-co" /></svg></span>
-              </span>
-              <span class="hero-client-logo">
-                <img src="/presentacion/clientes/cirugiasplasticas.svg" alt="Elite Cirugía Plástica" loading="lazy" decoding="async" />
-                <span class="hero-client-flag" aria-hidden="true"><svg viewBox="0 0 30 20"><use href="#flag-co" /></svg></span>
-              </span>
+          <aside class="hero-metrics reveal" aria-label="Impacto comercial">
+            <div class="hero-metric">
+              <strong class="hero-metric-figure">20%</strong>
+              <span class="hero-metric-label">de leads perdidos fuera de horario</span>
+            </div>
+            <div class="hero-metric hero-metric-accent">
+              <strong class="hero-metric-figure">US$&nbsp;1.500</strong>
+              <span class="hero-metric-label">recuperados al mes · sólo en evaluaciones</span>
+            </div>
+            <div class="hero-metric">
+              <strong class="hero-metric-figure">300</strong>
+              <span class="hero-metric-label">leads calificados · 60 se escapan hoy</span>
             </div>
           </aside>
         </div>
       </section>
 
       <section
-        class="slide blk blk-dark"
-        id="veredicto"
-        data-name="El veredicto"
-        data-theme="dark"
+        class="slide blk"
+        id="aura"
+        data-name="AURA · El Corazón"
         aria-hidden="true"
       >
-        <div class="slide-inner mn-layout">
-          <span class="mn-quote" aria-hidden="true">&ldquo;</span>
-          <div class="blk-eyebrow">EL VEREDICTO</div>
-          <h1 class="blk-h1">Nadie construyó una clínica grande <span class="blk-grad-text">contestando WhatsApp.</span></h1>
-          <p class="cn-seal mn-seal">CONTRATA CLINERA O.S.</p>
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="aura-face">
+              <img
+                src="/agents/aura.jpg"
+                alt="AURA, la agente de IA de Clinera"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="aura-face-tag"><i aria-hidden="true"></i>En vivo</span>
+            </div>
+            <div class="blk-eyebrow">EL CORAZÓN DE CLINERA</div>
+            <h2 class="blk-h2">AURA, tu <span class="blk-grad-text">Empleado Digital 24/7</span>.</h2>
+            <p class="blk-lead">Responde, agenda, confirma y reagenda. Por WhatsApp, Instagram, Facebook y por llamada, las 24 horas.</p>
+            <ul class="rzs-points">
+              <li>Atiende de noche, fines de semana y feriados</li>
+              <li>Confirma la hora sola: recepción deja de perseguir a nadie</li>
+              <li>Mantiene al paciente informado hasta la cita</li>
+              <li>Si la cosa se pone delicada, toma tu equipo</li>
+            </ul>
+            <div class="aura-channels" aria-label="Canales omnicanal">
+              <span class="aura-ch" title="WhatsApp">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
+                WhatsApp
+              </span>
+              <span class="aura-ch" title="Instagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>
+                Instagram
+              </span>
+              <span class="aura-ch" title="Facebook">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v3H6v4h3v8h4v-8h3.2L17 12h-4V9c0-.6.4-1 1-1Z"/></svg>
+                Facebook
+              </span>
+              <span class="aura-ch" title="Llamadas">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13a8 8 0 0 1 16 0M4 13h3v5H4v-5ZM17 13h3v5h-3v-5Zm3 5a4 4 0 0 1-4 3h-3"/></svg>
+                Llamadas
+              </span>
+            </div>
+          </div>
+
+          <aside class="mock reveal" aria-label="AURA respondiendo por WhatsApp">
+            <div class="mock-bar">
+              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="mock-title">AURA · WhatsApp</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-msg in mock-step" style="animation-delay: .2s">
+                <span>Paciente · 23:47</span>
+                Hola, ¿tienen hora para limpieza esta semana?
+              </div>
+              <div class="mock-msg out mock-step" style="animation-delay: 1s">
+                <span>AURA</span>
+                Sí. Tengo jueves 15:30 o viernes 11:00. ¿Cuál te acomoda?
+              </div>
+              <div class="mock-msg in mock-step" style="animation-delay: 1.9s">
+                <span>Paciente</span>
+                Jueves 15:30
+              </div>
+              <div class="mock-msg out mock-step" style="animation-delay: 2.6s">
+                <span>AURA</span>
+                Listo, quedaste agendada para el jueves a las 15:30.
+              </div>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section
+<section
         class="slide ai"
         id="intelligence"
         data-name="Clinera O.S."
@@ -4099,72 +4239,75 @@
           <div
             class="intelligence-system reveal"
             role="img"
-            aria-label="Los módulos de agenda, sedes, fichas, tratamientos, ventas, pagos, marketing, WhatsApp, consentimientos y exámenes alimentan Clinera O.S. para agendar, responder, llamar con su call center IA para cobros y recordatorios con CAMILA, cobrar y automatizar."
+            aria-label="Los módulos de pacientes, operación y captación alimentan Clinera O.S. para agendar, responder y automatizar."
           >
             <section class="system-sources" aria-label="Módulos que alimentan Clinera O.S.">
               <span class="system-label">Toda tu operación la alimenta</span>
-              <ul class="system-source-grid">
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg>
-                  </span>
-                  <span><b>Agenda</b><small>Horas y bloqueos</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m4 10 8-6 8 6v10H4V10ZM9 20v-6h6v6"/></svg>
-                  </span>
-                  <span><b>Sedes</b><small>Toda tu operación</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3Zm7 0v5h5M10 12h5M10 16h5"/></svg>
-                  </span>
-                  <span><b>Fichas</b><small>Historial de pacientes</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M12 3c.8 4.9 3.1 7.2 8 8-4.9.8-7.2 3.1-8 8-.8-4.9-3.1-7.2-8-8 4.9-.8 7.2-3.1 8-8Z"/></svg>
-                  </span>
-                  <span><b>Tratamientos</b><small>Precios y protocolos</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M5 20V5M5 20h15M8 16l4-5 3 2 4-6"/></svg>
-                  </span>
-                  <span><b>Ventas</b><small>Qué se vende y cuánto</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M3 7h18v12H3V7Zm0 4h18"/></svg>
-                  </span>
-                  <span><b>Pagos</b><small>Cobros y conciliación</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="m4 11 15-6v14L4 13v-2Zm4 3v5"/></svg>
-                  </span>
-                  <span><b>Marketing</b><small>Campañas y difusión</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
-                  </span>
-                  <span><b>WhatsApp</b><small>Toda la conversación</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M7 3h10v18H7V3Zm3 11 2 2 4-5"/></svg>
-                  </span>
-                  <span><b>Consentimientos</b><small>Firmados y archivados</small></span>
-                </li>
-                <li>
-                  <span class="system-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M3 13h4l2-7 4 13 2-7h6"/></svg>
-                  </span>
-                  <span><b>Exámenes</b><small>Resultados y controles</small></span>
-                </li>
-              </ul>
+              <div class="system-cats">
+                <div class="system-cat">
+                  <span class="system-cat-label">Pacientes</span>
+                  <ul class="system-source-grid system-source-grid-cat">
+                    <li>
+                      <span class="system-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7V3Zm7 0v5h5M10 12h5M10 16h5"/></svg>
+                      </span>
+                      <span><b>Fichas</b><small>Historial de pacientes</small></span>
+                    </li>
+                    <li>
+                      <span class="system-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M12 3c.8 4.9 3.1 7.2 8 8-4.9.8-7.2 3.1-8 8-.8-4.9-3.1-7.2-8-8 4.9-.8 7.2-3.1 8-8Z"/></svg>
+                      </span>
+                      <span><b>Tratamientos</b><small>Precios y protocolos</small></span>
+                    </li>
+                    <li>
+                      <span class="system-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M7 3h10v18H7V3Zm3 11 2 2 4-5"/></svg>
+                      </span>
+                      <span><b>Consentimientos</b><small>Firmados y archivados</small></span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="system-cat">
+                  <span class="system-cat-label">Operativo</span>
+                  <ul class="system-source-grid system-source-grid-cat">
+                    <li>
+                      <span class="system-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg>
+                      </span>
+                      <span><b>Agenda</b><small>Horas y bloqueos</small></span>
+                    </li>
+                    <li>
+                      <span class="system-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="m4 10 8-6 8 6v10H4V10ZM9 20v-6h6v6"/></svg>
+                      </span>
+                      <span><b>Sedes</b><small>Toda tu operación</small></span>
+                    </li>
+                    <li>
+                      <span class="system-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M5 20V5M5 20h15M8 16l4-5 3 2 4-6"/></svg>
+                      </span>
+                      <span><b>Ventas</b><small>Qué se vende y cuánto</small></span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="system-cat">
+                  <span class="system-cat-label">Captación</span>
+                  <ul class="system-source-grid system-source-grid-cat">
+                    <li>
+                      <span class="system-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="m4 11 15-6v14L4 13v-2Zm4 3v5"/></svg>
+                      </span>
+                      <span><b>Marketing</b><small>Campañas y difusión</small></span>
+                    </li>
+                    <li>
+                      <span class="system-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z"/></svg>
+                      </span>
+                      <span><b>WhatsApp</b><small>Toda la conversación</small></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </section>
 
             <section class="system-core" aria-label="Clinera O.S.">
@@ -4182,30 +4325,6 @@
             <section class="system-actions" aria-label="Acciones de Clinera O.S.">
               <span class="system-label">Clinera O.S. actúa</span>
               <ul class="system-action-list">
-                <li>
-                  <span class="system-action-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M6 3v3M18 3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Zm4 9 2 2 4-4"/></svg>
-                  </span>
-                  <span><b>Agenda y reagenda</b><small>Reserva y mueve horas sola</small></span>
-                </li>
-                <li>
-                  <span class="system-action-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 1-11.7 7L4 20l1.5-4A8 8 0 1 1 20 11Z"/></svg>
-                  </span>
-                  <span><b>Responde 24/7</b><small>WhatsApp, Instagram y Facebook</small></span>
-                </li>
-                <li class="action-multiline">
-                  <span class="system-action-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0M4 13h3v5H4v-5ZM17 13h3v5h-3v-5Zm3 5a4 4 0 0 1-4 3h-3"/></svg>
-                  </span>
-                  <span><b>Call center IA</b><small>Cobros y recordatorios por voz, con acento local</small></span>
-                </li>
-                <li>
-                  <span class="system-action-icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M12 3v18M17 7.5c-1-1-2.4-1.5-4-1.5-2.2 0-4 1.1-4 3s1.8 3 4 3 4 1.1 4 3-1.8 3-4 3c-1.6 0-3-.5-4-1.5"/></svg>
-                  </span>
-                  <span><b>Cobra y recupera</b><small>Confirma pagos y reactiva</small></span>
-                </li>
                 <li>
                   <span class="system-action-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24"><path d="m13 2-8 12h6l-1 8 9-13h-6V2Z"/></svg>
@@ -4229,7 +4348,7 @@
         </div>
       </section>
 
-      <section
+<section
         class="slide blk"
         id="la-fuga"
         data-name="La fuga"
@@ -4242,21 +4361,7 @@
               <h2 class="blk-h2">¿Sabías que <span class="blk-grad-text">hasta el 20% de tus pacientes</span> se pierden por no responder a tiempo?</h2>
               <p class="blk-lead"><strong>Clinera es para ti si</strong> sientes que pierdes pacientes por desorden, falta de organización o porque estás sobrecolapsado.</p>
             </div>
-            <div class="fg-detail">
-              <figure class="fg-proof">
-                <img
-                  class="fg-proof-logo"
-                  src="/presentacion/clientes/sanatorio.png"
-                  alt="Sanatorio Alemán"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <figcaption class="fg-proof-body">
-                  <strong>Casi US$ 50.000 recuperados</strong>
-                  <span>Sanatorio Alemán · primer semestre 2026</span>
-                </figcaption>
-              </figure>
-            </div>
+            
           </div>
 
           <aside class="fg-panel reveal" aria-label="De diez leads calificados, tres llegan fuera de horario, uno espera al día siguiente y dos se pierden">
@@ -4290,77 +4395,117 @@
               <span class="fg-result-text">Se pierden por gestión tardía</span>
               <strong class="fg-result-figure blk-grad-text">20%</strong>
             </div>
-            <p class="fg-cash">Con 300 leads al mes son <b>60 evaluaciones que nunca ocurren</b>: <b>US$ 1.500 sobre la mesa</b>, todos los meses.</p>
+            <div class="fg-cash-hero">
+              <strong class="fg-cash-figure blk-grad-text">US$&nbsp;1.500</strong>
+              <p class="fg-cash">Con 300 leads al mes son <b>60 evaluaciones que nunca ocurren</b> — todos los meses, sobre la mesa.</p>
+            </div>
           </aside>
         </div>
       </section>
 
-      <section
+<section
         class="slide blk"
-        id="aura"
-        data-name="Tu empleado digital"
+        id="inteligencia"
+        data-name="Clinera Intelligence"
         aria-hidden="true"
       >
         <div class="slide-inner rzs-layout">
           <div class="rzs-copy">
-            <div class="aura-face">
-              <img
-                src="/agents/aura.jpg"
-                alt="AURA, la agente de IA de Clinera"
-                loading="lazy"
-                decoding="async"
-              />
-              <span class="aura-face-tag"><i aria-hidden="true"></i>En vivo</span>
-            </div>
-            <div class="blk-eyebrow">TU NUEVO SOFTWARE</div>
-            <h2 class="blk-h2">Te presento a <span class="blk-grad-text">AURA</span>, tu empleado digital.</h2>
-            <p class="blk-lead">Responde, agenda, confirma, reagenda y cobra. Por WhatsApp, Instagram, Facebook y por llamada, las 24 horas.</p>
+            <div class="blk-eyebrow">CLINERA INTELLIGENCE</div>
+            <h2 class="blk-h2">Clinera Intelligence, tu <span class="blk-grad-text">agente interno con IA</span>.</h2>
+            <p class="blk-lead">Le preguntas a tu clínica en español y te responde con lo que realmente pasó.</p>
             <ul class="rzs-points">
-              <li>Atiende de noche, fines de semana y feriados</li>
-              <li>Confirma la hora sola: recepción deja de perseguir a nadie</li>
-              <li>Sale a cobrar lo pendiente hasta cerrar el pago</li>
-              <li>Si la cosa se pone delicada, toma tu equipo</li>
+              <li>Ventas, citas y tratamientos en un chat</li>
+              <li>Respuestas en segundos, con gráficos al momento</li>
+              <li>Sin exportar nada ni esperar el cierre de mes</li>
             </ul>
           </div>
 
-          <aside class="mock reveal" aria-label="AURA respondiendo por WhatsApp y llamando por teléfono">
-            <div class="mock-bar">
-              <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="mock-title">AURA · WhatsApp</span>
+          <aside class="agent-chat reveal" aria-label="Vista del chat Clinera Intelligence">
+            <div class="agent-chat-bar">
+              <span class="agent-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="agent-chat-title">Clinera Intelligence</span>
             </div>
-            <div class="mock-body">
-              <div class="mock-msg in mock-step" style="animation-delay: .2s">
-                <span>Paciente · 23:47</span>
-                Hola, ¿tienen hora para limpieza esta semana?
-              </div>
-              <div class="mock-msg out mock-step" style="animation-delay: 1s">
-                <span>AURA</span>
-                Sí. Tengo jueves 15:30 o viernes 11:00. ¿Cuál te acomoda?
-              </div>
-              <div class="mock-msg in mock-step" style="animation-delay: 1.9s">
-                <span>Paciente</span>
-                Jueves 15:30
-              </div>
-              <div class="mock-msg out mock-step" style="animation-delay: 2.6s">
-                <span>AURA</span>
-                Listo, quedaste agendada para el jueves a las 15:30.
-              </div>
-              <div class="mock-call mock-step" style="animation-delay: 3.4s">
-                <span class="mock-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M4 13a8 8 0 0 1 16 0M4 13h3v5H4v-5ZM17 13h3v5h-3v-5Zm3 5a4 4 0 0 1-4 3h-3"/></svg>
+            <div class="agent-chat-body">
+              <div class="agent-user-msg">¿Cuánto vendí el mes pasado?</div>
+              <div class="agent-ai-msg">
+                <span class="agent-ai-head">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                  Clinera Intelligence
                 </span>
-                <span>
-                  <b>Llamando a Marcela P.</b>
-                  <small>CAMILA · confirmación de hora</small>
-                </span>
-                <span class="mock-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+                <p>En julio vendiste <b>$101.293.919</b> en 63 ventas.</p>
+                <ul class="agent-stats">
+                  <li><i class="violet"></i>Facturado: <b>$92.505.165</b> · 54 pagadas</li>
+                  <li><i class="gray"></i>Pendiente: <b>$8.788.754</b> · 9 parciales</li>
+                </ul>
+                <div class="agent-bars" aria-hidden="true">
+                  <div><span>Facturado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>
+                  <div><span>Pendiente</span><b><i class="gray" style="width: 9%"></i></b><small>$8,8 M</small></div>
+                </div>
               </div>
+            </div>
+            <div class="agent-chat-input">
+              <span>Pregúntale a tu clínica…</span>
+              <i aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="M8 13V3M3.8 7.2 8 3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </i>
             </div>
           </aside>
         </div>
       </section>
 
-      <section
+<section
+        class="slide blk"
+        id="empleados-digitales"
+        data-name="Tus empleados digitales"
+        aria-hidden="true"
+      >
+        <div class="slide-inner hr-layout ed-layout">
+          <header class="hr-head">
+            <div class="blk-eyebrow">TU EQUIPO IA</div>
+            <h2 class="blk-h2">Un equipo completo de <span class="blk-grad-text">empleados digitales</span>.</h2>
+            <p class="blk-lead">Tres roles, una sola memoria del paciente. AURA disponible hoy; CAMILA y LIA, octubre 2026.</p>
+          </header>
+
+          <div class="hr-grid ed-agents reveal">
+            <article class="ed-agent ed-agent-soon">
+              <img class="ed-agent-face" src="/agents/camila.jpg" alt="CAMILA" loading="lazy" decoding="async" />
+              <strong>CAMILA · voz</strong>
+              <span class="ed-agent-when">Próximamente · octubre 2026</span>
+              <span>Llama, confirma y reagenda. Cinco acentos: CL, CO, PE, MX y ES.</span>
+            </article>
+            <article class="ed-agent ed-agent-now">
+              <img class="ed-agent-face" src="/agents/aura.jpg" alt="AURA" loading="lazy" decoding="async" />
+              <strong>AURA · WhatsApp, Instagram y Facebook</strong>
+              <span class="ed-agent-when ed-agent-when-now"><i aria-hidden="true"></i>Disponible hoy</span>
+              <span>Responde y agenda 24/7 sobre la agenda real de tu clínica.</span>
+            </article>
+            <article class="ed-agent ed-agent-soon">
+              <img class="ed-agent-face" src="/agents/lia.jpg" alt="LIA" loading="lazy" decoding="async" />
+              <strong>LIA · orquestadora</strong>
+              <span class="ed-agent-when">Próximamente · octubre 2026</span>
+              <span>Vigila la operación y despacha a CAMILA o AURA según el paciente.</span>
+            </article>
+          </div>
+
+          <aside class="ed-aviso reveal" role="note">
+            <div class="ed-aviso-copy">
+              <span class="ed-aviso-badge">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.2 2.4 20.4h19.2L12 3.2Zm0 5.3c.5 0 .9.4.9.9v4.2a.9.9 0 1 1-1.8 0V9.4c0-.5.4-.9.9-.9Zm0 8.6a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z"/></svg>
+                Advertencia
+              </span>
+              <p>La inteligencia artificial no reemplaza las ventas ni las recepcionistas, pero sí permite optimizar procesos y aprovechar oportunidades que antes perdías.</p>
+            </div>
+            <ol class="ed-flujo" aria-label="Leads, Clinera, paciente">
+              <li><span>Leads</span></li>
+              <li><span>Clinera</span></li>
+              <li><span>Paciente</span></li>
+            </ol>
+          </aside>
+        </div>
+      </section>
+
+<section
         class="slide blk"
         id="canales"
         data-name="Los canales"
@@ -4418,162 +4563,7 @@
         </div>
       </section>
 
-      <section
-        class="slide blk"
-        id="empleados-digitales"
-        data-name="Tus empleados digitales"
-        aria-hidden="true"
-      >
-        <div class="slide-inner hr-layout ed-layout">
-          <header class="hr-head">
-            <div class="blk-eyebrow">TU EQUIPO IA</div>
-            <h2 class="blk-h2">Un equipo completo de <span class="blk-grad-text">empleados digitales</span>.</h2>
-            <p class="blk-lead">Tres roles, una sola memoria del paciente. AURA disponible hoy; CAMILA y LIA, octubre 2026.</p>
-          </header>
-
-          <div class="hr-grid ed-agents reveal">
-            <article class="ed-agent ed-agent-soon">
-              <img class="ed-agent-face" src="/agents/camila.jpg" alt="CAMILA" loading="lazy" decoding="async" />
-              <strong>CAMILA · voz</strong>
-              <span class="ed-agent-when">Próximamente · octubre 2026</span>
-              <span>Llama, confirma y reagenda. Cinco acentos: CL, CO, PE, MX y ES.</span>
-            </article>
-            <article class="ed-agent ed-agent-now">
-              <img class="ed-agent-face" src="/agents/aura.jpg" alt="AURA" loading="lazy" decoding="async" />
-              <strong>AURA · WhatsApp, Instagram y Facebook</strong>
-              <span class="ed-agent-when ed-agent-when-now"><i aria-hidden="true"></i>Disponible hoy</span>
-              <span>Responde, agenda y cobra 24/7 sobre la agenda real de tu clínica.</span>
-            </article>
-            <article class="ed-agent ed-agent-soon">
-              <img class="ed-agent-face" src="/agents/lia.jpg" alt="LIA" loading="lazy" decoding="async" />
-              <strong>LIA · orquestadora</strong>
-              <span class="ed-agent-when">Próximamente · octubre 2026</span>
-              <span>Vigila la operación y despacha a CAMILA o AURA según el paciente.</span>
-            </article>
-          </div>
-
-          <aside class="ed-aviso reveal" role="note">
-            <div class="ed-aviso-copy">
-              <span class="ed-aviso-badge">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3.2 2.4 20.4h19.2L12 3.2Zm0 5.3c.5 0 .9.4.9.9v4.2a.9.9 0 1 1-1.8 0V9.4c0-.5.4-.9.9-.9Zm0 8.6a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z"/></svg>
-                Advertencia
-              </span>
-              <p>La inteligencia artificial no reemplaza las ventas ni las recepcionistas, pero sí permite optimizar procesos y aprovechar oportunidades que antes perdías.</p>
-            </div>
-            <ol class="ed-flujo" aria-label="Leads, Clinera, paciente">
-              <li><span>Leads</span></li>
-              <li><span>Clinera</span></li>
-              <li><span>Paciente</span></li>
-            </ol>
-          </aside>
-        </div>
-      </section>
-
-      <section
-        class="slide blk"
-        id="inteligencia"
-        data-name="Clinera Intelligence"
-        aria-hidden="true"
-      >
-        <div class="slide-inner rzs-layout">
-          <div class="rzs-copy">
-            <div class="blk-eyebrow">CLINERA INTELLIGENCE</div>
-            <h2 class="blk-h2">Clinera Intelligence, tu <span class="blk-grad-text">agente interno con IA</span>.</h2>
-            <p class="blk-lead">Le preguntas a tu clínica en español y te responde con lo que realmente pasó.</p>
-            <ul class="rzs-points">
-              <li>Ventas, cobros, citas y tratamientos en un chat</li>
-              <li>Respuestas en segundos, con gráficos al momento</li>
-              <li>Sin exportar nada ni esperar el cierre de mes</li>
-            </ul>
-          </div>
-
-          <aside class="agent-chat reveal" aria-label="Vista del chat Clinera Intelligence">
-            <div class="agent-chat-bar">
-              <span class="agent-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="agent-chat-title">Clinera Intelligence</span>
-            </div>
-            <div class="agent-chat-body">
-              <div class="agent-user-msg">¿Cuánto vendí el mes pasado?</div>
-              <div class="agent-ai-msg">
-                <span class="agent-ai-head">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
-                  Clinera Intelligence
-                </span>
-                <p>En julio vendiste <b>$101.293.919</b> en 63 ventas.</p>
-                <ul class="agent-stats">
-                  <li><i class="violet"></i>Cobrado: <b>$92.505.165</b> · 54 pagadas</li>
-                  <li><i class="gray"></i>Pendiente: <b>$8.788.754</b> · 9 parciales</li>
-                </ul>
-                <div class="agent-bars" aria-hidden="true">
-                  <div><span>Cobrado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>
-                  <div><span>Pendiente</span><b><i class="gray" style="width: 9%"></i></b><small>$8,8 M</small></div>
-                </div>
-              </div>
-            </div>
-            <div class="agent-chat-input">
-              <span>Pregúntale a tu clínica…</span>
-              <i aria-hidden="true">
-                <svg viewBox="0 0 16 16"><path d="M8 13V3M3.8 7.2 8 3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </i>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section
-        class="slide blk"
-        id="herramientas"
-        data-name="Tus herramientas"
-        aria-hidden="true"
-      >
-        <div class="slide-inner hr-layout">
-          <header class="hr-head">
-            <div class="blk-eyebrow">TUS HERRAMIENTAS</div>
-            <h2 class="blk-h2">Y todo lo demás, <span class="blk-grad-text">en el mismo sistema</span>.</h2>
-          </header>
-
-          <div class="hr-grid">
-            <div class="hr-item">
-              <strong>Agenda</strong>
-              <span>Horas, bloqueos y disponibilidad</span>
-            </div>
-            <div class="hr-item">
-              <strong>Fichas clínicas</strong>
-              <span>Historial completo del paciente</span>
-            </div>
-            <div class="hr-item">
-              <strong>Consentimientos</strong>
-              <span>Firmados y archivados</span>
-            </div>
-            <div class="hr-item">
-              <strong>Tratamientos</strong>
-              <span>Protocolos y precios</span>
-            </div>
-            <div class="hr-item">
-              <strong>Pagos y cobros</strong>
-              <span>Conciliación al día</span>
-            </div>
-            <div class="hr-item">
-              <strong>Automatizaciones</strong>
-              <span>Flujos que se disparan solos</span>
-            </div>
-            <div class="hr-item">
-              <strong>Profesionales</strong>
-              <span>Agendas, permisos y comisiones</span>
-            </div>
-            <div class="hr-item">
-              <strong>Sucursales</strong>
-              <span>Todas en una sola operación</span>
-            </div>
-            <div class="hr-item">
-              <strong>Marketing</strong>
-              <span>Campañas y difusión</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
+<section
         class="slide blk"
         id="normativa"
         data-name="Clinera y la norma"
@@ -4615,7 +4605,7 @@
         </div>
       </section>
 
-      <section
+<section
         class="slide blk blk-dark"
         id="migracion"
         data-name="La condición"
@@ -4627,7 +4617,7 @@
             <div class="blk-eyebrow">LA CONDICIÓN</div>
             <h1 class="blk-h1">Un solo requisito para que esto funcione.</h1>
             <p class="cn-highlight">Clinera reemplaza el sistema que usas hoy. No convive con él.</p>
-            <p class="cn-body">Migramos todo: pacientes, fichas, historial, agenda y pagos. Con los datos partidos en dos, la IA opera a ciegas.</p>
+            <p class="cn-body">Migramos todo: pacientes, fichas, historial y agenda. Con los datos partidos en dos, la IA opera a ciegas.</p>
             <div class="cn-seal">DÍA 8 · EL SISTEMA ANTIGUO SE APAGA</div>
           </div>
 
@@ -4637,8 +4627,8 @@
               <p>Un mes de trabajo con tus datos reales. Tu clínica no parte vacía.</p>
             </article>
             <article class="cn-card">
-              <h3>Los 7 días de solapamiento</h3>
-              <p>Una ventana de seguridad para el corte, no una forma de operar.</p>
+              <h3>7 días de Red de Seguridad</h3>
+              <p>La Semana de Transición: una ventana de seguridad para el corte, no una forma de operar.</p>
             </article>
             <article class="cn-card cn-card-accent">
               <h3>Por qué somos tan tajantes</h3>
@@ -4648,7 +4638,7 @@
         </div>
       </section>
 
-      <section
+<section
         class="slide"
         id="demostracion"
         data-name="Prueba la IA"
@@ -4852,11 +4842,11 @@
           cabezaIa +
           "<p>En julio vendiste <b>$101.293.919</b> en 63 ventas.</p>" +
           '<ul class="agent-stats">' +
-          "<li" + d(240) + '><i class="violet"></i>Cobrado: <b>$92.505.165</b> · 54 pagadas</li>' +
+          "<li" + d(240) + '><i class="violet"></i>Facturado: <b>$92.505.165</b> · 54 pagadas</li>' +
           "<li" + d(360) + '><i class="gray"></i>Pendiente: <b>$8.788.754</b> · 9 parciales</li>' +
           "</ul>" +
           '<div class="agent-bars" aria-hidden="true">' +
-          '<div><span>Cobrado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>' +
+          '<div><span>Facturado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>' +
           '<div><span>Pendiente</span><b><i class="gray" style="width: 9%"></i></b><small>$8,8 M</small></div>' +
           "</div></div>"
         );
