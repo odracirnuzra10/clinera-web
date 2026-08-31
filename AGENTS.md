@@ -380,11 +380,20 @@ filtrar bloques fuera de oficina (`esBloqueHabil`).
 
 Guardián: `tests/agenda-scheduler.spec.ts`.
 
-# `/presentacion`: archivo estático, no componente — y el grid de logos ya no tiene número mágico
+# `/presentacion`: archivo estático, no componente — rediseño Rebeca (ago 2026)
 
 `/presentacion` (el deck de ventas) no es una ruta de Next.js: `next.config.ts` reescribe
-`/presentacion` → `/presentacion/index.html`, un único archivo HTML/CSS/JS de ~4.300 líneas
-en `public/presentacion/index.html`. No hay componente React que tocar ahí.
+`/presentacion` → `/presentacion/index.html`, un único archivo HTML/CSS/JS en
+`public/presentacion/index.html`. No hay componente React que tocar ahí.
+
+**Rediseño comercial (Rebeca → gerencia, 27-ago-2026):** AURA va en la 2.ª
+diapositiva («El Corazón de Clinera»); el hero abre con métricas de impacto en
+fondo oscuro, **sin** la franja «Clínicas que ya operan con Clinera»; se borraron
+`#veredicto` y `#herramientas`; no se prometen cobros/conciliación/exámenes; la
+migración habla de «7 días de Red de Seguridad». Fuente: correo de Rebeca con
+`Analisis_Presentacion_Clinera_Gerencia.pdf`. `#canales` y `#empleados-digitales`
+se mantienen (guardians propios). Guardián del rediseño:
+`tests/presentacion-redisenio-rebeca.spec.ts`.
 
 **1 cuenta Clinera = 1 número de WhatsApp, 1 cuenta de Instagram y 1 cuenta de Facebook.**
 Es el recorte comercial de canales, no un detalle de onboarding. Si la clínica opera con
@@ -415,25 +424,14 @@ mención de un competidor o emisor lleva al sitio oficial y, si existe, a
 (Dentalink, Dentalsoft, Reservo, AgendaPro, SII, Meta), no de dejar el nombre
 en texto plano.
 
-La franja "Clínicas que ya operan con Clinera" (`.hero-clients`) vivía con
-`grid-template-columns: repeat(7, minmax(0, 1fr))` — un número mágico que sólo cuadraba
-porque había exactamente 7 logos (Chile). Agosto 2026: se sumaron 8 clínicas de
-México/Perú/Colombia (15 en total) y el grid pasó a
-`repeat(auto-fill, minmax(96px, 1fr))`, que se reacomoda solo según cuántos logos haya.
-Si alguien vuelve a fijar un número de columnas a mano, se rompe apenas cambie el conteo
-de logos otra vez — no hardcodear ese número.
-
-Los logos de clientes **no viven en un solo lugar** — hay tres listas independientes que
-no se sincronizan entre sí:
-- `public/presentacion/index.html` (`.hero-client-logos`): la completa, 15 logos.
+La franja "Clínicas que ya operan con Clinera" **salió del deck** en el rediseño
+Rebeca (ago 2026): el hero ahora abre con métricas, no con logos. Los archivos
+siguen en `public/presentacion/clientes/*.{png,svg}` por si otra landing los usa.
+Las otras dos listas de logos **no se sincronizan** entre sí y siguen vigentes:
 - `src/components/plataforma/PlataformaLanding.tsx` (`CLIENTS`, para `/plataforma`):
-  sólo 6, le falta CLC — no se tocó en este cambio, sigue desactualizada.
+  sólo 6, le falta CLC.
 - `src/components/home-v3/sections.tsx` (`Logos()`, para `/`): nombres de clínicas
   **inventados** ("Hospital del Valle", "Dermaclinic"...), no son clientes reales.
-
-Los archivos de imagen viven en `public/presentacion/clientes/*.{png,svg}`. El filtro
-`grayscale(1)` en `.hero-client-logo img` ya los pasa a blanco/negro al vuelo — los PNG
-fuente están en color a propósito, igual que los 7 originales; no hay que preprocesarlos.
 
 # Landings `/software-medico` y `/software-dental`
 
