@@ -69,8 +69,8 @@ export default function WhatsAppFloat() {
           z-index: 55;
           display: inline-flex;
           align-items: center;
-          gap: 0;
-          padding: 10px;
+          gap: 10px;
+          padding: 10px 18px 10px 10px;
           border-radius: 999px;
           text-decoration: none;
           color: #fff;
@@ -85,8 +85,6 @@ export default function WhatsAppFloat() {
           transition:
             opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
             transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-            gap 0.3s ease,
-            padding 0.3s ease,
             box-shadow 0.25s ease;
           will-change: transform, opacity;
         }
@@ -97,13 +95,12 @@ export default function WhatsAppFloat() {
         }
         .home-wa-float:hover,
         .home-wa-float:focus-visible {
-          gap: 10px;
-          padding: 10px 18px 10px 10px;
           box-shadow:
             0 18px 42px -10px rgba(18, 140, 126, 0.65),
             0 8px 20px -8px rgba(0, 0, 0, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.32);
           outline: none;
+          transform: translate3d(0, -2px, 0) scale(1.02);
         }
         .home-wa-float:active {
           transform: scale(0.97);
@@ -121,18 +118,7 @@ export default function WhatsAppFloat() {
         }
         .home-wa-float-label {
           display: grid;
-          max-width: 0;
-          opacity: 0;
-          overflow: hidden;
           white-space: nowrap;
-          transition:
-            max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-            opacity 0.25s ease;
-        }
-        .home-wa-float:hover .home-wa-float-label,
-        .home-wa-float:focus-visible .home-wa-float-label {
-          max-width: 120px;
-          opacity: 1;
         }
         .home-wa-float-eyebrow {
           font-family: Inter, system-ui, sans-serif;
@@ -166,34 +152,28 @@ export default function WhatsAppFloat() {
             opacity: 0.55;
           }
           70% {
-            transform: scale(1.18);
+            transform: scale(1.12);
             opacity: 0;
           }
           100% {
-            transform: scale(1.18);
+            transform: scale(1.12);
             opacity: 0;
           }
         }
-        /* Sobre la barra sticky móvil del layout (home). */
+        /* En móvil: círculo compacto, arriba de la barra sticky. */
         @media (max-width: 768px) {
           .home-wa-float {
             bottom: calc(88px + env(safe-area-inset-bottom));
             right: max(16px, env(safe-area-inset-right));
-          }
-          .home-wa-float:hover,
-          .home-wa-float:focus-visible {
             gap: 0;
             padding: 10px;
           }
-          .home-wa-float:hover .home-wa-float-label,
-          .home-wa-float:focus-visible .home-wa-float-label {
-            max-width: 0;
-            opacity: 0;
+          .home-wa-float-label {
+            display: none;
           }
         }
         @media (prefers-reduced-motion: reduce) {
-          .home-wa-float,
-          .home-wa-float-label {
+          .home-wa-float {
             transition: none;
           }
           .home-wa-float.is-visible .home-wa-float-ring {
