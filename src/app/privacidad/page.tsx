@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-const LAST_UPDATED = "30 de abril de 2026";
+const LAST_UPDATED = "1 de septiembre de 2026";
 
 export default function PrivacidadPage() {
   return (
@@ -71,14 +71,11 @@ export default function PrivacidadPage() {
               <h2 style={h2}>1. Entidad Legal</h2>
               <p style={p}>
                 La presente Política de Privacidad describe cómo{" "}
-                <strong>OACG Inc.</strong>, en adelante &quot;la Empresa&quot;,
-                recopila, utiliza y protege la información que obtenemos de
-                usted (en adelante, el &quot;Usuario&quot;) a través del sitio
-                web y los servicios de Clinera.io (&quot;Clinera&quot;).
-              </p>
-              <p style={p}>
-                Clinera.io es un producto y servicio comercializado y operado
-                exclusivamente por OACG Inc.
+                <strong>OACG Inc.</strong>, operando comercialmente como
+                Clinera.io, en adelante &quot;la Empresa&quot;, recopila,
+                utiliza y protege la información que obtenemos de usted (en
+                adelante, el &quot;Usuario&quot;) a través del sitio web y los
+                servicios de Clinera (&quot;Clinera&quot;).
               </p>
 
               <h2 style={h2}>2. Qué datos recopilamos</h2>
@@ -95,11 +92,21 @@ export default function PrivacidadPage() {
                   contratar planes de software.
                 </li>
                 <li>
+                  <strong>Datos de mensajería (WhatsApp, Facebook Messenger e
+                  Instagram):</strong> cuando una clínica conecta sus canales
+                  de Meta, Clinera puede procesar mensajes enviados y
+                  recibidos, identificadores de remitente y destinatario,
+                  fechas, horas, metadatos de archivos adjuntos y eventos de
+                  mensajería (entrega, lectura, reacciones y respuestas a
+                  elementos interactivos).
+                </li>
+                <li>
                   <strong>Datos sensibles relacionados con salud:</strong>{" "}
                   cuando una clínica usuaria configura el agente IA AURA, en
                   el flujo conversacional pueden circular nombres de
                   pacientes, motivos de consulta, fecha y hora de citas,
-                  contenido de mensajes de WhatsApp y profesional asignado.
+                  contenido de mensajes de WhatsApp, Facebook Messenger o
+                  Instagram y profesional asignado.
                   Bajo la <strong>Ley Federal de Protección de Datos
                   Personales en Posesión de los Particulares (LFPDPPP)</strong>{" "}
                   estos son <strong>datos personales sensibles</strong> y
@@ -142,7 +149,101 @@ export default function PrivacidadPage() {
                 alteración o el acceso no autorizado a los mismos.
               </p>
 
-              <h2 style={h2}>4. Uso de servicios de inteligencia artificial</h2>
+              <h2 style={h2}>
+                4. Integraciones con Facebook Messenger e Instagram
+              </h2>
+              <p style={p}>
+                Cuando una clínica decide conectar una página de Facebook o una
+                cuenta profesional de Instagram con Clinera, la clínica
+                autoriza a Clinera a procesar los datos necesarios para
+                habilitar y operar la integración.
+              </p>
+              <p style={p}>
+                Según las funciones habilitadas, Clinera puede procesar:
+              </p>
+              <ul style={ul}>
+                <li>
+                  identificadores, nombre y datos básicos de las páginas de
+                  Facebook administradas por el usuario;
+                </li>
+                <li>
+                  identificadores y datos básicos de la cuenta profesional de
+                  Instagram vinculada a la página seleccionada;
+                </li>
+                <li>
+                  permisos, tareas y metadatos técnicos necesarios para
+                  comprobar y mantener la conexión;
+                </li>
+                <li>
+                  mensajes enviados y recibidos, identificadores de remitente
+                  y destinatario, fechas, horas y metadatos de archivos
+                  adjuntos;
+                </li>
+                <li>
+                  eventos de mensajería como entrega, lectura, reacciones y
+                  respuestas a elementos interactivos;
+                </li>
+                <li>
+                  credenciales técnicas de autorización emitidas por Meta,
+                  almacenadas con acceso restringido y utilizadas
+                  exclusivamente para operar la integración.
+                </li>
+              </ul>
+              <p style={p}>Clinera utiliza estos datos únicamente para:</p>
+              <ul style={ul}>
+                <li>
+                  mostrar los activos de Meta que el usuario está autorizado a
+                  conectar;
+                </li>
+                <li>conectar la página o cuenta profesional seleccionada;</li>
+                <li>
+                  suscribir y procesar los webhooks necesarios para recibir
+                  eventos;
+                </li>
+                <li>
+                  mostrar, organizar, recibir y responder conversaciones dentro
+                  de Clinera;
+                </li>
+                <li>
+                  prestar automatizaciones o funciones de inteligencia
+                  artificial únicamente cuando la clínica las haya habilitado y
+                  exista la autorización aplicable;
+                </li>
+                <li>
+                  proteger la integración, prevenir abuso y diagnosticar
+                  errores técnicos.
+                </li>
+              </ul>
+              <p style={p}>
+                Clinera no vende los datos obtenidos desde Meta, no los
+                utiliza para publicidad y no los usa para crear perfiles ajenos
+                a la prestación del servicio contratado. El acceso está
+                limitado a la clínica que conectó el activo, a sus usuarios
+                autorizados y a proveedores que procesan datos por cuenta de
+                Clinera bajo obligaciones de confidencialidad y seguridad.
+              </p>
+              <p style={p}>
+                La clínica puede desconectar la integración desde Clinera y
+                también revocar el acceso desde la configuración de
+                aplicaciones y sitios web de Facebook. Las solicitudes de
+                acceso, eliminación o revocación pueden realizarse siguiendo
+                las instrucciones disponibles en{" "}
+                <Link href="/eliminar-datos">Eliminación de Datos</Link> o
+                escribiendo a{" "}
+                <a href="mailto:privacidad@clinera.io">privacidad@clinera.io</a>
+                .
+              </p>
+              <p style={p}>
+                Los datos de Meta se conservan solamente durante el tiempo
+                necesario para operar la integración, cumplir el contrato y
+                atender obligaciones legales aplicables. Una vez desconectada
+                la integración o aceptada una solicitud de eliminación, los
+                datos se eliminan o anonimizan conforme al proceso y los plazos
+                publicados por Clinera, salvo la información que deba
+                conservarse por una obligación legal documentada.
+              </p>
+
+              <h2 style={h2}>5. Uso de servicios de inteligencia artificial</h2>
               <p style={p}>
                 Clinera utiliza servicios de inteligencia artificial (IA) de
                 terceros para mejorar la experiencia de atención al paciente a
@@ -150,7 +251,7 @@ export default function PrivacidadPage() {
                 detallamos cómo se utilizan estos servicios.
               </p>
 
-              <h3 style={h3}>4.1 Proveedores de IA</h3>
+              <h3 style={h3}>5.1 Proveedores de IA</h3>
               <p style={p}>
                 Los datos son procesados a través de los siguientes
                 proveedores:
@@ -171,7 +272,7 @@ export default function PrivacidadPage() {
                 </li>
               </ul>
 
-              <h3 style={h3}>4.2 Datos compartidos con proveedores de IA</h3>
+              <h3 style={h3}>5.2 Datos compartidos con proveedores de IA</h3>
               <p style={p}>
                 Cuando las funciones de IA están habilitadas, los siguientes
                 datos pueden ser enviados a los proveedores mencionados para
@@ -180,8 +281,10 @@ export default function PrivacidadPage() {
               <ul style={ul}>
                 <li>Nombre del paciente o contacto.</li>
                 <li>
-                  Contenido de los mensajes de WhatsApp dentro de la
-                  conversación activa.
+                  Contenido de los mensajes de WhatsApp, Facebook Messenger o
+                  Instagram dentro de la conversación activa, únicamente cuando
+                  la clínica ha habilitado esa función y existe la base legal o
+                  consentimiento aplicable.
                 </li>
                 <li>
                   Datos de citas: fecha, hora, disponibilidad y motivo de
@@ -190,7 +293,7 @@ export default function PrivacidadPage() {
                 <li>Información básica del profesional asignado.</li>
               </ul>
 
-              <h3 style={h3}>4.3 Finalidad del procesamiento</h3>
+              <h3 style={h3}>5.3 Finalidad del procesamiento</h3>
               <p style={p}>
                 Los datos se envían a estos servicios exclusivamente para:
               </p>
@@ -200,7 +303,7 @@ export default function PrivacidadPage() {
                 <li>Clasificar y priorizar consultas entrantes.</li>
               </ul>
 
-              <h3 style={h3}>4.4 Consentimiento del usuario</h3>
+              <h3 style={h3}>5.4 Consentimiento del usuario</h3>
               <p style={p}>
                 Antes de que cualquier dato sea enviado a proveedores de IA,
                 la aplicación solicita el consentimiento explícito del usuario
@@ -222,7 +325,7 @@ export default function PrivacidadPage() {
                 momento desde la configuración de la aplicación.
               </p>
 
-              <h3 style={h3}>4.5 Protección de datos</h3>
+              <h3 style={h3}>5.5 Protección de datos</h3>
               <p style={p}>
                 Todas las comunicaciones con los proveedores de IA se realizan
                 mediante conexiones cifradas (HTTPS/TLS). Los proveedores de
@@ -256,7 +359,7 @@ export default function PrivacidadPage() {
               </ul>
 
               <h2 style={h2}>
-                5. Marco legal mexicano (LFPDPPP) y derechos ARCO
+                6. Marco legal mexicano (LFPDPPP) y derechos ARCO
               </h2>
               <p style={p}>
                 Para los Usuarios y Titulares de datos personales en territorio
@@ -270,7 +373,7 @@ export default function PrivacidadPage() {
                 la Información y Protección de Datos Personales (INAI).
               </p>
 
-              <h3 style={h3}>5.1 Derechos ARCO del Titular</h3>
+              <h3 style={h3}>6.1 Derechos ARCO del Titular</h3>
               <p style={p}>
                 Como Titular de los datos personales, usted tiene derecho a:
               </p>
@@ -297,7 +400,7 @@ export default function PrivacidadPage() {
                 </li>
               </ul>
 
-              <h3 style={h3}>5.2 Cómo ejercer los derechos ARCO</h3>
+              <h3 style={h3}>6.2 Cómo ejercer los derechos ARCO</h3>
               <p style={p}>
                 Para ejercer cualquiera de los derechos ARCO, así como para
                 revocar su consentimiento o limitar el uso o divulgación de sus
@@ -335,7 +438,7 @@ export default function PrivacidadPage() {
               </p>
 
               <h3 style={h3}>
-                5.3 Transferencias de datos a terceros
+                6.3 Transferencias de datos a terceros
               </h3>
               <p style={p}>
                 OACG Inc. puede transferir sus datos personales a los siguientes
@@ -350,9 +453,14 @@ export default function PrivacidadPage() {
                   residen en Chile.
                 </li>
                 <li>
+                  <strong>Meta Platforms, Inc.</strong> — proveedor de las
+                  integraciones de WhatsApp Business, Facebook Messenger e
+                  Instagram, según las funciones habilitadas por la clínica.
+                </li>
+                <li>
                   Proveedores de IA (Google Cloud Platform — Vertex AI:{" "}
                   {VERTEX_IA_MODELS_PROSE}), exclusivamente para las funciones
-                  descritas en la sección 4 y bajo cláusulas contractuales que
+                  descritas en la sección 5 y bajo cláusulas contractuales que
                   prohíben el uso de los datos para entrenar modelos.
                 </li>
                 <li>
@@ -366,7 +474,7 @@ export default function PrivacidadPage() {
               </ul>
 
               <h3 style={h3}>
-                5.4 Reclamaciones ante el INAI
+                6.4 Reclamaciones ante el INAI
               </h3>
               <p style={p}>
                 Si considera que su derecho a la protección de datos
@@ -396,7 +504,7 @@ export default function PrivacidadPage() {
                 formal.
               </p>
 
-              <h3 style={h3}>5.5 Cambios al Aviso de Privacidad</h3>
+              <h3 style={h3}>6.5 Cambios al Aviso de Privacidad</h3>
               <p style={p}>
                 OACG Inc. se reserva el derecho de modificar esta Política /
                 Aviso de Privacidad. Cualquier cambio sustancial será
@@ -408,7 +516,7 @@ export default function PrivacidadPage() {
                 menos 15 días naturales de anticipación a su entrada en vigor.
               </p>
 
-              <h2 style={h2}>6. Información de contacto</h2>
+              <h2 style={h2}>7. Información de contacto</h2>
               <p style={p}>
                 Si tiene preguntas, inquietudes o desea ejercer sus derechos
                 sobre sus datos personales, puede comunicarse con nuestro
@@ -423,8 +531,9 @@ export default function PrivacidadPage() {
 
               <p style={{ ...p, marginTop: 28 }}>
                 Consulta también nuestra{" "}
-                <Link href="/cookies">Política de Cookies</Link> y los{" "}
-                <Link href="/terminos">Términos y Condiciones</Link>.
+                <Link href="/cookies">Política de Cookies</Link>, los{" "}
+                <Link href="/terminos">Términos y Condiciones</Link> y la{" "}
+                <Link href="/eliminar-datos">Eliminación de Datos</Link>.
               </p>
             </div>
           </div>
