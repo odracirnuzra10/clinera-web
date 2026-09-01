@@ -68,11 +68,32 @@ const TICKER = [
   { name: "Odontograma", price: "incluido" },
 ];
 
+function planConsumoLine(plan: (typeof CLINERA_PLANS)[number]): string {
+  const base = plan.consumptionReference.split(" · ")[0].replace(" automáticos", "").replace(/~/g, "");
+  return base.charAt(0).toLowerCase() + base.slice(1);
+}
+
 function planStepFeatures(plan: (typeof CLINERA_PLANS)[number]): string[] {
-  const consumo = plan.consumptionReference.split(" · ")[0].replace(" automáticos", "");
-  if (plan.id === "vortex") return ["AURA · WhatsApp 24/7", consumo, plan.branches];
-  if (plan.id === "atlas") return ["Todo Vortex + CAMILA voz", plan.channel, plan.branches];
-  return ["Todo Atlas + LIA", plan.channel, plan.branches];
+  const sucursales = plan.branches.charAt(0).toLowerCase() + plan.branches.slice(1);
+  if (plan.id === "vortex") {
+    return [
+      "Fichas clínicas, agenda, agente IA de texto",
+      planConsumoLine(plan),
+      sucursales,
+    ];
+  }
+  if (plan.id === "atlas") {
+    return [
+      "Fichas clínicas, agenda, agente IA de texto y voz",
+      planConsumoLine(plan),
+      sucursales,
+    ];
+  }
+  return [
+    "Fichas clínicas, agenda, agente IA de texto, voz y API",
+    planConsumoLine(plan),
+    sucursales,
+  ];
 }
 
 const PLAN_OPTIONS = CLINERA_PLANS.map((plan) => ({
