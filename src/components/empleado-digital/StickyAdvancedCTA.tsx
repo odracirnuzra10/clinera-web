@@ -2,26 +2,27 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useScrollPastPercent } from "@/components/cro/useScrollPastPercent";
+
+const SCROLL_REVEAL_PERCENT = 30;
 
 export default function StickyAdvancedCTA() {
   const pathname = usePathname();
   const isEmpleadoDigital = pathname?.startsWith("/empleado-digital") === true;
-  const [show, setShow] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const scrolledPast = useScrollPastPercent(
+    SCROLL_REVEAL_PERCENT,
+    isEmpleadoDigital && !dismissed,
+  );
 
   useEffect(() => {
     if (!isEmpleadoDigital) return;
     if (sessionStorage.getItem("empleado-digital-sticky-dismissed") === "1") {
       setDismissed(true);
-      return;
     }
-    const onScroll = () => setShow(window.scrollY > 120);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
   }, [isEmpleadoDigital]);
 
-  if (!isEmpleadoDigital || dismissed || !show) return null;
+  if (!isEmpleadoDigital || dismissed || !scrolledPast) return null;
 
   const dismiss = () => {
     sessionStorage.setItem("empleado-digital-sticky-dismissed", "1");
@@ -31,10 +32,7 @@ export default function StickyAdvancedCTA() {
   return (
     <>
       <div className="equipo-sticky" role="region" aria-label="Agendar demo">
-        <a
-          href="/agenda"
-          className="equipo-sticky-primary"
-        >
+        <a href="/agenda" className="equipo-sticky-primary">
           Agendar demo
         </a>
         <button
@@ -65,11 +63,21 @@ export default function StickyAdvancedCTA() {
           box-shadow:
             0 18px 40px -12px rgba(0, 0, 0, 0.55),
             0 6px 16px -8px rgba(124, 58, 237, 0.4);
-          animation: equipoStickyUp 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: equipoStickyReveal 0.62s cubic-bezier(0.34, 1.35, 0.64, 1) both;
         }
-        @keyframes equipoStickyUp {
-          from { transform: translateY(140%); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
+        @keyframes equipoStickyReveal {
+          0% {
+            transform: translateY(calc(100% + 28px)) scale(0.94);
+            opacity: 0;
+          }
+          55% {
+            transform: translateY(-6px) scale(1.02);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+          }
         }
         .equipo-sticky-primary {
           flex: 1 1 0;

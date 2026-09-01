@@ -3,6 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { useScrollPastPercent } from "@/components/cro/useScrollPastPercent";
 
 function subscribeLocation() {
   return () => {};
@@ -14,7 +15,15 @@ function getAgendaHrefServer() {
   return "/agenda";
 }
 
-const HIDDEN_PREFIXES = ["/agenda", "/reserva-tu-hora", "/gracias", "/contrata"];
+const SCROLL_REVEAL_PERCENT = 30;
+
+const HIDDEN_PREFIXES = [
+  "/agenda",
+  "/reserva-tu-hora",
+  "/gracias",
+  "/contrata",
+  "/empleado-digital",
+];
 
 function isHiddenPath(pathname: string | null) {
   if (!pathname) return true;
@@ -25,6 +34,7 @@ export default function StickyMobileCTA() {
   const pathname = usePathname();
   const enabled = !isHiddenPath(pathname);
   const [dismissed, setDismissed] = useState(false);
+  const scrolledPast = useScrollPastPercent(SCROLL_REVEAL_PERCENT, enabled && !dismissed);
   const agendaHref = useSyncExternalStore(
     subscribeLocation,
     getAgendaHref,
@@ -38,7 +48,7 @@ export default function StickyMobileCTA() {
     }
   }, [enabled]);
 
-  if (!enabled || dismissed) return null;
+  if (!enabled || dismissed || !scrolledPast) return null;
 
   const trackClick = () => {
     if (typeof window === "undefined") return;
@@ -73,15 +83,19 @@ export default function StickyMobileCTA() {
           display: flex;
           gap: 8px;
           align-items: center;
-          animation: stickyAgendaUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: stickyAgendaReveal 0.62s cubic-bezier(0.34, 1.35, 0.64, 1) both;
         }
-        @keyframes stickyAgendaUp {
-          from {
-            transform: translateY(140%);
+        @keyframes stickyAgendaReveal {
+          0% {
+            transform: translateY(calc(100% + 28px)) scale(0.94);
             opacity: 0;
           }
-          to {
-            transform: translateY(0);
+          55% {
+            transform: translateY(-6px) scale(1.02);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(0) scale(1);
             opacity: 1;
           }
         }
