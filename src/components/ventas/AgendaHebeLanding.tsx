@@ -68,32 +68,21 @@ const TICKER = [
   { name: "Odontograma", price: "incluido" },
 ];
 
-function planConsumoLine(plan: (typeof CLINERA_PLANS)[number]): string {
-  const base = plan.consumptionReference.split(" · ")[0].replace(" automáticos", "").replace(/~/g, "");
-  return base.charAt(0).toLowerCase() + base.slice(1);
+function planConsumoShort(plan: (typeof CLINERA_PLANS)[number]): string {
+  const m = plan.consumptionReference.match(/~?([\d.]+)\s*conversaciones\s*o\s*~?([\d.]+)\s*agendamientos/i);
+  if (!m) return plan.consumptionReference.split(" · ")[0].replace(/~/g, "").replace(" automáticos", "");
+  return `${m[1]} conv. o ${m[2]} agend.`;
+}
+
+function planBranchShort(plan: (typeof CLINERA_PLANS)[number]): string {
+  if (plan.id === "summit") return "sedes ilimitadas";
+  return plan.branches;
 }
 
 function planStepFeatures(plan: (typeof CLINERA_PLANS)[number]): string[] {
-  const sucursales = plan.branches.charAt(0).toLowerCase() + plan.branches.slice(1);
-  if (plan.id === "vortex") {
-    return [
-      "Fichas clínicas, agenda, agente IA de texto",
-      planConsumoLine(plan),
-      sucursales,
-    ];
-  }
-  if (plan.id === "atlas") {
-    return [
-      "Fichas clínicas, agenda, agente IA de texto y voz",
-      planConsumoLine(plan),
-      sucursales,
-    ];
-  }
-  return [
-    "Fichas clínicas, agenda, agente IA de texto, voz y API",
-    planConsumoLine(plan),
-    sucursales,
-  ];
+  const agent =
+    plan.id === "vortex" ? "IA de texto" : plan.id === "atlas" ? "IA texto y voz" : "IA texto, voz y API";
+  return [`Fichas · agenda · ${agent}`, `${planConsumoShort(plan)} · ${planBranchShort(plan)}`];
 }
 
 const PLAN_OPTIONS = CLINERA_PLANS.map((plan) => ({
@@ -367,12 +356,10 @@ export default function AgendaHebeLanding({
 
           <div className={`${styles.viewport} ${step === 6 ? styles.viewportScheduler : ""}`}>
             <div className={`${styles.step} ${step === 1 ? styles.stepActive : ""}`} aria-hidden={step !== 1}>
-              <div className={styles.viewers}>Estos son nuestros planes. Elige el que más se acerca a tu operación hoy.</div>
               <div className={styles.label}>Paso 1 de {TOTAL}</div>
               <h2 className={styles.title}>
                 ¿Cuál plan te <em>interesa</em>?
               </h2>
-              <p className={styles.sub}>Precio mensual de referencia y lo esencial de cada nivel. Luego vemos encaje con tu clínica.</p>
               <div className={styles.planGrid}>
                 {PLAN_OPTIONS.map((p) => {
                   const on = selectedPlan === p.id;
