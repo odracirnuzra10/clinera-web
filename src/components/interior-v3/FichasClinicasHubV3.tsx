@@ -388,7 +388,7 @@ function Hero() {
           <CtaPrimary as={Link} href="/funciones" style={{ padding: "13px 22px", fontSize: 15 }}>
             Ver software Clinera <span>→</span>
           </CtaPrimary>
-          <CtaSecondary as={Link} href="/hablar-con-ventas" style={{ padding: "13px 22px", fontSize: 15 }}>
+          <CtaSecondary as={Link} href="/agenda" style={{ padding: "13px 22px", fontSize: 15 }}>
             Hablar con ventas
           </CtaSecondary>
         </div>
@@ -791,7 +791,7 @@ function Body() {
           </Link>
           . Si querés ver Clinera AURA en acción con tu clínica concreta,{" "}
           <Link href="/funciones">revisá las funciones</Link> o{" "}
-          <Link href="/hablar-con-ventas">agendá una demo</Link>.
+          <Link href="/agenda">agendá una demo</Link>.
         </p>
       </article>
     </section>
@@ -1079,7 +1079,7 @@ function FinalCTA(): ReactNode {
           </p>
           <div style={{ display: "flex", gap: 12, marginTop: 8, flexWrap: "wrap", justifyContent: "center" }}>
             <Link
-              href="/hablar-con-ventas"
+              href="/agenda"
               style={{
                 background: GRAD,
                 color: "#fff",

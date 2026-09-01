@@ -78,7 +78,7 @@ export default function PostCTA({ relatedComparativa }: Props) {
               Ver Clinera vs {compLabel} →
             </Link>
             <Link
-              href="/hablar-con-ventas"
+              href="/agenda"
               style={{
                 background: "rgba(255,255,255,0.08)",
                 color: "#fff",
@@ -96,7 +96,7 @@ export default function PostCTA({ relatedComparativa }: Props) {
         ) : (
           <>
             <Link
-              href="/hablar-con-ventas"
+              href="/agenda"
               style={{
                 background: "#fff",
                 color: "#0A0A0A",

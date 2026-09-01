@@ -233,7 +233,7 @@ export default function AcreditacionPage() {
                     se encuentran en curso.
                   </p>
                   <div className={s.ctaRow}>
-                    <Link href="/hablar-con-ventas" className={s.ctaLink}>
+                    <Link href="/agenda" className={s.ctaLink}>
                       Agendar una revisión de due diligence
                       <span className={s.arrow} aria-hidden="true">
                         →

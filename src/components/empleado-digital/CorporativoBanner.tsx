@@ -128,7 +128,7 @@ export default function CorporativoBanner() {
             </span>
           </div>
           <Link
-            href="/hablar-con-ventas"
+            href="/agenda"
             data-plan="ventas"
             data-plan-value="479"
             data-plan-name="Hablar con ventas from empleado-digital"

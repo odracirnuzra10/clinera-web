@@ -215,7 +215,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
                 <a href="#calculadora" style={{ display: "inline-block", background: GRAD, color: "#fff", padding: "14px 26px", borderRadius: 999, fontWeight: 700, fontSize: 15.5, textDecoration: "none" }}>
                   Calcular mi plan
                 </a>
-                <a href="/hablar-con-ventas" style={{ display: "inline-block", border: "1px solid rgba(255,255,255,0.25)", color: "#fff", padding: "14px 26px", borderRadius: 999, fontWeight: 600, fontSize: 15.5, textDecoration: "none" }}>
+                <a href="/agenda" style={{ display: "inline-block", border: "1px solid rgba(255,255,255,0.25)", color: "#fff", padding: "14px 26px", borderRadius: 999, fontWeight: 600, fontSize: 15.5, textDecoration: "none" }}>
                   Hablar con ventas
                 </a>
               </div>

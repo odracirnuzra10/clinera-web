@@ -13,6 +13,8 @@ type LeadPayload = {
   ciudad?: string;
   necesidad_principal?: string;
   necesidad_principal_label?: string;
+  plan?: string;
+  plan_interes?: string;
   fuente?: string;
 };
 
@@ -37,7 +39,7 @@ async function mockAgendaNativa(
   page: Page,
   slots: { horaInicio: string }[],
 ) {
-  await page.route("https://n8n.oacg.cl/webhook/clinera-agenda-config", (route) =>
+  await page.route("**/webhook/clinera-agenda-config", (route) =>
     route.fulfill({
       status: 200,
       contentType: "application/json",
@@ -74,8 +76,15 @@ async function mockAgendaNativa(
   );
 }
 
+async function elegirPlanYContinuar(page: Page, plan = "Atlas") {
+  await expect(page.getByRole("heading", { name: /Cuál plan te interesa/i })).toBeVisible();
+  await page.getByRole("button", { name: new RegExp(`^${plan}`, "i") }).click();
+  await page.getByRole("button", { name: /^Continuar$/ }).filter({ visible: true }).click();
+}
+
 async function llegarAlCalendario(page: Page, id: string) {
   await page.goto("/agenda", { waitUntil: "domcontentloaded" });
+  await elegirPlanYContinuar(page);
   await page.getByRole("button", { name: /Fichas, recetas y consentimientos/i }).click();
   await page.getByRole("button", { name: /^Continuar$/ }).filter({ visible: true }).click();
   await page.getByRole("button", { name: "200 a 500 pacientes / mes Operación en crecimiento" }).click();
@@ -95,14 +104,17 @@ async function llegarAlCalendario(page: Page, id: string) {
 }
 
 test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
-  test("pasa los 5 pasos, manda clínica/tamaño y abre el widget de Rebeca/Nohelymar", async ({ page }) => {
+  test("empieza con planes, pasa los 6 pasos y manda plan + clínica al webhook", async ({ page }) => {
     const id = nonce();
     const hits = recordWizard(page);
 
     await page.goto("/agenda", { waitUntil: "domcontentloaded" });
 
+    await expect(page.getByRole("heading", { name: /Cuál plan te interesa/i })).toBeVisible();
+    await page.getByRole("button", { name: /^Atlas/i }).click();
+    await page.getByRole("button", { name: /^Continuar$/ }).filter({ visible: true }).click();
+
     await expect(page.getByRole("heading", { name: "Hablemos de tus necesidades" })).toBeVisible();
-    await expect(page.getByRole("button", { name: /Fichas, recetas y consentimientos/i })).toBeVisible();
     await page.getByRole("button", { name: /Fichas, recetas y consentimientos/i }).click();
     await page.getByRole("button", { name: /^Continuar$/ }).filter({ visible: true }).click();
 
@@ -133,6 +145,7 @@ test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
     await expect.poll(() => hits.some((h) => h.lead_stage === "contact"), { timeout: 12000 }).toBeTruthy();
     const contact = hits.find((h) => h.lead_stage === "contact");
     expect(contact?.nombre_clinica || contact?.clinica).toContain(id);
+    expect(contact?.plan || contact?.plan_interes).toBe("atlas");
     expect(contact?.tamano_operacion).toBe("vol_200_500");
     expect(contact?.cargo).toBe("Dueño / Fundador");
     expect(contact?.sitio_web).toContain("e2e-clinera");
@@ -161,7 +174,6 @@ test.describe("/agenda — no ofrece madrugada UTC", () => {
 });
 
 test.describe("/agenda — hora local de la IP, no del reloj", () => {
-  // Laptop en hora Chile, IP en México: tiene que pintar México + Chile debajo.
   test.use({
     timezoneId: "America/Santiago",
     extraHTTPHeaders: { "x-vercel-ip-timezone": "America/Mexico_City" },

@@ -550,7 +550,7 @@ export default function CalculadoraDeConsumoPage() {
           >
             Las cifras incluyen un margen de seguridad del ~30% sobre el
             promedio observado. Para una proyección exacta sobre tu operación,{" "}
-            <a href="/hablar-con-ventas" style={{ color: "#7C3AED" }}>
+            <a href="/agenda" style={{ color: "#7C3AED" }}>
               habla con el equipo de Clinera
             </a>
             .

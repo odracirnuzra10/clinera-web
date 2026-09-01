@@ -1,9 +1,6 @@
 import Link from "next/link";
 import WhatsAppMockup from "./WhatsAppMockup";
 import styles from "@/app/empleado-digital/empleado-digital.module.css";
-import { stripeLink } from "@/content/pricing";
-
-const STRIPE_SUMMIT = stripeLink("summit");
 
 export default function HeroEquipo() {
   return (
@@ -21,7 +18,7 @@ export default function HeroEquipo() {
           </p>
 
           <div className={styles.heroCtaRow}>
-            <Link href="/hablar-con-ventas" className={styles.heroCta}>
+            <Link href="/agenda" className={styles.heroCta}>
               Agendar demo
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path
@@ -34,15 +31,15 @@ export default function HeroEquipo() {
               </svg>
             </Link>
 
-            <a
-              href={STRIPE_SUMMIT}
+            <Link
+              href="/agenda?plan=summit"
               className={styles.ctaDemoLink}
               data-plan="summit"
               data-plan-value="479"
-              data-plan-name="Summit checkout hero empleado-digital"
+              data-plan-name="Summit demo hero empleado-digital"
             >
-              Contratar Summit — USD 479/mes →
-            </a>
+              Agendar demo · Summit →
+            </Link>
 
             <div className={styles.statBar} role="list">
               <span role="listitem">
@@ -55,7 +52,7 @@ export default function HeroEquipo() {
             </div>
 
             <p className={styles.trustLine}>
-              Desde USD 279/mes · Plan anual: 20% OFF + implementación gratis · Pago seguro vía Stripe
+              Desde USD 279/mes · Plan anual: 20% OFF + implementación gratis
             </p>
           </div>
         </div>

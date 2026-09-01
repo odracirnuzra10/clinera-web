@@ -142,7 +142,7 @@ function Hero() {
         </p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
           <Link
-            href="/hablar-con-ventas"
+            href="/agenda"
             style={{
               background: GRAD,
               color: "#fff",

@@ -190,10 +190,10 @@ function Hero() {
             justifyContent: "center",
           }}
         >
-          <CtaPrimary as={Link} href="/hablar-con-ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
+          <CtaPrimary as={Link} href="/agenda" style={{ padding: "15px 26px", fontSize: 16 }}>
             Quiero migrar <span>→</span>
           </CtaPrimary>
-          <CtaSecondary as={Link} href="/hablar-con-ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
+          <CtaSecondary as={Link} href="/agenda" style={{ padding: "15px 26px", fontSize: 16 }}>
             <svg
               width="14"
               height="14"
@@ -1212,7 +1212,7 @@ function NewFeatureSection() {
             <CtaPrimary as={Link} href="/blog/importacion-masiva-tratamientos">
               Leer el artículo completo →
             </CtaPrimary>
-            <CtaSecondary as={Link} href="/hablar-con-ventas">
+            <CtaSecondary as={Link} href="/agenda">
               Hablar con migración
             </CtaSecondary>
           </div>
@@ -1501,7 +1501,7 @@ function KeepYourSystemSection() {
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <CtaPrimary
               as={Link}
-              href="/hablar-con-ventas"
+              href="/agenda"
               style={{
                 background: "linear-gradient(135deg,#0E7490 0%,#0891B2 50%,#22D3EE 100%)",
                 boxShadow:
@@ -1717,7 +1717,7 @@ function FinalCTA() {
             }}
           >
             <Link
-              href="/hablar-con-ventas"
+              href="/agenda"
               style={{
                 background: GRAD,
                 color: "#fff",
@@ -1737,7 +1737,7 @@ function FinalCTA() {
               Hablar con ventas <span>→</span>
             </Link>
             <Link
-              href="/hablar-con-ventas"
+              href="/agenda"
               style={{
                 background: "rgba(255,255,255,.08)",
                 color: "#fff",

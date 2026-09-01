@@ -122,34 +122,16 @@ test.describe("Meta Pixel & dataLayer events", () => {
     ).toBeGreaterThanOrEqual(1);
   });
 
-  test("4) InitiateCheckout fires on 'Activar plan' click (Stripe button)", async ({ page }) => {
-    const hits = await installPixelRecorder(page);
+  test("4) Plan cards on /planes link to /agenda (no Stripe checkout)", async ({ page }) => {
     await page.goto("/planes", { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(1500);
 
-    // Find a Stripe checkout link on /planes
-    const stripeLink = page.locator('a[href*="buy.stripe.com"]').first();
-    await expect(stripeLink).toBeVisible({ timeout: 10_000 });
+    const agendaLink = page.locator('a[href*="/agenda"]').first();
+    await expect(agendaLink).toBeVisible({ timeout: 10_000 });
+    await expect(agendaLink).toContainText(/Agendar demo/i);
 
-    // Intercept the navigation so we don't actually go to Stripe
-    await page.route("**/buy.stripe.com/**", (route) => route.abort());
-
-    await stripeLink.click({ force: true }).catch(() => {});
-    await page.waitForTimeout(1500);
-
-    const checkouts = hits.filter((h) => h.event === "InitiateCheckout");
-    const dl = await readDataLayer(page);
-    const dlIC = (dl as Array<Record<string, unknown>>).filter(
-      (e) => e.event === "initiate_checkout"
-    );
-
-    console.log("InitiateCheckout Meta Pixel hits:", checkouts.length);
-    console.log("initiate_checkout dataLayer hits:", dlIC.length);
-
-    expect(
-      checkouts.length + dlIC.length,
-      "expected InitiateCheckout on Stripe click"
-    ).toBeGreaterThanOrEqual(1);
+    const stripeLinks = page.locator('a[href*="buy.stripe.com"]');
+    await expect(stripeLinks).toHaveCount(0);
   });
 
   test("5) EngagedSession fires after 60 seconds of visible time", async ({ page }) => {

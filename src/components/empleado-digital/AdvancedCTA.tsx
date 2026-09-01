@@ -1,9 +1,6 @@
 import Link from "next/link";
 import styles from "@/app/empleado-digital/empleado-digital.module.css";
-import { stripeLink } from "@/content/pricing";
 import { VERTEX_IA_MODELS_PROSE } from "@/content/ia-stack";
-
-const STRIPE_SUMMIT = stripeLink("summit");
 
 const BULLETS = [
   "46.000 créditos / mes · bolsa mensual de IA",
@@ -41,7 +38,7 @@ export default function AdvancedCTA() {
           ))}
         </ul>
 
-        <Link href="/hablar-con-ventas" className={styles.ctaButton}>
+        <Link href="/agenda" className={styles.ctaButton}>
           Agendar demo
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path
@@ -54,18 +51,18 @@ export default function AdvancedCTA() {
           </svg>
         </Link>
 
-        <a
-          href={STRIPE_SUMMIT}
+        <Link
+          href="/agenda?plan=summit"
           className={styles.ctaDemoLink}
           data-plan="summit"
           data-plan-value="479"
-          data-plan-name="Summit checkout final empleado-digital"
+          data-plan-name="Summit demo final empleado-digital"
         >
-          Contratar Summit — USD 479/mes →
-        </a>
+          Agendar demo · Summit →
+        </Link>
 
         <p className={styles.ctaTrust}>
-          Configuración inicial USD 450 (onboarding asistido), gratis en plan anual · Pago seguro vía Stripe
+          Configuración inicial USD 450 (onboarding asistido), gratis en plan anual
         </p>
 
         <Link href="/demo" className={styles.ctaDemoLink}>

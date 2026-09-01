@@ -94,7 +94,7 @@ export default function TrialBanner({ variant = "light" }: Props) {
 
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <Link
-            href="/hablar-con-ventas"
+            href="/agenda"
             style={{
               background: "linear-gradient(135deg, #7C3AED 0%, #D946EF 100%)",
               color: "#fff",
