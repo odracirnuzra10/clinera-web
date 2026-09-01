@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-const LAST_UPDATED = "13 de marzo de 2026";
+const LAST_UPDATED = "1 de septiembre de 2026";
 
 export default function TerminosPage() {
   return (
@@ -71,8 +71,8 @@ export default function TerminosPage() {
               <p style={p}>
                 Estos Términos de Uso rigen la prestación de servicios del
                 Software Clinera. El servicio es provisto por{" "}
-                <strong>Clinera.io</strong>, una empresa constituida en
-                Delaware, EE. UU. (en adelante, «la Compañía»).
+                <strong>OACG Inc.</strong>, operando comercialmente como
+                Clinera.io (en adelante, «la Compañía»).
               </p>
               <p style={p}>
                 Al utilizar el Software Clinera, usted acepta estar obligado
@@ -223,7 +223,69 @@ export default function TerminosPage() {
                 directo de contenidos generados por los modelos de IA.
               </p>
 
-              <h2 style={h2}>8. Disposiciones generales</h2>
+              <h2 style={h2}>
+                8. Integraciones con Facebook, Instagram y WhatsApp
+              </h2>
+              <p style={p}>
+                Clinera permite que una clínica conecte determinados activos y
+                servicios de Meta, incluyendo páginas de Facebook, cuentas
+                profesionales de Instagram y cuentas de WhatsApp Business,
+                cuando dichas funciones se encuentren disponibles.
+              </p>
+              <p style={p}>
+                Al conectar un activo de Meta, el Cliente declara y garantiza
+                que:
+              </p>
+              <ul style={ul}>
+                <li>
+                  está autorizado para administrar el activo seleccionado y
+                  para otorgar a Clinera los permisos solicitados;
+                </li>
+                <li>
+                  cuenta con las autorizaciones y bases legales necesarias para
+                  procesar las conversaciones y datos personales asociados;
+                </li>
+                <li>
+                  utilizará la integración de acuerdo con las leyes aplicables,
+                  las condiciones de Clinera y las políticas vigentes de Meta;
+                </li>
+                <li>
+                  no empleará la integración para enviar spam, contenido
+                  ilegal, comunicaciones engañosas o mensajes que vulneren
+                  derechos de terceros;
+                </li>
+                <li>
+                  mantendrá actualizados los roles y accesos de las personas
+                  autorizadas dentro de su organización.
+                </li>
+              </ul>
+              <p style={p}>
+                Clinera utilizará los permisos otorgados únicamente para prestar
+                las funciones habilitadas por el Cliente, como descubrir activos
+                administrados, conectar cuentas, recibir eventos, mostrar
+                conversaciones y enviar respuestas. El tratamiento de datos se
+                describe en la{" "}
+                <Link href="/privacidad">Política de Privacidad</Link>.
+              </p>
+              <p style={p}>
+                El Cliente puede revocar el acceso desde las herramientas
+                disponibles en Clinera, cuando existan, o desde la
+                configuración de aplicaciones y sitios web de Meta. La
+                revocación puede interrumpir inmediatamente la recepción y el
+                envío de mensajes. Las instrucciones para solicitar la
+                eliminación de datos están disponibles en{" "}
+                <Link href="/eliminar-datos">Eliminación de Datos</Link>.
+              </p>
+              <p style={p}>
+                Meta y sus servicios son plataformas de terceros. Clinera no
+                controla su disponibilidad, sus procesos de revisión, sus
+                cambios de API ni la suspensión de activos realizada por Meta.
+                Sin perjuicio de las obligaciones legales de Clinera, no se
+                garantiza la continuidad de una integración cuando el proveedor
+                externo modifica, limita o revoca el acceso.
+              </p>
+
+              <h2 style={h2}>9. Disposiciones generales</h2>
               <p style={p}>
                 Estos Términos se rigen por las leyes del Estado de Delaware,
                 Estados Unidos. Toda controversia, disputa o reclamación
@@ -237,7 +299,8 @@ export default function TerminosPage() {
 
               <p style={{ ...p, marginTop: 28 }}>
                 Consulta también nuestra{" "}
-                <Link href="/privacidad">Política de Privacidad</Link> y la{" "}
+                <Link href="/privacidad">Política de Privacidad</Link>, la{" "}
+                <Link href="/eliminar-datos">Eliminación de Datos</Link> y la{" "}
                 <Link href="/cookies">Política de Cookies</Link>.
               </p>
             </div>
