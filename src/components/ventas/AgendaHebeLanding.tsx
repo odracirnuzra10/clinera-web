@@ -68,6 +68,21 @@ const TICKER = [
   { name: "Odontograma", price: "incluido" },
 ];
 
+function planStepFeatures(plan: (typeof CLINERA_PLANS)[number]): string[] {
+  const consumo = plan.consumptionReference.split(" · ")[0].replace(" automáticos", "");
+  if (plan.id === "vortex") return ["AURA · WhatsApp 24/7", consumo, plan.branches];
+  if (plan.id === "atlas") return ["Todo Vortex + CAMILA voz", plan.channel, plan.branches];
+  return ["Todo Atlas + LIA", plan.channel, plan.branches];
+}
+
+const PLAN_OPTIONS = CLINERA_PLANS.map((plan) => ({
+  id: plan.id,
+  name: plan.name,
+  price: plan.monthlyPrice,
+  featured: plan.featured,
+  features: planStepFeatures(plan),
+}));
+
 const PHONES: Record<string, { flag: string; label: string; len: number; pattern: RegExp; placeholder: string; hint: string }> = {
   "+56": { flag: "🇨🇱", label: "Chile", len: 9, pattern: /^9\d{8}$/, placeholder: "9 1234 5678", hint: "9 dígitos, empieza con 9" },
   "+51": { flag: "🇵🇪", label: "Perú", len: 9, pattern: /^9\d{8}$/, placeholder: "912 345 678", hint: "9 dígitos, empieza con 9" },
@@ -96,7 +111,7 @@ function ChannelLogos() {
   );
 }
 
-const TOTAL = 5;
+const TOTAL = 6;
 const DEFAULT_SOURCE_PATH = "/agenda";
 
 function Check() {
@@ -147,6 +162,7 @@ export default function AgendaHebeLanding({
   const price = CLINERA_PLANS[0].monthlyPrice;
   const [step, setStep] = useState(1);
   const [slide, setSlide] = useState(1);
+  const [selectedPlan, setSelectedPlan] = useState("");
   const [needs, setNeeds] = useState<string[]>([]);
   const [volume, setVolume] = useState("");
   const [clinica, setClinica] = useState("");
@@ -164,6 +180,13 @@ export default function AgendaHebeLanding({
   useEffect(() => {
     const t = window.setInterval(() => setSlide((i) => (i + 1) % SLIDES.length), 4200);
     return () => window.clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const fromQuery = new URLSearchParams(window.location.search).get("plan");
+    if (fromQuery && PLAN_OPTIONS.some((p) => p.id === fromQuery)) {
+      setSelectedPlan(fromQuery);
+    }
   }, []);
 
   const rule = PHONES[prefix];
@@ -207,7 +230,7 @@ export default function AgendaHebeLanding({
     const ctx = leadCtx ?? { eventId, leadSource: detectLeadSource() };
     if (!leadCtx) setLeadCtx(ctx);
     // El calendario no espera a n8n: si el webhook se cuelga, se pierden leads.
-    go(5);
+    go(6);
     void submitSizeLead({
       software: features[0] ?? null,
       size,
@@ -216,6 +239,7 @@ export default function AgendaHebeLanding({
       sourcePath,
       features,
       form,
+      plan: selectedPlan,
     }).then((next) => {
       if (next) setLeadCtx(next);
     });
@@ -227,6 +251,7 @@ export default function AgendaHebeLanding({
       leadCtx: ctx,
       sourcePath,
       features,
+      plan: selectedPlan,
     }).then((next) => {
       if (next) setLeadCtx(next);
     });
@@ -319,14 +344,55 @@ export default function AgendaHebeLanding({
             })}
           </div>
 
-          <div className={`${styles.viewport} ${step === 5 ? styles.viewportScheduler : ""}`}>
+          <div className={`${styles.viewport} ${step === 6 ? styles.viewportScheduler : ""}`}>
             <div className={`${styles.step} ${step === 1 ? styles.stepActive : ""}`} aria-hidden={step !== 1}>
+              <div className={styles.viewers}>Estos son nuestros planes. Elige el que más se acerca a tu operación hoy.</div>
+              <div className={styles.label}>Paso 1 de {TOTAL}</div>
+              <h2 className={styles.title}>
+                ¿Cuál plan te <em>interesa</em>?
+              </h2>
+              <p className={styles.sub}>Precio mensual de referencia y lo esencial de cada nivel. Luego vemos encaje con tu clínica.</p>
+              <div className={styles.planGrid}>
+                {PLAN_OPTIONS.map((p) => {
+                  const on = selectedPlan === p.id;
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      className={`${styles.planCard} ${on ? styles.planCardSelected : ""} ${p.featured ? styles.planCardFeatured : ""}`}
+                      onClick={() => setSelectedPlan(p.id)}
+                    >
+                      {p.featured && <span className={styles.planBadge}>Más elegido</span>}
+                      <div className={styles.planHead}>
+                        <span className={styles.planName}>{p.name}</span>
+                        <span className={styles.planPrice}>
+                          USD {p.price}
+                          <small>/mes</small>
+                        </span>
+                      </div>
+                      <ul className={styles.planFeatures}>
+                        {p.features.map((f) => (
+                          <li key={f}>{f}</li>
+                        ))}
+                      </ul>
+                      <Check />
+                    </button>
+                  );
+                })}
+              </div>
+              <button type="button" className={styles.cta} disabled={!selectedPlan} onClick={() => selectedPlan && go(2)}>
+                Continuar
+              </button>
+            </div>
+
+            <div className={`${styles.step} ${step === 2 ? styles.stepActive : ""}`} aria-hidden={step !== 2}>
+              <Back onClick={() => go(1)} />
               <div className={styles.viewers}>Más de 80 clínicas en LATAM unificaron sus operaciones con inteligencia artificial. ¿Qué esperas tú?</div>
               <div className={styles.reviews}>
                 <span className={styles.stars}>★★★★★</span>
                 <span>Dueños y gerentes de clínicas</span>
               </div>
-              <div className={styles.label}>Paso 1 de {TOTAL}</div>
+              <div className={styles.label}>Paso 2 de {TOTAL}</div>
               <h2 className={styles.title}>
                 Hablemos de tus <em>necesidades</em>
               </h2>
@@ -355,14 +421,14 @@ export default function AgendaHebeLanding({
                   );
                 })}
               </div>
-              <button type="button" className={styles.cta} disabled={needs.length === 0} onClick={() => needs.length && go(2)}>
+              <button type="button" className={styles.cta} disabled={needs.length === 0} onClick={() => needs.length && go(3)}>
                 Continuar
               </button>
             </div>
 
-            <div className={`${styles.step} ${step === 2 ? styles.stepActive : ""}`} aria-hidden={step !== 2}>
-              <Back onClick={() => go(1)} />
-              <div className={styles.label}>Paso 2 de {TOTAL}</div>
+            <div className={`${styles.step} ${step === 3 ? styles.stepActive : ""}`} aria-hidden={step !== 3}>
+              <Back onClick={() => go(2)} />
+              <div className={styles.label}>Paso 3 de {TOTAL}</div>
               <h2 className={styles.title}>
                 ¿Cuántos pacientes al <em>mes</em>?
               </h2>
@@ -389,8 +455,9 @@ export default function AgendaHebeLanding({
                         eventId,
                         sourcePath,
                         features,
+                        plan: selectedPlan,
                       });
-                      window.setTimeout(() => go(3), 280);
+                      window.setTimeout(() => go(4), 280);
                     }}
                   >
                     <span className={styles.icon} aria-hidden>
@@ -408,9 +475,9 @@ export default function AgendaHebeLanding({
               </div>
             </div>
 
-            <div className={`${styles.step} ${step === 3 ? styles.stepActive : ""}`} aria-hidden={step !== 3}>
-              <Back onClick={() => go(2)} />
-              <div className={styles.label}>Paso 3 de {TOTAL}</div>
+            <div className={`${styles.step} ${step === 4 ? styles.stepActive : ""}`} aria-hidden={step !== 4}>
+              <Back onClick={() => go(3)} />
+              <div className={styles.label}>Paso 4 de {TOTAL}</div>
               <h2 className={styles.title}>
                 Hablemos más de tu <em>clínica</em>
               </h2>
@@ -447,16 +514,16 @@ export default function AgendaHebeLanding({
                     setAttempted(true);
                     return;
                   }
-                  go(4);
+                  go(5);
                 }}
               >
                 Continuar
               </button>
             </div>
 
-            <div className={`${styles.step} ${step === 4 ? styles.stepActive : ""}`} aria-hidden={step !== 4}>
-              <Back onClick={() => go(3)} />
-              <div className={styles.label}>Paso 4 de {TOTAL}</div>
+            <div className={`${styles.step} ${step === 5 ? styles.stepActive : ""}`} aria-hidden={step !== 5}>
+              <Back onClick={() => go(4)} />
+              <div className={styles.label}>Paso 5 de {TOTAL}</div>
               <h2 className={styles.title}>
                 Tus datos de <em>contacto</em>
               </h2>
@@ -523,7 +590,7 @@ export default function AgendaHebeLanding({
               <p className={styles.note}>Sin compromiso · 45 min por videollamada</p>
             </div>
 
-            <div className={`${styles.step} ${styles.stepScheduler} ${step === 5 ? styles.stepActive : ""}`} aria-hidden={step !== 5}>
+            <div className={`${styles.step} ${styles.stepScheduler} ${step === 6 ? styles.stepActive : ""}`} aria-hidden={step !== 6}>
               {booking ? (
                 <div className={styles.success}>
                   <div className={styles.successMark} aria-hidden>
@@ -545,7 +612,7 @@ export default function AgendaHebeLanding({
                   form={form}
                   tzIp={tzIp}
                   label={`Paso 5 de ${TOTAL}`}
-                  onBack={() => go(4)}
+                  onBack={() => go(5)}
                   onBooked={(next, via, confirmEventId) => {
                     setBooking(next);
                     const profile = OPERATIONAL_PROFILES.find((p) => p.id === volume) ?? null;

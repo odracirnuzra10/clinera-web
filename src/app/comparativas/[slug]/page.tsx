@@ -1289,7 +1289,7 @@ export default async function ComparativaPage({
               </h1>
               <p className="hero-v2__sub">{data.intro}</p>
               <div className="hero-v2__actions">
-                <Link href="/hablar-con-ventas" className="hero-v2__primary">
+                <Link href="/agenda" className="hero-v2__primary">
                   Hablar con ventas
                 </Link>
                 <a href="#tabla" className="hero-v2__secondary">
@@ -1916,7 +1916,7 @@ export default async function ComparativaPage({
                 Onboarding asistido. Operando el mismo día. Simple.
               </p>
               <div className="cta-final-dark__actions">
-                <Link href="/hablar-con-ventas" className="cta-final-dark__primary">
+                <Link href="/agenda" className="cta-final-dark__primary">
                   Hablar con ventas
                 </Link>
                 <Link href="/demo" className="cta-final-dark__secondary">

@@ -65,8 +65,8 @@ export default function Header() {
           </nav>
 
           <div className={styles.headerActions}>
-            <Link href="/hablar-con-ventas" className={styles.btnPrimary}>
-              Hablar con ventas
+            <Link href="/agenda" className={styles.btnPrimary}>
+              Agendar demo
             </Link>
           </div>
 
@@ -143,8 +143,8 @@ export default function Header() {
         </div>
 
         <div className={styles.headerActionsMobile}>
-          <Link href="/hablar-con-ventas" className={styles.btnPrimary} onClick={closeMobileMenu}>
-            Hablar con ventas
+          <Link href="/agenda" className={styles.btnPrimary} onClick={closeMobileMenu}>
+            Agendar demo
           </Link>
         </div>
       </div>

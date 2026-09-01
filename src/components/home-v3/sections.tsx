@@ -159,7 +159,7 @@ export function Hero() {
             </p>
 
             <div style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
-              <CtaPrimary as={Link} href="/hablar-con-ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
+              <CtaPrimary as={Link} href="/agenda" style={{ padding: "15px 26px", fontSize: 16 }}>
                 Agendar demo <span>→</span>
               </CtaPrimary>
               <CtaSecondary as={Link} href="/demo" style={{ padding: "15px 26px", fontSize: 16 }}>
@@ -4342,11 +4342,12 @@ export function Pricing({
     featured: plan.featured,
   }));
 
-  const checkoutUrl = (p: (typeof plans)[number]) =>
-    ctaHref ?? (isAnnual ? p.stripeAnnual : isSemester ? p.stripeSemester : p.stripe);
-  // Stripe vive fuera del sitio y se abre en pestaña nueva; una ruta interna
-  // como /agenda tiene que continuar en la misma pestaña.
-  const ctaIsExternal = !ctaHref;
+  const checkoutUrl = (p: (typeof plans)[number]) => {
+    const base = ctaHref ?? "/agenda";
+    const sep = base.includes("?") ? "&" : "?";
+    return `${base}${sep}plan=${p.id}`;
+  };
+  const ctaIsExternal = false;
   const checkoutValue = (p: (typeof plans)[number]) =>
     isAnnual ? p.annualValue : isSemester ? p.semesterValue : p.monthlyValue;
 
@@ -4696,9 +4697,9 @@ export function Pricing({
                     data-plan={p.name.toLowerCase()}
                     data-plan-billing={billing}
                     data-plan-value={checkoutValue(p)}
-                    data-plan-name={`${p.name} pay ${billing}`}
+                    data-plan-name={`${p.name} demo`}
                   >
-                    Contratar {p.name}
+                    Agendar demo · {p.name}
                   </a>
                 </div>
 
@@ -5124,7 +5125,7 @@ export function FinalCTA() {
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <Link
-                href="/hablar-con-ventas"
+                href="/agenda"
                 style={{
                   background: GRAD,
                   color: "#fff",

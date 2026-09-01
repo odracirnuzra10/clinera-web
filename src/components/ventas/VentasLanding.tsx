@@ -709,7 +709,7 @@ export default function VentasLanding({
           .ventas-testi-desktop { display: none !important; }
           .ventas-testi-mobile { display: flex !important; }
           .ventas-integraciones { display: none !important; }
-          /* Compartido por /ventas, /hablar-con-ventas y /agenda. Un poco más
+          /* Compartido por /ventas, /agenda y /agenda. Un poco más
              generoso que la ronda vacía, sin pasar el techo de ~650px útiles
              de un in-app browser donde viven panel + tarjeta apilados. */
           .ventas-wizard { padding: 12px 14px 10px !important; border-radius: 16px !important; }
@@ -1298,7 +1298,7 @@ function Wizard({
   const [submitted, setSubmitted] = useState(false);
   const [declined, setDeclined] = useState(false);
   // El paso de software (paso 1) queda gateado por la misma prop de antes; ambas
-  // páginas (/ventas y /hablar-con-ventas) lo activan → flujo de 4 pasos.
+  // páginas (/ventas y /agenda) lo activan → flujo de 4 pasos.
   const hasSoftwareStep = enableMigrationQualification;
   const totalSteps = hasSoftwareStep ? (agendaV2 ? 5 : 4) : 3;
   const softwareStep = 1;
@@ -1625,6 +1625,7 @@ export async function submitSizeLead({
   sourcePath = "/ventas",
   features = [],
   form,
+  plan,
 }: {
   software: Step1Id | null;
   size: SizeAnswers;
@@ -1633,6 +1634,7 @@ export async function submitSizeLead({
   sourcePath?: string;
   features?: FeatureId[];
   form?: Form;
+  plan?: string;
 }): Promise<{ eventId: string; leadSource: string } | null> {
   if (!qual.califica) return null;
 
@@ -1665,6 +1667,7 @@ export async function submitSizeLead({
     ...sizeAttributes(software, size, qual, features),
     ...backCompatFields(software, size, qual),
     ...(form ? clinicCrmFields(form) : {}),
+    ...(plan ? { plan, plan_interes: plan } : {}),
     fuente: `Landing ${sourcePath} — Clinera (tamaño)`,
     landing_url: typeof window !== "undefined" ? location.href : "",
     referrer: typeof document !== "undefined" ? document.referrer : "",
@@ -1686,6 +1689,7 @@ export async function submitContactLead({
   leadCtx,
   sourcePath = "/ventas",
   features = [],
+  plan,
 }: {
   form: Form;
   software: Step1Id | null;
@@ -1694,6 +1698,7 @@ export async function submitContactLead({
   leadCtx: { eventId: string; leadSource: string } | null;
   sourcePath?: string;
   features?: FeatureId[];
+  plan?: string;
 }): Promise<{ eventId: string; leadSource: string; ok: boolean } | null> {
   const eventId = leadCtx?.eventId ?? newLeadEventId();
   const leadSource = leadCtx?.leadSource ?? detectLeadSource();
@@ -1737,6 +1742,7 @@ export async function submitContactLead({
     celular_digits: digits,
     celular_pais: rule?.name,
     email: form.email.trim(),
+    ...(plan ? { plan, plan_interes: plan } : {}),
     fuente: `Landing ${sourcePath} — Clinera`,
     landing_url: typeof window !== "undefined" ? location.href : "",
     referrer: typeof document !== "undefined" ? document.referrer : "",

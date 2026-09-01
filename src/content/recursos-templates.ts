@@ -398,7 +398,7 @@ function getCompetitorCardsPE(ciudad: string): RecursoSection[] {
       software: {
         nombre: "iMedical",
         url: "https://imedical.pe",
-        comparativaUrl: "/hablar-con-ventas",
+        comparativaUrl: "/agenda",
         resumen: `iMedical es peruano nativo (Lima), con 80+ instituciones en 15 países. Se posiciona como la plataforma médica integral en la nube para clínicas, consultorios e IPS, con integración WhatsApp e IA (resúmenes automáticos de historias clínicas).`,
         fortalezas: [
           "Peruano nativo — soporte local Lima, conoce el contexto regulatorio.",
@@ -413,7 +413,7 @@ function getCompetitorCardsPE(ciudad: string): RecursoSection[] {
         ],
         precioMensual: "Sin precios públicos (atiende por demo).",
         idealPara: `Clínicas en ${ciudad} que valoran proveedor 100% local y quieren IA aplicada a la historia clínica. Si lo importante es contestar WhatsApp 24/7, conviene combinar con Clinera vía API.`,
-        ctaPrimaryHref: "/hablar-con-ventas",
+        ctaPrimaryHref: "/agenda",
         ctaPrimaryLabel: "Comparar con Clinera",
       },
     },
@@ -448,7 +448,7 @@ function getCompetitorCardsPE(ciudad: string): RecursoSection[] {
       software: {
         nombre: "Medinet",
         url: "https://medinetapp.com/pe",
-        comparativaUrl: "/hablar-con-ventas",
+        comparativaUrl: "/agenda",
         resumen: `Medinet es plataforma multi-país (Chile + Perú) orientada a clínicas de alta complejidad: oftalmología, psiquiatría, estética, bariatría, oncología. +30.000 profesionales y 2.5M pacientes/año.`,
         fortalezas: [
           "Módulos especializados por especialidad médica (oftalmo, oncología, etc).",
@@ -462,7 +462,7 @@ function getCompetitorCardsPE(ciudad: string): RecursoSection[] {
         ],
         precioMensual: "Sin precios públicos (modelo enterprise).",
         idealPara: `Clínicas grandes en ${ciudad} con múltiples sucursales y especialidades complejas que necesitan módulo clínico vertical profundo.`,
-        ctaPrimaryHref: "/hablar-con-ventas",
+        ctaPrimaryHref: "/agenda",
         ctaPrimaryLabel: "Comparar con Clinera",
       },
     },

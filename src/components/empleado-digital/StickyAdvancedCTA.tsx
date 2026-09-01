@@ -32,7 +32,7 @@ export default function StickyAdvancedCTA() {
     <>
       <div className="equipo-sticky" role="region" aria-label="Agendar demo">
         <a
-          href="/hablar-con-ventas"
+          href="/agenda"
           className="equipo-sticky-primary"
         >
           Agendar demo

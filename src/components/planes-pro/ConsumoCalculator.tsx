@@ -339,7 +339,7 @@ export default function ConsumoCalculator() {
                 <p style={{ fontSize: 14, lineHeight: 1.55, marginTop: 16 }}>
                   Necesitas ~{fmt(r.necesarios)} créditos, más de los 46.000 de Summit. A tu volumen{" "}
                   <strong>habla con ventas</strong> para armar una bolsa a medida.{" "}
-                  <a href="/hablar-con-ventas" style={{ color: ACCENT, fontWeight: 600 }}>Hablar con el equipo →</a>
+                  <a href="/agenda" style={{ color: ACCENT, fontWeight: 600 }}>Hablar con el equipo →</a>
                 </p>
               </div>
             ) : (
@@ -391,7 +391,7 @@ export default function ConsumoCalculator() {
                     Ver plan {r.recomendado.name}
                   </a>
                   <a
-                    href="/hablar-con-ventas"
+                    href="/agenda"
                     style={{ display: "inline-block", border: `1px solid ${BORDER}`, background: "#fff", color: INK, padding: "12px 22px", borderRadius: 999, fontWeight: 600, fontSize: 15, textDecoration: "none" }}
                   >
                     Hablar con ventas

@@ -92,7 +92,7 @@ export function IntelligenceHomeSection() {
             <Link className={styles.primaryCta} href="/demo">
               Ver una demo <ArrowIcon />
             </Link>
-            <Link className={styles.secondaryCta} href="/hablar-con-ventas">
+            <Link className={styles.secondaryCta} href="/agenda">
               Hablar con ventas
             </Link>
           </div>

@@ -395,7 +395,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/reunion',
-        destination: '/hablar-con-ventas',
+        destination: '/agenda',
+        permanent: true,
+      },
+      {
+        source: '/hablar-con-ventas',
+        destination: '/agenda',
         permanent: true,
       },
       // /organigrama es el nombre por el que la gente busca la presentacion de

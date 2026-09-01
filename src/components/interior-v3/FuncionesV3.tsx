@@ -190,10 +190,10 @@ function Hero() {
             justifyContent: "center",
           }}
         >
-          <CtaPrimary as={Link} href="/hablar-con-ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
+          <CtaPrimary as={Link} href="/agenda" style={{ padding: "15px 26px", fontSize: 16 }}>
             Hablar con ventas <span>→</span>
           </CtaPrimary>
-          <CtaSecondary as={Link} href="/hablar-con-ventas" style={{ padding: "15px 26px", fontSize: 16 }}>
+          <CtaSecondary as={Link} href="/agenda" style={{ padding: "15px 26px", fontSize: 16 }}>
             <svg
               width="14"
               height="14"
@@ -1308,7 +1308,7 @@ function FinalCTA() {
           </p>
           <div style={{ display: "flex", gap: 12, marginTop: 12, flexWrap: "wrap", justifyContent: "center" }}>
             <Link
-              href="/hablar-con-ventas"
+              href="/agenda"
               style={{
                 background: GRAD,
                 color: "#fff",

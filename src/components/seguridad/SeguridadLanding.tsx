@@ -99,7 +99,7 @@ export default function SeguridadLanding() {
                   <path d="M9 4l4 4-4 4" />
                 </svg>
               </a>
-              <Link className={styles.ctaSecondary} href="/hablar-con-ventas">
+              <Link className={styles.ctaSecondary} href="/agenda">
                 Hablar con el equipo
               </Link>
             </div>

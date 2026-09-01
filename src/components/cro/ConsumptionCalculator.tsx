@@ -578,7 +578,7 @@ export default function ConsumptionCalculator() {
               <p style={{ fontSize: 14.5, lineHeight: 1.55, color: "#0A0A0A", margin: "16px 0 0" }}>
                 A tu volumen Summit (46.000 créditos) no alcanza: habla con ventas para
                 armar una bolsa a medida.{" "}
-                <a href="/hablar-con-ventas" style={{ color: "#7C3AED", fontWeight: 600 }}>
+                <a href="/agenda" style={{ color: "#7C3AED", fontWeight: 600 }}>
                   Habla con ventas →
                 </a>
               </p>

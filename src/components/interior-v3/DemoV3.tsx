@@ -688,13 +688,11 @@ function PlansSection() {
                   {/* Un solo CTA, igual que en /planes: contratar. El "Agendar
                       demo" salía sobrando en la página que ES la demo. */}
                   <a
-                    href={plan.stripeAnnual}
-                    target="_blank"
-                    rel="noopener"
+                    href={`/agenda?plan=${plan.slug}`}
                     data-plan={plan.slug}
                     data-plan-billing="annual"
                     data-plan-value={plan.annualValue}
-                    data-plan-name={`${plan.name} pay annual`}
+                    data-plan-name={`${plan.name} demo`}
                     style={{
                       background: popular ? GRAD : "#0A0A0A",
                       color: "#fff",
@@ -708,17 +706,14 @@ function PlansSection() {
                       boxShadow: popular ? "0 12px 32px -8px rgba(217,70,239,.5)" : "none",
                     }}
                   >
-                    Contratar {plan.name} anual →
+                    Agendar demo · {plan.name} →
                   </a>
-                  {/* El mensual sigue disponible, pero en segundo plano. */}
                   <a
-                    href={plan.stripeMonthly}
-                    target="_blank"
-                    rel="noopener"
+                    href={`/agenda?plan=${plan.slug}`}
                     data-plan={plan.slug}
                     data-plan-billing="monthly"
                     data-plan-value={plan.price}
-                    data-plan-name={`${plan.name} pay monthly`}
+                    data-plan-name={`${plan.name} demo monthly`}
                     style={{
                       marginTop: 8,
                       color: popular ? "rgba(255,255,255,.68)" : "#6B7280",
@@ -863,7 +858,7 @@ function PlansSection() {
               <span style={{ fontSize: 14, color: "rgba(255,255,255,.55)" }}>sobre Summit</span>
             </div>
             <Link
-              href="/hablar-con-ventas"
+              href="/agenda"
               data-plan="ventas"
               data-plan-value="479"
               data-plan-name="Hablar con ventas (sobre Summit)"
@@ -985,7 +980,7 @@ function DemoFinalCTA() {
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
             <Link
-              href="/hablar-con-ventas"
+              href="/agenda"
               style={{
                 background: "rgba(255,255,255,.1)",
                 color: "#fff",
