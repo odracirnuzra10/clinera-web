@@ -523,8 +523,14 @@
 }
 
 .planCardSelected {
-  border-color: #0a0a0a;
-  background: #fafbfd;
+  border-color: var(--accent);
+  background: var(--accent-light);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.planCardSelected:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 2px 12px rgba(124, 58, 237, 0.12);
 }
 
 .planCardFeatured {
@@ -678,13 +684,19 @@
   border-color: #111111;
 }
 
+.planCardSelected .check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
 .check svg {
   width: 12px;
   height: 12px;
   opacity: 0;
 }
 
-.cardSelected .check svg {
+.cardSelected .check svg,
+.planCardSelected .check svg {
   opacity: 1;
 }
 

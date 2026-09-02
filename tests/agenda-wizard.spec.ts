@@ -104,6 +104,34 @@ async function llegarAlCalendario(page: Page, id: string) {
 }
 
 test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
+  test("al pinchar un plan queda marcado (checkbox + aria-pressed)", async ({ page }) => {
+    await page.goto("/agenda", { waitUntil: "domcontentloaded" });
+    await expect(page.getByRole("heading", { name: /Cuál plan te interesa/i })).toBeVisible();
+
+    const vortex = page.getByRole("button", { name: /^Vortex/i });
+    const atlas = page.getByRole("button", { name: /^Atlas/i });
+    const summit = page.getByRole("button", { name: /^Summit/i });
+
+    await expect(vortex).toHaveAttribute("aria-pressed", "false");
+    await expect(atlas).toHaveAttribute("aria-pressed", "false");
+    await expect(summit).toHaveAttribute("aria-pressed", "false");
+    await expect(page.getByRole("button", { name: /^Continuar$/ }).filter({ visible: true })).toBeDisabled();
+
+    await atlas.click();
+    await expect(atlas).toHaveAttribute("aria-pressed", "true");
+    await expect(vortex).toHaveAttribute("aria-pressed", "false");
+    await expect(summit).toHaveAttribute("aria-pressed", "false");
+    await expect(atlas.locator('[aria-hidden] svg')).toHaveCSS("opacity", "1");
+    await expect(vortex.locator('[aria-hidden] svg')).toHaveCSS("opacity", "0");
+    await expect(page.getByRole("button", { name: /^Continuar$/ }).filter({ visible: true })).toBeEnabled();
+
+    await summit.click();
+    await expect(summit).toHaveAttribute("aria-pressed", "true");
+    await expect(atlas).toHaveAttribute("aria-pressed", "false");
+    await expect(summit.locator('[aria-hidden] svg')).toHaveCSS("opacity", "1");
+    await expect(atlas.locator('[aria-hidden] svg')).toHaveCSS("opacity", "0");
+  });
+
   test("empieza con planes, pasa los 6 pasos y manda plan + clínica al webhook", async ({ page }) => {
     const id = nonce();
     const hits = recordWizard(page);
