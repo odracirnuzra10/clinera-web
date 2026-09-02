@@ -110,7 +110,7 @@ test.describe("/agenda — wizard Hebe + agendador Clinera", () => {
 
     const vortex = page.getByRole("button", { name: /^Vortex/i });
     const atlas = page.getByRole("button", { name: /^Atlas/i });
-    const summit = page.getByRole("button", { name: /^Summit/i });
+    const summit = page.getByRole("button", { name: /Summit/i });
 
     await expect(vortex).toHaveAttribute("aria-pressed", "false");
     await expect(atlas).toHaveAttribute("aria-pressed", "false");
