@@ -367,7 +367,8 @@ export default function AgendaHebeLanding({
                     <button
                       key={p.id}
                       type="button"
-                      className={`${styles.planCard} ${on ? styles.planCardSelected : ""} ${p.featured ? styles.planCardFeatured : ""}`}
+                      className={`${styles.planCard} ${p.featured ? styles.planCardFeatured : ""} ${on ? styles.planCardSelected : ""}`}
+                      aria-pressed={on}
                       onClick={() => setSelectedPlan(p.id)}
                     >
                       {p.featured && <span className={styles.planBadge}>Más elegido</span>}
