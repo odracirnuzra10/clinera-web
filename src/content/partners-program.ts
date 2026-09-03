@@ -119,6 +119,10 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
     q: "¿Cómo se atribuye el referido?",
     a: "Con un código o enlace tuyo. La clínica tiene que entrar por ahí para que cuenten el bono y el descuento. Agenda una reunión y te activamos.",
   },
+  {
+    q: "¿Me regalan un sitio web si soy doctor?",
+    a: "Si eres doctor y no tienes sitio, postulas al convenio: te armamos una web para posicionar tu clínica y Clinera, con el dominio el primer año incluido. No es automático. Lo revisamos y te confirmamos.",
+  },
 ];
 
 export const PARTNERS_FINAL_CTA = {
@@ -128,4 +132,31 @@ export const PARTNERS_FINAL_CTA = {
   lead: `${PARTNERS_REFERRAL_FEE_LABEL} para ti. ${PARTNERS_CLIENT_DISCOUNT_LABEL} por ${PARTNERS_CLIENT_DISCOUNT_MONTHS} meses para tu referido. Coordinamos en una reunión.`,
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
+} as const;
+
+/**
+ * Convenio paralelo para doctores sin web. No es el programa Instagram
+ * (historias/reel/bio) ni un abrazo automático: hay que postular.
+ */
+export const PARTNERS_DOCTORS_CONVENIO = {
+  id: "convenio-doctores",
+  eyebrow: "Convenio doctores",
+  h2Before: "Si eres doctor y no tienes sitio web.",
+  h2Accent: "Postula.",
+  lead: "Te regalamos un sitio para posicionar tu clínica y Clinera. Dominio el primer año incluido. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.",
+  cta: "Postula",
+  points: [
+    {
+      title: "Sitio de regalo",
+      desc: "Si no tienes web, te armamos una para tu clínica y para Clinera.",
+    },
+    {
+      title: "Dominio 1 año",
+      desc: "El dominio va incluido el primer año.",
+    },
+    {
+      title: "Postula",
+      desc: "No es automático. Cada postulación se revisa.",
+    },
+  ],
 } as const;

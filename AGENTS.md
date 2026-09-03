@@ -582,3 +582,10 @@ viene el prospecto.
 La landing pública no muestra precios de plan: eso lo conversa ventas (hoy
 Rebeca). El 10% × 3 meses sí se publica: es el beneficio del referido. El kit
 es lo que se le manda al partner, no al prospecto.
+
+**Convenio doctores** (slide `#convenio-doctores` en el deck + bloque en
+`/partners`): si un doctor no tiene sitio web, puede **postular** a que Clinera
+le arme uno (dominio el primer año incluido) para posicionar su clínica y
+Clinera. No es automático. Copy y FAQ en `src/content/partners-program.ts`
+(`PARTNERS_DOCTORS_CONVENIO`). El deck no importa TS: hay que tocar el HTML a
+mano. Guardián: `tests/partners-program.spec.ts`.

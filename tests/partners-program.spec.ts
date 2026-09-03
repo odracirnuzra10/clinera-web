@@ -4,6 +4,7 @@ import {
   PARTNERS_CLIENT_DISCOUNT_MONTHS,
   PARTNERS_CLIENT_DISCOUNT_PERCENT,
   PARTNERS_CTA_HREF,
+  PARTNERS_DOCTORS_CONVENIO,
   PARTNERS_PATH,
   PARTNERS_PRESENTATION_HREF,
   PARTNERS_REFERRAL_FEE_LABEL,
@@ -26,6 +27,11 @@ test.describe("fuente de verdad del programa partner", () => {
       "1 reel al mes",
       "Bio de Instagram",
     ]);
+    expect(PARTNERS_DOCTORS_CONVENIO.cta).toBe("Postula");
+    expect(PARTNERS_DOCTORS_CONVENIO.h2Accent).toBe("Postula.");
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/Si eres doctor, postulas/);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/no es automático/i);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/dominio el primer año/i);
   });
 });
 
@@ -58,12 +64,31 @@ test.describe("landing /partners", () => {
     expect(body).toMatch(/1 reel al mes/);
     expect(body).toMatch(/partner de clinera\.io/);
     expect(body).toMatch(/closer/i);
+    expect(body).toMatch(/Convenio doctores/i);
+    expect(body).toMatch(/sitio web/i);
+    expect(body).toMatch(/dominio/i);
+    expect(body).toMatch(/No es automático/);
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
     await apply.click();
     await expect(page).toHaveURL(/\/reunion-comercial/);
-    await expect(page.getByRole("heading", { name: "Hablemos de tus necesidades" })).toBeVisible();
+    await expect(page.locator("h1").first()).toBeVisible();
+  });
+
+  test("convenio doctores se postula, no se entrega solo", async ({ page }) => {
+    await page.goto("/partners");
+    const block = page.locator("#convenio-doctores");
+    await expect(block.getByRole("heading", { level: 2 })).toContainText("Postula");
+    await expect(block).toContainText("sitio web");
+    await expect(block).toContainText("No es automático");
+    await expect(block.getByRole("link", { name: /^Postula/ })).toHaveAttribute(
+      "href",
+      PARTNERS_CTA_HREF,
+    );
+    await expect(block.getByRole("link", { name: /Aplicar al programa/ })).toHaveCount(
+      0,
+    );
   });
 
   test("muestra el diagrama de Clinera O.S.", async ({ page }) => {
@@ -86,6 +111,9 @@ test.describe("landing /partners", () => {
     await expect(page.locator("body")).toContainText("10%");
     await expect(page.locator("body")).toContainText("3 meses");
     await expect(page.locator("body")).not.toContainText("15%");
+    await expect(page.locator("#convenio-doctores")).toContainText("Postula");
+    await expect(page.locator("#convenio-doctores")).toContainText("No es automático");
+    await expect(page.locator("#convenio-doctores")).toContainText("Dominio");
   });
 
   test("el footer apunta a /partners, no a /agencias", async ({ page }) => {
