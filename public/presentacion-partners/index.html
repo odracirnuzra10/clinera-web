@@ -3564,6 +3564,7 @@
     .partner-cta-primary { background:#6941c6; color:#fff !important; }
     .partner-cta-secondary { border:1px solid var(--line); background:#fff; }
     .partner-pay-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:28px; }
+    .partner-pay-grid-3 { grid-template-columns:repeat(3, 1fr); }
     .partner-pay-card {
       background:#fff; border:1px solid var(--line); border-radius:16px; padding:28px 26px;
     }
@@ -3575,7 +3576,7 @@
     .partner-pay-card h3 { margin:10px 0 8px; font-size:clamp(36px,4vw,52px); letter-spacing:-0.04em; }
     .partner-pay-card p { margin:0; color:var(--muted); font-size:15px; line-height:1.55; }
     .partner-pay-card.featured p { color:rgba(255,255,255,.7); }
-    @media (max-width:720px) { .partner-pay-grid { grid-template-columns:1fr; } }
+    @media (max-width:720px) { .partner-pay-grid, .partner-pay-grid-3 { grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
@@ -3720,6 +3721,39 @@
               <h3>10%</h3>
               <p>Descuento durante 3 meses. Cada partner tiene un código. Lo aplica el closer de Clinera al cierre.</p>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="convenio-doctores"
+        data-name="Convenio doctores"
+        aria-hidden="true"
+      >
+        <div class="slide-inner">
+          <div class="blk-eyebrow">CONVENIO DOCTORES</div>
+          <h2 class="blk-h2">Si eres doctor y no tienes sitio web. <span class="blk-grad-text">Postula.</span></h2>
+          <p class="blk-lead">Te regalamos un sitio para posicionar tu clínica y Clinera. Dominio el primer año incluido. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.</p>
+          <div class="partner-pay-grid partner-pay-grid-3">
+            <article class="partner-pay-card featured">
+              <div class="num">01 · Sitio</div>
+              <h3>De regalo</h3>
+              <p>Si no tienes web, te armamos una para tu clínica y para Clinera.</p>
+            </article>
+            <article class="partner-pay-card">
+              <div class="num">02 · Dominio</div>
+              <h3>1 año</h3>
+              <p>El dominio va incluido el primer año.</p>
+            </article>
+            <article class="partner-pay-card">
+              <div class="num">03 · Acceso</div>
+              <h3>Postula</h3>
+              <p>No es automático. Cada postulación se revisa.</p>
+            </article>
+          </div>
+          <div class="partner-cta-row">
+            <a class="partner-cta-primary" href="/partners#convenio-doctores">Postula →</a>
           </div>
         </div>
       </section>

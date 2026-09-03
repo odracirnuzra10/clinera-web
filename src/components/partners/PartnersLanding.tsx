@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
+import { ConvenioDoctoresWizard } from "@/components/partners/ConvenioDoctoresWizard";
 import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
 import {
   PARTNERS_BENEFITS,
   PARTNERS_CTA_HREF,
+  PARTNERS_DOCTORS_CONVENIO,
   PARTNERS_FAQ,
   PARTNERS_FINAL_CTA,
   PARTNERS_HERO,
@@ -43,6 +45,7 @@ export default function PartnersLanding() {
     <>
       <Hero />
       <Deal />
+      <ConvenioDoctores />
       <OsDiagram />
       <FaqPartners />
       <FinalCTA />
@@ -360,6 +363,86 @@ function Deal() {
             </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ConvenioDoctores() {
+  const offer = PARTNERS_DOCTORS_CONVENIO;
+  return (
+    <section
+      id={offer.id}
+      className="partners-section"
+      style={{
+        ...sectionPad,
+        background: "#0A0A0A",
+        color: "#fff",
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <Eyebrow style={{ color: "#C4B5FD" }}>{offer.eyebrow}</Eyebrow>
+        <h2 style={{ ...h2Style, color: "#fff", maxWidth: 780 }}>
+          {offer.h2Before}{" "}
+          <span
+            style={{
+              background: GRAD,
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            {offer.h2Accent}
+          </span>
+        </h2>
+        <p style={{ ...leadStyle, color: "rgba(255,255,255,.72)", maxWidth: 640 }}>
+          {offer.lead}
+        </p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: 16,
+            marginBottom: 32,
+          }}
+        >
+          {offer.points.map((point) => (
+            <article
+              key={point.title}
+              style={{
+                background: "rgba(255,255,255,.04)",
+                border: "1px solid rgba(255,255,255,.12)",
+                borderRadius: 16,
+                padding: "24px 22px",
+              }}
+            >
+              <h3
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 18,
+                  fontWeight: 700,
+                  letterSpacing: "-0.02em",
+                  margin: "0 0 8px",
+                  color: "#fff",
+                }}
+              >
+                {point.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 14.5,
+                  color: "rgba(255,255,255,.68)",
+                  lineHeight: 1.55,
+                  margin: 0,
+                }}
+              >
+                {point.desc}
+              </p>
+            </article>
+          ))}
+        </div>
+        <ConvenioDoctoresWizard />
       </div>
     </section>
   );

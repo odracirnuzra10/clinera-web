@@ -119,6 +119,10 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
     q: "¿Cómo se atribuye el referido?",
     a: "Con un código o enlace tuyo. La clínica tiene que entrar por ahí para que cuenten el bono y el descuento. Agenda una reunión y te activamos.",
   },
+  {
+    q: "¿Me regalan un sitio web si soy doctor?",
+    a: "Si eres doctor y no tienes sitio, postulas en el bloque Convenio doctores de esta página: nombre, correo y motivo. No es el wizard de agendar. Te armamos una web para posicionar tu clínica y Clinera, con el dominio el primer año. No es automático: lo revisamos y te confirmamos.",
+  },
 ];
 
 export const PARTNERS_FINAL_CTA = {
@@ -128,4 +132,65 @@ export const PARTNERS_FINAL_CTA = {
   lead: `${PARTNERS_REFERRAL_FEE_LABEL} para ti. ${PARTNERS_CLIENT_DISCOUNT_LABEL} por ${PARTNERS_CLIENT_DISCOUNT_MONTHS} meses para tu referido. Coordinamos en una reunión.`,
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
+} as const;
+
+/**
+ * Convenio paralelo para doctores sin web. No es el programa Instagram
+ * (historias/reel/bio) ni el wizard de agendar: hay que postular aquí
+ * mismo, con nombre, correo y motivo. El correo llega a Ricardo.
+ */
+export const PARTNERS_DOCTORS_EMAIL = "ricardo@oacg.cl";
+export const PARTNERS_DOCTORS_API = "/api/convenio-doctores" as const;
+export const PARTNERS_DOCTORS_HREF = `${PARTNERS_PATH}#convenio-doctores` as const;
+
+export const PARTNERS_DOCTORS_CONVENIO = {
+  id: "convenio-doctores",
+  eyebrow: "Convenio doctores",
+  h2Before: "Si eres doctor y no tienes sitio web.",
+  h2Accent: "Postula.",
+  lead: "Te regalamos un sitio para posicionar tu clínica y Clinera. Dominio el primer año incluido. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.",
+  cta: "Postula",
+  points: [
+    {
+      title: "Sitio de regalo",
+      desc: "Si no tienes web, te armamos una para tu clínica y para Clinera.",
+    },
+    {
+      title: "Dominio 1 año",
+      desc: "El dominio va incluido el primer año.",
+    },
+    {
+      title: "Postula",
+      desc: "No es automático. Cada postulación se revisa.",
+    },
+  ],
+  wizard: {
+    continuar: "Continuar",
+    enviar: "Enviar postulación",
+    volver: "Volver",
+    exitoTitulo: "Postulación enviada",
+    exito:
+      "La revisamos y te escribimos. No es automático: no asumas que ya tienes el sitio.",
+    errorEnvio: "No pudimos enviar tu postulación. Inténtalo de nuevo.",
+    steps: [
+      {
+        key: "nombre",
+        label: "Tu nombre",
+        placeholder: "María Soto",
+        hint: "Como quieres que te escribamos.",
+      },
+      {
+        key: "correo",
+        label: "Tu correo",
+        placeholder: "maria@clinica.cl",
+        hint: "Ahí te confirmamos si queda.",
+      },
+      {
+        key: "motivo",
+        label: "Motivo",
+        placeholder: "Soy dermatóloga en Temuco y no tengo web…",
+        hint: "Especialidad, ciudad y por qué postulas.",
+      },
+    ],
+  },
 } as const;

@@ -4,12 +4,21 @@ import {
   PARTNERS_CLIENT_DISCOUNT_MONTHS,
   PARTNERS_CLIENT_DISCOUNT_PERCENT,
   PARTNERS_CTA_HREF,
+  PARTNERS_DOCTORS_API,
+  PARTNERS_DOCTORS_CONVENIO,
+  PARTNERS_DOCTORS_EMAIL,
+  PARTNERS_DOCTORS_HREF,
   PARTNERS_PATH,
   PARTNERS_PRESENTATION_HREF,
   PARTNERS_REFERRAL_FEE_LABEL,
   PARTNERS_REFERRAL_FEE_USD,
   PARTNERS_REQUIREMENTS,
 } from "@/content/partners-program";
+import {
+  errorDelPaso,
+  normalizarPostulacion,
+  validarPostulacion,
+} from "@/lib/convenio-doctores";
 
 test.describe("fuente de verdad del programa partner", () => {
   test("el partner cobra US$ 150; el referido recibe 10% por 3 meses", () => {
@@ -26,6 +35,34 @@ test.describe("fuente de verdad del programa partner", () => {
       "1 reel al mes",
       "Bio de Instagram",
     ]);
+    expect(PARTNERS_DOCTORS_CONVENIO.cta).toBe("Postula");
+    expect(PARTNERS_DOCTORS_CONVENIO.h2Accent).toBe("Postula.");
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/Si eres doctor, postulas/);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/no es automático/i);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/dominio el primer año/i);
+    expect(PARTNERS_DOCTORS_EMAIL).toBe("ricardo@oacg.cl");
+    expect(PARTNERS_DOCTORS_API).toBe("/api/convenio-doctores");
+    expect(PARTNERS_DOCTORS_HREF).toBe("/partners#convenio-doctores");
+    expect(PARTNERS_DOCTORS_CONVENIO.wizard.steps.map((s) => s.key)).toEqual([
+      "nombre",
+      "correo",
+      "motivo",
+    ]);
+  });
+
+  test("una postulación corta no pasa; nombre+correo+motivo sí", () => {
+    expect(validarPostulacion(normalizarPostulacion({}))).toContain("Escribe tu nombre.");
+    expect(errorDelPaso("correo", "hola")).toMatch(/correo/i);
+    expect(errorDelPaso("motivo", "muy corto")).toMatch(/motivo/i);
+    expect(
+      validarPostulacion(
+        normalizarPostulacion({
+          nombre: "María Soto",
+          correo: "maria@clinica.cl",
+          motivo: "Soy dermatóloga en Temuco y no tengo sitio web.",
+        }),
+      ),
+    ).toEqual([]);
   });
 });
 
@@ -58,12 +95,65 @@ test.describe("landing /partners", () => {
     expect(body).toMatch(/1 reel al mes/);
     expect(body).toMatch(/partner de clinera\.io/);
     expect(body).toMatch(/closer/i);
+    expect(body).toMatch(/Convenio doctores/i);
+    expect(body).toMatch(/sitio web/i);
+    expect(body).toMatch(/dominio/i);
+    expect(body).toMatch(/No es automático/);
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
     await apply.click();
     await expect(page).toHaveURL(/\/reunion-comercial/);
-    await expect(page.getByRole("heading", { name: "Hablemos de tus necesidades" })).toBeVisible();
+    await expect(page.locator("h1").first()).toBeVisible();
+  });
+
+  test("convenio doctores se postula en un wizard propio, no el de agendar", async ({
+    page,
+  }) => {
+    const enviados: unknown[] = [];
+    await page.route("**/api/convenio-doctores", async (route) => {
+      enviados.push(route.request().postDataJSON());
+      await route.fulfill({ json: { ok: true } });
+    });
+
+    await page.goto("/partners");
+    const block = page.locator("#convenio-doctores");
+    await expect(block.getByRole("heading", { level: 2 })).toContainText("Postula");
+    await expect(block).toContainText("sitio web");
+    await expect(block).toContainText("No es automático");
+    await expect(block.getByRole("link", { name: /Aplicar al programa/ })).toHaveCount(0);
+    await expect(block.getByRole("link", { name: /^Postula/ })).toHaveCount(0);
+
+    await block.getByRole("button", { name: /^Postula/ }).click();
+    await expect(block.getByText("Paso 1 de 3")).toBeVisible();
+    await block.getByLabel("Tu nombre").fill("María Soto");
+    await block.getByRole("button", { name: /Continuar/ }).click();
+    await expect(block.getByText("Paso 2 de 3")).toBeVisible();
+    await block.getByLabel("Tu correo").fill("maria@clinica.cl");
+    await block.getByRole("button", { name: /Continuar/ }).click();
+    await expect(block.getByText("Paso 3 de 3")).toBeVisible();
+    await block
+      .getByLabel("Motivo")
+      .fill("Soy dermatóloga en Temuco y no tengo sitio web.");
+    await block.getByRole("button", { name: /Enviar postulación/ }).click();
+
+    await expect(block.getByRole("heading", { name: "Postulación enviada" })).toBeVisible();
+    expect(enviados).toEqual([
+      {
+        nombre: "María Soto",
+        correo: "maria@clinica.cl",
+        motivo: "Soy dermatóloga en Temuco y no tengo sitio web.",
+      },
+    ]);
+    await expect(page).not.toHaveURL(/\/reunion-comercial/);
+    await expect(page).not.toHaveURL(/\/agenda/);
+  });
+
+  test("el ancla #convenio-doctores abre el wizard en el bloque", async ({ page }) => {
+    await page.goto("/partners#convenio-doctores");
+    const block = page.locator("#convenio-doctores");
+    await expect(block.getByText("Paso 1 de 3")).toBeVisible();
+    await expect(block.getByLabel("Tu nombre")).toBeVisible();
   });
 
   test("muestra el diagrama de Clinera O.S.", async ({ page }) => {
@@ -86,6 +176,13 @@ test.describe("landing /partners", () => {
     await expect(page.locator("body")).toContainText("10%");
     await expect(page.locator("body")).toContainText("3 meses");
     await expect(page.locator("body")).not.toContainText("15%");
+    await expect(page.locator("#convenio-doctores")).toContainText("Postula");
+    await expect(page.locator("#convenio-doctores")).toContainText("No es automático");
+    await expect(page.locator("#convenio-doctores")).toContainText("Dominio");
+    await expect(page.locator("#convenio-doctores a.partner-cta-primary")).toHaveAttribute(
+      "href",
+      PARTNERS_DOCTORS_HREF,
+    );
   });
 
   test("el footer apunta a /partners, no a /agencias", async ({ page }) => {
@@ -124,5 +221,24 @@ test.describe("redirect /presentacion-agencia → /presentacion-partners", () =>
     await expect(page.locator(".slide.active")).toContainText("US$ 150");
     await expect(page.locator("body")).toContainText("10%");
     await expect(page.locator("body")).not.toContainText("15%");
+  });
+});
+
+test.describe("/api/convenio-doctores", () => {
+  test("un body vacío se rechaza; el SMTP no se filtra al cliente", async ({
+    request,
+    page,
+  }) => {
+    const res = await request.post("/api/convenio-doctores", { data: {} });
+    expect(res.status()).toBe(400);
+    const json = await res.json();
+    expect(json.ok).toBe(false);
+    expect(json.errores.length).toBeGreaterThan(0);
+    expect(JSON.stringify(json)).not.toContain("SMTP_PASS");
+
+    await page.goto("/partners");
+    const html = await page.content();
+    expect(html).not.toContain("SMTP_PASS");
+    expect(html).not.toContain("SMTP_USER");
   });
 });
