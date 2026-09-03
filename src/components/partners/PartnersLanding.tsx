@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
+import { ConvenioDoctoresWizard } from "@/components/partners/ConvenioDoctoresWizard";
 import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
 import {
   PARTNERS_BENEFITS,
@@ -441,13 +442,7 @@ function ConvenioDoctores() {
             </article>
           ))}
         </div>
-        <CtaPrimary
-          as={Link}
-          href={PARTNERS_CTA_HREF}
-          style={{ padding: "14px 22px", fontSize: 15 }}
-        >
-          {offer.cta} <span style={{ marginLeft: 2 }}>→</span>
-        </CtaPrimary>
+        <ConvenioDoctoresWizard />
       </div>
     </section>
   );

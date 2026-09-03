@@ -121,7 +121,7 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿Me regalan un sitio web si soy doctor?",
-    a: "Si eres doctor y no tienes sitio, postulas al convenio: te armamos una web para posicionar tu clínica y Clinera, con el dominio el primer año incluido. No es automático. Lo revisamos y te confirmamos.",
+    a: "Si eres doctor y no tienes sitio, postulas en el bloque Convenio doctores de esta página: nombre, correo y motivo. No es el wizard de agendar. Te armamos una web para posicionar tu clínica y Clinera, con el dominio el primer año. No es automático: lo revisamos y te confirmamos.",
   },
 ];
 
@@ -136,8 +136,13 @@ export const PARTNERS_FINAL_CTA = {
 
 /**
  * Convenio paralelo para doctores sin web. No es el programa Instagram
- * (historias/reel/bio) ni un abrazo automático: hay que postular.
+ * (historias/reel/bio) ni el wizard de agendar: hay que postular aquí
+ * mismo, con nombre, correo y motivo. El correo llega a Ricardo.
  */
+export const PARTNERS_DOCTORS_EMAIL = "ricardo@oacg.cl";
+export const PARTNERS_DOCTORS_API = "/api/convenio-doctores" as const;
+export const PARTNERS_DOCTORS_HREF = `${PARTNERS_PATH}#convenio-doctores` as const;
+
 export const PARTNERS_DOCTORS_CONVENIO = {
   id: "convenio-doctores",
   eyebrow: "Convenio doctores",
@@ -159,4 +164,33 @@ export const PARTNERS_DOCTORS_CONVENIO = {
       desc: "No es automático. Cada postulación se revisa.",
     },
   ],
+  wizard: {
+    continuar: "Continuar",
+    enviar: "Enviar postulación",
+    volver: "Volver",
+    exitoTitulo: "Postulación enviada",
+    exito:
+      "La revisamos y te escribimos. No es automático: no asumas que ya tienes el sitio.",
+    errorEnvio: "No pudimos enviar tu postulación. Inténtalo de nuevo.",
+    steps: [
+      {
+        key: "nombre",
+        label: "Tu nombre",
+        placeholder: "María Soto",
+        hint: "Como quieres que te escribamos.",
+      },
+      {
+        key: "correo",
+        label: "Tu correo",
+        placeholder: "maria@clinica.cl",
+        hint: "Ahí te confirmamos si queda.",
+      },
+      {
+        key: "motivo",
+        label: "Motivo",
+        placeholder: "Soy dermatóloga en Temuco y no tengo web…",
+        hint: "Especialidad, ciudad y por qué postulas.",
+      },
+    ],
+  },
 } as const;
