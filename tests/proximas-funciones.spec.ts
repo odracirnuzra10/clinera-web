@@ -73,6 +73,14 @@ test.describe("próximas funciones: blog + llms, no el deck", () => {
     expect(deck).not.toContain("openfactura");
   });
 
+  test("el hub incrusta la presentación de Vimeo de las nuevas funciones", () => {
+    expect(post).toMatch(/video:\s*\n\s*id:\s*"1223436677"/);
+    expect(post).toContain('videoId="1223436677"');
+    expect(post).toContain("<VimeoEmbed");
+    expect(post).toContain('title="Presentación nuevas funciones"');
+    expect(post).toContain('aspect="1 / 1"');
+  });
+
   test("el post nombra las cinco funciones y no inventario/sueldos", () => {
     expect(post).toMatch(/Open Factura/);
     expect(post).toMatch(/odontograma/i);
@@ -116,6 +124,20 @@ test.describe("próximas funciones: blog + llms, no el deck", () => {
     expect(robotsSrc).toContain("/llms-full.txt");
     expect(robotsSrc).toContain("/blog/");
     expect(robotsSrc).toContain(POST_PROXIMAS_FUNCIONES_SLUG);
+  });
+
+  test("el iframe de Vimeo se ve en el hub", async ({ page }) => {
+    await page.goto(
+      "/blog/proximas-funciones-clinera-dte-odontograma-instagram",
+    );
+    const iframe = page.locator(
+      'iframe[title="Presentación nuevas funciones"]',
+    );
+    await expect(iframe).toBeVisible();
+    await expect(iframe).toHaveAttribute(
+      "src",
+      /player\.vimeo\.com\/video\/1223436677/,
+    );
   });
 
   test("hay un artículo AEO por cada función y el hub los enlaza", () => {
