@@ -4,8 +4,8 @@ import { POST_PROXIMAS_FUNCIONES_PATH } from "@/content/proximas-funciones";
 const GRAD = "linear-gradient(90deg, #009FE3 0%, #7C3AED 55%, #D946EF 100%)";
 
 /**
- * Anuncio de producto en home. Apunta al hub del blog; no duplica el detalle
- * ni nombra inventario/liquidaciones (siguen inéditos).
+ * Anuncio de producto en home. El CTA abre el hub del blog; el copy
+ * solo nombra las cinco funciones publicadas en agosto 2026.
  */
 export default function ActualizacionSeptiembreBanner() {
   return (
