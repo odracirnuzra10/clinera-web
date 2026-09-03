@@ -110,8 +110,10 @@ test.describe("AEO: entidad, schema e higiene", () => {
   test("existe /equipo y Person @id para autores", () => {
     const equipo = read("src/app/equipo/page.tsx");
     expect(equipo).toContain("personSchema");
-    expect(equipo).toContain("ricardo-oyarzun");
-    expect(read("src/components/seo/schemas.ts")).toContain("/equipo#");
+    expect(equipo).toContain("id={a.slug}");
+    const schemas = read("src/components/seo/schemas.ts");
+    expect(schemas).toContain("/equipo#");
+    expect(schemas).toContain('slug: "ricardo-oyarzun"');
   });
 });
 
