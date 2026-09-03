@@ -8,7 +8,7 @@ import { breadcrumbSchema, orgSchema, faqSchema } from "@/components/seo/schemas
 const URL = "https://www.clinera.io/planes-pro";
 
 export const metadata: Metadata = {
-  title: "Planes Pro · precios y créditos explicados al detalle — Clinera.io",
+  title: "Planes Pro: precios y créditos",
   description:
     "La vista a fondo de los planes de Clinera: qué es un crédito, por qué una conversación no siempre cuesta lo mismo (conversar ~30 vs agendar ~195) y cuánto rinde cada plan. Vortex 28.000 cr, Atlas 37.000 cr, Summit 46.000 cr. Calculadora de consumo incluida. Permanencia mínima de 6 meses · anual con 20% OFF e implementación gratis · semestral con 20% OFF · mensual + USD 450 de configuración inicial.",
   alternates: { canonical: URL },

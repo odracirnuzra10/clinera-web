@@ -5,12 +5,12 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import ReunionLanding from "@/components/reunion/ReunionLanding";
 
 export const metadata: Metadata = {
-  title: "Agenda tu reunión — Clinera.io",
+  title: "Agenda tu reunión",
   description:
     "30 minutos con el equipo de Clinera. Califica tu situación y elige horario en pocos pasos. Te confirmamos por email.",
   alternates: { canonical: "https://www.clinera.io/reunion" },
   openGraph: {
-    title: "Agenda tu reunión — Clinera.io",
+    title: "Agenda tu reunión",
     description:
       "30 minutos con el equipo de Clinera. Te confirmamos por email.",
     url: "https://www.clinera.io/reunion",

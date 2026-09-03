@@ -5,13 +5,13 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import { VERTEX_IA_MODELS_PROSE } from "@/content/ia-stack";
 
 export const metadata: Metadata = {
-  title: "Política de Privacidad — Clinera.io",
+  title: "Política de privacidad",
   description:
     "Política de privacidad de Clinera.io. Cómo recopilamos, usamos y protegemos tu información personal, incluidos los servicios de inteligencia artificial.",
   alternates: { canonical: "https://www.clinera.io/privacidad" },
   openGraph: {
     url: "https://www.clinera.io/privacidad",
-    title: "Política de Privacidad — Clinera.io",
+    title: "Política de privacidad",
     description:
       "Cómo recopilamos, usamos y protegemos tu información personal en Clinera.io.",
     type: "article",

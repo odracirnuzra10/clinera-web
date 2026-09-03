@@ -6,7 +6,7 @@ import { timezoneIpDelRequest } from "@/lib/timezone-ip";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Agenda una reunión comercial — Clinera.io",
+  title: "Agenda una reunión comercial",
   description:
     "30 min con el equipo comercial de Clinera. IA que opera la agenda de todo tu equipo y todas tus sedes por WhatsApp 24/7.",
   alternates: { canonical: "https://www.clinera.io/ventas" },

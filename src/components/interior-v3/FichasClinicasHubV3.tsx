@@ -1117,6 +1117,63 @@ function FinalCTA(): ReactNode {
             >
               Ver funciones
             </Link>
+            <Link
+              href="/software-medico"
+              style={{
+                background: "rgba(255,255,255,.08)",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,.18)",
+                padding: "14px 24px",
+                borderRadius: 10,
+                fontWeight: 600,
+                fontSize: 15.5,
+                fontFamily: "Inter",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              Software médico
+            </Link>
+            <Link
+              href="/plataforma"
+              style={{
+                background: "rgba(255,255,255,.08)",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,.18)",
+                padding: "14px 24px",
+                borderRadius: 10,
+                fontWeight: 600,
+                fontSize: 15.5,
+                fontFamily: "Inter",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              Plataforma
+            </Link>
+            <Link
+              href="/mejor-software-clinicas"
+              style={{
+                background: "rgba(255,255,255,.08)",
+                color: "#fff",
+                border: "1px solid rgba(255,255,255,.18)",
+                padding: "14px 24px",
+                borderRadius: 10,
+                fontWeight: 600,
+                fontSize: 15.5,
+                fontFamily: "Inter",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+              }}
+            >
+              Mejor software para clínicas
+            </Link>
           </div>
         </div>
       </div>

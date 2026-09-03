@@ -68,15 +68,15 @@ export function IntelligenceHomeSection() {
       <div className={styles.homeInner}>
         <div className={`${styles.homeCopy} reveal`}>
           <span className={styles.kicker}>
-            <SparkIcon /> Clinera Intelligence · Tu agente interno IA
+            <SparkIcon /> Agente interno de Clinera O.S.
           </span>
           <h2 className={styles.homeTitle}>
             Pregúntale a tu clínica. <span>Te responde con tus números.</span>
           </h2>
           <p className={styles.homeLead}>
-            Clinera Intelligence es el agente interno de IA que te asiste dentro de Clinera O.S.:
-            escribe la pregunta en lenguaje natural y recibe cifras reales de tu clínica, con
-            gráficos generados al momento.
+            El agente interno de Clinera O.S. te asiste con los números de tu clínica:
+            escribe la pregunta en lenguaje natural y recibe cifras reales, con
+            gráficos generados al momento. En el producto aparece como función de reportes.
           </p>
           <ul className={styles.homeBullets}>
             {HOME_BULLETS.map((b) => (
@@ -144,15 +144,15 @@ export function IntelligencePlataformaSection({
       <div className={styles.platInner}>
         <div className={styles.platIntro}>
           <span className={styles.kicker}>
-            <SparkIcon /> Clinera Intelligence · Tu agente interno IA
+            <SparkIcon /> Agente interno de Clinera O.S.
           </span>
           <h2>
             Conversa con <span>toda tu operación</span>.
           </h2>
           <p>
-            Clinera Intelligence es el agente interno con IA que te asiste dentro de Clinera O.S.:
-            pregunta en lenguaje natural y responde con los datos reales de tu clínica — sin
-            reportes manuales ni planillas.
+            El agente interno de Clinera O.S. te asiste con los datos reales de tu clínica:
+            pregunta en lenguaje natural y responde sin reportes manuales ni planillas.
+            En el producto aparece como función de reportes.
           </p>
         </div>
         <div className={styles.platGrid}>

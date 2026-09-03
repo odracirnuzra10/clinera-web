@@ -9,11 +9,11 @@ import SkipLink from "@/components/SkipLink";
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.clinera.io"),
   title: {
-    default: "Clinera.io | Software de IA para Clínicas",
-    template: "%s | Clinera.io",
+    default: "Clinera | Software de IA para clínicas",
+    template: "%s | Clinera",
   },
   description:
-    "Agenda pacientes con IA las 24 horas. Clinera responde, agenda y confirma citas por ti 24/7 con inteligencia artificial.",
+    "Clinera es software de IA para clínicas médicas y estéticas en LATAM: AURA, CAMILA y LIA agendan, confirman, cobran y recuperan pacientes.",
   keywords: [
     "agendamiento con IA",
     "WhatsApp clinica",
@@ -24,15 +24,15 @@ export const metadata: Metadata = {
     "software estetica",
     "clinera",
   ],
-  authors: [{ name: "Clinera.io" }],
-  creator: "Clinera.io",
-  publisher: "Clinera.io",
+  authors: [{ name: "Clinera" }],
+  creator: "Clinera",
+  publisher: "Clinera",
   openGraph: {
     type: "website",
     locale: "es_CL",
     url: "https://www.clinera.io",
-    siteName: "Clinera.io",
-    title: "Clinera.io | Software de IA para Clínicas",
+    siteName: "Clinera",
+    title: "Clinera | Software de IA para clínicas",
     description:
       "AURA agenda, re-agenda y atiende pacientes por WhatsApp 24/7. +52 clínicas en LATAM. Desde USD 279/mes.",
     images: [
@@ -40,13 +40,13 @@ export const metadata: Metadata = {
         url: "/images/og-banner.png",
         width: 1200,
         height: 630,
-        alt: "Clinera.io - Software de IA para Clínicas",
+        alt: "Clinera — software de IA para clínicas",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Clinera.io | Software de IA para Clínicas",
+    title: "Clinera | Software de IA para clínicas",
     description:
       "AURA agenda, re-agenda y atiende pacientes por WhatsApp 24/7. +52 clínicas en LATAM. Desde USD 279/mes.",
     images: ["/images/og-banner.png"],

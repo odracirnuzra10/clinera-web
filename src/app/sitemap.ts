@@ -4,97 +4,102 @@ import { getPartnerPublicPath, listPartners } from '@/lib/partners';
 import { allCruzadas } from '@/content/comparativas-cross';
 import { allPosts } from '@/content/posts';
 import { publishedRecursos } from '@/content/recursos';
+import { pageDate } from '@/content/page-dates';
+
+const baseUrl = 'https://www.clinera.io';
+
+function staticEntry(
+  path: string,
+  changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'],
+  priority: number,
+): MetadataRoute.Sitemap[number] {
+  const { modified } = pageDate(path);
+  return {
+    url: path === '/' ? `${baseUrl}/` : `${baseUrl}${path}`,
+    lastModified: new Date(modified),
+    changeFrequency,
+    priority,
+  };
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.clinera.io';
-  const now = new Date();
-
   const urls: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/`, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
+    staticEntry('/', 'weekly', 1.0),
 
-    // Core product
-    { url: `${baseUrl}/plataforma`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/software-medico`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/software-dental`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/funciones`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/planes`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/empleado-digital`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/mejor-software-clinicas`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/mejor-software-clinicas/chile`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/mejor-software-clinicas/mexico`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/mejor-software-clinicas/colombia`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/planes-pro`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/demo`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/app`, lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
-    { url: `${baseUrl}/reunion-comercial`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/agenda`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/ventas`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/agenda`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/presentacion`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/presentacion-partners`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/partners`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/webinars`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/reserva`, lastModified: now, changeFrequency: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/migracion`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/calculadora-de-consumo`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    staticEntry('/plataforma', 'monthly', 0.9),
+    staticEntry('/software-medico', 'monthly', 0.9),
+    staticEntry('/software-dental', 'monthly', 0.9),
+    staticEntry('/funciones', 'monthly', 0.9),
+    staticEntry('/planes', 'weekly', 0.9),
+    staticEntry('/empleado-digital', 'monthly', 0.9),
+    staticEntry('/mejor-software-clinicas', 'monthly', 0.9),
+    staticEntry('/mejor-software-clinicas/chile', 'monthly', 0.9),
+    staticEntry('/mejor-software-clinicas/mexico', 'monthly', 0.9),
+    staticEntry('/mejor-software-clinicas/colombia', 'monthly', 0.9),
+    staticEntry('/planes-pro', 'weekly', 0.8),
+    staticEntry('/demo', 'monthly', 0.9),
+    staticEntry('/app', 'monthly', 0.75),
+    staticEntry('/reunion-comercial', 'monthly', 0.8),
+    staticEntry('/agenda', 'monthly', 0.9),
+    staticEntry('/ventas', 'monthly', 0.6),
+    staticEntry('/presentacion', 'monthly', 0.7),
+    staticEntry('/presentacion-partners', 'monthly', 0.7),
+    staticEntry('/partners', 'monthly', 0.85),
+    staticEntry('/webinars', 'weekly', 0.8),
+    staticEntry('/reserva', 'weekly', 0.85),
+    staticEntry('/migracion', 'monthly', 0.85),
+    staticEntry('/calculadora-de-consumo', 'monthly', 0.8),
+    staticEntry('/equipo', 'monthly', 0.7),
 
-    // Comparativas (bottom-funnel SEO/AEO hub) — directas
-    { url: `${baseUrl}/comparativas`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/comparativas/reservo`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/comparativas/agendapro`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/comparativas/medilink`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/comparativas/manual`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/comparativas/dentalink`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/comparativas/sacmed`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/comparativas/doctocliq`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    staticEntry('/comparativas', 'monthly', 0.9),
+    staticEntry('/comparativas/reservo', 'monthly', 0.9),
+    staticEntry('/comparativas/agendapro', 'monthly', 0.9),
+    staticEntry('/comparativas/medilink', 'monthly', 0.8),
+    staticEntry('/comparativas/manual', 'monthly', 0.8),
+    staticEntry('/comparativas/dentalink', 'monthly', 0.8),
+    staticEntry('/comparativas/sacmed', 'monthly', 0.8),
+    staticEntry('/comparativas/doctocliq', 'monthly', 0.8),
 
-    // Trust / evidence (evergreen + companion article)
-    { url: `${baseUrl}/seguridad`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/prensa`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/efectividad`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/blog/efectividad`, lastModified: new Date('2026-04-23'), changeFrequency: 'monthly', priority: 0.8 },
+    staticEntry('/seguridad', 'monthly', 0.9),
+    staticEntry('/prensa', 'monthly', 0.7),
+    staticEntry('/efectividad', 'monthly', 0.9),
+    {
+      url: `${baseUrl}/blog/efectividad`,
+      lastModified: new Date('2026-04-23'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
 
-    // Content / support
-    { url: `${baseUrl}/novedades`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    // Categorias del blog (path-based URLs, mejor SEO que query strings)
-    { url: `${baseUrl}/novedades/whatsapp`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/novedades/ia`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/novedades/operaciones`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/novedades/no-shows`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/novedades/estrategia`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/novedades/ltv`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/novedades/marketing`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/novedades/estetica`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/novedades/fichas-clinicas`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/ayuda`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.6 },
-    { url: `${baseUrl}/llms.txt`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/llms-full.txt`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
+    staticEntry('/novedades', 'weekly', 0.7),
+    staticEntry('/novedades/whatsapp', 'weekly', 0.7),
+    staticEntry('/novedades/ia', 'weekly', 0.7),
+    staticEntry('/novedades/operaciones', 'weekly', 0.7),
+    staticEntry('/novedades/no-shows', 'weekly', 0.7),
+    staticEntry('/novedades/estrategia', 'weekly', 0.7),
+    staticEntry('/novedades/ltv', 'weekly', 0.7),
+    staticEntry('/novedades/marketing', 'weekly', 0.7),
+    staticEntry('/novedades/estetica', 'weekly', 0.7),
+    staticEntry('/novedades/fichas-clinicas', 'weekly', 0.9),
+    staticEntry('/ayuda', 'weekly', 0.6),
+    staticEntry('/blog', 'weekly', 0.6),
+    staticEntry('/llms.txt', 'weekly', 0.8),
+    staticEntry('/llms-full.txt', 'weekly', 0.7),
 
-    // Future dedicated pages (stubs / planned)
-    { url: `${baseUrl}/casos-de-exito`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    staticEntry('/ley20584', 'monthly', 0.6),
+    staticEntry('/acreditacion', 'monthly', 0.85),
 
-    // Normativa de ficha clínica: landing corta + página profunda por país
-    { url: `${baseUrl}/ley20584`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/acreditacion`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
-
-    // Legal
-    { url: `${baseUrl}/privacidad`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/terminos`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/cookies`, lastModified: now, changeFrequency: 'yearly', priority: 0.3 },
+    staticEntry('/privacidad', 'yearly', 0.3),
+    staticEntry('/terminos', 'yearly', 0.3),
+    staticEntry('/cookies', 'yearly', 0.3),
   ];
 
-  // ============================================================
-  // Bloques dinámicos (Pilar B.1 + B.3 + B.4)
-  // ============================================================
+  const partnersModified = new Date(pageDate('/partners').modified);
 
   const dynamicUrls: MetadataRoute.Sitemap = [
-    // Hubs nuevos
-    { url: `${baseUrl}/clinicas`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/recursos`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/recursos/calculadora-roi`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
+    staticEntry('/clinicas', 'weekly', 0.7),
+    staticEntry('/recursos', 'weekly', 0.7),
+    staticEntry('/recursos/calculadora-roi', 'monthly', 0.8),
 
-    // Pilar B.1 — clínicas con consentimiento
     ...allClinics
       .filter((c) => c.consentGranted)
       .map((c) => ({
@@ -104,7 +109,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.6,
       })),
 
-    // Pilar B.3 — comparativas cruzadas
     ...allCruzadas.map((c) => ({
       url: `${baseUrl}/comparativas/${c.slug}`,
       lastModified: c.updatedAt ? new Date(c.updatedAt) : new Date(c.publishedAt),
@@ -112,7 +116,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     })),
 
-    // Pilar B.4 — recursos geo publicados
     ...publishedRecursos.map((r) => ({
       url: `${baseUrl}/recursos/${r.slug}`,
       lastModified: r.updatedAt ? new Date(r.updatedAt) : new Date(r.publishedAt),
@@ -120,15 +123,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
 
-    // Partners públicos (el kit /partner/{vanity}/kit y /p/[slug]/kit son noindex)
     ...listPartners().map((p) => ({
       url: `${baseUrl}${getPartnerPublicPath(p)}`,
-      lastModified: now,
+      lastModified: partnersModified,
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     })),
 
-    // Posts del blog (auto desde MDX) — featured y fichas-clinicas primero
     ...allPosts.map((p) => ({
       url: `${baseUrl}/blog/${p.slug}`,
       lastModified: p.updatedAt ? new Date(p.updatedAt) : new Date(p.publishedAt),

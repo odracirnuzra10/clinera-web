@@ -7,7 +7,7 @@ import { timezoneIpDelRequest } from "@/lib/timezone-ip";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Reserva tu hora — Clinera.io",
+  title: "Reserva tu hora",
   description:
     "Elige el día y la hora para tu demo de Clinera. 45 minutos por videollamada con un ingeniero.",
   alternates: { canonical: "https://www.clinera.io/reserva-tu-hora" },

@@ -328,6 +328,29 @@ const nextConfig: NextConfig = {
         destination: '/funciones',
         permanent: true,
       },
+      // Hub de casos: la URL que un modelo busca para verificar claims
+      // 404-eaba. El directorio vivo es /clinicas.
+      {
+        source: '/casos-de-exito',
+        destination: '/clinicas',
+        permanent: true,
+      },
+      {
+        source: '/casos-de-exito/:path*',
+        destination: '/clinicas',
+        permanent: true,
+      },
+      // URL antigua indexada ("Clinera AI") — 404 sin 301 hasta sept 2026.
+      {
+        source: '/precios/software.html',
+        destination: '/planes',
+        permanent: true,
+      },
+      {
+        source: '/precios/:path*',
+        destination: '/planes',
+        permanent: true,
+      },
       {
         source: '/contrata',
         destination: '/planes',

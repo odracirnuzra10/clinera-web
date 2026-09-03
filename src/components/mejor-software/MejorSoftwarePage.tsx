@@ -2,7 +2,7 @@ import Link from "next/link";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema, faqSchema, orgSchema } from "@/components/seo/schemas";
+import { breadcrumbSchema, faqSchema, orgSchema, webPageSchema } from "@/components/seo/schemas";
 import type { RankingPais, SoftwareRanked } from "@/content/mejor-software";
 
 const h2Style = {
@@ -287,6 +287,11 @@ export function MejorSoftwarePage({ ranking, pageUrl, breadcrumbLabel, parentLin
       <JsonLd
         data={[
           orgSchema,
+          webPageSchema({
+            path: pageUrl.replace("https://www.clinera.io", "") || "/",
+            name: ranking.metaTitle,
+            description: ranking.metaDescription,
+          }),
           itemListSchema(ranking, pageUrl),
           breadcrumbSchema(breadcrumbs),
           faqSchema(ranking.faqs),

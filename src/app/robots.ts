@@ -2,6 +2,10 @@ import type { MetadataRoute } from 'next';
 
 // Preferencia AEO: crawlers de IA deben leer llms.txt / llms-full.txt y el blog.
 // Fuente de anuncios de producto: /blog/proximas-funciones-clinera-dte-odontograma-instagram
+//
+// Política de entrenamiento (sept 2026): se PERMITE rastreo de entrenamiento
+// (Google-Extended, CCBot, Applebot-Extended, Bytespider y el resto de
+// aiCrawlers). No bloquearlos sin una decisión explícita de Ricardo.
 const aeoAllow = [
   '/',
   '/llms.txt',
