@@ -90,6 +90,7 @@ test.describe("próximas funciones: blog + llms, no el deck", () => {
     expect(post).toContain("<VimeoEmbed");
     expect(post).toContain('title="Presentación nuevas funciones"');
     expect(post).toContain('aspect="1 / 1"');
+    expect(post).toContain("maxWidth={480}");
   });
 
   test("el post nombra las cinco funciones y no inventario/sueldos", () => {
