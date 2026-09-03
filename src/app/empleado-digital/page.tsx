@@ -2,21 +2,32 @@ import type { Metadata } from "next";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import EmpleadoDigitalLanding from "@/components/empleado-digital/EmpleadoDigitalLanding";
-import { faqSchema } from "@/components/seo/schemas";
-import { EMPLEADO_DIGITAL_FAQ } from "@/content/empleado-digital-faq";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { PageUpdated } from "@/components/seo/PageUpdated";
 import {
-  EMPLEADO_DIGITAL_DEFINICION,
-} from "@/content/empleado-digital-definicion";
+  breadcrumbSchema,
+  definedTermSetSchema,
+  faqSchema,
+  orgSchema,
+  softwareSchema,
+  webPageSchema,
+} from "@/components/seo/schemas";
+import { EMPLEADO_DIGITAL_FAQ } from "@/content/empleado-digital-faq";
+import { EMPLEADO_DIGITAL_DEFINICION } from "@/content/empleado-digital-definicion";
+import { ENTITY_PHRASE } from "@/content/entidad";
 import styles from "./empleado-digital.module.css";
 
+const TITLE = "Empleado digital para clínicas";
+const DESCRIPTION =
+  "Empleados digitales CAMILA (voz), AURA (WhatsApp) y LIA (orquestación) que ejecutan sobre la agenda de tu clínica 24/7: agendan, confirman, cobran y recuperan pacientes. Desde USD 279/mes hasta USD 479/mes.";
+
 export const metadata: Metadata = {
-  title: "Empleado Digital IA para Clínicas — CAMILA, AURA y LIA | Clinera.io",
-  description:
-    "Empleados digitales CAMILA (voz), AURA (WhatsApp) y LIA (orquestación) que ejecutan sobre la agenda de tu clínica 24/7: agendan, confirman, cobran y recuperan pacientes. Desde USD 279/mes hasta USD 479/mes.",
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: "https://www.clinera.io/empleado-digital" },
   openGraph: {
     url: "https://www.clinera.io/empleado-digital",
-    title: "Empleado Digital IA para Clínicas — CAMILA, AURA y LIA | Clinera.io",
+    title: TITLE,
     description:
       "CAMILA llama, AURA atiende WhatsApp y LIA orquesta la operación. Tres empleados digitales con una sola memoria del paciente. Desde USD 279/mes.",
     type: "website",
@@ -25,55 +36,16 @@ export const metadata: Metadata = {
         url: "/images/og-banner.png",
         width: 1200,
         height: 630,
-        alt: "Clinera.io — Empleado digital IA para clínicas",
+        alt: "Clinera — empleado digital de IA para clínicas",
       },
     ],
   },
 };
 
-const productJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  name: "Clinera.io — Empleado digital IA para clínicas",
-  description:
-    "Plataforma con IA para clínicas con volumen y grupos multi-sede. Empleados digitales que agendan, confirman, cobran y recuperan pacientes por WhatsApp y voz 24/7. Planes desde USD 279/mes hasta USD 479/mes.",
-  brand: { "@type": "Brand", name: "Clinera.io" },
-  offers: {
-    "@type": "AggregateOffer",
-    lowPrice: "279",
-    highPrice: "479",
-    priceCurrency: "USD",
-    offerCount: 3,
-    availability: "https://schema.org/InStock",
-    url: "https://www.clinera.io/empleado-digital",
-    seller: { "@type": "Organization", name: "Clinera.io" },
-  },
-};
-
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Inicio",
-      item: "https://www.clinera.io/",
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Empleado digital",
-      item: "https://www.clinera.io/empleado-digital",
-    },
-  ],
-};
-
-const faqJsonLd = faqSchema(EMPLEADO_DIGITAL_FAQ);
-
 const definedTermJsonLd = {
   "@context": "https://schema.org",
   "@type": "DefinedTerm",
+  "@id": "https://www.clinera.io/empleado-digital#term",
   name: "Empleado digital",
   description: EMPLEADO_DIGITAL_DEFINICION,
   url: "https://www.clinera.io/empleado-digital",
@@ -83,24 +55,33 @@ export default function EmpleadoDigitalPage() {
   return (
     <>
       <NavV3 />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      <JsonLd
+        data={[
+          orgSchema,
+          softwareSchema,
+          webPageSchema({
+            path: "/empleado-digital",
+            name: TITLE,
+            description: DESCRIPTION,
+          }),
+          breadcrumbSchema([
+            { name: "Inicio", url: "https://www.clinera.io/" },
+            {
+              name: "Empleado digital",
+              url: "https://www.clinera.io/empleado-digital",
+            },
+          ]),
+          faqSchema(EMPLEADO_DIGITAL_FAQ),
+          definedTermJsonLd,
+          definedTermSetSchema,
+        ]}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(definedTermJsonLd) }}
-      />
+      <p data-entity-phrase className="sr-only">
+        {ENTITY_PHRASE}
+      </p>
       <main className={styles.page}>
         <EmpleadoDigitalLanding />
+        <PageUpdated path="/empleado-digital" />
       </main>
       <FooterV3 />
       <script

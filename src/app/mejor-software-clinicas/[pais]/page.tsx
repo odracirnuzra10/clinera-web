@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MejorSoftwarePage } from "@/components/mejor-software/MejorSoftwarePage";
 import { getRankingBySlug, PAISES_CON_RUTA } from "@/content/mejor-software";
+import { MEJOR_SOFTWARE_HREFLANG } from "@/content/entidad";
 
 const PAIS_LABELS: Record<string, string> = {
   chile: "Chile",
@@ -26,7 +27,7 @@ export async function generateMetadata({
   return {
     title: ranking.metaTitle,
     description: ranking.metaDescription,
-    alternates: { canonical: pageUrl },
+    alternates: { canonical: pageUrl, languages: { ...MEJOR_SOFTWARE_HREFLANG } },
     openGraph: {
       type: "article",
       locale: "es_CL",

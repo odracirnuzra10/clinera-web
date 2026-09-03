@@ -444,9 +444,14 @@ ya no la borre (ver abajo).
 `lead_source` de GTM: `software_medico_landing` / `software_dental_landing`.
 El wizard de `/agenda` no tiene opción "Dental" a propósito.
 
-Hallazgo fuera de alcance: el JSON-LD del home (`src/app/page.tsx`) publica
-`lowPrice:"129"` obsoleto, y `softwareSchema` / `productPlansSchema` en
-`src/components/seo/schemas.ts` son exports muertos con precios duplicados.
+**Identidad AEO:** marca = Clinera, producto = Clinera O.S. Fuente:
+`src/content/entidad.ts` (frase de entidad, mercados, sameAs, founder).
+Organization y SoftwareApplication salen de `orgSchema` / `softwareSchema`
+en `src/components/seo/schemas.ts`. **No duplicar JSON-LD en `src/app/page.tsx`**
+con precios o nombres distintos: el `lowPrice: 129` / `Clinera Intelligence`
+de septiembre 2026 era exactamente eso. No usar "Clinera Intelligence" como
+nombre de entidad (homónimo clinera.ai). Mercados: 9, lista en `MARKETS`.
+`lastmod` del sitemap: `src/content/page-dates.ts`, no `new Date()` de build.
 
 # De dónde viene el lead: la regla vive en UNA función pura
 
@@ -534,6 +539,9 @@ Decisiones consolidadas en la rama `feat/aeo-fase1-contenido` (agosto 2026):
 - **Landings "mejor software":** pilares en `/mejor-software-clinicas` (+ `/chile`,
   `/mexico`, `/colombia`); city-pages siguen en `/recursos/mejor-software-clinicas-*`.
   Data tipada en `src/content/mejor-software.ts`.
+- **Identidad pública (sept 2026):** `src/content/entidad.ts`. Título plantilla
+  `{página} | Clinera`. `/casos-de-exito` redirige a `/clinicas`. `/equipo` es
+  el `@id` de Person de los autores. Guardián: `tests/aeo-entidad.spec.ts`.
 
 # Programa partners (`/partner/{vanity}` y `/p/[slug]`)
 

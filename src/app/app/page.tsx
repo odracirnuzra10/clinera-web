@@ -4,7 +4,7 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import AppLandingV3 from "@/components/interior-v3/AppLandingV3";
 
 export const metadata: Metadata = {
-  title: "App móvil de Clinera 2.0 — iOS y Android | Clinera.io",
+  title: "App móvil iOS y Android",
   description:
     "La nueva app de Clinera: rediseñada por completo, más rápida y sin errores. Agenda por sucursal, mensajería con plantillas de WhatsApp y chatbot, y toda tu clínica en el celular. Descárgala para iPhone y Android.",
   alternates: { canonical: "https://www.clinera.io/app" },

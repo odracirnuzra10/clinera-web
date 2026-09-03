@@ -4,13 +4,13 @@ import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 
 export const metadata: Metadata = {
-  title: "Términos y Condiciones — Clinera.io",
+  title: "Términos y condiciones",
   description:
     "Términos y condiciones de uso de Clinera.io. Derechos y obligaciones al usar nuestro software, licencia, privacidad, pagos y jurisdicción.",
   alternates: { canonical: "https://www.clinera.io/terminos" },
   openGraph: {
     url: "https://www.clinera.io/terminos",
-    title: "Términos y Condiciones — Clinera.io",
+    title: "Términos y condiciones",
     description:
       "Derechos y obligaciones al usar el software Clinera.",
     type: "article",

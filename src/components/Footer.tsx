@@ -23,7 +23,7 @@ export default function Footer() {
             </p>
             <div className={styles.trustPill}>
               <span className={styles.trustDot} aria-hidden />
-              +500 médicos · 10 países
+              +500 médicos · 9 países
             </div>
 
             <details className={styles.llmResources}>

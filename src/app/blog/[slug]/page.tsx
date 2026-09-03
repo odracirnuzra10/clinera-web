@@ -16,6 +16,7 @@ import {
   blogPostingSchema,
   breadcrumbSchema,
   faqSchema,
+  KNOWN_AUTHORS,
   orgSchema,
   videoObjectSchema,
 } from "@/components/seo/schemas";
@@ -172,7 +173,21 @@ export default async function BlogPostPage({
                   color: "#6B7280",
                 }}
               >
-                {post.author && <span>{post.author}</span>}
+                {post.author && (
+                  <span>
+                    Escrito por{" "}
+                    {KNOWN_AUTHORS[post.author] ? (
+                      <Link
+                        href={`/equipo#${KNOWN_AUTHORS[post.author].slug}`}
+                        style={{ color: "#7C3AED" }}
+                      >
+                        {post.author}
+                      </Link>
+                    ) : (
+                      post.author
+                    )}
+                  </span>
+                )}
                 {post.author && <span style={{ margin: "0 8px" }}>·</span>}
                 <time dateTime={post.publishedAt}>
                   {fmtDate(post.publishedAt)}

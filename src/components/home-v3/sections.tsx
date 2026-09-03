@@ -213,7 +213,7 @@ export function Hero() {
                 ))}
               </div>
               <div style={{ fontFamily: "Inter", fontSize: 13.5, color: "#4B5563" }}>
-                <b style={{ color: "#0A0A0A" }}>+500 profesionales</b> coordinados en 10 países
+                <b style={{ color: "#0A0A0A" }}>+500 profesionales</b> coordinados en 9 países
               </div>
             </div>
 

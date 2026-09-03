@@ -7,6 +7,8 @@ import { CrossComparativa } from "@/components/comparativas/CrossComparativa";
 import MigrationCompareBanner, {
   type CompetitorApiPricing,
 } from "@/components/comparativas/MigrationCompareBanner";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { orgSchema, webPageSchema } from "@/components/seo/schemas";
 import { cruzadas, getCruzadasForCompetitor } from "@/content/comparativas-cross";
 
 type Slug =
@@ -1170,6 +1172,16 @@ export default async function ComparativaPage({
     };
     return (
       <>
+        <JsonLd
+          data={[
+            orgSchema,
+            webPageSchema({
+              path: `/comparativas/${slug}`,
+              name: cross.title,
+              description: cross.description,
+            }),
+          ]}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbCrossLd) }}
@@ -1260,6 +1272,16 @@ export default async function ComparativaPage({
 
   return (
     <>
+      <JsonLd
+        data={[
+          orgSchema,
+          webPageSchema({
+            path: `/comparativas/${slug}`,
+            name: data.title,
+            description: data.intro,
+          }),
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}

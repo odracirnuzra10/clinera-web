@@ -24,6 +24,7 @@ const cols: Col[] = [
     l: [
       ["Calcula tu consumo", "/calculadora-de-consumo"],
       ["Estudio de efectividad", "/efectividad"],
+      ["Equipo", "/equipo"],
       ["Estudio de confianza", "/blog/estudio-ia-respuesta-humana-confianza-pacientes"],
       ["Novedades Clinera", "/novedades"],
     ],
@@ -146,7 +147,7 @@ export default function FooterV3() {
                 fontWeight: 500,
               }}
             >
-              +500 médicos · 10 países
+              +500 médicos · 9 países
             </span>
           </div>
         </div>

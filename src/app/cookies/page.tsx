@@ -4,13 +4,13 @@ import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 
 export const metadata: Metadata = {
-  title: "Política de Cookies — Clinera.io",
+  title: "Política de cookies",
   description:
     "Cómo usa Clinera.io las cookies en su sitio web: tipos de cookies, finalidades, terceros, base legal y cómo gestionarlas.",
   alternates: { canonical: "https://www.clinera.io/cookies" },
   openGraph: {
     url: "https://www.clinera.io/cookies",
-    title: "Política de Cookies — Clinera.io",
+    title: "Política de cookies",
     description:
       "Tipos de cookies que usamos, finalidades, terceros y cómo gestionarlas.",
     type: "article",

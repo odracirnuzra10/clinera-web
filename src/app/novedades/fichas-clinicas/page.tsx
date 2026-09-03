@@ -8,7 +8,7 @@ import { breadcrumbSchema, orgSchema } from "@/components/seo/schemas";
 const URL = "https://www.clinera.io/novedades/fichas-clinicas";
 
 export const metadata: Metadata = {
-  title: "Ficha Clínica en Chile: Guía Completa 2026 | Clinera.io",
+  title: "Ficha clínica en Chile: guía 2026",
   description:
     "Todo sobre la ficha clínica en Chile: qué es, ley 20.584, formato electrónico, cómo pedirla y software para clínicas. Guía actualizada por Clinera.io.",
   keywords: [

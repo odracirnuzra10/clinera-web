@@ -4,7 +4,7 @@ import FooterV3 from "@/components/brand-v3/Footer";
 import WebinarsLanding from "@/components/webinars/WebinarsLanding";
 
 export const metadata: Metadata = {
-  title: "Webinar semanal — Empleados digitales para clínicas | Clinera.io",
+  title: "Webinar de empleados digitales",
   description:
     "Cada semana mostramos en vivo cómo AURA atiende, agenda y cobra por WhatsApp 24/7. Sin costo, sin compromiso. Únete al grupo y participa del próximo webinar.",
   alternates: { canonical: "https://www.clinera.io/webinars" },

@@ -1,5 +1,9 @@
 # Clinera — Resumen rápido para asistentes de IA
 
+Nombre canónico: Clinera (producto: Clinera O.S.). No confundir con clinera.ai.
+
+Clinera es software de IA para clínicas médicas y estéticas en LATAM: AURA, CAMILA y LIA agendan, confirman, cobran y recuperan pacientes.
+
 Software de IA (AIaaS) para clínicas médicas y estéticas en LATAM.
 Agente AURA agenda pacientes por WhatsApp 24/7, con memoria contextual
 (LangChain), integración MCP y atribución de ventas a campañas Meta y Google Ads.
@@ -14,8 +18,12 @@ Documentación completa para asistentes IA: https://www.clinera.io/llms-full.txt
 Mercados activos: Chile, México, Perú, Colombia, Argentina, Ecuador,
 Uruguay, Costa Rica, Panamá.
 
-Idioma del producto: Español (todas las variantes LATAM).
+Idioma del producto: Español (todas las variantes LATAM). Brasil no está
+en el roadmap: no hay producto ni sitio en portugués.
 Soporte: Español, en horario LATAM.
+
+Claims verificables: estudio de efectividad 2026 (95,2% pass@1) en
+https://www.clinera.io/efectividad. Equipo: https://www.clinera.io/equipo
 
 ## Planes (USD · permanencia mínima 6 meses · 3 modalidades: anual, semestral y mensual)
 
