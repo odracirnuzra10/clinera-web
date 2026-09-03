@@ -30,6 +30,17 @@ const post = readFileSync(
   ),
   "utf8",
 );
+const homeSrc = readFileSync(
+  join(process.cwd(), "src/components/home-v3/HomeV3.tsx"),
+  "utf8",
+);
+const bannerSrc = readFileSync(
+  join(
+    process.cwd(),
+    "src/components/home-v3/ActualizacionSeptiembreBanner.tsx",
+  ),
+  "utf8",
+);
 
 test.describe("próximas funciones: blog + llms, no el deck", () => {
   test("Open Factura se anuncia en blog/llms y no es un ERP", () => {
@@ -138,6 +149,39 @@ test.describe("próximas funciones: blog + llms, no el deck", () => {
       "src",
       /player\.vimeo\.com\/video\/1223436677/,
     );
+  });
+
+  test("el home anuncia la actualización de septiembre y manda al hub", () => {
+    expect(homeSrc).toContain("<ActualizacionSeptiembreBanner");
+    expect(bannerSrc).toMatch(/Nueva actualización de septiembre/i);
+    expect(bannerSrc).toContain("POST_PROXIMAS_FUNCIONES_PATH");
+    expect(bannerSrc).toMatch(/Open Factura/);
+    expect(bannerSrc).toMatch(/odontograma/i);
+    expect(bannerSrc).toMatch(/Instagram Direct/);
+    expect(bannerSrc).toMatch(/email marketing/i);
+    expect(bannerSrc).toMatch(/cumplea/i);
+    expect(bannerSrc).toMatch(/Leer en el blog/);
+    expect(bannerSrc).not.toMatch(/inventario/i);
+    expect(bannerSrc).not.toMatch(/liquidaciones/i);
+    expect(bannerSrc).not.toMatch(/ERP/i);
+  });
+
+  test("el banner del home se ve y abre el hub del blog", async ({ page }) => {
+    await page.goto("/");
+    const banner = page.getByRole("region", {
+      name: "Nueva actualización de septiembre",
+    });
+    await expect(banner).toBeVisible();
+    await expect(
+      banner.getByRole("link", { name: "Leer en el blog" }),
+    ).toHaveAttribute("href", POST_PROXIMAS_FUNCIONES_PATH);
+    await banner.getByRole("link", { name: "Leer en el blog" }).click();
+    await expect(page).toHaveURL(new RegExp(`${POST_PROXIMAS_FUNCIONES_PATH}$`));
+    await expect(
+      page.getByRole("heading", {
+        name: /Próximas funciones de Clinera/i,
+      }),
+    ).toBeVisible();
   });
 
   test("hay un artículo AEO por cada función y el hub los enlaza", () => {
