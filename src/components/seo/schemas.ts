@@ -400,6 +400,12 @@ export const caseStudySchema = (opts: {
   datePublished: string;
   dateModified?: string;
   mentions: { "@id": string }[];
+  image?: {
+    url: string;
+    width: number;
+    height: number;
+    caption: string;
+  };
 }) => {
   const url = `${SITE_URL}${opts.path}`;
   return {
@@ -416,6 +422,17 @@ export const caseStudySchema = (opts: {
     publisher: { "@id": CLINERA_ORG_ID },
     about: { "@id": CLINERA_ORG_ID },
     mentions: opts.mentions,
+    ...(opts.image
+      ? {
+          image: {
+            "@type": "ImageObject" as const,
+            url: opts.image.url,
+            width: opts.image.width,
+            height: opts.image.height,
+            caption: opts.image.caption,
+          },
+        }
+      : {}),
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     isPartOf: { "@id": `${SITE_URL}/#website` },
   };
