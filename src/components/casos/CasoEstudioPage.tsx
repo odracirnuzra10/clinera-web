@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
@@ -9,8 +11,40 @@ import {
   caseStudySchema,
   orgSchema,
 } from "@/components/seo/schemas";
-import type { CasoEstudio } from "@/content/casos";
+import { casoImageAbs, type CasoEstudio } from "@/content/casos";
 import s from "@/app/casos/casos.module.css";
+
+export function casoMetadata(caso: CasoEstudio): Metadata {
+  const image = casoImageAbs(caso);
+  return {
+    title: caso.title,
+    description: caso.description,
+    alternates: { canonical: caso.url },
+    openGraph: {
+      type: "article",
+      locale: "es_CL",
+      url: caso.url,
+      title: caso.title,
+      description: caso.description,
+      publishedTime: caso.datePublished,
+      modifiedTime: caso.dateModified,
+      images: [
+        {
+          url: image,
+          alt: caso.image.alt,
+          width: caso.image.width,
+          height: caso.image.height,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: caso.title,
+      description: caso.description,
+      images: [image],
+    },
+  };
+}
 
 function injectClinicLinks(
   text: string,
@@ -71,6 +105,12 @@ export function CasoEstudioPage({ caso }: { caso: CasoEstudio }) {
     datePublished: caso.datePublished,
     dateModified: caso.dateModified,
     mentions: caso.mentions,
+    image: {
+      url: casoImageAbs(caso),
+      width: caso.image.width,
+      height: caso.image.height,
+      caption: caso.image.caption,
+    },
   });
 
   return (
@@ -105,6 +145,18 @@ export function CasoEstudioPage({ caso }: { caso: CasoEstudio }) {
         </header>
         <article className={s.prose}>
           <div className={s.wrap}>
+            <figure className={s.photo}>
+              <Image
+                src={caso.image.src}
+                alt={caso.image.alt}
+                width={caso.image.width}
+                height={caso.image.height}
+                className={s.photoImg}
+                sizes="(max-width: 760px) 100vw, 704px"
+                priority
+              />
+              <figcaption className={s.photoCaption}>{caso.image.caption}</figcaption>
+            </figure>
             <CasoBody caso={caso} />
             <p>{caso.cierra}</p>
           </div>

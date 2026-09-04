@@ -12,6 +12,14 @@ export type CasoLink = {
   anchor: string;
 };
 
+export type CasoFoto = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption: string;
+};
+
 export type CasoEstudio = {
   slug: "metodo-hebe" | "protocolo-lumina" | "katherine-meza";
   path: string;
@@ -23,12 +31,17 @@ export type CasoEstudio = {
   lede: string;
   datePublished: string;
   dateModified: string;
+  image: CasoFoto;
   home: CasoLink;
   clinica: CasoLink;
   mentions: { "@id": string }[];
   sections: { h2: string; body: string[] }[];
   cierra: string;
 };
+
+export function casoImageAbs(caso: CasoEstudio): string {
+  return `${SITE_URL}${caso.image.src}`;
+}
 
 const PUBLISHED = "2026-09-04";
 
@@ -45,6 +58,13 @@ export const CASO_HEBE: CasoEstudio = {
     "Método Hebe atiende estética corporal en Vitacura, Concón y Los Ángeles. El trabajo diario —confirmar la hora, recordar, reagendar y dejar la ficha lista— corre sobre Clinera. AURA es el agente que habla con el paciente por WhatsApp.",
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
+  image: {
+    src: "/images/casos/metodo-hebe.jpg",
+    alt: "Recepción de Método Hebe en Los Ángeles, con el logo de la clínica detrás del mesón",
+    width: 1200,
+    height: 800,
+    caption: "Recepción Método Hebe, sede Los Ángeles. Foto del sitio metodohebe.cl.",
+  },
   home: { href: "https://www.metodohebe.cl", anchor: "Método Hebe" },
   clinica: {
     href: "https://www.metodohebe.cl/clinica/como-confirmamos-tu-hora-por-whatsapp",
@@ -90,6 +110,14 @@ export const CASO_LUMINA: CasoEstudio = {
     "Protocolo Lumina atiende estética facial en Vitacura, Concón y Los Ángeles. Confirmación, recordatorio y reagendamiento salen por WhatsApp, con la ficha en el mismo sistema que la hora: Clinera, con AURA como agente.",
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
+  image: {
+    src: "/images/casos/protocolo-lumina.jpg",
+    alt: "Caso público Endojiwoo en el sitio de Protocolo Lumina: antes y después del tratamiento facial",
+    width: 1200,
+    height: 814,
+    caption:
+      "Foto del hero de protocololumina.cl (caso público Endojiwoo). No es un resultado de Clinera.",
+  },
   home: { href: "https://www.protocololumina.cl", anchor: "Protocolo Lumina" },
   clinica: {
     href: "https://www.protocololumina.cl/clinica/como-confirmamos-tu-hora-por-whatsapp",
@@ -135,6 +163,13 @@ export const CASO_KM: CasoEstudio = {
     "KM Estética Profesional atiende medicina estética facial en Los Ángeles, Región del Biobío. Katherine Meza es partner de Clinera: confirmación, recordatorio y reagendamiento salen por WhatsApp, con la ficha pegada a la hora. AURA es el agente.",
   datePublished: PUBLISHED,
   dateModified: PUBLISHED,
+  image: {
+    src: "/images/casos/katherine-meza.jpg",
+    alt: "Katherine Meza, fundadora de KM Estética Profesional, en su consulta de Los Ángeles",
+    width: 960,
+    height: 949,
+    caption: "Katherine Meza. Foto del sitio kmestetica.cl.",
+  },
   home: { href: "https://kmestetica.cl", anchor: "KM Estética Profesional" },
   clinica: {
     href: "https://kmestetica.cl/clinica/como-confirmamos-tu-hora-por-whatsapp",

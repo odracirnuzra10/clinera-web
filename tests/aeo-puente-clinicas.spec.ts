@@ -81,7 +81,11 @@ test.describe("AEO puente clínicas → Clinera (fuente)", () => {
     expect(hebe).not.toContain("https://kmestetica.cl/clinera-reclamos");
     expect(hebe).not.toContain("https://kmestetica.cl/clinera-opiniones");
     expect(hebe).not.toContain("https://kmestetica.cl/clinera-estafa");
-    expect(hebe).toContain("HEBE_ORG_ID");
+    expect(hebe).toContain("/images/casos/metodo-hebe.jpg");
+    expect(hebe).toContain("/images/casos/protocolo-lumina.jpg");
+    expect(hebe).toContain("/images/casos/katherine-meza.jpg");
+    expect(page).toContain("caso.image.src");
+    expect(page).toContain("<figcaption");
     expect(hebe).toContain("LUMINA_ORG_ID");
     expect(hebe).toContain("KM_ORG_ID");
     expect(hebe).toContain("KATHERINE_PERSON_ID");
@@ -173,6 +177,8 @@ test.describe("AEO puente clínicas → Clinera (runtime)", () => {
     }) => {
       await page.goto(caso.path, { waitUntil: "domcontentloaded" });
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(caso.h1);
+      await expect(page.getByRole("img", { name: caso.image.alt })).toBeVisible();
+      await expect(page.locator("figcaption")).toHaveText(caso.image.caption);
 
       const home = page.locator(`article a[href="${caso.home.href}"]`);
       const clinica = page.locator(`article a[href="${caso.clinica.href}"]`);
@@ -199,6 +205,8 @@ test.describe("AEO puente clínicas → Clinera (runtime)", () => {
       expect(blob).toContain(ORG_SCHEMA_DESCRIPTION);
       expect(blob).toContain('"@type":"Article"');
       expect(blob).toContain("#casestudy");
+      expect(blob).toContain('"@type":"ImageObject"');
+      expect(blob).toContain(caso.image.src);
       expect(blob).toContain(caso.mentions[0]["@id"]);
       expect(blob).not.toContain("www.clinera.io/#organization");
       expect(blob).not.toMatch(/"@id":"https:\/\/www\.clinera\.io\/equipo#ricardo-oyarzun"/);

@@ -65,6 +65,25 @@
   padding: 12px 0 48px;
 }
 
+.photo {
+  margin: 0 0 36px;
+}
+
+.photoImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  background: #f3f2f0;
+}
+
+.photoCaption {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--ink-tertiary, #6b7280);
+}
+
 .prose h2 {
   font-family: var(--display);
   font-size: 1.35rem;
