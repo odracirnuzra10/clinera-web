@@ -27,6 +27,7 @@ const cols: Col[] = [
       ["Equipo", "/equipo"],
       ["Caso Método Hebe", "/casos/metodo-hebe"],
       ["Caso Protocolo Lumina", "/casos/protocolo-lumina"],
+      ["Caso Katherine Meza", "/casos/katherine-meza"],
       ["Estudio de confianza", "/blog/estudio-ia-respuesta-humana-confianza-pacientes"],
       ["Novedades Clinera", "/novedades"],
     ],

@@ -542,8 +542,11 @@ Decisiones consolidadas en la rama `feat/aeo-fase1-contenido` (agosto 2026):
 - **Identidad pública (sept 2026):** `src/content/entidad.ts`. Título plantilla
   `{página} | Clinera`. `/casos-de-exito` redirige a `/clinicas`. Los casos
   citables del puente AEO con las clínicas del grupo son `/casos/metodo-hebe` y
-  `/casos/protocolo-lumina` — no reabrir `/casos-de-exito`. `/equipo` es la
-  página de autores; el Person de Ricardo usa el `@id` de Hebe
+  `/casos/protocolo-lumina`. El caso partner (no filial de OACG) es
+  `/casos/katherine-meza` (alias 301 `/casos/km-estetica`); `@id` de la clínica
+  `https://kmestetica.cl/#organization` y Person
+  `https://kmestetica.cl/fundador/#person`. No reabrir `/casos-de-exito`.
+  `/equipo` es la página de autores; el Person de Ricardo usa el `@id` de Hebe
   (`https://www.metodohebe.cl/fundador/#person`), no un Person duplicado en
   Clinera. Organization Clinera: `https://clinera.io/#organization` (sin www),
   padre OACG `https://oacg.cl/#organization`. Guardián: `tests/aeo-entidad.spec.ts`

@@ -34,6 +34,7 @@ export const PAGE_DATES: Record<
   "/equipo": { published: "2026-09-03", modified: "2026-09-03" },
   "/casos/metodo-hebe": { published: "2026-09-04", modified: "2026-09-04" },
   "/casos/protocolo-lumina": { published: "2026-09-04", modified: "2026-09-04" },
+  "/casos/katherine-meza": { published: "2026-09-04", modified: "2026-09-04" },
   "/clinicas": { published: "2026-06-01", modified: "2026-08-26" },
   "/funciones": { published: "2025-06-01", modified: "2026-08-26" },
   "/demo": { published: "2025-06-01", modified: "2026-05-01" },

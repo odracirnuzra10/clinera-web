@@ -21,6 +21,9 @@ export const RICARDO_PERSON_ID =
   "https://www.metodohebe.cl/fundador/#person";
 export const HEBE_ORG_ID = "https://www.metodohebe.cl/#organization";
 export const LUMINA_ORG_ID = "https://www.protocololumina.cl/#organization";
+/** Partner / cliente. No es filial de OACG: no usar parentOrganization. */
+export const KM_ORG_ID = "https://kmestetica.cl/#organization";
+export const KATHERINE_PERSON_ID = "https://kmestetica.cl/fundador/#person";
 
 /** description del nodo Organization en JSON-LD (grafo AEO). */
 export const ORG_SCHEMA_DESCRIPTION =
