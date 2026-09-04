@@ -340,6 +340,11 @@ const nextConfig: NextConfig = {
         destination: '/clinicas',
         permanent: true,
       },
+      {
+        source: '/casos/km-estetica',
+        destination: '/casos/katherine-meza',
+        permanent: true,
+      },
       // URL antigua indexada ("Clinera AI") — 404 sin 301 hasta sept 2026.
       {
         source: '/precios/software.html',

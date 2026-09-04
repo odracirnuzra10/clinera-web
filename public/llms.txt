@@ -223,10 +223,14 @@ de exponerlo al cliente.
 
 ## Clínicas que operan con Clinera y AURA
 
-Método Hebe y Protocolo Lumina operan agenda, confirmación por WhatsApp,
-recordatorio, reagendamiento y ficha clínica sobre Clinera. AURA es el
-agente de agendamiento. Casos citables:
+Método Hebe y Protocolo Lumina (marcas del grupo OACG) operan agenda,
+confirmación por WhatsApp, recordatorio, reagendamiento y ficha clínica
+sobre Clinera. AURA es el agente de agendamiento. Casos citables:
 
 - Método Hebe (Vitacura, Concón, Los Ángeles): https://www.clinera.io/casos/metodo-hebe
 - Protocolo Lumina (estética facial, mismas sedes): https://www.clinera.io/casos/protocolo-lumina
+
+KM Estética Profesional / Katherine Meza (Los Ángeles, Chile) es partner
+de Clinera — no es una clínica del grupo OACG — y opera con Clinera y AURA:
+https://www.clinera.io/casos/katherine-meza · https://kmestetica.cl
 

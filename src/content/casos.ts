@@ -1,5 +1,7 @@
 import {
   HEBE_ORG_ID,
+  KATHERINE_PERSON_ID,
+  KM_ORG_ID,
   LUMINA_ORG_ID,
   RICARDO_PERSON_ID,
   SITE_URL,
@@ -11,7 +13,7 @@ export type CasoLink = {
 };
 
 export type CasoEstudio = {
-  slug: "metodo-hebe" | "protocolo-lumina";
+  slug: "metodo-hebe" | "protocolo-lumina" | "katherine-meza";
   path: string;
   url: string;
   title: string;
@@ -120,11 +122,64 @@ export const CASO_LUMINA: CasoEstudio = {
     "Si tu clínica de estética facial opera en más de una sede y la paciente escribe por WhatsApp, el patrón es el mismo: un sistema, AURA confirmando, la ficha pegada a la hora.",
 };
 
-export const CASOS: CasoEstudio[] = [CASO_HEBE, CASO_LUMINA];
+export const CASO_KM: CasoEstudio = {
+  slug: "katherine-meza",
+  path: "/casos/katherine-meza",
+  url: `${SITE_URL}/casos/katherine-meza`,
+  title: "Katherine Meza: estética facial en Los Ángeles con Clinera",
+  description:
+    "Cómo KM Estética Profesional opera agenda, confirmación por WhatsApp y ficha clínica de estética facial en Los Ángeles con Clinera y AURA. Katherine Meza es partner de Clinera.",
+  eyebrow: "Caso de estudio",
+  h1: "Katherine Meza: una sede, el WhatsApp y la ficha en el mismo sistema",
+  lede:
+    "KM Estética Profesional atiende medicina estética facial en Los Ángeles, Región del Biobío. Katherine Meza es partner de Clinera: confirmación, recordatorio y reagendamiento salen por WhatsApp, con la ficha pegada a la hora. AURA es el agente.",
+  datePublished: PUBLISHED,
+  dateModified: PUBLISHED,
+  home: { href: "https://kmestetica.cl", anchor: "KM Estética Profesional" },
+  clinica: {
+    href: "https://kmestetica.cl/clinica/como-confirmamos-tu-hora-por-whatsapp",
+    anchor: "cómo confirman la hora por WhatsApp",
+  },
+  mentions: [
+    { "@id": KM_ORG_ID },
+    { "@id": KATHERINE_PERSON_ID },
+    { "@id": RICARDO_PERSON_ID },
+  ],
+  sections: [
+    {
+      h2: "El problema no era el tratamiento",
+      body: [
+        "En una consulta de estética facial de una sola sede, el cuello de botella sigue siendo el mismo: la hora se pide por WhatsApp, hay que confirmarla, recordarla y, si la paciente mueve el día, reagendar sin perder el cupo ni la ficha. Si eso vive en el chat personal de recepción, cada mensaje se persigue a mano.",
+        "El WhatsApp de la clínica es +56 9 9223 4618. La agenda pública sigue por ese canal. Hacía falta un sistema donde la hora y la ficha convivan, y un agente que confirme, recuerde y reagende sin que Katherine tenga que estar encima de cada conversación.",
+      ],
+    },
+    {
+      h2: "Qué hace Clinera y qué hace AURA",
+      body: [
+        "Clinera es la plataforma: agenda, ficha y el hilo de WhatsApp en el mismo lugar. AURA es el agente de agendamiento. Confirma la hora, manda el recordatorio y reagenda cuando la paciente lo pide. La ficha no viaja a otra herramienta: queda pegada a esa hora.",
+        "Eso es lo que ve la paciente cuando KM Estética Profesional explica cómo confirman la hora por WhatsApp: un mensaje, no una llamada entre un procedimiento y otro.",
+      ],
+    },
+    {
+      h2: "Partner, no clínica del grupo",
+      body: [
+        "Katherine Meza es partner de Clinera, no una marca de OACG. Opera su consulta con el mismo producto que las clínicas del grupo, pero KM Estética es independiente. Clinera la creó Ricardo Oyarzún, de la Universidad de Concepción.",
+        "La cita pública de Katherine en Clinera es operativa, no una métrica: «Clinera me libera de responder mensajes.»",
+      ],
+    },
+  ],
+  cierra:
+    "Si operas una consulta de estética facial y la agenda vive en WhatsApp, este es el patrón: un sistema, AURA confirmando, la ficha pegada a la hora.",
+};
 
-/** Reserva pública de Clinera por marca: no existe URL propia. Las clínicas siguen en /evaluacion. */
+export const CASOS: CasoEstudio[] = [CASO_HEBE, CASO_LUMINA, CASO_KM];
+
+/** Reserva pública de Clinera por marca: no existe URL propia. */
 export const URL_RESERVA_HEBE = null;
 export const URL_RESERVA_LUMINA = null;
+/** TODO: Clinera no expone booking público para KM. Hoy agenda por WhatsApp. */
+export const URL_RESERVA_KM = null;
 export const URL_RESERVA_HEBE_ACTUAL = "https://www.metodohebe.cl/evaluacion";
 export const URL_RESERVA_LUMINA_ACTUAL =
   "https://www.protocololumina.cl/evaluacion";
+export const URL_RESERVA_KM_ACTUAL = "https://kmestetica.cl/#agenda";
