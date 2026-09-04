@@ -75,7 +75,8 @@ export function TeamSection() {
         .team-card:active {
           transform: scale(0.99);
         }
-        .team-primary {
+        /* Link de Next no recibe el hash de styled-jsx: :global obligatorio */
+        :global(a.team-primary) {
           display: inline-flex;
           align-items: center;
           justify-content: center;
@@ -93,10 +94,10 @@ export function TeamSection() {
           line-height: 1;
           transition: transform 120ms ease;
         }
-        .team-primary:active {
+        :global(a.team-primary:active) {
           transform: scale(0.98);
         }
-        .team-secondary {
+        :global(a.team-secondary) {
           display: inline-flex;
           align-items: center;
           gap: 8px;
@@ -113,7 +114,7 @@ export function TeamSection() {
           line-height: 1;
           transition: color 160ms ease, border-color 160ms ease;
         }
-        .team-secondary:hover {
+        :global(a.team-secondary:hover) {
           color: ${ACCENT};
           border-color: ${ACCENT};
         }
@@ -187,10 +188,49 @@ export function TeamSection() {
               marginTop: 28,
             }}
           >
-            <Link href="/agenda" className="team-primary">
+            <Link
+              href="/agenda"
+              className="team-primary"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                background: TEXT,
+                color: "#fff",
+                border: 0,
+                borderRadius: 8,
+                padding: "13px 22px",
+                fontFamily: "Outfit, sans-serif",
+                fontSize: 15,
+                fontWeight: 600,
+                letterSpacing: "-0.01em",
+                textDecoration: "none",
+                lineHeight: 1,
+              }}
+            >
               Agenda una demo
             </Link>
-            <Link href="/estructura" className="team-secondary">
+            <Link
+              href="/estructura"
+              className="team-secondary"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                background: "#fff",
+                color: TEXT,
+                border: `1px solid ${BORDER}`,
+                borderRadius: 8,
+                padding: "13px 18px",
+                fontFamily: "Outfit, sans-serif",
+                fontSize: 15,
+                fontWeight: 600,
+                letterSpacing: "-0.01em",
+                textDecoration: "none",
+                lineHeight: 1,
+              }}
+            >
               Conoce cómo trabajamos
               <ArrowIcon />
             </Link>
