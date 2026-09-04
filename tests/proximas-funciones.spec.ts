@@ -20,7 +20,7 @@ const llmsFull = readFileSync(
   "utf8",
 );
 const robotsSrc = readFileSync(
-  join(process.cwd(), "src/app/robots.ts"),
+  join(process.cwd(), "src/lib/robots-txt.ts"),
   "utf8",
 );
 const post = readFileSync(
@@ -131,7 +131,7 @@ test.describe("próximas funciones: blog + llms, no el deck", () => {
     }
   });
 
-  test("robots.ts deja pasar llms.txt y el blog a crawlers de IA", () => {
+  test("robots deja pasar llms.txt y el blog a crawlers de IA", () => {
     expect(robotsSrc).toContain("/llms.txt");
     expect(robotsSrc).toContain("/llms-full.txt");
     expect(robotsSrc).toContain("/blog/");

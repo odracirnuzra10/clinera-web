@@ -40,8 +40,8 @@ const articleSchema = {
   inLanguage: "es",
   datePublished: PUBLISHED_ISO,
   dateModified: MODIFIED_ISO,
-  author: { "@id": "https://www.clinera.io/#organization" },
-  publisher: { "@id": "https://www.clinera.io/#organization" },
+  author: { "@id": "https://clinera.io/#organization" },
+  publisher: { "@id": "https://clinera.io/#organization" },
   about: [
     { "@type": "Legislation", name: "Ley 20.584 (Chile)" },
     { "@type": "Legislation", name: "Ley 21.668 (Chile)" },

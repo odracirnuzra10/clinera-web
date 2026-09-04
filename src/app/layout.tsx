@@ -5,6 +5,8 @@ import Analytics from "@/components/Analytics";
 import StickyMobileCTA from "@/components/cro/StickyMobileCTA";
 import GclidCapture from "@/components/GclidCapture";
 import SkipLink from "@/components/SkipLink";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { entityGraph } from "@/components/seo/schemas";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.clinera.io"),
@@ -77,6 +79,7 @@ export default function RootLayout({
     <html lang="es-CL">
       <head>
         <link rel="llms-txt" href="https://www.clinera.io/llms.txt" />
+        <JsonLd data={entityGraph} />
       </head>
       <body>
         <SkipLink />

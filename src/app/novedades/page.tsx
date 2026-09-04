@@ -80,7 +80,7 @@ export default async function NovedadesPage({
     url: "https://www.clinera.io/novedades",
     description:
       "Estudios técnicos, guías de WhatsApp + IA, casos reales y operaciones para clínicas LATAM.",
-    publisher: { "@id": "https://www.clinera.io/#organization" },
+    publisher: { "@id": "https://clinera.io/#organization" },
     blogPost: filtered.slice(0, 12).map((p) => ({
       "@type": "BlogPosting",
       headline: p.title,

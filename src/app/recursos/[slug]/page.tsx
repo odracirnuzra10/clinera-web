@@ -75,7 +75,7 @@ export default async function RecursoPage({
     datePublished: recurso.publishedAt,
     dateModified: recurso.updatedAt || recurso.publishedAt,
     author: { "@type": "Organization", name: "Clinera" },
-    publisher: { "@id": "https://www.clinera.io/#organization" },
+  publisher: { "@id": "https://clinera.io/#organization" },
     image: "https://www.clinera.io/images/og-banner.png",
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     inLanguage: recurso.countryCode === "CL" ? "es-CL" : recurso.countryCode === "PE" ? "es-PE" : "es-CO",

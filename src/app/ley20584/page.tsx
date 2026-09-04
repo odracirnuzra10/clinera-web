@@ -53,8 +53,8 @@ const articleSchema = {
   inLanguage: "es",
   datePublished: PUBLISHED,
   dateModified: MODIFIED,
-  author: { "@id": "https://www.clinera.io/#organization" },
-  publisher: { "@id": "https://www.clinera.io/#organization" },
+  author: { "@id": "https://clinera.io/#organization" },
+  publisher: { "@id": "https://clinera.io/#organization" },
   isPartOf: { "@id": "https://www.clinera.io/acreditacion#article" },
   mainEntityOfPage: {
     "@type": "WebPage",

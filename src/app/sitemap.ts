@@ -50,6 +50,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     staticEntry('/migracion', 'monthly', 0.85),
     staticEntry('/calculadora-de-consumo', 'monthly', 0.8),
     staticEntry('/equipo', 'monthly', 0.7),
+    staticEntry('/casos/metodo-hebe', 'monthly', 0.75),
+    staticEntry('/casos/protocolo-lumina', 'monthly', 0.75),
 
     staticEntry('/comparativas', 'monthly', 0.9),
     staticEntry('/comparativas/reservo', 'monthly', 0.9),

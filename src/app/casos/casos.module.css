@@ -1,0 +1,119 @@
+.page {
+  --grad: linear-gradient(90deg, #009fe3 0%, #7c3aed 52%, #c850c0 100%);
+  --display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --link: #0b6e9c;
+  background: #ffffff;
+  font-family: var(--body);
+  color: var(--ink-primary, #111318);
+}
+
+.wrap {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.hero {
+  padding: 76px 0 36px;
+}
+
+.eyebrow {
+  font-family: var(--font-tech, ui-monospace, monospace);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary, #6b7280);
+  margin: 0;
+}
+
+.rule {
+  width: 56px;
+  height: 3px;
+  margin: 18px 0 28px;
+  background: var(--grad);
+}
+
+.h1 {
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 3.05rem);
+  font-weight: 800;
+  letter-spacing: -0.042em;
+  line-height: 1.08;
+  margin: 0;
+}
+
+.lede {
+  margin: 20px 0 0;
+  font-size: clamp(1rem, 2.2vw, 1.16rem);
+  line-height: 1.55;
+  color: var(--ink-secondary, #3d4250);
+}
+
+.stamp {
+  margin-top: 26px;
+  font-family: var(--font-tech, ui-monospace, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-tertiary, #6b7280);
+}
+
+.prose {
+  padding: 12px 0 48px;
+}
+
+.prose h2 {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  margin: 40px 0 14px;
+}
+
+.prose p {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--ink-secondary, #3d4250);
+  margin: 0 0 16px;
+}
+
+.prose a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cta {
+  padding: 8px 0 72px;
+}
+
+.ctaLink {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: inherit;
+  text-decoration: none;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.ctaLink:hover {
+  border-bottom-color: #7c3aed;
+}
+
+@media (max-width: 720px) {
+  .wrap {
+    padding: 0 22px;
+  }
+  .hero {
+    padding: 52px 0 28px;
+  }
+}

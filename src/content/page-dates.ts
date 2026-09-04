@@ -32,6 +32,8 @@ export const PAGE_DATES: Record<
   "/efectividad": { published: "2026-04-23", modified: "2026-04-23" },
   "/seguridad": { published: "2026-08-01", modified: "2026-08-25" },
   "/equipo": { published: "2026-09-03", modified: "2026-09-03" },
+  "/casos/metodo-hebe": { published: "2026-09-04", modified: "2026-09-04" },
+  "/casos/protocolo-lumina": { published: "2026-09-04", modified: "2026-09-04" },
   "/clinicas": { published: "2026-06-01", modified: "2026-08-26" },
   "/funciones": { published: "2025-06-01", modified: "2026-08-26" },
   "/demo": { published: "2025-06-01", modified: "2026-05-01" },
@@ -57,8 +59,8 @@ export const PAGE_DATES: Record<
   "/cookies": { published: "2025-06-01", modified: "2026-08-01" },
   "/recursos": { published: "2026-06-01", modified: "2026-08-01" },
   "/recursos/calculadora-roi": { published: "2026-06-01", modified: "2026-08-01" },
-  "/llms.txt": { published: "2026-04-01", modified: "2026-09-03" },
-  "/llms-full.txt": { published: "2026-04-01", modified: "2026-09-03" },
+  "/llms.txt": { published: "2026-04-01", modified: "2026-09-04" },
+  "/llms-full.txt": { published: "2026-04-01", modified: "2026-09-04" },
 };
 
 export function pageDate(path: string): { published: string; modified: string } {
