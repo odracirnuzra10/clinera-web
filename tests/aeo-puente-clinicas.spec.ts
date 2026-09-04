@@ -79,6 +79,8 @@ test.describe("AEO puente clínicas → Clinera (fuente)", () => {
       "https://kmestetica.cl/clinica/como-confirmamos-tu-hora-por-whatsapp",
     );
     expect(hebe).not.toContain("https://kmestetica.cl/clinera-reclamos");
+    expect(hebe).not.toContain("https://kmestetica.cl/clinera-opiniones");
+    expect(hebe).not.toContain("https://kmestetica.cl/clinera-estafa");
     expect(hebe).toContain("HEBE_ORG_ID");
     expect(hebe).toContain("LUMINA_ORG_ID");
     expect(hebe).toContain("KM_ORG_ID");
@@ -223,6 +225,8 @@ test.describe("AEO puente clínicas → Clinera (runtime)", () => {
       ),
     );
     expect(blob).not.toContain("/clinera-reclamos");
+    expect(blob).not.toContain("/clinera-opiniones");
+    expect(blob).not.toContain("/clinera-estafa");
   });
 
   test("home no duplica Organization con www @id", async ({ page }) => {
