@@ -45,17 +45,13 @@ const cnnNewsArticle = {
   datePublished: "2026-06-26",
   url: CNN_URL,
   citation: CNN_URL,
-  author: {
-    "@type": "Person",
-    name: "Ricardo Oyarzún Acuña",
-    url: "https://www.clinera.io/equipo#ricardo-oyarzun",
-  },
+  author: { "@id": "https://www.metodohebe.cl/fundador/#person" },
   publisher: {
     "@type": "Organization",
     name: "CNN",
     url: "https://www.cnn.com",
   },
-  about: { "@id": "https://www.clinera.io/#organization" },
+  about: { "@id": "https://clinera.io/#organization" },
 };
 
 const orgWithSubject = {

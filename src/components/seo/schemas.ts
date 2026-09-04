@@ -4,49 +4,74 @@ import {
   ADDRESS_COUNTRY,
   ADDRESS_LOCALITY,
   AREA_SERVED,
+  CLINERA_ORG_ID,
+  CLINERA_ORG_URL,
   DISAMBIGUATING_DESCRIPTION,
-  ENTITY_DESCRIPTION,
   ENTITY_NAME,
   FOUNDER,
   FOUNDING_DATE,
+  HEBE_ORG_ID,
   HOME_META_DESCRIPTION,
   LEGAL_NAME,
   LOGO_URL,
+  LUMINA_ORG_ID,
+  OACG_ORG_ID,
+  ORG_SCHEMA_DESCRIPTION,
   PARENT_ORG_NAME,
   PARENT_ORG_URL,
   PRODUCT_NAME,
+  RICARDO_PERSON_ID,
   SAME_AS,
   SITE_URL,
 } from "@/content/entidad";
 
-export { SITE_URL };
+export {
+  CLINERA_ORG_ID,
+  HEBE_ORG_ID,
+  LUMINA_ORG_ID,
+  OACG_ORG_ID,
+  RICARDO_PERSON_ID,
+  SITE_URL,
+};
 
-export const orgSchema = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": `${SITE_URL}/#organization`,
+export const oacgOrgNode = {
+  "@type": "Organization" as const,
+  "@id": OACG_ORG_ID,
+  name: "OACG",
+  legalName: LEGAL_NAME,
+  alternateName: PARENT_ORG_NAME,
+  url: PARENT_ORG_URL,
+};
+
+export const ricardoPersonNode = {
+  "@type": "Person" as const,
+  "@id": RICARDO_PERSON_ID,
+  name: "Ricardo Oyarzún",
+  jobTitle: "Creador de Clinera, fundador de Método Hebe y Protocolo Lumina",
+  alumniOf: {
+    "@type": "CollegeOrUniversity" as const,
+    name: "Universidad de Concepción",
+  },
+  url: "https://www.metodohebe.cl/fundador/",
+  sameAs: [FOUNDER.sameAs, `${SITE_URL}/equipo#${FOUNDER.slug}`],
+  worksFor: { "@id": CLINERA_ORG_ID },
+};
+
+export const clineraOrgNode = {
+  "@type": "Organization" as const,
+  "@id": CLINERA_ORG_ID,
   name: ENTITY_NAME,
   alternateName: ["Clinera.io", PRODUCT_NAME],
   legalName: LEGAL_NAME,
-  url: SITE_URL,
+  url: CLINERA_ORG_URL,
   logo: LOGO_URL,
-  description: ENTITY_DESCRIPTION,
+  description: ORG_SCHEMA_DESCRIPTION,
   disambiguatingDescription: DISAMBIGUATING_DESCRIPTION,
   foundingDate: FOUNDING_DATE,
-  founder: {
-    "@type": "Person",
-    "@id": `${SITE_URL}/equipo#${FOUNDER.slug}`,
-    name: FOUNDER.name,
-    jobTitle: FOUNDER.jobTitle,
-    sameAs: [FOUNDER.sameAs],
-  },
-  parentOrganization: {
-    "@type": "Organization",
-    name: PARENT_ORG_NAME,
-    url: PARENT_ORG_URL,
-  },
+  founder: { "@id": RICARDO_PERSON_ID },
+  parentOrganization: { "@id": OACG_ORG_ID },
   address: {
-    "@type": "PostalAddress",
+    "@type": "PostalAddress" as const,
     addressCountry: ADDRESS_COUNTRY,
     addressLocality: ADDRESS_LOCALITY,
   },
@@ -58,6 +83,17 @@ export const orgSchema = {
     "ficha clínica electrónica",
     "WhatsApp Business API",
   ],
+};
+
+export const orgSchema = {
+  "@context": "https://schema.org",
+  ...clineraOrgNode,
+};
+
+/** Grafo AEO en layout: OACG + Clinera + Ricardo (un solo Person, @id de Hebe). */
+export const entityGraph = {
+  "@context": "https://schema.org",
+  "@graph": [oacgOrgNode, clineraOrgNode, ricardoPersonNode],
 };
 
 /** Un Offer por plan y modalidad, misma fuente que `/planes`. */
@@ -94,7 +130,7 @@ export const softwareSchema = {
   description: HOME_META_DESCRIPTION,
   url: SITE_URL,
   offers: softwareOffers,
-  publisher: { "@id": `${SITE_URL}/#organization` },
+  publisher: { "@id": CLINERA_ORG_ID },
   brand: { "@type": "Brand", name: ENTITY_NAME },
 };
 
@@ -136,7 +172,7 @@ export const videoObjectSchema = (v: {
   embedUrl: v.embedUrl,
   ...(v.contentUrl && { contentUrl: v.contentUrl }),
   ...(v.transcript && { transcript: v.transcript }),
-  publisher: { "@id": `${SITE_URL}/#organization` },
+  publisher: { "@id": CLINERA_ORG_ID },
 });
 
 export const breadcrumbSchema = (items: { name: string; url: string }[]) => ({
@@ -169,8 +205,8 @@ export const webPageSchema = (opts: {
     datePublished: opts.datePublished ?? dates.published,
     dateModified: opts.dateModified ?? dates.modified,
     isPartOf: { "@id": `${SITE_URL}/#website` },
-    about: { "@id": `${SITE_URL}/#organization` },
-    publisher: { "@id": `${SITE_URL}/#organization` },
+    about: { "@id": CLINERA_ORG_ID },
+    publisher: { "@id": CLINERA_ORG_ID },
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", "[data-entity-phrase]"],
@@ -238,6 +274,13 @@ export const personSchema = (key: string) => {
     KNOWN_AUTHORS[key] ??
     Object.values(KNOWN_AUTHORS).find((a) => a.slug === key);
   if (!known) return null;
+  if (known.slug === FOUNDER.slug) {
+    return {
+      "@context": "https://schema.org",
+      ...ricardoPersonNode,
+      description: known.description,
+    };
+  }
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -246,7 +289,7 @@ export const personSchema = (key: string) => {
     jobTitle: known.jobTitle,
     sameAs: known.sameAs,
     description: known.description,
-    worksFor: { "@id": `${SITE_URL}/#organization` },
+    worksFor: { "@id": CLINERA_ORG_ID },
     url: `${SITE_URL}/equipo#${known.slug}`,
   };
 };
@@ -262,15 +305,17 @@ export const blogPostingSchema = (post: {
 }) => {
   const known = post.authorName ? KNOWN_AUTHORS[post.authorName] : undefined;
   const author = known
-    ? {
-        "@type": "Person",
-        "@id": `${SITE_URL}/equipo#${known.slug}`,
-        name: known.name,
-        jobTitle: known.jobTitle,
-        sameAs: known.sameAs,
-        ...(known.description && { description: known.description }),
-        worksFor: { "@id": `${SITE_URL}/#organization` },
-      }
+    ? known.slug === FOUNDER.slug
+      ? { "@id": RICARDO_PERSON_ID }
+      : {
+          "@type": "Person",
+          "@id": `${SITE_URL}/equipo#${known.slug}`,
+          name: known.name,
+          jobTitle: known.jobTitle,
+          sameAs: known.sameAs,
+          ...(known.description && { description: known.description }),
+          worksFor: { "@id": CLINERA_ORG_ID },
+        }
     : {
         "@type": post.authorName ? "Person" : "Organization",
         name: post.authorName || ENTITY_NAME,
@@ -286,7 +331,7 @@ export const blogPostingSchema = (post: {
     datePublished: post.datePublished,
     dateModified: post.dateModified || post.datePublished,
     author,
-    publisher: { "@id": `${SITE_URL}/#organization` },
+    publisher: { "@id": CLINERA_ORG_ID },
     ...(post.image && {
       image: post.image.startsWith("http")
         ? post.image
@@ -347,3 +392,31 @@ export const reviewSchema = (r: {
   reviewBody: r.quote,
   itemReviewed: { "@id": `${SITE_URL}/#software` },
 });
+
+export const caseStudySchema = (opts: {
+  path: string;
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  mentions: { "@id": string }[];
+}) => {
+  const url = `${SITE_URL}${opts.path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": ["Article", "CaseStudy"],
+    "@id": `${url}#casestudy`,
+    headline: opts.headline,
+    description: opts.description,
+    url,
+    inLanguage: "es-CL",
+    datePublished: opts.datePublished,
+    dateModified: opts.dateModified ?? opts.datePublished,
+    author: { "@id": CLINERA_ORG_ID },
+    publisher: { "@id": CLINERA_ORG_ID },
+    about: { "@id": CLINERA_ORG_ID },
+    mentions: opts.mentions,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+  };
+};

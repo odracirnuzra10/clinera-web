@@ -25,6 +25,8 @@ const cols: Col[] = [
       ["Calcula tu consumo", "/calculadora-de-consumo"],
       ["Estudio de efectividad", "/efectividad"],
       ["Equipo", "/equipo"],
+      ["Caso Método Hebe", "/casos/metodo-hebe"],
+      ["Caso Protocolo Lumina", "/casos/protocolo-lumina"],
       ["Estudio de confianza", "/blog/estudio-ia-respuesta-humana-confianza-pacientes"],
       ["Novedades Clinera", "/novedades"],
     ],

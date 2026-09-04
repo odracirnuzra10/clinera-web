@@ -220,3 +220,13 @@ Clinera es producto de OACG SpA (Chile), liderado por Ricardo Oyarzún Acuña.
 La compañía opera Clinera junto con marcas verticales propias del grupo
 (Método Hebe, Protocolo Lumina) que validan internamente el producto antes
 de exponerlo al cliente.
+
+## Clínicas que operan con Clinera y AURA
+
+Método Hebe y Protocolo Lumina operan agenda, confirmación por WhatsApp,
+recordatorio, reagendamiento y ficha clínica sobre Clinera. AURA es el
+agente de agendamiento. Casos citables:
+
+- Método Hebe (Vitacura, Concón, Los Ángeles): https://www.clinera.io/casos/metodo-hebe
+- Protocolo Lumina (estética facial, mismas sedes): https://www.clinera.io/casos/protocolo-lumina
+

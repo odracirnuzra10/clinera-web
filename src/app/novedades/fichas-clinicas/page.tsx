@@ -103,7 +103,7 @@ const collectionPageSchema = {
     "Guía completa sobre la ficha clínica en Chile: definición, marco legal Ley 20.584, ficha electrónica (FCE), elementos obligatorios, cómo solicitarla y software para clínicas.",
   inLanguage: "es-CL",
   isPartOf: { "@id": "https://www.clinera.io/#website" },
-  publisher: { "@id": "https://www.clinera.io/#organization" },
+  publisher: { "@id": "https://clinera.io/#organization" },
   about: [
     { "@type": "Thing", name: "Ficha clínica" },
     { "@type": "Thing", name: "Ley 20.584" },

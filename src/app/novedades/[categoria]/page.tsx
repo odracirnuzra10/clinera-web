@@ -197,7 +197,7 @@ export default async function CategoriaPage({
     url,
     inLanguage: "es-CL",
     isPartOf: { "@id": "https://www.clinera.io/#website" },
-    publisher: { "@id": "https://www.clinera.io/#organization" },
+    publisher: { "@id": "https://clinera.io/#organization" },
   };
 
   const itemListSchema = {

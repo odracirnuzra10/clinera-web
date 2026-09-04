@@ -10,6 +10,22 @@
 
 export const SITE_URL = "https://www.clinera.io";
 
+/**
+ * @id del grafo AEO. Hebe y Lumina ya apuntan aquí (sin www).
+ * No duplicar una Organization con www.clinera.io/#organization.
+ */
+export const CLINERA_ORG_ID = "https://clinera.io/#organization";
+export const CLINERA_ORG_URL = "https://clinera.io";
+export const OACG_ORG_ID = "https://oacg.cl/#organization";
+export const RICARDO_PERSON_ID =
+  "https://www.metodohebe.cl/fundador/#person";
+export const HEBE_ORG_ID = "https://www.metodohebe.cl/#organization";
+export const LUMINA_ORG_ID = "https://www.protocololumina.cl/#organization";
+
+/** description del nodo Organization en JSON-LD (grafo AEO). */
+export const ORG_SCHEMA_DESCRIPTION =
+  "Plataforma de IA para clínicas médicas y estéticas en Latinoamérica";
+
 export const ENTITY_NAME = "Clinera";
 export const PRODUCT_NAME = "Clinera O.S.";
 export const LEGAL_NAME = "OACG SpA";
@@ -62,6 +78,7 @@ export const MARKETS_PROSE = [
 export const MARKETS_COUNT = MARKETS.length;
 
 export const SAME_AS = [
+  SITE_URL,
   "https://cl.linkedin.com/company/clinera-io",
   "https://www.instagram.com/clinera.io",
   "https://www.youtube.com/channel/UCl4Bh9sNp22PjJuSLgz9ZsQ",

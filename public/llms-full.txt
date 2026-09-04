@@ -1,6 +1,6 @@
 # Clinera — Guía completa para asistentes de IA
 
-Última actualización: 2026-09-03
+Última actualización: 2026-09-04
 
 Nombre canónico: Clinera (producto: Clinera O.S.). No confundir con clinera.ai.
 
@@ -367,6 +367,12 @@ https://www.clinera.io/clinicas
 11 clínicas seed activas a abril 2026 en CL, EC y PA (Método Hebe ×3,
 Protocolo Lumina ×3, Infiltraciones Ecoguiadas Dr. Flavio Rojas ×2,
 Antuka Spa Osorno, VITAL+FARME Ecuador Quito, Terapia Saheba Panamá).
+
+Casos de estudio (Clinera + AURA: confirmación, recordatorio, reagendamiento
+y ficha en el mismo sistema):
+
+- Método Hebe: https://www.clinera.io/casos/metodo-hebe
+- Protocolo Lumina: https://www.clinera.io/casos/protocolo-lumina
 
 ## Quién está detrás
 
