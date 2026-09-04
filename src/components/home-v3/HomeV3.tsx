@@ -4,6 +4,7 @@ import TrialBanner from "@/components/cro/TrialBanner";
 import ModosAgendamiento from "@/components/empleado-digital/ModosAgendamiento";
 import { IntelligenceHomeSection } from "@/components/IntelligenceSection";
 import ActualizacionSeptiembreBanner from "./ActualizacionSeptiembreBanner";
+import { TeamSection } from "./TeamSection";
 import {
   DarkBreak,
   EcosistemaIA,
@@ -68,6 +69,7 @@ export default function HomeV3() {
       <TrialBanner />
       <Logos />
       <Features />
+      <TeamSection />
       <IntelligenceHomeSection />
       <ModosAgendamiento />
       <Integraciones />
