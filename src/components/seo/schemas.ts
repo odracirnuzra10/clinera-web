@@ -404,7 +404,7 @@ export const caseStudySchema = (opts: {
   const url = `${SITE_URL}${opts.path}`;
   return {
     "@context": "https://schema.org",
-    "@type": ["Article", "CaseStudy"],
+    "@type": "Article",
     "@id": `${url}#casestudy`,
     headline: opts.headline,
     description: opts.description,

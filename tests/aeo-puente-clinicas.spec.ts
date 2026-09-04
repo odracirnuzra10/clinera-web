@@ -5,8 +5,6 @@ import { CASO_HEBE, CASO_LUMINA, URL_RESERVA_HEBE, URL_RESERVA_LUMINA } from "@/
 import { buildRobotsTxt } from "@/lib/robots-txt";
 import {
   CLINERA_ORG_ID,
-  HEBE_ORG_ID,
-  LUMINA_ORG_ID,
   OACG_ORG_ID,
   ORG_SCHEMA_DESCRIPTION,
   RICARDO_PERSON_ID,
@@ -31,11 +29,16 @@ const REQUIRED_BOTS = [
 
 test.describe("AEO puente clínicas → Clinera (fuente)", () => {
   test("grafo Clinera reutiliza @id de OACG, Clinera y Ricardo/Hebe", () => {
+    const entidad = read("src/content/entidad.ts");
+    expect(entidad).toContain('export const CLINERA_ORG_ID = "https://clinera.io/#organization"');
+    expect(entidad).toContain('export const OACG_ORG_ID = "https://oacg.cl/#organization"');
+    expect(entidad).toContain("https://www.metodohebe.cl/fundador/#person");
+    expect(entidad).toContain(ORG_SCHEMA_DESCRIPTION);
+
     const schemas = read("src/components/seo/schemas.ts");
-    expect(schemas).toContain(OACG_ORG_ID);
-    expect(schemas).toContain(CLINERA_ORG_ID);
-    expect(schemas).toContain(RICARDO_PERSON_ID);
-    expect(schemas).toContain(ORG_SCHEMA_DESCRIPTION);
+    expect(schemas).toContain("OACG_ORG_ID");
+    expect(schemas).toContain("CLINERA_ORG_ID");
+    expect(schemas).toContain("RICARDO_PERSON_ID");
     expect(schemas).toContain("parentOrganization: { \"@id\": OACG_ORG_ID }");
     expect(schemas).toContain("founder: { \"@id\": RICARDO_PERSON_ID }");
     expect(schemas).not.toContain("${SITE_URL}/#organization");
@@ -54,9 +57,9 @@ test.describe("AEO puente clínicas → Clinera (fuente)", () => {
     expect(hebe).toContain(
       "https://www.protocololumina.cl/clinica/como-confirmamos-tu-hora-por-whatsapp",
     );
-    expect(hebe).toContain(HEBE_ORG_ID);
-    expect(hebe).toContain(LUMINA_ORG_ID);
-    expect(hebe).toContain(RICARDO_PERSON_ID);
+    expect(hebe).toContain("HEBE_ORG_ID");
+    expect(hebe).toContain("LUMINA_ORG_ID");
+    expect(hebe).toContain("RICARDO_PERSON_ID");
     expect(page).not.toMatch(/rel=\{?["'][^"']*(nofollow|sponsored)/);
     expect(page).toContain("<a key");
     expect(URL_RESERVA_HEBE).toBeNull();
@@ -138,7 +141,8 @@ test.describe("AEO puente clínicas → Clinera (runtime)", () => {
       expect(blob).toContain(OACG_ORG_ID);
       expect(blob).toContain(RICARDO_PERSON_ID);
       expect(blob).toContain(ORG_SCHEMA_DESCRIPTION);
-      expect(blob).toContain('"@type":["Article","CaseStudy"]');
+      expect(blob).toContain('"@type":"Article"');
+      expect(blob).toContain("#casestudy");
       expect(blob).toContain(caso.mentions[0]["@id"]);
       expect(blob).not.toContain("www.clinera.io/#organization");
       expect(blob).not.toMatch(/"@id":"https:\/\/www\.clinera\.io\/equipo#ricardo-oyarzun"/);
