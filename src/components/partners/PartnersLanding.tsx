@@ -14,6 +14,7 @@ import {
   PARTNERS_PRESENTATION_HREF,
   PARTNERS_REQUIREMENTS,
   PARTNERS_STATS,
+  PARTNERS_SUPPORT,
 } from "@/content/partners-program";
 
 const VIOLET = "#7C3AED";
@@ -45,6 +46,7 @@ export default function PartnersLanding() {
     <>
       <Hero />
       <Deal />
+      <Support />
       <ConvenioDoctores />
       <OsDiagram />
       <FaqPartners />
@@ -55,6 +57,8 @@ export default function PartnersLanding() {
         }
         @media (max-width: 960px) {
           .partners-deal { grid-template-columns: 1fr !important; }
+          .partners-bonuses { grid-template-columns: 1fr !important; }
+          .partners-support { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </>
@@ -199,99 +203,23 @@ function Deal() {
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Eyebrow>El acuerdo</Eyebrow>
-        <h2 style={{ ...h2Style, maxWidth: 720 }}>
-          Lo que publicas. Lo que cobras. Lo que gana tu referido.
+        <h2 style={{ ...h2Style, maxWidth: 760 }}>
+          Lo que cobras. Lo que pedimos. Sin descuento al referido.
         </h2>
         <p style={{ ...leadStyle, maxWidth: 640 }}>
-          Tres requisitos de Instagram. Un bono para ti. Un descuento para la clínica que refieres.
+          Bono único al cierre según el plan que contrate la clínica. Sin pago
+          mensual al partner y sin descuento adicional para el referido.
         </p>
 
         <div
-          className="partners-deal"
+          className="partners-bonuses"
           style={{
             display: "grid",
-            gridTemplateColumns: "1.15fr 0.85fr 0.85fr",
+            gridTemplateColumns: "repeat(3, 1fr)",
             gap: 18,
-            alignItems: "stretch",
+            marginBottom: 18,
           }}
         >
-          <article
-            style={{
-              background: "#FAFAFA",
-              border: "1px solid #E5E7EB",
-              borderRadius: 16,
-              padding: "28px 26px",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                fontSize: 10.5,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: VIOLET,
-                margin: "0 0 10px",
-              }}
-            >
-              Requisitos
-            </p>
-            <h3
-              style={{
-                fontFamily: "Inter",
-                fontSize: 22,
-                fontWeight: 800,
-                letterSpacing: "-0.02em",
-                color: "#0A0A0A",
-                margin: "0 0 22px",
-              }}
-            >
-              Lo que publicas
-            </h3>
-            <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 18 }}>
-              {PARTNERS_REQUIREMENTS.map((item) => (
-                <li key={item.num} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                  <span
-                    style={{
-                      fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                      fontSize: 11,
-                      letterSpacing: "0.08em",
-                      color: VIOLET,
-                      paddingTop: 3,
-                      flexShrink: 0,
-                    }}
-                  >
-                    {item.num}
-                  </span>
-                  <div>
-                    <h4
-                      style={{
-                        fontFamily: "Inter",
-                        fontSize: 16,
-                        fontWeight: 700,
-                        letterSpacing: "-0.015em",
-                        color: "#0A0A0A",
-                        margin: "0 0 4px",
-                      }}
-                    >
-                      {item.title}
-                    </h4>
-                    <p
-                      style={{
-                        fontFamily: "Inter",
-                        fontSize: 14,
-                        color: "#6B7280",
-                        lineHeight: 1.5,
-                        margin: 0,
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </article>
-
           {PARTNERS_BENEFITS.map((item) => (
             <article
               key={item.kicker}
@@ -305,9 +233,6 @@ function Deal() {
                 boxShadow: item.featured
                   ? "0 22px 60px -22px rgba(124,58,237,.22)"
                   : "none",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
               }}
             >
               <p
@@ -325,7 +250,7 @@ function Deal() {
               <p
                 style={{
                   fontFamily: "Inter",
-                  fontSize: "clamp(40px, 5vw, 56px)",
+                  fontSize: "clamp(36px, 4.5vw, 52px)",
                   fontWeight: 800,
                   letterSpacing: "-0.04em",
                   lineHeight: 1,
@@ -353,6 +278,175 @@ function Deal() {
                 style={{
                   fontFamily: "Inter",
                   fontSize: 14,
+                  color: "#6B7280",
+                  lineHeight: 1.55,
+                  margin: 0,
+                }}
+              >
+                {item.desc}
+              </p>
+            </article>
+          ))}
+        </div>
+
+        <article
+          className="partners-deal"
+          style={{
+            background: "#FAFAFA",
+            border: "1px solid #E5E7EB",
+            borderRadius: 16,
+            padding: "28px 26px",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 10.5,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: VIOLET,
+              margin: "0 0 10px",
+            }}
+          >
+            Requisitos
+          </p>
+          <h3
+            style={{
+              fontFamily: "Inter",
+              fontSize: 22,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
+              color: "#0A0A0A",
+              margin: "0 0 22px",
+            }}
+          >
+            Para entrar al programa
+          </h3>
+          <ol
+            style={{
+              listStyle: "none",
+              margin: 0,
+              padding: 0,
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 18,
+            }}
+            className="partners-deal"
+          >
+            {PARTNERS_REQUIREMENTS.map((item) => (
+              <li key={item.num} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                <span
+                  style={{
+                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                    fontSize: 11,
+                    letterSpacing: "0.08em",
+                    color: VIOLET,
+                    paddingTop: 3,
+                    flexShrink: 0,
+                  }}
+                >
+                  {item.num}
+                </span>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: "Inter",
+                      fontSize: 16,
+                      fontWeight: 700,
+                      letterSpacing: "-0.015em",
+                      color: "#0A0A0A",
+                      margin: "0 0 4px",
+                    }}
+                  >
+                    {item.title}
+                  </h4>
+                  <p
+                    style={{
+                      fontFamily: "Inter",
+                      fontSize: 14,
+                      color: "#6B7280",
+                      lineHeight: 1.5,
+                      margin: 0,
+                    }}
+                  >
+                    {item.desc}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function Support() {
+  return (
+    <section
+      className="partners-section"
+      style={{
+        ...sectionPad,
+        background: "#FAFAFA",
+        borderTop: "1px solid #F0F0F0",
+        borderBottom: "1px solid #F0F0F0",
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <Eyebrow>Apoyo</Eyebrow>
+        <h2 style={{ ...h2Style, maxWidth: 720 }}>
+          No cieras solo. Clinera te acompaña.
+        </h2>
+        <p style={{ ...leadStyle, maxWidth: 560 }}>
+          El equipo comercial te ayuda a cerrar y tenés el CRM para seguir cada
+          referido.
+        </p>
+        <div
+          className="partners-support"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 18,
+          }}
+        >
+          {PARTNERS_SUPPORT.map((item) => (
+            <article
+              key={item.num}
+              style={{
+                background: "#fff",
+                border: "1px solid #E5E7EB",
+                borderRadius: 16,
+                padding: "28px 26px",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 10.5,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: VIOLET,
+                  margin: "0 0 10px",
+                }}
+              >
+                {item.num}
+              </p>
+              <h3
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 22,
+                  fontWeight: 800,
+                  letterSpacing: "-0.02em",
+                  color: "#0A0A0A",
+                  margin: "0 0 10px",
+                }}
+              >
+                {item.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "Inter",
+                  fontSize: 15,
                   color: "#6B7280",
                   lineHeight: 1.55,
                   margin: 0,

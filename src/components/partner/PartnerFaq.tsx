@@ -2,16 +2,12 @@
 
 import { useId, useState } from "react";
 import type { Partner } from "@/lib/partners";
-import {
-  PARTNERS_CLIENT_DISCOUNT_LABEL,
-  PARTNERS_CLIENT_DISCOUNT_MONTHS,
-} from "@/content/partners-program";
 
 function faqsFor(partner: Partner) {
   return [
     {
-      q: `¿Qué descuento tengo por venir de parte de ${partner.name}?`,
-      a: `${PARTNERS_CLIENT_DISCOUNT_LABEL} durante ${PARTNERS_CLIENT_DISCOUNT_MONTHS} meses. Lo aplica el closer de Clinera al cierre, con el código de este partner. No es un descuento permanente.`,
+      q: `¿Qué gano por venir de parte de ${partner.name}?`,
+      a: `Vienes referido por ${partner.name}: el equipo comercial te prioriza y te arma la implementación con lo que tu clínica necesita. En este programa no hay un descuento publicado para referidos.`,
     },
     {
       q: "¿Sirve si tengo una sola sucursal?",
