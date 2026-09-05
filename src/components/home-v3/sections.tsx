@@ -4345,11 +4345,16 @@ export function Pricing({
   }));
 
   const checkoutUrl = (p: (typeof plans)[number]) => {
-    const base = ctaHref ?? "/agenda";
-    const sep = base.includes("?") ? "&" : "?";
-    return `${base}${sep}plan=${p.id}`;
+    // Por defecto: checkout Stripe de la modalidad elegida. Si la página
+    // fuerza una ruta interna (p. ej. /plataforma → /agenda), esa gana.
+    if (ctaHref) {
+      const sep = ctaHref.includes("?") ? "&" : "?";
+      return `${ctaHref}${sep}plan=${p.id}`;
+    }
+    return isAnnual ? p.stripeAnnual : isSemester ? p.stripeSemester : p.stripe;
   };
-  const ctaIsExternal = false;
+  const ctaIsExternal = !ctaHref;
+  const demoUrl = (p: (typeof plans)[number]) => `/agenda?plan=${p.id}`;
   const checkoutValue = (p: (typeof plans)[number]) =>
     isAnnual ? p.annualValue : isSemester ? p.semesterValue : p.monthlyValue;
 
@@ -4682,9 +4687,9 @@ export function Pricing({
 
                 </div>
 
-                {/* Un solo CTA: contratar. Sin "Agendar demo" compitiendo, el
-                    botón de conversión toma el estilo primario de la tarjeta. */}
-                <div style={{ display: "flex", flexDirection: "column", marginBottom: 22 }}>
+                {/* CTA primario = Contratar (Stripe). Demo queda como salida
+                    secundaria, con menos peso visual, para quien aún no compra. */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 22 }}>
                   <a
                     className="home-plan-cta"
                     href={checkoutUrl(p)}
@@ -4703,9 +4708,30 @@ export function Pricing({
                       boxShadow: th.ctaPrimaryShadow,
                       boxSizing: "border-box",
                     }}
-                    data-plan={p.name.toLowerCase()}
+                    data-plan={p.id}
                     data-plan-billing={billing}
                     data-plan-value={checkoutValue(p)}
+                    data-plan-name={`${p.name} contratar`}
+                  >
+                    Contratar {p.name}
+                  </a>
+                  <a
+                    href={demoUrl(p)}
+                    style={{
+                      textDecoration: "none",
+                      textAlign: "center",
+                      background: "transparent",
+                      color: th.sub,
+                      border: 0,
+                      padding: "6px 12px",
+                      borderRadius: 8,
+                      fontWeight: 500,
+                      fontSize: 12.5,
+                      fontFamily: "Inter, sans-serif",
+                      boxSizing: "border-box",
+                      opacity: 0.85,
+                    }}
+                    data-plan-demo={p.id}
                     data-plan-name={`${p.name} demo`}
                   >
                     Agendar demo · {p.name}
