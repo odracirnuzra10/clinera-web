@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useId, useState, type CSSProperties, type FormEvent } from "react";
 import { GRAD } from "@/components/brand-v3/Brand";
 import {
   PARTNERS_APPLY,
@@ -21,9 +21,51 @@ import {
 type Status = "idle" | "sending" | "ok" | "error";
 
 const DEFAULT_PREFIX: PartnerApplyPrefix = "+56";
+const VIOLET = "#7C3AED";
 
-const inputClass =
-  "mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900 outline-none ring-emerald-500/30 placeholder:text-slate-400 focus:border-emerald-400 focus:ring-2 disabled:opacity-60";
+const labelStyle: CSSProperties = {
+  display: "block",
+  fontFamily: "Inter, system-ui, sans-serif",
+  fontSize: 13,
+  fontWeight: 600,
+  color: "#374151",
+  marginBottom: 8,
+  letterSpacing: "-0.01em",
+};
+
+const hintStyle: CSSProperties = {
+  fontFamily: "Inter, system-ui, sans-serif",
+  fontSize: 12,
+  color: "#6B7280",
+  margin: "0 0 10px",
+  lineHeight: 1.45,
+};
+
+const fieldBase: CSSProperties = {
+  width: "100%",
+  boxSizing: "border-box",
+  fontFamily: "Inter, system-ui, sans-serif",
+  fontSize: 15,
+  color: "#0A0A0A",
+  background: "#fff",
+  border: "1px solid #E5E7EB",
+  borderRadius: 12,
+  padding: "14px 16px",
+  outline: "none",
+  lineHeight: 1.3,
+};
+
+const srOnly: CSSProperties = {
+  position: "absolute",
+  width: 1,
+  height: 1,
+  padding: 0,
+  margin: -1,
+  overflow: "hidden",
+  clip: "rect(0, 0, 0, 0)",
+  whiteSpace: "nowrap",
+  border: 0,
+};
 
 export function PartnerApplyForm() {
   const baseId = useId();
@@ -32,6 +74,7 @@ export function PartnerApplyForm() {
   const [local, setLocal] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [focus, setFocus] = useState<"nombre" | "prefix" | "tel" | null>(null);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -84,31 +127,94 @@ export function PartnerApplyForm() {
   if (status === "ok") {
     return (
       <div
-        className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-6 text-center"
         role="status"
+        style={{
+          borderRadius: 20,
+          border: "1px solid #A7F3D0",
+          background: "linear-gradient(180deg, #ECFDF5 0%, #F0FDF4 100%)",
+          padding: "36px 28px",
+          textAlign: "center",
+          boxShadow: "0 18px 40px -28px rgba(16,185,129,.45)",
+        }}
       >
-        <p className="text-lg font-semibold text-emerald-900">
+        <div
+          aria-hidden
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: 999,
+            margin: "0 auto 16px",
+            display: "grid",
+            placeItems: "center",
+            background: GRAD,
+            color: "#fff",
+            fontSize: 22,
+            fontWeight: 700,
+            boxShadow: "0 10px 24px -8px rgba(124,58,237,.5)",
+          }}
+        >
+          ✓
+        </div>
+        <p
+          style={{
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: 22,
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            color: "#064E3B",
+            margin: "0 0 8px",
+          }}
+        >
           {PARTNERS_APPLY.successTitle}
         </p>
-        <p className="mt-2 text-sm text-emerald-800">{PARTNERS_APPLY.success}</p>
+        <p
+          style={{
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: 15,
+            color: "#047857",
+            lineHeight: 1.55,
+            margin: "0 auto",
+            maxWidth: 360,
+          }}
+        >
+          {PARTNERS_APPLY.success}
+        </p>
       </div>
     );
   }
 
   const sending = status === "sending";
 
+  function ring(which: "nombre" | "prefix" | "tel"): CSSProperties {
+    return focus === which
+      ? {
+          borderColor: "#A78BFA",
+          boxShadow: "0 0 0 4px rgba(124,58,237,.12)",
+        }
+      : {};
+  }
+
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto max-w-md space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
       noValidate
       aria-describedby={error ? `${baseId}-error` : undefined}
+      style={{
+        maxWidth: 480,
+        margin: "0 auto",
+        background: "#fff",
+        border: "1px solid #E5E7EB",
+        borderRadius: 24,
+        padding: "28px 28px 24px",
+        boxShadow:
+          "0 24px 60px -28px rgba(15,23,42,.18), 0 8px 20px -12px rgba(124,58,237,.12)",
+        display: "flex",
+        flexDirection: "column",
+        gap: 18,
+      }}
     >
       <div>
-        <label
-          htmlFor={`${baseId}-nombre`}
-          className="block text-sm font-medium text-slate-700"
-        >
+        <label htmlFor={`${baseId}-nombre`} style={labelStyle}>
           {PARTNERS_APPLY.fields.nombre.label}
         </label>
         <input
@@ -120,23 +226,24 @@ export function PartnerApplyForm() {
           disabled={sending}
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
+          onFocus={() => setFocus("nombre")}
+          onBlur={() => setFocus(null)}
           placeholder={PARTNERS_APPLY.fields.nombre.placeholder}
-          className={inputClass}
+          style={{
+            ...fieldBase,
+            ...ring("nombre"),
+            opacity: sending ? 0.65 : 1,
+          }}
         />
       </div>
 
       <div>
-        <label
-          htmlFor={`${baseId}-telefono`}
-          className="block text-sm font-medium text-slate-700"
-        >
+        <label htmlFor={`${baseId}-telefono`} style={labelStyle}>
           {PARTNERS_APPLY.fields.celular.label}
         </label>
-        <p className="mt-0.5 text-xs text-slate-500">
-          {PARTNERS_APPLY.fields.celular.hint}
-        </p>
-        <div className="mt-1.5 flex gap-2">
-          <label className="sr-only" htmlFor={`${baseId}-prefix`}>
+        <p style={hintStyle}>{PARTNERS_APPLY.fields.celular.hint}</p>
+        <div style={{ display: "flex", gap: 10 }}>
+          <label htmlFor={`${baseId}-prefix`} style={srOnly}>
             Código de país
           </label>
           <select
@@ -151,7 +258,26 @@ export function PartnerApplyForm() {
                 setLocal("");
               }
             }}
-            className="shrink-0 rounded-xl border border-slate-200 bg-white px-2.5 py-2.5 text-sm text-slate-900 outline-none ring-emerald-500/30 focus:border-emerald-400 focus:ring-2 disabled:opacity-60"
+            onFocus={() => setFocus("prefix")}
+            onBlur={() => setFocus(null)}
+            style={{
+              ...fieldBase,
+              ...ring("prefix"),
+              width: "auto",
+              minWidth: 148,
+              flexShrink: 0,
+              cursor: sending ? "not-allowed" : "pointer",
+              opacity: sending ? 0.65 : 1,
+              appearance: "none",
+              WebkitAppearance: "none",
+              backgroundImage:
+                "linear-gradient(45deg, transparent 50%, #6B7280 50%), linear-gradient(135deg, #6B7280 50%, transparent 50%)",
+              backgroundPosition:
+                "calc(100% - 18px) calc(50% - 3px), calc(100% - 12px) calc(50% - 3px)",
+              backgroundSize: "6px 6px, 6px 6px",
+              backgroundRepeat: "no-repeat",
+              paddingRight: 32,
+            }}
           >
             {PARTNERS_APPLY_PHONE_PREFIXES.map((p) => (
               <option key={p.prefix} value={p.prefix}>
@@ -173,14 +299,35 @@ export function PartnerApplyForm() {
                 formatearTelefono(digitosTelefono(e.target.value), prefix),
               )
             }
-            placeholder="Número sin código de país"
-            className={`min-w-0 flex-1 ${inputClass} mt-0`}
+            onFocus={() => setFocus("tel")}
+            onBlur={() => setFocus(null)}
+            placeholder="9 1234 5678"
+            style={{
+              ...fieldBase,
+              ...ring("tel"),
+              flex: 1,
+              minWidth: 0,
+              opacity: sending ? 0.65 : 1,
+            }}
           />
         </div>
       </div>
 
       {error ? (
-        <p id={`${baseId}-error`} role="alert" className="text-sm text-red-600">
+        <p
+          id={`${baseId}-error`}
+          role="alert"
+          style={{
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: 13,
+            color: "#DC2626",
+            margin: 0,
+            background: "#FEF2F2",
+            border: "1px solid #FECACA",
+            borderRadius: 10,
+            padding: "10px 12px",
+          }}
+        >
           {error}
         </p>
       ) : null}
@@ -188,8 +335,22 @@ export function PartnerApplyForm() {
       <button
         type="submit"
         disabled={sending}
-        className="inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-600/20 transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
-        style={{ background: GRAD }}
+        style={{
+          width: "100%",
+          border: 0,
+          borderRadius: 12,
+          padding: "15px 22px",
+          fontFamily: "Inter, system-ui, sans-serif",
+          fontSize: 15,
+          fontWeight: 700,
+          letterSpacing: "-0.01em",
+          color: "#fff",
+          background: GRAD,
+          cursor: sending ? "not-allowed" : "pointer",
+          opacity: sending ? 0.7 : 1,
+          boxShadow:
+            "0 14px 34px -10px rgba(124,58,237,.45), 0 4px 12px -2px rgba(217,70,239,.25)",
+        }}
       >
         {sending ? PARTNERS_APPLY.sending : PARTNERS_APPLY.submit}
       </button>
@@ -201,26 +362,65 @@ export function PartnerApplySection() {
   return (
     <section
       id={PARTNERS_APPLY.id}
-      className="partners-section scroll-mt-24 border-t border-slate-100 bg-slate-50/80"
-      style={{ padding: "72px 80px" }}
+      className="partners-section"
+      style={{
+        padding: "96px 80px",
+        background:
+          "radial-gradient(ellipse 70% 60% at 50% 0%, rgba(124,58,237,.06), transparent 55%), #FAFAFA",
+        borderTop: "1px solid #F0F0F0",
+        scrollMarginTop: 96,
+      }}
     >
-      <div className="mx-auto max-w-3xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-700">
+      <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
+        <p
+          style={{
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 12,
+            fontWeight: 500,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: VIOLET,
+            margin: 0,
+          }}
+        >
           {PARTNERS_APPLY.eyebrow}
         </p>
         <h2
-          className="mt-3 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-4xl"
-          style={{ letterSpacing: "-0.03em" }}
+          style={{
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: "clamp(28px, 3.6vw, 44px)",
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            lineHeight: 1.08,
+            margin: "14px 0 12px",
+            color: "#0A0A0A",
+          }}
         >
           {PARTNERS_APPLY.h2Before}{" "}
-          <span className="bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
+          <span
+            style={{
+              background: GRAD,
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
             {PARTNERS_APPLY.h2Accent}
           </span>
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-slate-600 sm:text-base">
+        <p
+          style={{
+            fontFamily: "Inter, system-ui, sans-serif",
+            fontSize: 16,
+            color: "#4B5563",
+            lineHeight: 1.6,
+            margin: "0 auto 36px",
+            maxWidth: 480,
+          }}
+        >
           {PARTNERS_APPLY.lead}
         </p>
-        <div className="mt-8 text-left">
+        <div style={{ textAlign: "left" }}>
           <PartnerApplyForm />
         </div>
       </div>
