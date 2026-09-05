@@ -13,6 +13,7 @@ import {
   SEMESTER_MONTHS,
   SETUP_FEE_AMOUNT,
   annualFirstYearSavings,
+  includesFreeSetup,
   type Billing,
 } from "@/content/pricing";
 import { VERTEX_IA_MODELS } from "@/content/ia-stack";
@@ -4266,7 +4267,7 @@ export function BillingToggle({ billing, onChange }: { billing: Billing; onChang
       >
         <span style={{ fontSize: 14 }}>Semestral</span>
         <small style={{ color: semester ? "#DDD6FE" : "#777E89", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
-          {SEMESTER_DISCOUNT_PERCENT}% OFF
+          {SEMESTER_DISCOUNT_PERCENT}% OFF + implementación gratis
         </small>
       </button>
       <button
@@ -4306,6 +4307,7 @@ export function Pricing({
   const [billing, setBilling] = useState<Billing>("annual");
   const isAnnual = billing === "annual";
   const isSemester = billing === "semester";
+  const freeSetup = includesFreeSetup(billing);
   const billingLabel = isAnnual ? "anual" : isSemester ? "semestral" : "mensual";
   const isComparisonIntro = intro === "comparison";
   // "none": la página ya trae su propio hero (p. ej. /planes) — sin header duplicado.
@@ -4343,11 +4345,16 @@ export function Pricing({
   }));
 
   const checkoutUrl = (p: (typeof plans)[number]) => {
-    const base = ctaHref ?? "/agenda";
-    const sep = base.includes("?") ? "&" : "?";
-    return `${base}${sep}plan=${p.id}`;
+    // Por defecto: checkout Stripe de la modalidad elegida. Si la página
+    // fuerza una ruta interna (p. ej. /plataforma → /agenda), esa gana.
+    if (ctaHref) {
+      const sep = ctaHref.includes("?") ? "&" : "?";
+      return `${ctaHref}${sep}plan=${p.id}`;
+    }
+    return isAnnual ? p.stripeAnnual : isSemester ? p.stripeSemester : p.stripe;
   };
-  const ctaIsExternal = false;
+  const ctaIsExternal = !ctaHref;
+  const demoUrl = (p: (typeof plans)[number]) => `/agenda?plan=${p.id}`;
   const checkoutValue = (p: (typeof plans)[number]) =>
     isAnnual ? p.annualValue : isSemester ? p.semesterValue : p.monthlyValue;
 
@@ -4434,10 +4441,10 @@ export function Pricing({
           }}
         >
           {isAnnual
-            ? `Anual seleccionado · precio equivalente mensual · total de ${ANNUAL_MONTHS} meses con ${ANNUAL_DISCOUNT_PERCENT}% OFF · implementación gratis`
+            ? `Anual seleccionado · precio equivalente mensual · total de ${ANNUAL_MONTHS} meses con ${ANNUAL_DISCOUNT_PERCENT}% OFF · implementación gratis · plan se cobra de inmediato`
             : isSemester
-              ? `Semestral seleccionado · precio equivalente mensual · total de ${SEMESTER_MONTHS} meses con ${SEMESTER_DISCOUNT_PERCENT}% OFF`
-              : `Mensual seleccionado · facturación mes a mes · permanencia mínima de ${SEMESTER_MONTHS} meses`}
+              ? `Semestral seleccionado · precio equivalente mensual · total de ${SEMESTER_MONTHS} meses con ${SEMESTER_DISCOUNT_PERCENT}% OFF · implementación gratis · plan se cobra de inmediato`
+              : `Mensual seleccionado · mes 1 = implementación USD ${SETUP_FEE_AMOUNT.replace("$", "")} · el plan se cobra después · permanencia mínima de ${SEMESTER_MONTHS} meses`}
         </div>
 
         <div
@@ -4453,8 +4460,8 @@ export function Pricing({
             const th = PLAN_THEMES[p.id];
             // La implementación usa la tinta de cada tarjeta para conservar
             // contraste también sobre Summit. El verde queda reservado al estado
-            // "Gratis" de la modalidad anual.
-            const impl = isAnnual
+            // "Gratis" de semestral y anual.
+            const impl = freeSetup
               ? {
                   strike: th.sub,
                   pillBg: "#2F6A3F",
@@ -4532,7 +4539,8 @@ export function Pricing({
                   </span>
                 </div>
 
-                {/* Pago secuencial: mes 1 implementación, mes 2 en adelante el plan */}
+                {/* Prepago (semestral/anual): implementación gratis + cobro inmediato.
+                    Mensual: implementación cobrada al inicio; plan después. */}
                 <div
                   className="home-plan-economics"
                   role="table"
@@ -4572,14 +4580,16 @@ export function Pricing({
                           whiteSpace: "nowrap",
                         }}
                       >
-                        {isAnnual ? "Implementación" : "Mes 1"}
+                        {freeSetup ? "Implementación" : "Mes 1"}
                       </div>
                       <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 12.5, fontWeight: 600, lineHeight: 1.35, color: th.ink, marginTop: 4, whiteSpace: "nowrap" }}>
-                        {isAnnual ? "Incluida en el plan anual" : "Implementación"}
+                        {freeSetup
+                          ? `Incluida en el plan ${billingLabel}`
+                          : "Implementación · plan después"}
                       </div>
                     </div>
                     <div role="cell" style={{ textAlign: "right", flex: "0 0 auto" }}>
-                      {isAnnual ? (
+                      {freeSetup ? (
                         <span style={{ display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap" }}>
                           <s style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 600, color: impl.strike, textDecorationThickness: "from-font" }}>
                             {SETUP_FEE_AMOUNT}
@@ -4634,10 +4644,14 @@ export function Pricing({
                           color: th.sub,
                         }}
                       >
-                        {isAnnual ? "Plan anual" : "Mes 2 en adelante"}
+                        {freeSetup
+                          ? isAnnual
+                            ? "Plan anual"
+                            : "Plan semestral"
+                          : "Después de la implementación"}
                       </div>
                       <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, lineHeight: 1.5, color: th.sub, marginTop: 5 }}>
-                        {isAnnual ? "Equivalente mensual" : `Plan · ${billingLabel}`}
+                        {freeSetup ? "Equivalente mensual · cobro inmediato" : `Plan · ${billingLabel}`}
                       </div>
                       {showCredits && (
                         <div
@@ -4673,9 +4687,9 @@ export function Pricing({
 
                 </div>
 
-                {/* Un solo CTA: contratar. Sin "Agendar demo" compitiendo, el
-                    botón de conversión toma el estilo primario de la tarjeta. */}
-                <div style={{ display: "flex", flexDirection: "column", marginBottom: 22 }}>
+                {/* CTA primario = Contratar (Stripe). Demo queda como salida
+                    secundaria, con menos peso visual, para quien aún no compra. */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 22 }}>
                   <a
                     className="home-plan-cta"
                     href={checkoutUrl(p)}
@@ -4694,9 +4708,30 @@ export function Pricing({
                       boxShadow: th.ctaPrimaryShadow,
                       boxSizing: "border-box",
                     }}
-                    data-plan={p.name.toLowerCase()}
+                    data-plan={p.id}
                     data-plan-billing={billing}
                     data-plan-value={checkoutValue(p)}
+                    data-plan-name={`${p.name} contratar`}
+                  >
+                    Contratar {p.name}
+                  </a>
+                  <a
+                    href={demoUrl(p)}
+                    style={{
+                      textDecoration: "none",
+                      textAlign: "center",
+                      background: "transparent",
+                      color: th.sub,
+                      border: 0,
+                      padding: "6px 12px",
+                      borderRadius: 8,
+                      fontWeight: 500,
+                      fontSize: 12.5,
+                      fontFamily: "Inter, sans-serif",
+                      boxSizing: "border-box",
+                      opacity: 0.85,
+                    }}
+                    data-plan-demo={p.id}
                     data-plan-name={`${p.name} demo`}
                   >
                     Agendar demo · {p.name}
@@ -4792,11 +4827,104 @@ export function Pricing({
           })}
         </div>
 
-        {/* Empuje permanente al anual: sigue visible aunque el usuario esté
-            mirando mensual o semestral, y desde ahí vuelve al anual de un clic. */}
-        {/* Sin `reveal`: useReveal() solo observa lo que existe al montar, y este
-            bloque aparece recién cuando el usuario cambia de modalidad. */}
-        {!isAnnual && (
+        {/* Empuje al prepago: semestral y anual regalan la implementación.
+            Desde mensual se ofrecen las dos; desde semestral se empuja al anual
+            por más meses con el mismo −20%. */}
+        {billing === "monthly" && (
+          <div style={{ marginTop: 22, display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+            <button
+              type="button"
+              onClick={() => setBilling("semester")}
+              className="home-annual-nudge"
+              style={{
+                appearance: "none",
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 12,
+                flexWrap: "wrap",
+                justifyContent: "center",
+                textAlign: "center",
+                background: "#fff",
+                border: "1.5px solid rgba(124,58,237,.32)",
+                borderRadius: 14,
+                padding: "14px 22px",
+                fontFamily: "Inter",
+                fontSize: 15,
+                color: "#4B5563",
+                lineHeight: 1.5,
+                boxShadow: "0 10px 30px -18px rgba(124,58,237,.65)",
+                maxWidth: 760,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 10.5,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#fff",
+                  background: GRAD,
+                  borderRadius: 999,
+                  padding: "4px 10px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Semestral
+              </span>
+              <span>
+                {SEMESTER_DISCOUNT_PERCENT}% OFF +{" "}
+                <b style={{ color: "#0A0A0A" }}>implementación gratis</b> ({SETUP_FEE_AMOUNT} USD) →
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setBilling("annual")}
+              className="home-annual-nudge"
+              style={{
+                appearance: "none",
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 12,
+                flexWrap: "wrap",
+                justifyContent: "center",
+                textAlign: "center",
+                background: "#fff",
+                border: "1.5px solid rgba(124,58,237,.32)",
+                borderRadius: 14,
+                padding: "14px 22px",
+                fontFamily: "Inter",
+                fontSize: 15,
+                color: "#4B5563",
+                lineHeight: 1.5,
+                boxShadow: "0 10px 30px -18px rgba(124,58,237,.65)",
+                maxWidth: 760,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                  fontSize: 10.5,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "#fff",
+                  background: GRAD,
+                  borderRadius: 999,
+                  padding: "4px 10px",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Anual
+              </span>
+              <span>
+                {ANNUAL_DISCOUNT_PERCENT}% OFF +{" "}
+                <b style={{ color: "#0A0A0A" }}>implementación gratis</b> ({SETUP_FEE_AMOUNT} USD) →
+              </span>
+            </button>
+          </div>
+        )}
+        {billing === "semester" && (
           <div style={{ marginTop: 22, display: "flex", justifyContent: "center" }}>
             <button
               type="button"
@@ -4839,8 +4967,8 @@ export function Pricing({
                 Anual
               </span>
               <span>
-                Paga el año y te llevas <b style={{ color: "#0A0A0A" }}>{ANNUAL_DISCOUNT_PERCENT}% OFF</b> más la{" "}
-                <b style={{ color: "#0A0A0A" }}>implementación gratis</b> ({SETUP_FEE_AMOUNT} USD) →
+                Mismo {ANNUAL_DISCOUNT_PERCENT}% OFF e implementación gratis, pero{" "}
+                <b style={{ color: "#0A0A0A" }}>12 meses</b> anticipados →
               </span>
             </button>
           </div>

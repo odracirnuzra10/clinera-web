@@ -15,7 +15,7 @@ import { PLANES_FAQ } from "@/content/planes-faq";
 
 const TITLE = "Planes y precios desde USD 223/mes";
 const DESCRIPTION =
-  "Vortex, Atlas y Summit con bolsa de créditos (28.000 / 37.000 / 46.000) y AURA por WhatsApp 24/7. Tres modalidades: anual con 20% OFF e implementación gratis (desde USD 2.678/año), semestral con 20% OFF, o mensual desde USD 279/mes. Configuración inicial USD 450, gratis si pagas el año.";
+  "Vortex, Atlas y Summit con bolsa de créditos (28.000 / 37.000 / 46.000) y AURA por WhatsApp 24/7. Tres modalidades: anual y semestral con 20% OFF e implementación gratis, o mensual desde USD 279/mes (configuración inicial USD 450).";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -122,16 +122,19 @@ test.describe("Meta Pixel & dataLayer events", () => {
     ).toBeGreaterThanOrEqual(1);
   });
 
-  test("4) Plan cards on /planes link to /agenda (no Stripe checkout)", async ({ page }) => {
+  test("4) Plan cards on /planes: Contratar → Stripe; Agendar demo → /agenda (secundario)", async ({ page }) => {
     await page.goto("/planes", { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(1500);
 
-    const agendaLink = page.locator('a[href*="/agenda"]').first();
-    await expect(agendaLink).toBeVisible({ timeout: 10_000 });
-    await expect(agendaLink).toContainText(/Agendar demo/i);
+    const contratar = page.locator('#precios a[data-plan][data-plan-billing]').first();
+    await expect(contratar).toBeVisible({ timeout: 10_000 });
+    await expect(contratar).toContainText(/Contratar/i);
+    await expect(contratar).toHaveAttribute("href", /buy\.stripe\.com/);
 
-    const stripeLinks = page.locator('a[href*="buy.stripe.com"]');
-    await expect(stripeLinks).toHaveCount(0);
+    const demoLink = page.locator('#precios a[data-plan-demo]').first();
+    await expect(demoLink).toBeVisible();
+    await expect(demoLink).toContainText(/Agendar demo/i);
+    await expect(demoLink).toHaveAttribute("href", /\/agenda/);
   });
 
   test("5) EngagedSession fires after 60 seconds of visible time", async ({ page }) => {
