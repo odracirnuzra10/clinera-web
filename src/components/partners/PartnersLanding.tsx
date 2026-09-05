@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { ConvenioDoctoresWizard } from "@/components/partners/ConvenioDoctoresWizard";
+import { PartnerApplySection } from "@/components/partners/PartnerApplyForm";
 import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
 import {
   PARTNERS_BENEFITS,
@@ -47,6 +48,7 @@ export default function PartnersLanding() {
       <Hero />
       <Deal />
       <Support />
+      <PartnerApplySection />
       <ConvenioDoctores />
       <OsDiagram />
       <FaqPartners />

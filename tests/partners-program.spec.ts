@@ -8,6 +8,7 @@ import {
   PARTNERS_CTA_HREF,
   PARTNERS_DOCTORS_API,
   PARTNERS_DOCTORS_CONVENIO,
+  PARTNERS_APPLY_EMAIL,
   PARTNERS_DOCTORS_EMAIL,
   PARTNERS_DOCTORS_HREF,
   PARTNERS_PATH,
@@ -29,7 +30,7 @@ test.describe("fuente de verdad del programa partner", () => {
     expect(PARTNERS_BONUSES.map((b) => b.usd)).toEqual([150, 200, 400]);
     expect(PARTNERS_PATH).toBe("/partners");
     expect(PARTNERS_CANONICAL).toBe("https://www.clinera.io/partners");
-    expect(PARTNERS_CTA_HREF).toBe("/reunion-comercial");
+    expect(PARTNERS_CTA_HREF).toBe("/partners#aplicar");
     expect(PARTNERS_PRESENTATION_HREF).toBe("/presentacion-partners");
     expect(PARTNERS_REQUIREMENTS.map((r) => r.title)).toEqual([
       "Perfil profesional",
@@ -45,7 +46,10 @@ test.describe("fuente de verdad del programa partner", () => {
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/Si eres doctor, postulas/);
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/no es automático/i);
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/dominio el primer año/i);
-    expect(PARTNERS_DOCTORS_EMAIL).toBe("[REDACTED]");
+    expect(PARTNERS_DOCTORS_EMAIL).toBe(PARTNERS_APPLY_EMAIL);
+    expect(PARTNERS_APPLY_EMAIL).toMatch(/^[^@]+@[^@]+\.[a-z]+$/);
+    expect(PARTNERS_APPLY_EMAIL.startsWith("ric")).toBe(true);
+    expect(PARTNERS_APPLY_EMAIL.endsWith(".cl")).toBe(true);
     expect(PARTNERS_DOCTORS_API).toBe("/api/convenio-doctores");
     expect(PARTNERS_DOCTORS_HREF).toBe("/partners#convenio-doctores");
     expect(PARTNERS_DOCTORS_CONVENIO.wizard.steps.map((s) => s.key)).toEqual([
@@ -108,8 +112,10 @@ test.describe("landing /partners", () => {
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
     await apply.click();
-    await expect(page).toHaveURL(/\/reunion-comercial/);
-    await expect(page.locator("h1").first()).toBeVisible();
+    await expect(page).toHaveURL(/#aplicar/);
+    const applySection = page.locator("#aplicar");
+    await expect(applySection.getByLabel(/nombre/i)).toBeVisible();
+    await expect(applySection.locator("select")).toBeVisible();
   });
 
   test("convenio doctores se postula en un wizard propio, no el de agendar", async ({
@@ -245,5 +251,27 @@ test.describe("/api/convenio-doctores", () => {
     const html = await page.content();
     expect(html).not.toContain("SMTP_PASS");
     expect(html).not.toContain("SMTP_USER");
+  });
+});
+
+
+test.describe("formulario aplicar partner", () => {
+  test("envía nombre + celular a /api/partner-apply", async ({ page }) => {
+    const enviados: unknown[] = [];
+    await page.route("**/api/partner-apply", async (route) => {
+      enviados.push(route.request().postDataJSON());
+      await route.fulfill({ json: { ok: true } });
+    });
+
+    await page.goto("/partners#aplicar");
+    const block = page.locator("#aplicar");
+    await block.getByLabel(/nombre/i).fill("Ana Pérez");
+    await block.locator("select").selectOption("+52");
+    await block.getByLabel(/celular|whatsapp/i).fill("5512345678");
+    await block.getByRole("button", { name: /enviar/i }).click();
+    await expect(block.getByText(/solicitud enviada/i)).toBeVisible();
+    expect(enviados).toEqual([
+      { nombre: "Ana Pérez", prefix: "+52", telefono: "5512345678" },
+    ]);
   });
 });

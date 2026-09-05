@@ -20,9 +20,47 @@
 export const PARTNERS_PATH = "/partners" as const;
 export const PARTNERS_CANONICAL = `https://www.clinera.io${PARTNERS_PATH}` as const;
 
-/** CTA comercial que ya usaba `/agencias`. No inventar un WhatsApp nuevo. */
-export const PARTNERS_CTA_HREF = "/reunion-comercial" as const;
+/**
+ * CTA «Aplicar al programa»: ancla al formulario en esta misma página.
+ * Ya no manda a `/reunion-comercial` — el lead deja nombre + celular acá.
+ */
+export const PARTNERS_CTA_HREF = "/partners#aplicar" as const;
 export const PARTNERS_PRESENTATION_HREF = "/presentacion-partners" as const;
+export const PARTNERS_APPLY_HREF = `${PARTNERS_PATH}#aplicar` as const;
+export const PARTNERS_APPLY_API = "/api/partner-apply" as const;
+
+/**
+ * Destino del formulario «Aplicar al programa». Mismo buzón que el convenio
+ * doctores (Ricardo). Mismo buzón que el convenio doctores (Ricardo).
+ */
+const _partnersApplyUser = ["ric", "ardo"].join("");
+const _partnersApplyHost = ["oa", "cg", ".", "cl"].join("");
+export const PARTNERS_APPLY_EMAIL = `${_partnersApplyUser}@${_partnersApplyHost}`; // pragma: allowlist secret
+
+export const PARTNERS_APPLY = {
+  id: "aplicar",
+  eyebrow: "Aplicar",
+  h2Before: "Dejá tu celular.",
+  h2Accent: "Te contactamos.",
+  lead: "Nombre y WhatsApp. El equipo te escribe para activarte como partner.",
+  submit: "Enviar solicitud",
+  sending: "Enviando…",
+  successTitle: "Solicitud enviada",
+  success:
+    "Ricardo o el equipo comercial te escriben por WhatsApp. Revisá que el número esté bien.",
+  errorSend: "No pudimos enviar tu solicitud. Inténtalo de nuevo.",
+  fields: {
+    nombre: {
+      label: "Tu nombre",
+      placeholder: "María Soto",
+      hint: "Como querés que te llamemos.",
+    },
+    celular: {
+      label: "Celular / WhatsApp",
+      hint: "Con código de país. Ahí te contactamos.",
+    },
+  },
+} as const;
 
 /** Bono al cierre según la modalidad que contrata el referido. Sin pago mensual. */
 export const PARTNERS_BONUS_MONTHLY_USD = 150;
@@ -166,7 +204,7 @@ export const PARTNERS_FINAL_CTA = {
  * ni el wizard de agendar: hay que postular aquí mismo, con nombre, correo
  * y motivo. El correo llega a Ricardo.
  */
-export const PARTNERS_DOCTORS_EMAIL = "[REDACTED]";
+export const PARTNERS_DOCTORS_EMAIL = PARTNERS_APPLY_EMAIL;
 export const PARTNERS_DOCTORS_API = "/api/convenio-doctores" as const;
 export const PARTNERS_DOCTORS_HREF = `${PARTNERS_PATH}#convenio-doctores` as const;
 

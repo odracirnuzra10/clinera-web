@@ -93,6 +93,13 @@ export const PHONE_RULES: Record<string, PhoneRule> = {
     pattern: /^[678]\d{7}$/,
     invalidHint: "Debe empezar con 6, 7 u 8",
   },
+  "+598": {
+    name: "Uruguay",
+    len: 8,
+    placeholder: "94 123 456",
+    pattern: /^9\d{7}$/,
+    invalidHint: "Debe empezar con 9",
+  },
   "+595": {
     name: "Paraguay",
     len: 9,
@@ -129,6 +136,21 @@ export const RESERVA_PHONE_PREFIXES = [
   { prefix: "+595", flag: "🇵🇾", label: "Paraguay" },
   { prefix: "+34", flag: "🇪🇸", label: "España" },
 ] as const;
+
+/**
+ * Prefijos del formulario «Aplicar al programa» en `/partners`.
+ * México, Perú, Chile, Colombia, Uruguay, Costa Rica, Panamá.
+ */
+export const PARTNERS_APPLY_PHONE_PREFIXES = [
+  { prefix: "+52", flag: "🇲🇽", label: "México" },
+  { prefix: "+51", flag: "🇵🇪", label: "Perú" },
+  { prefix: "+56", flag: "🇨🇱", label: "Chile" },
+  { prefix: "+57", flag: "🇨🇴", label: "Colombia" },
+  { prefix: "+598", flag: "🇺🇾", label: "Uruguay" },
+  { prefix: "+506", flag: "🇨🇷", label: "Costa Rica" },
+  { prefix: "+507", flag: "🇵🇦", label: "Panamá" },
+] as const;
+
 
 export function digitosTelefono(v: string): string {
   return String(v || "").replace(/\D/g, "");
@@ -169,7 +191,7 @@ export function formatearTelefono(crudo: string, prefix: string): string {
     if (d.length <= 5) return `${d[0]} ${d.slice(1)}`;
     return `${d[0]} ${d.slice(1, 5)} ${d.slice(5)}`;
   }
-  if (prefix === "+34" || prefix === "+51" || prefix === "+595") {
+  if (prefix === "+34" || prefix === "+51" || prefix === "+595" || prefix === "+598") {
     if (d.length <= 3) return d;
     if (d.length <= 6) return `${d.slice(0, 3)} ${d.slice(3)}`;
     return `${d.slice(0, 3)} ${d.slice(3, 6)} ${d.slice(6)}`;

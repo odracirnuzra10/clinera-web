@@ -194,7 +194,7 @@ La URL pública del programa es **`/partners`**. `/agencias` redirige permanente
 (308) ahí — no reabrir esa ruta ni volver a publicar el 15% de "descuento
 permanente" de agencias: ese modelo se reemplazó en agosto 2026.
 
-Números y copy viven en `src/content/partners-program.ts` (sep 2026): **bono
+Números y copy viven en `src/content/partners-program.ts` El CTA «Aplicar al programa» ancla a `/partners#aplicar`: formulario de nombre + celular (MX/PE/CL/CO/UY/CR/PA) → `POST /api/partner-apply` → correo a Ricardo. (sep 2026): **bono
 al cierre según modalidad** — US$ 150 mensual / US$ 200 semestral / US$ 400
 anual. **Sin pago mensual** al partner (no hay comisión recurrente). **Sin
 descuento adicional** para la clínica referida. Requisitos: perfil en redes
