@@ -752,7 +752,7 @@ export default function QuoteBuilder({
               <DiscountField
                 label="Configuración inicial"
                 value={discounts.setup}
-                disabled={!includeSetup}
+                disabled={!setupCharged}
                 onChange={(value) => updateDiscount("setup", value)}
               />
             </div>
