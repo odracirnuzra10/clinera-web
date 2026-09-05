@@ -72,16 +72,18 @@ test.describe("landing /partner/km", () => {
     expect((videoBox?.x ?? 0)).toBeGreaterThan((heroBox?.x ?? 0) + (heroBox?.width ?? 0) / 2);
   });
 
-  test("el titular es el 10% del referido, no el bono ni los planes", async ({
+  test("el titular es la recomendación del partner, no un descuento ni planes", async ({
     page,
   }) => {
     await page.goto("/partner/km");
     const hero = page.locator(".partner-hero");
-    await expect(hero.getByRole("heading", { level: 1 })).toContainText("10%");
-    await expect(hero.getByText("de descuento por 3 meses")).toBeVisible();
+    await expect(hero.getByRole("heading", { level: 1 })).toContainText(
+      "Katherine Meza te recomienda Clinera",
+    );
+    await expect(hero.getByText(/Coordiná una reunión/i)).toBeVisible();
     const body = await page.locator("body").innerText();
-    expect(body).toMatch(/10%/);
-    expect(body).toMatch(/3 meses/);
+    expect(body).not.toMatch(/10%/);
+    expect(body).not.toMatch(/3 meses/);
     expect(body).not.toMatch(/USD\s*\d/);
     expect(body).not.toMatch(/US\$\s*\d/);
     expect(body).not.toMatch(/\bVortex\b/);
@@ -117,13 +119,14 @@ test.describe("landing /partner/km", () => {
 });
 
 test.describe("landing /partner/yv", () => {
-  test("es la landing de Yasna con foto, 10% y atribución YASNA01", async ({
+  test("es la landing de Yasna con foto, recomendación y atribución YASNA01", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto("/partner/yv");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("10%");
-    await expect(page.getByText("Yasna Vásquez te recomienda Clinera")).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
+      "Yasna Vásquez te recomienda Clinera",
+    );
     await expect(page.getByRole("img", { name: "Yasna Vásquez" })).toBeVisible();
     const cta = page.getByRole("link", { name: PARTNER_CTA_LABEL }).first();
     await expect(cta).toBeVisible();

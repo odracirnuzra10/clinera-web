@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import type { Partner } from "@/lib/partners";
 import { getPartnerPublicUrl } from "@/lib/partners";
-import {
-  PARTNERS_CLIENT_DISCOUNT_LABEL,
-  PARTNERS_CLIENT_DISCOUNT_MONTHS,
-} from "@/content/partners-program";
 
 export function partnerLandingMetadata(partner: Partner): Metadata {
-  const title = `${PARTNERS_CLIENT_DISCOUNT_LABEL} por ${PARTNERS_CLIENT_DISCOUNT_MONTHS} meses — te recomienda ${partner.name}`;
-  const description = `${partner.name} te recomienda Clinera. Por venir de su parte tienes ${PARTNERS_CLIENT_DISCOUNT_LABEL} de descuento durante ${PARTNERS_CLIENT_DISCOUNT_MONTHS} meses. Lo aplica el closer al cierre.`;
+  const title = `${partner.name} te recomienda Clinera`;
+  const description = `${partner.name} te recomienda Clinera. Coordiná una reunión con el equipo comercial para ver cómo queda en tu clínica.`;
   const url = getPartnerPublicUrl(partner.slug);
 
   return {

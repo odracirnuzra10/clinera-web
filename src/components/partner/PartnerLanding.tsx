@@ -1,10 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import type { Partner } from "@/lib/partners";
-import {
-  PARTNERS_CLIENT_DISCOUNT_LABEL,
-  PARTNERS_CLIENT_DISCOUNT_MONTHS,
-} from "@/content/partners-program";
 import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
 import { PartnerCnnVideo } from "@/components/partner/PartnerCnnVideo";
 import { PartnerFaq } from "@/components/partner/PartnerFaq";
@@ -69,13 +65,13 @@ export function PartnerLanding({
               <PartnerPhoto partner={partner} src={photoSrc} />
             </div>
             <h1 className="partner-discount">
-              <span className="partner-discount-num">{PARTNERS_CLIENT_DISCOUNT_LABEL}</span>
               <span className="partner-discount-copy">
-                de descuento por {PARTNERS_CLIENT_DISCOUNT_MONTHS} meses
+                {partner.name} te recomienda Clinera
               </span>
             </h1>
             <p className="partner-discount-why">
-              Por venir de su parte. Lo aplica el closer de Clinera al cierre.
+              Coordiná una reunión con el equipo comercial. Te arman el encendido
+              a la medida de tu clínica.
             </p>
             {partner.role ? (
               <p style={{ margin: "8px 0 0", fontSize: 13 }}>{partner.role}</p>
@@ -132,11 +128,10 @@ export function PartnerLanding({
           <section className="partner-card partner-close">
             <div className="partner-close-copy">
               <h2 className="partner-section-title">
-                {PARTNERS_CLIENT_DISCOUNT_LABEL} por {PARTNERS_CLIENT_DISCOUNT_MONTHS}{" "}
-                meses por venir de parte de {partner.name}.
+                {partner.name} te abre la puerta. Coordiná la reunión.
               </h2>
               <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55 }}>
-                Conversa con {partner.sales.name}. En quince minutos ves si Clinera
+                Hablá con {partner.sales.name}. En quince minutos ves si Clinera
                 calza con tu clínica. Sin compromiso de contratar.
               </p>
             </div>

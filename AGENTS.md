@@ -194,18 +194,19 @@ La URL pública del programa es **`/partners`**. `/agencias` redirige permanente
 (308) ahí — no reabrir esa ruta ni volver a publicar el 15% de "descuento
 permanente" de agencias: ese modelo se reemplazó en agosto 2026.
 
-Números y copy viven en `src/content/partners-program.ts`: **bono único US$ 150
-por referido que cierra** (sin comisión sobre el plan); **10% de descuento por
-3 meses para la clínica referida** (lo aplica el closer de Clinera, no el
-partner); requisitos de contenido (4 historias/mes con mención, 1 reel/mes en
-colaboración, bio de Instagram como partner de clinera.io). No confundir el
-10% × 3 meses con el 15% permanente de agencias (muerto) ni con una comisión
-del partner. La landing (`src/app/partners/page.tsx` +
-`src/components/partners/PartnersLanding.tsx`) los consume. El deck
-`public/presentacion-partners/index.html` no puede importar TS: si cambia el
-bono, el descuento o los requisitos, hay que tocar esas slides a mano.
-`/presentacion-agencia` redirige a ese deck (el archivo viejo quedó huérfano:
-no lo actualices pensando que es el vigente).
+Números y copy viven en `src/content/partners-program.ts` (sep 2026): **bono
+al cierre según modalidad** — US$ 150 mensual / US$ 200 semestral / US$ 400
+anual. **Sin pago mensual** al partner (no hay comisión recurrente). **Sin
+descuento adicional** para la clínica referida. Requisitos: perfil en redes
+orientado al trabajo; bio de Instagram con `partner @clinera.io`; notebook o
+tablet para presentar en clínicas. Apoyo: equipo comercial para cerrar + acceso
+al CRM. No confundir con el 15% permanente de agencias (muerto) ni con el
+modelo viejo de US$ 150 fijo + 10% × 3 meses al referido (retirado). La landing
+(`src/app/partners/page.tsx` + `src/components/partners/PartnersLanding.tsx`)
+los consume. El deck `public/presentacion-partners/index.html` no puede
+importar TS: si cambian bonos, requisitos o apoyo, hay que tocar esas slides a
+mano. `/presentacion-agencia` redirige a ese deck (el archivo viejo quedó
+huérfano: no lo actualices pensando que es el vigente).
 
 `public/reseller.html` es un "Programa Reseller" viejo y huérfano (50% de
 comisión + 10% de descuento) que **no** está enlazado desde `/partners` ni
@@ -213,7 +214,8 @@ desde ningún componente en `src/` — no es el programa vigente, no lo revivas.
 
 Las microlandings individuales (`/partner/{vanity}`, p.ej. `/partner/km`) son
 otra cosa: páginas de referido, no el programa. Viven en `src/lib/partners.ts`
-+ `src/components/partner/`.
++ `src/components/partner/`. Ya **no** publican el 10% × 3 meses: el titular es
+la recomendación del partner + CTA a reunión.
 
 # Embudo de Meta Y Google Ads: qué evento vale cuánto, y dónde vive de verdad
 
@@ -583,11 +585,10 @@ iniciales — nunca un img roto. El círculo recorta el centro del cuadrado: la
 cara tiene que ir al medio, no abajo. El primer recorte de Yasna mostró la
 frente y el letrero QUALITY/VITALITY.
 
-**El dato de cara al referido es el 10% × 3 meses**, no el bono de US$ 150.
-El US$ 150 es lo que cobra el partner; vive en `/partners`. En
-`/partner/{vanity}` el titular es el descuento de la clínica (lo aplica el
-closer al cierre). Sigue sin publicarse precio de plan (Vortex/Atlas/Summit,
-279/379/479/450).
+**En `/partner/{vanity}` el titular es la recomendación del partner**, no un
+descuento publicado. El programa ya no ofrece 10% × 3 meses al referido; los
+bonos del partner (US$ 150 / 200 / 400) viven en `/partners`. Sigue sin
+publicarse precio de plan (Vortex/Atlas/Summit, 279/379/479/450).
 
 **Por qué el `ref` va dentro del texto de WhatsApp.** El 90% del tráfico llega
 desde un sticker de Instagram o un DM. En WhatsApp no sobreviven cookies ni
@@ -596,8 +597,7 @@ UTMs. Si se acorta o se “limpia” el mensaje pre-llenado de
 viene el prospecto.
 
 La landing pública no muestra precios de plan: eso lo conversa ventas (hoy
-Rebeca). El 10% × 3 meses sí se publica: es el beneficio del referido. El kit
-es lo que se le manda al partner, no al prospecto.
+Rebeca). El kit es lo que se le manda al partner, no al prospecto.
 
 **Convenio doctores** (slide `#convenio-doctores` en el deck + bloque en
 `/partners`): si un doctor no tiene sitio web, puede **postular** a que Clinera
