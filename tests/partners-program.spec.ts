@@ -227,7 +227,7 @@ test.describe("landing /partners", () => {
     await expect(page.locator("body")).toContainText("Notebook o tablet");
     await expect(page.locator("body")).not.toContainText("15%");
     await expect(page.locator("body")).not.toContainText("4 historias al mes");
-    await expect(page.locator("#convenio-doctores")).toContainText("calificado");
+    await expect(page.locator("#convenio-doctores")).toContainText("partner médico");
     await expect(page.locator("#convenio-doctores")).toContainText("Vortex");
     await expect(page.locator("#convenio-doctores")).toContainText("3 meses");
     await expect(page.locator("#convenio-doctores")).toContainText("30%");
@@ -334,7 +334,7 @@ test.describe("página /convenio-doctores", () => {
       CONVENIO_DOCTORES_CANONICAL,
     );
 
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("calificado");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("partner médico");
     await expect(page.getByRole("heading", { name: /Cuatro cosas/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Sitio web remodelado" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Clinera Vortex 3 meses" })).toBeVisible();

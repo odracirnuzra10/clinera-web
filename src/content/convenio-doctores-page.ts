@@ -35,8 +35,8 @@ export const CONVENIO_DOCTORES_BIO_EXAMPLE = {
 export const CONVENIO_DOCTORES_PAGE = {
   hero: {
     eyebrow: "Convenio doctores",
-    h1Before: "Ya estás calificado.",
-    h1Accent: "Este es el trato.",
+    h1Before: "Ser partner médico",
+    h1Accent: "de Clinera.",
     lead: `Sitio web remodelado por nuestro equipo, Clinera ${CONVENIO_DOCTORES_PLAN_NAME} ${CONVENIO_DOCTORES_SOFTWARE_MESES} meses, los mismos bonos por referido y ${CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT}% de descuento después de esos ${CONVENIO_DOCTORES_SOFTWARE_MESES} meses.`,
     vsPartner:
       "El programa partner es solo el bono. Acá se suma el sitio, Vortex y el 30%.",
