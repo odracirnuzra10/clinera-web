@@ -1,8 +1,12 @@
 import { expect, test } from "@playwright/test";
 import {
+  CONVENIO_DOCTORES_BENEFICIOS,
+  CONVENIO_DOCTORES_BIO_LINE,
   CONVENIO_DOCTORES_CANONICAL,
   CONVENIO_DOCTORES_PATH,
-  CONVENIO_DOCTORES_POSTULA_HREF,
+  CONVENIO_DOCTORES_PLAN_NAME,
+  CONVENIO_DOCTORES_REQUISITOS,
+  CONVENIO_DOCTORES_REQUISITOS_HREF,
   PARTNERS_BONUS_ANNUAL_USD,
   PARTNERS_BONUS_MONTHLY_USD,
   PARTNERS_BONUS_SEMESTER_USD,
@@ -46,16 +50,25 @@ test.describe("fuente de verdad del programa partner", () => {
     ]);
     expect(PARTNERS_DOCTORS_CONVENIO.cta).toBe("Postula");
     expect(PARTNERS_DOCTORS_CONVENIO.h2Accent).toBe("Postula.");
-    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/Si eres doctor, postulas/);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/postulas acá/);
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/no es automático/i);
-    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/3 meses/i);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/Vortex/);
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/30%/);
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/solo el bono/);
-    expect(PARTNERS_DOCTORS_CONVENIO.points.map((p) => p.title)).toEqual([
-      "Software 3 meses",
-      "30% sobre lista",
+    expect(CONVENIO_DOCTORES_PLAN_NAME).toBe("Vortex");
+    expect(CONVENIO_DOCTORES_BIO_LINE).toBe("Partner de @clinera.io");
+    expect(CONVENIO_DOCTORES_BENEFICIOS.map((p) => p.title)).toEqual([
+      "Sitio web remodelado",
+      "Clinera Vortex 3 meses",
       "Bonos por referido",
+      "30% después de 3 meses",
     ]);
+    expect(CONVENIO_DOCTORES_REQUISITOS.map((p) => p.title)).toEqual([
+      "Usar Clinera",
+      "Recomendarla",
+      "Perfil partner",
+    ]);
+    expect(PARTNERS_DOCTORS_CONVENIO.points).toEqual(CONVENIO_DOCTORES_BENEFICIOS);
     expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 150/);
     expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 200/);
     expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 400/);
@@ -67,7 +80,7 @@ test.describe("fuente de verdad del programa partner", () => {
     expect(PARTNERS_DOCTORS_HREF).toBe("/partners#convenio-doctores");
     expect(CONVENIO_DOCTORES_PATH).toBe("/convenio-doctores");
     expect(CONVENIO_DOCTORES_CANONICAL).toBe("https://www.clinera.io/convenio-doctores");
-    expect(CONVENIO_DOCTORES_POSTULA_HREF).toBe("/convenio-doctores#postula");
+    expect(CONVENIO_DOCTORES_REQUISITOS_HREF).toBe("/convenio-doctores#requisitos");
     expect(PARTNERS_DOCTORS_CONVENIO.detalleHref).toBe(CONVENIO_DOCTORES_PATH);
     expect(PARTNERS_DOCTORS_CONVENIO.wizard.steps.map((s) => s.key)).toEqual([
       "nombre",
@@ -126,7 +139,8 @@ test.describe("landing /partners", () => {
     expect(body).toMatch(/30%/);
     expect(body).toMatch(/solo el bono/i);
     expect(body).toMatch(/No es automático/);
-    expect(body).not.toMatch(/sitio web/i);
+    expect(body).toMatch(/Sitio web remodelado/);
+    expect(body).toMatch(/Vortex/);
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
@@ -149,8 +163,10 @@ test.describe("landing /partners", () => {
     await page.goto("/partners");
     const block = page.locator("#convenio-doctores");
     await expect(block.getByRole("heading", { level: 2 })).toContainText("Postula");
-    await expect(block).toContainText("30% sobre lista");
+    await expect(block).toContainText("Sitio web remodelado");
+    await expect(block).toContainText("Clinera Vortex 3 meses");
     await expect(block).toContainText("Bonos por referido");
+    await expect(block).toContainText("30% después de 3 meses");
     await expect(block).toContainText("No es automático");
     await expect(block.getByRole("link", { name: /Cómo funciona el convenio/ })).toHaveAttribute(
       "href",
@@ -211,15 +227,16 @@ test.describe("landing /partners", () => {
     await expect(page.locator("body")).toContainText("Notebook o tablet");
     await expect(page.locator("body")).not.toContainText("15%");
     await expect(page.locator("body")).not.toContainText("4 historias al mes");
-    await expect(page.locator("#convenio-doctores")).toContainText("Postula");
-    await expect(page.locator("#convenio-doctores")).toContainText("No es automático");
+    await expect(page.locator("#convenio-doctores")).toContainText("calificado");
+    await expect(page.locator("#convenio-doctores")).toContainText("Vortex");
     await expect(page.locator("#convenio-doctores")).toContainText("3 meses");
     await expect(page.locator("#convenio-doctores")).toContainText("30%");
     await expect(page.locator("#convenio-doctores")).toContainText("US$ 150");
     await expect(page.locator("#convenio-doctores")).toContainText("solo el bono");
+    await expect(page.locator("#convenio-doctores")).toContainText("Partner de @clinera.io");
     await expect(page.locator("#convenio-doctores a.partner-cta-primary")).toHaveAttribute(
       "href",
-      CONVENIO_DOCTORES_POSTULA_HREF,
+      CONVENIO_DOCTORES_REQUISITOS_HREF,
     );
   });
 
@@ -307,7 +324,7 @@ test.describe("formulario aplicar partner", () => {
 });
 
 test.describe("página /convenio-doctores", () => {
-  test("va al grano: beneficios, Clinera O.S. y contraste con el partner", async ({
+  test("el doctor ya calificado ve beneficios, requisitos y el ejemplo de KM", async ({
     page,
   }) => {
     await page.goto(CONVENIO_DOCTORES_PATH);
@@ -317,44 +334,37 @@ test.describe("página /convenio-doctores", () => {
       CONVENIO_DOCTORES_CANONICAL,
     );
 
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("3 meses");
-    await expect(page.getByText(/30% de descuento sobre precio de lista/i).first()).toBeVisible();
-    await expect(page.getByText(/El programa partner es solo el bono/i).first()).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("calificado");
+    await expect(page.getByRole("heading", { name: /Cuatro cosas/i })).toBeVisible();
+    await expect(page.getByText("Sitio web remodelado")).toBeVisible();
+    await expect(page.getByText("Clinera Vortex 3 meses")).toBeVisible();
+    await expect(page.getByText("Bonos por referido")).toBeVisible();
+    await expect(page.getByText("30% después de 3 meses")).toBeVisible();
     await expect(page.getByRole("heading", { name: /Tres cosas/i })).toBeVisible();
+    await expect(page.locator("#requisitos")).toContainText("Utilizar activamente la herramienta");
+    await expect(page.locator("#requisitos")).toContainText("Recomendarla");
+    await expect(page.locator("#requisitos")).toContainText(CONVENIO_DOCTORES_BIO_LINE);
+    await expect(
+      page.getByRole("img", { name: /KM Estética/i }),
+    ).toBeVisible();
     await expect(page.getByText("Toda tu operación la alimenta")).toBeVisible();
-    await expect(page.getByText("Clinera O.S. actúa")).toBeVisible();
-    await expect(page.locator("#postula")).toBeVisible();
-    await expect(page.locator("#postula").getByRole("button", { name: /^Postula/ })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^Postula/ })).toHaveCount(0);
+    await expect(page.getByText("Paso 1 de 3")).toHaveCount(0);
 
     const body = await page.locator("body").innerText();
     expect(body).toMatch(/US\$ 150/);
     expect(body).toMatch(/US\$ 200/);
     expect(body).toMatch(/US\$ 400/);
     expect(body).not.toMatch(/15%/);
-    expect(body).not.toMatch(/sitio web/i);
     expect(body).not.toMatch(/Permanente para todos los clientes/);
   });
 
-  test("el ancla #postula abre el mismo wizard que en /partners", async ({ page }) => {
-    const enviados: unknown[] = [];
-    await page.route("**/api/convenio-doctores", async (route) => {
-      enviados.push(route.request().postDataJSON());
-      await route.fulfill({ json: { ok: true } });
-    });
-
-    await page.goto(CONVENIO_DOCTORES_POSTULA_HREF);
-    const block = page.locator("#postula");
-    await expect(block.getByText("Paso 1 de 3")).toBeVisible();
-    await block.getByLabel("Tu nombre").fill("María Soto");
-    await block.getByRole("button", { name: /Continuar/ }).click();
-    await block.getByLabel("Tu correo").fill("maria@clinica.cl");
-    await block.getByRole("button", { name: /Continuar/ }).click();
-    await block
-      .getByLabel("Motivo")
-      .fill("Soy dermatóloga en Temuco y no tengo sitio web.");
-    await block.getByRole("button", { name: /Enviar postulación/ }).click();
-    await expect(block.getByRole("heading", { name: "Postulación enviada" })).toBeVisible();
-    expect(enviados).toHaveLength(1);
+  test("el ancla #requisitos muestra el ejemplo de bio, no el wizard", async ({ page }) => {
+    await page.goto(CONVENIO_DOCTORES_REQUISITOS_HREF);
+    const block = page.locator("#requisitos");
+    await expect(block.getByRole("heading", { name: /Tres cosas/i })).toBeVisible();
+    await expect(block.getByRole("img", { name: /KM Estética/i })).toBeVisible();
+    await expect(block.getByText("Paso 1 de 3")).toHaveCount(0);
     await expect(page).not.toHaveURL(/\/agenda/);
   });
 });
