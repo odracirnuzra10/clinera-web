@@ -28,6 +28,8 @@ https://www.clinera.io/convenio-doctores
 
 También está el bloque corto en https://www.clinera.io/partners#convenio-doctores
 
+Si la landing todavía no carga en producción, el guion es el de abajo: es el mismo copy.
+
 ## Qué tiene que decir el video
 
 1. **Invitación** — si eres doctor, puedes postular al convenio doctor partner.
