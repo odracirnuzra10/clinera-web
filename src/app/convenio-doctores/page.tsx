@@ -3,7 +3,7 @@ import NavV3 from "@/components/brand-v3/Nav";
 import FooterV3 from "@/components/brand-v3/Footer";
 import ConvenioDoctoresLanding from "@/components/convenio-doctores/ConvenioDoctoresLanding";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema, faqSchema, webPageSchema } from "@/components/seo/schemas";
+import { breadcrumbSchema, webPageSchema } from "@/components/seo/schemas";
 import {
   CONVENIO_DOCTORES_CANONICAL,
   CONVENIO_DOCTORES_PATH,
@@ -13,7 +13,6 @@ import {
   CONVENIO_DOCTORES_META_DESCRIPTION,
   CONVENIO_DOCTORES_META_TITLE,
   CONVENIO_DOCTORES_OG_DESCRIPTION,
-  CONVENIO_DOCTORES_PAGE,
 } from "@/content/convenio-doctores-page";
 
 export const metadata: Metadata = {
@@ -48,7 +47,6 @@ export default function ConvenioDoctoresPage() {
             description: CONVENIO_DOCTORES_META_DESCRIPTION,
           }),
           breadcrumbSchema([...CONVENIO_DOCTORES_BREADCRUMB]),
-          faqSchema([...CONVENIO_DOCTORES_PAGE.faq]),
         ]}
       />
       <main>

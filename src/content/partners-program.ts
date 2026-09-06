@@ -31,7 +31,7 @@ export const PARTNERS_APPLY_API = "/api/partner-apply" as const;
 
 /**
  * Destino del formulario «Aplicar al programa». Mismo buzón que el convenio
- * doctores (Ricardo). Mismo buzón que el convenio doctores (Ricardo).
+ * doctores (Ricardo).
  */
 const _partnersApplyUser = ["ric", "ardo"].join("");
 const _partnersApplyHost = ["oa", "cg", ".", "cl"].join("");
@@ -104,7 +104,7 @@ export const PARTNERS_HERO = {
   eyebrow: "Programa partner",
   h1Before: "Tres requisitos.",
   h1Accent: "Hasta US$ 400 por referido.",
-  lead: "Presentás Clinera en clínicas. Cobras US$ 150, US$ 200 o US$ 400 según el plan que cierre tu referido. El equipo comercial te ayuda a cerrar y tenés acceso al CRM.",
+  lead: "Presentás Clinera en clínicas. Cobras US$ 150, US$ 200 o US$ 400 según el plan que cierre tu referido. El equipo comercial te ayuda a cerrar y tenés acceso al CRM. Este programa es el bono al cierre: no incluye Clinera de regalo ni 30% sobre lista.",
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
 } as const;
@@ -186,7 +186,7 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿Hay un convenio si soy doctor?",
-    a: "Sí: postulas en Convenio doctores (nombre, correo y motivo). El detalle está en /convenio-doctores. No es el wizard de agendar ni el bono del programa Instagram. Clinera 3 meses de regalo, optimizamos tu sitio, después 30% de descuento sobre el valor del plan, +3 meses por cada cliente nuevo que pague suscripción, y en redes: partner @clinera.io. No es automático: lo revisamos y te confirmamos.",
+    a: "Sí. El programa partner es solo el bono (US$ 150 / 200 / 400). El convenio doctores suma Clinera 3 meses gratis y 30% de descuento sobre precio de lista, más los mismos bonos por referido. Postulas en /convenio-doctores. No es automático.",
   },
 ];
 
@@ -200,19 +200,13 @@ export const PARTNERS_FINAL_CTA = {
 } as const;
 
 /**
- * Convenio paralelo para doctores («doctor partner»). No es el programa
- * Instagram (bono al cierre) ni el wizard de agendar: hay que postular
- * con nombre, correo y motivo.
- * El bloque corto vive en `/partners`; el detalle, en `/convenio-doctores`.
- * El correo llega a Ricardo.
- *
- * Términos (Ricardo, sep 2026): software 3 meses de regalo; se optimiza
- * el sitio; después 30% de descuento sobre el valor del plan; +3 meses
- * por cada cliente nuevo que pague suscripción; bio `partner @clinera.io`.
+ * Convenio para doctores. El programa partner es solo el bono al cierre.
+ * Acá se suma Clinera 3 meses y 30% de descuento sobre precio de lista,
+ * más los mismos US$ 150 / 200 / 400 por referido.
+ * Se postula (nombre, correo, motivo); no es automático.
  */
 export const CONVENIO_DOCTORES_SOFTWARE_MESES = 3;
 export const CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT = 30;
-export const CONVENIO_DOCTORES_BIO = "partner @clinera.io";
 export const PARTNERS_DOCTORS_EMAIL = PARTNERS_APPLY_EMAIL;
 export const PARTNERS_DOCTORS_API = "/api/convenio-doctores" as const;
 export const PARTNERS_DOCTORS_HREF = `${PARTNERS_PATH}#convenio-doctores` as const;
@@ -223,35 +217,36 @@ export const CONVENIO_DOCTORES_POSTULA_ID = "postula" as const;
 export const CONVENIO_DOCTORES_POSTULA_HREF =
   `${CONVENIO_DOCTORES_PATH}#${CONVENIO_DOCTORES_POSTULA_ID}` as const;
 
+/** Contraste en `/partners`: este programa es solo el bono. */
+export const PARTNERS_VS_DOCTORES = {
+  before: "Este programa es el bono al cierre. Si eres doctor y quieres Clinera 3 meses y 30% sobre lista,",
+  link: "es el convenio doctores",
+  href: CONVENIO_DOCTORES_PATH,
+} as const;
+
 export const PARTNERS_DOCTORS_CONVENIO = {
   id: "convenio-doctores",
   eyebrow: "Convenio doctores",
   h2Before: "Si eres doctor.",
   h2Accent: "Postula.",
-  lead: "Clinera 3 meses de regalo, sitio optimizado y 30% de descuento después. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.",
+  lead: "Clinera 3 meses gratis, 30% sobre lista y los mismos bonos de referido. El programa partner es solo el bono. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.",
+  vsPartner:
+    "El programa partner es solo el bono. Acá se suma Clinera 3 meses y el 30% sobre lista.",
   cta: "Postula",
   detalleCta: "Cómo funciona el convenio",
   detalleHref: CONVENIO_DOCTORES_PATH,
   points: [
     {
       title: "Software 3 meses",
-      desc: "Clinera de regalo los primeros 3 meses.",
+      desc: "Usas Clinera gratis los primeros 3 meses.",
     },
     {
-      title: "Sitio web",
-      desc: "Optimizamos el sitio de tu clínica.",
+      title: "30% sobre lista",
+      desc: "Después sigues con 30% de descuento sobre el precio de lista.",
     },
     {
-      title: "30% sobre el plan",
-      desc: "Después puedes seguir con 30% de descuento sobre el valor del plan.",
-    },
-    {
-      title: "+3 meses por cliente",
-      desc: "Por cada cliente nuevo que pague una suscripción, se renuevan 3 meses más.",
-    },
-    {
-      title: "Bio partner",
-      desc: `En la descripción de tus redes: ${CONVENIO_DOCTORES_BIO}.`,
+      title: "Bonos por referido",
+      desc: `Los mismos del partner: US$ ${PARTNERS_BONUS_MONTHLY_USD} mensual, US$ ${PARTNERS_BONUS_SEMESTER_USD} semestral o US$ ${PARTNERS_BONUS_ANNUAL_USD} anual.`,
     },
   ],
   wizard: {

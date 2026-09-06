@@ -16,6 +16,7 @@ import {
   PARTNERS_REQUIREMENTS,
   PARTNERS_STATS,
   PARTNERS_SUPPORT,
+  PARTNERS_VS_DOCTORES,
 } from "@/content/partners-program";
 
 const VIOLET = "#7C3AED";
@@ -121,11 +122,27 @@ function Hero() {
             fontSize: "clamp(15px, 1.2vw, 18px)",
             color: "#4B5563",
             lineHeight: 1.6,
-            margin: "0 0 32px",
+            margin: "0 0 16px",
             maxWidth: 640,
           }}
         >
           {PARTNERS_HERO.lead}
+        </p>
+        <p
+          style={{
+            fontFamily: "Inter",
+            fontSize: 15,
+            color: "#6B7280",
+            lineHeight: 1.55,
+            margin: "0 0 32px",
+            maxWidth: 640,
+          }}
+        >
+          {PARTNERS_VS_DOCTORES.before}{" "}
+          <Link href={PARTNERS_VS_DOCTORES.href} style={{ color: VIOLET, fontWeight: 600 }}>
+            {PARTNERS_VS_DOCTORES.link}
+          </Link>
+          .
         </p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
           <CtaPrimary
@@ -491,8 +508,20 @@ function ConvenioDoctores() {
             {offer.h2Accent}
           </span>
         </h2>
-        <p style={{ ...leadStyle, color: "rgba(255,255,255,.72)", maxWidth: 640 }}>
+        <p style={{ ...leadStyle, color: "rgba(255,255,255,.72)", maxWidth: 640, marginBottom: 12 }}>
           {offer.lead}
+        </p>
+        <p
+          style={{
+            fontFamily: "Inter",
+            fontSize: 15,
+            color: "rgba(255,255,255,.55)",
+            lineHeight: 1.55,
+            maxWidth: 640,
+            margin: "0 0 32px",
+          }}
+        >
+          {offer.vsPartner}
         </p>
         <div
           style={{

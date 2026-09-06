@@ -28,27 +28,21 @@ https://www.clinera.io/convenio-doctores
 
 También está el bloque corto en https://www.clinera.io/partners#convenio-doctores
 
-Si la landing todavía no carga en producción, el guion es el de abajo: es el mismo copy.
-
 ## Qué tiene que decir el video
 
-1. **Invitación** — si eres doctor, puedes postular al convenio doctor partner.
-   No es automático: lo revisamos y confirmamos.
+1. **Invitación** — si eres doctor, puedes postular al convenio. No es
+   automático: lo revisamos y confirmamos.
 2. **Qué incluye (en este orden):**
-   - Clinera de **regalo por 3 meses**.
-   - **Optimizamos el sitio web** de la clínica.
-   - Después puede seguir usando Clinera con **30% de descuento sobre el valor
-     del plan**.
-   - Puede **renovar 3 meses más** por cada cliente nuevo que pague una
-     suscripción de Clinera.
-   - En la descripción de sus redes sociales debe ir **partner @clinera.io**.
-3. **Qué no es** — no es el programa partner de Instagram (ahí el bono es
-   US$ 150 / 200 / 400 al cierre). Acá no hay bono en dinero: hay software,
-   sitio y descuento.
+   - Clinera **gratis por 3 meses**.
+   - Después, **30% de descuento sobre el precio de lista**.
+   - Por cada referido que cierre: **US$ 150 mensual / US$ 200 semestral /
+     US$ 400 anual** (los mismos bonos del programa partner).
+3. **Qué no es** — el programa partner es **solo** ese bono. El convenio
+   doctores suma Clinera 3 meses y el 30%.
 4. **CTA** — postular en clinera.io/convenio-doctores (nombre, correo y motivo).
 
 No inventar precios de plan, plazos extra ni que el software queda de regalo
-para siempre.
+para siempre. No hablar de sitio de regalo ni de bio en redes.
 
 Cualquier duda de tono o duración, avisen y lo afinamos antes de grabar.
 
