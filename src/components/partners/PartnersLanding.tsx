@@ -538,7 +538,27 @@ function ConvenioDoctores() {
             </article>
           ))}
         </div>
-        <ConvenioDoctoresWizard />
+        <div
+          style={{
+            display: "flex",
+            gap: 12,
+            flexWrap: "wrap",
+            alignItems: "center",
+          }}
+        >
+          <ConvenioDoctoresWizard />
+          <CtaSecondary
+            as={Link}
+            href={offer.detalleHref}
+            style={{
+              background: "transparent",
+              color: "#fff",
+              border: "1px solid rgba(255,255,255,.22)",
+            }}
+          >
+            {offer.detalleCta} →
+          </CtaSecondary>
+        </div>
       </div>
     </section>
   );

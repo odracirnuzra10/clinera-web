@@ -16,6 +16,7 @@ const cols: Col[] = [
       ["Planes", "/planes"],
       ["App móvil", "/app"],
       ["Partners", "/partners"],
+      ["Convenio doctores", "/convenio-doctores"],
       ["Integraciones", "/blog/clinera-api-webhooks-n8n-make-zapier"],
     ],
   },

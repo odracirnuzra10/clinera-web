@@ -15,6 +15,7 @@ import {
 type Vista = "cta" | 1 | 2 | 3 | "ok";
 
 const VACIO: PostulacionDoctores = { nombre: "", correo: "", motivo: "" };
+const HASHES_DEFAULT = [PARTNERS_DOCTORS_CONVENIO.id] as const;
 
 const inputStyle = {
   width: "100%",
@@ -29,7 +30,12 @@ const inputStyle = {
   outline: "none",
 };
 
-export function ConvenioDoctoresWizard() {
+export function ConvenioDoctoresWizard({
+  hashes = HASHES_DEFAULT,
+}: {
+  /** Anclas que abren el paso 1 (en `/partners` es #convenio-doctores). */
+  hashes?: readonly string[];
+} = {}) {
   const offer = PARTNERS_DOCTORS_CONVENIO;
   const [vista, setVista] = useState<Vista>("cta");
   const [valores, setValores] = useState<PostulacionDoctores>(VACIO);
@@ -42,12 +48,13 @@ export function ConvenioDoctoresWizard() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const abrir = () => {
-      if (window.location.hash === `#${offer.id}`) setVista((v) => (v === "cta" ? 1 : v));
+      const id = window.location.hash.replace(/^#/, "");
+      if (hashes.includes(id)) setVista((v) => (v === "cta" ? 1 : v));
     };
     abrir();
     window.addEventListener("hashchange", abrir);
     return () => window.removeEventListener("hashchange", abrir);
-  }, [offer.id]);
+  }, [hashes]);
 
   useEffect(() => {
     if (vista === 1 || vista === 2 || vista === 3) campoRef.current?.focus();

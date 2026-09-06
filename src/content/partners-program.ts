@@ -185,8 +185,8 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
     a: "Con un código o enlace tuyo. La clínica tiene que entrar por ahí para que cuente el bono. Agenda una reunión y te activamos.",
   },
   {
-    q: "¿Me regalan un sitio web si soy doctor?",
-    a: "Si eres doctor y no tienes sitio, postulas en el bloque Convenio doctores de esta página: nombre, correo y motivo. No es el wizard de agendar. Te armamos una web para posicionar tu clínica y Clinera, con el dominio el primer año. No es automático: lo revisamos y te confirmamos.",
+    q: "¿Hay un convenio si soy doctor?",
+    a: "Sí: postulas en Convenio doctores (nombre, correo y motivo). El detalle está en /convenio-doctores. No es el wizard de agendar ni el bono del programa Instagram. Clinera 3 meses de regalo, optimizamos tu sitio, después 30% de descuento sobre el valor del plan, +3 meses por cada cliente nuevo que pague suscripción, y en redes: partner @clinera.io. No es automático: lo revisamos y te confirmamos.",
   },
 ];
 
@@ -200,33 +200,58 @@ export const PARTNERS_FINAL_CTA = {
 } as const;
 
 /**
- * Convenio paralelo para doctores sin web. No es el programa Instagram
- * ni el wizard de agendar: hay que postular aquí mismo, con nombre, correo
- * y motivo. El correo llega a Ricardo.
+ * Convenio paralelo para doctores («doctor partner»). No es el programa
+ * Instagram (bono al cierre) ni el wizard de agendar: hay que postular
+ * con nombre, correo y motivo.
+ * El bloque corto vive en `/partners`; el detalle, en `/convenio-doctores`.
+ * El correo llega a Ricardo.
+ *
+ * Términos (Ricardo, sep 2026): software 3 meses de regalo; se optimiza
+ * el sitio; después 30% de descuento sobre el valor del plan; +3 meses
+ * por cada cliente nuevo que pague suscripción; bio `partner @clinera.io`.
  */
+export const CONVENIO_DOCTORES_SOFTWARE_MESES = 3;
+export const CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT = 30;
+export const CONVENIO_DOCTORES_BIO = "partner @clinera.io";
 export const PARTNERS_DOCTORS_EMAIL = PARTNERS_APPLY_EMAIL;
 export const PARTNERS_DOCTORS_API = "/api/convenio-doctores" as const;
 export const PARTNERS_DOCTORS_HREF = `${PARTNERS_PATH}#convenio-doctores` as const;
+export const CONVENIO_DOCTORES_PATH = "/convenio-doctores" as const;
+export const CONVENIO_DOCTORES_CANONICAL =
+  `https://www.clinera.io${CONVENIO_DOCTORES_PATH}` as const;
+export const CONVENIO_DOCTORES_POSTULA_ID = "postula" as const;
+export const CONVENIO_DOCTORES_POSTULA_HREF =
+  `${CONVENIO_DOCTORES_PATH}#${CONVENIO_DOCTORES_POSTULA_ID}` as const;
 
 export const PARTNERS_DOCTORS_CONVENIO = {
   id: "convenio-doctores",
   eyebrow: "Convenio doctores",
-  h2Before: "Si eres doctor y no tienes sitio web.",
+  h2Before: "Si eres doctor.",
   h2Accent: "Postula.",
-  lead: "Te regalamos un sitio para posicionar tu clínica y Clinera. Dominio el primer año incluido. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.",
+  lead: "Clinera 3 meses de regalo, sitio optimizado y 30% de descuento después. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.",
   cta: "Postula",
+  detalleCta: "Cómo funciona el convenio",
+  detalleHref: CONVENIO_DOCTORES_PATH,
   points: [
     {
-      title: "Sitio de regalo",
-      desc: "Si no tienes web, te armamos una para tu clínica y para Clinera.",
+      title: "Software 3 meses",
+      desc: "Clinera de regalo los primeros 3 meses.",
     },
     {
-      title: "Dominio 1 año",
-      desc: "El dominio va incluido el primer año.",
+      title: "Sitio web",
+      desc: "Optimizamos el sitio de tu clínica.",
     },
     {
-      title: "Postula",
-      desc: "No es automático. Cada postulación se revisa.",
+      title: "30% sobre el plan",
+      desc: "Después puedes seguir con 30% de descuento sobre el valor del plan.",
+    },
+    {
+      title: "+3 meses por cliente",
+      desc: "Por cada cliente nuevo que pague una suscripción, se renuevan 3 meses más.",
+    },
+    {
+      title: "Bio partner",
+      desc: `En la descripción de tus redes: ${CONVENIO_DOCTORES_BIO}.`,
     },
   ],
   wizard: {
@@ -235,7 +260,7 @@ export const PARTNERS_DOCTORS_CONVENIO = {
     volver: "Volver",
     exitoTitulo: "Postulación enviada",
     exito:
-      "La revisamos y te escribimos. No es automático: no asumas que ya tienes el sitio.",
+      "La revisamos y te escribimos. No es automático: no asumas que ya está activo.",
     errorEnvio: "No pudimos enviar tu postulación. Inténtalo de nuevo.",
     steps: [
       {
@@ -253,7 +278,7 @@ export const PARTNERS_DOCTORS_CONVENIO = {
       {
         key: "motivo",
         label: "Motivo",
-        placeholder: "Soy dermatóloga en Temuco y no tengo web…",
+        placeholder: "Soy dermatóloga en Temuco y quiero el convenio…",
         hint: "Especialidad, ciudad y por qué postulas.",
       },
     ],
