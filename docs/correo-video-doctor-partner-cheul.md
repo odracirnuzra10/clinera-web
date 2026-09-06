@@ -26,23 +26,28 @@ Landing del convenio — úsenla para saber qué decir, en este orden:
 
 https://www.clinera.io/convenio-doctores
 
-También está el bloque corto en https://www.clinera.io/partners#convenio-doctores
+La postulación (nombre, correo, motivo) está en
+https://www.clinera.io/partners#convenio-doctores — esa página es previa.
+`/convenio-doctores` es el trato **una vez calificado**.
 
 ## Qué tiene que decir el video
 
-1. **Invitación** — si eres doctor, puedes postular al convenio. No es
-   automático: lo revisamos y confirmamos.
-2. **Qué incluye (en este orden):**
-   - Clinera **gratis por 3 meses**.
-   - Después, **30% de descuento sobre el precio de lista**.
-   - Por cada referido que cierre: **US$ 150 mensual / US$ 200 semestral /
-     US$ 400 anual** (los mismos bonos del programa partner).
-3. **Qué no es** — el programa partner es **solo** ese bono. El convenio
-   doctores suma Clinera 3 meses y el 30%.
-4. **CTA** — postular en clinera.io/convenio-doctores (nombre, correo y motivo).
+1. **Calificado** — si ya pasaste, este es el trato. No se vuelve a postular
+   acá.
+2. **Beneficios (en este orden):**
+   - Sitio web **remodelado por nuestro equipo**.
+   - **3 meses de Clinera Vortex**.
+   - Bonos por referido: **US$ 150 mensual / US$ 200 semestral / US$ 400 anual**.
+   - **30% de descuento** después de esos 3 meses.
+3. **Requisitos:**
+   - Usar Clinera de forma activa.
+   - Recomendarla.
+   - Asociar el perfil empresarial: **Partner de @clinera.io** (como KM Estética
+     en Instagram).
+4. **Qué no es** — el programa partner es **solo** el bono. El convenio suma
+   sitio, Vortex y el 30%.
 
-No inventar precios de plan, plazos extra ni que el software queda de regalo
-para siempre. No hablar de sitio de regalo ni de bio en redes.
+No inventar precios de plan ni que el software queda de regalo para siempre.
 
 Cualquier duda de tono o duración, avisen y lo afinamos antes de grabar.
 

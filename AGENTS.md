@@ -599,15 +599,15 @@ viene el prospecto.
 La landing pública no muestra precios de plan: eso lo conversa ventas (hoy
 Rebeca). El kit es lo que se le manda al partner, no al prospecto.
 
-**Convenio doctores** (página `/convenio-doctores` + bloque en `/partners` +
-slide `#convenio-doctores` en el deck): si eres doctor, puedes **postular**.
-No es automático. Términos (Ricardo, sep 2026): Clinera **3 meses** gratis;
-después **30% de descuento sobre precio de lista**; por cada referido, los
-**mismos bonos** del partner (US$ 150 / 200 / 400). El programa partner es
-**solo el bono** (sin software de regalo ni 30%). Página corta: beneficios +
-diagrama Clinera O.S. + wizard. El CTA **Postula** abre un wizard de 3 pasos
-(nombre, correo, motivo) — no es el de `/agenda` ni `/reunion-comercial`. El
-POST va a `/api/convenio-doctores` y el correo a Ricardo (SMTP de cotizaciones).
-El deck no puede hospedar el wizard: su Postula apunta a
-`/convenio-doctores#postula`. Copy corto en `PARTNERS_DOCTORS_CONVENIO`;
-detalle en `src/content/convenio-doctores-page.ts`. Guardián: `tests/partners-program.spec.ts`.
+**Convenio doctores.** La postulación es **previa** (wizard en
+`/partners#convenio-doctores`, 3 pasos nombre/correo/motivo →
+`POST /api/convenio-doctores`). `/convenio-doctores` es el trato **una vez
+calificado**, no otro formulario. Beneficios (Ricardo, sep 2026): sitio web
+remodelado por el equipo; Clinera **Vortex 3 meses**; mismos bonos de
+referido (US$ 150 / 200 / 400); **30% de descuento** después de esos 3 meses.
+Requisitos: usar Clinera activamente; recomendarla; asociar el perfil
+empresarial como `Partner de @clinera.io` (ejemplo: bio de KM Estética). El
+programa partner sigue siendo **solo el bono**. Slide `#convenio-doctores`
+del deck apunta a `/convenio-doctores#requisitos`. Copy en
+`PARTNERS_DOCTORS_CONVENIO` / `CONVENIO_DOCTORES_BENEFICIOS`. Guardián:
+`tests/partners-program.spec.ts`.

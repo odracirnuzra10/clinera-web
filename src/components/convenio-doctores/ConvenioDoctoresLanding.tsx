@@ -1,13 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { CtaPrimary, CtaSecondary, Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { ClineraOsDiagram } from "@/components/clinera-os/ClineraOsDiagram";
-import { ConvenioDoctoresWizard } from "@/components/partners/ConvenioDoctoresWizard";
-import {
-  CONVENIO_DOCTORES_POSTULA_ID,
-  PARTNERS_DOCTORS_CONVENIO,
-} from "@/content/partners-program";
+import { CONVENIO_DOCTORES_POSTULA_ID } from "@/content/partners-program";
 import { CONVENIO_DOCTORES_PAGE } from "@/content/convenio-doctores-page";
 
 const VIOLET = "#7C3AED";
@@ -39,11 +36,14 @@ export default function ConvenioDoctoresLanding() {
     <>
       <Hero />
       <Beneficios />
+      <Requisitos />
       <Os />
-      <Postula />
       <style jsx global>{`
         @media (max-width: 720px) {
           .convenio-section { padding-left: 28px !important; padding-right: 28px !important; }
+        }
+        @media (max-width: 960px) {
+          .convenio-requisitos { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </>
@@ -127,7 +127,7 @@ function Hero() {
           {hero.vsPartner}
         </p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <CtaPrimary as="a" href={`#${CONVENIO_DOCTORES_POSTULA_ID}`}>
+          <CtaPrimary as="a" href={hero.ctaHref}>
             {hero.cta} <span style={{ marginLeft: 2 }}>→</span>
           </CtaPrimary>
           <CtaSecondary as={Link} href={hero.ctaSecondaryHref}>
@@ -151,7 +151,7 @@ function Beneficios() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
             gap: 16,
           }}
         >
@@ -196,47 +196,107 @@ function Beneficios() {
   );
 }
 
-function Os() {
+function Requisitos() {
+  const { requisitos, partnersNote } = CONVENIO_DOCTORES_PAGE;
   return (
     <section
+      id={requisitos.id}
       className="convenio-section"
-      style={{
-        ...sectionPad,
-        background: "#FAFAFA",
-        borderTop: "1px solid #F0F0F0",
-        borderBottom: "1px solid #F0F0F0",
-      }}
+      style={{ ...sectionPad, background: "#0A0A0A", color: "#fff" }}
     >
+      <span id={CONVENIO_DOCTORES_POSTULA_ID} />
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <ClineraOsDiagram heading={true} />
-      </div>
-    </section>
-  );
-}
-
-function Postula() {
-  const { postula, partnersNote } = CONVENIO_DOCTORES_PAGE;
-  return (
-    <section
-      id={CONVENIO_DOCTORES_POSTULA_ID}
-      className="convenio-section"
-      style={{
-        ...sectionPad,
-        background: "#0A0A0A",
-        color: "#fff",
-      }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Eyebrow style={{ color: "#C4B5FD" }}>{postula.eyebrow}</Eyebrow>
+        <Eyebrow style={{ color: "#C4B5FD" }}>{requisitos.eyebrow}</Eyebrow>
         <h2 style={{ ...h2Style, color: "#fff", maxWidth: 780 }}>
-          {postula.h2Before} <GradText>{postula.h2Accent}</GradText>
+          {requisitos.h2Before} <GradText>{requisitos.h2Accent}</GradText>
         </h2>
         <p style={{ ...leadStyle, color: "rgba(255,255,255,.72)", maxWidth: 640 }}>
-          {postula.lead}
+          {requisitos.lead}
         </p>
-        <ConvenioDoctoresWizard
-          hashes={[CONVENIO_DOCTORES_POSTULA_ID, PARTNERS_DOCTORS_CONVENIO.id]}
-        />
+        <div
+          className="convenio-requisitos"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.15fr)",
+            gap: 32,
+            alignItems: "start",
+          }}
+        >
+          <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 16 }}>
+            {requisitos.items.map((item, i) => (
+              <li
+                key={item.title}
+                style={{
+                  background: "rgba(255,255,255,.04)",
+                  border: "1px solid rgba(255,255,255,.12)",
+                  borderRadius: 16,
+                  padding: "22px 20px",
+                }}
+              >
+                <div
+                  style={{
+                    fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                    fontSize: 11,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "#C4B5FD",
+                    marginBottom: 8,
+                  }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "Inter",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    letterSpacing: "-0.02em",
+                    margin: "0 0 6px",
+                    color: "#fff",
+                  }}
+                >
+                  {item.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "Inter",
+                    fontSize: 14.5,
+                    color: "rgba(255,255,255,.68)",
+                    lineHeight: 1.55,
+                    margin: 0,
+                  }}
+                >
+                  {item.desc}
+                </p>
+              </li>
+            ))}
+          </ol>
+          <figure style={{ margin: 0 }}>
+            <Image
+              src={requisitos.bioExample.src}
+              alt={requisitos.bioExample.alt}
+              width={requisitos.bioExample.width}
+              height={requisitos.bioExample.height}
+              style={{
+                width: "100%",
+                height: "auto",
+                borderRadius: 16,
+                border: "1px solid rgba(255,255,255,.12)",
+              }}
+            />
+            <figcaption
+              style={{
+                fontFamily: "Inter",
+                fontSize: 13,
+                color: "rgba(255,255,255,.55)",
+                marginTop: 12,
+                lineHeight: 1.5,
+              }}
+            >
+              {requisitos.bioExample.caption}
+            </figcaption>
+          </figure>
+        </div>
         <p
           style={{
             fontFamily: "Inter",
@@ -254,6 +314,23 @@ function Postula() {
           </Link>
           .
         </p>
+      </div>
+    </section>
+  );
+}
+
+function Os() {
+  return (
+    <section
+      className="convenio-section"
+      style={{
+        ...sectionPad,
+        background: "#FAFAFA",
+        borderTop: "1px solid #F0F0F0",
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <ClineraOsDiagram heading={true} />
       </div>
     </section>
   );

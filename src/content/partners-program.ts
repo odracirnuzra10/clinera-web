@@ -186,7 +186,7 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿Hay un convenio si soy doctor?",
-    a: "Sí. El programa partner es solo el bono (US$ 150 / 200 / 400). El convenio doctores suma Clinera 3 meses gratis y 30% de descuento sobre precio de lista, más los mismos bonos por referido. Postulas en /convenio-doctores. No es automático.",
+    a: "Sí. El programa partner es solo el bono (US$ 150 / 200 / 400). El convenio suma sitio web remodelado, Clinera Vortex 3 meses, los mismos bonos y 30% de descuento después de esos 3 meses. La postulación es previa; /convenio-doctores es el trato una vez calificado.",
   },
 ];
 
@@ -200,13 +200,15 @@ export const PARTNERS_FINAL_CTA = {
 } as const;
 
 /**
- * Convenio para doctores. El programa partner es solo el bono al cierre.
- * Acá se suma Clinera 3 meses y 30% de descuento sobre precio de lista,
- * más los mismos US$ 150 / 200 / 400 por referido.
- * Se postula (nombre, correo, motivo); no es automático.
+ * Convenio para doctores ya calificados. La postulación es previa
+ * (`/partners#convenio-doctores`). `/convenio-doctores` es el trato:
+ * sitio remodelado, Vortex 3 meses, bonos y 30% después; a cambio usar
+ * Clinera, recomendarla y poner «Partner de @clinera.io» en el perfil.
  */
 export const CONVENIO_DOCTORES_SOFTWARE_MESES = 3;
 export const CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT = 30;
+export const CONVENIO_DOCTORES_PLAN_NAME = "Vortex" as const;
+export const CONVENIO_DOCTORES_BIO_LINE = "Partner de @clinera.io" as const;
 export const PARTNERS_DOCTORS_EMAIL = PARTNERS_APPLY_EMAIL;
 export const PARTNERS_DOCTORS_API = "/api/convenio-doctores" as const;
 export const PARTNERS_DOCTORS_HREF = `${PARTNERS_PATH}#convenio-doctores` as const;
@@ -216,39 +218,63 @@ export const CONVENIO_DOCTORES_CANONICAL =
 export const CONVENIO_DOCTORES_POSTULA_ID = "postula" as const;
 export const CONVENIO_DOCTORES_POSTULA_HREF =
   `${CONVENIO_DOCTORES_PATH}#${CONVENIO_DOCTORES_POSTULA_ID}` as const;
+export const CONVENIO_DOCTORES_REQUISITOS_ID = "requisitos" as const;
+export const CONVENIO_DOCTORES_REQUISITOS_HREF =
+  `${CONVENIO_DOCTORES_PATH}#${CONVENIO_DOCTORES_REQUISITOS_ID}` as const;
 
 /** Contraste en `/partners`: este programa es solo el bono. */
 export const PARTNERS_VS_DOCTORES = {
-  before: "Este programa es el bono al cierre. Si eres doctor y quieres Clinera 3 meses y 30% sobre lista,",
+  before: "Este programa es el bono al cierre. Si eres doctor y quieres sitio, Vortex 3 meses y 30%,",
   link: "es el convenio doctores",
   href: CONVENIO_DOCTORES_PATH,
 } as const;
+
+export const CONVENIO_DOCTORES_BENEFICIOS = [
+  {
+    title: "Sitio web remodelado",
+    desc: "Lo arma nuestro equipo.",
+  },
+  {
+    title: `Clinera ${CONVENIO_DOCTORES_PLAN_NAME} 3 meses`,
+    desc: `Usas el plan ${CONVENIO_DOCTORES_PLAN_NAME} gratis los primeros ${CONVENIO_DOCTORES_SOFTWARE_MESES} meses.`,
+  },
+  {
+    title: "Bonos por referido",
+    desc: `Los mismos del partner: US$ ${PARTNERS_BONUS_MONTHLY_USD} mensual, US$ ${PARTNERS_BONUS_SEMESTER_USD} semestral o US$ ${PARTNERS_BONUS_ANNUAL_USD} anual.`,
+  },
+  {
+    title: "30% después de 3 meses",
+    desc: `Cuando termina el periodo gratis, ${CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT}% de descuento sobre el precio de lista.`,
+  },
+] as const;
+
+export const CONVENIO_DOCTORES_REQUISITOS = [
+  {
+    title: "Usar Clinera",
+    desc: "Utilizar activamente la herramienta.",
+  },
+  {
+    title: "Recomendarla",
+    desc: "Presentar Clinera a otras clínicas.",
+  },
+  {
+    title: "Perfil partner",
+    desc: `Asociar el perfil empresarial como ${CONVENIO_DOCTORES_BIO_LINE}.`,
+  },
+] as const;
 
 export const PARTNERS_DOCTORS_CONVENIO = {
   id: "convenio-doctores",
   eyebrow: "Convenio doctores",
   h2Before: "Si eres doctor.",
   h2Accent: "Postula.",
-  lead: "Clinera 3 meses gratis, 30% sobre lista y los mismos bonos de referido. El programa partner es solo el bono. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.",
+  lead: `Sitio remodelado, Clinera ${CONVENIO_DOCTORES_PLAN_NAME} ${CONVENIO_DOCTORES_SOFTWARE_MESES} meses, bonos por referido y ${CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT}% después. El programa partner es solo el bono. Si eres doctor, postulas acá. No es automático: lo revisamos y te confirmamos.`,
   vsPartner:
-    "El programa partner es solo el bono. Acá se suma Clinera 3 meses y el 30% sobre lista.",
+    "El programa partner es solo el bono. El convenio suma sitio, Vortex 3 meses y el 30%.",
   cta: "Postula",
   detalleCta: "Cómo funciona el convenio",
   detalleHref: CONVENIO_DOCTORES_PATH,
-  points: [
-    {
-      title: "Software 3 meses",
-      desc: "Usas Clinera gratis los primeros 3 meses.",
-    },
-    {
-      title: "30% sobre lista",
-      desc: "Después sigues con 30% de descuento sobre el precio de lista.",
-    },
-    {
-      title: "Bonos por referido",
-      desc: `Los mismos del partner: US$ ${PARTNERS_BONUS_MONTHLY_USD} mensual, US$ ${PARTNERS_BONUS_SEMESTER_USD} semestral o US$ ${PARTNERS_BONUS_ANNUAL_USD} anual.`,
-    },
-  ],
+  points: CONVENIO_DOCTORES_BENEFICIOS,
   wizard: {
     continuar: "Continuar",
     enviar: "Enviar postulación",
