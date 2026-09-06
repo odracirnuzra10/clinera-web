@@ -336,10 +336,10 @@ test.describe("página /convenio-doctores", () => {
 
     await expect(page.getByRole("heading", { level: 1 })).toContainText("calificado");
     await expect(page.getByRole("heading", { name: /Cuatro cosas/i })).toBeVisible();
-    await expect(page.getByText("Sitio web remodelado")).toBeVisible();
-    await expect(page.getByText("Clinera Vortex 3 meses")).toBeVisible();
-    await expect(page.getByText("Bonos por referido")).toBeVisible();
-    await expect(page.getByText("30% después de 3 meses")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Sitio web remodelado" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Clinera Vortex 3 meses" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Bonos por referido" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "30% después de 3 meses" })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Tres cosas/i })).toBeVisible();
     await expect(page.locator("#requisitos")).toContainText("Utilizar activamente la herramienta");
     await expect(page.locator("#requisitos")).toContainText("Recomendarla");
