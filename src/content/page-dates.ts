@@ -51,7 +51,7 @@ export const PAGE_DATES: Record<
   "/agenda": { published: "2025-06-01", modified: "2026-08-30" },
   "/ventas": { published: "2025-06-01", modified: "2026-08-26" },
   "/presentacion": { published: "2025-06-01", modified: "2026-08-27" },
-  "/presentacion-partners": { published: "2026-08-01", modified: "2026-09-03" },
+  "/presentacion-partners": { published: "2026-08-01", modified: "2026-09-06" },
   "/reunion-comercial": { published: "2026-06-01", modified: "2026-08-01" },
   "/reserva": { published: "2026-06-01", modified: "2026-08-01" },
   "/ley20584": { published: "2026-04-01", modified: "2026-08-01" },

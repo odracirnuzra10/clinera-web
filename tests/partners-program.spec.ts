@@ -50,14 +50,15 @@ test.describe("fuente de verdad del programa partner", () => {
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/no es automático/i);
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/3 meses/i);
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/30%/);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/solo el bono/);
     expect(PARTNERS_DOCTORS_CONVENIO.points.map((p) => p.title)).toEqual([
       "Software 3 meses",
-      "Sitio web",
-      "30% sobre el plan",
-      "+3 meses por cliente",
-      "Bio partner",
+      "30% sobre lista",
+      "Bonos por referido",
     ]);
-    expect(PARTNERS_DOCTORS_CONVENIO.points[4].desc).toMatch(/partner @clinera\.io/);
+    expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 150/);
+    expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 200/);
+    expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 400/);
     expect(PARTNERS_DOCTORS_EMAIL).toBe(PARTNERS_APPLY_EMAIL);
     expect(PARTNERS_APPLY_EMAIL).toMatch(/^[^@]+@[^@]+\.[a-z]+$/);
     expect(PARTNERS_APPLY_EMAIL.startsWith("ric")).toBe(true);
@@ -121,10 +122,11 @@ test.describe("landing /partners", () => {
     expect(body).not.toMatch(/1 reel al mes/);
     expect(body).not.toMatch(/10% de descuento/);
     expect(body).toMatch(/Convenio doctores/i);
-    expect(body).toMatch(/sitio web/i);
     expect(body).toMatch(/3 meses/);
     expect(body).toMatch(/30%/);
+    expect(body).toMatch(/solo el bono/i);
     expect(body).toMatch(/No es automático/);
+    expect(body).not.toMatch(/sitio web/i);
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
     await expect(apply).toHaveAttribute("href", PARTNERS_CTA_HREF);
@@ -147,7 +149,8 @@ test.describe("landing /partners", () => {
     await page.goto("/partners");
     const block = page.locator("#convenio-doctores");
     await expect(block.getByRole("heading", { level: 2 })).toContainText("Postula");
-    await expect(block).toContainText("Sitio web");
+    await expect(block).toContainText("30% sobre lista");
+    await expect(block).toContainText("Bonos por referido");
     await expect(block).toContainText("No es automático");
     await expect(block.getByRole("link", { name: /Cómo funciona el convenio/ })).toHaveAttribute(
       "href",
@@ -212,7 +215,8 @@ test.describe("landing /partners", () => {
     await expect(page.locator("#convenio-doctores")).toContainText("No es automático");
     await expect(page.locator("#convenio-doctores")).toContainText("3 meses");
     await expect(page.locator("#convenio-doctores")).toContainText("30%");
-    await expect(page.locator("#convenio-doctores")).toContainText("partner @clinera.io");
+    await expect(page.locator("#convenio-doctores")).toContainText("US$ 150");
+    await expect(page.locator("#convenio-doctores")).toContainText("solo el bono");
     await expect(page.locator("#convenio-doctores a.partner-cta-primary")).toHaveAttribute(
       "href",
       CONVENIO_DOCTORES_POSTULA_HREF,
@@ -303,7 +307,7 @@ test.describe("formulario aplicar partner", () => {
 });
 
 test.describe("página /convenio-doctores", () => {
-  test("explica el convenio a detalle y no mezcla el programa partner", async ({
+  test("va al grano: beneficios, Clinera O.S. y contraste con el partner", async ({
     page,
   }) => {
     await page.goto(CONVENIO_DOCTORES_PATH);
@@ -314,16 +318,20 @@ test.describe("página /convenio-doctores", () => {
     );
 
     await expect(page.getByRole("heading", { level: 1 })).toContainText("3 meses");
-    await expect(page.getByText(/No es automático/i).first()).toBeVisible();
-    await expect(page.getByText(/30% de descuento sobre el valor del plan/i).first()).toBeVisible();
-    await expect(page.getByText(/partner @clinera\.io/).first()).toBeVisible();
-    await expect(page.getByText(/No es el programa partner/i).first()).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Tres datos/i })).toBeVisible();
+    await expect(page.getByText(/30% de descuento sobre precio de lista/i).first()).toBeVisible();
+    await expect(page.getByText(/El programa partner es solo el bono/i).first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Tres cosas/i })).toBeVisible();
+    await expect(page.getByText("Toda tu operación la alimenta")).toBeVisible();
+    await expect(page.getByText("Clinera O.S. actúa")).toBeVisible();
     await expect(page.locator("#postula")).toBeVisible();
     await expect(page.locator("#postula").getByRole("button", { name: /^Postula/ })).toBeVisible();
 
     const body = await page.locator("body").innerText();
+    expect(body).toMatch(/US\$ 150/);
+    expect(body).toMatch(/US\$ 200/);
+    expect(body).toMatch(/US\$ 400/);
     expect(body).not.toMatch(/15%/);
+    expect(body).not.toMatch(/sitio web/i);
     expect(body).not.toMatch(/Permanente para todos los clientes/);
   });
 
