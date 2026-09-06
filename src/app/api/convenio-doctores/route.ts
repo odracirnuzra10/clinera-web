@@ -125,7 +125,7 @@ export async function POST(request: Request) {
     subject: `Convenio doctores — ${payload.nombre}`,
     html: `
 <div style="font-family: Arial, Helvetica, sans-serif; max-width: 560px; color: #111318;">
-  <p style="font-size: 13px; color: #656a76; margin: 0 0 16px;">Postulación al convenio doctores · clinera.io/partners</p>
+  <p style="font-size: 13px; color: #656a76; margin: 0 0 16px;">Postulación al convenio doctores · clinera.io/convenio-doctores</p>
   <p style="margin: 0 0 8px;"><b>Nombre</b><br>${nombre}</p>
   <p style="margin: 0 0 8px;"><b>Correo</b><br>${correo}</p>
   <p style="margin: 0;"><b>Motivo</b><br>${motivo}</p>

@@ -186,7 +186,7 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿Me regalan un sitio web si soy doctor?",
-    a: "Si eres doctor y no tienes sitio, postulas en el bloque Convenio doctores de esta página: nombre, correo y motivo. No es el wizard de agendar. Te armamos una web para posicionar tu clínica y Clinera, con el dominio el primer año. No es automático: lo revisamos y te confirmamos.",
+    a: "Si eres doctor y no tienes sitio, postulas en Convenio doctores: nombre, correo y motivo. El detalle está en /convenio-doctores. No es el wizard de agendar. Te armamos una web para posicionar tu clínica y Clinera, con el dominio el primer año. No es automático: lo revisamos y te confirmamos.",
   },
 ];
 
@@ -201,12 +201,19 @@ export const PARTNERS_FINAL_CTA = {
 
 /**
  * Convenio paralelo para doctores sin web. No es el programa Instagram
- * ni el wizard de agendar: hay que postular aquí mismo, con nombre, correo
- * y motivo. El correo llega a Ricardo.
+ * ni el wizard de agendar: hay que postular con nombre, correo y motivo.
+ * El bloque corto vive en `/partners`; el detalle, en `/convenio-doctores`.
+ * El correo llega a Ricardo.
  */
 export const PARTNERS_DOCTORS_EMAIL = PARTNERS_APPLY_EMAIL;
 export const PARTNERS_DOCTORS_API = "/api/convenio-doctores" as const;
 export const PARTNERS_DOCTORS_HREF = `${PARTNERS_PATH}#convenio-doctores` as const;
+export const CONVENIO_DOCTORES_PATH = "/convenio-doctores" as const;
+export const CONVENIO_DOCTORES_CANONICAL =
+  `https://www.clinera.io${CONVENIO_DOCTORES_PATH}` as const;
+export const CONVENIO_DOCTORES_POSTULA_ID = "postula" as const;
+export const CONVENIO_DOCTORES_POSTULA_HREF =
+  `${CONVENIO_DOCTORES_PATH}#${CONVENIO_DOCTORES_POSTULA_ID}` as const;
 
 export const PARTNERS_DOCTORS_CONVENIO = {
   id: "convenio-doctores",
@@ -215,6 +222,8 @@ export const PARTNERS_DOCTORS_CONVENIO = {
   h2Accent: "Postula.",
   lead: "Te regalamos un sitio para posicionar tu clínica y Clinera. Dominio el primer año incluido. Si eres doctor, postulas. No es automático: lo revisamos y te confirmamos.",
   cta: "Postula",
+  detalleCta: "Cómo funciona el convenio",
+  detalleHref: CONVENIO_DOCTORES_PATH,
   points: [
     {
       title: "Sitio de regalo",

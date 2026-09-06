@@ -1,5 +1,8 @@
 import { expect, test } from "@playwright/test";
 import {
+  CONVENIO_DOCTORES_CANONICAL,
+  CONVENIO_DOCTORES_PATH,
+  CONVENIO_DOCTORES_POSTULA_HREF,
   PARTNERS_BONUS_ANNUAL_USD,
   PARTNERS_BONUS_MONTHLY_USD,
   PARTNERS_BONUS_SEMESTER_USD,
@@ -52,6 +55,10 @@ test.describe("fuente de verdad del programa partner", () => {
     expect(PARTNERS_APPLY_EMAIL.endsWith(".cl")).toBe(true);
     expect(PARTNERS_DOCTORS_API).toBe("/api/convenio-doctores");
     expect(PARTNERS_DOCTORS_HREF).toBe("/partners#convenio-doctores");
+    expect(CONVENIO_DOCTORES_PATH).toBe("/convenio-doctores");
+    expect(CONVENIO_DOCTORES_CANONICAL).toBe("https://www.clinera.io/convenio-doctores");
+    expect(CONVENIO_DOCTORES_POSTULA_HREF).toBe("/convenio-doctores#postula");
+    expect(PARTNERS_DOCTORS_CONVENIO.detalleHref).toBe(CONVENIO_DOCTORES_PATH);
     expect(PARTNERS_DOCTORS_CONVENIO.wizard.steps.map((s) => s.key)).toEqual([
       "nombre",
       "correo",
@@ -132,6 +139,10 @@ test.describe("landing /partners", () => {
     await expect(block.getByRole("heading", { level: 2 })).toContainText("Postula");
     await expect(block).toContainText("sitio web");
     await expect(block).toContainText("No es automático");
+    await expect(block.getByRole("link", { name: /Cómo funciona el convenio/ })).toHaveAttribute(
+      "href",
+      CONVENIO_DOCTORES_PATH,
+    );
     await expect(block.getByRole("link", { name: /Aplicar al programa/ })).toHaveCount(0);
     await expect(block.getByRole("link", { name: /^Postula/ })).toHaveCount(0);
 
@@ -192,7 +203,7 @@ test.describe("landing /partners", () => {
     await expect(page.locator("#convenio-doctores")).toContainText("Dominio");
     await expect(page.locator("#convenio-doctores a.partner-cta-primary")).toHaveAttribute(
       "href",
-      PARTNERS_DOCTORS_HREF,
+      CONVENIO_DOCTORES_POSTULA_HREF,
     );
   });
 
@@ -200,6 +211,9 @@ test.describe("landing /partners", () => {
     await page.goto("/partners");
     const partners = page.locator("footer").getByRole("link", { name: "Partners" });
     await expect(partners).toHaveAttribute("href", "/partners");
+    await expect(
+      page.locator("footer").getByRole("link", { name: "Convenio doctores" }),
+    ).toHaveAttribute("href", CONVENIO_DOCTORES_PATH);
     await expect(
       page.locator("footer").getByRole("link", { name: "Agencias" }),
     ).toHaveCount(0);
@@ -275,3 +289,52 @@ test.describe("formulario aplicar partner", () => {
     ]);
   });
 });
+
+test.describe("página /convenio-doctores", () => {
+  test("explica el convenio a detalle y no mezcla el programa partner", async ({
+    page,
+  }) => {
+    await page.goto(CONVENIO_DOCTORES_PATH);
+    await expect(page).toHaveTitle(/Convenio doctores/i);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      CONVENIO_DOCTORES_CANONICAL,
+    );
+
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("sitio");
+    await expect(page.getByText(/No es automático/i).first()).toBeVisible();
+    await expect(page.getByText(/dominio el primer año/i).first()).toBeVisible();
+    await expect(page.getByText(/No es el programa partner/i).first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Tres datos/i })).toBeVisible();
+    await expect(page.locator("#postula")).toBeVisible();
+    await expect(page.locator("#postula").getByRole("button", { name: /^Postula/ })).toBeVisible();
+
+    const body = await page.locator("body").innerText();
+    expect(body).not.toMatch(/15%/);
+    expect(body).not.toMatch(/Permanente para todos los clientes/);
+  });
+
+  test("el ancla #postula abre el mismo wizard que en /partners", async ({ page }) => {
+    const enviados: unknown[] = [];
+    await page.route("**/api/convenio-doctores", async (route) => {
+      enviados.push(route.request().postDataJSON());
+      await route.fulfill({ json: { ok: true } });
+    });
+
+    await page.goto(CONVENIO_DOCTORES_POSTULA_HREF);
+    const block = page.locator("#postula");
+    await expect(block.getByText("Paso 1 de 3")).toBeVisible();
+    await block.getByLabel("Tu nombre").fill("María Soto");
+    await block.getByRole("button", { name: /Continuar/ }).click();
+    await block.getByLabel("Tu correo").fill("maria@clinica.cl");
+    await block.getByRole("button", { name: /Continuar/ }).click();
+    await block
+      .getByLabel("Motivo")
+      .fill("Soy dermatóloga en Temuco y no tengo sitio web.");
+    await block.getByRole("button", { name: /Enviar postulación/ }).click();
+    await expect(block.getByRole("heading", { name: "Postulación enviada" })).toBeVisible();
+    expect(enviados).toHaveLength(1);
+    await expect(page).not.toHaveURL(/\/agenda/);
+  });
+});
+
