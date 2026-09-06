@@ -600,13 +600,16 @@ La landing pública no muestra precios de plan: eso lo conversa ventas (hoy
 Rebeca). El kit es lo que se le manda al partner, no al prospecto.
 
 **Convenio doctores** (página `/convenio-doctores` + bloque en `/partners` +
-slide `#convenio-doctores` en el deck): si un doctor no tiene sitio web, puede
-**postular** a que Clinera le arme uno (dominio el primer año incluido) para
-posicionar su clínica y Clinera. No es automático. El CTA **Postula** abre un
-wizard de 3 pasos (nombre, correo, motivo) — no es el de `/agenda` ni
-`/reunion-comercial`. El POST va a `/api/convenio-doctores` y el correo a
-`ricardo@oacg.cl` (SMTP de cotizaciones). El deck no puede hospedar el
-wizard: su Postula apunta a `/convenio-doctores#postula`. El bloque de
-`/partners` se mantiene (wizard + enlace «Cómo funciona el convenio»). Copy
-corto en `PARTNERS_DOCTORS_CONVENIO`; detalle en
+slide `#convenio-doctores` en el deck): si eres doctor, puedes **postular**.
+No es automático. Términos (Ricardo, sep 2026): software **3 meses** de
+regalo; se **optimiza el sitio web**; después **30% de descuento** sobre el
+valor del plan; **+3 meses** por cada cliente nuevo que pague suscripción;
+en redes, descripción `partner @clinera.io`. No es el bono del programa
+Instagram. El CTA **Postula** abre un wizard de 3 pasos (nombre, correo,
+motivo) — no es el de `/agenda` ni `/reunion-comercial`. El POST va a
+`/api/convenio-doctores` y el correo a Ricardo (SMTP de cotizaciones). El
+deck no puede hospedar el wizard: su Postula apunta a
+`/convenio-doctores#postula`. El bloque de `/partners` se mantiene (wizard +
+enlace «Cómo funciona el convenio»). Copy corto en
+`PARTNERS_DOCTORS_CONVENIO`; detalle en
 `src/content/convenio-doctores-page.ts`. Guardián: `tests/partners-program.spec.ts`.

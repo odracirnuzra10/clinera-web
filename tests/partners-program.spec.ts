@@ -48,7 +48,16 @@ test.describe("fuente de verdad del programa partner", () => {
     expect(PARTNERS_DOCTORS_CONVENIO.h2Accent).toBe("Postula.");
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/Si eres doctor, postulas/);
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/no es automático/i);
-    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/dominio el primer año/i);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/3 meses/i);
+    expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/30%/);
+    expect(PARTNERS_DOCTORS_CONVENIO.points.map((p) => p.title)).toEqual([
+      "Software 3 meses",
+      "Sitio web",
+      "30% sobre el plan",
+      "+3 meses por cliente",
+      "Bio partner",
+    ]);
+    expect(PARTNERS_DOCTORS_CONVENIO.points[4].desc).toMatch(/partner @clinera\.io/);
     expect(PARTNERS_DOCTORS_EMAIL).toBe(PARTNERS_APPLY_EMAIL);
     expect(PARTNERS_APPLY_EMAIL).toMatch(/^[^@]+@[^@]+\.[a-z]+$/);
     expect(PARTNERS_APPLY_EMAIL.startsWith("ric")).toBe(true);
@@ -113,7 +122,8 @@ test.describe("landing /partners", () => {
     expect(body).not.toMatch(/10% de descuento/);
     expect(body).toMatch(/Convenio doctores/i);
     expect(body).toMatch(/sitio web/i);
-    expect(body).toMatch(/dominio/i);
+    expect(body).toMatch(/3 meses/);
+    expect(body).toMatch(/30%/);
     expect(body).toMatch(/No es automático/);
 
     const apply = page.getByRole("link", { name: /Aplicar al programa/ }).first();
@@ -200,7 +210,9 @@ test.describe("landing /partners", () => {
     await expect(page.locator("body")).not.toContainText("4 historias al mes");
     await expect(page.locator("#convenio-doctores")).toContainText("Postula");
     await expect(page.locator("#convenio-doctores")).toContainText("No es automático");
-    await expect(page.locator("#convenio-doctores")).toContainText("Dominio");
+    await expect(page.locator("#convenio-doctores")).toContainText("3 meses");
+    await expect(page.locator("#convenio-doctores")).toContainText("30%");
+    await expect(page.locator("#convenio-doctores")).toContainText("partner @clinera.io");
     await expect(page.locator("#convenio-doctores a.partner-cta-primary")).toHaveAttribute(
       "href",
       CONVENIO_DOCTORES_POSTULA_HREF,
@@ -301,9 +313,10 @@ test.describe("página /convenio-doctores", () => {
       CONVENIO_DOCTORES_CANONICAL,
     );
 
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("sitio");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("3 meses");
     await expect(page.getByText(/No es automático/i).first()).toBeVisible();
-    await expect(page.getByText(/dominio el primer año/i).first()).toBeVisible();
+    await expect(page.getByText(/30% de descuento sobre el valor del plan/i).first()).toBeVisible();
+    await expect(page.getByText(/partner @clinera\.io/).first()).toBeVisible();
     await expect(page.getByText(/No es el programa partner/i).first()).toBeVisible();
     await expect(page.getByRole("heading", { name: /Tres datos/i })).toBeVisible();
     await expect(page.locator("#postula")).toBeVisible();
