@@ -147,7 +147,7 @@ test.describe("landing /partners", () => {
     await page.goto("/partners");
     const block = page.locator("#convenio-doctores");
     await expect(block.getByRole("heading", { level: 2 })).toContainText("Postula");
-    await expect(block).toContainText("sitio web");
+    await expect(block).toContainText("Sitio web");
     await expect(block).toContainText("No es automático");
     await expect(block.getByRole("link", { name: /Cómo funciona el convenio/ })).toHaveAttribute(
       "href",
