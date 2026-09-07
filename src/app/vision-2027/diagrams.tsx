@@ -76,6 +76,9 @@ export function CircleDiagram() {
     const a = ((-90 + i * 72) * Math.PI) / 180;
     const lx = cx + (r + 78) * Math.cos(a);
     const ly = cy + (r + 78) * Math.sin(a);
+    const cos = Math.cos(a);
+    const anchor: "start" | "end" | "middle" =
+      cos > 0.35 ? "start" : cos < -0.35 ? "end" : "middle";
     return {
       x: cx + r * Math.cos(a),
       y: cy + r * Math.sin(a),
@@ -83,7 +86,7 @@ export function CircleDiagram() {
       ly,
       label,
       n: String(i + 1).padStart(2, "0"),
-      anchor: Math.cos(a) > 0.35 ? "start" : Math.cos(a) < -0.35 ? "end" : "middle",
+      anchor,
     };
   });
 
