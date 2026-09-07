@@ -48,7 +48,7 @@ test.describe("/vision-2027 — deck interno", () => {
       await expect(page.locator(`#${slide.id}`)).toBeAttached();
     }
 
-    await expect(page.getByRole("heading", { name: /Clinera/ })).toContainText("2027");
+    await expect(page.locator("#portada-title")).toContainText("2027");
     await expect(page.locator("#portada")).toContainText(
       "De software para clínicas a la red de pacientes",
     );
