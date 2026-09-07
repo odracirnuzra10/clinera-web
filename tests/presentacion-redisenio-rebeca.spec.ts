@@ -19,11 +19,12 @@ const slideOrder = [
   "intelligence",
   "la-fuga",
   "inteligencia",
+  "inteligencia-deudas",
+  "inteligencia-profesionales",
   "empleados-digitales",
   "canales",
   "normativa",
   "migracion",
-  "demostracion",
 ];
 
 test.describe("Rediseño Rebeca del deck /presentacion", () => {
@@ -61,10 +62,9 @@ test.describe("Rediseño Rebeca del deck /presentacion", () => {
     expect(html).toContain("7 días de Red de Seguridad");
     expect(html).toContain("Semana de Transición");
     expect(html).not.toContain("solapamiento");
-    const mig = html.slice(
-      html.indexOf('id="migracion"'),
-      html.indexOf('id="demostracion"'),
-    );
+    const migStart = html.indexOf('id="migracion"');
+    const migEnd = html.indexOf("</section>", migStart);
+    const mig = html.slice(migStart, migEnd);
     expect(mig).not.toMatch(/\bpagos\b/i);
   });
 
