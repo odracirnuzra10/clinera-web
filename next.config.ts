@@ -180,6 +180,18 @@ const nextConfig: NextConfig = {
         destination: '/presentacion-venta-2-reuniones.html',
       },
       {
+        source: '/internal/mi-clinera',
+        destination: '/internal/mi-clinera/especificacion.html',
+      },
+      {
+        source: '/internal/mi-clinera/especificacion',
+        destination: '/internal/mi-clinera/especificacion.html',
+      },
+      {
+        source: '/internal/mi-clinera/mockup',
+        destination: '/internal/mi-clinera/mockup.html',
+      },
+      {
         source: '/monterrey',
         destination: '/monterrey/index.html',
       },

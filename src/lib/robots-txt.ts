@@ -60,6 +60,8 @@ const STAR_DISALLOW = [
   "/internal/",
   "/nueva-reunion",
   "/nueva-reunion/",
+  "/vision-2027",
+  "/vision-2027/",
   "/triage",
   "/firma",
   "/firma/",

@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mi Clinera Mockup</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600&family=DM+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root{--bg:#F7F6F3;--paper:#FFFFFF;--ink:#111111;--ink-2:#6B6B6B;--ink-3:#9A9A9A;--line:#EAEAEA;--soft:#F9F9F8;
+    --accent:#2F6B4F;--accent-soft:#E9F1EC;--accent-ink:#1F4D37;
+    --ok:#EDF3EC;--ok-ink:#2F6B4F;--warn:#FBF3DB;--warn-ink:#8A6D1D;--info:#E1F3FE;--info-ink:#0B5E8A;--clinera:#7C3AED;--clinera-soft:#F1EBFD;--clinera-ink:#4C2596}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1500px;margin:0 auto;padding:48px 32px 96px}
+  .top{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:32px}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  h1{font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:8px 0 10px;text-wrap:balance}
+  .lede{max-width:660px;color:var(--ink-2);font-size:16px;margin:0}
+  .switch{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+  .switch .lbl{font-size:12px;color:var(--ink-2)}
+  .seg{display:inline-flex;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:3px}
+  .seg button{font:inherit;font-weight:500;font-size:13px;border:0;background:transparent;padding:8px 14px;border-radius:8px;cursor:pointer;color:var(--ink-2);transition:background .2s,color .2s;display:flex;align-items:center;gap:8px}
+  .seg button .dot{width:8px;height:8px;border-radius:50%;background:var(--d)}
+  .seg button.on{background:var(--ink);color:#fff}
+  .seg button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .group{margin:26px 0 6px;display:flex;align-items:center;gap:12px}
+  .group h2{font-size:15px;font-weight:600;margin:0}
+  .group span{font-size:12.5px;color:var(--ink-2)}
+  .phones{display:flex;gap:28px;overflow-x:auto;padding:8px 4px 20px;scroll-snap-type:x proximity}
+  .slot{flex:0 0 auto;width:300px;scroll-snap-align:start}
+  .phone{width:300px;height:640px;border-radius:40px;background:#111;padding:10px;box-shadow:0 1px 2px rgba(0,0,0,.06),0 24px 48px -32px rgba(0,0,0,.35)}
+  .screen{position:relative;height:100%;border-radius:32px;background:var(--paper);overflow:hidden;display:flex;flex-direction:column;font-family:var(--app-font,Outfit),system-ui,sans-serif}
+  .screen .h,.screen .logo{font-family:var(--app-display,var(--app-font,Outfit)),system-ui,sans-serif}
+  .screen.serif .h{font-weight:500;letter-spacing:-.01em;font-size:22px}
+  .screen.serif .logo{font-weight:600;font-size:17px;letter-spacing:.01em}
+  .notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:92px;height:26px;border-radius:14px;background:#111;z-index:3}
+  .status{height:44px;flex:0 0 auto;display:flex;align-items:flex-end;justify-content:space-between;padding:0 22px 4px;font-size:11px;font-weight:600}
+  .body{flex:1;overflow:hidden;padding:8px 18px 0}
+  .nav{flex:0 0 auto;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 8px 14px;background:var(--paper)}
+  .nav div{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;font-weight:500;color:var(--ink-3)}
+  .nav div.on{color:var(--ink)}
+  .nav svg{width:20px;height:20px}
+  .cap{margin-top:16px;padding:0 4px}
+  .cap .t{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px}
+  .layer{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:5px;border:1px solid var(--line);background:var(--paper);color:var(--ink-2)}
+  .layer.core{border-color:#111;color:#111}
+  .layer.vert{border-color:var(--accent);color:var(--accent-ink);background:var(--accent-soft)}
+  .layer.cont{border-color:var(--clinera);color:var(--clinera-ink);background:var(--clinera-soft)}
+  .cap p{margin:4px 0 0;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+  .brand{display:flex;align-items:center;justify-content:space-between;margin:2px 0 12px}
+  .brand .logo{font-weight:800;letter-spacing:-.01em;font-size:15px;color:var(--accent-ink)}
+  .brand .logo small{display:block;font-weight:500;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .avatar{width:28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-size:11px;font-weight:700;display:grid;place-items:center}
+  .h{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.2;margin:0 0 2px}
+  .sub{font-size:12px;color:var(--ink-2);margin:0 0 12px}
+  .card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--paper);margin-bottom:10px}
+  .card.soft{background:var(--soft)}
+  .card.accent{background:var(--accent-soft);border-color:transparent}
+  .k{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .big{font-size:15px;font-weight:600;line-height:1.3}
+  .meta{font-size:11.5px;color:var(--ink-2)}
+  .pill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;display:inline-block;white-space:nowrap}
+  .pill.ok{background:var(--ok);color:var(--ok-ink)}.pill.warn{background:var(--warn);color:var(--warn-ink)}.pill.info{background:var(--info);color:var(--info-ink)}.pill.cl{background:var(--clinera-soft);color:var(--clinera-ink)}
+  .btn{display:flex;align-items:center;justify-content:center;gap:6px;font:inherit;font-weight:600;font-size:12.5px;border-radius:10px;padding:10px 12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);width:100%}
+  .btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .btn.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.sm{padding:7px 10px;font-size:11.5px;width:auto}
+  .btn svg{width:16px;height:16px}
+  .bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden;margin:8px 0 4px}
+  .bar i{display:block;height:100%;background:var(--accent);border-radius:999px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .quick{border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px;font-size:11.5px;font-weight:500}
+  .quick svg{width:18px;height:18px;color:var(--accent)}
+  .list{display:flex;flex-direction:column}
+  .li{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px;gap:8px}
+  .li:last-child{border-bottom:0}
+  .li .l{display:flex;flex-direction:column;line-height:1.35}
+  .li .l b{font-weight:600}
+  .li .l span{color:var(--ink-2);font-size:11px}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+  .shot{position:relative;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:linear-gradient(180deg,#EDE9E3 0%,#DCD5CB 100%)}
+  .shot::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 34% 42% at 50% 62%,rgba(0,0,0,.10),transparent 70%)}
+  .shot .tag{position:absolute;top:8px;left:8px;font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:.08em;background:rgba(17,17,17,.85);color:#fff;padding:3px 6px;border-radius:5px;z-index:1}
+  .shot .fig{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:54%;height:86%;background:#CFC7BB;border-radius:40% 40% 8% 8% / 30% 30% 4% 4%;filter:blur(6px);opacity:.9}
+  .shot.b .fig{width:47%}
+  .measure{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .measure:last-child{border-bottom:0}
+  .measure .v{font-family:"JetBrains Mono",monospace;font-size:12px}
+  .measure .v.new{color:var(--accent-ink);font-weight:500}
+  .measure .n{color:var(--ink-2);font-size:11px}
+  .dots{display:flex;gap:5px;align-items:center;margin:10px 0 2px}
+  .dots i{flex:1;height:5px;border-radius:999px;background:var(--line)}
+  .dots i.d{background:var(--accent)}
+  .days{display:flex;gap:6px;margin:8px 0 10px}
+  .day{flex:1;border:1px solid var(--line);border-radius:10px;padding:6px 0;text-align:center;line-height:1.2}
+  .day small{display:block;font-size:9px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+  .day b{font-size:14px;font-weight:600}
+  .day.on{background:var(--ink);color:#fff;border-color:var(--ink)}.day.on small{color:#bbb}
+  .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+  .slot-t{border:1px solid var(--line);border-radius:8px;padding:7px 0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:11.5px}
+  .slot-t.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink);font-weight:500}
+  .slot-t.off{color:var(--ink-3);text-decoration:line-through}
+  .mod{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start}
+  .mod .ic{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);display:grid;place-items:center;flex:0 0 auto}
+  .mod .ic svg{width:16px;height:16px;color:var(--accent-ink)}
+  .mod b{font-size:12.5px;font-weight:600;display:block;line-height:1.3}
+  .mod span{font-size:11px;color:var(--ink-2);line-height:1.4;display:block}
+  .check{display:flex;gap:8px;align-items:center;font-size:12px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .check:last-child{border-bottom:0}
+  .check i{width:14px;height:14px;border-radius:4px;border:1.5px solid var(--line);display:inline-block;flex:0 0 auto}
+  .check i.d{background:var(--accent);border-color:var(--accent);position:relative}
+  .check i.d::after{content:"";position:absolute;left:4px;top:1px;width:3px;height:7px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+  .check.done{color:var(--ink-3);text-decoration:line-through}
+  .rx{border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:10px}
+  .rx .hd{background:var(--soft);padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-size:11px}
+  .rx .med{padding:9px 12px;border-top:1px solid var(--line);font-size:12px}
+  .rx .med b{display:block;font-weight:600}
+  .rx .med span{color:var(--ink-2);font-size:11px}
+  .doc{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .doc:last-child{border-bottom:0}
+  .doc svg{width:16px;height:16px;color:var(--ink-3);flex:0 0 auto}
+  .doc span{margin-left:auto;font-size:10.5px;color:var(--ink-3)}
+  .chart{width:100%;height:auto;display:block}
+  .chart .grid{stroke:var(--line);stroke-width:1}.chart .area{fill:var(--accent);opacity:.10}.chart .line{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+  .chart .pt{fill:var(--paper);stroke:var(--accent);stroke-width:1.5}.chart .pt.last{fill:var(--accent);stroke:var(--paper);stroke-width:2}
+  .chart text{font-family:"JetBrains Mono",monospace;font-size:8.5px;fill:var(--ink-3)}.chart text.val{fill:var(--accent-ink);font-weight:500;font-size:9.5px}
+  .kpi{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px}
+  .kpi div{border:1px solid var(--line);border-radius:10px;padding:8px 10px;line-height:1.2}
+  .kpi b{display:block;font-family:"JetBrains Mono",monospace;font-size:14px;font-weight:500;margin-top:2px}
+  .kpi small{font-size:9.5px;color:var(--ink-2);text-transform:uppercase;letter-spacing:.08em}
+  .kpi em{font-style:normal;font-size:10px;color:var(--accent-ink);display:block;margin-top:2px}
+  .logbtn{display:flex;align-items:center;justify-content:space-between;border:1px dashed var(--line);border-radius:10px;padding:9px 12px;font-size:12px;color:var(--ink-2)}
+  .logbtn b{color:var(--ink);font-weight:600}
+  .logbtn svg{width:16px;height:16px}
+  /* login */
+  .login{display:flex;flex-direction:column;height:100%;justify-content:flex-end;padding-bottom:10px}
+  .login .mark{width:44px;height:44px;border-radius:12px;background:var(--clinera);display:grid;place-items:center;margin-bottom:14px}
+  .login .mark svg{width:22px;height:22px;color:#fff}
+  .sso{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:500;margin-bottom:8px;background:var(--paper)}
+  .sso svg{width:16px;height:16px}
+  /* avisos */
+  .notif{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .notif:last-child{border-bottom:0}
+  .notif .ic{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);display:grid;place-items:center;flex:0 0 auto}
+  .notif .ic svg{width:15px;height:15px;color:var(--accent-ink)}
+  .notif b{font-size:12.5px;font-weight:600;display:block;line-height:1.3}
+  .notif span{font-size:11px;color:var(--ink-2);line-height:1.4;display:block}
+  .notif time{font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--ink-3);white-space:nowrap}
+  .lock{background:#111;border-radius:12px;padding:10px 12px;color:#fff;margin-bottom:12px}
+  .lock .app{display:flex;align-items:center;gap:8px;font-size:10px;color:#bbb;margin-bottom:4px}
+  .lock .app i{width:14px;height:14px;border-radius:4px;background:var(--accent);display:inline-block}
+  .lock b{font-size:12.5px;display:block}
+  .lock span{font-size:11px;color:#ddd}
+  /* ficha */
+  .fld{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;font-size:11.5px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .fld:last-child{border-bottom:0}
+  .fld small{display:block;font-size:9.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+  .odo{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin:6px 0}
+  .odo i{aspect-ratio:1;border-radius:4px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:8px;color:var(--ink-3);font-style:normal}
+  .odo i.t{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-ink)}
+  .odo i.x{background:var(--warn);border-color:#E3C96B;color:var(--warn-ink)}
+  /* pagos */
+  .amount{font-family:"JetBrains Mono",monospace;font-size:22px;font-weight:500;letter-spacing:-.01em}
+  .disc{border:1px solid var(--accent);background:var(--accent-soft);border-radius:12px;padding:10px 12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .disc b{font-size:12.5px;display:block;color:var(--accent-ink)}
+  .disc span{font-size:11px;color:var(--ink-2)}
+  .disc .pct{font-family:"JetBrains Mono",monospace;font-size:18px;color:var(--accent-ink);font-weight:500}
+  .legend{margin-top:40px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:20px;border-top:1px solid var(--line);padding-top:32px}
+  .legend h3{font-size:14px;font-weight:600;margin:0 0 6px;display:flex;align-items:center;gap:8px}
+  .legend p{margin:0;font-size:13.5px;color:var(--ink-2);line-height:1.55}
+  .legend .lt{display:flex;flex-direction:column;gap:4px;margin-top:8px;font-size:12.5px}
+  .legend .lt span{padding:4px 0;border-bottom:1px solid var(--line)}
+  .legend .lt span:last-child{border-bottom:0}
+  .legend .rule{font-size:13.5px;color:var(--ink-2)}.legend .rule b{color:var(--ink);font-weight:600}
+  .map{margin-top:12px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:12px}
+  .map .f{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-2);padding:4px 0;border-bottom:1px solid var(--line)}
+  .map .a{padding:4px 0;border-bottom:1px solid var(--line)}
+  @media (max-width:1100px){.legend{grid-template-columns:1fr 1fr}}
+  @media (max-width:640px){.legend{grid-template-columns:1fr}.wrap{padding:28px 16px 64px}h1{font-size:30px}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="eyebrow">Mi Clinera · Concepto de producto v3</div>
+      <h1>Un usuario, todas sus clínicas</h1>
+      <p class="lede">No es un software: es una nueva forma de atenderse. El paciente tiene todos sus datos, de todas sus clínicas, en una sola app. Cada clínica la ve con su marca y la siente suya, por eso son las clínicas las que la difunden. Cambia de clínica para ver cómo se transforma.</p>
+    </div>
+    <div class="switch">
+      <span class="lbl">Ver la app como paciente de</span>
+      <div class="seg" id="seg"></div>
+    </div>
+  </div>
+
+  <div class="group"><h2>Contenedor Mi Clinera</h2><span>Lo único donde se ve Clinera. Igual para todos.</span></div>
+  <div class="phones" id="phones-cont"></div>
+
+  <div class="group"><h2>Dentro de la clínica</h2><span>White label: marca, color y tipografía de la clínica. Los datos salen de la ficha.</span></div>
+  <div class="phones" id="phones"></div>
+
+  <div class="legend">
+    <div>
+      <h3>Regla: nada se escribe dos veces</h3>
+      <p class="rule">Cada pestaña de la ficha en Clinera tiene su espejo en Mi Clinera. <b>Si está en la ficha, el paciente lo ve filtrado a lo suyo.</b> La clínica no carga nada dos veces.</p>
+      <div class="map">
+        <div class="f">USUARIO + ALTAS</div><div class="a">Login · Mis clínicas</div>
+        <div class="f">TURNOS · PAGOS</div><div class="a">Inicio · Avisos (push)</div>
+        <div class="f">FICHA · ODONTOGRAMA</div><div class="a">Mi ficha · Descargar · Compartir</div>
+        <div class="f">EVOLUCIONES</div><div class="a">Mi evolución (antes/después)</div>
+        <div class="f">SEGUIMIENTO · peso, medidas</div><div class="a">Mis medidas (gráfico por sesión)</div>
+        <div class="f">AGENDA</div><div class="a">Agendar</div>
+        <div class="f">PAGOS</div><div class="a">Pagos con descuento in-app</div>
+        <div class="f">RECETAS · CONSENTIMIENTOS</div><div class="a">Recetas con QR · Documentos</div>
+        <div class="f">NOTAS (interna)</div><div class="a">Nunca</div>
+      </div>
+    </div>
+    <div>
+      <h3><span class="layer cont">Contenedor</span> Mi Clinera</h3>
+      <p>Identidad y navegación entre clínicas. Es donde nace el marketplace en fase 2.</p>
+      <div class="lt"><span>Login con Google, Apple o correo</span><span>Teléfono asociado, editable; el usuario es lo permanente</span><span>Lista de clínicas que lo dieron de alta</span><span>Fase 2: descubrir clínicas, reviews, convenios</span></div>
+    </div>
+    <div>
+      <h3><span class="layer core">Núcleo</span> Igual para todas</h3>
+      <p>Lo que vale como historial del paciente.</p>
+      <div class="lt"><span>Avisos push: hora, cambio, recordatorio, cuota</span><span>Antes/después por sesión</span><span>Ficha completa, descargable y compartible</span><span>Agendar, confirmar, reagendar</span><span>Pagos con descuentos exclusivos</span><span>Recetas con QR y documentos</span></div>
+    </div>
+    <div>
+      <h3><span class="layer vert">Vertical</span> + <span class="layer">Clínica</span></h3>
+      <p>La vertical define qué se mide y qué contenido base hay. La clínica pone marca, tipografía, contenido propio y descuentos.</p>
+      <div class="lt"><span>Corporal: peso y medidas, alimentación, rutina</span><span>Facial: índice de piel, cuidados post-procedimiento</span><span>Dental: odontograma, indicaciones, medicación</span><span>Dentro de la clínica, Clinera no se nota</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ICON={
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+  photo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-4-7 6"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  plan:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4L19 6"/></svg>',
+  more:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+  rx:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h7l5 5v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v5h5M9 14h6M9 17h4"/></svg>',
+  card:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>',
+  leaf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z"/><path d="M5 19l7-7"/></svg>',
+  run:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="15" cy="4.5" r="1.5"/><path d="M13 8l-4 3 2 3-3 6M13 8l3 3 3-1M13 8l-1 5 4 3 1 5"/></svg>',
+  drop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>',
+  sun:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>',
+  pill:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M8.5 15.5l7-7"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>',
+  spark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>',
+  bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>',
+  share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/></svg>',
+  down:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 19h14"/></svg>',
+  tag:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg>',
+  google:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 12h8M12 8v8"/></svg>',
+  apple:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6c1-2 3-2 4-1-1 1-1 2 0 3M8 9c-3 1-4 5-2 9 1 2 2 3 3 3s2-1 3-1 2 1 3 1 2-1 3-3c-2-1-2-4 0-5-1-2-3-3-5-2-1 0-2 1-3 0-1 0-1-1-2-2z"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>',
+  logo:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
+};
+
+const CLINICS=[
+  {id:'hebe',name:'Método Hebe',tag:'Estética corporal',vertical:'Corporal',dot:'#2F6B4F',accent:'#2F6B4F',soft:'#E9F1EC',ink:'#1F4D37',font:'Outfit',display:'Outfit',serif:false,
+   patient:'Patricia',initials:'PC',treatment:'Método Hebe 3D',sessionsDone:8,sessionsTotal:12,
+   next:{date:'Lun 7 sept',time:'09:00',pro:'Ana Catalina Sepúlveda',role:'Corporal · Facial · Láser'},
+   balance:{due:'$ 155.000',next:'15 sept',disc:10,item:'Cuota 5 de 8 · Método Hebe 3D'},
+   tip:'Sesión 8 de 12. Esta semana baja la sal y suma 2 L de agua: mejora el resultado del drenaje del lunes.',
+   ba:{a:'Sesión 1 · 3 ago',b:'Sesión 8 · 31 ago',measures:[['Cintura','84 cm','79 cm'],['Cadera','101 cm','98 cm'],['Peso','68,4 kg','66,1 kg']]},
+   track:{title:'Mis medidas',sub:'Registro de cada sesión',unit:'kg',label:'Peso',series:[['S1',68.4],['S2',68.0],['S3',67.6],['S4',67.5],['S5',66.9],['S6',66.7],['S7',66.3],['S8',66.1]],kpis:[['Peso','66,1 kg','−2,3 kg'],['Cintura','79 cm','−5 cm'],['Cadera','98 cm','−3 cm']],log:'Pesaje en clínica · Lun 31 ago',logHint:'Lo registra el equipo en tu ficha'},
+   ficha:{title:'Ficha corporal',fields:[['Objetivo','Reducción abdomen y cadera'],['Protocolo','Método Hebe 3D · 12 sesiones'],['Inicio','3 ago 2026'],['Profesional','Ana Catalina Sepúlveda'],['Alergias','Ninguna declarada'],['Contraindicaciones','Ninguna']]},
+   planTitle:'Tu semana',planSub:'Semana 5 · Método Hebe',
+   modules:[{ic:'leaf',t:'Alimentación de la semana',s:'Menú antiinflamatorio, 5 comidas. Lista de compras lista.'},{ic:'run',t:'Rutina 20 min · 3 veces',s:'Core y glúteo. Sin impacto los días de sesión.'},{ic:'drop',t:'Hidratación 2 L',s:'Registra tus vasos. Vas 5 de 8 hoy.'}],
+   checks:[['Desayuno según menú',true],['Rutina 20 min',true],['Agua 2 L',false],['Foto de control semanal',false]],
+   rx:{doctor:'Dra. Javiera Solís',date:'31 ago 2026',items:[['Colágeno hidrolizado 10 g','1 sobre al día, 60 días'],['Magnesio 300 mg','1 comprimido en la noche']]},
+   docs:[['Consentimiento Método Hebe 3D','3 ago'],['Ficha de ingreso','3 ago'],['Boleta sesión 8','31 ago']],
+   notifs:[{ic:'cal',t:'Confirma tu hora del lunes',s:'Lun 7 sept · 09:00 con Ana Catalina',w:'hace 2 h'},{ic:'card',t:'Tu cuota vence el 15',s:'$ 155.000 · 10 % menos si pagas en la app',w:'ayer'},{ic:'photo',t:'Tus fotos de la sesión 8 están listas',s:'Compara con la sesión 1',w:'31 ago'},{ic:'tag',t:'Promoción de septiembre',s:'2 sesiones extra con 15 % por pagar en la app',w:'28 ago'}]},
+  {id:'lumina',name:'Protocolo Lumina',tag:'Estética facial',vertical:'Facial',dot:'#8A4B6C',accent:'#8A4B6C',soft:'#F4EAEF',ink:'#5E2F48',font:'DM Sans',display:'Newsreader',serif:true,
+   patient:'Patricia',initials:'PC',treatment:'Láser CO2 fraccionado',sessionsDone:2,sessionsTotal:4,
+   next:{date:'Jue 17 sept',time:'11:30',pro:'Dra. Carla Mendieta',role:'Dermatología estética'},
+   balance:{due:'$ 190.000',next:'17 sept',disc:8,item:'Sesión 3 · Láser CO2'},
+   tip:'Día 3 post-láser. Es normal la descamación. Nada de sol directo ni exfoliantes hasta el día 7.',
+   ba:{a:'Sesión 1 · 20 jul',b:'Sesión 2 · 3 sept',measures:[['Manchas (área)','12 %','6 %'],['Textura','Grado 3','Grado 2'],['Poros','Visibles','Leves']]},
+   track:{title:'Mi piel',sub:'Índice de piel por control',unit:'',label:'Índice',series:[['C1',52],['C2',61],['C3',66],['C4',74]],kpis:[['Índice','74','+22'],['Manchas','6 %','−6 pts'],['Hidratación','68 %','+14 pts']],log:'Escáner facial · Jue 3 sept',logHint:'Lo registra la doctora en tu ficha'},
+   ficha:{title:'Ficha facial',fields:[['Fototipo','III'],['Protocolo','Láser CO2 fraccionado · 4 sesiones'],['Inicio','20 jul 2026'],['Profesional','Dra. Carla Mendieta'],['Alergias','Ninguna declarada'],['Antecedentes','Herpes labial recurrente']]},
+   planTitle:'Tus cuidados',planSub:'Día 3 post-láser · Sesión 2',
+   modules:[{ic:'sun',t:'Protección solar cada 3 h',s:'FPS 50+. Hoy el índice UV en Vitacura es alto.'},{ic:'drop',t:'Rutina AM / PM',s:'Limpiador suave, reparador, sin ácidos hasta el día 7.'},{ic:'spark',t:'Qué evitar esta semana',s:'Sol, sauna, ejercicio intenso, maquillaje pesado.'}],
+   checks:[['Reparador mañana',true],['FPS 50 aplicado',true],['Rutina PM',false],['Foto de control día 3',false]],
+   rx:{doctor:'Dra. Carla Mendieta',date:'3 sept 2026',items:[['Crema reparadora 40 g','2 veces al día, 10 días'],['Valaciclovir 500 mg','1 c/12 h por 5 días']]},
+   docs:[['Consentimiento Láser CO2','20 jul'],['Fotografía clínica: autorización','20 jul'],['Boleta sesión 2','3 sept']],
+   notifs:[{ic:'cal',t:'Tu hora cambió',s:'Jue 17 sept ahora a las 11:30',w:'hace 1 h'},{ic:'sun',t:'Día 3 post-láser',s:'Nada de sol directo hasta el día 7',w:'hoy'},{ic:'rx',t:'Tu receta está lista',s:'Muestra el QR en la farmacia',w:'3 sept'}]},
+  {id:'vela',name:'Dental Vela',tag:'Clínica dental',vertical:'Dental',dot:'#0B5E8A',accent:'#0B5E8A',soft:'#E4EFF6',ink:'#083F5D',font:'DM Sans',display:'DM Sans',serif:false,
+   patient:'Patricia',initials:'PC',treatment:'Ortodoncia invisible',sessionsDone:3,sessionsTotal:10,
+   next:{date:'Mar 22 sept',time:'16:00',pro:'Dr. Tomás Errázuriz',role:'Ortodoncia'},
+   balance:{due:'$ 120.000',next:'22 sept',disc:5,item:'Cuota 3 de 10 · Ortodoncia'},
+   tip:'Alineador 6 de 20. Cámbialo el viernes. Trae los anteriores al control del 22.',
+   ba:{a:'Control 1 · 10 jun',b:'Control 3 · 5 sept',measures:[['Apiñamiento','5 mm','2 mm'],['Overjet','4 mm','3 mm'],['Alineadores','1 de 20','6 de 20']]},
+   track:{title:'Mis controles',sub:'Avance de alineación por control',unit:'%',label:'Avance',series:[['C1',5],['C2',18],['C3',30]],kpis:[['Avance','30 %','+12 pts'],['Apiñamiento','2 mm','−3 mm'],['Adherencia','22 h/día','ok']],log:'Escaneo 3D · Sáb 5 sept',logHint:'Lo registra el doctor en tu ficha'},
+   ficha:{title:'Odontograma',fields:[['Tratamiento','Ortodoncia invisible · 20 alineadores'],['Inicio','10 jun 2026'],['Profesional','Dr. Tomás Errázuriz'],['Alergias','Ninguna declarada']],odo:true},
+   planTitle:'Tus indicaciones',planSub:'Alineador 6 · Semana 12',
+   modules:[{ic:'clock',t:'22 horas al día',s:'Solo se saca para comer y cepillar. Registra tus horas.'},{ic:'pill',t:'Cambio de alineador',s:'Viernes 11 sept pasas al número 7. Aviso el jueves.'},{ic:'doc',t:'Cuidados',s:'Cepillo después de cada comida. Sin bebidas con azúcar con el alineador puesto.'}],
+   checks:[['Alineador puesto al despertar',true],['Cepillado post almuerzo',true],['Registro de horas',false],['Foto de control semanal',false]],
+   rx:{doctor:'Dr. Tomás Errázuriz',date:'5 sept 2026',items:[['Ibuprofeno 400 mg','1 c/8 h por 2 días si hay molestia'],['Enjuague con flúor','1 vez en la noche']]},
+   docs:[['Consentimiento ortodoncia','10 jun'],['Escaneo 3D inicial','10 jun'],['Bono Fonasa control','5 sept']],
+   notifs:[{ic:'cal',t:'Control agendado',s:'Mar 22 sept · 16:00 con Dr. Errázuriz',w:'hace 3 h'},{ic:'pill',t:'Mañana cambias de alineador',s:'Pasas al número 7',w:'hoy'},{ic:'card',t:'Cuota 3 disponible',s:'$ 120.000 · 5 % menos en la app',w:'ayer'}]}
+];
+
+function nav(active){
+  const items=[['home','Inicio'],['photo','Evolución'],['cal','Agenda'],['plan','Plan'],['more','Más']];
+  return `<div class="nav">${items.map(([i,l])=>`<div class="${l===active?'on':''}">${ICON[i]}${l}</div>`).join('')}</div>`;
+}
+function brand(c){return `<div class="brand"><div class="logo">${c.name}<small>${c.tag}</small></div><div class="avatar">${c.initials}</div></div>`;}
+function contBrand(c){return `<div class="brand"><div class="logo" style="color:#111;font-family:Outfit;display:flex;align-items:center;gap:7px"><span style="width:10px;height:10px;border-radius:3px;background:var(--clinera);display:inline-block"></span>Mi Clinera<small>Tus clínicas</small></div><div class="avatar" style="background:var(--clinera-soft);color:var(--clinera-ink)">${c.initials}</div></div>`;}
+function phone(c,active,body,opts={}){
+  const cont=!!opts.container;
+  const head=opts.nohead?'':(cont?contBrand(c):brand(c));
+  const style=cont?`--app-font:'Outfit';--app-display:'Outfit';--accent:#7C3AED;--accent-soft:#F1EBFD;--accent-ink:#4C2596`:`--app-font:'${c.font}';--app-display:'${c.display}'`;
+  return `<div class="phone"><div class="screen ${(!cont&&c.serif)?'serif':''}" style="${style}">
+    <div class="notch"></div>
+    <div class="status"><span>9:41</span><span class="mono" style="font-weight:500">●●● 5G</span></div>
+    <div class="body">${head}${body}</div>
+    ${opts.nonav?'':nav(active)}
+  </div></div>`;
+}
+function qr(){
+  const n=13,cells=[];let s=7;
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++){s=(s*1103515245+12345)&0x7fffffff;const f=(x<4&&y<4)||(x>n-5&&y<4)||(x<4&&y>n-5);if(f){const edge=(x===0||y===0||x===3||y===3||x===n-1||y===n-1||x===n-4||y===n-4);const inner=((x>=1&&x<=2)||(x>=n-3&&x<=n-2))&&((y>=1&&y<=2)||(y>=n-3&&y<=n-2));if(inner||edge)cells.push([x,y]);}else if(s%3===0)cells.push([x,y]);}
+  return `<svg width="56" height="56" viewBox="0 0 ${n} ${n}" style="flex:0 0 auto;background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px" aria-hidden="true">${cells.map(([x,y])=>`<rect x="${x}" y="${y}" width="1" height="1" fill="#111"/>`).join('')}</svg>`;
+}
+function chart(t){
+  const W=264,H=110,px=26,py=14,vals=t.series.map(s=>s[1]),min=Math.min(...vals),max=Math.max(...vals),span=(max-min)||1;
+  const x=i=>px+i*(W-px*2)/Math.max(1,t.series.length-1),y=v=>py+(H-py*2)*(1-(v-min)/span);
+  const pts=t.series.map((s,i)=>[x(i),y(s[1])]),line=pts.map(p=>p.join(',')).join(' ');
+  const area=`${pts[0][0]},${H-py} ${line} ${pts[pts.length-1][0]},${H-py}`,fmt=v=>String(v).replace('.',',');
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${t.label} por sesión">
+    ${[0,.5,1].map(f=>`<line class="grid" x1="${px}" x2="${W-px}" y1="${py+(H-py*2)*f}" y2="${py+(H-py*2)*f}"/>`).join('')}
+    <text x="${px-4}" y="${py+3}" text-anchor="end">${fmt(max)}</text><text x="${px-4}" y="${H-py+3}" text-anchor="end">${fmt(min)}</text>
+    <polygon class="area" points="${area}"/><polyline class="line" points="${line}"/>
+    ${pts.map((p,i)=>`<circle class="pt ${i===pts.length-1?'last':''}" cx="${p[0]}" cy="${p[1]}" r="${i===pts.length-1?3.5:2.5}"/>`).join('')}
+    ${t.series.map((s,i)=>`<text x="${x(i)}" y="${H-2}" text-anchor="middle">${s[0]}</text>`).join('')}
+    <text class="val" x="${pts[pts.length-1][0]}" y="${pts[pts.length-1][1]-7}" text-anchor="end">${fmt(vals[vals.length-1])}${t.unit?' '+t.unit:''}</text></svg>`;
+}
+
+function loginScreen(){
+  return `<div class="login">
+    <div class="mark">${ICON.logo}</div>
+    <h2 class="h" style="font-family:Outfit">Mi Clinera</h2>
+    <p class="sub" style="margin-bottom:16px">Todas tus clínicas, tu historial y tus pagos en un solo lugar.</p>
+    <div class="sso">${ICON.google}Continuar con Google</div>
+    <div class="sso">${ICON.apple}Continuar con Apple</div>
+    <div class="sso">${ICON.mail}Continuar con correo</div>
+    <p class="meta" style="margin:10px 0 0;font-size:10.5px">Tu usuario es permanente. El teléfono lo asocias después y lo puedes cambiar cuando quieras.</p>
+  </div>`;
+}
+function phoneLinkScreen(c){
+  return `
+    <h2 class="h" style="font-family:Outfit">Tu teléfono</h2>
+    <p class="sub">Es como tus clínicas te reconocen y te escriben por WhatsApp.</p>
+    <div class="card"><div class="k">Número asociado</div><div class="row" style="margin-top:4px"><div class="big mono" style="font-weight:500">+56 9 •••• 4821</div><span class="pill ok">Verificado</span></div></div>
+    <button class="btn">Cambiar número</button>
+    <div class="card accent" style="margin-top:12px"><div class="k" style="color:var(--accent-ink)">Cómo funciona</div><div style="font-size:12px;line-height:1.45;margin-top:2px">Si cambias de número, tu historial no cambia: sigue en tu usuario. Solo actualizas por dónde te contactan.</div></div>
+    <div class="k" style="margin:12px 0 4px">Cuenta</div>
+    <div class="list"><div class="li"><div class="l"><b>ricardo21</b><span>Google · ricardo@correo.cl</span></div></div><div class="li"><div class="l"><b>Términos y privacidad</b><span>Clinera SpA · proveedor del servicio</span></div></div></div>`;
+}
+function clinicsScreen(c){
+  const mine=CLINICS.filter(k=>k.id!=='vela');
+  return `
+    <h2 class="h" style="font-family:Outfit">Mis clínicas</h2>
+    <p class="sub">Las que te dieron de alta. Mismo usuario para todas.</p>
+    ${mine.map(k=>`<div class="card" style="display:flex;align-items:center;gap:12px;${k.id===c.id?'border-color:#111':''}">
+      <div style="width:36px;height:36px;border-radius:9px;background:${k.soft};color:${k.ink};display:grid;place-items:center;font-weight:800;font-size:13px;font-family:'${k.display}'">${k.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div style="flex:1;line-height:1.3"><div class="big" style="font-size:13.5px">${k.name}</div><div class="meta">${k.treatment} · sesión ${k.sessionsDone} de ${k.sessionsTotal}</div></div>
+      ${k.id===c.id?'<span class="pill ok">Abierta</span>':''}</div>`).join('')}
+    <div class="card" style="display:flex;align-items:center;gap:12px;border-style:dashed">
+      <div style="width:36px;height:36px;border-radius:9px;background:#E4EFF6;color:#083F5D;display:grid;place-items:center;font-weight:800;font-size:13px">DV</div>
+      <div style="flex:1;line-height:1.3"><div class="big" style="font-size:13.5px">Dental Vela</div><div class="meta">Te dio de alta · acepta para ver tu ficha</div></div>
+      <span class="pill cl">Invitación</span></div>
+    <div class="card soft"><div class="row"><div><div class="big" style="font-size:13px;color:var(--ink-2)">Descubrir clínicas</div><div class="meta">Convenios y reviews de otros pacientes</div></div><span class="pill info">Fase 2</span></div></div>`;
+}
+
+function screens(c){
+  const pct=Math.round(c.sessionsDone/c.sessionsTotal*100);
+  const home=`
+    <h2 class="h">Hola, ${c.patient}</h2><p class="sub">${c.treatment} · sesión ${c.sessionsDone} de ${c.sessionsTotal}</p>
+    <div class="card"><div class="k">Próxima hora</div>
+      <div class="row" style="margin-top:4px"><div><div class="big">${c.next.date} · ${c.next.time}</div><div class="meta">${c.next.pro}</div></div><span class="pill warn">Pendiente</span></div>
+      <div class="grid2" style="margin-top:10px"><button class="btn primary sm" style="width:100%">Confirmar</button><button class="btn sm" style="width:100%">Reagendar</button></div></div>
+    <div class="card soft"><div class="row"><span class="k">Tu plan</span><span class="mono" style="font-size:11px">${pct} %</span></div><div class="bar"><i style="width:${pct}%"></i></div><div class="meta">${c.sessionsTotal-c.sessionsDone} sesiones restantes · próximo pago ${c.balance.next}</div></div>
+    <div class="card accent"><div class="k" style="color:var(--accent-ink)">Esta semana</div><div style="font-size:12.5px;line-height:1.45;margin-top:2px">${c.tip}</div></div>
+    <div class="grid2"><div class="quick">${ICON.card}Pagar cuota</div><div class="quick">${ICON.rx}Recetas</div></div>`;
+
+  const avisos=`
+    <div class="lock"><div class="app"><i></i>${c.name} · ahora</div><b>${c.notifs[0].t}</b><span>${c.notifs[0].s}</span></div>
+    <h2 class="h">Avisos</h2><p class="sub">Horas, cambios, cuotas y novedades de tu clínica</p>
+    <div class="list">${c.notifs.map(n=>`<div class="notif"><div class="ic">${ICON[n.ic]}</div><div style="flex:1"><b>${n.t}</b><span>${n.s}</span></div><time>${n.w}</time></div>`).join('')}</div>`;
+
+  const evo=`
+    <h2 class="h">Mi evolución</h2><p class="sub">${c.treatment}</p>
+    <div class="ba"><div class="shot"><span class="tag">${c.ba.a}</span><div class="fig"></div></div><div class="shot b"><span class="tag">${c.ba.b}</span><div class="fig"></div></div></div>
+    <div class="dots">${Array.from({length:c.sessionsTotal},(_,i)=>`<i class="${i<c.sessionsDone?'d':''}"></i>`).join('')}</div>
+    <div class="meta" style="margin-bottom:8px">Sesión ${c.sessionsDone} de ${c.sessionsTotal} · foto en cada control</div>
+    <div class="card" style="padding:4px 14px">${c.ba.measures.map(([n,a,b])=>`<div class="measure"><span class="v">${a}</span><span class="n">${n}</span><span class="v new" style="text-align:right">${b}</span></div>`).join('')}</div>
+    <button class="btn">Comparar sesiones</button>`;
+
+  const t=c.track;
+  const track=`
+    <h2 class="h">${t.title}</h2><p class="sub">${t.sub}</p>
+    <div class="card" style="padding:10px 10px 6px"><div class="row" style="padding:0 4px 4px"><span class="k">${t.label}${t.unit?' · '+t.unit:''}</span><span class="pill ok">${t.kpis[0][2]}</span></div>${chart(t)}</div>
+    <div class="kpi">${t.kpis.map(([n,v,d])=>`<div><small>${n}</small><b>${v}</b><em>${d}</em></div>`).join('')}</div>
+    <div class="logbtn"><div><b>${t.log}</b><br>${t.logHint}</div>${ICON.clock}</div>`;
+
+  const f=c.ficha;
+  const odo=f.odo?`<div class="k" style="margin:8px 0 2px">Odontograma</div><div class="odo">${[18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28,48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38].map(n=>`<i class="${[16,26,36].includes(n)?'x':([11,12,21,22,31,32,41,42].includes(n)?'t':'')}">${n}</i>`).join('')}</div><div class="meta" style="margin-bottom:6px">Destacados: en tratamiento · Amarillo: obturación previa</div>`:'';
+  const ficha=`
+    <h2 class="h">${f.title}</h2><p class="sub">Tu registro completo en ${c.name}</p>
+    ${odo}
+    <div class="card" style="padding:4px 14px">${f.fields.map(([k,v])=>`<div class="fld"><div><small>${k}</small>${v}</div></div>`).join('')}</div>
+    <div class="grid2"><button class="btn sm" style="width:100%">${ICON.down}Descargar</button><button class="btn primary sm" style="width:100%">${ICON.share}Compartir</button></div>
+    <div class="meta" style="margin-top:8px;font-size:10.5px">Tu ficha es tuya. Puedes compartirla con otra clínica de Clinera; ${c.name} no se entera con quién.</div>`;
+
+  const agenda=`
+    <h2 class="h">Agendar</h2><p class="sub">Sesión ${c.sessionsDone+1} · ${c.next.pro.split(' ').slice(0,2).join(' ')}</p>
+    <div class="days"><div class="day"><small>Lun</small><b>7</b></div><div class="day on"><small>Mar</small><b>8</b></div><div class="day"><small>Mié</small><b>9</b></div><div class="day"><small>Jue</small><b>10</b></div><div class="day"><small>Vie</small><b>11</b></div></div>
+    <div class="k" style="margin-bottom:6px">Horas disponibles</div>
+    <div class="slots"><div class="slot-t off">09:00</div><div class="slot-t">10:30</div><div class="slot-t on">12:00</div><div class="slot-t">15:30</div><div class="slot-t off">17:00</div><div class="slot-t">18:30</div></div>
+    <div class="card soft"><div class="big">Mar 8 sept · 12:00</div><div class="meta">${c.next.pro} · ${c.next.role}</div></div>
+    <button class="btn accent">Confirmar hora</button>
+    <div class="k" style="margin:14px 0 4px">Historial</div>
+    <div class="list"><div class="li"><div class="l"><b>${c.treatment}</b><span>Lun 31 ago · 09:00</span></div><span class="pill ok">Asistió</span></div><div class="li"><div class="l"><b>${c.treatment}</b><span>Lun 24 ago · 09:00</span></div><span class="pill ok">Asistió</span></div></div>`;
+
+  const plan=`
+    <h2 class="h">${c.planTitle}</h2><p class="sub">${c.planSub}</p>
+    ${c.modules.map(m=>`<div class="mod"><div class="ic">${ICON[m.ic]}</div><div><b>${m.t}</b><span>${m.s}</span></div></div>`).join('')}
+    <div class="k" style="margin:12px 0 2px">Hoy</div>
+    <div class="card" style="padding:4px 14px">${c.checks.map(([t,d])=>`<div class="check ${d?'done':''}"><i class="${d?'d':''}"></i>${t}</div>`).join('')}</div>`;
+
+  const b=c.balance;
+  const pagos=`
+    <h2 class="h">Pagos</h2><p class="sub">${b.item}</p>
+    <div class="card"><div class="k">Por pagar · vence ${b.next}</div><div class="amount" style="margin-top:2px">${b.due}</div></div>
+    <div class="disc"><div><b>Paga en la app y ahorra</b><span>Descuento exclusivo de ${c.name}</span></div><span class="pct">−${b.disc} %</span></div>
+    <button class="btn accent">${ICON.card}Pagar ahora</button>
+    <div class="k" style="margin:14px 0 4px">Ofertas para ti</div>
+    <div class="list"><div class="li"><div class="l"><b>Pack 4 sesiones extra</b><span>Solo pagando en la app · hasta el 30 sept</span></div><span class="pill ok">−15 %</span></div><div class="li"><div class="l"><b>Historial de pagos</b><span>${c.sessionsDone} pagos · todo al día</span></div></div></div>`;
+
+  const rx=`
+    <h2 class="h">Recetas</h2><p class="sub">Vigentes y documentos</p>
+    <div class="rx"><div class="hd"><span><b style="font-weight:600">${c.rx.doctor}</b> · ${c.rx.date}</span><span class="pill info">Vigente</span></div>${c.rx.items.map(([m,d])=>`<div class="med"><b>${m}</b><span>${d}</span></div>`).join('')}</div>
+    <div class="card soft" style="display:flex;gap:12px;align-items:center">${qr()}<div><div class="big" style="font-size:13px">Muestra este QR en la farmacia</div><div class="meta">Receta electrónica válida 30 días</div></div></div>
+    <div class="k" style="margin:10px 0 2px">Documentos</div>
+    <div class="list">${c.docs.map(([n,d])=>`<div class="doc">${ICON.doc}${n}<span>${d}</span></div>`).join('')}</div>`;
+
+  return [
+    {t:'Inicio',layer:'core',ll:'Núcleo',body:home,active:'Inicio',d:'Próxima hora, avance del plan y el mensaje de la semana según la sesión en que va.'},
+    {t:'Avisos',layer:'core',ll:'Núcleo',body:avisos,active:'Inicio',d:'Push: hora agendada, hora cambiada, recordatorio, cuota. Tercer canal junto a WhatsApp y correo. Baja el no-show y le da a la clínica el motivo para pedir la app.'},
+    {t:'Mi evolución',layer:'core',ll:'Núcleo',body:evo,active:'Evolución',d:'Antes/después por sesión. Solo con consentimiento de fotografía firmado.'},
+    {t:t.title,layer:'vert',ll:c.vertical,body:track,active:'Evolución',d:'Lo que la vertical define que se mide. La clínica lo registra en la ficha; la app lo grafica.'},
+    {t:f.title,layer:'vert',ll:c.vertical,body:ficha,active:'Más',d:'La ficha completa del módulo que corresponde (corporal, facial, odontograma). El paciente es dueño: descarga y comparte con otra clínica de Clinera.'},
+    {t:'Agendar',layer:'core',ll:'Núcleo',body:agenda,active:'Agenda',d:'Horas reales de la agenda. Mismo motor que usa AURA por WhatsApp.'},
+    {t:c.planTitle,layer:'vert',ll:c.vertical,body:plan,active:'Plan',d:'Contenido base de la vertical atado a la semana o día post-procedimiento. La clínica agrega lo suyo.'},
+    {t:'Pagos',layer:'core',ll:'Núcleo',body:pagos,active:'Más',d:'Cuotas, sesiones y tratamientos nuevos. Descuentos que solo existen pagando en la app: el paciente quiere pagar acá y la clínica quiere que la tenga.'},
+    {t:'Recetas',layer:'core',ll:'Núcleo',body:rx,active:'Más',d:'Recetas con QR para la farmacia, consentimientos y boletas.'}
+  ];
+}
+
+function render(c){
+  document.documentElement.style.setProperty('--accent',c.accent);
+  document.documentElement.style.setProperty('--accent-soft',c.soft);
+  document.documentElement.style.setProperty('--accent-ink',c.ink);
+  const cont=[
+    {t:'Entrar',body:loginScreen(),o:{container:true,nohead:true,nonav:true},d:'Google, Apple o correo. El usuario es lo permanente; el teléfono se asocia después.'},
+    {t:'Tu teléfono',body:phoneLinkScreen(c),o:{container:true},d:'Por el número (o el correo) las clínicas lo reconocen y AURA le escribe. Se puede cambiar sin perder nada.'},
+    {t:'Mis clínicas',body:clinicsScreen(c),o:{container:true},d:'Las que lo dieron de alta, con el mismo login. Una invitación pendiente muestra cómo entra una clínica nueva. Acá nace el marketplace.'}
+  ];
+  document.getElementById('phones-cont').innerHTML=cont.map(s=>`<div class="slot">${phone(c,'Más',s.body,s.o)}<div class="cap"><div class="t">${s.t}<span class="layer cont">Contenedor</span></div><p>${s.d}</p></div></div>`).join('');
+  document.getElementById('phones').innerHTML=screens(c).map(s=>`<div class="slot">${phone(c,s.active,s.body)}<div class="cap"><div class="t">${s.t}<span class="layer ${s.layer}">${s.ll}</span></div><p>${s.d}</p></div></div>`).join('');
+  document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.id===c.id));
+}
+const seg=document.getElementById('seg');
+seg.innerHTML=CLINICS.map(c=>`<button data-id="${c.id}" style="--d:${c.dot}"><span class="dot"></span>${c.name}</button>`).join('');
+seg.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;render(CLINICS.find(c=>c.id===b.dataset.id));});
+render(CLINICS[0]);
+</script>
+
+</body>
+</html>

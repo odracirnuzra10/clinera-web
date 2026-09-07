@@ -23,6 +23,8 @@ const HIDDEN_PREFIXES = [
   "/gracias",
   "/contrata",
   "/empleado-digital",
+  "/vision-2027",
+  "/internal",
 ];
 
 function isHiddenPath(pathname: string | null) {

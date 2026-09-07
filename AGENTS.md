@@ -389,6 +389,16 @@ filtrar bloques fuera de oficina (`esBloqueHabil`).
 
 Guardián: `tests/agenda-scheduler.spec.ts`.
 
+# `/vision-2027`: deck interno de la tesis (septiembre 2026)
+
+Ruta Next en `src/app/vision-2027/`. **Interna:** `noindex, nofollow`, fuera del
+sitemap y de la navegación pública, `Disallow` en `robots-txt.ts`. No enlazarla
+desde el menú. Light, Outfit + JetBrains Mono, un solo uso del gradiente de
+marca por slide. Contenido fijado por el brief de Ricardo: no inventar cifras
+ni funciones. Anexo de producto (no es el deck):
+`/internal/mi-clinera/especificacion` y `/internal/mi-clinera/mockup`.
+Guardián: `tests/vision-2027.spec.ts`.
+
 # `/presentacion`: archivo estático, no componente — rediseño Rebeca (ago 2026)
 
 `/presentacion` (el deck de ventas) no es una ruta de Next.js: `next.config.ts` reescribe
