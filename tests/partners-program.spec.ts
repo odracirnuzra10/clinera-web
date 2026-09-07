@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
   CONVENIO_DOCTORES_BENEFICIOS,
   CONVENIO_DOCTORES_BIO_LINE,
@@ -7,6 +9,7 @@ import {
   CONVENIO_DOCTORES_PLAN_NAME,
   CONVENIO_DOCTORES_REQUISITOS,
   CONVENIO_DOCTORES_REQUISITOS_HREF,
+  PARTNERS_APPLY,
   PARTNERS_BONUS_ANNUAL_USD,
   PARTNERS_BONUS_MONTHLY_USD,
   PARTNERS_BONUS_SEMESTER_USD,
@@ -18,6 +21,7 @@ import {
   PARTNERS_APPLY_EMAIL,
   PARTNERS_DOCTORS_EMAIL,
   PARTNERS_DOCTORS_HREF,
+  PARTNERS_HERO,
   PARTNERS_PATH,
   PARTNERS_PRESENTATION_HREF,
   PARTNERS_REQUIREMENTS,
@@ -28,6 +32,17 @@ import {
   normalizarPostulacion,
   validarPostulacion,
 } from "@/lib/convenio-doctores";
+
+const partnersLandingSrc = readFileSync(
+  join(process.cwd(), "src/components/partners/PartnersLanding.tsx"),
+  "utf8",
+);
+const partnersCopySrc = readFileSync(
+  join(process.cwd(), "src/content/partners-program.ts"),
+  "utf8",
+);
+const VOSEO =
+  /\b(hacé|agendá|confirmá|volvé|mostrá|tenés|sos |podés|presentás|dejá|revisá|querés)\b/i;
 
 test.describe("fuente de verdad del programa partner", () => {
   test("bonos por modalidad; sin descuento al referido ni pago mensual", () => {
@@ -48,6 +63,14 @@ test.describe("fuente de verdad del programa partner", () => {
       "Equipo comercial",
       "Acceso al CRM",
     ]);
+    expect(partnersLandingSrc).toMatch(/No cierres solo/);
+    expect(partnersLandingSrc).not.toMatch(/cieras/);
+    expect(partnersLandingSrc).not.toMatch(VOSEO);
+    expect(partnersCopySrc).not.toMatch(VOSEO);
+    expect(PARTNERS_HERO.lead).toMatch(/Presentas Clinera/);
+    expect(PARTNERS_HERO.lead).toMatch(/tienes acceso al CRM/);
+    expect(PARTNERS_APPLY.h2Before).toBe("Deja tu celular.");
+    expect(PARTNERS_APPLY.fields.nombre.hint).toMatch(/quieres/);
     expect(PARTNERS_DOCTORS_CONVENIO.cta).toBe("Postula");
     expect(PARTNERS_DOCTORS_CONVENIO.h2Accent).toBe("Postula.");
     expect(PARTNERS_DOCTORS_CONVENIO.lead).toMatch(/postulas acá/);
@@ -128,6 +151,9 @@ test.describe("landing /partners", () => {
     expect(body).toMatch(/Notebook o tablet/i);
     expect(body).toMatch(/Equipo comercial/i);
     expect(body).toMatch(/CRM/i);
+    expect(body).toMatch(/No cierres solo/);
+    expect(body).not.toMatch(/cieras/);
+    expect(body).not.toMatch(/\btenés\b/i);
     expect(body).not.toMatch(/15%/);
     expect(body).not.toMatch(/Permanente para todos los clientes/);
     expect(body).not.toMatch(/comisión del 10%/i);

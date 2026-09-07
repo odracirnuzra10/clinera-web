@@ -40,7 +40,7 @@ export const PAGE_DATES: Record<
   "/demo": { published: "2025-06-01", modified: "2026-05-01" },
   "/app": { published: "2026-03-01", modified: "2026-08-01" },
   "/webinars": { published: "2026-04-01", modified: "2026-08-15" },
-  "/partners": { published: "2026-08-01", modified: "2026-09-06" },
+  "/partners": { published: "2026-08-01", modified: "2026-09-07" },
   "/convenio-doctores": { published: "2026-09-06", modified: "2026-09-06" },
   "/comparativas": { published: "2026-04-01", modified: "2026-08-26" },
   "/novedades": { published: "2025-06-01", modified: "2026-08-26" },
