@@ -2037,6 +2037,115 @@
       white-space: nowrap;
     }
 
+    /* Ranking horizontal (deudores / profesionales) */
+    .agent-rank {
+      display: grid;
+      gap: 11px;
+      margin-top: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .agent-rank > div {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr) 72px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .agent-rank > div > div {
+      min-width: 0;
+    }
+
+    .agent-rank em {
+      color: var(--violet);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-style: normal;
+      font-weight: 650;
+    }
+
+    .agent-rank span {
+      color: var(--ink);
+      font-size: 12.5px;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .agent-rank b {
+      display: block;
+      height: 9px;
+      margin-top: 4px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #efefec;
+    }
+
+    .agent-rank b i {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--violet);
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+
+    .agent-bars b i {
+      transform: scaleX(0);
+      transform-origin: left center;
+    }
+
+    .agent-rank small {
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 650;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .slide.active .agent-rank b i,
+    .slide.active .agent-bars b i {
+      animation: iq-bar-grow 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .slide.active .agent-rank > div:nth-child(1) b i,
+    .slide.active .agent-bars > div:nth-child(1) b i { animation-delay: 0.08s; }
+    .slide.active .agent-rank > div:nth-child(2) b i,
+    .slide.active .agent-bars > div:nth-child(2) b i { animation-delay: 0.16s; }
+    .slide.active .agent-rank > div:nth-child(3) b i,
+    .slide.active .agent-bars > div:nth-child(3) b i { animation-delay: 0.24s; }
+    .slide.active .agent-rank > div:nth-child(4) b i,
+    .slide.active .agent-bars > div:nth-child(4) b i { animation-delay: 0.32s; }
+    .slide.active .agent-rank > div:nth-child(5) b i,
+    .slide.active .agent-bars > div:nth-child(5) b i { animation-delay: 0.4s; }
+
+    @keyframes iq-bar-grow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .agent-rank b i,
+      .agent-bars b i {
+        transform: none;
+        animation: none !important;
+      }
+    }
+
+    .iq-quote {
+      display: inline-block;
+      margin: 0 0 10px;
+      color: var(--violet);
+      font-family: var(--blk-mono);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
     .agent-chat-input {
       display: flex;
       align-items: center;
@@ -4406,22 +4515,18 @@
 <section
         class="slide blk"
         id="inteligencia"
-        data-name="Clinera Intelligence"
+        data-name="Intelligence · ventas"
         aria-hidden="true"
       >
         <div class="slide-inner rzs-layout">
           <div class="rzs-copy">
             <div class="blk-eyebrow">CLINERA INTELLIGENCE</div>
-            <h2 class="blk-h2">Clinera Intelligence, tu <span class="blk-grad-text">agente interno con IA</span>.</h2>
-            <p class="blk-lead">Le preguntas a tu clínica en español y te responde con lo que realmente pasó.</p>
-            <ul class="rzs-points">
-              <li>Ventas, citas y tratamientos en un chat</li>
-              <li>Respuestas en segundos, con gráficos al momento</li>
-              <li>Sin exportar nada ni esperar el cierre de mes</li>
-            </ul>
+            <p class="iq-quote">Pregúntale a tu clínica</p>
+            <h2 class="blk-h2">«¿Cuánto vendí <span class="blk-grad-text">el mes pasado</span>?»</h2>
+            <p class="blk-lead">Te responde con el total y el desglose por tratamiento. Sin exportar Excel ni esperar el cierre.</p>
           </div>
 
-          <aside class="agent-chat reveal" aria-label="Vista del chat Clinera Intelligence">
+          <aside class="agent-chat reveal" aria-label="Respuesta de Clinera Intelligence sobre ventas">
             <div class="agent-chat-bar">
               <span class="agent-dots" aria-hidden="true"><i></i><i></i><i></i></span>
               <span class="agent-chat-title">Clinera Intelligence</span>
@@ -4433,14 +4538,175 @@
                   <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
                   Clinera Intelligence
                 </span>
-                <p>En julio vendiste <b>$101.293.919</b> en 63 ventas.</p>
-                <ul class="agent-stats">
-                  <li><i class="violet"></i>Facturado: <b>$92.505.165</b> · 54 pagadas</li>
-                  <li><i class="gray"></i>Pendiente: <b>$8.788.754</b> · 9 parciales</li>
-                </ul>
-                <div class="agent-bars" aria-hidden="true">
-                  <div><span>Facturado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>
-                  <div><span>Pendiente</span><b><i class="gray" style="width: 9%"></i></b><small>$8,8 M</small></div>
+                <p>En agosto vendiste <b>$92.505.165</b>. Esto vendió más:</p>
+                <div class="agent-bars" aria-label="Ventas por tratamiento">
+                  <div><span>Trifásico</span><b><i style="width: 100%"></i></b><small>$28,4 M</small></div>
+                  <div><span>Botox</span><b><i style="width: 78%"></i></b><small>$22,1 M</small></div>
+                  <div><span>Rellenos</span><b><i style="width: 66%"></i></b><small>$18,6 M</small></div>
+                  <div><span>Láser</span><b><i style="width: 50%"></i></b><small>$14,2 M</small></div>
+                  <div><span>Evaluación</span><b><i style="width: 31%"></i></b><small>$8,9 M</small></div>
+                </div>
+              </div>
+            </div>
+            <div class="agent-chat-input">
+              <span>Pregúntale a tu clínica…</span>
+              <i aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="M8 13V3M3.8 7.2 8 3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </i>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+<section
+        class="slide blk"
+        id="inteligencia-deudas"
+        data-name="Intelligence · deudas"
+        aria-hidden="true"
+      >
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="blk-eyebrow">CLINERA INTELLIGENCE</div>
+            <p class="iq-quote">Pregúntale a tu clínica</p>
+            <h2 class="blk-h2">«¿Qué pacientes me <span class="blk-grad-text">deben dinero</span>?»</h2>
+            <p class="blk-lead">Los 5 saldos más altos, con nombre y monto. Listos para cobrar o recordar.</p>
+          </div>
+
+          <aside class="agent-chat reveal" aria-label="Respuesta de Clinera Intelligence sobre deudores">
+            <div class="agent-chat-bar">
+              <span class="agent-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="agent-chat-title">Clinera Intelligence</span>
+            </div>
+            <div class="agent-chat-body">
+              <div class="agent-user-msg">¿Qué pacientes me deben dinero?</div>
+              <div class="agent-ai-msg">
+                <span class="agent-ai-head">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                  Clinera Intelligence
+                </span>
+                <p>Hay <b>4 pacientes con saldo pendiente</b> por <b>$412.000</b>. Los 5 montos más altos:</p>
+                <div class="agent-rank" aria-label="Top 5 deudores">
+                  <div>
+                    <em>1</em>
+                    <div>
+                      <span>María Fernanda Soto</span>
+                      <b><i style="width: 100%"></i></b>
+                    </div>
+                    <small>$186.000</small>
+                  </div>
+                  <div>
+                    <em>2</em>
+                    <div>
+                      <span>Jorge Contreras</span>
+                      <b><i style="width: 76%"></i></b>
+                    </div>
+                    <small>$142.000</small>
+                  </div>
+                  <div>
+                    <em>3</em>
+                    <div>
+                      <span>Valentina Ruiz</span>
+                      <b><i style="width: 53%"></i></b>
+                    </div>
+                    <small>$98.000</small>
+                  </div>
+                  <div>
+                    <em>4</em>
+                    <div>
+                      <span>Andrés Peña</span>
+                      <b><i style="width: 40%"></i></b>
+                    </div>
+                    <small>$74.000</small>
+                  </div>
+                  <div>
+                    <em>5</em>
+                    <div>
+                      <span>Camila Ortega</span>
+                      <b><i style="width: 28%"></i></b>
+                    </div>
+                    <small>$52.000</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="agent-chat-input">
+              <span>Pregúntale a tu clínica…</span>
+              <i aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="M8 13V3M3.8 7.2 8 3l4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </i>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+<section
+        class="slide blk"
+        id="inteligencia-profesionales"
+        data-name="Intelligence · equipo"
+        aria-hidden="true"
+      >
+        <div class="slide-inner rzs-layout">
+          <div class="rzs-copy">
+            <div class="blk-eyebrow">CLINERA INTELLIGENCE</div>
+            <p class="iq-quote">Pregúntale a tu clínica</p>
+            <h2 class="blk-h2">«¿Qué profesional ha <span class="blk-grad-text">vendido más</span>?»</h2>
+            <p class="blk-lead">El ranking del mes, con nombre y venta. Sin pedir el Excel a administración.</p>
+          </div>
+
+          <aside class="agent-chat reveal" aria-label="Respuesta de Clinera Intelligence sobre profesionales">
+            <div class="agent-chat-bar">
+              <span class="agent-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="agent-chat-title">Clinera Intelligence</span>
+            </div>
+            <div class="agent-chat-body">
+              <div class="agent-user-msg">¿Qué profesional ha vendido más?</div>
+              <div class="agent-ai-msg">
+                <span class="agent-ai-head">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>
+                  Clinera Intelligence
+                </span>
+                <p>En agosto lideró <b>Dra. Daniela Araya</b> con <b>$24.800.000</b>. Top 5 del equipo:</p>
+                <div class="agent-rank" aria-label="Top 5 profesionales por venta">
+                  <div>
+                    <em>1</em>
+                    <div>
+                      <span>Dra. Daniela Araya</span>
+                      <b><i style="width: 100%"></i></b>
+                    </div>
+                    <small>$24,8 M</small>
+                  </div>
+                  <div>
+                    <em>2</em>
+                    <div>
+                      <span>Dr. Felipe Muñoz</span>
+                      <b><i style="width: 77%"></i></b>
+                    </div>
+                    <small>$19,2 M</small>
+                  </div>
+                  <div>
+                    <em>3</em>
+                    <div>
+                      <span>Dra. Sofía Vargas</span>
+                      <b><i style="width: 66%"></i></b>
+                    </div>
+                    <small>$16,4 M</small>
+                  </div>
+                  <div>
+                    <em>4</em>
+                    <div>
+                      <span>Dr. Ignacio Rojas</span>
+                      <b><i style="width: 57%"></i></b>
+                    </div>
+                    <small>$14,1 M</small>
+                  </div>
+                  <div>
+                    <em>5</em>
+                    <div>
+                      <span>Dra. Paula Méndez</span>
+                      <b><i style="width: 47%"></i></b>
+                    </div>
+                    <small>$11,6 M</small>
+                  </div>
                 </div>
               </div>
             </div>
@@ -4637,47 +4903,6 @@
           </div>
         </div>
       </section>
-
-<section
-        class="slide"
-        id="demostracion"
-        data-name="Prueba la IA"
-        aria-hidden="true"
-      >
-        <div class="slide-inner try-ai-layout">
-          <div class="try-ai-copy">
-            <div class="eyebrow">Experiencia en vivo</div>
-            <h2 class="display">Prueba tú mismo <span>la IA.</span></h2>
-            <p class="lead">
-              Escanea el QR y conversa con la IA de Clinera. El “hola” ya viene escrito.
-            </p>
-            <div class="try-ai-note">Disponible ahora · sin registro</div>
-          </div>
-
-          <aside class="qr-panel reveal" aria-label="Probar la IA de Clinera por WhatsApp">
-            <a
-              class="qr-link"
-              href="https://wa.me/56953230056?text=hola"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Abrir WhatsApp con el mensaje hola para probar la IA de Clinera"
-            >
-              <span class="qr-kicker">WhatsApp · experiencia en vivo</span>
-              <span class="qr-frame">
-                <img
-                  src="/presentacion/assets/clinera-ai-whatsapp-qr.svg"
-                  alt="Código QR para abrir WhatsApp al número más cincuenta y seis nueve cinco tres dos tres cero cero cinco seis con el mensaje hola"
-                  loading="eager"
-                  decoding="async"
-                />
-              </span>
-              <strong>Escanea y envía “hola”</strong>
-              <span>+56 9 5323 0056</span>
-            </a>
-            <p>Desde el teléfono, toca el QR.</p>
-          </aside>
-        </div>
-      </section>
     </main>
 
     <footer class="deck-footer" aria-label="Navegación de la presentación">
@@ -4804,163 +5029,6 @@
       });
 
       render(current, hashIndex < 0);
-    })();
-  </script>
-  <script>
-    // Chat animado de Clinera Intelligence — mismo loop que el home y
-    // /plataforma: la pregunta se tipea, aparecen los puntos de "pensando",
-    // la respuesta entra en cascada con los gráficos creciendo y, tras una
-    // pausa de lectura, cambia a la otra pregunta y repite. Corre solo
-    // mientras el slide está activo; con prefers-reduced-motion o sin JS
-    // queda la vista estática del HTML.
-    (() => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-      const slide = document.getElementById("inteligencia");
-      const cuerpo = slide && slide.querySelector(".agent-chat-body");
-      if (!cuerpo) return;
-
-      const PREGUNTA = {
-        ventas: "¿Cuánto vendí el mes pasado?",
-        citas: "¿Cuántos pacientes agendaron y cuántos llegaron a tratamiento?",
-      };
-      const OTRO = { ventas: "citas", citas: "ventas" };
-      const MS_LETRA = 26;
-      const MS_ANTES_PENSAR = 380;
-      const MS_PENSANDO = 1250;
-      const MS_LECTURA = 5800;
-
-      const cabezaIa =
-        '<span class="agent-ai-head">' +
-        '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.8c.5 3 1.9 4.7 4.7 5.7.4.1.4.9 0 1-2.8 1-4.2 2.7-4.7 5.7-.5-3-1.9-4.7-4.7-5.7-.4-.1-.4-.9 0-1C6.1 6.5 7.5 4.8 8 1.8Z"/></svg>' +
-        "Clinera Intelligence</span>";
-
-      const respuestaVentas = (anima) => {
-        const d = (ms) => (anima ? ' style="animation-delay:' + ms + 'ms"' : "");
-        return (
-          '<div class="agent-ai-msg' + (anima ? " agent-ai-entra agent-anima" : "") + '">' +
-          cabezaIa +
-          "<p>En julio vendiste <b>$101.293.919</b> en 63 ventas.</p>" +
-          '<ul class="agent-stats">' +
-          "<li" + d(240) + '><i class="violet"></i>Facturado: <b>$92.505.165</b> · 54 pagadas</li>' +
-          "<li" + d(360) + '><i class="gray"></i>Pendiente: <b>$8.788.754</b> · 9 parciales</li>' +
-          "</ul>" +
-          '<div class="agent-bars" aria-hidden="true">' +
-          '<div><span>Facturado</span><b><i style="width: 91%"></i></b><small>$92,5 M</small></div>' +
-          '<div><span>Pendiente</span><b><i class="gray" style="width: 9%"></i></b><small>$8,8 M</small></div>' +
-          "</div></div>"
-        );
-      };
-
-      const respuestaCitas = (anima) => {
-        const barras = [
-          { x: 16, y: 20, h: 84, v: "2.046", t: "Agendadas", f: "#F3F4F6", s: "#E5E7EB" },
-          { x: 90, y: 56, h: 48, v: "1.176", t: "Asistieron", f: "#6941C6", s: "" },
-          { x: 164, y: 82, h: 22, v: "541", t: "Canceladas", f: "#D1D5DB", s: "" },
-          { x: 238, y: 93, h: 11, v: "273", t: "Ausentes", f: "#D1D5DB", s: "" },
-        ];
-        const grupos = barras
-          .map((b, i) => {
-            const d1 = anima ? ' style="animation-delay:' + (520 + i * 140) + 'ms"' : "";
-            const d2 = anima ? ' style="animation-delay:' + (720 + i * 140) + 'ms"' : "";
-            return (
-              "<g>" +
-              '<rect class="agent-barra"' + d1 + ' x="' + b.x + '" y="' + b.y +
-              '" width="46" height="' + b.h + '" rx="3" fill="' + b.f + '"' +
-              (b.s ? ' stroke="' + b.s + '"' : "") + "></rect>" +
-              '<text class="agent-barra-dato"' + d2 + ' x="' + (b.x + 23) + '" y="' + (b.y - 7) +
-              '" text-anchor="middle" font-family="DM Mono, monospace" font-size="10" font-weight="600" fill="#111318">' +
-              b.v + "</text>" +
-              '<text x="' + (b.x + 23) + '" y="120" text-anchor="middle" font-family="DM Mono, monospace" font-size="8" fill="#656a76">' +
-              b.t.toUpperCase() + "</text></g>"
-            );
-          })
-          .join("");
-        return (
-          '<div class="agent-ai-msg' + (anima ? " agent-ai-entra agent-anima" : "") + '">' +
-          cabezaIa +
-          "<p>Se agendaron <b>2.046 citas</b> y <b>1.176 pacientes</b> llegaron a su tratamiento (57% de asistencia).</p>" +
-          '<div class="agent-chart"><span class="agent-chart-label">Citas por estado</span>' +
-          '<svg viewBox="0 0 300 132" aria-hidden="true">' + grupos +
-          '<line x1="8" y1="104" x2="292" y2="104" stroke="#E5E7EB"></line></svg>' +
-          "</div></div>"
-        );
-      };
-
-      const RESPUESTA = { ventas: respuestaVentas, citas: respuestaCitas };
-      const burbuja = (esc) => '<div class="agent-user-msg">' + PREGUNTA[esc] + "</div>";
-
-      cuerpo.classList.add("agent-chat-vivo");
-      cuerpo.innerHTML =
-        '<div class="agent-sizer" aria-hidden="true"></div><div class="agent-capa"></div>';
-      const sizer = cuerpo.querySelector(".agent-sizer");
-      const capa = cuerpo.querySelector(".agent-capa");
-
-      let escenario = "ventas";
-      let timers = [];
-      const limpiar = () => {
-        timers.forEach((t) => clearTimeout(t));
-        timers = [];
-      };
-      const en = (fn, ms) => timers.push(setTimeout(fn, ms));
-
-      const pintarEstatico = () => {
-        sizer.innerHTML = burbuja(escenario) + RESPUESTA[escenario](false);
-        capa.innerHTML = burbuja(escenario) + RESPUESTA[escenario](false);
-      };
-
-      const cicloTipeo = () => {
-        sizer.innerHTML = burbuja(escenario) + RESPUESTA[escenario](false);
-        capa.innerHTML =
-          '<div class="agent-user-msg agent-user-entra"><span></span><i class="agent-caret" aria-hidden="true"></i></div>';
-        const texto = capa.querySelector("span");
-        const pregunta = PREGUNTA[escenario];
-        let n = 0;
-        const teclear = () => {
-          n += 1;
-          texto.textContent = pregunta.slice(0, n);
-          if (n < pregunta.length) en(teclear, MS_LETRA);
-          else en(cicloPensando, MS_ANTES_PENSAR);
-        };
-        en(teclear, MS_LETRA);
-      };
-
-      const cicloPensando = () => {
-        capa.innerHTML =
-          burbuja(escenario) +
-          '<div class="agent-pensando" aria-hidden="true"><i></i><i></i><i></i></div>';
-        en(cicloRespuesta, MS_PENSANDO);
-      };
-
-      const cicloRespuesta = () => {
-        capa.innerHTML = burbuja(escenario) + RESPUESTA[escenario](true);
-        en(() => {
-          escenario = OTRO[escenario];
-          cicloTipeo();
-        }, MS_LECTURA);
-      };
-
-      const activo = () => slide.classList.contains("active");
-      let corriendo = false;
-      const evaluar = () => {
-        if (activo() && !corriendo) {
-          corriendo = true;
-          limpiar();
-          escenario = "ventas";
-          cicloTipeo();
-        } else if (!activo() && corriendo) {
-          corriendo = false;
-          limpiar();
-          pintarEstatico();
-        }
-      };
-
-      pintarEstatico();
-      new MutationObserver(evaluar).observe(slide, {
-        attributes: true,
-        attributeFilter: ["class"],
-      });
-      evaluar();
     })();
   </script>
 </body>

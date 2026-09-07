@@ -414,6 +414,13 @@ migración habla de «7 días de Red de Seguridad». Fuente: correo de Rebeca co
 se mantienen (guardians propios). Guardián del rediseño:
 `tests/presentacion-redisenio-rebeca.spec.ts`.
 
+**Clinera Intelligence (sep 2026):** el WOW del deck ya **no** es el QR
+«Prueba tú mismo» (`#demostracion` eliminado). Son **3 diapos** seguidas
+(`#inteligencia`, `#inteligencia-deudas`, `#inteligencia-profesionales`) con
+pregunta en español + gráfico de respuesta: ventas por tratamiento, top 5
+deudores, top 5 profesionales. Guardián:
+`tests/presentacion-intelligence.spec.ts`.
+
 **1 cuenta Clinera = 1 número de WhatsApp, 1 cuenta de Instagram y 1 cuenta de Facebook.**
 Es el recorte comercial de canales, no un detalle de onboarding. Si la clínica opera con
 más de un número o más de un perfil, son más cuentas (y más planes). Vive en la
