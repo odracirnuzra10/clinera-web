@@ -32,9 +32,9 @@ y cada uno se dispara desde donde realmente ocurre:
 | Evento | Cuándo | Dónde vive | Valor |
 |---|---|---|---|
 | **Lead** | alguien envía el **Instant Form** de Meta Ads | HUB `qOGjfU1AgubcOHvt` → Sub A en n8n (aplicador en repo `baserow`, `sales/n8n/aplicar_instant_form_mql.py`) | US$ 5 |
-| **MQL** | alguien agenda en `www.clinera.io/agenda` **o** la IA agenda por WhatsApp **o** un lead de formulario pasa a PQL en `crm.oacg.cl` (emisor PQL: pendiente) | este workflow (wizard) · `clinera-meet-por-profesional.workflow.json` (IA) | US$ 10 |
-| **SQL** | el closer lo marca calificado en `crm.oacg.cl` | `crm-sql-twenty.workflow.json` | US$ 100 |
-| **SQL_Plus** | el closer lo sube a propuesta en `crm.oacg.cl` | **solo en n8n**, ver abajo | US$ 300 |
+| **MQL** | alguien agenda en `www.clinera.io/agenda` **o** la IA agenda por WhatsApp **o** Camila por teléfono | este workflow (wizard) · `clinera-meet-por-profesional.workflow.json` (IA) | US$ 10 |
+| **SQL** / **HOT** / resto CRM | el closer mueve `stage` en `crm.oacg.cl` | n8n `W1SybZZSEZqAItIt` (webhook `crm-sql`) — ver «CRM Twenty → Meta CAPI» | ver mapeo |
+| ~~**SQL_Plus**~~ | ~~propuesta~~ | **retirado** (sep-2026): PROPOSAL ahora emite `HOT` | — |
 
 Al crear la cita, el workflow dispara **en paralelo** a la respuesta del
 navegador (nunca la demora ni la rompe):
@@ -329,6 +329,39 @@ Con eso, el tool pasa a mover la cita en Clinera y a **mover** el evento de
 Google con `sendUpdates: all`, y el paciente recibe el correo con la hora nueva
 sobre el mismo Meet.
 
+
+## CRM Twenty → Meta CAPI (vivo, sep-2026)
+
+Workflow unificado en n8n: **`W1SybZZSEZqAItIt`** (*Clinera | Twenty etapas → Meta CAPI*).
+Webhook de producción: `POST …/webhook/crm-sql` (el mismo path que usaba el
+workflow SQL viejo). En Twenty: Settings → APIs & Webhooks, target
+`…/webhook/crm-sql`, operations `*.*` (incluye `opportunity.updated` **sin**
+filtro de stage).
+
+Los emisores viejos están **apagados**:
+- `dhwqS9oW3qfvq6Y4` — *Clinera — SQL desde CRM (Twenty)*
+- `rWZDSfi8RJ780q76` — *CRM · SQL+ → Meta CAPI* (`SQL_Plus`)
+
+### Mapeo `stage` → evento CAPI → value (USD)
+
+| stage | event_name | value |
+|---|---|---|
+| `NEW` | `Lead` | 1 |
+| `SCREENING` | `PQL` | 2 |
+| `PQL` | `MQL` | 10 |
+| `MEETING` | `SQL` | 100 |
+| `PROPOSAL` | `HOT` | 300 |
+| `CUSTOMER` | `Purchase` | `planClinera`: VORTEX 279 / ATLAS 379 / SUMMIT 479; vacío → 279 |
+| `NQL` | `NQL` | 0 |
+
+Todos con `custom_data.currency = "USD"`. Ningún stage queda sin evento.
+`event_id` = `{opportunityId}_{stage}`. `user_data.lead_id` = `leadgenId`
+(entero, sin hash) si existe; si no, el evento sale igual.
+`action_source` = `system_generated`. Dedup: ledger del workflow + `event_id`.
+
+El export `crm-sql-twenty.workflow.json` de este repo es el **grafo viejo**
+(solo SQL); ya no es el runtime. Bajar el vivo por API antes de tocar nodos.
+
 ## crm-sql-twenty.workflow.json
 
 El segundo evento del embudo: **SQL** (US$ 100), cuando el closer marca el
@@ -346,13 +379,13 @@ se ve en el tablero. El mapa del workspace OACG es:
 
 | Valor en el webhook | Etiqueta en el tablero |
 |---|---|
-| `NEW` | Nuevo |
-| `SCREENING` | **MQL** |
-| `PQL` | PQL · No contesta |
-| `MEETING` | **SQL** |
-| `PROPOSAL` | **SQL+** |
-| `CUSTOMER` | Contrata |
-| `NQL` | NQL · No califica |
+| `NEW` | (etiqueta visible puede cambiar; valor interno estable) → CAPI `Lead` / 1 |
+| `SCREENING` | → CAPI `PQL` / 2 |
+| `PQL` | → CAPI `MQL` / 10 |
+| `MEETING` | → CAPI `SQL` / 100 |
+| `PROPOSAL` | → CAPI **`HOT`** / 300 (antes `SQL_Plus`) |
+| `CUSTOMER` | → CAPI `Purchase` / planClinera |
+| `NQL` | → CAPI `NQL` / 0 |
 
 `ETAPAS_SQL` acepta `meeting` y `proposal` (y también las etiquetas `sql` /
 `sql+`, por si el webhook llegara desde otra vista).
@@ -404,11 +437,12 @@ Descubierto el 2026-08-19 leyendo la instancia con la API. Los tres apuntan al
 pixel `1104567405156111`. Se anotan acá para que nadie vuelva a diseñar el
 embudo mirando solo este repo.
 
-| Workflow en n8n | Id | Evento | Valor | Disparo |
-|---|---|---|---|---|
-| `Clinera — SQL desde CRM (Twenty)` | `dhwqS9oW3qfvq6Y4` | `SQL` | US$ 100 | webhook de Twenty (este archivo) |
-| `CRM · SQL+ → Meta CAPI` | `rWZDSfi8RJ780q76` | `SQL_Plus` | US$ 300 | sondeo cada 5 min a `stage=PROPOSAL` |
-| `OACG TECH \| SQL Conversión Alto Valor` | `1erGwPkeneXUkqzG` | `SQL` | US$ 100 | Baserow tabla 152 + backstop 24 h |
+| Workflow en n8n | Id | Evento | Valor | Disparo | Estado |
+|---|---|---|---|---|---|
+| `Clinera \| Twenty etapas → Meta CAPI` | `W1SybZZSEZqAItIt` | mapeo completo (Lead/PQL/MQL/SQL/**HOT**/Purchase/NQL) | ver tabla arriba | webhook Twenty `crm-sql` | **activo** |
+| `Clinera — SQL desde CRM (Twenty)` | `dhwqS9oW3qfvq6Y4` | `SQL` | US$ 100 | webhook (reemplazado por W1) | **apagado** |
+| `CRM · SQL+ → Meta CAPI` | `rWZDSfi8RJ780q76` | ~~`SQL_Plus`~~ | US$ 300 | sondeo PROPOSAL | **apagado** (`HOT` lo manda W1) |
+| `OACG TECH \| SQL Conversión Alto Valor` | `1erGwPkeneXUkqzG` | `SQL` | US$ 100 | Baserow tabla 152 + backstop 24 h | activo (Baserow, no Twenty) |
 
 Los dos últimos siguen sin exportarse completos —siguen siendo grafos que sólo
 existen en n8n—, pero el 2026-08-21 se les agregó lógica para Google Ads (ver
@@ -451,9 +485,8 @@ Dos cosas que hay que respetar al tocar cualquiera de los dos:
    CADA workflow reenvíe lo suyo; el `event_id` compartido es lo que evita que
    los DOS cuenten el mismo lead.
 
-`SQL` (US$ 100) y `SQL_Plus` (US$ 300) son eventos distintos a propósito y no se
-deduplican entre sí: son dos peldaños del embudo, no el mismo hecho contado dos
-veces.
+`SQL` (US$ 100) y `HOT` (US$ 300, antes `SQL_Plus`) son peldaños distintos.
+`SQL_Plus` ya no se emite.
 
 Además de los placeholders del workflow de reserva, este archivo lleva
 `__BASEROW_TOKEN__` en el nodo "Baserow - Meta ids" **y** en el nodo nuevo
@@ -462,7 +495,7 @@ Además de los placeholders del workflow de reserva, este archivo lleva
 ### Google Ads entró al mismo embudo (2026-08-21)
 
 Ricardo pidió alinear Google Ads al mismo vocabulario y montos que Meta ya usa
-acá (MQL=10 / SQL=100 / SQL+=300 USD). Google Ads no tiene un camino de push
+acá (MQL=10 / SQL=100 / HOT=300 USD). Google Ads no tiene un camino de push
 por evento sin developer token — a diferencia de Meta CAPI — así que en vez de
 un envío paralelo, los workflows de SQL y SQL+ de esta página (no el de MQL) ahora **además**
 marcan en Baserow 152 (`🎯 SQL a Google` / `🎯 SQL+ a Google`) justo después
