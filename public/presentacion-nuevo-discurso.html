@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Clinera — Nuevo discurso comercial</title>
+  <meta name="description" content="Deck interno: tres planes mensuales, regalo de implementación para cerrar ya, anual solo si lo piden." />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="canonical" href="https://www.clinera.io/nuevodiscurso" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%237C3AED'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #111318;
+      --line: rgba(0, 0, 0, 0.08);
+      --cyan: #009FE3;
+      --violet: #7C3AED;
+      --magenta: #C850C0;
+      --mint: #10B981;
+      --grad: linear-gradient(135deg, #009FE3 0%, #7C3AED 50%, #C850C0 100%);
+      --display: "Plus Jakarta Sans", sans-serif;
+      --ease: cubic-bezier(.22, .8, .25, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--display);
+      -webkit-font-smoothing: antialiased;
+    }
+    body { overflow: hidden; }
+    button { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+    :focus-visible { outline: 2px solid rgba(124, 58, 237, .35); outline-offset: 3px; }
+
+    .g {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .deck { position: relative; width: 100vw; min-height: 100dvh; }
+
+    .hud {
+      position: fixed;
+      z-index: 40;
+      inset: 0 0 auto;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(28px, 4vw, 56px);
+    }
+    .brand {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+    .brand span { color: var(--mint); }
+    .hud-meta {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.03em;
+    }
+
+    .progress {
+      position: fixed;
+      z-index: 41;
+      left: 0; right: 0; bottom: 0;
+      height: 4px;
+      background: var(--line);
+    }
+    .progress > i {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--grad);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 96px clamp(28px, 6vw, 88px) 80px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 0;
+      overflow: auto;
+      background: var(--bg);
+    }
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 2;
+    }
+    .inner { width: min(1100px, 100%); }
+
+    .cover {
+      background:
+        radial-gradient(ellipse 78% 68% at 4% -8%, rgba(232, 164, 196, 0.55) 0%, rgba(200, 80, 192, 0.16) 32%, transparent 62%),
+        radial-gradient(ellipse 64% 54% at 46% 10%, rgba(196, 181, 253, 0.48) 0%, rgba(124, 58, 237, 0.12) 38%, transparent 64%),
+        radial-gradient(ellipse 72% 62% at 98% -4%, rgba(186, 230, 253, 0.58) 0%, rgba(0, 159, 227, 0.14) 34%, transparent 60%),
+        #ffffff;
+    }
+
+    .h1 {
+      font-size: clamp(56px, 8vw, 104px);
+      font-weight: 800;
+      letter-spacing: -.06em;
+      line-height: .92;
+    }
+    .h2 {
+      font-size: clamp(44px, 6vw, 80px);
+      font-weight: 800;
+      letter-spacing: -.055em;
+      line-height: .96;
+      max-width: 18ch;
+    }
+    .line {
+      margin-top: 28px;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 700;
+      letter-spacing: -.04em;
+      line-height: 1.15;
+      max-width: 28ch;
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+      margin-top: 36px;
+    }
+    .stack li {
+      list-style: none;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 700;
+      letter-spacing: -.04em;
+      line-height: 1.15;
+    }
+
+    .nav {
+      position: fixed;
+      z-index: 40;
+      left: clamp(28px, 4vw, 56px);
+      bottom: 22px;
+      display: flex;
+      gap: 10px;
+    }
+    .nav button {
+      width: 48px;
+      height: 40px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+    }
+    .nav button:disabled { opacity: .28; cursor: default; }
+    .nav svg { width: 18px; height: 18px; }
+
+    @media (max-width: 820px) {
+      .h2 { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <header class="hud">
+      <div class="brand">clinera<span>.io</span></div>
+      <div class="hud-meta"><span id="currentCount">01</span> / <span id="totalCount">11</span></div>
+    </header>
+
+    <section class="slide cover active" id="portada" data-name="Portada" aria-hidden="false">
+      <div class="inner">
+        <h1 class="h1">Nuevo discurso.<br /><span class="g">Cierra ahora</span>.</h1>
+        <p class="line">Hasta 200 clientes. Después, exquisitos.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="friccion" data-name="Fricción" aria-hidden="true">
+      <div class="inner">
+        <h2 class="h2">Tres modalidades. El cliente se <span class="g">traba</span>.</h2>
+        <p class="line">Menos opciones. Cierra más rápido.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="web" data-name="La web" aria-hidden="true">
+      <div class="inner">
+        <h2 class="h2">La web: tres planes. <span class="g">Sólo mensual</span>.</h2>
+        <ul class="stack">
+          <li>Vortex USD 279.</li>
+          <li>Atlas USD 379.</li>
+          <li>Summit USD 479.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide" id="cobro" data-name="Primer cobro" aria-hidden="true">
+      <div class="inner">
+        <h2 class="h2">Primer cobro: USD 450 + el <span class="g">primer mes</span>.</h2>
+        <p class="line">Se acabó el mes de prueba. Se cobra todo junto.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="empuje" data-name="El empuje" aria-hidden="true">
+      <div class="inner">
+        <h2 class="h2">El empuje es el <span class="g">regalo</span> de la implementación.</h2>
+        <p class="line">No un descuento publicado. Una palanca de cierre.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="regla" data-name="La regla" aria-hidden="true">
+      <div class="inner">
+        <ul class="stack" style="margin-top:0">
+          <li>Hoy o mañana: <span class="g">100% de regalo</span>.</li>
+          <li>Esta semana: <span class="g">50% de descuento</span>.</li>
+          <li>Nunca bajes el plan. Baja la implementación.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide" id="cyberday" data-name="Cyberday" aria-hidden="true">
+      <div class="inner">
+        <h2 class="h2">Adelantamos el <span class="g">Cyberday</span>.</h2>
+        <p class="line">Autorización del dueño. Vence esta semana.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="cierre-mes" data-name="Cierre de mes" aria-hidden="true">
+      <div class="inner">
+        <h2 class="h2">Cerramos el mes el <span class="g">10, 15, 20, 25 o 30</span>.</h2>
+        <p class="line">Si hoy es 14: “cerramos el 15. Si cierras mañana, te regalo la implementación”.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="excusas" data-name="Excusas" aria-hidden="true">
+      <div class="inner">
+        <ul class="stack" style="margin-top:0">
+          <li>Queda un cupo de onboarding esta semana.</li>
+          <li>El ingeniero ya está asignado. Si no cierra, se va a otra clínica.</li>
+          <li>Meta nos está cobrando cara. Preferimos que partas ya.</li>
+          <li>Autorización verbal hasta mañana. Después vuelve a USD 450.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="slide" id="anual" data-name="Anual" aria-hidden="true">
+      <div class="inner">
+        <h2 class="h2">Anual y semestral: <span class="g">solo en el constructor</span>.</h2>
+        <p class="line">Si pide anual: “podemos solicitar 10% o 20%”. Nunca lo ofrezcas primero.</p>
+      </div>
+    </section>
+
+    <section class="slide" id="cierre" data-name="Hasta 200" aria-hidden="true">
+      <div class="inner">
+        <h2 class="h2">Hasta 200 clientes. <span class="g">Agresivos</span>.</h2>
+        <p class="line">Después nos ponemos exquisitos. Hoy, cierra.</p>
+      </div>
+    </section>
+
+    <nav class="nav" aria-label="Navegación del deck">
+      <button type="button" id="prevBtn" aria-label="Diapositiva anterior">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg>
+      </button>
+      <button type="button" id="nextBtn" aria-label="Siguiente diapositiva">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg>
+      </button>
+    </nav>
+    <div class="progress" aria-hidden="true"><i id="progressFill"></i></div>
+  </div>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll(".slide"));
+      const currentCount = document.getElementById("currentCount");
+      const totalCount = document.getElementById("totalCount");
+      const progressFill = document.getElementById("progressFill");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const hashIndex = slides.findIndex((s) => s.id === window.location.hash.slice(1));
+      let current = hashIndex >= 0 ? hashIndex : 0;
+      let startX = 0;
+      let startY = 0;
+
+      totalCount.textContent = String(slides.length).padStart(2, "0");
+
+      const render = (next, updateHash = true) => {
+        current = Math.max(0, Math.min(next, slides.length - 1));
+        slides.forEach((slide, i) => {
+          const on = i === current;
+          slide.classList.toggle("active", on);
+          slide.setAttribute("aria-hidden", String(!on));
+          if (on) slide.scrollTop = 0;
+        });
+        currentCount.textContent = String(current + 1).padStart(2, "0");
+        progressFill.style.width = ((current + 1) / slides.length) * 100 + "%";
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === slides.length - 1;
+        if (updateHash) history.replaceState(null, "", "#" + slides[current].id);
+      };
+
+      const goPrev = () => render(current - 1);
+      const goNext = () => render(current + 1);
+
+      prevBtn.addEventListener("click", (e) => { e.stopPropagation(); goPrev(); });
+      nextBtn.addEventListener("click", (e) => { e.stopPropagation(); goNext(); });
+
+      document.addEventListener("keydown", (e) => {
+        if (["ArrowRight", "PageDown", " "].includes(e.key)) {
+          if (e.key === " " && e.target.closest("button")) return;
+          e.preventDefault();
+          goNext();
+        }
+        if (["ArrowLeft", "PageUp"].includes(e.key)) {
+          e.preventDefault();
+          goPrev();
+        }
+        if (e.key === "Home") { e.preventDefault(); render(0); }
+        if (e.key === "End") { e.preventDefault(); render(slides.length - 1); }
+      });
+
+      document.addEventListener("touchstart", (e) => {
+        startX = e.changedTouches[0].clientX;
+        startY = e.changedTouches[0].clientY;
+      }, { passive: true });
+
+      document.addEventListener("touchend", (e) => {
+        const dx = startX - e.changedTouches[0].clientX;
+        const dy = startY - e.changedTouches[0].clientY;
+        if (Math.abs(dx) < 48 || Math.abs(dy) > Math.abs(dx)) return;
+        if (dx > 0) goNext();
+        else goPrev();
+      }, { passive: true });
+
+      window.addEventListener("hashchange", () => {
+        const i = slides.findIndex((s) => s.id === window.location.hash.slice(1));
+        if (i >= 0) render(i, false);
+      });
+
+      render(current, true);
+    })();
+  </script>
+</body>
+</html>

@@ -13,9 +13,9 @@ import {
 } from "@/components/seo/schemas";
 import { PLANES_FAQ } from "@/content/planes-faq";
 
-const TITLE = "Planes y precios desde USD 223/mes";
+const TITLE = "Planes y precios desde USD 279/mes";
 const DESCRIPTION =
-  "Vortex, Atlas y Summit con bolsa de créditos (28.000 / 37.000 / 46.000) y AURA por WhatsApp 24/7. Tres modalidades: anual y semestral con 20% OFF e implementación gratis, o mensual desde USD 279/mes (configuración inicial USD 450).";
+  "Vortex, Atlas y Summit con bolsa de créditos (28.000 / 37.000 / 46.000) y AURA por WhatsApp 24/7. Plan mensual desde USD 279/mes; el primer cobro incluye implementación USD 450 más el primer mes.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     url: "https://www.clinera.io/planes",
     title: TITLE,
     description:
-      "3 planes con bolsa de créditos para clínicas en LATAM. Anual con 20% OFF e implementación gratis (ahorras hasta USD 1.600 el primer año), semestral con 20% OFF o mensual desde USD 279/mes.",
+      "3 planes con bolsa de créditos para clínicas en LATAM. Mensual desde USD 279/mes; implementación USD 450 con el primer mes.",
     type: "website",
   },
 };

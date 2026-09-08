@@ -12,7 +12,6 @@ import {
   PARTNERS_APPLY,
   PARTNERS_BONUS_ANNUAL_USD,
   PARTNERS_BONUS_MONTHLY_USD,
-  PARTNERS_BONUS_SEMESTER_USD,
   PARTNERS_BONUSES,
   PARTNERS_CANONICAL,
   PARTNERS_CTA_HREF,
@@ -47,9 +46,8 @@ const VOSEO =
 test.describe("fuente de verdad del programa partner", () => {
   test("bonos por modalidad; sin descuento al referido ni pago mensual", () => {
     expect(PARTNERS_BONUS_MONTHLY_USD).toBe(150);
-    expect(PARTNERS_BONUS_SEMESTER_USD).toBe(200);
     expect(PARTNERS_BONUS_ANNUAL_USD).toBe(400);
-    expect(PARTNERS_BONUSES.map((b) => b.usd)).toEqual([150, 200, 400]);
+    expect(PARTNERS_BONUSES.map((b) => b.usd)).toEqual([150, 400]);
     expect(PARTNERS_PATH).toBe("/partners");
     expect(PARTNERS_CANONICAL).toBe("https://www.clinera.io/partners");
     expect(PARTNERS_CTA_HREF).toBe("/partners#aplicar");
@@ -93,8 +91,8 @@ test.describe("fuente de verdad del programa partner", () => {
     ]);
     expect(PARTNERS_DOCTORS_CONVENIO.points).toEqual(CONVENIO_DOCTORES_BENEFICIOS);
     expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 150/);
-    expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 200/);
     expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).toMatch(/US\$ 400/);
+    expect(PARTNERS_DOCTORS_CONVENIO.points[2].desc).not.toMatch(/US\$ 200/);
     expect(PARTNERS_DOCTORS_EMAIL).toBe(PARTNERS_APPLY_EMAIL);
     expect(PARTNERS_APPLY_EMAIL).toMatch(/^[^@]+@[^@]+\.[a-z]+$/);
     expect(PARTNERS_APPLY_EMAIL.startsWith("ric")).toBe(true);
@@ -139,14 +137,14 @@ test.describe("landing /partners", () => {
     const hero = page.locator("section").first();
     await expect(hero.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(hero.getByText("US$ 150", { exact: true })).toBeVisible();
-    await expect(hero.getByText("US$ 200", { exact: true })).toBeVisible();
     await expect(hero.getByText("US$ 400", { exact: true })).toBeVisible();
+    await expect(hero.getByText("US$ 200", { exact: true })).toHaveCount(0);
     await expect(hero.getByText("15%", { exact: true })).toHaveCount(0);
 
     const body = await page.locator("body").innerText();
     expect(body).toMatch(/US\$ 150/);
-    expect(body).toMatch(/US\$ 200/);
     expect(body).toMatch(/US\$ 400/);
+    expect(body).not.toMatch(/US\$ 200/);
     expect(body).toMatch(/partner @clinera\.io/);
     expect(body).toMatch(/Notebook o tablet/i);
     expect(body).toMatch(/Equipo comercial/i);
@@ -247,8 +245,8 @@ test.describe("landing /partners", () => {
     await deck.click();
     await expect(page).toHaveURL(/\/presentacion-partners/);
     await expect(page.locator(".slide.active")).toContainText("US$ 150");
-    await expect(page.locator("body")).toContainText("US$ 200");
     await expect(page.locator("body")).toContainText("US$ 400");
+    await expect(page.locator("body")).not.toContainText("US$ 200");
     await expect(page.locator("body")).toContainText("partner @clinera.io");
     await expect(page.locator("body")).toContainText("Notebook o tablet");
     await expect(page.locator("body")).not.toContainText("15%");
@@ -379,8 +377,8 @@ test.describe("página /convenio-doctores", () => {
 
     const body = await page.locator("body").innerText();
     expect(body).toMatch(/US\$ 150/);
-    expect(body).toMatch(/US\$ 200/);
     expect(body).toMatch(/US\$ 400/);
+    expect(body).not.toMatch(/US\$ 200/);
     expect(body).not.toMatch(/15%/);
     expect(body).not.toMatch(/Permanente para todos los clientes/);
   });

@@ -10,7 +10,7 @@ export const PAGE_DATES: Record<
 > = {
   "/": { published: "2025-01-01", modified: "2026-09-03" },
   "/plataforma": { published: "2025-06-01", modified: "2026-09-03" },
-  "/planes": { published: "2025-06-01", modified: "2026-09-03" },
+  "/planes": { published: "2025-06-01", modified: "2026-09-08" },
   "/empleado-digital": { published: "2026-04-01", modified: "2026-09-03" },
   "/software-medico": { published: "2026-08-01", modified: "2026-08-26" },
   "/software-dental": { published: "2026-08-01", modified: "2026-08-26" },

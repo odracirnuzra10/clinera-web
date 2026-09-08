@@ -13,7 +13,6 @@ import {
   CLINERA_PLANS,
   EXTRA_CREDIT_PACK_USD,
   EXTRA_USER_USD,
-  SEMESTER_MONTHS,
   SETUP_FEE_USD,
   type Billing,
 } from "@/content/pricing";
@@ -105,14 +104,12 @@ export function construirCotizacion(cruda: unknown): CotizacionSnapshot | null {
   const billing: Billing | null =
     c.billing === "annual"
       ? "annual"
-      : c.billing === "semester"
-        ? "semester"
-        : c.billing === "monthly"
-          ? "monthly"
-          : null;
+      : c.billing === "monthly"
+        ? "monthly"
+        : null;
   if (!billing) return null;
   const periodoMeses: PeriodoMeses =
-    billing === "annual" ? (ANNUAL_MONTHS as 12) : billing === "semester" ? (SEMESTER_MONTHS as 6) : 1;
+    billing === "annual" ? (ANNUAL_MONTHS as 12) : 1;
 
   const d = (typeof c.descuentos === "object" && c.descuentos !== null
     ? c.descuentos
@@ -140,19 +137,14 @@ export function construirCotizacion(cruda: unknown): CotizacionSnapshot | null {
 
   const extraUsuarios = clampQty(c.extraUsuarios);
   const extraPacks = clampQty(c.extraPacks);
-  // El plan anual y el semestral incluyen la implementación: aunque el
-  // navegador mande incluirSetup en true, acá no se cobra. Es política
-  // comercial, no una preferencia del cotizador.
-  const incluirSetup = billing === "monthly" && c.incluirSetup === true;
+  // Catálogo cobra la implementación siempre; el closer puede regalarla
+  // desmarcando el checkbox (incluirSetup: false).
+  const incluirSetup = c.incluirSetup !== false;
 
   // Mismo cálculo que QuoteBuilder: descuento por línea y luego el global
   // sobre todo (incluido el setup).
   const planListaUsd =
-    billing === "annual"
-      ? plan.annualTotal
-      : billing === "semester"
-        ? plan.semesterTotal
-        : plan.monthlyPrice;
+    billing === "annual" ? plan.annualTotal : plan.monthlyPrice;
   const usuarioListaUsd = EXTRA_USER_USD * periodoMeses;
   const packListaUsd = EXTRA_CREDIT_PACK_USD * periodoMeses;
 

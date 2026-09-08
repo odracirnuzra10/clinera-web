@@ -7,7 +7,7 @@
  *
  * Modelo vigente (sep 2026):
  *   · Bono al cierre según modalidad del plan contratado:
- *     US$ 150 mensual · US$ 200 semestral · US$ 400 anual.
+ *     US$ 150 mensual · US$ 400 anual.
  *   · Sin pago mensual al partner (no hay comisión recurrente).
  *   · Sin descuento adicional para la clínica referida.
  *   · 15% permanente de `/agencias` — muerto, no reabrir.
@@ -64,7 +64,6 @@ export const PARTNERS_APPLY = {
 
 /** Bono al cierre según la modalidad que contrata el referido. Sin pago mensual. */
 export const PARTNERS_BONUS_MONTHLY_USD = 150;
-export const PARTNERS_BONUS_SEMESTER_USD = 200;
 export const PARTNERS_BONUS_ANNUAL_USD = 400;
 
 export const PARTNERS_BONUSES = [
@@ -73,12 +72,6 @@ export const PARTNERS_BONUSES = [
     usd: PARTNERS_BONUS_MONTHLY_USD,
     label: `US$ ${PARTNERS_BONUS_MONTHLY_USD}`,
     subtitle: "si el referido cierra en plan mensual.",
-  },
-  {
-    billing: "Semestral",
-    usd: PARTNERS_BONUS_SEMESTER_USD,
-    label: `US$ ${PARTNERS_BONUS_SEMESTER_USD}`,
-    subtitle: "si el referido cierra en plan semestral.",
   },
   {
     billing: "Anual",
@@ -95,23 +88,22 @@ export const PARTNERS_META_TITLE =
   "Programa Partner — US$ 150 a US$ 400 por referido | Clinera.io";
 
 export const PARTNERS_META_DESCRIPTION =
-  "Programa partner de Clinera: perfil profesional en redes, bio «partner @clinera.io» y notebook o tablet para presentar. Bono US$ 150 (mensual), US$ 200 (semestral) o US$ 400 (anual). Apoyo del equipo comercial y acceso al CRM. Sin pago mensual ni descuento extra al referido.";
+  "Programa partner de Clinera: perfil profesional en redes, bio «partner @clinera.io» y notebook o tablet para presentar. Bono US$ 150 (mensual) o US$ 400 (anual). Apoyo del equipo comercial y acceso al CRM. Sin pago mensual ni descuento extra al referido.";
 
 export const PARTNERS_OG_DESCRIPTION =
-  "US$ 150 / US$ 200 / US$ 400 por referido según mensual, semestral o anual. Equipo comercial y CRM de tu lado. Sin comisión mensual ni descuento extra al referido.";
+  "US$ 150 / US$ 400 por referido según mensual o anual. Equipo comercial y CRM de tu lado. Sin comisión mensual ni descuento extra al referido.";
 
 export const PARTNERS_HERO = {
   eyebrow: "Programa partner",
   h1Before: "Tres requisitos.",
   h1Accent: "Hasta US$ 400 por referido.",
-  lead: "Presentas Clinera en clínicas. Cobras US$ 150, US$ 200 o US$ 400 según el plan que cierre tu referido. El equipo comercial te ayuda a cerrar y tienes acceso al CRM. Este programa es el bono al cierre: no incluye Clinera de regalo ni 30% sobre lista.",
+  lead: "Presentas Clinera en clínicas. Cobras US$ 150 o US$ 400 según el plan que cierre tu referido. El equipo comercial te ayuda a cerrar y tienes acceso al CRM. Este programa es el bono al cierre: no incluye Clinera de regalo ni 30% sobre lista.",
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
 } as const;
 
 export const PARTNERS_STATS = [
   { label: "Bono si cierra mensual", value: `US$ ${PARTNERS_BONUS_MONTHLY_USD}` },
-  { label: "Bono si cierra semestral", value: `US$ ${PARTNERS_BONUS_SEMESTER_USD}` },
   { label: "Bono si cierra anual", value: `US$ ${PARTNERS_BONUS_ANNUAL_USD}` },
   { label: "Pago mensual al partner", value: "No" },
 ] as const;
@@ -134,7 +126,7 @@ export const PARTNERS_REQUIREMENTS = [
   },
 ] as const;
 
-/** Lo que gana el partner: tres bonos según modalidad. Sin descuento al referido. */
+/** Lo que gana el partner: bono mensual o anual al cierre. Sin descuento al referido. */
 export const PARTNERS_BENEFITS = PARTNERS_BONUSES.map((b, i) => ({
   kicker: b.billing,
   title: b.label,
@@ -143,7 +135,7 @@ export const PARTNERS_BENEFITS = PARTNERS_BONUSES.map((b, i) => ({
     i === 0
       ? "Pago único al cierre. Sin comisión recurrente ni descuento extra para la clínica referida."
       : "Pago único al cierre según la modalidad contratada.",
-  featured: i === 2,
+  featured: i === 1,
 }));
 
 export const PARTNERS_SUPPORT = [
@@ -162,7 +154,7 @@ export const PARTNERS_SUPPORT = [
 export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
   {
     q: "¿Cuánto se paga por un referido?",
-    a: `Depende del plan que contrate la clínica: US$ ${PARTNERS_BONUS_MONTHLY_USD} si cierra mensual, US$ ${PARTNERS_BONUS_SEMESTER_USD} si cierra semestral, US$ ${PARTNERS_BONUS_ANNUAL_USD} si cierra anual. Un pago al cierre, no una comisión mensual.`,
+    a: `Depende del plan que contrate la clínica: US$ ${PARTNERS_BONUS_MONTHLY_USD} si cierra mensual, US$ ${PARTNERS_BONUS_ANNUAL_USD} si cierra anual. Un pago al cierre, no una comisión mensual.`,
   },
   {
     q: "¿Hay pago mensual o comisión sobre el plan?",
@@ -186,7 +178,7 @@ export const PARTNERS_FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿Hay un convenio si soy doctor?",
-    a: "Sí. El programa partner es solo el bono (US$ 150 / 200 / 400). El convenio suma sitio web remodelado, Clinera Vortex 3 meses, los mismos bonos y 30% de descuento después de esos 3 meses. La postulación es previa; /convenio-doctores es el trato una vez calificado.",
+    a: "Sí. El programa partner es solo el bono (US$ 150 / 400). El convenio suma sitio web remodelado, Clinera Vortex 3 meses, los mismos bonos y 30% de descuento después de esos 3 meses. La postulación es previa; /convenio-doctores es el trato una vez calificado.",
   },
 ];
 
@@ -240,7 +232,7 @@ export const CONVENIO_DOCTORES_BENEFICIOS = [
   },
   {
     title: "Bonos por referido",
-    desc: `Los mismos del partner: US$ ${PARTNERS_BONUS_MONTHLY_USD} mensual, US$ ${PARTNERS_BONUS_SEMESTER_USD} semestral o US$ ${PARTNERS_BONUS_ANNUAL_USD} anual.`,
+    desc: `Los mismos del partner: US$ ${PARTNERS_BONUS_MONTHLY_USD} mensual o US$ ${PARTNERS_BONUS_ANNUAL_USD} anual.`,
   },
   {
     title: "30% después de 3 meses",

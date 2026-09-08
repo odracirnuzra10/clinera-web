@@ -24,6 +24,7 @@ const HIDDEN_PREFIXES = [
   "/contrata",
   "/empleado-digital",
   "/vision-2027",
+  "/nuevodiscurso",
   "/internal",
 ];
 

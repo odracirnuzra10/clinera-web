@@ -180,6 +180,10 @@ const nextConfig: NextConfig = {
         destination: '/presentacion-venta-2-reuniones.html',
       },
       {
+        source: '/nuevodiscurso',
+        destination: '/presentacion-nuevo-discurso.html',
+      },
+      {
         source: '/internal/mi-clinera',
         destination: '/internal/mi-clinera/especificacion.html',
       },
@@ -289,6 +293,11 @@ const nextConfig: NextConfig = {
       {
         source: '/presentacion-venta-2-reuniones',
         destination: '/nueva-reunion',
+        permanent: true,
+      },
+      {
+        source: '/presentacion-nuevo-discurso',
+        destination: '/nuevodiscurso',
         permanent: true,
       },
       // El modo Eficiente y el modo Agentic Pro dejaron de existir: Clinera

@@ -14,13 +14,12 @@ import {
   CONVENIO_DOCTORES_SOFTWARE_MESES,
   PARTNERS_BONUS_ANNUAL_USD,
   PARTNERS_BONUS_MONTHLY_USD,
-  PARTNERS_BONUS_SEMESTER_USD,
   PARTNERS_PATH,
 } from "@/content/partners-program";
 
 export const CONVENIO_DOCTORES_META_TITLE = "Convenio doctores";
 export const CONVENIO_DOCTORES_META_DESCRIPTION =
-  `Doctor calificado: sitio remodelado, Clinera ${CONVENIO_DOCTORES_PLAN_NAME} ${CONVENIO_DOCTORES_SOFTWARE_MESES} meses, bonos US$ ${PARTNERS_BONUS_MONTHLY_USD} / ${PARTNERS_BONUS_SEMESTER_USD} / ${PARTNERS_BONUS_ANNUAL_USD} y ${CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT}% después. Requisitos: usar Clinera, recomendarla y ${CONVENIO_DOCTORES_BIO_LINE} en el perfil.`;
+  `Doctor calificado: sitio remodelado, Clinera ${CONVENIO_DOCTORES_PLAN_NAME} ${CONVENIO_DOCTORES_SOFTWARE_MESES} meses, bonos US$ ${PARTNERS_BONUS_MONTHLY_USD} / ${PARTNERS_BONUS_ANNUAL_USD} y ${CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT}% después. Requisitos: usar Clinera, recomendarla y ${CONVENIO_DOCTORES_BIO_LINE} en el perfil.`;
 export const CONVENIO_DOCTORES_OG_DESCRIPTION =
   `Sitio remodelado, Clinera ${CONVENIO_DOCTORES_PLAN_NAME} ${CONVENIO_DOCTORES_SOFTWARE_MESES} meses, bonos por referido y ${CONVENIO_DOCTORES_PLAN_DESCUENTO_PCT}% después. Usar, recomendar y asociar el perfil.`;
 

@@ -155,20 +155,26 @@ valor de `SETUP_FEE_USD` en `pricing.ts`, el mismo que va a los contratos
 firmados. El US$ 750 que existió en `/planes-pro`, FAQ, calculadoras y
 `public/llms*.txt` era residuo y ya se corrigió; si reaparece, es un error.
 
-**Actualizado 2026-09:** la implementación se cobra **sólo en mensual**. En
-semestral y anual va **gratis** y el plan se cobra de inmediato (objetivo
-comercial: empujar prepago). En cotización formal (`cotizacion.oacg.cl`) el
-anual puede llevar hasta **−10% adicional** vía Desc. % (máx. −30% sobre
-lista); el sitio público sigue mostrando −20%.
+**Actualizado 2026-09:** la web pública (`clinera.io`) muestra **sólo plan mensual**.
+El primer cobro es implementación US$ 450 **más el primer mes** del plan; después,
+el plan mes a mes. No hay semestral ni anual en la web: las dos viven en el
+constructor de cotización (`cotizacion.oacg.cl`), donde la cotización es
+privada. El catálogo también cobra la implementación salvo que el closer la
+regale.
 
 Así lo comunican las tarjetas de `<Pricing />` en home, `/planes` y `/planes-pro`:
 
-- **Mensual:** cobro de implementación US$ 450 → el plan se cobra después.
-- **Semestral / anual:** implementación gratis → se cobra el período de inmediato
-  (con 20% OFF de catálogo).
+- **Primer cobro:** implementación US$ 450 + primer mes del plan (Vortex 279 / Atlas 379 / Summit 479).
+- **Después:** el plan se renueva mes a mes a precio de lista.
 
-Usa `setupFeeFor(billing)` / `includesFreeSetup(billing)` — no asumas
-`SETUP_FEE_USD` a ciegas.
+Usa `setupFeeFor(billing)` / `includesFreeSetup(billing)` — en catálogo ambos
+devuelven 450 / false; no asumas implementación gratis.
+
+**Discurso de cierre (sep 2026):** deck interno `public/presentacion-nuevo-discurso.html`
+(`/nuevodiscurso`). La web no ofrece anual ni semestral. El closer regala la
+implementación (100% hoy/mañana, 50% esta semana) con una excusa que vence.
+Anual solo si el cliente lo pide, y ahí 10% o 20%. Hasta 200 clientes.
+Guardián: `tests/nuevo-discurso.spec.ts`.
 ## Modelo de venta en dos reuniones
 
 Deck interno del equipo comercial: `public/presentacion-venta-2-reuniones.html`
@@ -195,13 +201,14 @@ La URL pública del programa es **`/partners`**. `/agencias` redirige permanente
 permanente" de agencias: ese modelo se reemplazó en agosto 2026.
 
 Números y copy viven en `src/content/partners-program.ts` El CTA «Aplicar al programa» ancla a `/partners#aplicar`: formulario de nombre + celular (MX/PE/CL/CO/UY/CR/PA) → `POST /api/partner-apply` → correo a Ricardo. (sep 2026): **bono
-al cierre según modalidad** — US$ 150 mensual / US$ 200 semestral / US$ 400
-anual. **Sin pago mensual** al partner (no hay comisión recurrente). **Sin
-descuento adicional** para la clínica referida. Requisitos: perfil en redes
-orientado al trabajo; bio de Instagram con `partner @clinera.io`; notebook o
-tablet para presentar en clínicas. Apoyo: equipo comercial para cerrar + acceso
-al CRM. No confundir con el 15% permanente de agencias (muerto) ni con el
-modelo viejo de US$ 150 fijo + 10% × 3 meses al referido (retirado). La landing
+al cierre según modalidad** — US$ 150 mensual / US$ 400 anual (el anual sólo
+via constructor de cotización, no en la web). **Sin pago mensual** al partner
+(no hay comisión recurrente). **Sin descuento adicional** para la clínica referida.
+Requisitos: perfil en redes orientado al trabajo; bio de Instagram con
+`partner @clinera.io`; notebook o tablet para presentar en clínicas. Apoyo:
+equipo comercial para cerrar + acceso al CRM. No confundir con el 15% permanente
+de agencias (muerto) ni con el modelo viejo de US$ 150 fijo + 10% × 3 meses al
+referido (retirado). La landing
 (`src/app/partners/page.tsx` + `src/components/partners/PartnersLanding.tsx`)
 los consume. El deck `public/presentacion-partners/index.html` no puede
 importar TS: si cambian bonos, requisitos o apoyo, hay que tocar esas slides a

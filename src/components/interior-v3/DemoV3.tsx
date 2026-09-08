@@ -4,8 +4,8 @@ import Link from "next/link";
 import { Eyebrow, GRAD } from "@/components/brand-v3/Brand";
 import { useReveal } from "@/components/home-v3/sections";
 import {
-  ANNUAL_DISCOUNT_PERCENT,
   CLINERA_PLANS,
+  SETUP_FEE_AMOUNT,
   SETUP_FEE_NUMBER,
   type ClineraPlan,
   stripeLink,
@@ -22,10 +22,7 @@ const precios = (id: ClineraPlan["id"]) => {
   const plan = CLINERA_PLANS.find((p) => p.id === id)!;
   return {
     price: String(plan.monthlyPrice),
-    annualMonthly: fmt(plan.annualMonthly, 2),
-    annualTotal: fmt(plan.annualTotal),
-    annualValue: plan.annualTotal,
-    stripeAnnual: stripeLink(id, "anual"),
+    monthlyValue: plan.monthlyPrice,
     stripeMonthly: stripeLink(id, "mensual"),
   };
 };
@@ -370,8 +367,7 @@ function PlansSection() {
             Elige tu plan y activa hoy.
           </h2>
           <p style={{ fontFamily: "Inter", fontSize: 17, color: "#4B5563", margin: 0 }}>
-            Precios semestrales y anuales con {ANNUAL_DISCOUNT_PERCENT}% OFF e implementación gratis · en
-            mensual se cobra la implementación de USD 450 al inicio y el plan después · permanencia
+            Plan mensual · implementación USD {SETUP_FEE_NUMBER} con el primer mes · permanencia
             mínima de 6 meses · precios en USD.
           </p>
         </div>
@@ -460,27 +456,22 @@ function PlansSection() {
                   <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 6, flexWrap: "wrap" }}>
                     <span style={{ fontFamily: "Inter", fontSize: 20, fontWeight: 600 }}>$</span>
                     <span style={{ fontFamily: "Inter", fontSize: 48, fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1 }}>
-                      {plan.annualMonthly}
+                      {plan.price}
                     </span>
                     <span style={{ fontFamily: "Inter", fontSize: 14, color: popular ? "rgba(255,255,255,.7)" : "#6B7280", marginLeft: 4 }}>
                       USD/mes
                     </span>
-                    <s style={{ fontFamily: "Inter", fontSize: 14, color: popular ? "rgba(255,255,255,.55)" : "#9CA3AF", textDecorationThickness: "from-font" }}>
-                      ${plan.price}
-                    </s>
                   </div>
                   <div style={{ minHeight: 20, marginBottom: 12, display: "flex", alignItems: "center" }}>
                     <span style={{ fontFamily: "Inter", fontSize: 12.5, color: popular ? "rgba(255,255,255,.7)" : "#6B7280" }}>
-                      Plan anual · USD {plan.annualTotal}/año · {ANNUAL_DISCOUNT_PERCENT}% OFF
+                      Primer cobro = {SETUP_FEE_AMOUNT} implementación + primer mes
                     </span>
                   </div>
 
-                  {/* Mismo semáforo que las tarjetas de /planes: verde = la
-                      implementación va incluida. Acá siempre es el anual. */}
                   <div
                     style={{
-                      background: "#EDF3EC",
-                      border: "1px solid rgba(47,106,63,.22)",
+                      background: popular ? "rgba(255,255,255,.06)" : "#FAFAFA",
+                      border: popular ? "1px solid rgba(255,255,255,.1)" : "1px solid #E5E7EB",
                       borderRadius: 12,
                       padding: "10px 13px",
                       marginBottom: 20,
@@ -494,35 +485,18 @@ function PlansSection() {
                           fontWeight: 700,
                           letterSpacing: "0.09em",
                           textTransform: "uppercase",
-                          color: "#2F6A3F",
+                          color: popular ? "rgba(255,255,255,.7)" : "#6B7280",
                           whiteSpace: "nowrap",
                         }}
                       >
                         Implementación
                       </span>
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap" }}>
-                        <s style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 600, color: "#6B8A72", textDecorationThickness: "from-font" }}>
-                          ${SETUP_FEE_NUMBER}
-                        </s>
-                        <span
-                          style={{
-                            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                            fontSize: 10.5,
-                            fontWeight: 700,
-                            letterSpacing: "0.1em",
-                            textTransform: "uppercase",
-                            color: "#FFFFFF",
-                            background: "#2F6A3F",
-                            borderRadius: 999,
-                            padding: "4px 10px",
-                          }}
-                        >
-                          Gratis
-                        </span>
+                      <span style={{ fontFamily: "Inter", fontSize: 15, fontWeight: 700, color: popular ? "#fff" : "#0A0A0A", whiteSpace: "nowrap" }}>
+                        {SETUP_FEE_AMOUNT} USD
                       </span>
                     </div>
-                    <div style={{ fontFamily: "Inter", fontSize: 11.5, lineHeight: 1.45, color: "#4A6B52", marginTop: 5 }}>
-                      Incluida — no se cobra (anual / semestral)
+                    <div style={{ fontFamily: "Inter", fontSize: 11.5, lineHeight: 1.45, color: popular ? "rgba(255,255,255,.65)" : "#6B7280", marginTop: 5 }}>
+                      Pago único · con el primer mes del plan
                     </div>
                   </div>
                   <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
@@ -691,8 +665,8 @@ function PlansSection() {
                   <a
                     href={`/agenda?plan=${plan.slug}`}
                     data-plan={plan.slug}
-                    data-plan-billing="annual"
-                    data-plan-value={plan.annualValue}
+                    data-plan-billing="monthly"
+                    data-plan-value={plan.monthlyValue}
                     data-plan-name={`${plan.name} demo`}
                     style={{
                       background: popular ? GRAD : "#0A0A0A",

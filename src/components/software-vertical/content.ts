@@ -1,6 +1,5 @@
 import type { HeroViewId } from "@/components/plataforma/HeroCarousel";
 import {
-  ANNUAL_DISCOUNT_PERCENT,
   CLINERA_PLANS,
   SETUP_FEE_NUMBER,
 } from "@/content/pricing";
@@ -49,7 +48,7 @@ export type SoftwareVerticalContent = {
   };
 };
 
-const PRICE_FAQ = `Vortex desde USD ${vortex.monthlyPrice}/mes, Atlas USD ${atlas.monthlyPrice}, Summit USD ${summit.monthlyPrice}. Permanencia mínima 6 meses. Semestral y anual traen ${ANNUAL_DISCOUNT_PERCENT}% de descuento y la implementación de USD ${SETUP_FEE_NUMBER} incluida; en mensual la implementación se paga al inicio y el plan después.`;
+const PRICE_FAQ = `Vortex desde USD ${vortex.monthlyPrice}/mes, Atlas USD ${atlas.monthlyPrice}, Summit USD ${summit.monthlyPrice}. Permanencia mínima 6 meses. El primer cobro es implementación USD ${SETUP_FEE_NUMBER} más el primer mes del plan; después, el plan mes a mes.`;
 
 const INTEGRATION_FAQ =
   "No. Clinera no se sincroniza con Reservo, AgendaPro, Medilink ni Dentalink: opera sobre su propia agenda, ficha clínica y módulo de pagos, y migramos tus datos en el onboarding. Para conectar otras herramientas tienes Webhooks y API pública (n8n, Make, Zapier) en Atlas y Summit.";
@@ -258,7 +257,7 @@ export const DENTAL: SoftwareVerticalContent = {
     },
     {
       q: "¿Cómo es la implementación y la migración?",
-      a: `Onboarding asistido: importamos pacientes, tratamientos y agenda. Costo único de USD ${SETUP_FEE_NUMBER} sólo en mensual; en semestral y anual va incluida. No hay sincronización permanente con Dentalink ni con otras agendas: operas en Clinera.`,
+      a: `Onboarding asistido: importamos pacientes, tratamientos y agenda. Costo único de USD ${SETUP_FEE_NUMBER} con el primer mes del plan. No hay sincronización permanente con Dentalink ni con otras agendas: operas en Clinera.`,
     },
   ],
   meta: {

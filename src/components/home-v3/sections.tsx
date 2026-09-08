@@ -6,14 +6,9 @@ import { useEffect, useState, ReactNode } from "react";
 import { CtaPrimary, CtaSecondary, Eyebrow, Mono, GRAD, CnnLogo } from "@/components/brand-v3/Brand";
 import { HOME_FAQ } from "@/content/home-faq";
 import {
-  ANNUAL_DISCOUNT_PERCENT,
-  ANNUAL_MONTHS,
   CLINERA_PLANS,
-  SEMESTER_DISCOUNT_PERCENT,
   SEMESTER_MONTHS,
   SETUP_FEE_AMOUNT,
-  annualFirstYearSavings,
-  includesFreeSetup,
   type Billing,
 } from "@/content/pricing";
 import { VERTEX_IA_MODELS } from "@/content/ia-stack";
@@ -4166,131 +4161,9 @@ function ChannelIcons({ channel, color }: { channel: string; color: string }) {
 export type { Billing };
 
 /**
- * Selector de modalidad. El anual va primero, ocupa más ancho y conserva un
- * borde violeta aunque no esté elegido: es la opción que el sitio empuja y la
- * jerarquía tiene que decirlo antes de que el usuario lea el precio.
+ * La web pública no ofrece selector de modalidad: sólo mensual.
+ * El anual vive en cotizacion.oacg.cl/constructor.
  */
-export function BillingToggle({ billing, onChange }: { billing: Billing; onChange: (b: Billing) => void }) {
-  const base = {
-    appearance: "none" as const,
-    cursor: "pointer",
-    border: 0,
-    fontFamily: "Outfit, sans-serif",
-    fontWeight: 600,
-    borderRadius: 9,
-    transition: "background .2s, color .2s, box-shadow .2s",
-    minHeight: 58,
-    padding: "9px 18px",
-    display: "flex",
-    flexDirection: "column" as const,
-    alignItems: "flex-start",
-    justifyContent: "center",
-    gap: 2,
-  };
-  const annual = billing === "annual";
-  const semester = billing === "semester";
-  const monthly = billing === "monthly";
-  return (
-    <div
-      role="group"
-      aria-label="Frecuencia de facturación"
-      className="billing-toggle"
-      style={{
-        display: "inline-grid",
-        gridTemplateColumns: "1.28fr 1fr 1fr",
-        alignItems: "center",
-        gap: 4,
-        background: "#F6F6F7",
-        border: "1px solid #E5E7EB",
-        borderRadius: 12,
-        padding: 4,
-      }}
-    >
-      <button
-        className="billing-toggle-option"
-        type="button"
-        onClick={() => onChange("annual")}
-        aria-pressed={annual}
-        style={{
-          ...base,
-          minWidth: 200,
-          position: "relative",
-          background: annual ? GRAD : "#fff",
-          color: annual ? "#fff" : "#6D28D9",
-          boxShadow: annual
-            ? "0 8px 20px -6px rgba(124,58,237,.62)"
-            : "inset 0 0 0 1.5px rgba(124,58,237,.34)",
-        }}
-      >
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 14.5 }}>
-          Anual
-          <span
-            style={{
-              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-              fontSize: 8,
-              fontWeight: 700,
-              letterSpacing: ".1em",
-              textTransform: "uppercase",
-              padding: "2px 7px",
-              borderRadius: 999,
-              background: annual ? "rgba(255,255,255,.22)" : "rgba(124,58,237,.12)",
-              color: annual ? "#fff" : "#6D28D9",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Mejor valor
-          </span>
-        </span>
-        <small
-          style={{
-            color: annual ? "#F5E9FF" : "#7C3AED",
-            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-            fontSize: 8.5,
-            letterSpacing: ".04em",
-          }}
-        >
-          {ANNUAL_DISCOUNT_PERCENT}% OFF + implementación gratis
-        </small>
-      </button>
-      <button
-        className="billing-toggle-option"
-        type="button"
-        onClick={() => onChange("semester")}
-        aria-pressed={semester}
-        style={{
-          ...base,
-          minWidth: 150,
-          background: semester ? "#7C3AED" : "transparent",
-          color: semester ? "#fff" : "#4B5563",
-          boxShadow: semester ? "0 6px 16px -6px rgba(124,58,237,.55)" : "none",
-        }}
-      >
-        <span style={{ fontSize: 14 }}>Semestral</span>
-        <small style={{ color: semester ? "#DDD6FE" : "#777E89", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
-          {SEMESTER_DISCOUNT_PERCENT}% OFF + implementación gratis
-        </small>
-      </button>
-      <button
-        className="billing-toggle-option"
-        type="button"
-        onClick={() => onChange("monthly")}
-        aria-pressed={monthly}
-        style={{
-          ...base,
-          minWidth: 150,
-          background: monthly ? "#7C3AED" : "transparent",
-          color: monthly ? "#fff" : "#4B5563",
-          boxShadow: monthly ? "0 6px 16px -6px rgba(124,58,237,.55)" : "none",
-        }}
-      >
-        <span style={{ fontSize: 14 }}>Mensual</span>
-        <small style={{ color: monthly ? "#DDD6FE" : "#777E89", fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 8.5, letterSpacing: ".04em" }}>
-          Pago mes a mes
-        </small>
-      </button>
-    </div>
-  );
-}
 
 export function Pricing({
   showCredits = true,
@@ -4304,11 +4177,7 @@ export function Pricing({
   // la venta con tarjeta (p. ej. /plataforma) pasan una ruta interna acá.
   ctaHref?: string;
 } = {}) {
-  const [billing, setBilling] = useState<Billing>("annual");
-  const isAnnual = billing === "annual";
-  const isSemester = billing === "semester";
-  const freeSetup = includesFreeSetup(billing);
-  const billingLabel = isAnnual ? "anual" : isSemester ? "semestral" : "mensual";
+  const billing: Billing = "monthly";
   const isComparisonIntro = intro === "comparison";
   // "none": la página ya trae su propio hero (p. ej. /planes) — sin header duplicado.
   const hideHeader = intro === "none";
@@ -4318,45 +4187,24 @@ export function Pricing({
     name: plan.name,
     price: `$${plan.monthlyPrice}`,
     monthlyValue: plan.monthlyPrice,
-    semesterMonthly: `$${plan.semesterMonthly.toLocaleString("es-CL", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`,
-    semesterTotal: `USD ${plan.semesterTotal.toLocaleString("es-CL", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`,
-    semesterValue: plan.semesterTotal,
-    annualMonthly: `$${plan.annualMonthly.toLocaleString("es-CL", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`,
-    annualTotal: `USD ${plan.annualTotal.toLocaleString("es-CL")}`,
-    annualValue: plan.annualTotal,
-    annualSavings: `USD ${annualFirstYearSavings(plan).toLocaleString("es-CL")}`,
     credits: plan.credits.toLocaleString("es-CL"),
     channel: plan.channel,
     chips: planChipData(plan),
     features: planFeatures(plan),
     stripe: plan.stripe,
-    stripeSemester: plan.stripeSemester,
-    stripeAnnual: plan.stripeAnnual,
     featured: plan.featured,
   }));
 
   const checkoutUrl = (p: (typeof plans)[number]) => {
-    // Por defecto: checkout Stripe de la modalidad elegida. Si la página
-    // fuerza una ruta interna (p. ej. /plataforma → /agenda), esa gana.
     if (ctaHref) {
       const sep = ctaHref.includes("?") ? "&" : "?";
       return `${ctaHref}${sep}plan=${p.id}`;
     }
-    return isAnnual ? p.stripeAnnual : isSemester ? p.stripeSemester : p.stripe;
+    return p.stripe;
   };
   const ctaIsExternal = !ctaHref;
   const demoUrl = (p: (typeof plans)[number]) => `/agenda?plan=${p.id}`;
-  const checkoutValue = (p: (typeof plans)[number]) =>
-    isAnnual ? p.annualValue : isSemester ? p.semesterValue : p.monthlyValue;
+  const checkoutValue = (p: (typeof plans)[number]) => p.monthlyValue;
 
   return (
     <section
@@ -4424,9 +4272,6 @@ export function Pricing({
         </div>
         )}
 
-        <div className="reveal home-billing-toggle" style={{ display: "flex", justifyContent: "center", marginBottom: 18 }}>
-          <BillingToggle billing={billing} onChange={setBilling} />
-        </div>
         <div
           className="reveal"
           aria-live="polite"
@@ -4440,11 +4285,7 @@ export function Pricing({
             color: "#6B7280",
           }}
         >
-          {isAnnual
-            ? `Anual seleccionado · precio equivalente mensual · total de ${ANNUAL_MONTHS} meses con ${ANNUAL_DISCOUNT_PERCENT}% OFF · implementación gratis · plan se cobra de inmediato`
-            : isSemester
-              ? `Semestral seleccionado · precio equivalente mensual · total de ${SEMESTER_MONTHS} meses con ${SEMESTER_DISCOUNT_PERCENT}% OFF · implementación gratis · plan se cobra de inmediato`
-              : `Mensual seleccionado · mes 1 = implementación USD ${SETUP_FEE_AMOUNT.replace("$", "")} · el plan se cobra después · permanencia mínima de ${SEMESTER_MONTHS} meses`}
+          Tres planes · primer cobro = implementación USD {SETUP_FEE_AMOUNT.replace("$", "")} + el primer mes · permanencia mínima de {SEMESTER_MONTHS} meses
         </div>
 
         <div
@@ -4458,20 +4299,6 @@ export function Pricing({
         >
           {plans.map((p) => {
             const th = PLAN_THEMES[p.id];
-            // La implementación usa la tinta de cada tarjeta para conservar
-            // contraste también sobre Summit. El verde queda reservado al estado
-            // "Gratis" de semestral y anual.
-            const impl = freeSetup
-              ? {
-                  strike: th.sub,
-                  pillBg: "#2F6A3F",
-                  pillInk: "#FFFFFF",
-                }
-              : {
-                  strike: th.sub,
-                  pillBg: "#8A6516",
-                  pillInk: "#FFFFFF",
-                };
             return (
               <article
                 key={p.name}
@@ -4539,12 +4366,11 @@ export function Pricing({
                   </span>
                 </div>
 
-                {/* Prepago (semestral/anual): implementación gratis + cobro inmediato.
-                    Mensual: implementación cobrada al inicio; plan después. */}
+                {/* Primer cobro = implementación + primer mes del plan. */}
                 <div
                   className="home-plan-economics"
                   role="table"
-                  aria-label={`Secuencia de cobro del plan ${p.name}`}
+                  aria-label={`Cobro del plan ${p.name}`}
                   style={{
                     background: th.panelBg,
                     border: `1px solid ${th.panelBorder}`,
@@ -4553,9 +4379,6 @@ export function Pricing({
                     marginBottom: 18,
                   }}
                 >
-                  {/* Dos filas y un divisor continuo: primero implementación,
-                      después el plan. La secuencia se entiende antes de leer el
-                      detalle de modalidad o créditos. */}
                   <div
                     className="home-plan-payment-row"
                     role="row"
@@ -4580,42 +4403,17 @@ export function Pricing({
                           whiteSpace: "nowrap",
                         }}
                       >
-                        {freeSetup ? "Implementación" : "Mes 1"}
+                        Implementación
                       </div>
                       <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 12.5, fontWeight: 600, lineHeight: 1.35, color: th.ink, marginTop: 4, whiteSpace: "nowrap" }}>
-                        {freeSetup
-                          ? `Incluida en el plan ${billingLabel}`
-                          : "Implementación · plan después"}
+                        Pago único · con el primer mes
                       </div>
                     </div>
                     <div role="cell" style={{ textAlign: "right", flex: "0 0 auto" }}>
-                      {freeSetup ? (
-                        <span style={{ display: "inline-flex", alignItems: "center", gap: 8, whiteSpace: "nowrap" }}>
-                          <s style={{ fontFamily: "Inter", fontSize: 13.5, fontWeight: 600, color: impl.strike, textDecorationThickness: "from-font" }}>
-                            {SETUP_FEE_AMOUNT}
-                          </s>
-                          <span
-                            style={{
-                              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                              fontSize: 10.5,
-                              fontWeight: 700,
-                              letterSpacing: "0.1em",
-                              textTransform: "uppercase",
-                              color: impl.pillInk,
-                              background: impl.pillBg,
-                              borderRadius: 999,
-                              padding: "4px 10px",
-                            }}
-                          >
-                            Gratis
-                          </span>
-                        </span>
-                      ) : (
-                        <span style={{ display: "inline-flex", alignItems: "baseline", gap: 6, fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 24, fontWeight: 800, color: th.ink, letterSpacing: "-0.04em", whiteSpace: "nowrap" }}>
-                          {SETUP_FEE_AMOUNT}
-                          <span style={{ fontFamily: "Inter", fontSize: 11, fontWeight: 600, letterSpacing: 0, color: th.sub }}>USD</span>
-                        </span>
-                      )}
+                      <span style={{ display: "inline-flex", alignItems: "baseline", gap: 6, fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 24, fontWeight: 800, color: th.ink, letterSpacing: "-0.04em", whiteSpace: "nowrap" }}>
+                        {SETUP_FEE_AMOUNT}
+                        <span style={{ fontFamily: "Inter", fontSize: 11, fontWeight: 600, letterSpacing: 0, color: th.sub }}>USD</span>
+                      </span>
                     </div>
                   </div>
 
@@ -4644,14 +4442,10 @@ export function Pricing({
                           color: th.sub,
                         }}
                       >
-                        {freeSetup
-                          ? isAnnual
-                            ? "Plan anual"
-                            : "Plan semestral"
-                          : "Después de la implementación"}
+                        Plan mensual
                       </div>
                       <div style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10.5, lineHeight: 1.5, color: th.sub, marginTop: 5 }}>
-                        {freeSetup ? "Equivalente mensual · cobro inmediato" : `Plan · ${billingLabel}`}
+                        Se cobra desde el primer mes
                       </div>
                       {showCredits && (
                         <div
@@ -4679,7 +4473,7 @@ export function Pricing({
                     </div>
                     <div role="cell" style={{ textAlign: "right", flex: "0 0 auto" }}>
                       <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 38, fontWeight: 800, color: th.ink, letterSpacing: "-0.05em", lineHeight: 1.05 }}>
-                        {isAnnual ? p.annualMonthly : isSemester ? p.semesterMonthly : p.price}
+                        {p.price}
                       </div>
                       <div style={{ fontFamily: "Inter", fontSize: 11.5, fontWeight: 600, color: th.sub, marginTop: 6 }}>USD/mes</div>
                     </div>
@@ -4827,153 +4621,6 @@ export function Pricing({
           })}
         </div>
 
-        {/* Empuje al prepago: semestral y anual regalan la implementación.
-            Desde mensual se ofrecen las dos; desde semestral se empuja al anual
-            por más meses con el mismo −20%. */}
-        {billing === "monthly" && (
-          <div style={{ marginTop: 22, display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
-            <button
-              type="button"
-              onClick={() => setBilling("semester")}
-              className="home-annual-nudge"
-              style={{
-                appearance: "none",
-                cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 12,
-                flexWrap: "wrap",
-                justifyContent: "center",
-                textAlign: "center",
-                background: "#fff",
-                border: "1.5px solid rgba(124,58,237,.32)",
-                borderRadius: 14,
-                padding: "14px 22px",
-                fontFamily: "Inter",
-                fontSize: 15,
-                color: "#4B5563",
-                lineHeight: 1.5,
-                boxShadow: "0 10px 30px -18px rgba(124,58,237,.65)",
-                maxWidth: 760,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                  fontSize: 10.5,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#fff",
-                  background: GRAD,
-                  borderRadius: 999,
-                  padding: "4px 10px",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Semestral
-              </span>
-              <span>
-                {SEMESTER_DISCOUNT_PERCENT}% OFF +{" "}
-                <b style={{ color: "#0A0A0A" }}>implementación gratis</b> ({SETUP_FEE_AMOUNT} USD) →
-              </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setBilling("annual")}
-              className="home-annual-nudge"
-              style={{
-                appearance: "none",
-                cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 12,
-                flexWrap: "wrap",
-                justifyContent: "center",
-                textAlign: "center",
-                background: "#fff",
-                border: "1.5px solid rgba(124,58,237,.32)",
-                borderRadius: 14,
-                padding: "14px 22px",
-                fontFamily: "Inter",
-                fontSize: 15,
-                color: "#4B5563",
-                lineHeight: 1.5,
-                boxShadow: "0 10px 30px -18px rgba(124,58,237,.65)",
-                maxWidth: 760,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                  fontSize: 10.5,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#fff",
-                  background: GRAD,
-                  borderRadius: 999,
-                  padding: "4px 10px",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Anual
-              </span>
-              <span>
-                {ANNUAL_DISCOUNT_PERCENT}% OFF +{" "}
-                <b style={{ color: "#0A0A0A" }}>implementación gratis</b> ({SETUP_FEE_AMOUNT} USD) →
-              </span>
-            </button>
-          </div>
-        )}
-        {billing === "semester" && (
-          <div style={{ marginTop: 22, display: "flex", justifyContent: "center" }}>
-            <button
-              type="button"
-              onClick={() => setBilling("annual")}
-              className="home-annual-nudge"
-              style={{
-                appearance: "none",
-                cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 12,
-                flexWrap: "wrap",
-                justifyContent: "center",
-                textAlign: "center",
-                background: "#fff",
-                border: "1.5px solid rgba(124,58,237,.32)",
-                borderRadius: 14,
-                padding: "14px 22px",
-                fontFamily: "Inter",
-                fontSize: 15,
-                color: "#4B5563",
-                lineHeight: 1.5,
-                boxShadow: "0 10px 30px -18px rgba(124,58,237,.65)",
-                maxWidth: 760,
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "'JetBrains Mono', ui-monospace, monospace",
-                  fontSize: 10.5,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#fff",
-                  background: GRAD,
-                  borderRadius: 999,
-                  padding: "4px 10px",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Anual
-              </span>
-              <span>
-                Mismo {ANNUAL_DISCOUNT_PERCENT}% OFF e implementación gratis, pero{" "}
-                <b style={{ color: "#0A0A0A" }}>12 meses</b> anticipados →
-              </span>
-            </button>
-          </div>
-        )}
-
         {/* Info compartida de los 3 planes de autoservicio */}
         <div className="reveal" style={{ textAlign: "center", marginTop: 20, fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 11.5, letterSpacing: "0.06em", color: "#6B7280" }}>
           Todos los planes: ingeniero E2E · soporte prioritario · permanencia mínima de 6 meses
@@ -5035,12 +4682,6 @@ export function Pricing({
           :global(.home-pricing-grid) { grid-template-columns: 1fr !important; gap: 28px !important; }
           :global(.home-plan-card) { transform: none !important; }
           :global(.home-plan-card-featured) { order: -1; }
-        }
-        @media (max-width: 640px) {
-          /* En móvil el anual se toma la fila completa arriba: la jerarquía se
-             mantiene aunque las tres opciones no quepan en una sola línea. */
-          :global(.billing-toggle) { grid-template-columns: 1fr 1fr !important; }
-          :global(.billing-toggle > button:first-child) { grid-column: 1 / -1 !important; }
         }
         @media (max-width: 720px) {
           :global(.home-ia-strip) { align-items: flex-start !important; }

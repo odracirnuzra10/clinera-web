@@ -4,9 +4,8 @@ import { CLINERA_PLANS, SETUP_FEE_NUMBER, SETUP_FEE_USD } from "../src/content/p
 /**
  * Lo que se cuida acá es lo que sigue viviendo en este repo:
  *   1. la ruta vieja lleva al cotizador nuevo (nadie queda en un 404),
- *   2. `/planes` comunica la estructura de pago canónica de AGENTS.md
- *      (mensual = implementación US$ 450 luego el plan; semestral/anual =
- *      implementación gratis y cobro inmediato del período), y
+ *   2. `/planes` comunica la estructura de pago canónica: implementación USD 450
+ *      más el primer mes del plan (sólo mensual en la web pública), y
  *   3. los links de pago que se publican son EXACTAMENTE los de pricing.ts.
  *
  * Que el cotizador cobre esa misma estructura se prueba en el repo `baserow`:
@@ -24,56 +23,28 @@ test("la implementación sigue valiendo USD 450 en la fuente única", () => {
   expect(SETUP_FEE_NUMBER).toBe("450");
 });
 
-test("setupFeeFor: gratis en semestral/anual, cobrada sólo en mensual", async () => {
+test("setupFeeFor: catálogo cobra implementación siempre", async () => {
   const { setupFeeFor, includesFreeSetup } = await import("../src/content/pricing");
   expect(setupFeeFor("monthly")).toBe(450);
-  expect(setupFeeFor("semester")).toBe(0);
-  expect(setupFeeFor("annual")).toBe(0);
-  expect(includesFreeSetup("semester")).toBe(true);
-  expect(includesFreeSetup("annual")).toBe(true);
+  expect(setupFeeFor("annual")).toBe(450);
   expect(includesFreeSetup("monthly")).toBe(false);
+  expect(includesFreeSetup("annual")).toBe(false);
 });
 
-test("/planes en anual muestra implementación gratis (default)", async ({ page }) => {
+test("/planes muestra implementación USD 450 con el primer mes", async ({ page }) => {
   await page.goto("/planes", { waitUntil: "domcontentloaded" });
   const precios = page.locator("#precios");
-  await expect(precios.getByText("Gratis").first()).toBeVisible();
-  await expect(precios.getByText(/incluida en el plan anual/i).first()).toBeVisible();
-});
-
-test("/planes en mensual cobra implementación y luego el plan", async ({ page }) => {
-  await page.goto("/planes", { waitUntil: "domcontentloaded" });
-  await page.getByRole("button", { name: /mensual/i }).first().click();
-  const precios = page.locator("#precios");
-  await expect(precios.getByText("Mes 1").first()).toBeVisible();
+  await expect(precios.getByText("Implementación").first()).toBeVisible();
   await expect(precios.getByText(`$${SETUP_FEE_NUMBER}`).first()).toBeVisible();
-  await expect(precios.getByText(/después de la implementación/i).first()).toBeVisible();
+  await expect(precios.getByText(/con el primer mes/i).first()).toBeVisible();
+  await expect(precios.getByText(/incluida en el plan/i)).toHaveCount(0);
+  await expect(precios.getByRole("button", { name: /semestral/i })).toHaveCount(0);
+  await expect(precios.getByRole("button", { name: /anual/i })).toHaveCount(0);
 });
 
-test("/planes en semestral también regala la implementación", async ({ page }) => {
-  await page.goto("/planes", { waitUntil: "domcontentloaded" });
-  await page.getByRole("button", { name: /semestral/i }).first().click();
-  const precios = page.locator("#precios");
-  await expect(precios.getByText("Gratis").first()).toBeVisible();
-  await expect(precios.getByText(/incluida en el plan semestral/i).first()).toBeVisible();
-});
-
-test("los links de pago de /planes son los de pricing.ts, sin copias sueltas", async ({ page }) => {
+test("los links de pago de /planes son los mensuales de pricing.ts", async ({ page }) => {
   await page.goto("/planes", { waitUntil: "domcontentloaded" });
 
-  // /planes abre en anual (default del toggle).
-  for (const plan of CLINERA_PLANS) {
-    const boton = page.locator(`#precios a[data-plan="${plan.id}"][data-plan-billing="annual"]`);
-    await expect(boton).toHaveAttribute("href", plan.stripeAnnual);
-  }
-
-  await page.getByRole("button", { name: /semestral/i }).first().click();
-  for (const plan of CLINERA_PLANS) {
-    const boton = page.locator(`#precios a[data-plan="${plan.id}"][data-plan-billing="semester"]`);
-    await expect(boton).toHaveAttribute("href", plan.stripeSemester);
-  }
-
-  await page.getByRole("button", { name: /mensual/i }).first().click();
   for (const plan of CLINERA_PLANS) {
     const boton = page.locator(`#precios a[data-plan="${plan.id}"][data-plan-billing="monthly"]`);
     await expect(boton).toHaveAttribute("href", plan.stripe);
