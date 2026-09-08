@@ -228,10 +228,12 @@ la recomendación del partner + CTA a reunión.
 >
 > Auditoría Graph API del 2026-08-26 (valores, custom conversions, campañas
 > Chile/LATAM, por qué el MQL de WhatsApp no entrena):
-> `docs/auditoria-meta-eventos-2026-08-26.md`. Embudo vigente (Ricardo,
-> 27-ago): **`Lead` US$ 5 al enviar el Instant Form → `MQL` US$ 10 al agendar
-> → SQL 100 → SQL+ 300.** El «MQL US$ 5 para wizard e Instant Form» del
-> 26-ago duró un día; si aparece en otro doc, es residuo.
+> `docs/auditoria-meta-eventos-2026-08-26.md`. Embudo CRM→CAPI vigente
+> (sep-2026, workflow `W1SybZZSEZqAItIt`): ver tabla de etapas más abajo.
+> El Instant Form sigue emitiendo `Lead` US$ 5 al enviarse y el agendamiento
+> web/IA sigue emitiendo `MQL` US$ 10 al confirmar hora. El «MQL US$ 5 para
+> wizard e Instant Form» del 26-ago duró un día; si aparece, es residuo.
+> **`SQL_Plus` murió:** PROPOSAL ahora manda `HOT` US$ 300.
 >
 > **El MQL se gana agendando, en los tres caminos**, y ninguno lo gana
 > cambiando de etapa en Twenty. La versión anterior de esta línea decía «lead
@@ -289,26 +291,36 @@ la recomendación del partner + CTA a reunión.
 > Causa raíz con el log de n8n, contratos y el riesgo asumido:
 > `baserow/sales/HANDOFF.md` §28 y `baserow/CLAUDE.md`, sección «Camila agenda
 > en Google Calendar».
-| `SQL` | el closer lo califica en `crm.oacg.cl` | US$ 100 | `integrations/n8n/crm-sql-twenty.workflow.json` **y** un segundo workflow que lee Baserow 152, sólo en n8n |
-| `SQL_Plus` | el closer lo sube a propuesta | US$ 300 | sólo en n8n |
 
-**Desde el 2026-08-21, Google Ads recibe el mismo embudo** (MQL/SQL/SQL+, mismos
-montos) — no por CAPI, sino porque los workflows de SQL y
-SQL+ (no el de MQL) marcan Baserow 152 y un feed nuevo en `baserow`
-(`sales/n8n/gads-conversiones-sql-csv.js`) se lo sirve a Google Ads Data
-Manager por HTTPS. El motivo (Data Manager no acepta push, sólo lee un
-archivo) y el diseño completo viven en `baserow/sales/HANDOFF.md` — no se
-duplican acá, sólo se apunta.
+### CRM Twenty → Meta CAPI (workflow unificado, sep-2026)
 
-`SQL` y `SQL_Plus` son eventos **distintos a propósito**: dos peldaños del
-embudo, no el mismo hecho contado dos veces. No los unifiques.
+Workflow vivo: **`W1SybZZSEZqAItIt`** (*Clinera \| Twenty etapas → Meta CAPI*),
+webhook `POST …/webhook/crm-sql`, suscrito en Twenty a `*.*` (incluye
+`opportunity.updated` sin filtro de stage). Los viejos `dhwqS9oW3qfvq6Y4`
+(SQL) y `rWZDSfi8RJ780q76` (`SQL_Plus`) están **apagados**. `SQL_Plus` ya no
+se emite.
 
-**La trampa que ya costó un doble cobro:** los dos workflows que mandan `SQL`
-arman el `event_id` con el contacto hasheado, porque es lo único que ambos
-sistemas comparten. Meta deduplica por (`event_name`, `event_id`), así que la
-normalización tiene que quedar **idéntica** en los dos — un `trim()` de más en
-uno rompe la colisión en silencio: los eventos siguen saliendo, Meta los sigue
-aceptando, y el mismo lead se cuenta dos veces sin ningún error visible.
+Mapeo `stage` (valor interno) → evento CAPI → value USD (`currency: USD`):
+
+| stage | event_name | value |
+|---|---|---|
+| `NEW` | `Lead` | 1 |
+| `SCREENING` | `PQL` | 2 |
+| `PQL` | `MQL` | 10 |
+| `MEETING` | `SQL` | 100 |
+| `PROPOSAL` | `HOT` | 300 |
+| `CUSTOMER` | `Purchase` | `planClinera`: VORTEX 279 / ATLAS 379 / SUMMIT 479; vacío → 279 |
+| `NQL` | `NQL` | 0 |
+
+`event_id` = `{opportunityId}_{stage}`. `user_data.lead_id` = `leadgenId` (entero,
+sin hash) si existe; si no, el evento sale igual. `action_source` =
+`system_generated`. Detalle: `integrations/n8n/README.md` y
+`baserow/sales/etiqueta-hot-y-capi.md`.
+
+**Desde el 2026-08-21, Google Ads recibe el mismo embudo** (montos alineados a
+Meta) — no por CAPI, sino porque los workflows de SQL/HOT marcan Baserow 152
+y un feed en `baserow` (`sales/n8n/gads-conversiones-sql-csv.js`) se lo sirve
+a Google Ads Data Manager por HTTPS. Detalle en `baserow/sales/HANDOFF.md`.
 
 Ids, disparos y el detalle completo: `integrations/n8n/README.md`.
 
