@@ -20,7 +20,6 @@ const slideOrder = [
   "por-que-clinera",
   "aura",
   "intelligence",
-  "la-fuga",
   "inteligencia",
   "inteligencia-deudas",
   "inteligencia-profesionales",
@@ -37,8 +36,10 @@ test.describe("Rediseño Rebeca del deck /presentacion", () => {
     );
     const deck = ids.filter((id) => slideOrder.includes(id));
     expect(deck).toEqual(slideOrder);
+    expect(deck).toHaveLength(12);
     expect(html).not.toContain('id="veredicto"');
     expect(html).not.toContain('id="herramientas"');
+    expect(html).not.toContain('id="la-fuga"');
   });
 
   test("el hero no muestra clínicas/clientes y abre con métricas", () => {

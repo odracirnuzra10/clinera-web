@@ -6,6 +6,7 @@ import { join } from "node:path";
  * Quiénes somos (#origen) y por qué Clinera (#por-que-clinera) van justo
  * después del hero y antes de AURA (Ricardo, sep 2026). Las razones vienen
  * de la tarea Todoist «Optimizar presentación ¿por qué Clinera…?».
+ * El deck se mantiene en 12 diapos: se retiró #la-fuga (cifras ya en el hero).
  */
 const html = readFileSync(
   join(process.cwd(), "public/presentacion/index.html"),

@@ -442,6 +442,13 @@ Metricads/agencia 2017, Método Hebe y Protocolo Lumina (tres sedes), lanzamient
 octubre 2025 — **nada de cifras nuevas**. No nombrar competidores ni Open
 Factura. Guardián: `tests/presentacion-por-que-clinera.spec.ts`.
 
+**Tope de 12 diapos (sep 2026):** al sumar origen + por-qué se retiró
+`#la-fuga` — el hero ya lleva las mismas cifras (20 %, US$ 1.500, 300 leads /
+60 que se escapan). No reponer esa diapo sin sacar otra. Orden canónico:
+`clinera` → `origen` → `por-que-clinera` → `aura` → `intelligence` →
+`inteligencia` → `inteligencia-deudas` → `inteligencia-profesionales` →
+`empleados-digitales` → `canales` → `normativa` → `migracion`.
+
 **Clinera Intelligence (sep 2026):** el WOW del deck ya **no** es el QR
 «Prueba tú mismo» (`#demostracion` eliminado). Son **3 diapos** seguidas
 (`#inteligencia`, `#inteligencia-deudas`, `#inteligencia-profesionales`) con
