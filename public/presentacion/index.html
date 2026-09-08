@@ -3308,6 +3308,61 @@
       font-weight: 700;
     }
 
+    /* --- Cómo nació Clinera (#origen): agencia → clínicas → Clinera --- */
+    .og-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: stretch;
+      gap: clamp(10px, 1.5vw, 18px);
+    }
+
+    .og-step {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: clamp(18px, 2.4vh, 26px) clamp(16px, 1.8vw, 24px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .55);
+    }
+
+    .og-year {
+      display: block;
+      color: var(--ink-soft);
+      font-family: var(--blk-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .og-step strong {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(16px, 1.4vw, 20px);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    .og-step span {
+      display: block;
+      margin-top: 2px;
+      color: var(--ink-soft);
+      font-size: 13.5px;
+      line-height: 1.4;
+      text-wrap: pretty;
+    }
+
+    .og-arrow {
+      align-self: center;
+      color: var(--brand-violet);
+      font-family: var(--blk-mono);
+      font-size: clamp(22px, 2.2vw, 32px);
+      font-weight: 700;
+      line-height: 1;
+    }
+
     /* ---- Ventana de producto compartida por los mockups ---- */
     .mock {
       justify-self: end;
@@ -3754,6 +3809,15 @@
       .cn-cards {
         max-width: 640px;
       }
+
+      .og-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .og-arrow {
+        display: none;
+      }
     }
 
     /* Bajo ~760px la tabla deja de ser tabla y pasa a ser una tarjeta por
@@ -3948,6 +4012,14 @@
       .fg-panel {
         padding: 22px;
       }
+
+      .og-step {
+        padding: 16px 18px;
+      }
+
+      .og-step span {
+        font-size: 12.5px;
+      }
     }
 
     @media (max-height: 720px) and (min-width: 961px) {
@@ -3993,6 +4065,23 @@
 
       .ch-note {
         font-size: 14px;
+      }
+
+      .og-step {
+        padding: 12px 14px;
+        gap: 4px;
+      }
+
+      .og-step strong {
+        font-size: 15px;
+      }
+
+      .og-step span {
+        font-size: 12px;
+      }
+
+      .og-year {
+        font-size: 11px;
       }
     }
 
@@ -4257,6 +4346,83 @@
 
       <section
         class="slide blk"
+        id="origen"
+        data-name="Cómo nació Clinera"
+        aria-hidden="true"
+      >
+        <div class="slide-inner hr-layout">
+          <header class="hr-head">
+            <div class="blk-eyebrow">CÓMO NACIÓ CLINERA</div>
+            <h2 class="blk-h2">
+              No somos un software que se acercó a las clínicas.
+              <span class="blk-grad-text">Somos clínicas</span> que construyeron su software.
+            </h2>
+            <p class="blk-lead">Antes de vender Clinera la operamos todos los días en nuestras propias sedes.</p>
+          </header>
+
+          <div
+            class="og-grid reveal"
+            aria-label="De agencia de marketing a clínicas propias y luego a Clinera"
+          >
+            <article class="og-step">
+              <span class="og-year">2017</span>
+              <strong>Una agencia de marketing</strong>
+              <span>Partimos llenando la agenda de clínicas con campañas. Vimos de cerca cuántos pacientes se perdían después del clic.</span>
+            </article>
+            <span class="og-arrow" aria-hidden="true">→</span>
+            <article class="og-step">
+              <span class="og-year">Después</span>
+              <strong>Nuestras propias clínicas</strong>
+              <span>El grupo abrió Método Hebe y Protocolo Lumina, hoy con tres sedes. Vivimos la agenda, la ficha y el WhatsApp desde adentro.</span>
+            </article>
+            <span class="og-arrow" aria-hidden="true">→</span>
+            <article class="og-step">
+              <span class="og-year">2025</span>
+              <strong>Clinera</strong>
+              <span>Faltaba un sistema que uniera agenda, fichas, profesionales y marketing con IA. Como no existía, lo construimos. Lanzó en octubre de 2025.</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
+        id="por-que-clinera"
+        data-name="Por qué Clinera"
+        aria-hidden="true"
+      >
+        <div class="slide-inner hr-layout">
+          <header class="hr-head">
+            <div class="blk-eyebrow">POR QUÉ CLINERA</div>
+            <h2 class="blk-h2">
+              ¿Por qué Clinera y <span class="blk-grad-text">no otro software</span>?
+            </h2>
+            <p class="blk-lead">Cuatro cosas que un software genérico no puede prometerte.</p>
+          </header>
+
+          <div class="hr-grid hr-grid-2">
+            <div class="hr-item">
+              <strong>Contacto 100 % personalizado</strong>
+              <span>Hablas con personas que conocen tu clínica por nombre. Sin tickets, sin bot de soporte, sin cola.</span>
+            </div>
+            <div class="hr-item">
+              <strong>Implementación con un ingeniero</strong>
+              <span>Un ingeniero de Clinera configura tu cuenta contigo, migra tus datos y te acompaña hasta que el equipo opera solo.</span>
+            </div>
+            <div class="hr-item">
+              <strong>Escuchamos y entendemos al cliente</strong>
+              <span>Operamos clínicas: sabemos qué duele en recepción a las 19:00. Lo que nos pides entra al producto, no a una lista de deseos.</span>
+            </div>
+            <div class="hr-item">
+              <strong>Unificamos tu operación, a tu medida</strong>
+              <span>Agenda, fichas, profesionales y marketing en un solo sistema, conectado con IA. Lo ajustamos a cómo trabaja tu clínica, no al revés.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="slide blk"
         id="aura"
         data-name="AURA · El Corazón"
         aria-hidden="true"
@@ -4454,61 +4620,6 @@
               <span>Dra. Stefani</span>
             </aside>
           </div>
-        </div>
-      </section>
-
-<section
-        class="slide blk"
-        id="la-fuga"
-        data-name="La fuga"
-        aria-hidden="true"
-      >
-        <div class="slide-inner fg-layout">
-          <div class="fg-copy">
-            <div class="fg-head">
-              <div class="blk-eyebrow">ANTES DE SEGUIR</div>
-              <h2 class="blk-h2">¿Sabías que <span class="blk-grad-text">hasta el 20% de tus pacientes</span> se pierden por no responder a tiempo?</h2>
-              <p class="blk-lead"><strong>Clinera es para ti si</strong> sientes que pierdes pacientes por desorden, falta de organización o porque estás sobrecolapsado.</p>
-            </div>
-            
-          </div>
-
-          <aside class="fg-panel reveal" aria-label="De diez leads calificados, tres llegan fuera de horario, uno espera al día siguiente y dos se pierden">
-            <div class="fg-panel-head">
-              <span>10 leads calificados</span>
-              <span class="fg-panel-tag">2 se pierden</span>
-            </div>
-
-            <div class="fg-chain">
-              <div class="fg-step">
-                <span class="fg-step-label"><b>10</b> entran al mes</span>
-                <div class="fg-dots" aria-hidden="true">
-                  <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
-                </div>
-              </div>
-              <div class="fg-step">
-                <span class="fg-step-label"><b>3</b> escriben fuera de horario</span>
-                <div class="fg-dots" aria-hidden="true">
-                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="hour"></i><i class="hour"></i><i class="hour"></i>
-                </div>
-              </div>
-              <div class="fg-step">
-                <span class="fg-step-label"><b>1</b> espera al día siguiente · <b>2</b> se van</span>
-                <div class="fg-dots" aria-hidden="true">
-                  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="wait"></i><i class="lost"></i><i class="lost"></i>
-                </div>
-              </div>
-            </div>
-
-            <div class="fg-result">
-              <span class="fg-result-text">Se pierden por gestión tardía</span>
-              <strong class="fg-result-figure blk-grad-text">20%</strong>
-            </div>
-            <div class="fg-cash-hero">
-              <strong class="fg-cash-figure blk-grad-text">US$&nbsp;1.500</strong>
-              <p class="fg-cash">Con 300 leads al mes son <b>60 evaluaciones que nunca ocurren</b> — todos los meses, sobre la mesa.</p>
-            </div>
-          </aside>
         </div>
       </section>
 

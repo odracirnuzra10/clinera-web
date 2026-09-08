@@ -424,14 +424,30 @@ Guardián: `tests/vision-2027.spec.ts`.
 `/presentacion` → `/presentacion/index.html`, un único archivo HTML/CSS/JS en
 `public/presentacion/index.html`. No hay componente React que tocar ahí.
 
-**Rediseño comercial (Rebeca → gerencia, 27-ago-2026):** AURA va en la 2.ª
-diapositiva («El Corazón de Clinera»); el hero abre con métricas de impacto en
-fondo oscuro, **sin** la franja «Clínicas que ya operan con Clinera»; se borraron
-`#veredicto` y `#herramientas`; no se prometen cobros/conciliación/exámenes; la
-migración habla de «7 días de Red de Seguridad». Fuente: correo de Rebeca con
+**Rediseño comercial (Rebeca → gerencia, 27-ago-2026):** el hero abre con
+métricas de impacto en fondo oscuro, **sin** la franja «Clínicas que ya operan
+con Clinera»; se borraron `#veredicto` y `#herramientas`; no se prometen
+cobros/conciliación/exámenes; la migración habla de «7 días de Red de
+Seguridad». Fuente: correo de Rebeca con
 `Analisis_Presentacion_Clinera_Gerencia.pdf`. `#canales` y `#empleados-digitales`
 se mantienen (guardians propios). Guardián del rediseño:
 `tests/presentacion-redisenio-rebeca.spec.ts`.
+
+**Quiénes somos antes del producto (Ricardo, sep 2026):** justo después del
+hero van `#origen` («Cómo nació Clinera») y `#por-que-clinera` («¿Por qué
+Clinera y no otro software?»); AURA es la **4.ª** diapositiva. El orden es
+quiénes somos y por qué nosotros → producto. Las cuatro razones salen de la
+tarea Todoist de optimizar esa pregunta. Hechos citables de la historia:
+Metricads/agencia 2017, Método Hebe y Protocolo Lumina (tres sedes), lanzamiento
+octubre 2025 — **nada de cifras nuevas**. No nombrar competidores ni Open
+Factura. Guardián: `tests/presentacion-por-que-clinera.spec.ts`.
+
+**Tope de 12 diapos (sep 2026):** al sumar origen + por-qué se retiró
+`#la-fuga` — el hero ya lleva las mismas cifras (20 %, US$ 1.500, 300 leads /
+60 que se escapan). No reponer esa diapo sin sacar otra. Orden canónico:
+`clinera` → `origen` → `por-que-clinera` → `aura` → `intelligence` →
+`inteligencia` → `inteligencia-deudas` → `inteligencia-profesionales` →
+`empleados-digitales` → `canales` → `normativa` → `migracion`.
 
 **Clinera Intelligence (sep 2026):** el WOW del deck ya **no** es el QR
 «Prueba tú mismo» (`#demostracion` eliminado). Son **3 diapos** seguidas
