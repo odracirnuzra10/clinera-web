@@ -4,9 +4,10 @@ import { join } from "node:path";
 
 /**
  * Rediseño del deck /presentacion según informe de Rebeca (ago 2026):
- * AURA al inicio, sin logos de clientes en el hero, sin cobros/conciliación/
- * exámenes, sin inventario de funciones, migración como "Red de Seguridad".
- * #canales y #empleados-digitales se mantienen (guardians propios).
+ * AURA tras origen y razones (ya no es la 2.ª), sin logos de clientes en el
+ * hero, sin cobros/conciliación/exámenes, sin inventario de funciones,
+ * migración como "Red de Seguridad". #canales y #empleados-digitales se
+ * mantienen (guardians propios). Origen + por-qué: tests/presentacion-por-que-clinera.spec.ts.
  */
 const html = readFileSync(
   join(process.cwd(), "public/presentacion/index.html"),
@@ -15,6 +16,8 @@ const html = readFileSync(
 
 const slideOrder = [
   "clinera",
+  "origen",
+  "por-que-clinera",
   "aura",
   "intelligence",
   "la-fuga",
@@ -68,13 +71,16 @@ test.describe("Rediseño Rebeca del deck /presentacion", () => {
     expect(mig).not.toMatch(/\bpagos\b/i);
   });
 
-  test("abre en el hero oscuro y AURA es la segunda diapositiva", async ({
+  test("abre en el hero oscuro y AURA es la cuarta diapositiva", async ({
     page,
   }) => {
     await page.goto("/presentacion", { waitUntil: "domcontentloaded" });
     await expect(page.locator("#clinera")).toHaveClass(/active/);
     await expect(page.locator("#clinera")).toHaveClass(/blk-dark/);
     await expect(page.getByText("US$ 1.500").first()).toBeVisible();
+    await page.keyboard.press("ArrowRight");
+    await expect(page.locator("#origen")).toHaveClass(/active/);
+    await page.keyboard.press("ArrowRight");
     await page.keyboard.press("ArrowRight");
     await expect(page.locator("#aura")).toHaveClass(/active/);
     await expect(
