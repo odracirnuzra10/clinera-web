@@ -99,10 +99,10 @@ function filasDeCotizacion(c: CotizacionSnapshot): Filas {
     {
       nombre: `Plan ${c.planNombre}`,
       detalle:
-        c.billing === "annual"
-          ? "12 meses · 20% de ahorro anual e implementación incluida"
-          : c.billing === "semester"
-            ? "6 meses · ahorro semestral de catálogo incluido"
+        c.periodoMeses === 12
+          ? "12 meses · 20% de ahorro anual de catálogo"
+          : c.periodoMeses === 6
+            ? "6 meses · 20% de ahorro semestral de catálogo"
             : "Facturación mes a mes",
       cantidad: "1",
       dcto: c.descuentos.plan,
@@ -263,9 +263,9 @@ export async function generarPdfCotizacion(
   const altoTotal = 34;
   pagina.drawRectangle({ x: xResumen - 12, y: y - altoTotal + 8, width: 252, height: altoTotal, color: TINTA });
   const etiquetaTotal =
-    cotizacion.billing === "annual"
+    cotizacion.periodoMeses === 12
       ? "TOTAL ANUAL"
-      : cotizacion.billing === "semester"
+      : cotizacion.periodoMeses === 6
         ? "TOTAL SEMESTRAL"
         : "TOTAL PRIMER MES";
   texto(etiquetaTotal, xResumen, y - 14, 7.5, negrita, rgb(1, 1, 1));

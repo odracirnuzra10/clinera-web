@@ -14,7 +14,7 @@ export const EMPLEADO_DIGITAL_FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "¿Cómo se contrata?",
-    a: "Agenda una reunión en /agenda o activa el plan en /planes. La implementación es USD 450 pago único en mensual y semestral; en el plan anual va incluida sin costo.",
+    a: "Agenda una reunión en /agenda o activa el plan en /planes. La implementación es USD 450 pago único, cobrada con el primer mes del plan.",
   },
   {
     q: "¿Qué pasa si la IA no sabe responder?",

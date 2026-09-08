@@ -101,7 +101,7 @@ const jsonLd = {
           acceptedAnswer: {
             "@type": "Answer",
             text:
-              "La permanencia mínima es de 6 meses y puedes pagar mensual, semestral con 20% OFF o anual con 20% OFF e implementación gratis. En mensual y semestral el costo de configuración es un pago único de USD 450 (onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo). Quedas operando el mismo día.",
+              "La permanencia mínima es de 6 meses. Plan mensual: el primer cobro incluye implementación USD 450 más el primer mes del plan (onboarding asistido por un humano que migra tus fichas clínicas, datos históricos, pacientes y tratamientos, configura tus agentes de IA, conecta tu WhatsApp Business, integra tu agenda y capacita a tu equipo). Quedas operando el mismo día.",
           },
         },
         {

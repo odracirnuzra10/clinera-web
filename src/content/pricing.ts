@@ -2,8 +2,9 @@
 // Lo consumen <SetupFeeBand />, las tarjetas de planes de home-v3
 // (home, /planes, /planes-pro y /plataforma) y las calculadoras de consumo.
 //
-// OJO: semestral y anual NO pagan implementación. No leas SETUP_FEE_USD
-// directo cuando la modalidad esté en juego — usa setupFeeFor(billing).
+// Catálogo público (clinera.io): sólo mensual. El anual vive en el
+// constructor (cotizacion.oacg.cl), no en la web. En las dos modalidades
+// el primer cobro es implementación + primer período del plan.
 export const SETUP_FEE_USD = 450;
 
 /** Monto formateado en es-CL, sin símbolo ni moneda: "450". */
@@ -12,72 +13,61 @@ export const SETUP_FEE_NUMBER = "450";
 /** Monto con símbolo, para el precio de la banda: "$450". */
 export const SETUP_FEE_AMOUNT = `$${SETUP_FEE_NUMBER}`;
 
-/** Línea corta para poner debajo del precio de cada plan (solo mensual). */
+/** Línea corta para poner debajo del precio de cada plan. */
 export const SETUP_FEE_INLINE = `+ USD ${SETUP_FEE_NUMBER} configuración inicial (pago único)`;
 
 export const SETUP_FEE_TITLE = "Costo de configuración: una sola vez";
 
 export const SETUP_FEE_COPY =
-  "Migramos fichas clínicas, datos históricos, pacientes y tratamientos, y configuramos tus agentes de IA. En mensual se cobra al inicio (el plan arranca después). En semestral y anual va incluida sin costo: pagas el plan de inmediato.";
+  "Migramos fichas clínicas, datos históricos, pacientes y tratamientos, y configuramos tus agentes de IA. El primer cobro es la implementación más el primer mes del plan. Después, el plan mes a mes.";
 
+/** Permanencia mínima de todos los planes, en meses. */
 export const SEMESTER_MONTHS = 6;
-export const SEMESTER_DISCOUNT_PERCENT = 20;
+export const MIN_TERM_MONTHS = SEMESTER_MONTHS;
 
 export const ANNUAL_MONTHS = 12;
 export const ANNUAL_DISCOUNT_PERCENT = 20;
 
 /**
- * Las tres modalidades de venta. El orden es deliberado: `annual` va primero
- * porque es la que el sitio empuja (mejor caja, mejor retención) y por eso es
- * la opción por defecto de <Pricing /> y del cotizador.
+ * Modalidades que todavía existen en el producto. La web pública sólo
+ * muestra mensual; semestral y anual son herramienta del constructor
+ * (cotizacion.oacg.cl). Este tipo cubre mensual/anual para firma y catálogo.
  */
-export const BILLING_PERIODS = ["annual", "semester", "monthly"] as const;
+export const BILLING_PERIODS = ["annual", "monthly"] as const;
 export type Billing = (typeof BILLING_PERIODS)[number];
 
 /**
- * Semestral y anual absorben la implementación: quien anticipa el período NO
- * paga los USD 450. Solo el mensual la cobra (y el plan corre después).
- * Cualquier copy, tarjeta, calculadora o cotización que muestre el costo de
- * configuración tiene que pasar por acá en vez de asumir SETUP_FEE_USD.
+ * El catálogo cobra la implementación siempre. Un closer puede regalarla
+ * en una cotización formal; eso no se publica ni se asume acá.
  */
-export function setupFeeFor(billing: Billing): number {
-  return billing === "monthly" ? SETUP_FEE_USD : 0;
+export function setupFeeFor(_billing: Billing): number {
+  return SETUP_FEE_USD;
 }
 
-/** true cuando la modalidad regala la implementación (semestral o anual). */
-export function includesFreeSetup(billing: Billing): boolean {
-  return setupFeeFor(billing) === 0;
+/** El catálogo nunca regala la implementación. */
+export function includesFreeSetup(_billing: Billing): boolean {
+  return false;
 }
-
-export const FREE_SETUP_PERK = "Implementación gratis";
-export const FREE_SETUP_PERK_LONG = `Implementación gratis (ahorras USD ${SETUP_FEE_NUMBER})`;
-
-/** @deprecated Preferí FREE_SETUP_PERK — el perk ya no es exclusivo del anual. */
-export const ANNUAL_SETUP_PERK = FREE_SETUP_PERK;
-/** @deprecated Preferí FREE_SETUP_PERK_LONG. */
-export const ANNUAL_SETUP_PERK_LONG = FREE_SETUP_PERK_LONG;
 
 export const EXTRA_CREDIT_PACK_USD = 15;
 export const EXTRA_CREDIT_PACK_CREDITS = 5_000;
 export const EXTRA_USER_USD = 9;
 
 /**
- * Catálogo comercial compartido por /planes y /cotizacion.
+ * Catálogo comercial. La web publica monthlyPrice + implementación.
+ * annualTotal / annualMonthly / stripeAnnual se quedan para el constructor
+ * y la firma; no se muestran en clinera.io.
  *
- * Los precios semestrales son el total de seis meses con el descuento de
- * catálogo aplicado; los anuales, el total de doce meses con el mismo 20% y
- * redondeado al dólar (así están cargados en Stripe: 2.678 / 3.638 / 4.598).
- * `annualMonthly` es el equivalente mensual redondeado a dos decimales para
- * mostrar en tarjeta — no multipliques por 12 esperando `annualTotal`.
- * Los add-ons no heredan ninguno de los dos descuentos automáticamente.
+ * Los anuales son doce meses con −20% de catálogo, redondeado al dólar
+ * (así están en Stripe: 2.678 / 3.638 / 4.598). `annualMonthly` es el
+ * equivalente para mostrar en cotización — no multipliques por 12
+ * esperando `annualTotal`.
  */
 export const CLINERA_PLANS = [
   {
     id: "vortex",
     name: "Vortex",
     monthlyPrice: 279,
-    semesterTotal: 1_339.2,
-    semesterMonthly: 223.2,
     annualTotal: 2_678,
     annualMonthly: 223.17,
     credits: 28_000,
@@ -91,15 +81,12 @@ export const CLINERA_PLANS = [
     featured: false,
     agents: [{ id: "aura", name: "AURA" }],
     stripe: "https://buy.stripe.com/4gM7sN7cZ4Yq9wT5RV1441u",
-    stripeSemester: "https://buy.stripe.com/dRmfZj0OBduW5gDcgj1441x",
     stripeAnnual: "https://buy.stripe.com/5kQ5kF8h3bmO24r9471441A",
   },
   {
     id: "atlas",
     name: "Atlas",
     monthlyPrice: 379,
-    semesterTotal: 1_819.2,
-    semesterMonthly: 303.2,
     annualTotal: 3_638,
     annualMonthly: 303.17,
     credits: 37_000,
@@ -117,15 +104,12 @@ export const CLINERA_PLANS = [
       { id: "camila", name: "CAMILA" },
     ],
     stripe: "https://buy.stripe.com/5kQ7sN40Nez08sP9471441v",
-    stripeSemester: "https://buy.stripe.com/3cIfZj7cZfD410ncgj1441y",
     stripeAnnual: "https://buy.stripe.com/00w00l7cZ76y24ra8b1441B",
   },
   {
     id: "summit",
     name: "Summit",
     monthlyPrice: 479,
-    semesterTotal: 2_299.2,
-    semesterMonthly: 383.2,
     annualTotal: 4_598,
     annualMonthly: 383.17,
     credits: 46_000,
@@ -144,7 +128,6 @@ export const CLINERA_PLANS = [
       { id: "lia", name: "LIA" },
     ],
     stripe: "https://buy.stripe.com/5kQ6oJbtf3UmdN94NR1441w",
-    stripeSemester: "https://buy.stripe.com/aFa8wR9l79eG10nbcf1441z",
     stripeAnnual: "https://buy.stripe.com/eVq8wRfJv9eG38v4NR1441C",
   },
 ] as const;
@@ -154,49 +137,36 @@ export type ClineraPlan = (typeof CLINERA_PLANS)[number];
 /**
  * Link de pago de Stripe de un plan. Úsalo SIEMPRE en vez de pegar la URL:
  * los payment links viven acá y en ningún otro lado, igual que los precios.
- * Una copia suelta en un componente es un link que nadie actualiza el día que
- * el plan cambia de precio — y un link de pago viejo cobra el monto viejo.
+ * La web pública siempre manda al mensual. El anual no se publica.
  */
 export function stripeLink(
   id: ClineraPlan["id"],
-  periodo: "mensual" | "semestral" | "anual" = "anual",
+  periodo: "mensual" | "anual" = "mensual",
 ): string {
   const plan = CLINERA_PLANS.find((p) => p.id === id);
   if (!plan) throw new Error(`Plan desconocido en stripeLink(): ${id}`);
-  if (periodo === "anual") return plan.stripeAnnual;
-  return periodo === "semestral" ? plan.stripeSemester : plan.stripe;
+  return periodo === "anual" ? plan.stripeAnnual : plan.stripe;
 }
 
-/** Link de pago del plan para una modalidad de la UI (`Billing`). */
+/** Link de pago del plan para una modalidad (`Billing`). */
 export function planCheckoutUrl(plan: ClineraPlan, billing: Billing): string {
-  if (billing === "annual") return plan.stripeAnnual;
-  return billing === "semester" ? plan.stripeSemester : plan.stripe;
+  return billing === "annual" ? plan.stripeAnnual : plan.stripe;
 }
 
-/** Lo que se cobra al contratar en esa modalidad (sin implementación). */
+/** Lo que se cobra del plan en esa modalidad (sin implementación). */
 export function planPeriodTotal(plan: ClineraPlan, billing: Billing): number {
-  if (billing === "annual") return plan.annualTotal;
-  return billing === "semester" ? plan.semesterTotal : plan.monthlyPrice;
+  return billing === "annual" ? plan.annualTotal : plan.monthlyPrice;
 }
 
-/** Equivalente mensual que se muestra en grande en la tarjeta. */
+/** Equivalente mensual que se muestra en grande. */
 export function planMonthlyEquivalent(plan: ClineraPlan, billing: Billing): number {
-  if (billing === "annual") return plan.annualMonthly;
-  return billing === "semester" ? plan.semesterMonthly : plan.monthlyPrice;
+  return billing === "annual" ? plan.annualMonthly : plan.monthlyPrice;
 }
 
 /**
- * Ahorro del primer año al pagar anual en vez de mes a mes: el 20% del plan
- * más los USD 450 de implementación que el anual no cobra.
+ * Ahorro del plan anual vs 12 meses mensuales (sólo el −20% de catálogo).
+ * La implementación se cobra igual en las dos, así que no entra.
  */
 export function annualFirstYearSavings(plan: ClineraPlan): number {
-  return plan.monthlyPrice * ANNUAL_MONTHS - plan.annualTotal + SETUP_FEE_USD;
-}
-
-/**
- * Ahorro del semestre anticipado vs 6 meses mensuales + implementación:
- * el 20% del plan más los USD 450 que el semestral no cobra.
- */
-export function semesterFirstPeriodSavings(plan: ClineraPlan): number {
-  return plan.monthlyPrice * SEMESTER_MONTHS - plan.semesterTotal + SETUP_FEE_USD;
+  return plan.monthlyPrice * ANNUAL_MONTHS - plan.annualTotal;
 }

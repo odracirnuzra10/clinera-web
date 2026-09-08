@@ -1,4 +1,4 @@
-import { ANNUAL_DISCOUNT_PERCENT, CLINERA_PLANS } from "@/content/pricing";
+import { CLINERA_PLANS } from "@/content/pricing";
 import { pageDate } from "@/content/page-dates";
 import {
   ADDRESS_COUNTRY,
@@ -96,27 +96,16 @@ export const entityGraph = {
   "@graph": [oacgOrgNode, clineraOrgNode, ricardoPersonNode],
 };
 
-/** Un Offer por plan y modalidad, misma fuente que `/planes`. */
-export const softwareOffers = CLINERA_PLANS.flatMap((plan) => [
-  {
-    "@type": "Offer" as const,
-    name: `${plan.name} · Anual`,
-    price: String(plan.annualTotal),
-    priceCurrency: "USD",
-    availability: "https://schema.org/InStock",
-    url: `${SITE_URL}/planes`,
-    description: `Pago anual: ${ANNUAL_DISCOUNT_PERCENT}% OFF e implementación gratis (equivale a USD ${plan.annualMonthly}/mes).`,
-  },
-  {
-    "@type": "Offer" as const,
-    name: plan.name,
-    price: String(plan.monthlyPrice),
-    priceCurrency: "USD",
-    availability: "https://schema.org/InStock",
-    url: `${SITE_URL}/planes`,
-    description: `${plan.name}: USD ${plan.monthlyPrice}/mes.`,
-  },
-]);
+/** Un Offer por plan (mensual), misma fuente que `/planes`. */
+export const softwareOffers = CLINERA_PLANS.map((plan) => ({
+  "@type": "Offer" as const,
+  name: plan.name,
+  price: String(plan.monthlyPrice),
+  priceCurrency: "USD",
+  availability: "https://schema.org/InStock",
+  url: `${SITE_URL}/planes`,
+  description: `${plan.name}: USD ${plan.monthlyPrice}/mes; implementación USD 450 con el primer cobro.`,
+}));
 
 export const softwareSchema = {
   "@context": "https://schema.org",

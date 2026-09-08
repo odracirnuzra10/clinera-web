@@ -52,7 +52,7 @@ export default function HeroEquipo() {
             </div>
 
             <p className={styles.trustLine}>
-              Desde USD 279/mes · Plan anual: 20% OFF + implementación gratis
+              Desde USD 279/mes · Implementación USD 450 con el primer mes · permanencia mínima 6 meses
             </p>
           </div>
         </div>

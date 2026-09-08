@@ -43,11 +43,11 @@ export const FAQ = [
   },
   {
     q: "¿Cuánto demora la implementación y cuánto cuesta?",
-    a: "Depende del volumen de datos, las sedes y las integraciones; el alcance y el calendario quedan definidos antes de comenzar. La implementación tiene un costo único de USD 450 en mensual; en semestral y anual va incluida sin costo.",
+    a: "Depende del volumen de datos, las sedes y las integraciones; el alcance y el calendario quedan definidos antes de comenzar. La implementación tiene un costo único de USD 450, cobrado con el primer mes del plan.",
   },
   {
     q: "¿Hay permanencia?",
-    a: "Sí. Todos los planes tienen una permanencia mínima de 6 meses. Puedes pagar mes a mes, anticipar el semestre con 20% de descuento, o anticipar el año con 20% de descuento y la implementación de USD 450 incluida sin costo.",
+    a: "Sí. Todos los planes tienen una permanencia mínima de 6 meses. El plan se paga mes a mes; el primer cobro incluye la implementación de USD 450 más el primer mes del plan contratado.",
   },
   {
     q: "¿Cómo protegen los datos de los pacientes?",
@@ -277,7 +277,7 @@ function FinalCta() {
         <div className={styles.finalMeta}>
           <span>Desde USD 279/mes</span>
           <i />
-          <span>Anual: 20% OFF + implementación gratis</span>
+          <span>Implementación USD 450 con el primer mes</span>
           <i />
           <span>Permanencia mínima: 6 meses</span>
           <i />

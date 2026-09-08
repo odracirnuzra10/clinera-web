@@ -3,14 +3,10 @@
 import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import {
-  ANNUAL_DISCOUNT_PERCENT,
-  ANNUAL_MONTHS,
   CLINERA_PLANS,
   EXTRA_CREDIT_PACK_CREDITS,
   EXTRA_CREDIT_PACK_USD,
   EXTRA_USER_USD,
-  SEMESTER_DISCOUNT_PERCENT,
-  SEMESTER_MONTHS,
   SETUP_FEE_USD,
   planPeriodTotal,
   type Billing,
@@ -181,7 +177,8 @@ export default function QuoteBuilder({
   const [validUntil, setValidUntil] = useState(initialValidUntil);
   const [selectedPlanId, setSelectedPlanId] =
     useState<(typeof CLINERA_PLANS)[number]["id"]>("atlas");
-  const [billing, setBilling] = useState<Billing>("annual");
+  /* La web no ofrece anual ni semestral: eso vive en cotizacion.oacg.cl. */
+  const billing: Billing = "monthly";
   const [extraUsers, setExtraUsers] = useState(0);
   const [extraCreditPacks, setExtraCreditPacks] = useState(0);
   const [includeSetup, setIncludeSetup] = useState(true);
@@ -215,13 +212,9 @@ export default function QuoteBuilder({
 
   const selectedPlan =
     CLINERA_PLANS.find((plan) => plan.id === selectedPlanId) ?? CLINERA_PLANS[0];
-  const isAnnual = billing === "annual";
-  const periodMonths = isAnnual ? ANNUAL_MONTHS : billing === "semester" ? SEMESTER_MONTHS : 1;
-  const periodLabel = isAnnual ? "Anual" : billing === "semester" ? "Semestral" : "Mensual";
-  // Semestral y anual incluyen la implementación: el checkbox queda anulado
-  // para que la cotización no prometa un cobro que Stripe no hará.
-  const freeSetup = billing !== "monthly";
-  const setupCharged = includeSetup && !freeSetup;
+  const periodMonths = 1;
+  const periodLabel = "Mensual";
+  const setupCharged = includeSetup;
 
   const rows = useMemo<QuoteRow[]>(() => {
     const planBase = planPeriodTotal(selectedPlan, billing);
@@ -232,12 +225,7 @@ export default function QuoteBuilder({
       {
         id: "plan",
         name: `Plan ${selectedPlan.name}`,
-        detail:
-          billing === "annual"
-            ? `${ANNUAL_MONTHS} meses · ${ANNUAL_DISCOUNT_PERCENT}% de ahorro anual e implementación incluida`
-            : billing === "semester"
-              ? `${SEMESTER_MONTHS} meses · ${SEMESTER_DISCOUNT_PERCENT}% de ahorro semestral e implementación incluida`
-              : "Facturación mes a mes · implementación cobrada al inicio",
+        detail: "Facturación mes a mes · implementación cobrada con el primer mes",
         quantity: "1",
         base: planBase,
         discount: discounts.plan,
@@ -322,7 +310,6 @@ export default function QuoteBuilder({
     setQuoteDate(initialDate);
     setValidUntil(initialValidUntil);
     setSelectedPlanId("atlas");
-    setBilling("annual");
     setExtraUsers(0);
     setExtraCreditPacks(0);
     setIncludeSetup(true);
@@ -623,53 +610,11 @@ export default function QuoteBuilder({
               ))}
             </div>
 
-            <fieldset className={styles.billingFieldset}>
-              <legend>Modalidad de pago</legend>
-              <div className={styles.billingOptions}>
-                <label className={isAnnual ? styles.billingSelected : ""}>
-                  <input
-                    type="radio"
-                    name="billing"
-                    value="annual"
-                    checked={isAnnual}
-                    onChange={() => setBilling("annual")}
-                  />
-                  <strong>Anual</strong>
-                  <small>
-                    {ANNUAL_MONTHS} meses · {ANNUAL_DISCOUNT_PERCENT}% OFF + implementación gratis
-                  </small>
-                </label>
-                <label className={billing === "semester" ? styles.billingSelected : ""}>
-                  <input
-                    type="radio"
-                    name="billing"
-                    value="semester"
-                    checked={billing === "semester"}
-                    onChange={() => setBilling("semester")}
-                  />
-                  <strong>Semestral</strong>
-                  <small>{SEMESTER_MONTHS} meses · {SEMESTER_DISCOUNT_PERCENT}% OFF</small>
-                </label>
-                <label className={billing === "monthly" ? styles.billingSelected : ""}>
-                  <input
-                    type="radio"
-                    name="billing"
-                    value="monthly"
-                    checked={billing === "monthly"}
-                    onChange={() => setBilling("monthly")}
-                  />
-                  <strong>Mensual</strong>
-                  <small>Pago mes a mes</small>
-                </label>
-              </div>
-            </fieldset>
-
             <label className={styles.setupToggle}>
               <span>
                 <input
                   type="checkbox"
                   checked={setupCharged}
-                  disabled={freeSetup}
                   onChange={(event) => setIncludeSetup(event.target.checked)}
                 />
                 <i aria-hidden="true" />
@@ -677,12 +622,10 @@ export default function QuoteBuilder({
               <span>
                 <strong>Incluir configuración inicial</strong>
                 <small>
-                  {freeSetup
-                    ? `Incluida sin costo en el plan ${billing === "annual" ? "anual" : "semestral"}`
-                    : "Migración, configuración y capacitación · pago único · el plan se cobra después"}
+                  Migración, configuración y capacitación · pago único · se suma al primer cobro
                 </small>
               </span>
-              <b>{freeSetup ? "Gratis" : formatUsd(SETUP_FEE_USD)}</b>
+              <b>{formatUsd(SETUP_FEE_USD)}</b>
             </label>
           </section>
 
@@ -844,7 +787,7 @@ export default function QuoteBuilder({
                         }
                         aria-label="Meses de descuento"
                       />
-                      meses{billing === "semester" ? " · múltiplo de 6" : ""}
+                      meses
                     </small>
                   </label>
                   <label className={duracionTipo === "siempre" ? styles.duracionSeleccionada : ""}>
@@ -1082,11 +1025,10 @@ export default function QuoteBuilder({
                 <div className={styles.savingsNote}>
                   <span>Condición comercial</span>
                   <p>
-                    {billing === "annual"
-                      ? `El plan ya incorpora ${ANNUAL_DISCOUNT_PERCENT}% de ahorro por pago anual e incluye la configuración inicial de ${formatUsd(SETUP_FEE_USD)} sin costo.`
-                      : billing === "semester"
-                        ? `El plan ya incorpora ${SEMESTER_DISCOUNT_PERCENT}% de ahorro por pago semestral e incluye la configuración inicial de ${formatUsd(SETUP_FEE_USD)} sin costo.`
-                        : `Facturación mensual: primero la implementación (${formatUsd(SETUP_FEE_USD)}), después el plan. Permanencia mínima de ${SEMESTER_MONTHS} meses.`}
+                    {`Facturación mensual: implementación (${formatUsd(SETUP_FEE_USD)}) más el primer mes del plan en el primer cobro. Permanencia mínima de 6 meses.`}
+                    {setupCharged
+                      ? ` Configuración inicial de ${formatUsd(SETUP_FEE_USD)} incluida en esta cotización.`
+                      : " Configuración inicial regalada en esta cotización."}
                   </p>
                   {itemDiscountSavings + globalDiscountAmount > 0 && (
                     <strong>
@@ -1114,7 +1056,7 @@ export default function QuoteBuilder({
                   )}
                   <div className={styles.grandTotal}>
                     <dt>
-                      Total {billing === "annual" ? "anual" : billing === "semester" ? "semestral" : "inicial"}
+                      Total inicial
                     </dt>
                     <dd>{formatUsd(total)}</dd>
                   </div>

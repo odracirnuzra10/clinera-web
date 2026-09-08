@@ -68,7 +68,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
             </a>
           </div>
           <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginTop: 32 }}>
-            {["Permanencia mínima: 6 meses", "Anual: 20% OFF + implementación gratis", "Facturación en USD"].map((t) => (
+            {["Permanencia mínima: 6 meses", "Implementación USD 450 con el primer mes", "Facturación en USD"].map((t) => (
               <span key={t} style={chip}>
                 <Check /> {t}
               </span>
@@ -158,13 +158,10 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
           <p style={{ fontFamily: MONO, fontSize: 13.5, color: MUTED, marginTop: 14, lineHeight: 1.6 }}>
             Cada plan trae su bolsa mensual de créditos —{" "}
             <strong style={{ color: INK }}>visible en cada tarjeta</strong>. Esa es la fuente de
-            verdad; las conversaciones de referencia son orientativas. En{" "}
-            <strong style={{ color: INK }}>mensual</strong> los tres planes suman{" "}
-            <strong style={{ color: INK }}>+ USD 450 de configuración inicial (pago único)</strong>{" "}
-            y el plan se cobra después; en{" "}
-            <strong style={{ color: INK }}>semestral y anual la implementación va gratis</strong>{" "}
-            (además del 20% OFF) y el plan se cobra de inmediato. Aun así, un plan completo cuesta
-            menos que una recepcionista (~USD 950/mes).
+            verdad; las conversaciones de referencia son orientativas. El primer cobro de cada plan
+            es <strong style={{ color: INK }}>implementación USD 450 más el primer mes</strong>; después,
+            el plan se renueva mes a mes. Aun así, un plan completo cuesta menos que una recepcionista
+            (~USD 950/mes).
           </p>
         </div>
       </div>
@@ -208,8 +205,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
                 Decide con todo a la vista.
               </h2>
               <p style={{ fontFamily: FONT, fontSize: 16.5, lineHeight: 1.6, color: "rgba(255,255,255,0.78)", maxWidth: 560, margin: "0 0 28px" }}>
-                Permanencia mínima de 6 meses · semestral y anual con 20% OFF e implementación
-                gratis (mensual suma USD 450 de configuración inicial, pago único) · puedes cambiar
+                Permanencia mínima de 6 meses · implementación USD 450 con el primer mes · puedes cambiar
                 de plan en tu próximo ciclo. Empieza con el plan que la calculadora te recomendó.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 26 }}>
@@ -221,7 +217,7 @@ export default function PlanesProBody({ faqs }: { faqs: Faq[] }) {
                 </a>
               </div>
               <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-                {["Permanencia mínima: 6 meses", "Semestral/anual: 20% OFF + implementación gratis", "USD · Stripe · MercadoPago · WebPay"].map((t) => (
+                {["Permanencia mínima: 6 meses", "Implementación USD 450 con el primer mes", "USD · Stripe · MercadoPago · WebPay"].map((t) => (
                   <span key={t} style={{ ...chip, color: "rgba(255,255,255,0.6)" }}>
                     <Check light /> {t}
                   </span>

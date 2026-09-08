@@ -24,7 +24,6 @@ import { IntelligencePlataformaSection } from "@/components/IntelligenceSection"
 import HeroCarousel from "@/components/plataforma/HeroCarousel";
 import AuraNetwork from "@/components/plataforma/AuraNetwork";
 import {
-  ANNUAL_DISCOUNT_PERCENT,
   CLINERA_PLANS,
   SETUP_FEE_NUMBER,
 } from "@/content/pricing";
@@ -572,8 +571,7 @@ function FinalCta({
               color: "#A0A6B2",
             }}
           >
-            Desde USD {vortex.monthlyPrice}/mes · Anual {ANNUAL_DISCOUNT_PERCENT}% OFF +
-            implementación de USD {SETUP_FEE_NUMBER} incluida · Permanencia 6 meses
+            Desde USD {vortex.monthlyPrice}/mes · Implementación USD {SETUP_FEE_NUMBER} con el primer mes · Permanencia 6 meses
           </div>
         </div>
       </div>
