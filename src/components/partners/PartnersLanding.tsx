@@ -414,10 +414,10 @@ function Support() {
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <Eyebrow>Apoyo</Eyebrow>
         <h2 style={{ ...h2Style, maxWidth: 720 }}>
-          No cieras solo. Clinera te acompaña.
+          No cierres solo. Clinera te acompaña.
         </h2>
         <p style={{ ...leadStyle, maxWidth: 560 }}>
-          El equipo comercial te ayuda a cerrar y tenés el CRM para seguir cada
+          El equipo comercial te ayuda a cerrar y tienes el CRM para seguir cada
           referido.
         </p>
         <div

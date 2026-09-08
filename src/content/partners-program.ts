@@ -40,20 +40,20 @@ export const PARTNERS_APPLY_EMAIL = `${_partnersApplyUser}@${_partnersApplyHost}
 export const PARTNERS_APPLY = {
   id: "aplicar",
   eyebrow: "Aplicar",
-  h2Before: "Dejá tu celular.",
+  h2Before: "Deja tu celular.",
   h2Accent: "Te contactamos.",
   lead: "Nombre y WhatsApp. El equipo te escribe para activarte como partner.",
   submit: "Enviar solicitud",
   sending: "Enviando…",
   successTitle: "Solicitud enviada",
   success:
-    "Ricardo o el equipo comercial te escriben por WhatsApp. Revisá que el número esté bien.",
+    "Ricardo o el equipo comercial te escriben por WhatsApp. Revisa que el número esté bien.",
   errorSend: "No pudimos enviar tu solicitud. Inténtalo de nuevo.",
   fields: {
     nombre: {
       label: "Tu nombre",
       placeholder: "María Soto",
-      hint: "Como querés que te llamemos.",
+      hint: "Como quieres que te llamemos.",
     },
     celular: {
       label: "Celular / WhatsApp",
@@ -104,7 +104,7 @@ export const PARTNERS_HERO = {
   eyebrow: "Programa partner",
   h1Before: "Tres requisitos.",
   h1Accent: "Hasta US$ 400 por referido.",
-  lead: "Presentás Clinera en clínicas. Cobras US$ 150, US$ 200 o US$ 400 según el plan que cierre tu referido. El equipo comercial te ayuda a cerrar y tenés acceso al CRM. Este programa es el bono al cierre: no incluye Clinera de regalo ni 30% sobre lista.",
+  lead: "Presentas Clinera en clínicas. Cobras US$ 150, US$ 200 o US$ 400 según el plan que cierre tu referido. El equipo comercial te ayuda a cerrar y tienes acceso al CRM. Este programa es el bono al cierre: no incluye Clinera de regalo ni 30% sobre lista.",
   cta: "Aplicar al programa",
   ctaSecondary: "Ver presentación",
 } as const;
